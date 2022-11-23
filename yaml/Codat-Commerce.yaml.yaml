@@ -1,0 +1,1506 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 32pxuah6hmb9a
+info:
+  title: Codat - Commerce API
+  version: '1.0'
+  summary: 'Codat''s standardized API for accessing commerce data '
+  contact:
+    name: Codat
+    url: 'https://codat.io'
+    email: support@codat.io
+  description: Codat's commerce api allows you to access standardised data from over 10 commerce and POS systems.
+  termsOfService: 'https://www.codat.io/msa/'
+servers:
+  - url: 'https://api.codat.io'
+    description: Codat
+tags:
+  - name: Commerce Data
+    description: Retrieve standardized data from linked commerce platforms.
+paths:
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-customers':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List customers
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $id: 'https://schemas.codat.io/datamodel/commerce/customer.json'
+                          title: Commerce-Customer
+                          description: Represents a customer who has placed an order in the commerce system"
+                          x-stoplight:
+                            id: avuh8zncanxa4
+                          type: object
+                          x-datatype:
+                            dataTypeId: f51d742e-6797-4ae0-8b3c-63cc6c9d1972
+                            databaseId: 24
+                            name: commerce-customers
+                            domain: commerce
+                            singluar: customer
+                            plural: customers
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                customerName:
+                                  type: string
+                                  description: Name of the customer
+                                  example: Fred Smith
+                                emailAddress:
+                                  type: string
+                                  description: Email address of the customer
+                                  example: fred.smith@myCompany.com
+                                phone:
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/phoneNumbers/items/properties/number'
+                                defaultCurrency:
+                                  allOf:
+                                    - description: |
+                                        Default currency of any transactional data for the customer, 
+                                        for example, orders or payments
+                                    - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                addresses:
+                                  type: array
+                                  description: Addresses of the customer
+                                  items:
+                                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/addresses/items'
+                                note:
+                                  type: string
+                                  description: Any additional information about the customer
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+              examples:
+                example-1:
+                  value:
+                    results:
+                      - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+                        amount: 194.12
+                        currency: GBP
+                        paymentMethodRef:
+                          id: EILBDVJVNUAGVKRQ
+                          name: AliPay
+                        status: Pending
+                        paymentProvider: Amazon Pay
+                        dueDate: '2019-08-24T14:15:22Z'
+                        createdDate: '2019-08-24T14:15:22Z'
+                        modifiedDate: '2019-08-24T14:15:22Z'
+                        sourceModifiedDate: '2019-08-24T14:15:22Z'
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+      operationId: list-commerce-customers
+      description: List all commerce customers for the given company and data connection
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-disputes':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List disputes
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: PaymentMethod
+                          x-stoplight:
+                            id: ivpv6516qf630
+                          type: object
+                          x-datatype:
+                            id: cf7f81a2-13a7-4f63-8862-604dd7bdfd2a
+                            databaseId: 25
+                            name: commerce-disputes
+                            domain: commerce
+                            singluar: dispute
+                            plural: disputes
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                disputedTransactions:
+                                  description: Link to the source event which triggered this transaction.
+                                  allOf:
+                                    - title: TransactionSourceRef
+                                      x-stoplight:
+                                        id: ydj5jokox9hvp
+                                      type: object
+                                      allOf:
+                                        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-productCategories/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/properties/ancestorRefs/items'
+                                        - properties:
+                                            type:
+                                              enum:
+                                                - Fee
+                                                - Order
+                                                - Payment
+                                                - ServiceCharge
+                                                - Unknown
+                                totalAmount:
+                                  description: Total transaction amount that is under dispute.
+                                  type: number
+                                  examples:
+                                    - 194.12
+                                    - -283.56
+                                    - 0
+                                currency:
+                                  description: Currency of the disputed transaction.
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                status:
+                                  description: Current status of the dispute
+                                  type: string
+                                  enum:
+                                    - Won
+                                    - Lost
+                                    - Accepted
+                                    - Processing
+                                    - ChargeRefunded
+                                    - EvidenceRequired
+                                    - InquiryEvidenceRequired
+                                    - InquiryProcessing
+                                    - InquiryClosed
+                                    - WaitingThirdParty
+                                    - Unknown
+                                  example: EvidenceRequired
+                                reason:
+                                  description: Reason for the dispute
+                                  type: string
+                                  examples:
+                                    - Unhappy with product
+                                dueDate:
+                                  description: Date when the next action in the dispute resolution is due
+                                  type: string
+                                  format: date-time
+                                  examples:
+                                    - '2021-03-29T14:39:55'
+                              allOf:
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                              required:
+                                - currency
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+                        disputedTransactions:
+                          id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+                          type: Fee
+                        totalAmount: 194.12
+                        currency: GBP
+                        status: Won
+                        reason: Unhappy with product
+                        dueDate: '2021-03-29T14:39:55'
+                        createdDate: '2019-08-24T14:15:22Z'
+                        modifiedDate: '2019-08-24T14:15:22Z'
+                        sourceModifiedDate: '2019-08-24T14:15:22Z'
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+      operationId: list-commerce-disputes
+      description: List commerce disputes
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-info':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+        description: The unique identifier for your SME in Codat
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+        description: ID of your company's data connection
+    get:
+      summary: Get company info
+      tags:
+        - Commerce Data
+      responses: {}
+      operationId: get-commerce-info
+      description: |-
+        Retrieve information about the company, as seen in the commerce platform.
+
+        This may include information like addresses, tax registration details and social media or website information.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Commerce-CompanyInfo
+              description: |
+                In the Codat system, company information includes standard commercial details about 
+                a linked company, such as their address, phone number, and company registration.
+              x-stoplight:
+                id: d7on55ll1hvqj
+              type: object
+              x-datatype:
+                dataTypeId: d68f4a5e-f1f8-40f0-a28d-565ef0733fb1
+                databaseId: 33
+                name: commerce-companyInfo
+                domain: commerce
+                singluar: company infomation
+                plural: company infomation
+                fetchMode: single
+              properties:
+                companyName:
+                  type: string
+                  description: The name of the company
+                  example: Codat
+                commercePlatformRef:
+                  type: string
+                  description: Identifier or reference for the company in the commerce platform
+                companyLegalName:
+                  type: string
+                  description: The full legal name of the company
+                  example: Codat Limited
+                addresses:
+                  type: array
+                  description: Addresses associated with the company
+                  items:
+                    allOf:
+                      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-locations/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/address/allOf/0'
+                      - properties:
+                          type:
+                            enum:
+                              - Billing
+                              - Delivery
+                phoneNumbers:
+                  type: array
+                  description: Phone numbers associated with the company
+                  items:
+                    type: object
+                    properties:
+                      number:
+                        title: Phone Number
+                        x-stoplight:
+                          id: 1ch48ghi554eb
+                        type: string
+                        description: A phone number
+                        examples:
+                          - +44 25691 154789
+                          - (877) 492-8687
+                          - 01224 658 999
+                      type:
+                        description: The type of phone number
+                        type: string
+                        enum:
+                          - Primary
+                          - Landline
+                          - Mobile
+                          - Fax
+                          - Unknown
+                    required:
+                      - number
+                      - type
+                webLinks:
+                  description: Web links associated with the company
+                  type: array
+                  items:
+                    properties:
+                      type:
+                        description: The type of the weblink
+                        type: string
+                        enum:
+                          - Website
+                          - Social
+                          - Unknown
+                      url:
+                        description: The full URL for the weblink
+                        type: string
+                        format: url
+                    example:
+                      type: Website
+                      url: 'https://codat.io'
+                registrationNumber:
+                  description: The registration number of the company
+                  type: string
+                  examples:
+                    - 10480375
+                baseCurrency:
+                  title: Currency
+                  x-stoplight:
+                    id: 8ljuulqyuc5l4
+                  type: string
+                  description: The currency datatype in Codat is an ISO 4217 currency code.
+                  format: ISO4217
+                  examples:
+                    - GBP
+                    - USD
+                    - EUR
+                accountBalances:
+                  description: The available and current cash balances for the company's accounts
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      available:
+                        description: The account's current balance
+                        type: number
+                        format: decimal
+                      pending:
+                        description: Funds that are not yet available in the balance
+                        type: number
+                        format: decimal
+                      reserved:
+                        description: Funds reserved as holdings
+                        type: number
+                        format: decimal
+                      currency:
+                        description: The currency of the account
+                        allOf:
+                          - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                sourceUrls:
+                  description: 'URL addresses for the originating system. For example, potential use cases include ''deeplinking'' to the originating system'
+                  type: object
+                  additionalProperties:
+                    type: string
+                  example:
+                    url1: 'https://connect.sandbox.com/v2/customers'
+                    url2: 'https://connect.sandbox.com/v2/disputes'
+              allOf:
+                - type: object
+                  x-stoplight:
+                    id: yptfg1r7vj69j
+                  properties:
+                    createdDate:
+                      description: The date the entity was created.
+                      type: string
+                      format: date-time
+                - type: object
+                  x-stoplight:
+                    id: ug7vf4twr9w67
+                  properties:
+                    modifiedDate:
+                      description: The date on which this record was last modified in Codat.
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    sourceModifiedDate:
+                      description: The date on which this record was last modified in the originating system
+                      type: string
+                      format: date-time
+                      readOnly: true
+            examples:
+              Example:
+                value:
+                  companyName: Codat
+                  commercePlatformRef: string
+                  companyLegalName: Codat Limited
+                  addresses:
+                    - type: Billing
+                      line1: string
+                      line2: string
+                      city: string
+                      region: string
+                      country: string
+                      postalCode: string
+                  phoneNumbers:
+                    - number: +44 25691 154789
+                      type: Primary
+                  webLinks:
+                    - type: Website
+                      url: 'https://codat.io'
+                  registrationNumber: '10480375'
+                  baseCurrency: GBP
+                  accountBalances:
+                    - available: 0
+                      pending: 0
+                      reserved: 0
+                      currency: GBP
+                  sourceUrls:
+                    url1: 'https://connect.sandbox.com/v2/customers'
+                    url2: 'https://connect.sandbox.com/v2/disputes'
+                  createdDate: '2019-08-24T14:15:22Z'
+                  modifiedDate: '2019-08-24T14:15:22Z'
+                  sourceModifiedDate: '2019-08-24T14:15:22Z'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-locations':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List locations
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Commerce-Locations
+                          x-stoplight:
+                            id: 2d4g3i124e1ea
+                          type: object
+                          x-datatype:
+                            dataTypeId: 6fe79975-e07b-45ba-b878-25329dddd94a
+                            databaseId: 34
+                            name: commerce-locations
+                            domain: commerce
+                            singluar: location
+                            plural: locations
+                            fetchMode: multiple
+                          description: |
+                            The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.
+
+                            Locations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
+
+                            From the Locations endpoints you can retrieve:
+
+                            A list of all the Locations of a commerce company: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations`.
+                            The details of an individual location: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}`.
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                name:
+                                  description: Name of this location
+                                  type: string
+                                address:
+                                  description: Address associated with the location
+                                  allOf:
+                                    - title: Address
+                                      x-stoplight:
+                                        id: lih0rzmqm2onw
+                                      type: object
+                                      properties:
+                                        type:
+                                          description: The type of the address
+                                          type: string
+                                          enum:
+                                            - Billing
+                                            - Delivery
+                                            - Order
+                                            - Inventory
+                                            - Unknown
+                                        line1:
+                                          description: The first line of the address
+                                          type: string
+                                        line2:
+                                          description: The second line of the address
+                                          type: string
+                                        city:
+                                          description: 'The third line of the address, or city'
+                                          type: string
+                                        region:
+                                          description: 'The fourth line of the address, or region'
+                                          type: string
+                                        country:
+                                          description: The country for the address
+                                          type: string
+                                        postalCode:
+                                          description: The postal (or zip) code for the address
+                                          type: string
+                                    - properties:
+                                        type:
+                                          enum:
+                                            - Billing
+                                            - Delivery
+                                            - Inventory
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+                        name: string
+                        address:
+                          type: Billing
+                          line1: string
+                          line2: string
+                          city: string
+                          region: string
+                          country: string
+                          postalCode: string
+                        modifiedDate: '2019-08-24T14:15:22Z'
+                        sourceModifiedDate: '2019-08-24T14:15:22Z'
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+      operationId: list-commerce-locations
+      description: |-
+        Retrieve a list of locations as seen in the commerce platform.
+
+        A `location` is a geographic place at which stocks of products may be held, or from where orders were placed.
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-orders':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List orders
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Orders
+                          x-stoplight:
+                            id: bg1uwd537qhia
+                          type: object
+                          x-datatype:
+                            dataTypeId: 6e57c403-248d-4851-96fb-d7c903cd8929
+                            databaseId: 22
+                            name: commerce-orders
+                            domain: commerce
+                            singluar: order
+                            plural: orders
+                            fetchMode: multiple
+                          description: |
+                            Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order.
+
+                            From the Orders endpoints you can retrieve:
+
+                            A list of all the orders for a commerce company:
+                            `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders`.
+                            The details of an individual order:
+                            `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}`.
+                            Note that for refunds `quantity` is a negative value and `unitPrice` is a positive value.
+                          allOf:
+                            - type: object
+                              x-stoplight:
+                                id: 516bf0ecc4907
+                              required:
+                                - id
+                              properties:
+                                id:
+                                  type: string
+                                  description: 'A unique, persistent identifier for this record'
+                                  examples:
+                                    - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                                    - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                                    - 7110701885
+                                    - EILBDVJVNUAGVKRQ
+                                  x-codat-validation:
+                                    - validator: UniqueWithinConnection
+                            - properties:
+                                orderNumber:
+                                  type: string
+                                  description: Friendly reference for the order in the commerce or point of sale platform.
+                                country:
+                                  description: An ISO 3166-1 alpha-3 country code.
+                                  type: string
+                                  format: ISO3166 Alpha-3
+                                  examples:
+                                    - GBR
+                                    - USA
+                                    - ABW
+                                currency:
+                                  allOf:
+                                    - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                    - description: Currency in which the order was placed.
+                                closedDate:
+                                  description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
+                                  type: string
+                                  format: date-time
+                                totalAmount:
+                                  description: 'Total amount of the order, including tax, net of any discounts and refunds.'
+                                  type: number
+                                  format: decimal
+                                totalRefund:
+                                  description: Total amount refunded issued by a merchant on an order (always a negative value).
+                                  type: number
+                                  format: decimal
+                                totalTaxAmount:
+                                  description: Total amount of tax applied to the order.
+                                  type: number
+                                  format: decimal
+                                totalDiscount:
+                                  description: Total amount of discount applied to the order.
+                                  type: number
+                                  format: decimal
+                                totalGratuity:
+                                  description: Extra amount added to a bill.
+                                  type: number
+                                  format: decimal
+                                orderLineItems:
+                                  type: array
+                                  items:
+                                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/definitions/lineItem'
+                                payments:
+                                  type: array
+                                  items:
+                                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/definitions/paymentRef'
+                                serviceCharges:
+                                  type: array
+                                  items:
+                                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/definitions/serviceCharge'
+                                locationRef:
+                                  allOf:
+                                    - title: nameRef
+                                      x-stoplight:
+                                        id: 34dd919grzbls
+                                      type: object
+                                      properties:
+                                        id:
+                                          description: The unique identitifer of the record being referenced
+                                          type: string
+                                          examples:
+                                            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                                            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                                            - 7110701885
+                                            - EILBDVJVNUAGVKRQ
+                                        name:
+                                          description: Name of the record being referenced.
+                                          type: string
+                                      required:
+                                        - id
+                                        - name
+                                    - description: Reference to the geographic location where the order was placed.
+                                customerRef:
+                                  allOf:
+                                    - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                    - description: Reference to the customer that placed the order.
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                          definitions:
+                            lineItem:
+                              allOf:
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                                - properties:
+                                    quantity:
+                                      description: |
+                                        Number of units of the product sold.
+                                        For refunds, quantity is a negative value.
+                                      type: number
+                                      format: decimal
+                                    taxPercentage:
+                                      description: Percentage rate (from 0 to 100) of any sale tax applied to the unit amount.
+                                      type: number
+                                      format: decimal
+                                      examples:
+                                        - 0
+                                        - 12.5
+                                        - '45.00'
+                                    totalAmount:
+                                      description: 'Total price of the line item, including discounts, tax and minus any refunds.'
+                                      type: number
+                                      format: decimal
+                                    totalTaxAmount:
+                                      description: Total amount of tax applied to the line item.
+                                      type: number
+                                      format: decimal
+                                    unitPrice:
+                                      description: Price per unit of goods or service.
+                                      type: number
+                                      format: decimal
+                                    taxes:
+                                      description: Taxes breakdown as applied to order lines.
+                                      type: array
+                                      items:
+                                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/definitions/serviceCharge/properties/taxes/items'
+                                    productRef:
+                                      allOf:
+                                        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                        - description: Reference that links the line item to the correct product details.
+                                    productVariantRef:
+                                      allOf:
+                                        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                        - description: Reference that links the line item to the specific version of product that has been ordered.
+                                    discountAllocations:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          name:
+                                            description: Name of the discount in the commerce or point of sale platform.
+                                            type: string
+                                            example: Promotional Discount
+                                          totalAmount:
+                                            description: Total amount of discount applied.
+                                            type: number
+                                            format: decimal
+                                            example: 15.25
+                            paymentRef:
+                              type: object
+                              allOf:
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                                - type: object
+                                  properties:
+                                    amount:
+                                      type: number
+                                      nullable: true
+                                      description: Payment Amount (including gratuity).
+                                      examples:
+                                        - 194.12
+                                        - -283.56
+                                        - 0
+                                    currency:
+                                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                      description: Currency in which the payment was made.
+                                    type:
+                                      type: string
+                                      nullable: true
+                                      description: Status of the payment
+                                      enum:
+                                        - Cash
+                                        - Card
+                                        - Invoice
+                                        - OnlineCard
+                                        - Swish
+                                        - Vipps
+                                        - Mobile
+                                        - StoreCredit
+                                        - Paypal
+                                        - Custom
+                                        - Prepaid
+                                        - Unknown
+                                      example: Cash
+                                    status:
+                                      type: string
+                                      nullable: true
+                                      description: Status of the payment
+                                      enum:
+                                        - Pending
+                                        - Authorized
+                                        - Paid
+                                        - Failed
+                                        - Cancelled
+                                        - Unknown
+                                    paymentProvider:
+                                      type: string
+                                      description: 'Service provider of the payment, if applicable.'
+                                      examples:
+                                        - Amazon Pay
+                                        - Checkout.com
+                                        - SagePay
+                                    dueDate:
+                                      description: Date by which payment must be made
+                                      type: string
+                                      format: date-time
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                            serviceCharge:
+                              type: object
+                              properties:
+                                description:
+                                  description: Service charges for this order.
+                                  type: string
+                                  example: A service charge
+                                totalAmount:
+                                  description: 'Total service charge, including taxes.'
+                                  type: number
+                                  format: decimal
+                                  examples:
+                                    - 0
+                                    - 12.5
+                                    - 45
+                                taxPercentage:
+                                  description: Percentage rate (from 0 to 100) of any tax applied to the service charge.
+                                  type: number
+                                  format: decimal
+                                  examples:
+                                    - 0
+                                    - 12.5
+                                    - 45
+                                taxAmount:
+                                  description: Amount of the service charge that is tax.
+                                  type: number
+                                  format: decimal
+                                  examples:
+                                    - 0
+                                    - 12.5
+                                    - 45
+                                taxes:
+                                  description: Taxes breakdown as applied to service charges.
+                                  type: array
+                                  items:
+                                    properties:
+                                      taxComponentRef:
+                                        description: Taxes rates reference object depending on the rates being available on source commerce package.
+                                        type: object
+                                        allOf:
+                                          - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                      rate:
+                                        description: Tax amount on order line sale as available from source commerce platform.
+                                        type: number
+                                        format: decimal
+                                        nullable: true
+                                quantity:
+                                  description: The number of times the charge is charged.
+                                  type: number
+                                  format: int
+                                  examples:
+                                    - 1
+                                    - 12
+                                    - 45
+                                type:
+                                  description: The type of the service charge.
+                                  type: string
+                                  enum:
+                                    - Generic
+                                    - Shipping
+                                    - Overpayment
+                                    - Unknown
+                                  example: Overpayment
+                  - x-examples:
+                      example-1:
+                        _links:
+                          self:
+                            href: string
+                          current:
+                            href: string
+                          next:
+                            href: string
+                          previous:
+                            href: string
+                    title: _Links
+                    description: Codat's Paging Model
+                    examples:
+                      - _links:
+                          self:
+                            href: ../dictionary
+                          current:
+                            href: ../dictionary
+                          next:
+                            href: ../dictionary
+                          previous:
+                            href: ../dictionary
+                        pageNumber: 0
+                        pageSize: 0
+                        totalResults: 0
+                    allOf:
+                      - properties:
+                          _links:
+                            type: object
+                            required:
+                              - self
+                              - current
+                            properties:
+                              self:
+                                type: object
+                                required:
+                                  - href
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              current:
+                                type: object
+                                required:
+                                  - href
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              next:
+                                type: object
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              previous:
+                                type: object
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                          pageNumber:
+                            type: integer
+                          pageSize:
+                            type: integer
+                          totalResults:
+                            type: integer
+                        required:
+                          - _links
+                          - pageNumber
+                          - pageSize
+                          - totalResults
+                    type: object
+      operationId: list-commerce-orders
+      description: Get a list of orders placed or held on the linked commerce platform
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+            example: 1
+            default: 1
+          description: Page Number
+        - name: pageSize
+          in: query
+          required: true
+          schema:
+            type: number
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: Number of records to return on the page
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Codat Query String
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: Field to order results by
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-payments':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List payments
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Commerce-Payment
+                          description: A payment made in a commerce platform
+                          x-stoplight:
+                            id: wcffh3qwn0c3z
+                          x-datatype:
+                            dataTypeId: 92c83841-a935-43af-a134-48bae6dbf72d
+                            databaseId: 32
+                            name: commerce-payments
+                            domain: commerce
+                            singluar: payments
+                            plural: payment
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                amount:
+                                  type: number
+                                  description: Payment Amount (including gratuity)
+                                  examples:
+                                    - 194.12
+                                    - -283.56
+                                    - 0
+                                currency:
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                  description: Currency in which the payment was made
+                                paymentMethodRef:
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                  description: The payment method the payment is linked to in the commerce platform.
+                                  example:
+                                    id: EILBDVJVNUAGVKRQ
+                                    name: AliPay
+                                status:
+                                  type: string
+                                  description: Status of the payment
+                                  enum:
+                                    - Pending
+                                    - Authorized
+                                    - Paid
+                                    - Failed
+                                    - Cancelled
+                                    - Unknown
+                                paymentProvider:
+                                  type: string
+                                  description: 'Service provider of the payment, if applicable.'
+                                  examples:
+                                    - Amazon Pay
+                                    - Checkout.com
+                                    - SagePay
+                                dueDate:
+                                  description: Date by which payment must be made
+                                  type: string
+                                  format: date-time
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: list-commerce-payments
+      description: List commerce payments for the given company & data connection.
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List payment methods
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: PaymentMethod
+                          x-stoplight:
+                            id: ivpv6516qf630
+                          type: object
+                          x-datatype:
+                            id: 2ed4946e-a548-4ffb-931c-963511372943
+                            databaseId: 41
+                            name: commerce-paymentMethods
+                            domain: commerce
+                            singluar: payment method
+                            plural: payment methods
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: The name of the PaymentMethod
+                                  example: Alipay
+                                status:
+                                  type: string
+                                  enum:
+                                    - Active
+                                    - Archived
+                                    - Unknown
+                                  description: Status of the Payment Method
+                                  example: Active
+                              allOf:
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: list-commerce-paymentMethods
+      description: 'Retrieve a list of payment methods, such as card, cash or other online payment methods, as held in the linked commerce platform.'
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-products':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List products
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $id: 'https://schemas.codat.io/datamodel/commerce/product.json'
+                          title: Commerce-Product
+                          description: |
+                            A Product is an item in the company's inventory, and includes information
+                            about the price and quantity of all products, and variants thereof, available for sale
+                          x-stoplight:
+                            id: egcimxah1hg79
+                          type: object
+                          x-datatype:
+                            dataTypeId: fb247940-3367-4e95-a689-069c10354a3d
+                            databaseId: 23
+                            name: commerce-products
+                            domain: commerce
+                            singluar: product
+                            plural: products
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Name of the product in the commerce or POS system
+                                  examples:
+                                    - Hard Drive
+                                    - Windows Installation
+                                    - Software Support (Hourly)
+                                description:
+                                  type: string
+                                  description: Description of the product recorded in the commerce or point of sale platform.
+                                  examples:
+                                    - 1tb Western Digital Hard Drive
+                                    - Install of Windows 11 (Professional Edition)
+                                    - 1 hour of support from an agent (phone or remote)
+                                categorization:
+                                  type: string
+                                  description: Retail category that the product is assigned to
+                                  examples:
+                                    - Hardware
+                                    - Software
+                                    - Support Services
+                                isGiftCard:
+                                  type: boolean
+                                  description: |
+                                    Whether the product represents a gift card or voucher that
+                                    can be redeemed in the commerce or POS platform
+                                variants:
+                                  type: array
+                                  items:
+                                    title: Product Variant
+                                    description: |
+                                      Represents a variation of a product available for sale, for example an item of clothing
+                                      may be available for sale in multiple sizes and colors
+                                    x-stoplight:
+                                      id: z8pyy073x77y2
+                                    type: object
+                                    allOf:
+                                      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                                      - properties:
+                                          name:
+                                            type: string
+                                            examples:
+                                              - Red Coat
+                                              - Black Coat
+                                              - Large Brown Hat
+                                          quantity:
+                                            type: number
+                                            format: decimal
+                                            examples:
+                                              - 0
+                                              - 10
+                                              - 100.54
+                                          isTaxEnabled:
+                                            type: boolean
+                                          sku:
+                                            type: string
+                                            examples:
+                                              - Coat-Red-Lrg
+                                              - Coat-Black-Md
+                                              - LargeBrownHat
+                                              - A725BA2
+                                          barcode:
+                                            type: string
+                                            examples:
+                                              - '564158468416486458646886484'
+                                              - CSE370
+                                          unitOfMeasure:
+                                            type: string
+                                            examples:
+                                              - kg
+                                              - m
+                                              - meters
+                                          vatPercentage:
+                                            type: number
+                                            format: decimal
+                                            examples:
+                                              - 12.5
+                                              - 0
+                                              - 20
+                                          prices:
+                                            type: array
+                                            items:
+                                              properties:
+                                                unitPrice:
+                                                  type: number
+                                                  format: decimal
+                                                currency:
+                                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                          inventory:
+                                            type: array
+                                            items:
+                                              properties:
+                                                totalQuantity:
+                                                  type: number
+                                                  format: decimal
+                                                  example: 1
+                                                locations:
+                                                  type: array
+                                                  items:
+                                                    properties:
+                                                      quantity:
+                                                        type: number
+                                                        format: decimal
+                                                        example: 1
+                                                      locationRef:
+                                                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/locationRef/allOf/0'
+                                          shippingRequired:
+                                            type: boolean
+                                          status:
+                                            type: string
+                                            enum:
+                                              - Unknown
+                                              - Published
+                                              - Unpublished
+                                      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                                      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: list-commerce-products
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+      description: 'The Products data type provides the company''s product inventory, and includes the price and quantity of all products, and product variants, available for sale.'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List transactions
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Commerce-Transaction
+                          description: A financial transaction recorded in the commerce or point of sale system
+                          x-stoplight:
+                            id: z40cc0atpg1x9
+                          x-datatype:
+                            dataTypeId: 49f67a7d-d196-489d-a7dc-7f834d3f1a68
+                            databaseId: 26
+                            name: commerce-transactions
+                            domain: commerce
+                            singluar: transaction
+                            plural: transactions
+                            fetchMode: multiple
+                          allOf:
+                            - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/0'
+                            - type: object
+                              properties:
+                                totalAmount:
+                                  description: The total transaction amount
+                                  type: number
+                                  examples:
+                                    - 194.12
+                                    - -283.56
+                                    - 0
+                                currency:
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency'
+                                type:
+                                  description: The type of the platform transaction
+                                  type: string
+                                  enum:
+                                    - Payment
+                                    - Refund
+                                    - Payout
+                                    - FailedPayout
+                                    - Transfer
+                                    - PaymentFee
+                                    - PaymentFeeRefund
+                                    - Unknown
+                                subType:
+                                  description: Non-standardised transaction type data from the commerce platform
+                                  type: string
+                                  examples:
+                                    - CardPayment
+                                    - Invoice payment
+                                transactionSourceRef:
+                                  description: Link to the source event which triggered this transaction
+                                  allOf:
+                                    - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-disputes/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/disputedTransactions/allOf/0'
+                            - allOf:
+                                - type: object
+                                  x-stoplight:
+                                    id: c590b4405180f
+                                  allOf:
+                                    - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0'
+                                    - type: object
+                                      x-stoplight:
+                                        id: gdyjg7bg783br
+                                      properties:
+                                        sourceCreatedDate:
+                                          description: The date on which this record was created in the originating system
+                                          type: string
+                                          format: date-time
+                                - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1'
+                              x-stoplight:
+                                id: 9e815c1766554
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: list-commerce-transactions
+      description: 'Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.'
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: List product categories
+      tags:
+        - Commerce Data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          x-examples:
+                            example-1:
+                              id: '100'
+                              name: Entertainment
+                              ancestorRefs: []
+                              hasChildren: true
+                              modifiedDate: '2022-01-01T12:00:00Z'
+                              sourceModifiedDate: '2021-10-01T12:53:21Z'
+                          properties:
+                            id:
+                              type: string
+                              example: '"102"'
+                            name:
+                              type: string
+                              example: Entertainment
+                            ancestorRefs:
+                              type: array
+                              items:
+                                title: recordRef
+                                x-stoplight:
+                                  id: 4b2a84ad58afb
+                                type: object
+                                properties:
+                                  id:
+                                    description: The unique identitifer of the record being referenced
+                                    type: string
+                                    examples:
+                                      - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                                      - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                                      - 7110701885
+                                      - EILBDVJVNUAGVKRQ
+                                  type:
+                                    description: The type of record being referenced.
+                                    type: string
+                                required:
+                                  - id
+                                  - type
+                            hasChildren:
+                              type: boolean
+                            modifiedDate:
+                              type: string
+                              format: date-time
+                              example: '2022-01-01T12:00:00.000Z'
+                            sourceModifiedDate:
+                              type: string
+                              format: date-time
+                              example: '2022-01-01T12:00:00.000Z'
+                          title: Product Category
+                          description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: list-commerce-productCategories
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
+      description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+components:
+  schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Your Base 64 encoded API Key
+      type: apiKey
+      in: header
+security:
+  - Authorization: []
