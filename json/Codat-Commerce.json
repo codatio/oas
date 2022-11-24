@@ -89,7 +89,7 @@
                                     "example": "fred.smith@myCompany.com"
                                   },
                                   "phone": {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/phoneNumbers/items/properties/number"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/phoneNumbers/items/properties/number"
                                   },
                                   "defaultCurrency": {
                                     "allOf": [
@@ -97,7 +97,7 @@
                                         "description": "Default currency of any transactional data for the customer, \nfor example, orders or payments\n"
                                       },
                                       {
-                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
+                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
                                       }
                                     ]
                                   },
@@ -105,7 +105,7 @@
                                     "type": "array",
                                     "description": "Addresses of the customer",
                                     "items": {
-                                      "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/addresses/items"
+                                      "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/addresses/items"
                                     }
                                   },
                                   "note": {
@@ -115,10 +115,10 @@
                                 }
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                               }
                             ]
                           }
@@ -281,7 +281,7 @@
                                   },
                                   "currency": {
                                     "description": "Currency of the disputed transaction.",
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
                                   },
                                   "status": {
                                     "description": "Current status of the dispute",
@@ -319,10 +319,10 @@
                                 },
                                 "allOf": [
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                                   },
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                                   }
                                 ],
                                 "required": [
@@ -431,280 +431,233 @@
         "tags": [
           "Commerce Data"
         ],
-        "responses": {},
-        "operationId": "get-commerce-info",
-        "description": "Retrieve information about the company, as seen in the commerce platform.\n\nThis may include information like addresses, tax registration details and social media or website information.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "Commerce-CompanyInfo",
-                "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n",
-                "x-stoplight": {
-                  "id": "d7on55ll1hvqj"
-                },
-                "type": "object",
-                "x-datatype": {
-                  "dataTypeId": "d68f4a5e-f1f8-40f0-a28d-565ef0733fb1",
-                  "databaseId": 33,
-                  "name": "commerce-companyInfo",
-                  "domain": "commerce",
-                  "singluar": "company infomation",
-                  "plural": "company infomation",
-                  "fetchMode": "single"
-                },
-                "properties": {
-                  "companyName": {
-                    "type": "string",
-                    "description": "The name of the company",
-                    "example": "Codat"
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Commerce-CompanyInfo",
+                  "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n",
+                  "x-stoplight": {
+                    "id": "d7on55ll1hvqj"
                   },
-                  "commercePlatformRef": {
-                    "type": "string",
-                    "description": "Identifier or reference for the company in the commerce platform"
+                  "type": "object",
+                  "x-datatype": {
+                    "dataTypeId": "d68f4a5e-f1f8-40f0-a28d-565ef0733fb1",
+                    "databaseId": 33,
+                    "name": "commerce-companyInfo",
+                    "domain": "commerce",
+                    "singluar": "company infomation",
+                    "plural": "company infomation",
+                    "fetchMode": "single"
                   },
-                  "companyLegalName": {
-                    "type": "string",
-                    "description": "The full legal name of the company",
-                    "example": "Codat Limited"
-                  },
-                  "addresses": {
-                    "type": "array",
-                    "description": "Addresses associated with the company",
-                    "items": {
-                      "allOf": [
-                        {
-                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-locations/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/address/allOf/0"
-                        },
-                        {
-                          "properties": {
-                            "type": {
-                              "enum": [
-                                "Billing",
-                                "Delivery"
-                              ]
+                  "properties": {
+                    "companyName": {
+                      "type": "string",
+                      "description": "The name of the company",
+                      "example": "Codat"
+                    },
+                    "commercePlatformRef": {
+                      "type": "string",
+                      "description": "Identifier or reference for the company in the commerce platform"
+                    },
+                    "companyLegalName": {
+                      "type": "string",
+                      "description": "The full legal name of the company",
+                      "example": "Codat Limited"
+                    },
+                    "addresses": {
+                      "type": "array",
+                      "description": "Addresses associated with the company",
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-locations/get/responses/200/content/application~1json/schema/allOf/0/properties/results/items/allOf/1/properties/address/allOf/0"
+                          },
+                          {
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "Billing",
+                                  "Delivery"
+                                ]
+                              }
                             }
                           }
-                        }
-                      ]
-                    }
-                  },
-                  "phoneNumbers": {
-                    "type": "array",
-                    "description": "Phone numbers associated with the company",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "number": {
-                          "title": "Phone Number",
-                          "x-stoplight": {
-                            "id": "1ch48ghi554eb"
+                        ]
+                      }
+                    },
+                    "phoneNumbers": {
+                      "type": "array",
+                      "description": "Phone numbers associated with the company",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "number": {
+                            "title": "Phone Number",
+                            "x-stoplight": {
+                              "id": "1ch48ghi554eb"
+                            },
+                            "type": "string",
+                            "description": "A phone number",
+                            "examples": [
+                              "+44 25691 154789",
+                              "(877) 492-8687",
+                              "01224 658 999"
+                            ]
                           },
-                          "type": "string",
-                          "description": "A phone number",
-                          "examples": [
-                            "+44 25691 154789",
-                            "(877) 492-8687",
-                            "01224 658 999"
-                          ]
+                          "type": {
+                            "description": "The type of phone number",
+                            "type": "string",
+                            "enum": [
+                              "Primary",
+                              "Landline",
+                              "Mobile",
+                              "Fax",
+                              "Unknown"
+                            ]
+                          }
                         },
-                        "type": {
-                          "description": "The type of phone number",
-                          "type": "string",
-                          "enum": [
-                            "Primary",
-                            "Landline",
-                            "Mobile",
-                            "Fax",
-                            "Unknown"
-                          ]
+                        "required": [
+                          "number",
+                          "type"
+                        ]
+                      }
+                    },
+                    "webLinks": {
+                      "description": "Web links associated with the company",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "type": {
+                            "description": "The type of the weblink",
+                            "type": "string",
+                            "enum": [
+                              "Website",
+                              "Social",
+                              "Unknown"
+                            ]
+                          },
+                          "url": {
+                            "description": "The full URL for the weblink",
+                            "type": "string",
+                            "format": "url"
+                          }
+                        },
+                        "example": {
+                          "type": "Website",
+                          "url": "https://codat.io"
                         }
-                      },
-                      "required": [
-                        "number",
-                        "type"
+                      }
+                    },
+                    "registrationNumber": {
+                      "description": "The registration number of the company",
+                      "type": "string",
+                      "examples": [
+                        10480375
                       ]
-                    }
-                  },
-                  "webLinks": {
-                    "description": "Web links associated with the company",
-                    "type": "array",
-                    "items": {
-                      "properties": {
-                        "type": {
-                          "description": "The type of the weblink",
-                          "type": "string",
-                          "enum": [
-                            "Website",
-                            "Social",
-                            "Unknown"
-                          ]
-                        },
-                        "url": {
-                          "description": "The full URL for the weblink",
-                          "type": "string",
-                          "format": "url"
+                    },
+                    "baseCurrency": {
+                      "title": "Currency",
+                      "x-stoplight": {
+                        "id": "8ljuulqyuc5l4"
+                      },
+                      "type": "string",
+                      "description": "The currency datatype in Codat is an ISO 4217 currency code.",
+                      "format": "ISO4217",
+                      "examples": [
+                        "GBP",
+                        "USD",
+                        "EUR"
+                      ]
+                    },
+                    "accountBalances": {
+                      "description": "The available and current cash balances for the company's accounts",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "available": {
+                            "description": "The account's current balance",
+                            "type": "number",
+                            "format": "decimal"
+                          },
+                          "pending": {
+                            "description": "Funds that are not yet available in the balance",
+                            "type": "number",
+                            "format": "decimal"
+                          },
+                          "reserved": {
+                            "description": "Funds reserved as holdings",
+                            "type": "number",
+                            "format": "decimal"
+                          },
+                          "currency": {
+                            "description": "The currency of the account",
+                            "allOf": [
+                              {
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
+                              }
+                            ]
+                          }
                         }
+                      }
+                    },
+                    "sourceUrls": {
+                      "description": "URL addresses for the originating system. For example, potential use cases include 'deeplinking' to the originating system",
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
                       },
                       "example": {
-                        "type": "Website",
-                        "url": "https://codat.io"
+                        "url1": "https://connect.sandbox.com/v2/customers",
+                        "url2": "https://connect.sandbox.com/v2/disputes"
                       }
                     }
                   },
-                  "registrationNumber": {
-                    "description": "The registration number of the company",
-                    "type": "string",
-                    "examples": [
-                      10480375
-                    ]
-                  },
-                  "baseCurrency": {
-                    "title": "Currency",
-                    "x-stoplight": {
-                      "id": "8ljuulqyuc5l4"
-                    },
-                    "type": "string",
-                    "description": "The currency datatype in Codat is an ISO 4217 currency code.",
-                    "format": "ISO4217",
-                    "examples": [
-                      "GBP",
-                      "USD",
-                      "EUR"
-                    ]
-                  },
-                  "accountBalances": {
-                    "description": "The available and current cash balances for the company's accounts",
-                    "type": "array",
-                    "items": {
+                  "allOf": [
+                    {
                       "type": "object",
+                      "x-stoplight": {
+                        "id": "yptfg1r7vj69j"
+                      },
                       "properties": {
-                        "available": {
-                          "description": "The account's current balance",
-                          "type": "number",
-                          "format": "decimal"
+                        "createdDate": {
+                          "description": "The date the entity was created.",
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "ug7vf4twr9w67"
+                      },
+                      "properties": {
+                        "modifiedDate": {
+                          "description": "The date on which this record was last modified in Codat.",
+                          "type": "string",
+                          "format": "date-time",
+                          "readOnly": true
                         },
-                        "pending": {
-                          "description": "Funds that are not yet available in the balance",
-                          "type": "number",
-                          "format": "decimal"
-                        },
-                        "reserved": {
-                          "description": "Funds reserved as holdings",
-                          "type": "number",
-                          "format": "decimal"
-                        },
-                        "currency": {
-                          "description": "The currency of the account",
-                          "allOf": [
-                            {
-                              "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
-                            }
-                          ]
+                        "sourceModifiedDate": {
+                          "description": "The date on which this record was last modified in the originating system",
+                          "type": "string",
+                          "format": "date-time",
+                          "readOnly": true
                         }
                       }
                     }
-                  },
-                  "sourceUrls": {
-                    "description": "URL addresses for the originating system. For example, potential use cases include 'deeplinking' to the originating system",
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "string"
-                    },
-                    "example": {
-                      "url1": "https://connect.sandbox.com/v2/customers",
-                      "url2": "https://connect.sandbox.com/v2/disputes"
-                    }
-                  }
-                },
-                "allOf": [
-                  {
-                    "type": "object",
-                    "x-stoplight": {
-                      "id": "yptfg1r7vj69j"
-                    },
-                    "properties": {
-                      "createdDate": {
-                        "description": "The date the entity was created.",
-                        "type": "string",
-                        "format": "date-time"
-                      }
-                    }
-                  },
-                  {
-                    "type": "object",
-                    "x-stoplight": {
-                      "id": "ug7vf4twr9w67"
-                    },
-                    "properties": {
-                      "modifiedDate": {
-                        "description": "The date on which this record was last modified in Codat.",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
-                      },
-                      "sourceModifiedDate": {
-                        "description": "The date on which this record was last modified in the originating system",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
-                      }
-                    }
-                  }
-                ]
-              },
-              "examples": {
-                "Example": {
-                  "value": {
-                    "companyName": "Codat",
-                    "commercePlatformRef": "string",
-                    "companyLegalName": "Codat Limited",
-                    "addresses": [
-                      {
-                        "type": "Billing",
-                        "line1": "string",
-                        "line2": "string",
-                        "city": "string",
-                        "region": "string",
-                        "country": "string",
-                        "postalCode": "string"
-                      }
-                    ],
-                    "phoneNumbers": [
-                      {
-                        "number": "+44 25691 154789",
-                        "type": "Primary"
-                      }
-                    ],
-                    "webLinks": [
-                      {
-                        "type": "Website",
-                        "url": "https://codat.io"
-                      }
-                    ],
-                    "registrationNumber": "10480375",
-                    "baseCurrency": "GBP",
-                    "accountBalances": [
-                      {
-                        "available": 0,
-                        "pending": 0,
-                        "reserved": 0,
-                        "currency": "GBP"
-                      }
-                    ],
-                    "sourceUrls": {
-                      "url1": "https://connect.sandbox.com/v2/customers",
-                      "url2": "https://connect.sandbox.com/v2/disputes"
-                    },
-                    "createdDate": "2019-08-24T14:15:22Z",
-                    "modifiedDate": "2019-08-24T14:15:22Z",
-                    "sourceModifiedDate": "2019-08-24T14:15:22Z"
-                  }
+                  ]
                 }
               }
             }
           }
-        }
+        },
+        "operationId": "get-commerce-info",
+        "description": "Retrieve information about the company, as seen in the commerce platform.\n\nThis may include information like addresses, tax registration details and social media or website information."
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/commerce-locations": {
@@ -823,7 +776,7 @@
                                 }
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                               }
                             ]
                           }
@@ -971,7 +924,7 @@
                                   "currency": {
                                     "allOf": [
                                       {
-                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
+                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
                                       },
                                       {
                                         "description": "Currency in which the order was placed."
@@ -1073,10 +1026,10 @@
                                 }
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                               }
                             ],
                             "definitions": {
@@ -1187,7 +1140,7 @@
                                         ]
                                       },
                                       "currency": {
-                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency",
+                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency",
                                         "description": "Currency in which the payment was made."
                                       },
                                       "type": {
@@ -1240,10 +1193,10 @@
                                     }
                                   },
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                                   },
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                                   }
                                 ]
                               },
@@ -1566,7 +1519,7 @@
                                     ]
                                   },
                                   "currency": {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency",
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency",
                                     "description": "Currency in which the payment was made"
                                   },
                                   "paymentMethodRef": {
@@ -1606,10 +1559,10 @@
                                 }
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                               },
                               {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                               }
                             ]
                           }
@@ -1709,7 +1662,7 @@
                                 },
                                 "allOf": [
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                                   }
                                 ]
                               }
@@ -1903,7 +1856,7 @@
                                                     "format": "decimal"
                                                   },
                                                   "currency": {
-                                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
+                                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
                                                   }
                                                 }
                                               }
@@ -1949,10 +1902,10 @@
                                           }
                                         },
                                         {
-                                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                                         },
                                         {
-                                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                                         }
                                       ]
                                     }
@@ -2049,7 +2002,7 @@
                                     ]
                                   },
                                   "currency": {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/properties/baseCurrency"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/properties/baseCurrency"
                                   },
                                   "type": {
                                     "description": "The type of the platform transaction",
@@ -2092,7 +2045,7 @@
                                     },
                                     "allOf": [
                                       {
-                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/0"
+                                        "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0"
                                       },
                                       {
                                         "type": "object",
@@ -2110,7 +2063,7 @@
                                     ]
                                   },
                                   {
-                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/requestBody/content/application~1json/schema/allOf/1"
+                                    "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/1"
                                   }
                                 ],
                                 "x-stoplight": {
