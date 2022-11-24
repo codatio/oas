@@ -48,12 +48,12 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - properties:
+                  - type: object
+                    properties:
                       results:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Company'
-                    type: object
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
                   - $ref: '#/components/schemas/_Links'
               examples:
                 List of Companies:
@@ -183,10 +183,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Company'
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Company'
+                title: Company
+                type: object
+                description: 'A company in Codat represent a small or medium sized business, whose data you wish to share'
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 0498e921-9b53-4396-a412-4f2f5983b0a2
+                  name:
+                    type: string
+                  platform:
+                    type: string
+                    deprecated: true
+                  redirect:
+                    type: string
+                    format: uri
+                    example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
+                  lastSync:
+                    type: string
+                    format: date-time
+                    example: '2022-01-01T12:00:00.000Z'
+                  created:
+                    type: string
+                    format: date-time
+                    example: '2022-01-01T12:00:00.000Z'
+                  createdByUserName:
+                    type: string
+                  dataConnections:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
+                required:
+                  - id
+                  - name
+                  - redirect
               examples:
                 example-1:
                   value:
@@ -223,7 +257,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Company'
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
       description: Updates the given company with a new name
@@ -297,7 +331,7 @@ paths:
                       results:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Connection'
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
                   - $ref: '#/components/schemas/_Links'
               examples:
                 example-1:
@@ -359,7 +393,110 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Connection'
+                type: object
+                x-examples:
+                  example-1:
+                    id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 33e35bb4-93e7-441f-b651-f46ca049367b
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                  integrationKey:
+                    type: string
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                    example: Linked
+                  lastSync:
+                    type: string
+                    format: date-time
+                    example: '2022-01-01T12:00:00.000Z'
+                  created:
+                    type: string
+                    format: date-time
+                    example: '2022-01-01T12:00:00.000Z'
+                  sourceType:
+                    type: string
+                    example: Accounting
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          format: date-time
+                          example: '2022-01-01T12:00:00.000Z'
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                examples:
+                  - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
               examples:
                 example-1:
                   value:
@@ -415,7 +552,7 @@ paths:
                 properties: {}
             application/xml:
               schema:
-                $ref: '#/components/schemas/Connection'
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -881,211 +1018,6 @@ paths:
           `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
 components:
   schemas:
-    Company:
-      type: object
-      x-examples:
-        example-1:
-          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          name: string
-          platform: string
-          redirect: string
-          lastSync: '2022-11-10T11:06:01.435Z'
-          dataConnections:
-            - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-              integrationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-              integrationKey: string
-              sourceId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-              platformName: string
-              linkUrl: string
-              status: string
-              lastSync: '2022-11-10T11:06:01.435Z'
-              created: '2022-11-10T11:06:01.435Z'
-              sourceType: string
-              dataConnectionErrors:
-                - statusCode: string
-                  statusText: string
-                  errorMessage: string
-                  erroredOnUtc: '2022-11-10T11:06:01.435Z'
-              connectionInfo:
-                additionalProp1: string
-                additionalProp2: string
-                additionalProp3: string
-          created: '2022-11-10T11:06:01.435Z'
-          createdByUserName: string
-      examples:
-        - id: ab12c58d-a678-4ebf-a159-ae99e1807bd0
-          name: My First Company
-          platform: ''
-          redirect: 'https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0'
-          dataConnections: []
-          created: '2022-11-10T10:45:18Z'
-          createdByUserName: Dan Tzabar
-        - id: ab12c58d-a678-4ebf-a159-ae99e1807bd0
-          name: My First Company
-          platform: ''
-          redirect: 'https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0'
-          dataConnections:
-            - id: a1617464-7f88-46ed-a0d1-1ac585ff7c1f
-              integrationId: 3485371f-930d-4614-997a-5dfa2cec546c
-              integrationKey: lqai
-              sourceId: f4319595-c20d-4b8c-bc9b-a6642e03c29b
-              platformName: Partner Commerce
-              linkUrl: 'https://link-api.codat.io/companies/b373cf43-44a9-4f7d-9ff3-d9d32da08dbb/connections/a1617464-7f88-46ed-a0d1-1ac585ff7c1f/start'
-              status: Linked
-              created: '2022-08-30T13:29:22Z'
-              sourceType: Commerce
-          created: '2022-11-10T10:45:18Z'
-          createdByUserName: Dan Tzabar
-      title: Company
-      description: 'A company in Codat represent a small or medium sized business, whose data you wish to share'
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: 0498e921-9b53-4396-a412-4f2f5983b0a2
-        name:
-          type: string
-        platform:
-          type: string
-          deprecated: true
-        redirect:
-          type: string
-          format: uri
-          example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
-        lastSync:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
-        created:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
-        createdByUserName:
-          type: string
-        dataConnections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection'
-      required:
-        - id
-        - name
-        - redirect
-    Connection:
-      type: object
-      x-examples:
-        example-1:
-          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          integrationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          integrationKey: string
-          sourceId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          platformName: string
-          linkUrl: string
-          status: string
-          lastSync: '2022-11-10T11:32:54.551Z'
-          created: '2022-11-10T11:32:54.551Z'
-          sourceType: Accounting
-          dataConnectionErrors:
-            - statusCode: string
-              statusText: string
-              errorMessage: string
-              erroredOnUtc: '2022-11-10T11:32:54.551Z'
-          connectionInfo:
-            additionalProp1: string
-            additionalProp2: string
-            additionalProp3: string
-      examples:
-        - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
-          integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
-          integrationKey: dfxm
-          sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
-          platformName: Basiq
-          linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
-          status: Linked
-          lastSync: '2022-10-27T10:22:43.6464237Z'
-          created: '2022-10-27T09:53:29Z'
-          sourceType: Banking
-      title: Connection
-      description: 'Represents the connection between a source of data, and a Codat company'
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: 33e35bb4-93e7-441f-b651-f46ca049367b
-        integrationId:
-          type: string
-          format: uuid
-          example: fd321cb6-7963-4506-b873-e99593a45e30
-        integrationKey:
-          type: string
-        sourceId:
-          type: string
-          format: uuid
-          example: 35b92968-9851-4095-ad60-395c95cbcba4
-        platformName:
-          type: string
-        linkUrl:
-          type: string
-          format: uri
-          example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
-        status:
-          type: string
-          enum:
-            - PendingAuth
-            - Linked
-            - Unlinked
-            - Deauthorized
-          example: Linked
-        lastSync:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
-        created:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
-        sourceType:
-          type: string
-          example: Accounting
-          enum:
-            - Accounting
-            - Banking
-            - Commerce
-        dataConnectionErrors:
-          type: array
-          items:
-            type: object
-            properties:
-              statusCode:
-                type: string
-              statusText:
-                type: string
-              errorMessage:
-                type: string
-              erroredOnUtc:
-                type: string
-                format: date-time
-                example: '2022-01-01T12:00:00.000Z'
-        connectionInfo:
-          type: object
-          properties:
-            additionalProp1:
-              type: string
-            additionalProp2:
-              type: string
-            additionalProp3:
-              type: string
-      required:
-        - id
-        - integrationId
-        - integrationKey
-        - sourceId
-        - platformName
-        - linkUrl
-        - status
-        - created
-        - sourceType
-      x-stoplight:
-        id: 35df6443f7c9d
     PullOperation:
       type: object
       x-examples:
