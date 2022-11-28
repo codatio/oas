@@ -879,32 +879,18 @@ paths:
                                     - Overpayment
                                     - Unknown
                                   example: Overpayment
-                  - x-examples:
-                      example-1:
-                        _links:
-                          self:
-                            href: string
-                          current:
-                            href: string
-                          next:
-                            href: string
-                          previous:
-                            href: string
-                    title: _Links
+                  - title: _Links
                     description: Codat's Paging Model
                     examples:
                       - _links:
                           self:
-                            href: ../dictionary
+                            href: '/companies/{id}/data/{dataType}'
                           current:
-                            href: ../dictionary
-                          next:
-                            href: ../dictionary
-                          previous:
-                            href: ../dictionary
-                        pageNumber: 0
-                        pageSize: 0
-                        totalResults: 0
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                        pageNumber: 1
+                        pageSize: 10
+                        totalResults: 1
+                    type: object
                     allOf:
                       - properties:
                           _links:
@@ -952,7 +938,8 @@ paths:
                           - pageNumber
                           - pageSize
                           - totalResults
-                    type: object
+                    x-stoplight:
+                      id: 5wohczray2nz5
       operationId: list-commerce-orders
       description: Get a list of orders placed or held on the linked commerce platform
       parameters:
