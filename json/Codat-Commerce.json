@@ -631,24 +631,38 @@
                       }
                     },
                     {
-                      "type": "object",
-                      "x-stoplight": {
-                        "id": "ug7vf4twr9w67"
-                      },
-                      "properties": {
-                        "modifiedDate": {
-                          "description": "The date on which this record was last modified in Codat.",
-                          "type": "string",
-                          "format": "date-time",
-                          "readOnly": true
+                      "allOf": [
+                        {
+                          "title": "ModifiedDate",
+                          "x-stoplight": {
+                            "id": "z5gfpfg4fsp6v"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "modifiedDate": {
+                              "description": "The date on which this record was last modified in Codat.",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                            }
+                          }
                         },
-                        "sourceModifiedDate": {
-                          "description": "The date on which this record was last modified in the originating system",
-                          "type": "string",
-                          "format": "date-time",
-                          "readOnly": true
+                        {
+                          "title": "SourceModifiedDate",
+                          "x-stoplight": {
+                            "id": "s0oihleme8suj"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "sourceModifiedDate": {
+                              "description": "The date on which this record was last modified in the originating system",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                            }
+                          }
                         }
-                      }
+                      ]
                     }
                   ]
                 }
@@ -1408,7 +1422,6 @@
           {
             "name": "pageSize",
             "in": "query",
-            "required": true,
             "schema": {
               "type": "number",
               "default": 100,

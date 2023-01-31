@@ -1,0 +1,2283 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "tno0jr6q5xi1y"
+  },
+  "info": {
+    "title": "Codat - Assess API",
+    "version": "1.0",
+    "summary": "Codat's financial insights API",
+    "contact": {
+      "email": "support@codat.io",
+      "name": "Codat",
+      "url": "https://codat.io"
+    },
+    "description": "Codat's Assess API enable you to make smarter credit decisions on your small business customers. Assess enriches your customer's accounting, commerce and banking data to surface actionable insights you didn't have before.",
+    "termsOfService": "https://www.codat.io/msa/"
+  },
+  "servers": [
+    {
+      "url": "https://api.codat.io",
+      "description": "Codat"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Assess",
+      "description": "Assess enriches your customer''s accounting, commerce and banking data to surface actionable insights you didn''t have before."
+    }
+  ],
+  "paths": {
+    "/data/assess/accounts/categories": {
+      "parameters": [],
+      "get": {
+        "summary": "Lists Codat's standardized Chart of Account categories",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "x-examples": {
+                    "Example 1": [
+                      {
+                        "type": "string",
+                        "subtype": "string",
+                        "subtypeDisplayName": "string",
+                        "detailType": "string",
+                        "detailTypeDisplayName": "string",
+                        "detailTypeDescription": "string"
+                      }
+                    ]
+                  },
+                  "type": "array",
+                  "items": null
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "operationId": "list-chart-of-account-categoriesories",
+        "description": "Lists available Chart of Account categories Codat's categorisation engine can provide. "
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Lists suggested and confirmed account categories",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1details/get/responses/200/content/application~1json/schema/allOf/1"
+                    }
+                  ]
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-accounts-categories",
+        "description": " Lists suggested and confirmed chart of account categories for the given company and data connection.",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1details/get/parameters/3"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Confirm categories for accounts",
+        "tags": [
+          "Assess"
+        ],
+        "operationId": "patch-data-companies-companyId-connections-connectionId-assess-accounts-categories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Comfirms the categories for all or a batch of accounts for a specific connection.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "properties": {
+                            "accountRef": {
+                              "allOf": [
+                                {
+                                  "type": "object",
+                                  "x-stoplight": {
+                                    "id": "516bf0ecc4907"
+                                  },
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "description": "A unique, persistent identifier for this record",
+                                      "examples": [
+                                        "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                                        "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                                        7110701885,
+                                        "EILBDVJVNUAGVKRQ"
+                                      ],
+                                      "x-codat-validation": [
+                                        {
+                                          "validator": "UniqueWithinConnection"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "confirmed": {
+                              "allOf": [
+                                {
+                                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/accounts/{accountId}/categories": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "accountId",
+          "in": "path",
+          "required": true,
+          "description": "Nominal account id"
+        }
+      ],
+      "get": {
+        "summary": "Gets the suggested and/or confirmed category for a specific account",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "accountRef": {
+                          "description": "Nominal account reference",
+                          "title": "nameRef",
+                          "x-stoplight": {
+                            "id": "34dd919grzbls"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "The unique identitifer of the record being referenced",
+                              "type": "string",
+                              "examples": [
+                                "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                                "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                                7110701885,
+                                "EILBDVJVNUAGVKRQ"
+                              ]
+                            },
+                            "name": {
+                              "description": "Name of the record being referenced.",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ]
+                        },
+                        "suggested": {
+                          "allOf": [
+                            {
+                              "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed"
+                            },
+                            {
+                              "title": "ModifiedDate",
+                              "x-stoplight": {
+                                "id": "z5gfpfg4fsp6v"
+                              },
+                              "type": "object",
+                              "properties": {
+                                "modifiedDate": {
+                                  "description": "The date on which this record was last modified in Codat.",
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "readOnly": true
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "confirmed": {
+                          "allOf": [
+                            {
+                              "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed"
+                            },
+                            {
+                              "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema/allOf/0/properties/suggested/allOf/1"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "examples": [
+                    {
+                      "accountRef": {
+                        "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                        "name": "Subscription Revenue"
+                      },
+                      "suggested": {
+                        "type": "Income",
+                        "subtype": "Operating",
+                        "detailType": "RecurringRevenue",
+                        "modifiedDate": "2019-08-24T14:15:22Z"
+                      },
+                      "confirmed": {
+                        "type": "Income",
+                        "subtype": "Operating",
+                        "detailType": "RecurringRevenue",
+                        "modifiedDate": "2019-08-24T14:15:22Z"
+                      }
+                    }
+                  ],
+                  "description": ""
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories",
+        "description": "Get category for specific nominal account."
+      },
+      "patch": {
+        "summary": "",
+        "tags": [
+          "Assess"
+        ],
+        "operationId": "patch-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "confirmed": {
+                    "title": "ChartOfAccountCategory",
+                    "x-stoplight": {
+                      "id": "q4cxf81t1nrb5"
+                    },
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Top level chart of account category type."
+                      },
+                      "subtype": {
+                        "type": "string"
+                      },
+                      "detailType": {
+                        "type": "string",
+                        "description": "Most granular chart of account type."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Update category for a specific nominal account"
+      }
+    },
+    "/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/status": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/dataIntegritydataType"
+        }
+      ],
+      "get": {
+        "summary": "Get data integrity status",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "metadata": {
+                      "type": "array",
+                      "items": {
+                        "title": "DataIntegrityStatus",
+                        "x-stoplight": {
+                          "id": "91oalbieck7b7"
+                        },
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The data type which the data type in the URL has been matched against. For example, if you've matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions."
+                          },
+                          "statusInfo": {
+                            "type": "object",
+                            "properties": {
+                              "lastMatched": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "The date the matching algorithm last ran against the company’s bank transaction.",
+                                "readOnly": true
+                              },
+                              "currentStatus": {
+                                "type": "string",
+                                "enum": [
+                                  "Unknown",
+                                  "DoesNotExist",
+                                  "Error",
+                                  "Complete"
+                                ]
+                              },
+                              "statusMessage": {
+                                "type": "string",
+                                "description": "Detailed explanation supporting the status value."
+                              }
+                            }
+                          },
+                          "connectionIds": {
+                            "type": "object",
+                            "properties": {
+                              "source": {
+                                "type": "array",
+                                "description": "An array of strings. The connection IDs for the type specified in the url.",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "target": {
+                                "type": "array",
+                                "description": "An array of strings. The connection IDs for the type being matched to.",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "amounts": {
+                            "type": "object",
+                            "description": "Only returned for transactions. For accounts, there is nothing returned.",
+                            "properties": {
+                              "min": {
+                                "type": "number",
+                                "description": "Lowest value of transaction set."
+                              },
+                              "max": {
+                                "type": "number",
+                                "description": "Highest value of transaction set."
+                              },
+                              "currency": {
+                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
+                              }
+                            }
+                          },
+                          "dates": {
+                            "type": "object",
+                            "description": "Only returned for transactions. For accounts, there is nothing returned.",
+                            "properties": {
+                              "minDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Earliest date of transaction set.",
+                                "readOnly": true
+                              },
+                              "maxDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Latest date of transaction set.",
+                                "readOnly": true
+                              },
+                              "minOverlappingDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Earliest date where transactions exist in both accounting and banking platforms.",
+                                "readOnly": true
+                              },
+                              "maxOverlappingDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Latest date where transactions exist in both account and banking platforms.",
+                                "readOnly": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-dataIntegrity-status-for-dataType",
+        "description": "Gets match status for a given company and datatype."
+      }
+    },
+    "/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/summaries": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/dataIntegritydataType"
+        }
+      ],
+      "get": {
+        "summary": "Get data integrity summary",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "summaries": {
+                      "type": "array",
+                      "items": {
+                        "title": "DataIntegritySummary",
+                        "x-stoplight": {
+                          "id": "wwewtiwqj98nt"
+                        },
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "byAmount": {
+                            "type": "object",
+                            "properties": {
+                              "matchPercentage": {
+                                "type": "number",
+                                "description": "The percentage of the absolute value of transactions of the type specified in the route which have a match."
+                              },
+                              "unmatched": {
+                                "type": "number",
+                                "description": "The sum of the absolute value of transactions of the type specified in the route which don't have a match."
+                              },
+                              "matched": {
+                                "type": "number",
+                                "description": "The sum of the absolute value of transactions of the type specified in the route which have a match."
+                              },
+                              "total": {
+                                "type": "number",
+                                "description": "The total of unmatched and matched."
+                              },
+                              "currency": {
+                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
+                              }
+                            }
+                          },
+                          "byCount": {
+                            "type": "object",
+                            "properties": {
+                              "matchPercentage": {
+                                "type": "number",
+                                "description": "The percentage of records of the type specified in the route which have a match."
+                              },
+                              "unmatched": {
+                                "type": "number",
+                                "description": "The number of records of the type specified in the route which don't have a match."
+                              },
+                              "matched": {
+                                "type": "number",
+                                "description": "The number of records of the type specified in the route which do have a match."
+                              },
+                              "total": {
+                                "type": "number",
+                                "description": "The total of unmatched and matched."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-assess-dataTypes-dataType-dataIntegrity-summaries",
+        "description": "Gets match summary for a given company and datatype, optionally restricted by a Codat query string.",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/2"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/details": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/dataIntegritydataType"
+        }
+      ],
+      "get": {
+        "summary": "Lists data integrity details for date type",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "title": "DataIntegrityDetails",
+                            "x-stoplight": {
+                              "id": "krddfy9o9csq0"
+                            },
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity."
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "The data type of the record."
+                              },
+                              "connectionId": {
+                                "type": "string",
+                                "format": "uuid",
+                                "description": "ID GUID representing the connection of the accounting or banking platform.",
+                                "readOnly": true
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "The date of the transaction."
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "The transaction description."
+                              },
+                              "amount": {
+                                "type": "number",
+                                "description": "The transaction value."
+                              },
+                              "currency": {
+                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency",
+                                "description": "The currency of the transaction."
+                              },
+                              "matches": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "description": "A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity."
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "description": "The data type which the data type in the URL has been matched against. For example, if you've matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions."
+                                    },
+                                    "connectionId": {
+                                      "type": "string",
+                                      "description": "ID GUID representing the connection of the accounting or banking platform.",
+                                      "format": "uuid"
+                                    },
+                                    "date": {
+                                      "type": "string",
+                                      "description": "The date of the transaction."
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "description": "The transaction description."
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "description": "The transaction value."
+                                    },
+                                    "currency": {
+                                      "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency",
+                                      "description": "The currency of the transaction."
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "title": "_Links",
+                      "description": "Codat's Paging Model",
+                      "examples": [
+                        {
+                          "_links": {
+                            "self": {
+                              "href": "/companies/{id}/data/{dataType}"
+                            },
+                            "current": {
+                              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                            }
+                          },
+                          "pageNumber": 1,
+                          "pageSize": 10,
+                          "totalResults": 1
+                        }
+                      ],
+                      "type": "object",
+                      "allOf": [
+                        {
+                          "properties": {
+                            "_links": {
+                              "type": "object",
+                              "required": [
+                                "self",
+                                "current"
+                              ],
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "current": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "previous": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "pageNumber": {
+                              "type": "integer"
+                            },
+                            "pageSize": {
+                              "type": "integer"
+                            },
+                            "totalResults": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "_links",
+                            "pageNumber",
+                            "pageSize",
+                            "totalResults"
+                          ]
+                        }
+                      ],
+                      "x-stoplight": {
+                        "id": "5wohczray2nz5"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-assess-dataTypes-dataType-dataIntegrity-details",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/2"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by"
+          }
+        ],
+        "description": "Gets record-by-record match results for a given company and datatype, optionally restricted by a Codat query string."
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/financialMetrics": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          },
+          "description": "ID of your company's data connection"
+        }
+      ],
+      "get": {
+        "summary": "List finanicial metrics for a company",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "currency": {
+                      "title": "Currency",
+                      "x-stoplight": {
+                        "id": "8ljuulqyuc5l4"
+                      },
+                      "type": "string",
+                      "description": "The currency datatype in Codat is an ISO 4217 currency code.",
+                      "format": "ISO4217",
+                      "examples": [
+                        "GBP",
+                        "USD",
+                        "EUR"
+                      ]
+                    },
+                    "metrics": {
+                      "type": "array",
+                      "items": {
+                        "title": "FinancialMetric",
+                        "x-stoplight": {
+                          "id": "u8za4ihixgnal"
+                        },
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "metricUnit": {
+                            "type": "string"
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "periods": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "fromDate": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "toDate": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "value": {
+                                  "type": "number"
+                                },
+                                "inputs": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "value": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                "errors": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/metrics/items/properties/errors/items"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "errors": {
+                            "type": "array",
+                            "items": {
+                              "title": "AssessError",
+                              "x-stoplight": {
+                                "id": "si5rmz0bcsz7g"
+                              },
+                              "type": "object",
+                              "examples": [
+                                {
+                                  "type": "string",
+                                  "message": "string",
+                                  "details": {
+                                    "additionalProp1": [
+                                      "string"
+                                    ],
+                                    "additionalProp2": [
+                                      "string"
+                                    ],
+                                    "additionalProp3": [
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "details": {
+                                  "type": "object",
+                                  "properties": {
+                                    "additionalProp1": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "additionalProp2": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "additionalProp3": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "periodUnit": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-financialMetrics",
+        "description": "Gets all the available financial metrics for a given company, over one or more periods.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "showMetricInputs",
+            "description": "If set to true, then the system includes the input values within the response."
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/enhancedProfitAndLoss": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Enhanced Profit and Loss",
+        "tags": [
+          "Assess"
+        ],
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-enhancedProfitAndLoss",
+        "description": "Gets a fully categorized profit and loss statement for a given company, over one or more period(s).",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/enhancedBalanceSheet": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Enhanced Balance Sheet",
+        "tags": [
+          "Assess"
+        ],
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-enhancedBalanceSheet",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ],
+        "description": "Gets a fully categorized balance sheet statement for a given company, over one or more period(s).",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/revenue": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Commerce Revenue Metrics",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-revenue",
+        "description": "Gets the revenue and revenue growth for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets the order information for a specific company",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-orders",
+        "description": "Gets the order information for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/refunds": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets the refunds information for a specific company",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-refunds",
+        "description": "Gets the refunds information for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/customerRetention": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets the customer retention metrics for a specific company.",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-customerRetention",
+        "description": "Gets the customer retention metrics for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets the lifetime value metric for a specific company.",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-lifetimeValue",
+        "description": "Gets the lifetime value metric for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/accountingMetrics/marketing": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets the marketing metrics from an accounting source for a given company.",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-accountingMetrics-marketing",
+        "description": "Request an Excel report for download.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "showInputValues",
+            "description": "If set to true, then the system includes the input values within the response."
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/assess/excel": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+          },
+          "description": "The unique identifier for your SME in Codat"
+        }
+      ],
+      "post": {
+        "summary": "Request an Excel report for download",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-data-companies-companyId-assess-excel",
+        "description": "Request an Excel report for download.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/excelReportType"
+          }
+        ]
+      },
+      "get": {
+        "summary": "Request an Excel report for download",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "x-stoplight": {
+                    "id": "3b921c152f3de"
+                  },
+                  "properties": {
+                    "lastGenerated": {
+                      "type": "string"
+                    },
+                    "inProgress": {
+                      "type": "boolean"
+                    },
+                    "queued": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "errorMessage": {
+                      "type": "string"
+                    },
+                    "lastInvocationId": {
+                      "type": "string"
+                    },
+                    "reportType": {
+                      "type": "string"
+                    },
+                    "fileSize": {
+                      "type": "integer"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "lastGenerated": "2023-01-25T22:36:05.125Z",
+                      "inProgress": true,
+                      "queued": "2023-01-25T22:36:05.125Z",
+                      "success": true,
+                      "errorMessage": "string",
+                      "lastInvocationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                      "reportType": "string",
+                      "fileSize": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-assess-excel",
+        "description": "Returns the status of the latest report requested.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/excelReportType"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/assess/excel/download": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        }
+      ],
+      "post": {
+        "summary": "Your GET endpoint",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-data-companies-companyId-assess-excel-download",
+        "description": "Download the Excel report to a local drive.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/excelReportType"
+          }
+        ]
+      }
+    },
+    "/companies/{companyId}/reports/enhancedCashFlow/transactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reportInfo": {
+                      "type": "object",
+                      "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
+                        "reportName": {
+                          "type": "string"
+                        },
+                        "companyName": {
+                          "type": "string"
+                        },
+                        "generatedDate": {
+                          "type": "string"
+                        }
+                      },
+                      "x-examples": {
+                        "Example 1": {
+                          "pageNumber": 0,
+                          "pageSize": 0,
+                          "totalResults": 0,
+                          "reportName": "string",
+                          "companyName": "string",
+                          "generatedDate": "2023-01-26T07:36:40.487Z"
+                        }
+                      }
+                    },
+                    "dataSources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "accounts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "sourceRef": {
+                                  "type": "object",
+                                  "x-examples": {
+                                    "Example 1": {
+                                      "sourceRef": {
+                                        "sourceType": "Banking"
+                                      }
+                                    }
+                                  },
+                                  "title": "ReportSourceRef",
+                                  "properties": {
+                                    "sourceType": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "platformName": {
+                                  "type": "string"
+                                },
+                                "accountProvider": {
+                                  "type": "string"
+                                },
+                                "accountName": {
+                                  "type": "string"
+                                },
+                                "accountType": {
+                                  "type": "string"
+                                },
+                                "currency": {
+                                  "type": "string"
+                                },
+                                "currentBalance": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "reportItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "transactions": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "date": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "amount": {
+                                  "type": "number"
+                                },
+                                "currency": {
+                                  "type": "string"
+                                },
+                                "transactionCategory": {
+                                  "type": "object",
+                                  "properties": {
+                                    "confidence": {
+                                      "type": "number"
+                                    },
+                                    "levels": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "sourceRef": {
+                                  "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/responses/200/content/application~1json/schema/properties/dataSources/items/properties/accounts/items/properties/sourceRef"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-companies-companyId-reports-enhancedCashFlow-transactions",
+        "description": "Gets a list of banking transactions and their categories.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page Number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return on the page"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat Query String"
+          }
+        ]
+      }
+    },
+    "/companies/{companyId}/reports/enhancedProfitAndLoss/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        }
+      ],
+      "get": {
+        "summary": "Enhanced Profit And Loss",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedBalanceSheet~1accounts/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-companies-companyId-reports-enhancedProfitAndLoss-accounts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          }
+        ],
+        "description": "Gets a list of accounts with account categories per statement period, specific to profit and loss"
+      }
+    },
+    "/companies/{companyId}/reports/enhancedBalanceSheet/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        }
+      ],
+      "get": {
+        "summary": "Enhanced Balance Sheet",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "EnhancedReport",
+                  "x-stoplight": {
+                    "id": "xhzm980sgrupf"
+                  },
+                  "type": "object",
+                  "properties": {
+                    "reportInfo": {
+                      "type": "object",
+                      "properties": {
+                        "currency": {
+                          "type": "string"
+                        },
+                        "reportName": {
+                          "type": "string"
+                        },
+                        "companyName": {
+                          "type": "string"
+                        },
+                        "generatedDate": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "reportItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "balance": {
+                            "type": "string"
+                          },
+                          "accountName": {
+                            "type": "string"
+                          },
+                          "accountCategory": {
+                            "type": "object",
+                            "properties": {
+                              "status": {
+                                "type": "string"
+                              },
+                              "levels": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "levelName": {
+                                      "type": "string"
+                                    },
+                                    "confidence": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-companies-companyId-reports-enhancedBalanaceSheet-accounts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          }
+        ],
+        "description": "Gets a list of accounts with account categories per statement period, specific to balance sheet"
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/mrr": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Gets key metrics for subscription revenue",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reportInfo": {
+                      "type": "object",
+                      "properties": {
+                        "additionalProp1": {
+                          "type": "string"
+                        },
+                        "additionalProp2": {
+                          "type": "string"
+                        },
+                        "additionalProp3": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "dimensions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "integer"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "items": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "index": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "measures": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "units": {
+                            "type": "string"
+                          },
+                          "index": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "reportData": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "dimension": {
+                            "type": "integer"
+                          },
+                          "dimensionDisplayName": {
+                            "type": "string"
+                          },
+                          "item": {
+                            "type": "integer"
+                          },
+                          "itemDisplayName": {
+                            "type": "string"
+                          },
+                          "measures": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "index": {
+                                  "type": "integer"
+                                },
+                                "measureDisplayName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "components": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "details": {
+                            "type": "object",
+                            "properties": {
+                              "additionalProp1": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "additionalProp2": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "additionalProp3": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "reportInfo": {
+                        "additionalProp1": "string",
+                        "additionalProp2": "string",
+                        "additionalProp3": "string"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "string",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "string",
+                          "units": "string",
+                          "index": 0,
+                          "type": "string"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "string",
+                          "item": 0,
+                          "itemDisplayName": "string",
+                          "measures": [
+                            {
+                              "index": 0,
+                              "measureDisplayName": "string"
+                            }
+                          ],
+                          "components": [
+                            "string"
+                          ]
+                        }
+                      ],
+                      "errors": [
+                        {
+                          "message": "string",
+                          "type": "DatesOutOfRange",
+                          "details": {
+                            "additionalProp1": [
+                              "string"
+                            ],
+                            "additionalProp2": [
+                              "string"
+                            ],
+                            "additionalProp3": [
+                              "string"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-subscriptions-mrr",
+        "description": "Gets key metrics for subscription revenue."
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1"
+        }
+      ],
+      "get": {
+        "summary": "Request production of key subscription revenue metrics",
+        "tags": [
+          "Assess"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-data-companies-companyId-connections-connectionId-assess-subscriptions-process",
+        "description": "Request production of key subscription revenue metrics."
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "Authorization": {
+        "name": "Your Base 64 encoded API Key",
+        "type": "apiKey",
+        "in": "header"
+      }
+    },
+    "parameters": {
+      "dataIntegritydataType": {
+        "name": "dataType",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "banking-accounts",
+            "banking-transactions",
+            "bankAccounts",
+            "accountTransactions"
+          ],
+          "example": "banking-accounts"
+        },
+        "description": "A key for a Codat data type."
+      },
+      "reportDate": {
+        "name": "reportDate",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "29-09-2020"
+        },
+        "description": "The date in which the report is created up to. Users must specify a specific date, however the response will be provided for the full month."
+      },
+      "periodLength": {
+        "name": "periodLength",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "description": "The number of months per period. E.g. 2 = 2 months per period."
+      },
+      "numberOfPeriods": {
+        "name": "numberOfPeriods",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "description": "The number of periods to return.  There will be no pagination as a query parameter, however Codat will limit the number of periods to request to 12 periods."
+      },
+      "periodUnit": {
+        "name": "periodUnit",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "Day",
+            "Week",
+            "Month",
+            "Year"
+          ]
+        },
+        "description": "The period unit of time returned."
+      },
+      "includeDisplayNames": {
+        "name": "includeDisplayNames",
+        "in": "query",
+        "schema": {
+          "type": "boolean"
+        },
+        "description": "Shows the dimensionDisplayName and itemDisplayName in measures to make the report data human-readable."
+      },
+      "excelReportType": {
+        "name": "reportType",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "audit"
+          ]
+        },
+        "description": "The type of report you want to generate and download."
+      }
+    }
+  },
+  "security": []
+}
