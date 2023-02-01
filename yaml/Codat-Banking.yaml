@@ -13,13 +13,17 @@ servers:
   - url: 'https://api.codat.io'
     description: Codat
 tags:
-  - name: Banking data
+  - name: Account balances
+    description: Retrieve standardized data from linked bank accounts.
+  - name: Accounts
+    description: Retrieve standardized data from linked bank accounts.
+  - name: Transactions
     description: Retrieve standardized data from linked bank accounts.
 paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances':
     get:
       tags:
-        - Banking data
+        - Account balances
       summary: List bank balances
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
@@ -43,7 +47,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
-        - Banking data
+        - Accounts
       summary: List bank accounts
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
@@ -74,7 +78,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
-        - Banking data
+        - Accounts
       summary: Get a bank account for a company
       responses:
         '200':
@@ -101,7 +105,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories':
     get:
       tags:
-        - Banking data
+        - Transactions
       summary: List bank transaction categories
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
@@ -125,7 +129,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}':
     get:
       tags:
-        - Banking data
+        - Transactions
       summary: Get a bank transaction category for a company
       responses:
         '200':
@@ -152,7 +156,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions':
     get:
       tags:
-        - Banking data
+        - Transactions
       summary: List transactions for a bank account
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
@@ -176,7 +180,7 @@ paths:
   '/companies/{companyId}/data/banking-transactions':
     get:
       tags:
-        - Banking data
+        - Transactions
       summary: List banking transactions for a company
       parameters:
         - name: page
@@ -233,7 +237,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     get:
       tags:
-        - Banking data
+        - Transactions
       summary: Get a bank transaction for a company
       responses:
         '200':

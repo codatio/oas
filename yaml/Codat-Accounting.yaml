@@ -15,24 +15,24 @@ servers:
   - url: 'https://api.codat.io'
     description: Codat
 tags:
-  - name: AccountTransactions
-    description: AccountTransactions
+  - name: Account transactions
+    description: Account transactions
   - name: Accounts
     description: Accounts
-  - name: BillCreditNotes
-    description: BillCreditNotes
-  - name: BillPayments
-    description: BillPayments
+  - name: Bill credit notes
+    description: Bill credit notes
+  - name: Bill payments
+    description: Bill payments
   - name: Bills
     description: Bills
-  - name: CreditNotes
-    description: CreditNotes
+  - name: Credit notes
+    description: Credit notes
   - name: Customers
     description: Customers
-  - name: DirectCosts
-    description: DirectCosts
-  - name: DirectIncomes
-    description: DirectIncomes
+  - name: Direct costs
+    description: Direct costs
+  - name: Direct incomes
+    description: Direct incomes
   - name: Financials
     description: Financials
   - name: Info
@@ -41,42 +41,34 @@ tags:
     description: Invoices
   - name: Items
     description: Items
-  - name: JournalEntries
-    description: JournalEntries
+  - name: Journal entries
+    description: Journal entries
   - name: Journals
     description: Journals
-  - name: PaymentMethods
-    description: PaymentMethods
+  - name: Payment methods
+    description: Payment methods
   - name: Payments
     description: Payments
-  - name: PurchaseOrders
-    description: PurchaseOrders
-  - name: SalesOrders
-    description: SalesOrders
+  - name: Purchase orders
+    description: Purchase orders
+  - name: Sales orders
+    description: Sales orders
   - name: Suppliers
     description: Suppliers
-  - name: TaxRates
-    description: TaxRates
-  - name: TrackingCategories
-    description: TrackingCategories
+  - name: Tax rates
+    description: Tax rates
+  - name: Tracking categories
+    description: Tracking categories
   - name: Transfers
     description: Transfers
-  - name: BankingAccountBalances
-    description: BankingAccountBalances
-  - name: BankingAccounts
-    description: BankingAccounts
-  - name: BankAccounts
-    description: BankAccounts
-  - name: BankingTransactionCategories
-    description: BankingTransactionCategories
-  - name: BankingTransactions
-    description: BankingTransactions
+  - name: Bank accounts
+    description: Bank accounts
 paths:
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions':
     get:
       tags:
-        - AccountTransactions
-      summary: Get account transactions for a company
+        - Account transactions
+      summary: List account transactions
       parameters:
         - name: companyId
           in: path
@@ -125,8 +117,8 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}':
     get:
       tags:
-        - AccountTransactions
-      summary: Get account transaction for a company and connection.
+        - Account transactions
+      summary: Get account transaction
       parameters:
         - name: companyId
           in: path
@@ -160,7 +152,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Gets the latest chart of accounts for a company
+      summary: Get chart of accounts for a company
       parameters:
         - name: companyId
           in: path
@@ -204,7 +196,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Gets a single account corresponding to the supplied Id
+      summary: Gets account
       parameters:
         - name: companyId
           in: path
@@ -232,7 +224,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Posts an individual account for a given company.
+      summary: Post account
       parameters:
         - name: companyId
           in: path
@@ -270,8 +262,8 @@ paths:
   '/companies/{companyId}/data/billCreditNotes':
     get:
       tags:
-        - BillCreditNotes
-      summary: List all bill credit notes for a company
+        - Bill credit notes
+      summary: List bill credit notes
       parameters:
         - name: companyId
           in: path
@@ -314,7 +306,7 @@ paths:
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
     get:
       tags:
-        - BillCreditNotes
+        - Bill credit notes
       summary: Get billCreditNote corresponding to the supplied Id
       parameters:
         - name: companyId
@@ -343,8 +335,8 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/billCreditNotes':
     post:
       tags:
-        - BillCreditNotes
-      summary: Posts a new billCreditNote to the accounting package for a given company.
+        - Bill credit notes
+      summary: Create a billCreditNote
       parameters:
         - name: companyId
           in: path
@@ -382,8 +374,8 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/billCreditNotes/{billCreditNoteId}':
     put:
       tags:
-        - BillCreditNotes
-      summary: Posts an updated billCreditNote to the accounting package for a given company.
+        - Bill credit notes
+      summary: Update billCreditNote
       parameters:
         - name: companyId
           in: path
@@ -431,7 +423,7 @@ paths:
   '/companies/{companyId}/data/billPayments':
     get:
       tags:
-        - BillPayments
+        - Bill payments
       summary: 'List billPayments for a company, with pagination'
       parameters:
         - name: companyId
@@ -475,7 +467,7 @@ paths:
   '/companies/{companyId}/data/billPayments/{billPaymentId}':
     get:
       tags:
-        - BillPayments
+        - Bill payments
       parameters:
         - name: companyId
           in: path
@@ -504,7 +496,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/billPayments':
     post:
       tags:
-        - BillPayments
+        - Bill payments
       summary: Posts a new bill payment to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -841,7 +833,7 @@ paths:
   '/companies/{companyId}/data/creditNotes':
     get:
       tags:
-        - CreditNotes
+        - Credit notes
       summary: 'Gets a list of all credit notes for a company, with pagination'
       parameters:
         - name: companyId
@@ -885,7 +877,7 @@ paths:
   '/companies/{companyId}/data/creditNotes/{creditNoteId}':
     get:
       tags:
-        - CreditNotes
+        - Credit notes
       summary: Get creditNote
       parameters:
         - name: companyId
@@ -915,7 +907,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/creditNotes':
     post:
       tags:
-        - CreditNotes
+        - Credit notes
       parameters:
         - name: companyId
           in: path
@@ -954,7 +946,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/creditNotes/{creditNoteId}':
     put:
       tags:
-        - CreditNotes
+        - Credit notes
       summary: Posts an updated credit note to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -1273,7 +1265,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directCosts':
     get:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Gets the direct costs for the company.
       parameters:
         - name: companyId
@@ -1323,7 +1315,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}':
     get:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Gets the specified direct cost for a given company.
       parameters:
         - name: companyId
@@ -1359,7 +1351,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/directCosts':
     post:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Posts a new direct cost to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -1398,7 +1390,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/directCosts/{directCostId}/attachment':
     post:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Posts a new direct cost attachment for a given company.
       parameters:
         - name: companyId
@@ -1428,7 +1420,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}':
     get:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Gets the specified direct cost attachment for a given company.
       parameters:
         - name: companyId
@@ -1467,7 +1459,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}/download':
     get:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: Download direct cost attachment
       parameters:
         - name: companyId
@@ -1502,7 +1494,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments':
     get:
       tags:
-        - DirectCosts
+        - Direct costs
       summary: List direct cost attachments
       parameters:
         - name: companyId
@@ -1536,7 +1528,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes':
     get:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Gets the direct incomes for a given company.
       parameters:
         - name: companyId
@@ -1586,7 +1578,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}':
     get:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Gets the specified direct income for a given company and connection.
       parameters:
         - name: companyId
@@ -1622,7 +1614,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/directIncomes':
     post:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Posts a new direct income to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -1661,7 +1653,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/directIncomes/{directIncomeId}/attachment':
     post:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Posts a new direct income attachment for a given company.
       parameters:
         - name: companyId
@@ -1691,7 +1683,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}':
     get:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Gets the specified direct income attachment for a given company.
       parameters:
         - name: companyId
@@ -1730,7 +1722,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}/download':
     get:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Downloads an attachment for the specified direct income for a given company.
       parameters:
         - name: companyId
@@ -1765,7 +1757,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments':
     get:
       tags:
-        - DirectIncomes
+        - Direct incomes
       summary: Gets all attachments for the specified direct income for a given company.
       parameters:
         - name: companyId
@@ -2400,7 +2392,7 @@ paths:
   '/companies/{companyId}/data/journalEntries':
     get:
       tags:
-        - JournalEntries
+        - Journal entries
       summary: 'Gets the latest journal entries for a company, with pagination'
       parameters:
         - name: companyId
@@ -2444,7 +2436,7 @@ paths:
   '/companies/{companyId}/data/journalEntries/{journalEntryId}':
     get:
       tags:
-        - JournalEntries
+        - Journal entries
       summary: Gets a single JournalEntry corresponding to the supplied Id
       parameters:
         - name: companyId
@@ -2474,7 +2466,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/journalEntries':
     post:
       tags:
-        - JournalEntries
+        - Journal entries
       summary: Posts a new journalEntry to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -2626,7 +2618,7 @@ paths:
   '/companies/{companyId}/data/paymentMethods':
     get:
       tags:
-        - PaymentMethods
+        - Payment methods
       summary: Gets the payment methods for a given company.
       parameters:
         - name: companyId
@@ -2672,7 +2664,7 @@ paths:
   '/companies/{companyId}/data/paymentMethods/{paymentMethodId}':
     get:
       tags:
-        - PaymentMethods
+        - Payment methods
       summary: Gets the specified payment method for a given company.
       parameters:
         - name: companyId
@@ -2815,7 +2807,7 @@ paths:
   '/companies/{companyId}/data/purchaseOrders':
     get:
       tags:
-        - PurchaseOrders
+        - Purchase orders
       parameters:
         - name: companyId
           in: path
@@ -2859,7 +2851,7 @@ paths:
   '/companies/{companyId}/data/purchaseOrders/{purchaseOrderId}':
     get:
       tags:
-        - PurchaseOrders
+        - Purchase orders
       parameters:
         - name: companyId
           in: path
@@ -2889,7 +2881,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/purchaseOrders':
     post:
       tags:
-        - PurchaseOrders
+        - Purchase orders
       summary: Posts a new purchase order to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -2928,7 +2920,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/purchaseOrders/{purchaseOrderId}':
     put:
       tags:
-        - PurchaseOrders
+        - Purchase orders
       summary: Posts an updated purchase order to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -2977,7 +2969,7 @@ paths:
   '/companies/{companyId}/data/salesOrders':
     get:
       tags:
-        - SalesOrders
+        - Sales orders
       parameters:
         - name: companyId
           in: path
@@ -3021,7 +3013,7 @@ paths:
   '/companies/{companyId}/data/salesOrders/{salesOrderId}':
     get:
       tags:
-        - SalesOrders
+        - Sales orders
       parameters:
         - name: companyId
           in: path
@@ -3321,7 +3313,7 @@ paths:
   '/companies/{companyId}/data/taxRates':
     get:
       tags:
-        - TaxRates
+        - Tax rates
       summary: List tax rates
       parameters:
         - name: companyId
@@ -3365,7 +3357,7 @@ paths:
   '/companies/{companyId}/data/taxRates/{taxRateId}':
     get:
       tags:
-        - TaxRates
+        - Tax rates
       summary: Gets the specified tax rate for a given company.
       parameters:
         - name: companyId
@@ -3395,7 +3387,7 @@ paths:
   '/companies/{companyId}/data/trackingCategories':
     get:
       tags:
-        - TrackingCategories
+        - Tracking categories
       summary: Gets the latest tracking categories for a given company.
       parameters:
         - name: companyId
@@ -3439,7 +3431,7 @@ paths:
   '/companies/{companyId}/data/trackingCategories/{trackingCategoryId}':
     get:
       tags:
-        - TrackingCategories
+        - Tracking categories
       summary: Gets the specified tracking categories for a given company.
       parameters:
         - name: companyId
@@ -3594,7 +3586,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Gets the list of bank accounts for a given connection
       parameters:
         - name: companyId
@@ -3644,7 +3636,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Get bank account
       parameters:
         - name: companyId
@@ -3680,7 +3672,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: List all bank transactions for all bank accounts
       parameters:
         - name: companyId
@@ -3735,7 +3727,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Gets the options of pushing bank account transactions.
       parameters:
         - name: companyId
@@ -3769,7 +3761,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts':
     post:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Posts a new bank account to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -3813,7 +3805,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{bankAccountId}':
     put:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Posts an updated bank account to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -3862,7 +3854,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions':
     post:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Posts bank transactions to the accounting package for a given company.
       parameters:
         - name: companyId
@@ -3911,7 +3903,7 @@ paths:
   '/companies/{companyId}/data/bankAccounts/{accountId}':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Gets the bank account for given account ID.
       parameters:
         - name: companyId
@@ -3944,7 +3936,7 @@ paths:
   '/companies/{companyId}/data/bankAccounts/{accountId}/transactions':
     get:
       tags:
-        - BankAccounts
+        - Bank accounts
       summary: Gets the latest bank transactions for given account ID and company.
       parameters:
         - name: companyId
