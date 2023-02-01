@@ -14,7 +14,7 @@
   },
   "tags": [
     {
-      "name": "Banking Data",
+      "name": "Banking data",
       "description": "Retrieve standardized data from linked bank accounts."
     }
   ],
@@ -22,7 +22,7 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
         "summary": "List bank balances",
         "parameters": [
@@ -71,7 +71,7 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-accounts": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
         "summary": "List bank accounts",
         "parameters": [
@@ -128,9 +128,9 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
-        "summary": "Gets a bank account for a company",
+        "summary": "Get a bank account for a company",
         "responses": {
           "200": {
             "description": "Success",
@@ -150,7 +150,8 @@
         ],
         "operationId": "get-bank-account",
         "deprecated": true,
-        "description": "Gets a specified bank account for a given company"
+        "description": "Gets a specified bank account for a given company",
+        "x-internal": true
       },
       "parameters": [
         {
@@ -173,7 +174,7 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
         "summary": "List bank transaction categories",
         "parameters": [
@@ -222,7 +223,7 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
         "summary": "Get a bank transaction category for a company",
         "responses": {
@@ -244,7 +245,8 @@
         ],
         "deprecated": true,
         "operationId": "get-bank-transaction-category",
-        "description": "Gets a specified bank transaction category for a given company"
+        "description": "Gets a specified bank transaction category for a given company",
+        "x-internal": true
       },
       "parameters": [
         {
@@ -267,9 +269,9 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactions": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
-        "summary": "List transactions for a bank account.",
+        "summary": "List transactions for a bank account",
         "parameters": [
           {
             "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
@@ -316,9 +318,9 @@
     "/companies/{companyId}/data/banking-transactions": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
-        "summary": "List all banking transactions for a company",
+        "summary": "List banking transactions for a company",
         "parameters": [
           {
             "name": "page",
@@ -401,9 +403,9 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}": {
       "get": {
         "tags": [
-          "Banking Data"
+          "Banking data"
         ],
-        "summary": "Gets a specified bank transaction for a given company",
+        "summary": "Get a bank transaction for a company",
         "responses": {
           "200": {
             "description": "Success",
@@ -423,7 +425,8 @@
         ],
         "description": "Gets a specified bank transaction for a given company",
         "operationId": "get-banking-transaction",
-        "deprecated": true
+        "deprecated": true,
+        "x-internal": true
       },
       "parameters": [
         {
