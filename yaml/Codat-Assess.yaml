@@ -17,13 +17,19 @@ servers:
 tags:
   - name: Assess
     description: 'Assess enriches your customer''''s accounting, commerce and banking data to surface actionable insights you didn''''t have before.'
+  - name: Data integrity
+    description: Data integrity is important
+  - name: Reports
+    description: Data integrity is important
+  - name: Categories
+    description: Categorisation
 paths:
   /data/assess/accounts/categories:
     parameters: []
     get:
-      summary: Lists Codat's standardized Chart of Account categories
+      summary: List Chart of Account categories
       tags:
-        - Assess
+        - Categories
       responses:
         '200':
           description: OK
@@ -51,9 +57,9 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Lists suggested and confirmed account categories
+      summary: List suggested and confirmed account categories
       tags:
-        - Assess
+        - Categories
       responses:
         '200':
           description: OK
@@ -70,7 +76,7 @@ paths:
                   - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1details/get/responses/200/content/application~1json/schema/allOf/1'
               examples: {}
       operationId: get-data-companies-companyId-connections-connectionId-assess-accounts-categories
-      description: ' Lists suggested and confirmed chart of account categories for the given company and data connection.'
+      description: Lists suggested and confirmed chart of account categories for the given company and data connection.
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/parameters/1'
@@ -79,7 +85,7 @@ paths:
     patch:
       summary: Confirm categories for accounts
       tags:
-        - Assess
+        - Categories
       operationId: patch-data-companies-companyId-connections-connectionId-assess-accounts-categories
       responses:
         '200':
@@ -135,9 +141,9 @@ paths:
         required: true
         description: Nominal account id
     get:
-      summary: Gets the suggested and/or confirmed category for a specific account
+      summary: Get suggested and/or confirmed category for a specific account
       tags:
-        - Assess
+        - Categories
       responses:
         '200':
           description: OK
@@ -205,7 +211,7 @@ paths:
     patch:
       summary: ''
       tags:
-        - Assess
+        - Categories
       operationId: patch-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories
       responses:
         '200':
@@ -242,7 +248,7 @@ paths:
     get:
       summary: Get data integrity status
       tags:
-        - Assess
+        - Data integrity
       responses:
         '200':
           description: OK
@@ -338,7 +344,7 @@ paths:
     get:
       summary: Get data integrity summary
       tags:
-        - Assess
+        - Data integrity
       responses:
         '200':
           description: OK
@@ -400,7 +406,7 @@ paths:
     get:
       summary: Lists data integrity details for date type
       tags:
-        - Assess
+        - Data integrity
       responses:
         '200':
           description: OK
@@ -553,11 +559,11 @@ paths:
           type: string
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-        description: ID of your company's data connection
+        description: Unique identifier for a company's data connection
     get:
       summary: List finanicial metrics for a company
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -683,7 +689,7 @@ paths:
     get:
       summary: Enhanced Profit and Loss
       tags:
-        - Assess
+        - Reports
       operationId: get-data-companies-companyId-connections-connectionId-assess-enhancedProfitAndLoss
       description: 'Gets a fully categorized profit and loss statement for a given company, over one or more period(s).'
       parameters:
@@ -705,7 +711,7 @@ paths:
     get:
       summary: Enhanced Balance Sheet
       tags:
-        - Assess
+        - Reports
       operationId: get-data-companies-companyId-connections-connectionId-assess-enhancedBalanceSheet
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -727,7 +733,7 @@ paths:
     get:
       summary: Commerce Revenue Metrics
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -736,7 +742,7 @@ paths:
               schema:
                 $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema'
       operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-revenue
-      description: 'Gets the revenue and revenue growth for a specific company connection, over one or more periods of time.'
+      description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -748,9 +754,9 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets the order information for a specific company
+      summary: Get order information for a specific company
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -771,7 +777,7 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets the refunds information for a specific company
+      summary: Get the refunds information for a specific company
       tags:
         - Assess
       responses:
@@ -794,7 +800,7 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets the customer retention metrics for a specific company.
+      summary: Get the customer retention metrics for a specific company.
       tags:
         - Assess
       responses:
@@ -817,7 +823,7 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets the lifetime value metric for a specific company.
+      summary: Get the lifetime value metric for a specific company.
       tags:
         - Assess
       responses:
@@ -840,7 +846,7 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets the marketing metrics from an accounting source for a given company.
+      summary: Get the marketing metrics from an accounting source for a given company.
       tags:
         - Assess
       responses:
@@ -872,7 +878,7 @@ paths:
           type: string
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
-        description: The unique identifier for your SME in Codat
+        description: Unique identifier for your SMB in Codat
     post:
       summary: Request an Excel report for download
       tags:
@@ -964,7 +970,7 @@ paths:
     get:
       summary: Your GET endpoint
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -1080,7 +1086,7 @@ paths:
             example: 100
             minimum: 1
             maximum: 5000
-          description: Number of records to return on the page
+          description: Number of records to return in a page
         - name: query
           in: query
           required: false
@@ -1093,7 +1099,7 @@ paths:
     get:
       summary: Enhanced Profit And Loss
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -1112,7 +1118,7 @@ paths:
     get:
       summary: Enhanced Balance Sheet
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -1172,9 +1178,9 @@ paths:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: Gets key metrics for subscription revenue
+      summary: Get key metrics for subscription revenue
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
@@ -1319,7 +1325,7 @@ paths:
     get:
       summary: Request production of key subscription revenue metrics
       tags:
-        - Assess
+        - Reports
       responses:
         '200':
           description: OK
