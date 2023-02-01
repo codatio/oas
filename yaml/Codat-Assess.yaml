@@ -27,7 +27,7 @@ paths:
   /data/assess/accounts/categories:
     parameters: []
     get:
-      summary: List Chart of Account categories
+      summary: List account categories
       tags:
         - Categories
       responses:
@@ -61,14 +61,14 @@ paths:
               schema:
                 type: object
                 properties: {}
-      operationId: list-chart-of-account-categoriesories
+      operationId: list-chart-of-account-categories
       description: 'Lists available Chart of Account categories Codat''s categorisation engine can provide. '
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories':
     parameters:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: List suggested and confirmed account categories
+      summary: List all account categories
       tags:
         - Categories
       responses:
@@ -152,7 +152,7 @@ paths:
         required: true
         description: Nominal account id
     get:
-      summary: Get suggested and/or confirmed category for a specific account
+      summary: List account categories
       tags:
         - Categories
       responses:
