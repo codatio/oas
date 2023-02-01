@@ -75,18 +75,38 @@
                         "type": "object",
                         "properties": {
                           "subtypeDisplayName": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Human readable subtype display name."
                           },
                           "detailTypeDisplayName": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Human readable detailType display name."
                           },
                           "detailTypeDescription": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "A description of the fully categorized (to detail type) account."
                           }
                         }
                       }
                     ],
-                    "title": ""
+                    "examples": [
+                      {
+                        "type": "Asset",
+                        "subtype": "Current",
+                        "subtypeDisplayName": "Current assets",
+                        "detailType": "Cash",
+                        "detailTypeDisplayName": "Cash",
+                        "detailTypeDescription": "Use 'Cash' for cash in the bank or held on premise. This should include overdrawn accounts."
+                      },
+                      {
+                        "type": "Income",
+                        "subtype": "Operating",
+                        "subtypeDisplayName": "Operating",
+                        "detailType": "GeneralServices",
+                        "detailTypeDisplayName": "General services",
+                        "detailTypeDescription": "Use 'General services' for income generated from services the company performs or usage fees charged."
+                      }
+                    ]
                   }
                 }
               }
@@ -123,6 +143,7 @@
                       "properties": {
                         "results": {
                           "type": "array",
+                          "description": "A list confirmed and suggested account categories.",
                           "items": {
                             "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema"
                           }
@@ -186,6 +207,7 @@
                 "properties": {
                   "categories": {
                     "type": "array",
+                    "description": "List of confirmed account categories set manually by the user. ",
                     "items": {
                       "allOf": [
                         {
@@ -234,9 +256,28 @@
                     }
                   }
                 }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "categories": [
+                      {
+                        "accountRef": {
+                          "id": "13d946f0-c5d5-42bc-b092-97ece17923ab"
+                        },
+                        "confirmed": {
+                          "type": "Asset",
+                          "subtype": "Current",
+                          "detailType": "Cash"
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
-          }
+          },
+          "description": ""
         }
       }
     },
@@ -273,7 +314,7 @@
                     {
                       "properties": {
                         "accountRef": {
-                          "description": "Nominal account reference",
+                          "description": "An object containing account reference data.",
                           "title": "nameRef",
                           "x-stoplight": {
                             "id": "34dd919grzbls"
@@ -398,18 +439,34 @@
                     "properties": {
                       "type": {
                         "type": "string",
-                        "description": "Top level chart of account category type."
+                        "description": "The top level account type."
                       },
                       "subtype": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The account subtype."
                       },
                       "detailType": {
                         "type": "string",
                         "description": "Most granular chart of account type."
                       }
-                    }
+                    },
+                    "examples": [
+                      {
+                        "type": "Asset",
+                        "subtype": "Current",
+                        "detailType": "Cash"
+                      },
+                      {
+                        "type": "Income",
+                        "subtype": "Operating",
+                        "detailType": "GeneralServices"
+                      }
+                    ]
                   }
-                }
+                },
+                "required": [
+                  "confirmed"
+                ]
               }
             }
           }
@@ -442,107 +499,148 @@
                     "metadata": {
                       "type": "array",
                       "items": {
-                        "title": "DataIntegrityStatus",
-                        "x-stoplight": {
-                          "id": "91oalbieck7b7"
-                        },
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "description": "The data type which the data type in the URL has been matched against. For example, if you've matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions."
-                          },
-                          "statusInfo": {
+                        "allOf": [
+                          {
+                            "title": "DataIntegrityType",
+                            "x-stoplight": {
+                              "id": "jy0gzm7xk6wgg"
+                            },
                             "type": "object",
                             "properties": {
-                              "lastMatched": {
+                              "type": {
                                 "type": "string",
-                                "format": "date-time",
-                                "description": "The date the matching algorithm last ran against the company’s bank transaction.",
-                                "readOnly": true
-                              },
-                              "currentStatus": {
-                                "type": "string",
-                                "enum": [
-                                  "Unknown",
-                                  "DoesNotExist",
-                                  "Error",
-                                  "Complete"
-                                ]
-                              },
-                              "statusMessage": {
-                                "type": "string",
-                                "description": "Detailed explanation supporting the status value."
+                                "description": "The data type which the data type in the URL has been matched against. For example, if you've matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions."
                               }
                             }
                           },
-                          "connectionIds": {
+                          {
                             "type": "object",
                             "properties": {
-                              "source": {
-                                "type": "array",
-                                "description": "An array of strings. The connection IDs for the type specified in the url.",
-                                "items": {
-                                  "type": "string"
+                              "statusInfo": {
+                                "type": "object",
+                                "properties": {
+                                  "lastMatched": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "The date the matching algorithm last ran against the company’s data type specified.",
+                                    "readOnly": true
+                                  },
+                                  "currentStatus": {
+                                    "type": "string",
+                                    "enum": [
+                                      "Unknown",
+                                      "DoesNotExist",
+                                      "Error",
+                                      "Complete"
+                                    ],
+                                    "description": "The current status of the most recently run matching algorithm."
+                                  },
+                                  "statusMessage": {
+                                    "type": "string",
+                                    "description": "Detailed explanation supporting the status value."
+                                  }
                                 }
                               },
-                              "target": {
-                                "type": "array",
-                                "description": "An array of strings. The connection IDs for the type being matched to.",
-                                "items": {
-                                  "type": "string"
+                              "connectionIds": {
+                                "type": "object",
+                                "properties": {
+                                  "source": {
+                                    "type": "array",
+                                    "description": "An array of strings. The connection IDs for the type specified in the url.",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "target": {
+                                    "type": "array",
+                                    "description": "An array of strings. The connection IDs for the type being matched to.",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          },
-                          "amounts": {
-                            "type": "object",
-                            "description": "Only returned for transactions. For accounts, there is nothing returned.",
-                            "properties": {
-                              "min": {
-                                "type": "number",
-                                "description": "Lowest value of transaction set."
                               },
-                              "max": {
-                                "type": "number",
-                                "description": "Highest value of transaction set."
+                              "amounts": {
+                                "type": "object",
+                                "description": "Only returned for transactions. For accounts, there is nothing returned.",
+                                "properties": {
+                                  "min": {
+                                    "type": "number",
+                                    "description": "Lowest value of transaction set."
+                                  },
+                                  "max": {
+                                    "type": "number",
+                                    "description": "Highest value of transaction set."
+                                  },
+                                  "currency": {
+                                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
+                                  }
+                                }
                               },
-                              "currency": {
-                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
-                              }
-                            }
-                          },
-                          "dates": {
-                            "type": "object",
-                            "description": "Only returned for transactions. For accounts, there is nothing returned.",
-                            "properties": {
-                              "minDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "Earliest date of transaction set.",
-                                "readOnly": true
-                              },
-                              "maxDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "Latest date of transaction set.",
-                                "readOnly": true
-                              },
-                              "minOverlappingDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "Earliest date where transactions exist in both accounting and banking platforms.",
-                                "readOnly": true
-                              },
-                              "maxOverlappingDate": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "Latest date where transactions exist in both account and banking platforms.",
-                                "readOnly": true
+                              "dates": {
+                                "type": "object",
+                                "description": "Only returned for transactions. For accounts, there is nothing returned.",
+                                "properties": {
+                                  "minDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "Earliest date of transaction set.",
+                                    "readOnly": true
+                                  },
+                                  "maxDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "Latest date of transaction set.",
+                                    "readOnly": true
+                                  },
+                                  "minOverlappingDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "Earliest date where transactions exist in both accounting and banking platforms.",
+                                    "readOnly": true
+                                  },
+                                  "maxOverlappingDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "Latest date where transactions exist in both account and banking platforms.",
+                                    "readOnly": true
+                                  }
+                                }
                               }
                             }
                           }
-                        }
+                        ],
+                        "examples": [
+                          {
+                            "type": "string",
+                            "statusInfo": {
+                              "lastMatched": "2021-10-24T14:15:22Z",
+                              "currentStatus": "Unknown",
+                              "statusMessage": "string"
+                            },
+                            "connectionIds": {
+                              "source": [
+                                "d5a8d1b2-b38a-4e44-8641-548ad43be6bb",
+                                "da8c9f39-8af9-4a98-964b-f1e207942837"
+                              ],
+                              "target": [
+                                "3d7ce25a-c107-44bc-8e0c-36c10bdd14e0",
+                                "a5300eac-01fa-4a77-b5b0-ea0b86a3be69"
+                              ]
+                            },
+                            "amounts": {
+                              "min": 130,
+                              "max": 2450,
+                              "currency": "GBP"
+                            },
+                            "dates": {
+                              "minDate": "2021-09-17T12:09:33.441Z",
+                              "maxDate": "2021-12-16T12:12:53.441Z",
+                              "minOverlappingDate": "2021-09-30T12:09:13.441Z",
+                              "maxOverlappingDate": "2021-11-27T12:19:33.441Z"
+                            }
+                          }
+                        ]
                       }
                     }
                   }
@@ -580,61 +678,61 @@
                     "summaries": {
                       "type": "array",
                       "items": {
-                        "title": "DataIntegritySummary",
-                        "x-stoplight": {
-                          "id": "wwewtiwqj98nt"
-                        },
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string"
+                        "allOf": [
+                          {
+                            "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1status/get/responses/200/content/application~1json/schema/properties/metadata/items/allOf/0"
                           },
-                          "byAmount": {
+                          {
                             "type": "object",
                             "properties": {
-                              "matchPercentage": {
-                                "type": "number",
-                                "description": "The percentage of the absolute value of transactions of the type specified in the route which have a match."
+                              "byAmount": {
+                                "type": "object",
+                                "properties": {
+                                  "matchPercentage": {
+                                    "type": "number",
+                                    "description": "The percentage of the absolute value of transactions of the type specified in the route which have a match."
+                                  },
+                                  "unmatched": {
+                                    "type": "number",
+                                    "description": "The sum of the absolute value of transactions of the type specified in the route which don't have a match."
+                                  },
+                                  "matched": {
+                                    "type": "number",
+                                    "description": "The sum of the absolute value of transactions of the type specified in the route which have a match."
+                                  },
+                                  "total": {
+                                    "type": "number",
+                                    "description": "The total of unmatched and matched."
+                                  },
+                                  "currency": {
+                                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
+                                  }
+                                }
                               },
-                              "unmatched": {
-                                "type": "number",
-                                "description": "The sum of the absolute value of transactions of the type specified in the route which don't have a match."
-                              },
-                              "matched": {
-                                "type": "number",
-                                "description": "The sum of the absolute value of transactions of the type specified in the route which have a match."
-                              },
-                              "total": {
-                                "type": "number",
-                                "description": "The total of unmatched and matched."
-                              },
-                              "currency": {
-                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency"
-                              }
-                            }
-                          },
-                          "byCount": {
-                            "type": "object",
-                            "properties": {
-                              "matchPercentage": {
-                                "type": "number",
-                                "description": "The percentage of records of the type specified in the route which have a match."
-                              },
-                              "unmatched": {
-                                "type": "number",
-                                "description": "The number of records of the type specified in the route which don't have a match."
-                              },
-                              "matched": {
-                                "type": "number",
-                                "description": "The number of records of the type specified in the route which do have a match."
-                              },
-                              "total": {
-                                "type": "number",
-                                "description": "The total of unmatched and matched."
+                              "byCount": {
+                                "type": "object",
+                                "properties": {
+                                  "matchPercentage": {
+                                    "type": "number",
+                                    "description": "The percentage of records of the type specified in the route which have a match."
+                                  },
+                                  "unmatched": {
+                                    "type": "number",
+                                    "description": "The number of records of the type specified in the route which don't have a match."
+                                  },
+                                  "matched": {
+                                    "type": "number",
+                                    "description": "The number of records of the type specified in the route which do have a match."
+                                  },
+                                  "total": {
+                                    "type": "number",
+                                    "description": "The total of unmatched and matched."
+                                  }
+                                }
                               }
                             }
                           }
-                        }
+                        ]
                       }
                     }
                   }
@@ -928,6 +1026,14 @@
                         "EUR"
                       ]
                     },
+                    "periodUnit": {
+                      "type": "string",
+                      "enum": [
+                        "Month",
+                        "Week",
+                        "Day"
+                      ]
+                    },
                     "metrics": {
                       "type": "array",
                       "items": {
@@ -936,15 +1042,44 @@
                           "id": "u8za4ihixgnal"
                         },
                         "type": "object",
+                        "examples": [],
                         "properties": {
                           "name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Metric name."
                           },
                           "metricUnit": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                              "Ratio",
+                              "Money"
+                            ]
                           },
                           "key": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                              "Unknown",
+                              "EBITDA",
+                              "DebtServiceCoverageRatio",
+                              "CurrentRatio QuickRatio",
+                              "GrossProfitMargin",
+                              "FixedChargeCoverageRatio",
+                              "WorkingCapital",
+                              "FreeCashFlow",
+                              "NetProfitMargin",
+                              "ReturnOnAssetsRatio",
+                              "ReturnOnEquityRatio",
+                              "OperatingProfitMargin",
+                              "DeptToEquity",
+                              "DebtToAssets",
+                              "InterestCoverageRatio",
+                              "CashRatio",
+                              "InventoryTurnoverRatio",
+                              "AssetTurnoverRatio",
+                              "WorkingCapitalTurnoverRatio",
+                              "DaysSalesOutstanding",
+                              "DaysPayablesOutstanding"
+                            ]
                           },
                           "periods": {
                             "type": "array",
@@ -953,14 +1088,17 @@
                               "properties": {
                                 "fromDate": {
                                   "type": "string",
-                                  "format": "date-time"
+                                  "format": "date",
+                                  "description": "The date from which the report starts."
                                 },
                                 "toDate": {
                                   "type": "string",
-                                  "format": "date-time"
+                                  "format": "date",
+                                  "description": "The date on which the report ends (inclusive of day)."
                                 },
                                 "value": {
-                                  "type": "number"
+                                  "type": "number",
+                                  "description": "The top level metric value that is calculated for the specified period. \n\nIf the system cannot calculate for that period, the value will be null. The system will still show the metric inputs."
                                 },
                                 "inputs": {
                                   "type": "array",
@@ -968,10 +1106,12 @@
                                     "type": "object",
                                     "properties": {
                                       "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The name of the metric input e.g. “Current Assets”, “Capital Expenditure”."
                                       },
                                       "value": {
-                                        "type": "number"
+                                        "type": "number",
+                                        "description": "The positive or negative number of the input value."
                                       }
                                     }
                                   }
@@ -979,7 +1119,25 @@
                                 "errors": {
                                   "type": "array",
                                   "items": {
-                                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/metrics/items/properties/errors/items"
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "MissingAccountData",
+                                          "DatesOutOfRange"
+                                        ],
+                                        "description": "Period error type."
+                                      },
+                                      "massage": {
+                                        "type": "string",
+                                        "example": "Missing account data",
+                                        "description": "Description of the error."
+                                      },
+                                      "details": {
+                                        "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/metrics/items/properties/errors/items/properties/details"
+                                      }
+                                    }
                                   }
                                 }
                               }
@@ -988,51 +1146,51 @@
                           "errors": {
                             "type": "array",
                             "items": {
-                              "title": "AssessError",
-                              "x-stoplight": {
-                                "id": "si5rmz0bcsz7g"
-                              },
                               "type": "object",
-                              "examples": [
-                                {
-                                  "type": "string",
-                                  "message": "string",
-                                  "details": {
-                                    "additionalProp1": [
-                                      "string"
-                                    ],
-                                    "additionalProp2": [
-                                      "string"
-                                    ],
-                                    "additionalProp3": [
-                                      "string"
-                                    ]
-                                  }
-                                }
-                              ],
                               "properties": {
                                 "type": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "enum": [
+                                    "UncategorizedAccounts",
+                                    "MissingInputData",
+                                    "InputDataError"
+                                  ],
+                                  "description": "Metric level error."
                                 },
                                 "message": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Description of the error.",
+                                  "example": "There are uncategorized accounts IDs, see details."
                                 },
                                 "details": {
+                                  "title": "AssessErrorDetails",
+                                  "x-stoplight": {
+                                    "id": "zgc85tharf4zx"
+                                  },
                                   "type": "object",
+                                  "description": "Dictionary list outlining the missing properties or allowed values.",
+                                  "examples": [
+                                    {
+                                      "missingData": [
+                                        "Expense.Operating.Interest",
+                                        "Expense.NonOperating.Interest"
+                                      ]
+                                    }
+                                  ],
                                   "properties": {
-                                    "additionalProp1": {
+                                    "propertyDetail1": {
                                       "type": "array",
                                       "items": {
                                         "type": "string"
                                       }
                                     },
-                                    "additionalProp2": {
+                                    "propertyDetail2": {
                                       "type": "array",
                                       "items": {
                                         "type": "string"
                                       }
                                     },
-                                    "additionalProp3": {
+                                    "propertyDetailN": {
                                       "type": "array",
                                       "items": {
                                         "type": "string"
@@ -1043,25 +1201,90 @@
                               }
                             }
                           }
-                        }
+                        },
+                        "description": ""
                       }
-                    },
-                    "periodUnit": {
-                      "type": "string"
                     },
                     "errors": {
                       "type": "array",
+                      "description": "If there are no errors, an empty array is returned.",
                       "items": {
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                              "DataNotSynced",
+                              "DataNotSupported",
+                              "DataSyncFailed",
+                              "DataTypeNotEnabled"
+                            ]
                           },
                           "message": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Account categories data has not been synced"
                           }
                         }
                       }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "currency": "GBP",
+                      "periodUnit": "Month",
+                      "metrics": [
+                        {
+                          "name": "string",
+                          "metricUnit": "Money",
+                          "key": "EBITDA",
+                          "periods": [
+                            {
+                              "fromDate": "2022-02-12",
+                              "toDate": "2022-12-31",
+                              "value": 0,
+                              "inputs": [
+                                {
+                                  "name": "string",
+                                  "value": 0
+                                }
+                              ],
+                              "errors": [
+                                {
+                                  "type": "MissingAccountData",
+                                  "massage": "Missing account data",
+                                  "details": {
+                                    "missingData": [
+                                      "Expense.Operating.Interest",
+                                      "Expense.NonOperating.Interest"
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "errors": [
+                            {
+                              "type": "UncategorizedAccounts",
+                              "message": "There are uncategorized accounts, see details.",
+                              "details": {
+                                "accountIds": [
+                                  123,
+                                  456,
+                                  789
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "errors": [
+                        {
+                          "type": "DataNotSynced",
+                          "message": "Account categories data has not been synced"
+                        }
+                      ]
                     }
                   }
                 }
@@ -1129,6 +1352,1042 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "enhanced_profit_and_loss",
+                        "displayName": "Enhanced Profit and Loss"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2021-02-01",
+                              "end": "2022-01-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Category",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Income"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Expense"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Gross Profit"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Net Operating Profit"
+                            },
+                            {
+                              "index": 4,
+                              "value": "Net Profit"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 2,
+                          "displayName": "Sub Type",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Operating"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Cost of sales"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Non-operating"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 3,
+                          "displayName": "Detail Type",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Other operating income"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Materials"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Marketing"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Depreciation and depletion"
+                            },
+                            {
+                              "index": 4,
+                              "value": "Entertainment"
+                            },
+                            {
+                              "index": 5,
+                              "value": "General and Administrative"
+                            },
+                            {
+                              "index": 6,
+                              "value": "Repairs and maintenance"
+                            },
+                            {
+                              "index": 7,
+                              "value": "Distribution"
+                            },
+                            {
+                              "index": 8,
+                              "value": "Buildings rent and lease"
+                            },
+                            {
+                              "index": 9,
+                              "value": "Subscription fees"
+                            },
+                            {
+                              "index": 10,
+                              "value": "Travel"
+                            },
+                            {
+                              "index": 11,
+                              "value": "Bank charges"
+                            },
+                            {
+                              "index": 12,
+                              "value": "Taxes"
+                            },
+                            {
+                              "index": 13,
+                              "value": "Labour"
+                            },
+                            {
+                              "index": 14,
+                              "value": "Amortization"
+                            },
+                            {
+                              "index": 15,
+                              "value": "Interest"
+                            },
+                            {
+                              "index": 16,
+                              "value": "Other non-operating expenses"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 4,
+                          "displayName": "Accounts",
+                          "type": "recordRef",
+                          "items": [
+                            {
+                              "index": 0,
+                              "id": "72df89d2-512b-4455-af51-a6b563733842",
+                              "displayName": "Sales",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 1,
+                              "id": "68794a8f-b22d-4520-b97b-025b7cb10f94",
+                              "displayName": "Other Revenue",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 2,
+                              "id": "7403e960-5b72-42ff-abf4-c870ad8910bd",
+                              "displayName": "Purchases",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 3,
+                              "id": "868591ad-f9c2-4956-a5ec-c32c1d48c6f3",
+                              "displayName": "Advertising & Marketing",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 4,
+                              "id": "940c8a59-3348-4a0b-a1b1-781d9f29cc8b",
+                              "displayName": "Depreciation Expense",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 5,
+                              "id": "e7ac3baa-cfbe-40c1-a172-83d22e84435b",
+                              "displayName": "Entertainment-100% business",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 6,
+                              "id": "b5e801e8-8dbc-4390-ac99-3b0fff54a89f",
+                              "displayName": "General Expenses",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 7,
+                              "id": "5360066d-1474-49f6-a7a5-c66d5f6032ba",
+                              "displayName": "Light, Power, Heating",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 8,
+                              "id": "138a8eb3-5c08-4e59-a3bc-892119694447",
+                              "displayName": "Motor Vehicle Expenses",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 9,
+                              "id": "1734ff00-2a17-45b4-8db6-2dc2e832c460",
+                              "displayName": "Postage, Freight & Courier",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 10,
+                              "id": "7aa7988a-ff61-4cb8-bef3-15395355d108",
+                              "displayName": "Printing & Stationery",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 11,
+                              "id": "9cbe5fe4-ca60-4792-8bf1-de01fb7010aa",
+                              "displayName": "Rent",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 12,
+                              "id": "04f7111b-55d4-4efc-b329-1bd5c791933a",
+                              "displayName": "Repairs & Maintenance",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 13,
+                              "id": "7d8d0322-f452-47de-a8e8-54b0130e6f38",
+                              "displayName": "Subscriptions",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 14,
+                              "id": "043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03",
+                              "displayName": "Telephone & Internet",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 15,
+                              "id": "df62060b-41cc-4bf2-9de7-c7e537b5663a",
+                              "displayName": "Travel - National",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 16,
+                              "id": "eef78ed1-dfed-447c-bdba-3a49fb2c044b",
+                              "displayName": "Audit & Accountancy fees",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 17,
+                              "id": "f3aa84fe-5c31-4107-b207-7e0419f636d7",
+                              "displayName": "Bank Fees",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 18,
+                              "id": "c16f5c35-8283-47da-9d09-5fecb183b0cb",
+                              "displayName": "Cleaning",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 19,
+                              "id": "fb3210ef-edeb-48af-bb49-b85d40c1e6bb",
+                              "displayName": "Corporation Tax",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 20,
+                              "id": "7f6a0e92-65be-4333-9a0a-d981b03bedd1",
+                              "displayName": "Wages",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 21,
+                              "id": "e8a0a24e-2dab-46b1-bfe1-6e92551c04e8",
+                              "displayName": "Purchase Discounts",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 22,
+                              "id": "4378ddba-36b4-4b35-9970-bd972b20d137",
+                              "displayName": "Amortization",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 23,
+                              "id": "78785fd7-f197-4c34-aa17-6e76b9255d34",
+                              "displayName": "Interest Paid (operating)",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 24,
+                              "id": "cbf82e0d-87a7-464d-b567-9274ea94a1c0",
+                              "displayName": "Charitable and Political Donations",
+                              "dataType": "account"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 0,
+                          "type": "currency"
+                        },
+                        {
+                          "displayName": "Percentage change vs previous period",
+                          "units": "%",
+                          "index": 1,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 0,
+                              "itemDisplayName": "Income",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 1422402.4
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 0,
+                                  "itemDisplayName": "Operating",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 1422402.4
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 0,
+                                      "itemDisplayName": "OtherOperatingIncome",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 1422402.4
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 0,
+                                          "itemDisplayName": "Sales",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 1412199.76
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 1,
+                                          "itemDisplayName": "Other Revenue",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 10202.64
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 1,
+                              "itemDisplayName": "Expense",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 979403.65
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 1,
+                                  "itemDisplayName": "CostOfSales",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 450689.45
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 1,
+                                      "itemDisplayName": "Materials",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 306689.45
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 2,
+                                          "itemDisplayName": "Purchases",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 301322.16
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 21,
+                                          "itemDisplayName": "Purchase Discounts",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 5367.29
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 13,
+                                      "itemDisplayName": "Labour",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 144000
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 20,
+                                          "itemDisplayName": "Wages",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 144000
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 0,
+                                  "itemDisplayName": "Operating",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 513707.91
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 2,
+                                      "itemDisplayName": "Marketing",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 269531.7
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 3,
+                                          "itemDisplayName": "Advertising & Marketing",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 269531.7
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 3,
+                                      "itemDisplayName": "DepreciationDepletion",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 13256.93
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 4,
+                                          "itemDisplayName": "Depreciation Expense",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 13256.93
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 4,
+                                      "itemDisplayName": "Entertainment",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 15526.09
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 5,
+                                          "itemDisplayName": "Entertainment-100% business",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 15526.09
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 5,
+                                      "itemDisplayName": "GeneralAdministrative",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 49065.2
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 6,
+                                          "itemDisplayName": "General Expenses",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 16654.32
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 7,
+                                          "itemDisplayName": "Light, Power, Heating",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 14859.1
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 10,
+                                          "itemDisplayName": "Printing & Stationery",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 15404.82
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 14,
+                                          "itemDisplayName": "Telephone & Internet",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 540
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 16,
+                                          "itemDisplayName": "Audit & Accountancy fees",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 46.96
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 18,
+                                          "itemDisplayName": "Cleaning",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 1560
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 6,
+                                      "itemDisplayName": "RepairsMaintenance",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 22421.17
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 8,
+                                          "itemDisplayName": "Motor Vehicle Expenses",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 13531.13
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 12,
+                                          "itemDisplayName": "Repairs & Maintenance",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 8890.04
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 7,
+                                      "itemDisplayName": "Distribution",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 12593.28
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 9,
+                                          "itemDisplayName": "Postage, Freight & Courier",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 12593.28
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 8,
+                                      "itemDisplayName": "BuildingRentLease",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 96000
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 11,
+                                          "itemDisplayName": "Rent",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 96000
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 9,
+                                      "itemDisplayName": "SubscriptionFees",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 480
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 13,
+                                          "itemDisplayName": "Subscriptions",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 480
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 10,
+                                      "itemDisplayName": "Travel",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 15505.18
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 15,
+                                          "itemDisplayName": "Travel - National",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 15505.18
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 11,
+                                      "itemDisplayName": "BankCharges",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 14529.79
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 17,
+                                          "itemDisplayName": "Bank Fees",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 14529.79
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 14,
+                                      "itemDisplayName": "Amortization",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 68.64
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 22,
+                                          "itemDisplayName": "Amortization",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 68.64
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 15,
+                                      "itemDisplayName": "Interest",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 4729.93
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 23,
+                                          "itemDisplayName": "Interest Paid (operating)",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 4729.93
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 2,
+                                  "itemDisplayName": "NonOperating",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 15006.29
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 12,
+                                      "itemDisplayName": "Taxes",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 10801.01
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 19,
+                                          "itemDisplayName": "Corporation Tax",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 10801.01
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 16,
+                                      "itemDisplayName": "OtherNonOperatingExpenses",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 4205.28
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 24,
+                                          "itemDisplayName": "Charitable and Political Donations",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 4205.28
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 2,
+                              "itemDisplayName": "Gross Profit",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 971712.95
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 3,
+                              "itemDisplayName": "Net Operating Profit",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 458005.04
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 4,
+                              "itemDisplayName": "Net Profit",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 442998.75
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1173,6 +2432,898 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "enhanced_balance_sheet",
+                        "displayName": "Enhanced Balance Sheet"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Category",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Asset"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Liability"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Equity"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Net Assets"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 2,
+                          "displayName": "Sub Type",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Non-current assets"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Current assets"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Current liabilities"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Non-current liabilities"
+                            },
+                            {
+                              "index": 4,
+                              "value": "Equity"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 3,
+                          "displayName": "Detail Type",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Fixtures and fittings"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Equipment and machinery"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Accounts receivable"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Prepaid expenses"
+                            },
+                            {
+                              "index": 4,
+                              "value": "Inventory - merchandise"
+                            },
+                            {
+                              "index": 5,
+                              "value": "Cash"
+                            },
+                            {
+                              "index": 6,
+                              "value": "Taxes payable"
+                            },
+                            {
+                              "index": 7,
+                              "value": "Other current liabilities"
+                            },
+                            {
+                              "index": 8,
+                              "value": "Accounts payable"
+                            },
+                            {
+                              "index": 9,
+                              "value": "Due to employees"
+                            },
+                            {
+                              "index": 10,
+                              "value": "Interest payable"
+                            },
+                            {
+                              "index": 11,
+                              "value": "Notes payable"
+                            },
+                            {
+                              "index": 12,
+                              "value": "Accrued liabilities"
+                            },
+                            {
+                              "index": 13,
+                              "value": "Credit cards"
+                            },
+                            {
+                              "index": 14,
+                              "value": "Loans payable"
+                            },
+                            {
+                              "index": 15,
+                              "value": "Retained earnings"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 4,
+                          "displayName": "Accounts",
+                          "type": "recordRef",
+                          "items": [
+                            {
+                              "index": 0,
+                              "id": "724ca578-8b5d-4bdb-ad45-e3820eee9de9",
+                              "displayName": "Office Equipment",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 1,
+                              "id": "be3eb911-034b-42de-95db-0d58ac978b7f",
+                              "displayName": "Computer Equipment",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 2,
+                              "id": "1b6266d1-1e44-46c5-8eb5-a8f98e03124e",
+                              "displayName": "Accounts Receivable",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 3,
+                              "id": "22de1660-d745-4809-a363-16b134607e66",
+                              "displayName": "Prepayments",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 4,
+                              "id": "e5d7612c-1671-47b4-b733-5db48363fcd0",
+                              "displayName": "Inventory",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 5,
+                              "id": "dbcaf288-2b39-4b95-8ab3-42202ab15918",
+                              "displayName": "Business Current Account",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 6,
+                              "id": "3a872b81-d1af-4d31-9bfa-a37280b8f68c",
+                              "displayName": "VAT",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 7,
+                              "id": "d19852a2-e292-4eb9-a909-9dadb95c0e76",
+                              "displayName": "Rounding",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 8,
+                              "id": "9be6382f-6b33-402d-b448-0db1dbf67a98",
+                              "displayName": "Historical Adjustment",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 9,
+                              "id": "53bf27a7-7497-4c61-9887-dfaad5c6d80a",
+                              "displayName": "Accounts Payable",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 10,
+                              "id": "8852a857-aa9d-4706-839f-638e9d6b5a66",
+                              "displayName": "Unpaid Expense Claims",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 11,
+                              "id": "3b58f7ff-fa16-453a-9931-f020816d76e7",
+                              "displayName": "Interest Payables",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 12,
+                              "id": "8636effc-50fb-45ba-8b2b-18336fa29b6b",
+                              "displayName": "John Smith",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 13,
+                              "id": "e2530acd-91c8-48f8-a35f-935dbd7432e2",
+                              "displayName": "Accruals",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 14,
+                              "id": "62060aae-e5a6-4db5-a3bb-6abec6d47959",
+                              "displayName": "Credit Card Control Account",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 15,
+                              "id": "55008233-40e7-41ac-84af-2255fa028c2e",
+                              "displayName": "Loan",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 16,
+                              "id": "39225d6f-3722-4508-ac3f-a2f6ec96ad31",
+                              "displayName": "Retained Earnings",
+                              "dataType": "account"
+                            },
+                            {
+                              "index": 17,
+                              "id": "78828dd9-6008-4662-b43c-e9d87907fd2b",
+                              "displayName": "Current Year Earnings",
+                              "dataType": "account"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 0,
+                          "type": "currency"
+                        },
+                        {
+                          "displayName": "Percentage change vs previous period",
+                          "units": "%",
+                          "index": 1,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 0,
+                              "itemDisplayName": "Asset",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 4615373.07
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 0,
+                                  "itemDisplayName": "NonCurrent",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 4211712.99
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 0,
+                                      "itemDisplayName": "FixturesFittings",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 2116634.16
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 0,
+                                          "itemDisplayName": "Office Equipment",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 2116634.16
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 1,
+                                      "itemDisplayName": "EquipmentMachinery",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 2095078.83
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 1,
+                                          "itemDisplayName": "Computer Equipment",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 2095078.83
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 1,
+                                  "itemDisplayName": "Current",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 403660.08
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 2,
+                                      "itemDisplayName": "AccountsReceivable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 59801.56
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 2,
+                                          "itemDisplayName": "Accounts Receivable",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 59801.56
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 3,
+                                      "itemDisplayName": "PrepaidExpenses",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 17370.58
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 3,
+                                          "itemDisplayName": "Prepayments",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 17370.58
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 4,
+                                      "itemDisplayName": "InventoryMerchandise",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 76076.15
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 4,
+                                          "itemDisplayName": "Inventory",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 76076.15
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 5,
+                                      "itemDisplayName": "Cash",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 250411.79
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 5,
+                                          "itemDisplayName": "Business Current Account",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 250411.79
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 1,
+                              "itemDisplayName": "Liability",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 969868.52
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 2,
+                                  "itemDisplayName": "Current",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 330868.92
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 6,
+                                      "itemDisplayName": "TaxesPayable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 22517.58
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 6,
+                                          "itemDisplayName": "VAT",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 22517.58
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 7,
+                                      "itemDisplayName": "Other",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 7315.78
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 7,
+                                          "itemDisplayName": "Rounding",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 0
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 8,
+                                          "itemDisplayName": "Historical Adjustment",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 7315.78
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 8,
+                                      "itemDisplayName": "AccountsPayable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 39512.94
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 9,
+                                          "itemDisplayName": "Accounts Payable",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 39512.94
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 10,
+                                      "itemDisplayName": "InterestPayable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 1232.43
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 11,
+                                          "itemDisplayName": "Interest Payables",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 1232.43
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 11,
+                                      "itemDisplayName": "NotesPayable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 1575.93
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 12,
+                                          "itemDisplayName": "John Smith",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 1575.93
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 12,
+                                      "itemDisplayName": "AccruedLiabilities",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 235869.49
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 13,
+                                          "itemDisplayName": "Accruals",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 235869.49
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 13,
+                                      "itemDisplayName": "CreditCards",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 22844.77
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 14,
+                                          "itemDisplayName": "Credit Card Control Account",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 22844.77
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 3,
+                                  "itemDisplayName": "NonCurrent",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 638999.6
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 9,
+                                      "itemDisplayName": "DueToEmployees",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 0
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 10,
+                                          "itemDisplayName": "Unpaid Expense Claims",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 0
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 14,
+                                      "itemDisplayName": "LoansPayable",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 638999.6
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 15,
+                                          "itemDisplayName": "Loan",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 638999.6
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 2,
+                              "itemDisplayName": "Equity",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 3645504.55
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "dimension": 2,
+                                  "dimensionDisplayName": "Sub Type",
+                                  "item": 4,
+                                  "itemDisplayName": "Equity",
+                                  "measures": [
+                                    {
+                                      "index": 0,
+                                      "measureDisplayName": "Value",
+                                      "value": 3645504.55
+                                    }
+                                  ],
+                                  "components": [
+                                    {
+                                      "dimension": 3,
+                                      "dimensionDisplayName": "Detail Type",
+                                      "item": 15,
+                                      "itemDisplayName": "RetainedEarnings",
+                                      "measures": [
+                                        {
+                                          "index": 0,
+                                          "measureDisplayName": "Value",
+                                          "value": 3645504.55
+                                        }
+                                      ],
+                                      "components": [
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 16,
+                                          "itemDisplayName": "Retained Earnings",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 3599540.05
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "dimension": 4,
+                                          "dimensionDisplayName": "Accounts",
+                                          "item": 17,
+                                          "itemDisplayName": "Current Year Earnings",
+                                          "measures": [
+                                            {
+                                              "index": 0,
+                                              "measureDisplayName": "Value",
+                                              "value": 45964.5
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Category",
+                              "item": 3,
+                              "itemDisplayName": "Net Assets",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 3645504.55
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1201,6 +3352,96 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "revenue",
+                        "displayName": "Revenue"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Revenue metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Revenue"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Revenue growth"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 0,
+                          "type": "currency"
+                        },
+                        {
+                          "displayName": "Percentage change vs. previous period",
+                          "units": "%",
+                          "index": 1,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Revenue metrics",
+                              "item": 0,
+                              "itemDisplayName": "Revenue",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 2392.48
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Revenue metrics",
+                              "item": 1,
+                              "itemDisplayName": "Revenue growth",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Percentage change vs. previous period",
+                                  "value": 276.65
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1248,6 +3489,112 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "orders",
+                        "displayName": "Orders"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Order metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Number of orders"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Total value"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Average order value"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Count",
+                          "index": 0,
+                          "type": "int"
+                        },
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 1,
+                          "type": "currency"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Order metrics",
+                              "item": 0,
+                              "itemDisplayName": "Number of orders",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Count",
+                                  "value": 94
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Order metrics",
+                              "item": 1,
+                              "itemDisplayName": "Total value",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Value",
+                                  "value": 3315.18
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Order metrics",
+                              "item": 2,
+                              "itemDisplayName": "Average order value",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Value",
+                                  "value": 35.27
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1295,6 +3642,118 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "refunds",
+                        "displayName": "Refunds"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Refund metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Number of refunds"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Value of refunds"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Refund rate"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Count",
+                          "index": 0,
+                          "type": "int"
+                        },
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 1,
+                          "type": "currency"
+                        },
+                        {
+                          "displayName": "Percentage",
+                          "units": "%",
+                          "index": 2,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Refund metrics",
+                              "item": 0,
+                              "itemDisplayName": "Number of refunds",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Count",
+                                  "value": 39
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Refund metrics",
+                              "item": 1,
+                              "itemDisplayName": "Value of refunds",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Value",
+                                  "value": 642.82
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Refund metrics",
+                              "item": 2,
+                              "itemDisplayName": "Refund rate",
+                              "measures": [
+                                {
+                                  "index": 2,
+                                  "measureDisplayName": "Percentage",
+                                  "value": 0.41
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1342,6 +3801,145 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "customer_retention",
+                        "displayName": "Customer Retention"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Customer retention metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Existing customers"
+                            },
+                            {
+                              "index": 1,
+                              "value": "New customers"
+                            },
+                            {
+                              "index": 2,
+                              "value": "Total customers"
+                            },
+                            {
+                              "index": 3,
+                              "value": "Retention rate"
+                            },
+                            {
+                              "index": 4,
+                              "value": "Repeat rate"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Count",
+                          "index": 0,
+                          "type": "int"
+                        },
+                        {
+                          "displayName": "Percentage",
+                          "index": 1,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Customer retention metrics",
+                              "item": 0,
+                              "itemDisplayName": "Existing customers",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Count",
+                                  "value": 13
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Customer retention metrics",
+                              "item": 1,
+                              "itemDisplayName": "New customers",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Count",
+                                  "value": 47
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Customer retention metrics",
+                              "item": 2,
+                              "itemDisplayName": "Total customers",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Count",
+                                  "value": 60
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Customer retention metrics",
+                              "item": 3,
+                              "itemDisplayName": "Retention rate",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Percentage",
+                                  "value": 0
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Customer retention metrics",
+                              "item": 4,
+                              "itemDisplayName": "Repeat rate",
+                              "measures": [
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Percentage",
+                                  "value": 21.67
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1389,6 +3987,73 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "lifetime_value",
+                        "displayName": "Lifetime Value"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Lifetime value metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Lifetime value"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Value",
+                          "units": "GBP",
+                          "index": 0,
+                          "type": "currency"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Lifetime value metrics",
+                              "item": 0,
+                              "itemDisplayName": "Lifetime value",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Value",
+                                  "value": 3782.07
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1436,6 +4101,106 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "reportInfo": {
+                        "name": "marketing_metrics",
+                        "displayName": "Marketing metrics"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "Period",
+                          "type": "datespan",
+                          "items": [
+                            {
+                              "index": 0,
+                              "displayName": "Period 0",
+                              "start": "2022-01-01",
+                              "end": "2022-12-31"
+                            }
+                          ]
+                        },
+                        {
+                          "index": 1,
+                          "displayName": "Marketing metrics",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0,
+                              "value": "Marketing to revenue"
+                            },
+                            {
+                              "index": 1,
+                              "value": "Marketing to expense"
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "Percentage",
+                          "units": "%",
+                          "index": 0,
+                          "type": "percentage"
+                        },
+                        {
+                          "displayName": "Percentage change vs previous period",
+                          "units": "%",
+                          "index": 1,
+                          "type": "percentage"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "Period",
+                          "item": 0,
+                          "itemDisplayName": "Period 0",
+                          "components": [
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Marketing metrics",
+                              "item": 0,
+                              "itemDisplayName": "Marketing to revenue",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Percentage",
+                                  "value": 564.17
+                                },
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Percentage change vs previous period",
+                                  "value": 8.33
+                                }
+                              ]
+                            },
+                            {
+                              "dimension": 1,
+                              "dimensionDisplayName": "Marketing metrics",
+                              "item": 1,
+                              "itemDisplayName": "Marketing to expense",
+                              "measures": [
+                                {
+                                  "index": 0,
+                                  "measureDisplayName": "Percentage",
+                                  "value": 27.63
+                                },
+                                {
+                                  "index": 1,
+                                  "measureDisplayName": "Percentage change vs previous period",
+                                  "value": 0.12
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -1971,6 +4736,69 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "x-examples": {
+                    "Example 1": {
+                      "reportInfo": {
+                        "additionalProp1": "string",
+                        "additionalProp2": "string",
+                        "additionalProp3": "string"
+                      },
+                      "dimensions": [
+                        {
+                          "index": 0,
+                          "displayName": "string",
+                          "type": "string",
+                          "items": [
+                            {
+                              "index": 0
+                            }
+                          ]
+                        }
+                      ],
+                      "measures": [
+                        {
+                          "displayName": "string",
+                          "units": "string",
+                          "index": 0,
+                          "type": "string"
+                        }
+                      ],
+                      "reportData": [
+                        {
+                          "dimension": 0,
+                          "dimensionDisplayName": "string",
+                          "item": 0,
+                          "itemDisplayName": "string",
+                          "measures": [
+                            {
+                              "index": 0,
+                              "measureDisplayName": "string"
+                            }
+                          ],
+                          "components": [
+                            "string"
+                          ]
+                        }
+                      ],
+                      "errors": [
+                        {
+                          "message": "string",
+                          "type": "DatesOutOfRange",
+                          "details": {
+                            "additionalProp1": [
+                              "string"
+                            ],
+                            "additionalProp2": [
+                              "string"
+                            ],
+                            "additionalProp3": [
+                              "string"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
                   "properties": {
                     "reportInfo": {
                       "type": "object",
@@ -2037,41 +4865,113 @@
                     "reportData": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "dimension": {
-                            "type": "integer"
-                          },
-                          "dimensionDisplayName": {
-                            "type": "string"
-                          },
-                          "item": {
-                            "type": "integer"
-                          },
-                          "itemDisplayName": {
-                            "type": "string"
-                          },
-                          "measures": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "index": {
-                                  "type": "integer"
-                                },
-                                "measureDisplayName": {
-                                  "type": "string"
-                                }
+                        "allOf": [
+                          {
+                            "title": "ReportDimensionsItems",
+                            "x-stoplight": {
+                              "id": "sqj9ewqwpab8e"
+                            },
+                            "type": "object",
+                            "properties": {
+                              "dimension": {
+                                "type": "integer"
+                              },
+                              "dimensionDisplayName": {
+                                "type": "string"
+                              },
+                              "item": {
+                                "type": "integer"
+                              },
+                              "itemDisplayName": {
+                                "type": "string"
                               }
                             }
                           },
-                          "components": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
+                          {
+                            "type": "object",
+                            "properties": {
+                              "components": {
+                                "type": "array",
+                                "items": {
+                                  "title": "ReportComponent",
+                                  "x-stoplight": {
+                                    "id": "utgt54p0sijaj"
+                                  },
+                                  "allOf": [
+                                    {
+                                      "title": "ReportComponentProperties",
+                                      "x-stoplight": {
+                                        "id": "fm40zp0h429tv"
+                                      },
+                                      "allOf": [
+                                        {
+                                          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/0"
+                                        },
+                                        {
+                                          "title": "ReportComponentMeasures",
+                                          "x-stoplight": {
+                                            "id": "ktvlu1fuqldgn"
+                                          },
+                                          "type": "object",
+                                          "properties": {
+                                            "measures": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "index": {
+                                                    "type": "integer"
+                                                  },
+                                                  "measureDisplayName": {
+                                                    "type": "string"
+                                                  },
+                                                  "value": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "components": {
+                                          "type": "array",
+                                          "items": {
+                                            "title": "ReportComponent",
+                                            "x-stoplight": {
+                                              "id": "ane12m6kjhdfx"
+                                            },
+                                            "type": "object",
+                                            "allOf": [
+                                              {
+                                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/1/properties/components/items/allOf/0"
+                                              },
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "components": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/1/properties/components/items"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
                             }
                           }
-                        }
+                        ]
                       }
                     },
                     "errors": {
@@ -2110,69 +5010,6 @@
                           }
                         }
                       }
-                    }
-                  },
-                  "x-examples": {
-                    "Example 1": {
-                      "reportInfo": {
-                        "additionalProp1": "string",
-                        "additionalProp2": "string",
-                        "additionalProp3": "string"
-                      },
-                      "dimensions": [
-                        {
-                          "index": 0,
-                          "displayName": "string",
-                          "type": "string",
-                          "items": [
-                            {
-                              "index": 0
-                            }
-                          ]
-                        }
-                      ],
-                      "measures": [
-                        {
-                          "displayName": "string",
-                          "units": "string",
-                          "index": 0,
-                          "type": "string"
-                        }
-                      ],
-                      "reportData": [
-                        {
-                          "dimension": 0,
-                          "dimensionDisplayName": "string",
-                          "item": 0,
-                          "itemDisplayName": "string",
-                          "measures": [
-                            {
-                              "index": 0,
-                              "measureDisplayName": "string"
-                            }
-                          ],
-                          "components": [
-                            "string"
-                          ]
-                        }
-                      ],
-                      "errors": [
-                        {
-                          "message": "string",
-                          "type": "DatesOutOfRange",
-                          "details": {
-                            "additionalProp1": [
-                              "string"
-                            ],
-                            "additionalProp2": [
-                              "string"
-                            ],
-                            "additionalProp3": [
-                              "string"
-                            ]
-                          }
-                        }
-                      ]
                     }
                   }
                 }
