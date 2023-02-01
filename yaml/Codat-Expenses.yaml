@@ -1,0 +1,1055 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 1pm6xajcwr4a0
+info:
+  title: Codat Expense API
+  version: prealpha
+  contact:
+    name: Codat
+    url: 'https://www.codat.io/'
+    email: syncforexpenses@codat.io
+  description: The API for Sync for Expenses.
+servers:
+  - url: 'https://expensesync.codat.io'
+    description: Codat expenses sync
+tags:
+  - name: Config
+    description: sync config
+  - name: Mapping options
+    description: MappingOptions
+  - name: Sync
+    description: trigger or check syncs
+  - name: Sync status
+    description: status of syncs
+  - name: Transactions
+    description: transactions
+  - name: Transaction status
+    description: status of transactions
+paths:
+  '/companies/{companyId}/config':
+    get:
+      tags:
+        - Config
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+              examples: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+      summary: Get Company Configuration
+      description: Gets a companies expense sync configuration
+      operationId: get-company-config
+    post:
+      tags:
+        - Config
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CompanyConfiguration'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyConfiguration'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CompanyConfiguration'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CompanyConfiguration'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CompanyConfiguration'
+      summary: Set Company Configuration
+      description: Sets a companies expense sync configuration
+      operationId: post-company-config
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        description: Unique identifier for a company
+        required: true
+  '/companies/{companyId}/mappingoptions':
+    get:
+      tags:
+        - Mapping options
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MappingOptions'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingOptions'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MappingOptions'
+      description: Gets the expense mapping options for a companies accounting software
+      summary: Mapping Options
+      operationId: get-mapping-options
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+  '/companies/{companyId}/syncs':
+    post:
+      tags:
+        - Sync
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: Initiate Sync
+      description: initiate sync of pending transactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                datasetIds:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  items:
+                    type: string
+                    format: uuid
+                    example: fd4cc60e-8666-4443-8fad-12c56d7420ee
+                    writeOnly: true
+              required:
+                - datasetIds
+            examples: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    syncId: 0d5fd262-35af-4a1a-bdf2-c6b7ed2988fe
+                properties:
+                  syncId:
+                    type: string
+                    description: Unique Sync Id
+                    format: uuid
+                    example: 6686f945-4a8b-4f16-8edc-1c4d87c25d82
+      operationId: post-sync
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+  '/companies/{companyId}/syncs/lastSuccessful/status':
+    get:
+      tags:
+        - Sync status
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+      description: Gets the status of the last successfull sync
+      summary: Last successful sync
+      operationId: get-last-sync
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+  '/companies/{companyId}/syncs/latest/status':
+    get:
+      tags:
+        - Sync status
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+      description: Gets the latest sync status
+      summary: Latest sync status
+      operationId: get-sync-status-latest
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+  '/companies/{companyId}/syncs/list/status':
+    get:
+      tags:
+        - Sync status
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanySyncStatus'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanySyncStatus'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanySyncStatus'
+      summary: List sync statuses
+      description: Gets a list of sync statuses
+      operationId: list-sync-statuses
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+  '/companies/{companyId}/syncs/{syncId}/status':
+    get:
+      tags:
+        - Sync status
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: syncId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncStatus'
+      summary: Get Sync Status
+      description: Get the sync status for a specified sync
+      operationId: get-sync-status
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+      - schema:
+          type: string
+          format: uuid
+        name: syncId
+        in: path
+        required: true
+        description: Unique identifier for a sync
+  '/companies/{companyId}/syncs/{syncId}/transactions':
+    get:
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: syncId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TransactionMetadataPagedResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMetadataPagedResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMetadataPagedResponse'
+      tags:
+        - Transaction status
+      summary: List transactions
+      description: Gets the transactions and status for a sync
+      operationId: list-transactions
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+      - schema:
+          type: string
+          format: uuid
+        name: syncId
+        in: path
+        required: true
+        description: Unique identifier for a sync
+  '/companies/{companyId}/syncs/{syncId}/transactions/{TransactionId}':
+    get:
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: syncId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: TransactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionMetadata'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionMetadata'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionMetadata'
+      tags:
+        - Transaction status
+      summary: Get transaction
+      description: Gets the status of a transaction for a sync
+      operationId: get-transaction
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+      - schema:
+          type: string
+          format: uuid
+        name: syncId
+        in: path
+        required: true
+        description: Unique identifier for a sync
+      - schema:
+          type: string
+          format: uuid
+          example: d32ceabf-67e0-4dce-b48d-ff391f17ca0b
+        name: TransactionId
+        in: path
+        description: Your unique identifier for a transaction
+        required: true
+  '/companies/{companyId}/data/expense-transactions':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+    post:
+      summary: Create expense-transactions
+      operationId: post-companies-companyId-push-transactions-expenseReconciliation
+      description: Create an expense transaction
+      tags:
+        - Transactions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    datasetId: cd937d46-8e41-43a9-9477-a79158ffd98a
+                properties:
+                  datasetId:
+                    type: string
+                    example: cd937d46-8e41-43a9-9477-a79158ffd98a
+                    format: uuid
+                    description: Unique id of dataset created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  items:
+                    $ref: '#/components/schemas/ExpenseReconciliation'
+            examples:
+              Example 1:
+                value:
+                  items:
+                    - id: 08ca1f02-0374-11ed-b939-0242ac120002
+                      type: payment
+                      issueDate: '2021-05-21T00:00:00+00:00'
+                      currency: GBP
+                      currencyRate: 1.18
+                      merchantName: Amazon UK
+                      lines:
+                        - netAmount: 110.42
+                          taxAmount: 14.43
+                          taxRateRef:
+                            id: 08ca1c6e-0374-11ed-b939-0242ac120002
+                          accountRef:
+                            id: 08ca1c6e-0374-11ed-b939-0242ac120002
+                          trackingRefs:
+                            - id: 08ca1c6e-0374-11ed-b939-0242ac120002
+                      notes: string
+  '/companies/{companyId}/syncs/{syncId}/transactions/{transactionId}/attachments':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for a company
+      - schema:
+          type: string
+          format: uuid
+        name: transactionId
+        in: path
+        required: true
+        description: Your unique identifier for a transaction
+      - schema:
+          type: string
+        name: syncId
+        in: path
+        required: true
+        description: The unique identifier for the sync
+    post:
+      summary: Upload Attachment
+      operationId: post-companies-companyId-push-transactions-expenseReconciliation-expenseReconciliationId-attachment
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/attachment'
+      tags:
+        - Transactions
+      description: Creates an attachment in the accounting software against the given transactionId
+components:
+  securitySchemes:
+    API_Key:
+      name: Your Base 64 encoded API Key
+      type: apiKey
+      in: header
+      description: Your base 64 encoded Codat API Key
+  schemas:
+    AccountMappingInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique identifier of account.
+          nullable: true
+        name:
+          type: string
+          description: Name of the account as it appears in the companies accounting software.
+          nullable: true
+        currency:
+          type: string
+          description: Currency of the account.
+          nullable: true
+        accountType:
+          type: string
+          description: Type of the account.
+          nullable: true
+        validTransactionTypes:
+          type: array
+          description: Supported transaction types for the account.
+          nullable: true
+          items:
+            type: string
+    BankAccountOption:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+        accountType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CompanyConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        companyId:
+          type: string
+          format: uuid
+          description: Unique identifier of Company.
+          example: ee108263-aef8-4d28-8847-64d9a7154a41
+        accountingSoftwareCompanyName:
+          type: string
+          description: Name of accounting software connected by the company.
+          example: QuickBooksOnline
+          nullable: true
+        enabled:
+          type: boolean
+          description: Whether sync for expenses has been enabled.
+          default: false
+        configured:
+          type: boolean
+          description: Whether sync for expenses has been configured.
+          default: false
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+        configuration:
+          $ref: '#/components/schemas/Configuration'
+    CompanySyncStatus:
+      type: object
+      additionalProperties: false
+      properties:
+        companyId:
+          type: string
+          description: Unique identifier for company.
+          nullable: true
+        syncId:
+          type: string
+          description: Unique identifier of the sync.
+          nullable: true
+        syncStatusCode:
+          type: integer
+          format: int32
+          description: Status code of the sync.
+        syncStatus:
+          type: string
+          description: Text status of the sync.
+          nullable: true
+        errorMessage:
+          type: string
+          description: Error message of the sync.
+          nullable: true
+        syncExceptionMessage:
+          type: string
+          description: Exception message of the sync.
+          nullable: true
+        syncUtc:
+          type: string
+          format: date-time
+          description: Datetime of the sync.
+          nullable: true
+        dataPushed:
+          type: boolean
+          description: Boolean of whether the sync resulted in data being pushed.
+    Configuration:
+      type: object
+      properties:
+        syncAsBankFeeds:
+          $ref: '#/components/schemas/SyncAsBankFeedsConfiguration'
+        syncAsExpenses:
+          $ref: '#/components/schemas/SyncAsExpensesConfiguration'
+      additionalProperties: false
+    CustomerConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        selectedCustomerId:
+          type: string
+          description: Selected customer to reconcile transactions against.
+          nullable: true
+        customerOptions:
+          type: array
+          description: Available customers to reconcile transactions against.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/CustomerOption'
+    CustomerOption:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    HalLink:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MappingOptions:
+      type: object
+      additionalProperties: false
+      properties:
+        expenseProvider:
+          type: string
+          description: Name of the expense integration.
+          nullable: true
+        accounts:
+          type: array
+          description: Array of available accounts for mapping.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/AccountMappingInfo'
+        trackingCategories:
+          type: array
+          description: Array of available tracking categories for mapping.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/TrackingCategoryMappingInfo'
+        taxRates:
+          type: array
+          description: Array of available tax rates for mapping.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/TaxRateMappingInfo'
+    Schedule:
+      type: object
+      additionalProperties: false
+      properties:
+        selectedFrequency:
+          $ref: '#/components/schemas/ScheduleFrequency'
+        frequencyOptions:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ScheduleFrequency'
+        startDate:
+          type: string
+          format: date-time
+          description: Datetime to start syncing transactions.
+        syncHourUtc:
+          type: integer
+          format: int32
+          description: Timezone for sync schedule.
+    ScheduleFrequency:
+      type: string
+      description: Sync frequency for the scheduler
+      example: daily
+      enum:
+        - daily
+      nullable: true
+    SupplierConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        selectedSupplierId:
+          type: string
+          description: Unique identifier of supplier to reconcile the reconciliations to.
+          nullable: true
+        supplierOptions:
+          type: array
+          description: Available supplier options.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/SupplierOption'
+    SupplierOption:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SyncAsBankFeedsConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        enableSync:
+          type: boolean
+          description: Whether syncing transactions as bank feeds are enabled for the company.
+        selectedBankAccountId:
+          type: string
+          description: Selected bank account to sync transactions to.
+          nullable: true
+        bankAccountOptions:
+          type: array
+          description: Array of available bank accounts to sync transactions to.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/BankAccountOption'
+    SyncAsExpensesConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        enableSync:
+          type: boolean
+          description: Whether to sync transactions as reconciliations
+        supplier:
+          $ref: '#/components/schemas/SupplierConfiguration'
+        customer:
+          $ref: '#/components/schemas/CustomerConfiguration'
+        selectedBankAccountId:
+          type: string
+          description: Selected bank account to reconcile transactions to.
+          nullable: true
+        bankAccountOptions:
+          type: array
+          description: Available account options to reconcile transactions to.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/BankAccountOption'
+    TaxRateMappingInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique identifier of tax rate.
+          nullable: true
+        name:
+          type: string
+          description: Name of the tax rate in the accounting platform.
+          nullable: true
+        code:
+          type: string
+          description: Code for the tax rate from the accounting platform.
+          nullable: true
+        effectiveTaxRate:
+          type: number
+          format: double
+          description: Effective tax rate.
+        totalTaxRate:
+          type: number
+          format: double
+          description: Total (not compounded) sum of the components of a tax rate.
+    TrackingCategoryMappingInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the tracking category.
+          nullable: true
+        modifiedDate:
+          type: string
+          format: date-time
+          description: Datetime when the tracking category was last modified.
+          nullable: true
+        name:
+          type: string
+          description: Name of the tracking category as it appears in the accounting software.
+          nullable: true
+        hasChildren:
+          type: boolean
+          description: Boolean of whether the tracking category has child categories.
+    TransactionMetadata:
+      type: object
+      additionalProperties: false
+      properties:
+        transactionId:
+          type: string
+          description: Your unique idenfier of the transaction.
+          nullable: true
+        status:
+          type: string
+          description: Status of the transaction.
+          nullable: true
+        message:
+          type: string
+          description: Metadata such as validation errors or the resulting record created in the accounting software.
+          nullable: true
+        integrationType:
+          type: string
+          description: Type of transaction that has been processed e.g. Expense or Bank Feed.
+          nullable: true
+    TransactionMetadataPagedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        results:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/TransactionMetadata'
+        pageNumber:
+          type: integer
+          format: int32
+          description: Page of current request
+        pageSize:
+          type: integer
+          format: int32
+          description: Page size of current request.
+        totalResults:
+          type: integer
+          format: int32
+          description: Total number of transactions.
+        links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/HalLink'
+          nullable: true
+      required:
+        - pageNumber
+        - pageSize
+        - totalResults
+    ExpenseReconciliation:
+      type: object
+      x-examples: {}
+      properties:
+        id:
+          type: string
+          example: 08ca1f02-0374-11ed-b939-0242ac120002
+          format: uuid
+          description: Your unique idenfier for the transaction.
+        type:
+          type: string
+          enum:
+            - payment
+            - refund
+            - reward
+            - chargeback
+            - adjustment
+            - transfer
+          example: payment
+          description: The type of transaction.
+        issueDate:
+          type: string
+          format: date-time
+          example: '2021-05-21T00:00:00+00:00'
+          description: Date of the transaction was recorded.
+        currency:
+          type: string
+          example: GBP
+          description: Currency the transaction was recorded in.
+        currencyRate:
+          type: number
+          example: 1.18
+          description: Conversion rate between the currency of the transaction and the base currency of the company.
+        merchantName:
+          type: string
+          example: Amazon UK
+          description: Name of the merchant where the purchase took place
+        lines:
+          type: array
+          description: Array of transaction lines.
+          items:
+            $ref: '#/components/schemas/ExpenseReconciliationLines'
+        notes:
+          type: string
+          description: 'Any private, company notes about the transaction.'
+      required:
+        - id
+        - type
+        - issueDate
+        - currency
+    RecordRef:
+      type: object
+      x-examples: {}
+      title: RecordRef
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 08ca1c6e-0374-11ed-b939-0242ac120002
+          description: identifier of linked reference from mapping options.
+      required:
+        - id
+    ExpenseReconciliationLines:
+      type: object
+      x-examples: {}
+      properties:
+        netAmount:
+          type: number
+          example: 110.42
+          description: 'Amount of the line, exclusive of tax.'
+        taxAmount:
+          type: number
+          example: 14.43
+          description: Amount of tax for the line.
+        taxRateRef:
+          $ref: '#/components/schemas/RecordRef'
+        accountRef:
+          $ref: '#/components/schemas/RecordRef'
+        trackingRefs:
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/RecordRef'
+      required:
+        - netAmount
+        - taxAmount
+        - taxRateRef
+        - accountRef
+    attachment:
+      type: object
+      x-examples: {}
+      properties:
+        datasetId:
+          type: string
+          example: 3210293b-c9eb-46b3-8fcd-256f3aabc441
+          format: uuid
+          readOnly: true
+        transactionId:
+          type: string
+          format: uuid
+          example: 3210293b-c9eb-46b3-8fcd-256f3aabc441
+          readOnly: true
+        contentType:
+          type: string
+          readOnly: true
+        fileSize:
+          type: number
+          format: double
+          example: 16.8
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+          example: '2022-01-06T14:39:54Z'
+          readOnly: true
+security:
+  - API_Key: []
