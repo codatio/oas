@@ -45,7 +45,18 @@ paths:
                       detailTypeDisplayName: string
                       detailTypeDescription: string
                 type: array
-                items: null
+                items:
+                  allOf:
+                    - $ref: '#/paths/~1data~1assess~1accounts~1categories/get/responses/200/content/application~1json/schema/items'
+                    - type: object
+                      properties:
+                        subtypeDisplayName:
+                          type: string
+                        detailTypeDisplayName:
+                          type: string
+                        detailTypeDescription:
+                          type: string
+                  title: ''
             application/xml:
               schema:
                 type: object
