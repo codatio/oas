@@ -1,0 +1,1326 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Codat - Banking API",
+    "description": "Codat's Banking API allows you to access standardised data from over bank accounts via third party providers.",
+    "version": "v1",
+    "summary": "Codat's standardized API for accessing banking data ",
+    "contact": {
+      "name": "Codat",
+      "url": "https://codat.io",
+      "email": "support@codat.io"
+    },
+    "termsOfService": "https://www.codat.io/msa/"
+  },
+  "tags": [
+    {
+      "name": "Banking Data",
+      "description": "Retrieve standardized data from linked bank accounts."
+    }
+  ],
+  "paths": {
+    "/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "List bank balances",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "operationId": "list-banking-account-balances",
+        "description": "Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction."
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-accounts": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "List bank accounts",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "operationId": "list-banking-accounts",
+        "description": "Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts."
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          },
+          "description": "ID of your company's data connection"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "Gets a bank account for a company",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.Account"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "operationId": "get-bank-account",
+        "deprecated": true,
+        "description": "Gets a specified bank account for a given company"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "accountId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier for a banking account"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "List bank transaction categories",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.",
+        "operationId": "list-bank-transaction-categories"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "Get a bank transaction category for a company",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategory"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "deprecated": true,
+        "operationId": "get-bank-transaction-category",
+        "description": "Gets a specified bank transaction category for a given company"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "transactionCategoryId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier for a banking transaction category"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-transactions": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "List transactions for a bank account.",
+        "parameters": [
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets a list of transactions incurred by a bank account.",
+        "operationId": "list-banking-transactions"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        }
+      ]
+    },
+    "/companies/{companyId}/data/banking-transactions": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "List all banking transactions for a company",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page Number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return on the page"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat Query String"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets a list of transactions incurred by a company across all bank accounts.",
+        "operationId": "list-all-banking-transactions"
+      },
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+          },
+          "description": "The unique identifier for your SME in Codat"
+        }
+      ]
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "Banking Data"
+        ],
+        "summary": "Gets a specified bank transaction for a given company",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.Transaction"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets a specified bank transaction for a given company",
+        "operationId": "get-banking-transaction",
+        "deprecated": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "transactionId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier for a transaction"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Codat.DataContracts.Datasets.Banking.Account": {
+        "required": [
+          "accountName",
+          "accountNumbers",
+          "accountType",
+          "balance",
+          "currency",
+          "id",
+          "identifiers",
+          "institution",
+          "name",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "informalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "holder": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountType"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalanceAmounts"
+          },
+          "identifiers": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountIdentifiers"
+          },
+          "currency": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "institution": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountInstitution"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sourceModifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountBalance": {
+        "required": [
+          "accountId",
+          "balance",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalanceAmounts"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sourceModifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountBalanceAmounts": {
+        "required": [
+          "current"
+        ],
+        "type": "object",
+        "properties": {
+          "available": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "current": {
+            "type": "number",
+            "format": "double"
+          },
+          "limit": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseHrefModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseLinksModel": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseHrefModel"
+          },
+          "current": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseHrefModel"
+          },
+          "next": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseHrefModel"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseHrefModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseModel": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalance"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountBalancePagedResponseLinksModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountIdentifiers": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "subtype": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "iban": {
+            "type": "string",
+            "nullable": true
+          },
+          "bic": {
+            "type": "string",
+            "nullable": true
+          },
+          "maskedAccountNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountInstitution": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountPagedResponseHrefModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountPagedResponseLinksModel": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseHrefModel"
+          },
+          "current": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseHrefModel"
+          },
+          "next": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseHrefModel"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseHrefModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountPagedResponseModel": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "title": "Account",
+              "x-stoplight": {
+                "id": "1ic677fzr6az4"
+              },
+              "type": "object",
+              "required": [
+                "accountName",
+                "accountNumbers",
+                "accountType",
+                "balance",
+                "currency",
+                "id",
+                "identifiers",
+                "institution",
+                "name",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "name": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "informalName": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "holder": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "type": {
+                  "title": "AccountType",
+                  "x-stoplight": {
+                    "id": "tr2xyx3wvqeaw"
+                  },
+                  "enum": [
+                    "Unknown",
+                    "Credit",
+                    "Debit"
+                  ],
+                  "type": "string"
+                },
+                "balance": {
+                  "title": "AccountingBalanceAmounts",
+                  "x-stoplight": {
+                    "id": "jmyqs1xu3c11z"
+                  },
+                  "type": "object",
+                  "required": [
+                    "current"
+                  ],
+                  "properties": {
+                    "available": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true
+                    },
+                    "current": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "limit": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "identifiers": {
+                  "title": "AccountIdentifiers",
+                  "x-stoplight": {
+                    "id": "ldkvbe2lb7nab"
+                  },
+                  "type": "object",
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "type": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "subtype": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "number": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bankCode": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "iban": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "bic": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "maskedAccountNumber": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "currency": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "institution": {
+                  "title": "AccountInstitution",
+                  "x-stoplight": {
+                    "id": "5y3yc3euy8v6a"
+                  },
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "properties": {
+                    "id": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "modifiedDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "nullable": true
+                },
+                "sourceModifiedDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "nullable": true
+                }
+              },
+              "additionalProperties": false,
+              "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts)."
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.AccountPagedResponseLinksModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+      },
+      "Codat.DataContracts.Datasets.Banking.AccountType": {
+        "enum": [
+          "Unknown",
+          "Credit",
+          "Debit"
+        ],
+        "type": "string"
+      },
+      "Codat.DataContracts.Datasets.Banking.BankingTransactionCode": {
+        "enum": [
+          "Unknown",
+          "Fee",
+          "Payment",
+          "Cash",
+          "Transfer",
+          "Interest",
+          "Cashback",
+          "Cheque",
+          "DirectDebit",
+          "Purchase",
+          "StandingOrder",
+          "Adjustment",
+          "Credit",
+          "Other",
+          "NotSupported"
+        ],
+        "type": "string"
+      },
+      "Codat.DataContracts.Datasets.Banking.Transaction": {
+        "required": [
+          "accountId",
+          "currency",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "postedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "authorizedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "code": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.BankingTransactionCode"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionCategoryRef": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryRef"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sourceModifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategory": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "hasChildren": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryStatus"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sourceModifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseHrefModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseLinksModel": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseHrefModel"
+          },
+          "current": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseHrefModel"
+          },
+          "next": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseHrefModel"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseHrefModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseModel": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategory"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionCategoryPagedResponseLinksModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategoryRef": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionCategoryStatus": {
+        "enum": [
+          "Unknown",
+          "Active",
+          "Archived"
+        ],
+        "type": "string"
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionPagedResponseHrefModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionPagedResponseLinksModel": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseHrefModel"
+          },
+          "current": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseHrefModel"
+          },
+          "next": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseHrefModel"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseHrefModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Datasets.Banking.TransactionPagedResponseModel": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.Transaction"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Datasets.Banking.TransactionPagedResponseLinksModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+      },
+      "Codat.DataContracts.Push.OptionType": {
+        "enum": [
+          "Array",
+          "Object",
+          "String",
+          "Number",
+          "Boolean",
+          "DateTime",
+          "File",
+          "MultiPart"
+        ],
+        "type": "string"
+      },
+      "Codat.DataContracts.Push.PushFieldValidation": {
+        "required": [
+          "details",
+          "field"
+        ],
+        "type": "object",
+        "properties": {
+          "field": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "details": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "ref": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Push.PushOption": {
+        "required": [
+          "description",
+          "displayName",
+          "required",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Push.OptionType"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushOption"
+            },
+            "nullable": true
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushOptionChoice"
+            },
+            "nullable": true
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Push.PushValidationInfo"
+          },
+          "rel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Push.PushOptionChoice": {
+        "required": [
+          "description",
+          "displayName",
+          "required",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Push.OptionType"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushOption"
+            },
+            "nullable": true
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushOptionChoice"
+            },
+            "nullable": true
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/Codat.DataContracts.Push.PushValidationInfo"
+          },
+          "rel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Codat.DataContracts.Push.PushValidationInfo": {
+        "type": "object",
+        "properties": {
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushFieldValidation"
+            },
+            "nullable": true
+          },
+          "information": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Codat.DataContracts.Push.PushFieldValidation"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "API_Key": {
+        "type": "apiKey",
+        "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
+        "name": "Your Base 64 encoded API Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "API_Key": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.codat.io",
+      "description": "Codat"
+    }
+  ]
+}
