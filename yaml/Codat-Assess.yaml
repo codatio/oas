@@ -3,7 +3,7 @@ x-stoplight:
   id: tno0jr6q5xi1y
 info:
   title: Assess API
-  version: 2.1.0
+  version: '1.0'
   summary: Codat's financial insights API
   contact:
     email: support@codat.io
@@ -27,7 +27,7 @@ paths:
   /data/assess/accounts/categories:
     parameters: []
     get:
-      summary: List account categories
+      summary: List Chart of Account categories
       tags:
         - Categories
       responses:
@@ -47,7 +47,7 @@ paths:
                 type: array
                 items:
                   allOf:
-                    - $ref: '#/paths/~1data~1assess~1accounts~1categories/get/responses/200/content/application~1json/schema/items'
+                    - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
                     - type: object
                       properties:
                         subtypeDisplayName:
@@ -57,18 +57,14 @@ paths:
                         detailTypeDescription:
                           type: string
                   title: ''
-            application/xml:
-              schema:
-                type: object
-                properties: {}
-      operationId: list-chart-of-account-categories
+      operationId: get-data-assess-accounts-categories
       description: 'Lists available Chart of Account categories Codat''s categorisation engine can provide. '
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories':
     parameters:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/parameters/1'
     get:
-      summary: List all account categories
+      summary: List suggested and confirmed account categories
       tags:
         - Categories
       responses:
@@ -152,7 +148,7 @@ paths:
         required: true
         description: Nominal account id
     get:
-      summary: List account categories
+      summary: Get suggested and/or confirmed category for a specific account
       tags:
         - Categories
       responses:

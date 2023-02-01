@@ -5,7 +5,7 @@
   },
   "info": {
     "title": "Assess API",
-    "version": "2.1.0",
+    "version": "1.0",
     "summary": "Codat's financial insights API",
     "contact": {
       "email": "support@codat.io",
@@ -43,7 +43,7 @@
     "/data/assess/accounts/categories": {
       "parameters": [],
       "get": {
-        "summary": "List account categories",
+        "summary": "List Chart of Account categories",
         "tags": [
           "Categories"
         ],
@@ -69,7 +69,7 @@
                   "items": {
                     "allOf": [
                       {
-                        "$ref": "#/paths/~1data~1assess~1accounts~1categories/get/responses/200/content/application~1json/schema/items"
+                        "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed"
                       },
                       {
                         "type": "object",
@@ -89,17 +89,11 @@
                     "title": ""
                   }
                 }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
               }
             }
           }
         },
-        "operationId": "list-chart-of-account-categories",
+        "operationId": "get-data-assess-accounts-categories",
         "description": "Lists available Chart of Account categories Codat's categorisation engine can provide. "
       }
     },
@@ -113,7 +107,7 @@
         }
       ],
       "get": {
-        "summary": "List all account categories",
+        "summary": "List suggested and confirmed account categories",
         "tags": [
           "Categories"
         ],
@@ -265,7 +259,7 @@
         }
       ],
       "get": {
-        "summary": "List account categories",
+        "summary": "Get suggested and/or confirmed category for a specific account",
         "tags": [
           "Categories"
         ],
