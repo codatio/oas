@@ -1,0 +1,224 @@
+{
+  "openapi": "3.0.1",
+  "x-stoplight": {
+    "id": "ix16fd7rd726a"
+  },
+  "info": {
+    "title": "Codat Files",
+    "description": "The API for uploading and downloading files from 'File Upload' Integrations.\nLink to read more...",
+    "version": "v1",
+    "contact": {
+      "name": "Codat",
+      "url": "https://codat.io",
+      "email": "support@codat.io"
+    }
+  },
+  "tags": [
+    {
+      "name": "Files",
+      "description": "Endpoints to manage uploaded files."
+    }
+  ],
+  "paths": {
+    "/companies/{companyId}/connections/{connectionId}/files": {
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Upload files for a company",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Upload files",
+        "operationId": "upload-files"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1files/parameters/0"
+        },
+        {
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          },
+          "description": "ID of your company's data connection"
+        }
+      ]
+    },
+    "/companies/{companyId}/files": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "List all files uploaded by a company",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "title": "File",
+                    "x-stoplight": {
+                      "id": "kxabxut4i1j43"
+                    },
+                    "type": "object",
+                    "properties": {
+                      "fileName": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "displayName": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "sourceType": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "uploaded": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Returns an array of files that have been uploaded for a given company.",
+        "operationId": "list-files"
+      },
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+          },
+          "description": "The unique identifier for your SME in Codat"
+        }
+      ]
+    },
+    "/companies/{companyId}/files/download": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Download all files for a company",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Only download files uploaded on this date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "You can specify a date to download specific files for.",
+        "operationId": "download-files"
+      },
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1files/parameters/0"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "API_Key": {
+        "type": "apiKey",
+        "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "API_Key": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.codat.io",
+      "description": "Codat"
+    }
+  ]
+}
