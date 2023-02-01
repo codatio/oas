@@ -185,62 +185,64 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - properties:
-                      accountRef:
-                        description: An object containing account reference data.
-                        title: nameRef
+                title: CategorisedAccount
+                x-internal: false
+                type: object
+                properties:
+                  accountRef:
+                    description: An object containing account reference data.
+                    title: nameRef
+                    x-stoplight:
+                      id: 34dd919grzbls
+                    type: object
+                    properties:
+                      id:
+                        description: The unique identitifer of the record being referenced
+                        type: string
+                        examples:
+                          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                          - 7110701885
+                          - EILBDVJVNUAGVKRQ
+                      name:
+                        description: Name of the record being referenced.
+                        type: string
+                    required:
+                      - id
+                      - name
+                  suggested:
+                    allOf:
+                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
+                      - title: ModifiedDate
                         x-stoplight:
-                          id: 34dd919grzbls
+                          id: z5gfpfg4fsp6v
                         type: object
                         properties:
-                          id:
-                            description: The unique identitifer of the record being referenced
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
                             type: string
-                            examples:
-                              - 13d946f0-c5d5-42bc-b092-97ece17923ab
-                              - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-                              - 7110701885
-                              - EILBDVJVNUAGVKRQ
-                          name:
-                            description: Name of the record being referenced.
-                            type: string
-                        required:
-                          - id
-                          - name
-                      suggested:
-                        allOf:
-                          - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
-                          - title: ModifiedDate
-                            x-stoplight:
-                              id: z5gfpfg4fsp6v
-                            type: object
-                            properties:
-                              modifiedDate:
-                                description: The date on which this record was last modified in Codat.
-                                type: string
-                                format: date-time
-                                readOnly: true
-                      confirmed:
-                        allOf:
-                          - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
-                          - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema/allOf/0/properties/suggested/allOf/1'
-                type: object
+                            format: date-time
+                            readOnly: true
+                    description: An object containing suggested category data.
+                  confirmed:
+                    allOf:
+                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
+                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema/properties/suggested/allOf/1'
+                    description: An object containing confirmed category data.
                 examples:
                   - accountRef:
                       id: 13d946f0-c5d5-42bc-b092-97ece17923ab
-                      name: Subscription Revenue
+                      name: string
                     suggested:
-                      type: Income
-                      subtype: Operating
-                      detailType: RecurringRevenue
+                      type: Asset
+                      subtype: Current
+                      detailType: Cash
                       modifiedDate: '2019-08-24T14:15:22Z'
                     confirmed:
-                      type: Income
-                      subtype: Operating
-                      detailType: RecurringRevenue
+                      type: Asset
+                      subtype: Current
+                      detailType: Cash
                       modifiedDate: '2019-08-24T14:15:22Z'
-                description: ''
       operationId: get-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories
       description: Get category for specific nominal account.
     patch:
