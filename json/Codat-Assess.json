@@ -1386,7 +1386,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -2466,7 +2466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -3386,7 +3386,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -3523,7 +3523,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -3676,7 +3676,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -3835,7 +3835,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -4021,7 +4021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -4135,7 +4135,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 },
                 "examples": {
                   "Example 1": {
@@ -4770,283 +4770,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "x-examples": {
-                    "Example 1": {
-                      "reportInfo": {
-                        "additionalProp1": "string",
-                        "additionalProp2": "string",
-                        "additionalProp3": "string"
-                      },
-                      "dimensions": [
-                        {
-                          "index": 0,
-                          "displayName": "string",
-                          "type": "string",
-                          "items": [
-                            {
-                              "index": 0
-                            }
-                          ]
-                        }
-                      ],
-                      "measures": [
-                        {
-                          "displayName": "string",
-                          "units": "string",
-                          "index": 0,
-                          "type": "string"
-                        }
-                      ],
-                      "reportData": [
-                        {
-                          "dimension": 0,
-                          "dimensionDisplayName": "string",
-                          "item": 0,
-                          "itemDisplayName": "string",
-                          "measures": [
-                            {
-                              "index": 0,
-                              "measureDisplayName": "string"
-                            }
-                          ],
-                          "components": [
-                            "string"
-                          ]
-                        }
-                      ],
-                      "errors": [
-                        {
-                          "message": "string",
-                          "type": "DatesOutOfRange",
-                          "details": {
-                            "additionalProp1": [
-                              "string"
-                            ],
-                            "additionalProp2": [
-                              "string"
-                            ],
-                            "additionalProp3": [
-                              "string"
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  "properties": {
-                    "reportInfo": {
-                      "type": "object",
-                      "properties": {
-                        "additionalProp1": {
-                          "type": "string"
-                        },
-                        "additionalProp2": {
-                          "type": "string"
-                        },
-                        "additionalProp3": {
-                          "type": "string"
-                        }
-                      }
-                    },
-                    "dimensions": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "index": {
-                            "type": "integer"
-                          },
-                          "displayName": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "items": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "index": {
-                                  "type": "integer"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "measures": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "displayName": {
-                            "type": "string"
-                          },
-                          "units": {
-                            "type": "string"
-                          },
-                          "index": {
-                            "type": "integer"
-                          },
-                          "type": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "reportData": {
-                      "type": "array",
-                      "items": {
-                        "allOf": [
-                          {
-                            "title": "ReportDimensionsItems",
-                            "x-stoplight": {
-                              "id": "sqj9ewqwpab8e"
-                            },
-                            "type": "object",
-                            "properties": {
-                              "dimension": {
-                                "type": "integer"
-                              },
-                              "dimensionDisplayName": {
-                                "type": "string"
-                              },
-                              "item": {
-                                "type": "integer"
-                              },
-                              "itemDisplayName": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "components": {
-                                "type": "array",
-                                "items": {
-                                  "title": "ReportComponent",
-                                  "x-stoplight": {
-                                    "id": "utgt54p0sijaj"
-                                  },
-                                  "allOf": [
-                                    {
-                                      "title": "ReportComponentProperties",
-                                      "x-stoplight": {
-                                        "id": "fm40zp0h429tv"
-                                      },
-                                      "allOf": [
-                                        {
-                                          "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/0"
-                                        },
-                                        {
-                                          "title": "ReportComponentMeasures",
-                                          "x-stoplight": {
-                                            "id": "ktvlu1fuqldgn"
-                                          },
-                                          "type": "object",
-                                          "properties": {
-                                            "measures": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "index": {
-                                                    "type": "integer"
-                                                  },
-                                                  "measureDisplayName": {
-                                                    "type": "string"
-                                                  },
-                                                  "value": {
-                                                    "type": "number"
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "components": {
-                                          "type": "array",
-                                          "items": {
-                                            "title": "ReportComponent",
-                                            "x-stoplight": {
-                                              "id": "ane12m6kjhdfx"
-                                            },
-                                            "type": "object",
-                                            "allOf": [
-                                              {
-                                                "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/1/properties/components/items/allOf/0"
-                                              },
-                                              {
-                                                "type": "object",
-                                                "properties": {
-                                                  "components": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/1/properties/components/items"
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "details": {
-                            "type": "object",
-                            "properties": {
-                              "additionalProp1": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                }
-                              },
-                              "additionalProp2": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                }
-                              },
-                              "additionalProp3": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/report"
                 }
               }
             }
@@ -5076,7 +4800,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema"
+                  "$ref": "#/components/schemas/report"
                 }
               }
             }
@@ -5088,7 +4812,287 @@
     }
   },
   "components": {
-    "schemas": {},
+    "schemas": {
+      "report": {
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "reportInfo": {
+              "additionalProp1": "string",
+              "additionalProp2": "string",
+              "additionalProp3": "string"
+            },
+            "dimensions": [
+              {
+                "index": 0,
+                "displayName": "string",
+                "type": "string",
+                "items": [
+                  {
+                    "index": 0
+                  }
+                ]
+              }
+            ],
+            "measures": [
+              {
+                "displayName": "string",
+                "units": "string",
+                "index": 0,
+                "type": "string"
+              }
+            ],
+            "reportData": [
+              {
+                "dimension": 0,
+                "dimensionDisplayName": "string",
+                "item": 0,
+                "itemDisplayName": "string",
+                "measures": [
+                  {
+                    "index": 0,
+                    "measureDisplayName": "string"
+                  }
+                ],
+                "components": [
+                  "string"
+                ]
+              }
+            ],
+            "errors": [
+              {
+                "message": "string",
+                "type": "DatesOutOfRange",
+                "details": {
+                  "additionalProp1": [
+                    "string"
+                  ],
+                  "additionalProp2": [
+                    "string"
+                  ],
+                  "additionalProp3": [
+                    "string"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "properties": {
+          "reportInfo": {
+            "type": "object",
+            "properties": {
+              "additionalProp1": {
+                "type": "string"
+              },
+              "additionalProp2": {
+                "type": "string"
+              },
+              "additionalProp3": {
+                "type": "string"
+              }
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "displayName": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "measures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "displayName": {
+                  "type": "string"
+                },
+                "units": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": "integer"
+                },
+                "type": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "reportData": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "title": "ReportDimensionsItems",
+                  "x-stoplight": {
+                    "id": "sqj9ewqwpab8e"
+                  },
+                  "type": "object",
+                  "properties": {
+                    "dimension": {
+                      "type": "integer"
+                    },
+                    "dimensionDisplayName": {
+                      "type": "string"
+                    },
+                    "item": {
+                      "type": "integer"
+                    },
+                    "itemDisplayName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "components": {
+                      "type": "array",
+                      "items": {
+                        "title": "ReportComponent",
+                        "x-stoplight": {
+                          "id": "utgt54p0sijaj"
+                        },
+                        "allOf": [
+                          {
+                            "title": "ReportComponentProperties",
+                            "x-stoplight": {
+                              "id": "fm40zp0h429tv"
+                            },
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/report/properties/reportData/items/allOf/0"
+                              },
+                              {
+                                "title": "ReportComponentMeasures",
+                                "x-stoplight": {
+                                  "id": "ktvlu1fuqldgn"
+                                },
+                                "type": "object",
+                                "properties": {
+                                  "measures": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "index": {
+                                          "type": "integer"
+                                        },
+                                        "measureDisplayName": {
+                                          "type": "string"
+                                        },
+                                        "value": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "components": {
+                                "type": "array",
+                                "items": {
+                                  "title": "ReportComponent",
+                                  "x-stoplight": {
+                                    "id": "ane12m6kjhdfx"
+                                  },
+                                  "type": "object",
+                                  "allOf": [
+                                    {
+                                      "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1subscriptions~1mrr/get/responses/200/content/application~1json/schema/properties/reportData/items/allOf/1/properties/components/items/allOf/0"
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "components": {
+                                          "type": "array",
+                                          "items": {
+                                            "$ref": "#/components/schemas/report/properties/reportData/items/allOf/1/properties/components/items"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "details": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProp2": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProp3": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "Authorization": {
         "name": "Your Base 64 encoded API Key",
