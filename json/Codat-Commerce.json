@@ -654,6 +654,10 @@
                         "createdDate": {
                           "description": "The date the entity was created.",
                           "type": "string",
+                          "x-stoplight": {
+                            "id": "d4d589a0f2c46"
+                          },
+                          "example": "2022-10-23T00:00:00Z",
                           "format": "date-time"
                         }
                       }
@@ -668,10 +672,8 @@
                           "type": "object",
                           "properties": {
                             "modifiedDate": {
-                              "description": "The date on which this record was last modified in Codat.",
-                              "type": "string",
-                              "format": "date-time",
-                              "readOnly": true
+                              "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0/properties/createdDate",
+                              "description": "The date on which this record was last modified in Codat."
                             }
                           }
                         },
@@ -683,10 +685,8 @@
                           "type": "object",
                           "properties": {
                             "sourceModifiedDate": {
-                              "description": "The date on which this record was last modified in the originating system",
-                              "type": "string",
-                              "format": "date-time",
-                              "readOnly": true
+                              "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0/properties/createdDate",
+                              "description": "The date on which this record was last modified in the originating system"
                             }
                           }
                         }
@@ -2074,9 +2074,8 @@
                                         },
                                         "properties": {
                                           "sourceCreatedDate": {
-                                            "description": "The date on which this record was created in the originating system",
-                                            "type": "string",
-                                            "format": "date-time"
+                                            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/get/responses/200/content/application~1json/schema/allOf/0/properties/createdDate",
+                                            "description": "The date on which this record was created in the originating system"
                                           }
                                         }
                                       }
