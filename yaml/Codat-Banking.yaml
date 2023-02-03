@@ -386,6 +386,7 @@ components:
       x-stoplight:
         id: 3293652f3df8e
       title: Account Balance
+      description: The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
     Account:
       title: Account
       x-stoplight:
@@ -425,77 +426,95 @@ components:
                 For Debit accounts, positive balances are assets and positive transactions increase assets.
             balance:
               description: An object containing bank balance data.
-              title: AccountingBalanceAmounts
+              title: Account Balance Amounts
               x-stoplight:
                 id: jmyqs1xu3c11z
               type: object
-              required:
-                - current
+              additionalProperties: false
               properties:
                 available:
                   type: number
                   format: double
                   nullable: true
+                  description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
                 current:
                   type: number
                   format: double
+                  description: The balance of the account only including cleared transactions.
                 limit:
                   type: number
                   format: double
                   nullable: true
-              additionalProperties: false
+                  description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00'
             identifiers:
               description: An object containing bank account identification information.
-              title: AccountIdentifiers
+              title: Account Identifiers
               x-stoplight:
                 id: ldkvbe2lb7nab
               type: object
-              required:
-                - type
+              additionalProperties: false
               properties:
                 type:
-                  minLength: 1
                   type: string
+                  description: Type of account
+                  enum:
+                    - Account
+                    - Card
+                    - Credit
+                    - Depository
+                    - Investment
+                    - Loan
+                    - Other
                 subtype:
                   type: string
                   nullable: true
+                  description: Detailed account category
                 number:
                   type: string
                   nullable: true
+                  description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
                 bankCode:
                   type: string
                   nullable: true
+                  description: |-
+                    The local (usually national) routing number for the account.
+
+                    This is known by different names in different countries:
+                    * BSB code (Australia)
+                    * routing number (Canada, USA)
+                    * sort code (UK)
                 iban:
                   type: string
                   nullable: true
+                  description: 'The international bank account number (IBAN) for the account, if known.'
                 bic:
                   type: string
                   nullable: true
+                  description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
                 maskedAccountNumber:
                   type: string
                   nullable: true
-              additionalProperties: false
+                  description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+              required:
+                - type
             currency:
               minLength: 1
               type: string
               description: The currency code for the account.
             institution:
               description: The bank or other financial institution providing the account.
-              title: AccountInstitution
+              title: Account Institution
               x-stoplight:
                 id: 5y3yc3euy8v6a
               type: object
-              required:
-                - id
-                - name
+              additionalProperties: false
               properties:
                 id:
-                  minLength: 1
                   type: string
+                  description: 'The institution''s ID, according to the provider.'
                 name:
-                  minLength: 1
                   type: string
-              additionalProperties: false
+                  description: 'The institution''s name, according to the underlying provider.'
         - $ref: '#/components/schemas/Transaction/allOf/1'
           required:
             - id
@@ -608,26 +627,31 @@ components:
             id:
               minLength: 1
               type: string
+              description: The unique identifier of the bank transaction category.
             name:
               minLength: 1
               type: string
+              description: The name of the bank transaction category.
             parentId:
               type: string
               nullable: true
+              description: The unique identifier of the parent bank transaction category.
             hasChildren:
               type: boolean
+              description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
             status:
               type: string
               enum:
                 - Unknown
                 - Active
                 - Archived
+              description: Status of the bank transaction category.
           required:
             - id
             - name
         - $ref: '#/components/schemas/Transaction/allOf/1'
       title: Transaction Category
-      description: ''
+      description: The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
   securitySchemes:
     API_Key:
       type: apiKey
