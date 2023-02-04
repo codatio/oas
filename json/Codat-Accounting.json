@@ -121,6 +121,14 @@
   ],
   "paths": {
     "/companies/{companyId}/connections/{connectionId}/data/accountTransactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Account transactions"
@@ -128,55 +136,16 @@
         "summary": "List account transactions",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -243,39 +212,27 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "accountTransactionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Account transactions"
         ],
         "summary": "Get account transaction",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountTransactionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -298,6 +255,11 @@
       }
     },
     "/companies/{companyId}/data/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Accounts"
@@ -305,46 +267,16 @@
         "summary": "Get chart of accounts for a company",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -420,30 +352,19 @@
       }
     },
     "/companies/{companyId}/data/accounts/{accountId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
+      ],
       "get": {
         "tags": [
           "Accounts"
         ],
         "summary": "Gets account",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -560,6 +481,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Accounts"
@@ -567,30 +496,7 @@
         "summary": "Post account",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -697,6 +603,11 @@
       }
     },
     "/companies/{companyId}/data/billCreditNotes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Bill credit notes"
@@ -704,46 +615,16 @@
         "summary": "List bill credit notes",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -819,30 +700,24 @@
       }
     },
     "/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "billCreditNoteId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Bill credit notes"
         ],
         "summary": "Get billCreditNote corresponding to the supplied Id",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billCreditNoteId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -866,6 +741,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/billCreditNotes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Bill credit notes"
@@ -873,30 +756,7 @@
         "summary": "Create a billCreditNote",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -1003,6 +863,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/billCreditNotes/{billCreditNoteId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "billCreditNoteId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "put": {
         "tags": [
           "Bill credit notes"
@@ -1010,46 +886,10 @@
         "summary": "Update billCreditNote",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billCreditNoteId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -1083,6 +923,11 @@
       }
     },
     "/companies/{companyId}/data/billPayments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Bill payments"
@@ -1090,46 +935,16 @@
         "summary": "List billPayments for a company, with pagination",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -1205,28 +1020,22 @@
       }
     },
     "/companies/{companyId}/data/billPayments/{billPaymentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "billPaymentId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Bill payments"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billPaymentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1252,6 +1061,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/billPayments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Bill payments"
@@ -1259,30 +1076,7 @@
         "summary": "Posts a new bill payment to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -1389,6 +1183,11 @@
       }
     },
     "/companies/{companyId}/data/bills": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Bills"
@@ -1396,46 +1195,47 @@
         "summary": "List bills",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32",
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
               "default": 1
-            }
+            },
+            "description": "Page Number"
           },
           {
             "name": "pageSize",
             "in": "query",
             "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page"
           },
           {
             "name": "query",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Codat Query String"
           },
           {
             "name": "orderBy",
             "in": "query",
+            "required": false,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by"
           }
         ],
         "responses": {
@@ -1511,28 +1311,17 @@
       }
     },
     "/companies/{companyId}/data/bills/{billId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Bills"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1557,6 +1346,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bills": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          },
+          "description": "Unique identifier for a company's data connection"
+        }
+      ],
       "post": {
         "tags": [
           "Bills"
@@ -1564,30 +1369,7 @@
         "summary": "Posts a new bill to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -1762,6 +1544,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bills/{billId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "put": {
         "tags": [
           "Bills"
@@ -1769,46 +1562,10 @@
         "summary": "Posts an updated bill to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -1842,37 +1599,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bills"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1908,44 +1648,24 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bills"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -2010,44 +1730,24 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bills"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -2066,37 +1766,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bills/{billId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/billId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Bills"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "billId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -2114,6 +1797,11 @@
       }
     },
     "/companies/{companyId}/data/creditNotes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Credit notes"
@@ -2121,46 +1809,16 @@
         "summary": "Gets a list of all credit notes for a company, with pagination",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -2236,30 +1894,24 @@
       }
     },
     "/companies/{companyId}/data/creditNotes/{creditNoteId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "creditNoteId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Credit notes"
         ],
         "summary": "Get creditNote",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "creditNoteId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -2284,36 +1936,21 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/creditNotes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Credit notes"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -2421,6 +2058,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/creditNotes/{creditNoteId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "creditNoteId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "put": {
         "tags": [
           "Credit notes"
@@ -2428,46 +2081,10 @@
         "summary": "Posts an updated credit note to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "creditNoteId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -2501,6 +2118,11 @@
       }
     },
     "/companies/{companyId}/data/customers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Customers"
@@ -2508,46 +2130,16 @@
         "summary": "Get customers",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -2623,30 +2215,24 @@
       }
     },
     "/companies/{companyId}/data/customers/{customerId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "customerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Customers"
         ],
         "summary": "Get customer",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -2671,6 +2257,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/customers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Customers"
@@ -2678,30 +2272,7 @@
         "summary": "Posts an individual customer for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -2808,6 +2379,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/customers/{customerId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "customerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "put": {
         "tags": [
           "Customers"
@@ -2815,46 +2402,10 @@
         "summary": "Posts an updated customer for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -2888,37 +2439,25 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "customerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Customers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -2943,45 +2482,28 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "customerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Customers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -3006,45 +2528,28 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "customerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Customers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -3062,6 +2567,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Direct costs"
@@ -3069,55 +2582,16 @@
         "summary": "Gets the direct costs for the company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -3193,39 +2667,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directCostId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct costs"
         ],
         "summary": "Gets the specified direct cost for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directCostId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -3250,6 +2707,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/directCosts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Direct costs"
@@ -3257,30 +2722,7 @@
         "summary": "Posts a new direct cost to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -3387,39 +2829,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/directCosts/{directCostId}/attachment": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directCostId"
+        }
+      ],
       "post": {
         "tags": [
           "Direct costs"
         ],
         "summary": "Posts a new direct cost attachment for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directCostId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -3435,6 +2860,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directCostId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct costs"
@@ -3442,38 +2878,7 @@
         "summary": "Gets the specified direct cost attachment for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directCostId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -3498,6 +2903,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directCostId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct costs"
@@ -3505,38 +2921,7 @@
         "summary": "Download direct cost attachment",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directCostId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -3554,39 +2939,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directCostId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct costs"
         ],
         "summary": "List direct cost attachments",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directCostId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -3609,6 +2977,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Direct incomes"
@@ -3616,55 +2992,16 @@
         "summary": "Gets the direct incomes for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -3740,30 +3077,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Direct incomes"
         ],
         "summary": "Gets the specified direct income for a given company and connection.",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "directIncomeId",
             "in": "path",
@@ -3797,6 +3124,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/directIncomes": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Direct incomes"
@@ -3804,30 +3139,7 @@
         "summary": "Posts a new direct income to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -3934,30 +3246,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/directIncomes/{directIncomeId}/attachment": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Direct incomes"
         ],
         "summary": "Posts a new direct income attachment for a given company.",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "directIncomeId",
             "in": "path",
@@ -3982,6 +3284,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directIncomeId"
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct incomes"
@@ -3989,38 +3305,7 @@
         "summary": "Gets the specified direct income attachment for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directIncomeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "responses": {
@@ -4045,6 +3330,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directIncomeId"
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct incomes"
@@ -4052,38 +3351,7 @@
         "summary": "Downloads an attachment for the specified direct income for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directIncomeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -4101,39 +3369,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/directIncomeId"
+        }
+      ],
       "get": {
         "tags": [
           "Direct incomes"
         ],
         "summary": "Gets all attachments for the specified direct income for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "directIncomeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -4156,21 +3407,17 @@
       }
     },
     "/companies/{companyId}/data/financials/balanceSheet": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Financials"
         ],
         "summary": "Get balance sheet",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "periodLength",
             "in": "query",
@@ -4248,21 +3495,17 @@
       }
     },
     "/companies/{companyId}/data/financials/profitAndLoss": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Financials"
         ],
         "summary": "Gets profit and loss",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "periodLength",
             "in": "query",
@@ -4350,21 +3593,17 @@
       }
     },
     "/companies/{companyId}/data/financials/cashFlowStatement": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Financials"
         ],
         "summary": "Gets cash flow statement",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "periodLength",
             "in": "query",
@@ -4462,22 +3701,24 @@
       }
     },
     "/companies/{companyId}/data/info": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+          },
+          "description": "Unique identifier for your SMB in Codat"
+        }
+      ],
       "get": {
         "tags": [
           "Info"
         ],
         "summary": "Get basic info",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -4621,17 +3862,6 @@
           "Info"
         ],
         "summary": "Initiates the process of synchronising basic info for a company",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -4742,6 +3972,11 @@
       }
     },
     "/companies/{companyId}/data/invoices": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
@@ -4749,46 +3984,16 @@
         "summary": "List invoices",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -4863,27 +4068,18 @@
       }
     },
     "/companies/{companyId}/data/invoices/{invoiceId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           }
         ],
         "responses": {
@@ -4910,27 +4106,18 @@
       }
     },
     "/companies/{companyId}/data/invoices/{invoiceId}/pdf": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           }
         ],
         "responses": {
@@ -4949,36 +4136,21 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           }
         ],
         "responses": {
@@ -5004,44 +4176,24 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -5067,44 +4219,24 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/attachmentId"
           }
         ],
         "responses": {
@@ -5123,6 +4255,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/invoices": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Invoices"
@@ -5130,30 +4270,7 @@
         "summary": "Posts a new invoice to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -5260,6 +4377,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/invoices/{invoiceId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "put": {
         "tags": [
           "Invoices"
@@ -5267,46 +4392,13 @@
         "summary": "Posts an updated invoice to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -5340,36 +4432,21 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/invoices/{invoiceId}/attachment": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Invoices"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "invoiceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/invoiceId"
           }
         ],
         "responses": {
@@ -5388,6 +4465,11 @@
       }
     },
     "/companies/{companyId}/data/items": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Items"
@@ -5395,46 +4477,16 @@
         "summary": "List items",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -5510,21 +4562,17 @@
       }
     },
     "/companies/{companyId}/data/items/{itemId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Items"
         ],
         "summary": "Get item",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "itemId",
             "in": "path",
@@ -5558,6 +4606,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/items": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Items"
@@ -5565,30 +4621,7 @@
         "summary": "Posts a new item to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -5695,6 +4728,11 @@
       }
     },
     "/companies/{companyId}/data/journalEntries": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Journal entries"
@@ -5702,46 +4740,16 @@
         "summary": "List journal entries",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -5817,21 +4825,17 @@
       }
     },
     "/companies/{companyId}/data/journalEntries/{journalEntryId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Journal entries"
         ],
         "summary": "Get JournalEntry corresponding to the supplied Id",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "journalEntryId",
             "in": "path",
@@ -5865,6 +4869,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/journalEntries": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Journal entries"
@@ -5872,30 +4884,7 @@
         "summary": "Posts a new journalEntry to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -6002,6 +4991,11 @@
       }
     },
     "/companies/{companyId}/data/journals": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Journals"
@@ -6009,46 +5003,16 @@
         "summary": "List journals",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -6124,21 +5088,17 @@
       }
     },
     "/companies/{companyId}/data/journals/{journalId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Journals"
         ],
         "summary": "Get journal corresponding to the supplied Id",
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "journalId",
             "in": "path",
@@ -6172,6 +5132,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/journals": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Journals"
@@ -6179,30 +5147,7 @@
         "summary": "Posts a new journal to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -6309,6 +5254,11 @@
       }
     },
     "/companies/{companyId}/data/paymentMethods": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Payment methods"
@@ -6316,46 +5266,16 @@
         "summary": "Gets the payment methods for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -6433,30 +5353,24 @@
       }
     },
     "/companies/{companyId}/data/paymentMethods/{paymentMethodId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "paymentMethodId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Payment methods"
         ],
         "summary": "Gets the specified payment method for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "paymentMethodId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -6481,6 +5395,11 @@
       }
     },
     "/companies/{companyId}/data/payments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Payments"
@@ -6488,46 +5407,16 @@
         "summary": "List payments",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -6603,20 +5492,16 @@
       }
     },
     "/companies/{companyId}/data/payments/{paymentId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Payments"
         ],
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "paymentId",
             "in": "path",
@@ -6651,6 +5536,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/payments": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Payments"
@@ -6658,30 +5551,7 @@
         "summary": "Posts a new payment to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -6788,52 +5658,27 @@
       }
     },
     "/companies/{companyId}/data/purchaseOrders": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Purchase orders"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -6910,20 +5755,16 @@
       }
     },
     "/companies/{companyId}/data/purchaseOrders/{purchaseOrderId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Purchase orders"
         ],
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "purchaseOrderId",
             "in": "path",
@@ -6958,6 +5799,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/purchaseOrders": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Purchase orders"
@@ -6965,30 +5814,7 @@
         "summary": "Posts a new purchase order to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -7095,6 +5921,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/purchaseOrders/{purchaseOrderId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "purchaseOrderId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "put": {
         "tags": [
           "Purchase orders"
@@ -7102,46 +5944,10 @@
         "summary": "Posts an updated purchase order to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "purchaseOrderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -7175,52 +5981,27 @@
       }
     },
     "/companies/{companyId}/data/salesOrders": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Sales orders"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -7297,20 +6078,16 @@
       }
     },
     "/companies/{companyId}/data/salesOrders/{salesOrderId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Sales orders"
         ],
         "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
           {
             "name": "salesOrderId",
             "in": "path",
@@ -7345,6 +6122,11 @@
       }
     },
     "/companies/{companyId}/data/suppliers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Suppliers"
@@ -7352,46 +6134,16 @@
         "summary": "List suppliers",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -7467,30 +6219,19 @@
       }
     },
     "/companies/{companyId}/data/suppliers/{supplierId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/supplierId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Suppliers"
         ],
         "summary": "Get supplier",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -7515,36 +6256,21 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/suppliers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Suppliers"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -7652,52 +6378,27 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/suppliers/{supplierId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/supplierId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "put": {
         "tags": [
           "Suppliers"
         ],
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -7732,37 +6433,20 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/supplierId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Suppliers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -7787,45 +6471,23 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/supplierId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Suppliers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -7850,45 +6512,23 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/supplierId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/attachmentId"
+        }
+      ],
       "get": {
         "tags": [
           "Suppliers"
-        ],
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "attachmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -7906,6 +6546,11 @@
       }
     },
     "/companies/{companyId}/data/taxRates": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Tax rates"
@@ -7913,46 +6558,16 @@
         "summary": "List tax rates",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -8028,30 +6643,24 @@
       }
     },
     "/companies/{companyId}/data/taxRates/{taxRateId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "taxRateId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Tax rates"
         ],
         "summary": "Gets the specified tax rate for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "taxRateId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -8076,6 +6685,11 @@
       }
     },
     "/companies/{companyId}/data/trackingCategories": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        }
+      ],
       "get": {
         "tags": [
           "Tracking categories"
@@ -8083,46 +6697,16 @@
         "summary": "List tracking categories",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -8237,30 +6821,24 @@
       }
     },
     "/companies/{companyId}/data/trackingCategories/{trackingCategoryId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "name": "trackingCategoryId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Tracking categories"
         ],
         "summary": "Gets the specified tracking categories for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "trackingCategoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -8336,6 +6914,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/transfers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Transfers"
@@ -8343,55 +6929,16 @@
         "summary": "List transfers",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -8467,39 +7014,27 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/transfers/{transferId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "name": "transferId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": [
           "Transfers"
         ],
         "summary": "Gets the specified transfer for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "transferId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -8524,39 +7059,19 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/transfers": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Transfers"
         ],
         "summary": "Posts a new transfer to the accounting package for a given company.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -8661,6 +7176,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bankAccounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
@@ -8668,55 +7191,16 @@
         "summary": "Gets the list of bank accounts for a given connection",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -8792,39 +7276,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
         ],
         "summary": "Get bank account",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -8849,6 +7316,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
@@ -8856,63 +7334,16 @@
         "summary": "List all bank transactions for all bank accounts",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -8988,39 +7419,22 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
         ],
         "summary": "Gets the options of pushing bank account transactions.",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -9174,6 +7588,14 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bankAccounts": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Bank accounts"
@@ -9181,38 +7603,10 @@
         "summary": "Posts a new bank account to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/allowSyncOnPushComplete"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "allowSyncOnPushComplete",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -9319,6 +7713,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{bankAccountId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        },
+        {
+          "$ref": "#/components/parameters/bankAccountId"
+        }
+      ],
       "put": {
         "tags": [
           "Bank accounts"
@@ -9326,46 +7731,10 @@
         "summary": "Posts an updated bank account to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "forceUpdate",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
+            "$ref": "#/components/parameters/forceUpdate"
           }
         ],
         "requestBody": {
@@ -9399,6 +7768,17 @@
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        },
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1"
+        }
+      ],
       "post": {
         "tags": [
           "Bank accounts"
@@ -9406,46 +7786,10 @@
         "summary": "Posts bank transactions to the accounting package for a given company.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/components/parameters/allowSyncOnPushComplete"
           },
           {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "allowSyncOnPushComplete",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          {
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "$ref": "#/components/parameters/timeoutInMinutes"
           }
         ],
         "requestBody": {
@@ -9552,6 +7896,14 @@
       }
     },
     "/companies/{companyId}/data/bankAccounts/{accountId}": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
@@ -9559,28 +7911,7 @@
         "summary": "Gets the bank account for given account ID.",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           }
         ],
         "responses": {
@@ -9675,6 +8006,14 @@
       }
     },
     "/companies/{companyId}/data/bankAccounts/{accountId}/transactions": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0"
+        },
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
+      ],
       "get": {
         "tags": [
           "Bank accounts"
@@ -9682,54 +8021,16 @@
         "summary": "List bank transactions for account",
         "parameters": [
           {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0"
           },
           {
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3"
           }
         ],
         "responses": {
@@ -13176,6 +11477,119 @@
         },
         "additionalProperties": false,
         "description": "> View the coverage for transfers in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers\" target=\"_blank\">Data coverage explorer</a>.\n\nFrom the **Transfers** endpoints, you can:\n\n- [Retrieve a list of all transfers for a specified company](https://api.codat.io/swagger/index.html#/Transfers/get_companies__companyId__connections__connectionId__data_transfers)\n- [Retrieve a single transfer for a specified company](https://api.codat.io/swagger/index.html#/Transfers/get_companies__companyId__connections__connectionId__data_transfers__transferId_) \n- [Add a new transfer for a specified company](https://api.codat.io/swagger/index.html#/Transfers/post_companies__companyId__connections__connectionId__push_transfers) \n\n**Transfers** is a child data type of [account transactions](https://docs.codat.io/docs/datamodel-accounting-account-transactions)."
+      }
+    },
+    "parameters": {
+      "accountId": {
+        "name": "accountId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for an account"
+      },
+      "bankAccountId": {
+        "name": "bankAccountId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for a bank account"
+      },
+      "timeoutInMinutes": {
+        "name": "timeoutInMinutes",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "forceUpdate": {
+        "name": "forceUpdate",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "invoiceId": {
+        "name": "invoiceId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for an invoice"
+      },
+      "attachmentId": {
+        "name": "attachmentId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for an attachment"
+      },
+      "supplierId": {
+        "name": "supplierId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for a supplier"
+      },
+      "allowSyncOnPushComplete": {
+        "name": "allowSyncOnPushComplete",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "billId": {
+        "name": "billId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for a bill"
+      },
+      "directCostId": {
+        "name": "directCostId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for a direct cost"
+      },
+      "directIncomeId": {
+        "name": "directIncomeId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+        },
+        "description": "Unique identifier for a direct income"
       }
     },
     "securitySchemes": {
