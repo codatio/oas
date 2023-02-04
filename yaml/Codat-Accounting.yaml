@@ -150,7 +150,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Get chart of accounts for a company
+      summary: Get chart of accounts
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -211,7 +211,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Gets account
+      summary: Get account
       responses:
         '200':
           description: Success
@@ -448,7 +448,7 @@ paths:
     get:
       tags:
         - Bill credit notes
-      summary: Get billCreditNote corresponding to the supplied Id
+      summary: Get billCreditNote
       responses:
         '200':
           description: Success
@@ -468,7 +468,7 @@ paths:
     post:
       tags:
         - Bill credit notes
-      summary: Create a billCreditNote
+      summary: Create billCreditNote
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -581,7 +581,7 @@ paths:
     get:
       tags:
         - Bill payments
-      summary: 'List billPayments for a company, with pagination'
+      summary: List billPayments
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -655,7 +655,7 @@ paths:
                 $ref: '#/components/schemas/BillPayment'
       security:
         - API_Key: []
-      summary: Get a bill payment
+      summary: Get billPayment
       deprecated: true
       description: Get a bill payment
       operationId: get-bill-payments
@@ -666,7 +666,7 @@ paths:
     post:
       tags:
         - Bill payments
-      summary: Posts a new bill payment to the accounting package for a given company.
+      summary: Create billPayment
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -861,7 +861,7 @@ paths:
     post:
       tags:
         - Bills
-      summary: Posts a new bill to the accounting package for a given company.
+      summary: Create bill
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -995,7 +995,7 @@ paths:
     put:
       tags:
         - Bills
-      summary: Posts an updated bill to the accounting package for a given company.
+      summary: Update bill
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -1041,7 +1041,7 @@ paths:
       security:
         - API_Key: []
       operationId: get-bill-attachments
-      summary: Get bill attachments
+      summary: List bill attachments
       description: Get bill attachments
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}':
     parameters:
@@ -1126,7 +1126,7 @@ paths:
           description: Success
       security:
         - API_Key: []
-      summary: Post bill attachments
+      summary: Create bill attachments
       description: Post bill attachments
       operationId: post-bill-attachments
   '/companies/{companyId}/data/creditNotes':
@@ -1135,7 +1135,7 @@ paths:
     get:
       tags:
         - Credit notes
-      summary: 'Gets a list of all credit notes for a company, with pagination'
+      summary: List creditNotes
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -1293,7 +1293,7 @@ paths:
                 additionalProperties: false
       security:
         - API_Key: []
-      summary: Push credit note
+      summary: Create creditNote
       description: Push credit note
       operationId: push-credit-note
   '/companies/{companyId}/connections/{connectionId}/push/creditNotes/{creditNoteId}':
@@ -1308,7 +1308,7 @@ paths:
     put:
       tags:
         - Credit notes
-      summary: Posts an updated credit note to the accounting package for a given company.
+      summary: Update creditNote
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -1334,7 +1334,7 @@ paths:
     get:
       tags:
         - Customers
-      summary: Get customers
+      summary: List customers
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -1420,7 +1420,7 @@ paths:
     post:
       tags:
         - Customers
-      summary: Posts an individual customer for a given company.
+      summary: Create customer
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -1507,7 +1507,7 @@ paths:
     put:
       tags:
         - Customers
-      summary: Posts an updated customer for a given company.
+      summary: Update customer
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -1548,7 +1548,7 @@ paths:
                 $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bills~1%7BbillId%7D~1attachments/get/responses/200/content/application~1json/schema'
       security:
         - API_Key: []
-      summary: Get customer attachments
+      summary: List customer attachments
       description: Get customer attachments
       operationId: get-customer-attachments
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}':
@@ -1573,7 +1573,7 @@ paths:
                 $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bills~1%7BbillId%7D~1attachments~1%7BattachmentId%7D/get/responses/200/content/application~1json/schema'
       security:
         - API_Key: []
-      summary: Get  customer attachment
+      summary: Get customer attachment
       description: Get  customer attachment
       operationId: get-customer-attachment
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}/download':
@@ -1604,7 +1604,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: Gets the direct costs for the company.
+      summary: List directCosts
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -1666,7 +1666,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: Gets the specified direct cost for a given company.
+      summary: Get directCost
       responses:
         '200':
           description: Success
@@ -1687,7 +1687,7 @@ paths:
     post:
       tags:
         - Direct costs
-      summary: Posts a new direct cost to the accounting package for a given company.
+      summary: Create directCost
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -1770,7 +1770,7 @@ paths:
     post:
       tags:
         - Direct costs
-      summary: Posts a new direct cost attachment for a given company.
+      summary: Create directCost attachment
       responses:
         '200':
           description: Success
@@ -1786,7 +1786,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: Gets the specified direct cost attachment for a given company.
+      summary: Get directCost attachment
       parameters:
         - $ref: '#/components/parameters/attachmentId'
       responses:
@@ -1808,7 +1808,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: Download direct cost attachment
+      summary: Download directCost attachment
       parameters:
         - $ref: '#/components/parameters/attachmentId'
       responses:
@@ -1826,7 +1826,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: List direct cost attachments
+      summary: List directCost attachments
       responses:
         '200':
           description: Success
@@ -1845,7 +1845,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Gets the direct incomes for a given company.
+      summary: Get directIncomes
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -1906,7 +1906,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Gets the specified direct income for a given company and connection.
+      summary: Get directIncome
       parameters:
         - name: directIncomeId
           in: path
@@ -1933,7 +1933,7 @@ paths:
     post:
       tags:
         - Direct incomes
-      summary: Posts a new direct income to the accounting package for a given company.
+      summary: Create directIncome
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -2015,7 +2015,7 @@ paths:
     post:
       tags:
         - Direct incomes
-      summary: Posts a new direct income attachment for a given company.
+      summary: Create directIncome attachment
       parameters:
         - name: directIncomeId
           in: path
@@ -2038,7 +2038,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Gets the specified direct income attachment for a given company.
+      summary: Get directIncome attachment
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       responses:
@@ -2061,7 +2061,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Downloads an attachment for the specified direct income for a given company.
+      summary: Download directIncome attachment
       parameters:
         - $ref: '#/components/parameters/attachmentId'
       responses:
@@ -2079,7 +2079,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Gets all attachments for the specified direct income for a given company.
+      summary: List attachments for directIncome
       responses:
         '200':
           description: Success
@@ -2154,7 +2154,7 @@ paths:
     get:
       tags:
         - Financials
-      summary: Gets profit and loss
+      summary: Get profit and loss
       parameters:
         - name: periodLength
           in: query
@@ -2219,7 +2219,7 @@ paths:
     get:
       tags:
         - Financials
-      summary: Gets cash flow statement
+      summary: Get cash flow statement
       parameters:
         - name: periodLength
           in: query
@@ -2299,7 +2299,7 @@ paths:
     get:
       tags:
         - Info
-      summary: Get basic info
+      summary: Get company info
       responses:
         '200':
           description: Success
@@ -2403,7 +2403,7 @@ paths:
     post:
       tags:
         - Info
-      summary: Initiates the process of synchronising basic info for a company
+      summary: Initiates the process of synchronising basic info for company
       responses:
         '200':
           description: Success
@@ -2651,7 +2651,7 @@ paths:
     post:
       tags:
         - Invoices
-      summary: Posts a new invoice to the accounting package for a given company.
+      summary: Create invoice
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -2733,7 +2733,7 @@ paths:
     put:
       tags:
         - Invoices
-      summary: Posts an updated invoice to the accounting package for a given company.
+      summary: Update invoice
       parameters:
         - $ref: '#/components/parameters/invoiceId'
         - $ref: '#/components/parameters/timeoutInMinutes'
@@ -2864,7 +2864,7 @@ paths:
     post:
       tags:
         - Items
-      summary: Posts a new item to the accounting package for a given company.
+      summary: Create item
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -3005,7 +3005,7 @@ paths:
     get:
       tags:
         - Journal entries
-      summary: Get JournalEntry corresponding to the supplied Id
+      summary: Get journalEntry
       parameters:
         - name: journalEntryId
           in: path
@@ -3032,7 +3032,7 @@ paths:
     post:
       tags:
         - Journal entries
-      summary: Posts a new journalEntry to the accounting package for a given company.
+      summary: Create journalEntry
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -3173,7 +3173,7 @@ paths:
     get:
       tags:
         - Journals
-      summary: Get journal corresponding to the supplied Id
+      summary: Get journal
       parameters:
         - name: journalId
           in: path
@@ -3200,7 +3200,7 @@ paths:
     post:
       tags:
         - Journals
-      summary: Posts a new journal to the accounting package for a given company.
+      summary: Create journal
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -3281,7 +3281,7 @@ paths:
     get:
       tags:
         - Payment methods
-      summary: Gets the payment methods for a given company.
+      summary: List all paymentMethods
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -3348,7 +3348,7 @@ paths:
     get:
       tags:
         - Payment methods
-      summary: Gets the specified payment method for a given company.
+      summary: Get payment method
       responses:
         '200':
           description: Success
@@ -3455,7 +3455,7 @@ paths:
     post:
       tags:
         - Payments
-      summary: Posts a new payment to the accounting package for a given company.
+      summary: Create payment
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -3587,7 +3587,7 @@ paths:
                 description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
       security:
         - API_Key: []
-      summary: List purchase orders
+      summary: List purchaseOrders
       description: Get purchase orders
       operationId: list-purchase-orders
   '/companies/{companyId}/data/purchaseOrders/{purchaseOrderId}':
@@ -3613,7 +3613,7 @@ paths:
         - API_Key: []
       x-internal: true
       deprecated: true
-      summary: Get purchase order
+      summary: Get purchaseOrder
       description: Get purchase order
       operationId: get-purchase-order
   '/companies/{companyId}/connections/{connectionId}/push/purchaseOrders':
@@ -3623,7 +3623,7 @@ paths:
     post:
       tags:
         - Purchase orders
-      summary: Posts a new purchase order to the accounting package for a given company.
+      summary: Create purchaseOrder
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -3710,7 +3710,7 @@ paths:
     put:
       tags:
         - Purchase orders
-      summary: Posts an updated purchase order to the accounting package for a given company.
+      summary: Update purchaseOrder
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -3787,7 +3787,7 @@ paths:
                 description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
       security:
         - API_Key: []
-      summary: List sales orders
+      summary: List salesOrders
       description: Get sales orders
       operationId: list-sales-orders
   '/companies/{companyId}/data/salesOrders/{salesOrderId}':
@@ -3811,7 +3811,7 @@ paths:
                 $ref: '#/components/schemas/SalesOrder'
       security:
         - API_Key: []
-      summary: Get sales order
+      summary: Get salesOrder
       description: Get sales order
       deprecated: true
       x-internal: true
@@ -3976,7 +3976,7 @@ paths:
                 additionalProperties: false
       security:
         - API_Key: []
-      summary: Post suppliers
+      summary: Create suppliers
       description: Push suppliers
       operationId: post-suppliers
   '/companies/{companyId}/connections/{connectionId}/push/suppliers/{supplierId}':
@@ -4004,7 +4004,7 @@ paths:
                 $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1suppliers/post/responses/200/content/application~1json/schema'
       security:
         - API_Key: []
-      summary: Put supplier
+      summary: Update supplier
       description: Push supplier
       operationId: put-supplier
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments':
@@ -4071,7 +4071,7 @@ paths:
     get:
       tags:
         - Tax rates
-      summary: List tax rates
+      summary: List all tax rates
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -4136,7 +4136,7 @@ paths:
     get:
       tags:
         - Tax rates
-      summary: Gets the specified tax rate for a given company.
+      summary: Get tax rate
       responses:
         '200':
           description: Success
@@ -4285,7 +4285,7 @@ paths:
     get:
       tags:
         - Tracking categories
-      summary: Gets the specified tracking categories for a given company.
+      summary: Get tracking categories
       responses:
         '200':
           description: Success
@@ -4412,7 +4412,7 @@ paths:
     get:
       tags:
         - Transfers
-      summary: Gets the specified transfer for a given company.
+      summary: Get transfer
       responses:
         '200':
           description: Success
@@ -4433,7 +4433,7 @@ paths:
     post:
       tags:
         - Transfers
-      summary: Posts a new transfer to the accounting package for a given company.
+      summary: Create transfer
       requestBody:
         content:
           application/json:
@@ -4513,7 +4513,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Gets the list of bank accounts for a given connection
+      summary: List bankAccounts
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -4575,7 +4575,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Get bank account
+      summary: Get bankAccount
       responses:
         '200':
           description: Success
@@ -4597,7 +4597,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: List all bank transactions for all bank accounts
+      summary: List bankTransactions for bankAccount
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -4659,7 +4659,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Gets the options of pushing bank account transactions.
+      summary: List push options for bankAccount bankTransactions
       responses:
         '200':
           description: Success
@@ -4777,7 +4777,7 @@ paths:
     post:
       tags:
         - Bank accounts
-      summary: Posts a new bank account to the accounting package for a given company.
+      summary: Create bank account
       parameters:
         - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
@@ -4861,7 +4861,7 @@ paths:
     put:
       tags:
         - Bank accounts
-      summary: Posts an updated bank account to the accounting package for a given company.
+      summary: Update bank account
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -4889,7 +4889,7 @@ paths:
     post:
       tags:
         - Bank accounts
-      summary: Posts bank transactions to the accounting package for a given company.
+      summary: Create bank transactions
       parameters:
         - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
@@ -4972,7 +4972,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Gets the bank account for given account ID.
+      summary: Get bankAccount
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
       responses:
@@ -5040,6 +5040,7 @@ paths:
         - API_Key: []
       description: Gets the bank account for given account ID.
       operationId: get-all-bank-account
+      x-internal: true
   '/companies/{companyId}/data/bankAccounts/{accountId}/transactions':
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
@@ -5047,7 +5048,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: List bank transactions for account
+      summary: List all bankTransactions
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -5286,9 +5287,7 @@ components:
       description: |-
         > **Language tip:** In Codat, account transactions represent all transactions posted to a bank account within an accounting platform. For bank transactions posted within a banking platform, refer to [Banking transactions](https://docs.codat.io/docs/datamodel-banking-banking-transactions).
 
-        Explore the <a className="external" href="https://api.codat.io/swagger/index.html#/AccountTransactions" target="_blank">Account transactions</a> endpoints in Swagger.
-
-        View the coverage for account transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=accountTransactions" target="_blank">Data coverage explorer</a>.
+        > View the coverage for account transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=accountTransactions" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
