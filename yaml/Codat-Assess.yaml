@@ -46,32 +46,7 @@ paths:
                       detailTypeDescription: string
                 type: array
                 items:
-                  allOf:
-                    - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
-                    - type: object
-                      properties:
-                        subtypeDisplayName:
-                          type: string
-                          description: Human readable subtype display name.
-                        detailTypeDisplayName:
-                          type: string
-                          description: Human readable detailType display name.
-                        detailTypeDescription:
-                          type: string
-                          description: A description of the fully categorized (to detail type) account.
-                  examples:
-                    - type: Asset
-                      subtype: Current
-                      subtypeDisplayName: Current assets
-                      detailType: Cash
-                      detailTypeDisplayName: Cash
-                      detailTypeDescription: Use 'Cash' for cash in the bank or held on premise. This should include overdrawn accounts.
-                    - type: Income
-                      subtype: Operating
-                      subtypeDisplayName: Operating
-                      detailType: GeneralServices
-                      detailTypeDisplayName: General services
-                      detailTypeDescription: Use 'General services' for income generated from services the company performs or usage fees charged.
+                  $ref: '#/components/schemas/Categories'
       operationId: get-data-assess-accounts-categories
       description: 'Lists available Chart of Account categories Codat''s categorisation engine can provide. '
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories':
@@ -95,7 +70,7 @@ paths:
                         type: array
                         description: A list confirmed and suggested account categories.
                         items:
-                          $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema'
+                          $ref: '#/components/schemas/CategorisedAccount'
                   - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1details/get/responses/200/content/application~1json/schema/allOf/1'
               examples:
                 Example 1:
@@ -142,7 +117,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema'
+                  $ref: '#/components/schemas/CategorisedAccount'
       description: Comfirms the categories for all or a batch of accounts for a specific connection.
       requestBody:
         content:
@@ -176,18 +151,9 @@ paths:
                                       - validator: UniqueWithinConnection
                           confirmed:
                             allOf:
-                              - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
+                              - '$ref:''#/components/schemas/AccountCategory'''
                     type: object
-            examples:
-              Example 1:
-                value:
-                  categories:
-                    - accountRef:
-                        id: 13d946f0-c5d5-42bc-b092-97ece17923ab
-                      confirmed:
-                        type: Asset
-                        subtype: Current
-                        detailType: Cash
+            examples: {}
         description: ''
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/{accountId}/categories':
     parameters:
@@ -209,66 +175,7 @@ paths:
           content:
             application/json:
               schema:
-                title: CategorisedAccount
-                x-internal: false
-                type: object
-                properties:
-                  accountRef:
-                    description: An object containing account reference data.
-                    title: nameRef
-                    x-stoplight:
-                      id: 34dd919grzbls
-                    type: object
-                    properties:
-                      id:
-                        description: The unique identitifer of the record being referenced
-                        type: string
-                        examples:
-                          - 13d946f0-c5d5-42bc-b092-97ece17923ab
-                          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-                          - 7110701885
-                          - EILBDVJVNUAGVKRQ
-                      name:
-                        description: Name of the record being referenced.
-                        type: string
-                    required:
-                      - id
-                      - name
-                  suggested:
-                    allOf:
-                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
-                      - title: ModifiedDate
-                        x-stoplight:
-                          id: z5gfpfg4fsp6v
-                        type: object
-                        properties:
-                          modifiedDate:
-                            description: 'The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).'
-                            type: string
-                            x-stoplight:
-                              id: d4d589a0f2c46
-                            example: '2022-10-23T00:00:00Z'
-                            format: date-time
-                    description: An object containing suggested category data.
-                  confirmed:
-                    allOf:
-                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/patch/requestBody/content/application~1json/schema/properties/confirmed'
-                      - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema/properties/suggested/allOf/1'
-                    description: An object containing confirmed category data.
-                examples:
-                  - accountRef:
-                      id: 13d946f0-c5d5-42bc-b092-97ece17923ab
-                      name: string
-                    suggested:
-                      type: Asset
-                      subtype: Current
-                      detailType: Cash
-                      modifiedDate: '2019-08-24T14:15:22Z'
-                    confirmed:
-                      type: Asset
-                      subtype: Current
-                      detailType: Cash
-                      modifiedDate: '2019-08-24T14:15:22Z'
+                $ref: '#/components/schemas/CategorisedAccount'
       operationId: get-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories
       description: Get category for specific nominal account.
     patch:
@@ -282,7 +189,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1accounts~1%7BaccountId%7D~1categories/get/responses/200/content/application~1json/schema'
+                $ref: '#/components/schemas/CategorisedAccount'
       requestBody:
         content:
           application/json:
@@ -290,27 +197,7 @@ paths:
               type: object
               properties:
                 confirmed:
-                  title: ChartOfAccountCategory
-                  x-stoplight:
-                    id: q4cxf81t1nrb5
-                  type: object
-                  properties:
-                    type:
-                      type: string
-                      description: The top level account type.
-                    subtype:
-                      type: string
-                      description: The account subtype.
-                    detailType:
-                      type: string
-                      description: Most granular chart of account type.
-                  examples:
-                    - type: Asset
-                      subtype: Current
-                      detailType: Cash
-                    - type: Income
-                      subtype: Operating
-                      detailType: GeneralServices
+                  $ref: '#/components/schemas/AccountCategory'
               required:
                 - confirmed
       description: Update category for a specific nominal account
@@ -333,107 +220,7 @@ paths:
                   metadata:
                     type: array
                     items:
-                      allOf:
-                        - title: DataIntegrityType
-                          x-stoplight:
-                            id: jy0gzm7xk6wgg
-                          type: object
-                          properties:
-                            type:
-                              type: string
-                              description: 'The data type which the data type in the URL has been matched against. For example, if you''ve matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions.'
-                        - type: object
-                          properties:
-                            statusInfo:
-                              type: object
-                              properties:
-                                lastMatched:
-                                  type: string
-                                  format: date-time
-                                  description: The date the matching algorithm last ran against the company’s data type specified.
-                                  readOnly: true
-                                currentStatus:
-                                  type: string
-                                  enum:
-                                    - Unknown
-                                    - DoesNotExist
-                                    - Error
-                                    - Complete
-                                  description: The current status of the most recently run matching algorithm.
-                                statusMessage:
-                                  type: string
-                                  description: Detailed explanation supporting the status value.
-                            connectionIds:
-                              type: object
-                              properties:
-                                source:
-                                  type: array
-                                  description: An array of strings. The connection IDs for the type specified in the url.
-                                  items:
-                                    type: string
-                                target:
-                                  type: array
-                                  description: An array of strings. The connection IDs for the type being matched to.
-                                  items:
-                                    type: string
-                            amounts:
-                              type: object
-                              description: 'Only returned for transactions. For accounts, there is nothing returned.'
-                              properties:
-                                min:
-                                  type: number
-                                  description: Lowest value of transaction set.
-                                max:
-                                  type: number
-                                  description: Highest value of transaction set.
-                                currency:
-                                  $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
-                            dates:
-                              type: object
-                              description: 'Only returned for transactions. For accounts, there is nothing returned.'
-                              properties:
-                                minDate:
-                                  type: string
-                                  format: date-time
-                                  description: Earliest date of transaction set.
-                                  readOnly: true
-                                maxDate:
-                                  type: string
-                                  format: date-time
-                                  description: Latest date of transaction set.
-                                  readOnly: true
-                                minOverlappingDate:
-                                  type: string
-                                  format: date-time
-                                  description: Earliest date where transactions exist in both accounting and banking platforms.
-                                  readOnly: true
-                                maxOverlappingDate:
-                                  type: string
-                                  format: date-time
-                                  description: Latest date where transactions exist in both account and banking platforms.
-                                  readOnly: true
-                      examples:
-                        - type: string
-                          statusInfo:
-                            lastMatched: '2021-10-24T14:15:22Z'
-                            currentStatus: Unknown
-                            statusMessage: string
-                          connectionIds:
-                            source:
-                              - d5a8d1b2-b38a-4e44-8641-548ad43be6bb
-                              - da8c9f39-8af9-4a98-964b-f1e207942837
-                            target:
-                              - 3d7ce25a-c107-44bc-8e0c-36c10bdd14e0
-                              - a5300eac-01fa-4a77-b5b0-ea0b86a3be69
-                          amounts:
-                            min: 130
-                            max: 2450
-                            currency: GBP
-                          dates:
-                            minDate: '2021-09-17T12:09:33.441Z'
-                            maxDate: '2021-12-16T12:12:53.441Z'
-                            minOverlappingDate: '2021-09-30T12:09:13.441Z'
-                            maxOverlappingDate: '2021-11-27T12:19:33.441Z'
+                      $ref: '#/components/schemas/DataIntegrityStatus'
       operationId: get-dataIntegrity-status-for-dataType
       description: Gets match status for a given company and datatype.
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/summaries':
@@ -455,42 +242,7 @@ paths:
                   summaries:
                     type: array
                     items:
-                      allOf:
-                        - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1dataTypes~1%7BdataType%7D~1dataIntegrity~1status/get/responses/200/content/application~1json/schema/properties/metadata/items/allOf/0'
-                        - type: object
-                          properties:
-                            byAmount:
-                              type: object
-                              properties:
-                                matchPercentage:
-                                  type: number
-                                  description: The percentage of the absolute value of transactions of the type specified in the route which have a match.
-                                unmatched:
-                                  type: number
-                                  description: The sum of the absolute value of transactions of the type specified in the route which don't have a match.
-                                matched:
-                                  type: number
-                                  description: The sum of the absolute value of transactions of the type specified in the route which have a match.
-                                total:
-                                  type: number
-                                  description: The total of unmatched and matched.
-                                currency:
-                                  $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
-                            byCount:
-                              type: object
-                              properties:
-                                matchPercentage:
-                                  type: number
-                                  description: The percentage of records of the type specified in the route which have a match.
-                                unmatched:
-                                  type: number
-                                  description: The number of records of the type specified in the route which don't have a match.
-                                matched:
-                                  type: number
-                                  description: The number of records of the type specified in the route which do have a match.
-                                total:
-                                  type: number
-                                  description: The total of unmatched and matched.
+                      $ref: '#/components/schemas/DataIntegritySummary'
       operationId: get-data-companies-companyId-assess-dataTypes-dataType-dataIntegrity-summaries
       description: 'Gets match summary for a given company and datatype, optionally restricted by a Codat query string.'
       parameters:
@@ -515,62 +267,7 @@ paths:
                       results:
                         type: array
                         items:
-                          title: DataIntegrityDetails
-                          x-stoplight:
-                            id: krddfy9o9csq0
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              description: 'A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity.'
-                            type:
-                              type: string
-                              description: The data type of the record.
-                            connectionId:
-                              type: string
-                              format: uuid
-                              description: ID GUID representing the connection of the accounting or banking platform.
-                              readOnly: true
-                            date:
-                              type: string
-                              format: date-time
-                              description: The date of the transaction.
-                            description:
-                              type: string
-                              description: The transaction description.
-                            amount:
-                              type: number
-                              description: The transaction value.
-                            currency:
-                              $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
-                              description: The currency of the transaction.
-                            matches:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  id:
-                                    type: string
-                                    description: 'A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity.'
-                                  type:
-                                    type: string
-                                    description: 'The data type which the data type in the URL has been matched against. For example, if you''ve matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions.'
-                                  connectionId:
-                                    type: string
-                                    description: ID GUID representing the connection of the accounting or banking platform.
-                                    format: uuid
-                                  date:
-                                    type: string
-                                    description: The date of the transaction.
-                                  description:
-                                    type: string
-                                    description: The transaction description.
-                                  amount:
-                                    type: string
-                                    description: The transaction value.
-                                  currency:
-                                    $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
-                                    description: The currency of the transaction.
+                          $ref: '#/components/schemas/DataIntegrityDetails'
                   - title: _Links
                     description: Codat's Paging Model
                     examples:
@@ -688,131 +385,7 @@ paths:
                   metrics:
                     type: array
                     items:
-                      title: FinancialMetric
-                      x-stoplight:
-                        id: u8za4ihixgnal
-                      type: object
-                      examples: []
-                      properties:
-                        name:
-                          type: string
-                          description: Metric name.
-                        metricUnit:
-                          type: string
-                          enum:
-                            - Ratio
-                            - Money
-                        key:
-                          type: string
-                          enum:
-                            - Unknown
-                            - EBITDA
-                            - DebtServiceCoverageRatio
-                            - CurrentRatio QuickRatio
-                            - GrossProfitMargin
-                            - FixedChargeCoverageRatio
-                            - WorkingCapital
-                            - FreeCashFlow
-                            - NetProfitMargin
-                            - ReturnOnAssetsRatio
-                            - ReturnOnEquityRatio
-                            - OperatingProfitMargin
-                            - DeptToEquity
-                            - DebtToAssets
-                            - InterestCoverageRatio
-                            - CashRatio
-                            - InventoryTurnoverRatio
-                            - AssetTurnoverRatio
-                            - WorkingCapitalTurnoverRatio
-                            - DaysSalesOutstanding
-                            - DaysPayablesOutstanding
-                        periods:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              fromDate:
-                                type: string
-                                format: date
-                                description: The date from which the report starts.
-                              toDate:
-                                type: string
-                                format: date
-                                description: The date on which the report ends (inclusive of day).
-                              value:
-                                type: number
-                                description: |-
-                                  The top level metric value that is calculated for the specified period. 
-
-                                  If the system cannot calculate for that period, the value will be null. The system will still show the metric inputs.
-                              inputs:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    name:
-                                      type: string
-                                      description: 'The name of the metric input e.g. “Current Assets”, “Capital Expenditure”.'
-                                    value:
-                                      type: number
-                                      description: The positive or negative number of the input value.
-                              errors:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    type:
-                                      type: string
-                                      enum:
-                                        - MissingAccountData
-                                        - DatesOutOfRange
-                                      description: Period error type.
-                                    massage:
-                                      type: string
-                                      example: Missing account data
-                                      description: Description of the error.
-                                    details:
-                                      $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/metrics/items/properties/errors/items/properties/details'
-                        errors:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              type:
-                                type: string
-                                enum:
-                                  - UncategorizedAccounts
-                                  - MissingInputData
-                                  - InputDataError
-                                description: Metric level error.
-                              message:
-                                type: string
-                                description: Description of the error.
-                                example: 'There are uncategorized accounts IDs, see details.'
-                              details:
-                                title: AssessErrorDetails
-                                x-stoplight:
-                                  id: zgc85tharf4zx
-                                type: object
-                                description: Dictionary list outlining the missing properties or allowed values.
-                                examples:
-                                  - missingData:
-                                      - Expense.Operating.Interest
-                                      - Expense.NonOperating.Interest
-                                properties:
-                                  propertyDetail1:
-                                    type: array
-                                    items:
-                                      type: string
-                                  propertyDetail2:
-                                    type: array
-                                    items:
-                                      type: string
-                                  propertyDetailN:
-                                    type: array
-                                    items:
-                                      type: string
-                      description: ''
+                      $ref: '#/components/schemas/FinancialMetric'
                   errors:
                     type: array
                     description: 'If there are no errors, an empty array is returned.'
@@ -895,7 +468,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -1544,7 +1117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2095,7 +1668,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2172,7 +1745,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2258,7 +1831,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2348,7 +1921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2453,7 +2026,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2516,7 +2089,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
               examples:
                 Example 1:
                   value:
@@ -2610,7 +2183,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/get/responses/200/content/application~1json/schema'
+                $ref: '#/components/schemas/ExcelStatus'
       operationId: post-data-companies-companyId-assess-excel
       description: Request an Excel report for download.
       parameters:
@@ -2625,36 +2198,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-stoplight:
-                  id: 3b921c152f3de
-                properties:
-                  lastGenerated:
-                    type: string
-                  inProgress:
-                    type: boolean
-                  queued:
-                    type: string
-                  success:
-                    type: boolean
-                  errorMessage:
-                    type: string
-                  lastInvocationId:
-                    type: string
-                  reportType:
-                    type: string
-                  fileSize:
-                    type: integer
-                x-examples:
-                  Example 1:
-                    lastGenerated: '2023-01-25T22:36:05.125Z'
-                    inProgress: true
-                    queued: '2023-01-25T22:36:05.125Z'
-                    success: true
-                    errorMessage: string
-                    lastInvocationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-                    reportType: string
-                    fileSize: 0
+                $ref: '#/components/schemas/ExcelStatus'
       operationId: get-data-companies-companyId-assess-excel
       description: Returns the status of the latest report requested.
       parameters:
@@ -2670,14 +2214,6 @@ paths:
         '200':
           description: OK
           content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-            application/xml:
-              schema:
-                type: object
-                properties: {}
             application/octet-stream:
               schema:
                 type: object
@@ -2698,95 +2234,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  reportInfo:
-                    type: object
-                    properties:
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
-                      reportName:
-                        type: string
-                      companyName:
-                        type: string
-                      generatedDate:
-                        type: string
-                    x-examples:
-                      Example 1:
-                        pageNumber: 0
-                        pageSize: 0
-                        totalResults: 0
-                        reportName: string
-                        companyName: string
-                        generatedDate: '2023-01-26T07:36:40.487Z'
-                  dataSources:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        accounts:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              sourceRef:
-                                type: object
-                                x-examples:
-                                  Example 1:
-                                    sourceRef:
-                                      sourceType: Banking
-                                title: ReportSourceRef
-                                properties:
-                                  sourceType:
-                                    type: string
-                              platformName:
-                                type: string
-                              accountProvider:
-                                type: string
-                              accountName:
-                                type: string
-                              accountType:
-                                type: string
-                              currency:
-                                type: string
-                              currentBalance:
-                                type: number
-                  reportItems:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        transactions:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                              date:
-                                type: string
-                                format: date-time
-                              description:
-                                type: string
-                              amount:
-                                type: number
-                              currency:
-                                type: string
-                              transactionCategory:
-                                type: object
-                                properties:
-                                  confidence:
-                                    type: number
-                                  levels:
-                                    type: array
-                                    items:
-                                      type: string
-                              sourceRef:
-                                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedCashFlow~1transactions/get/responses/200/content/application~1json/schema/properties/dataSources/items/properties/accounts/items/properties/sourceRef'
+                $ref: '#/components/schemas/EnhancedCashFlowTransactions'
       operationId: get-companies-companyId-reports-enhancedCashFlow-transactions
       description: Gets a list of banking transactions and their categories.
       parameters:
@@ -2827,7 +2275,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1reports~1enhancedBalanceSheet~1accounts/get/responses/200/content/application~1json/schema'
+                $ref: '#/components/schemas/EnhancedReport'
       operationId: get-companies-companyId-reports-enhancedProfitAndLoss-accounts
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -2846,49 +2294,7 @@ paths:
           content:
             application/json:
               schema:
-                title: EnhancedReport
-                x-stoplight:
-                  id: xhzm980sgrupf
-                type: object
-                properties:
-                  reportInfo:
-                    type: object
-                    properties:
-                      currency:
-                        type: string
-                      reportName:
-                        type: string
-                      companyName:
-                        type: string
-                      generatedDate:
-                        type: string
-                        format: date-time
-                  reportItems:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        date:
-                          type: string
-                          format: date-time
-                        balance:
-                          type: string
-                        accountName:
-                          type: string
-                        accountCategory:
-                          type: object
-                          properties:
-                            status:
-                              type: string
-                            levels:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  levelName:
-                                    type: string
-                                  confidence:
-                                    type: number
+                $ref: '#/components/schemas/EnhancedReport'
       operationId: get-companies-companyId-reports-enhancedBalanaceSheet-accounts
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -2908,7 +2314,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
       operationId: get-data-companies-companyId-connections-connectionId-assess-subscriptions-mrr
       description: Gets key metrics for subscription revenue.
   '/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process':
@@ -2925,12 +2331,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/Report'
       operationId: get-data-companies-companyId-connections-connectionId-assess-subscriptions-process
       description: Request production of key subscription revenue metrics.
 components:
   schemas:
-    report:
+    Report:
       type: object
       x-examples:
         Example 1:
@@ -3040,7 +2446,7 @@ components:
                           x-stoplight:
                             id: fm40zp0h429tv
                           allOf:
-                            - $ref: '#/components/schemas/report/properties/reportData/items/allOf/0'
+                            - $ref: '#/components/schemas/Report/properties/reportData/items/allOf/0'
                             - title: ReportComponentMeasures
                               x-stoplight:
                                 id: ktvlu1fuqldgn
@@ -3073,7 +2479,7 @@ components:
                                       components:
                                         type: array
                                         items:
-                                          $ref: '#/components/schemas/report/properties/reportData/items/allOf/1/properties/components/items'
+                                          $ref: '#/components/schemas/Report/properties/reportData/items/allOf/1/properties/components/items'
         errors:
           type: array
           items:
@@ -3121,6 +2527,598 @@ components:
         # Data model
 
         ## Dimensions
+    EnhancedReport:
+      title: EnhancedReport
+      x-stoplight:
+        id: xhzm980sgrupf
+      type: object
+      properties:
+        reportInfo:
+          type: object
+          properties:
+            currency:
+              $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
+            reportName:
+              type: string
+              description: The name of the report.
+            companyName:
+              type: string
+              description: Company name the report was generated for.
+            generatedDate:
+              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              description: The date the report was generated.
+        reportItems:
+          type: array
+          description: An array of report items.
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date-time
+              balance:
+                type: string
+              accountName:
+                type: string
+              accountCategory:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  levels:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        levelName:
+                          type: string
+                        confidence:
+                          type: number
+                          format: double
+    ExcelStatus:
+      type: object
+      x-stoplight:
+        id: 3b921c152f3de
+      x-examples:
+        Example 1:
+          lastGenerated: '2023-01-25T22:36:05.125Z'
+          inProgress: true
+          queued: '2023-01-25T22:36:05.125Z'
+          success: true
+          errorMessage: string
+          lastInvocationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          reportType: string
+          fileSize: 0
+      properties:
+        lastGenerated:
+          type: string
+          x-stoplight:
+            id: d4d589a0f2c46
+          example: '2022-10-23T00:00:00Z'
+          format: date-time
+        inProgress:
+          type: boolean
+        queued:
+          type: string
+        success:
+          type: boolean
+        errorMessage:
+          type: string
+        lastInvocationId:
+          type: string
+        reportType:
+          type: string
+        fileSize:
+          type: integer
+    Categories:
+      allOf:
+        - $ref: '#/components/schemas/AccountCategory'
+        - type: object
+          properties:
+            subtypeDisplayName:
+              type: string
+              description: Human readable subtype display name.
+            detailTypeDisplayName:
+              type: string
+              description: Human readable detailType display name.
+            detailTypeDescription:
+              type: string
+              description: A description of the fully categorized (to detail type) account.
+      examples:
+        - type: Asset
+          subtype: Current
+          subtypeDisplayName: Current assets
+          detailType: Cash
+          detailTypeDisplayName: Cash
+          detailTypeDescription: Use 'Cash' for cash in the bank or held on premise. This should include overdrawn accounts.
+        - type: Income
+          subtype: Operating
+          subtypeDisplayName: Operating
+          detailType: GeneralServices
+          detailTypeDisplayName: General services
+          detailTypeDescription: Use 'General services' for income generated from services the company performs or usage fees charged.
+    CategorisedAccount:
+      title: CategorisedAccount
+      x-internal: false
+      type: object
+      examples:
+        - accountRef:
+            id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+            name: string
+          suggested:
+            type: Asset
+            subtype: Current
+            detailType: Cash
+            modifiedDate: '2019-08-24T14:15:22Z'
+          confirmed:
+            type: Asset
+            subtype: Current
+            detailType: Cash
+            modifiedDate: '2019-08-24T14:15:22Z'
+      properties:
+        accountRef:
+          description: An object containing account reference data.
+          type: object
+          properties:
+            id:
+              type: string
+              description: '''id'' from the Accounts data type.'
+            name:
+              type: string
+              description: '''name'' from the Accounts data type.'
+        suggested:
+          allOf:
+            - $ref: '#/components/schemas/AccountCategory'
+            - title: ModifiedDate
+              x-stoplight:
+                id: z5gfpfg4fsp6v
+              type: object
+              properties:
+                modifiedDate:
+                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                  description: 'The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).'
+        confirmed:
+          allOf:
+            - $ref: '#/components/schemas/AccountCategory'
+            - $ref: '#/components/schemas/CategorisedAccount/properties/suggested/allOf/1'
+    AccountCategory:
+      title: ChartOfAccountCategory
+      x-stoplight:
+        id: q4cxf81t1nrb5
+      type: object
+      properties:
+        type:
+          type: string
+          description: The top level account type.
+        subtype:
+          type: string
+          description: The account subtype.
+        detailType:
+          type: string
+          description: Most granular chart of account type.
+      examples:
+        - type: Asset
+          subtype: Current
+          detailType: Cash
+        - type: Income
+          subtype: Operating
+          detailType: GeneralServices
+    DataIntegrityStatus:
+      allOf:
+        - title: DataIntegrityType
+          x-stoplight:
+            id: jy0gzm7xk6wgg
+          type: object
+          properties:
+            type:
+              type: string
+              description: 'The data type which the data type in the URL has been matched against. For example, if you''ve matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions.'
+        - type: object
+          properties:
+            statusInfo:
+              type: object
+              properties:
+                lastMatched:
+                  type: string
+                  format: date-time
+                  description: The date the matching algorithm last ran against the company’s data type specified.
+                  readOnly: true
+                currentStatus:
+                  type: string
+                  enum:
+                    - Unknown
+                    - DoesNotExist
+                    - Error
+                    - Complete
+                  description: The current status of the most recently run matching algorithm.
+                statusMessage:
+                  type: string
+                  description: Detailed explanation supporting the status value.
+            connectionIds:
+              type: object
+              properties:
+                source:
+                  type: array
+                  description: An array of strings. The connection IDs for the type specified in the url.
+                  items:
+                    type: string
+                target:
+                  type: array
+                  description: An array of strings. The connection IDs for the type being matched to.
+                  items:
+                    type: string
+            amounts:
+              type: object
+              description: 'Only returned for transactions. For accounts, there is nothing returned.'
+              properties:
+                min:
+                  type: number
+                  description: Lowest value of transaction set.
+                max:
+                  type: number
+                  description: Highest value of transaction set.
+                currency:
+                  $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
+            dates:
+              type: object
+              description: 'Only returned for transactions. For accounts, there is nothing returned.'
+              properties:
+                minDate:
+                  type: string
+                  format: date-time
+                  description: Earliest date of transaction set.
+                  readOnly: true
+                maxDate:
+                  type: string
+                  format: date-time
+                  description: Latest date of transaction set.
+                  readOnly: true
+                minOverlappingDate:
+                  type: string
+                  format: date-time
+                  description: Earliest date where transactions exist in both accounting and banking platforms.
+                  readOnly: true
+                maxOverlappingDate:
+                  type: string
+                  format: date-time
+                  description: Latest date where transactions exist in both account and banking platforms.
+                  readOnly: true
+      examples:
+        - type: string
+          statusInfo:
+            lastMatched: '2021-10-24T14:15:22Z'
+            currentStatus: Unknown
+            statusMessage: string
+          connectionIds:
+            source:
+              - d5a8d1b2-b38a-4e44-8641-548ad43be6bb
+              - da8c9f39-8af9-4a98-964b-f1e207942837
+            target:
+              - 3d7ce25a-c107-44bc-8e0c-36c10bdd14e0
+              - a5300eac-01fa-4a77-b5b0-ea0b86a3be69
+          amounts:
+            min: 130
+            max: 2450
+            currency: GBP
+          dates:
+            minDate: '2021-09-17T12:09:33.441Z'
+            maxDate: '2021-12-16T12:12:53.441Z'
+            minOverlappingDate: '2021-09-30T12:09:13.441Z'
+            maxOverlappingDate: '2021-11-27T12:19:33.441Z'
+    DataIntegritySummary:
+      allOf:
+        - $ref: '#/components/schemas/DataIntegrityStatus/allOf/0'
+        - type: object
+          properties:
+            byAmount:
+              type: object
+              properties:
+                matchPercentage:
+                  type: number
+                  description: The percentage of the absolute value of transactions of the type specified in the route which have a match.
+                unmatched:
+                  type: number
+                  description: The sum of the absolute value of transactions of the type specified in the route which don't have a match.
+                matched:
+                  type: number
+                  description: The sum of the absolute value of transactions of the type specified in the route which have a match.
+                total:
+                  type: number
+                  description: The total of unmatched and matched.
+                currency:
+                  $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
+            byCount:
+              type: object
+              properties:
+                matchPercentage:
+                  type: number
+                  description: The percentage of records of the type specified in the route which have a match.
+                unmatched:
+                  type: number
+                  description: The number of records of the type specified in the route which don't have a match.
+                matched:
+                  type: number
+                  description: The number of records of the type specified in the route which do have a match.
+                total:
+                  type: number
+                  description: The total of unmatched and matched.
+    DataIntegrityDetails:
+      title: DataIntegrityDetails
+      x-stoplight:
+        id: krddfy9o9csq0
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity.'
+        type:
+          type: string
+          description: The data type of the record.
+        connectionId:
+          type: string
+          format: uuid
+          description: ID GUID representing the connection of the accounting or banking platform.
+          readOnly: true
+        date:
+          type: string
+          format: date-time
+          description: The date of the transaction.
+        description:
+          type: string
+          description: The transaction description.
+        amount:
+          type: number
+          description: The transaction value.
+        currency:
+          $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
+          description: The currency of the transaction.
+        matches:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 'A concatenation of the accountId and transactionId, in the format accountId_transactionId. This is unique to data integrity.'
+              type:
+                type: string
+                description: 'The data type which the data type in the URL has been matched against. For example, if you''ve matched accountTransactions and banking-transactions, and you call this endpoint with accountTransactions in the URL, this property would be banking-transactions.'
+              connectionId:
+                type: string
+                description: ID GUID representing the connection of the accounting or banking platform.
+                format: uuid
+              date:
+                type: string
+                description: The date of the transaction.
+              description:
+                type: string
+                description: The transaction description.
+              amount:
+                type: string
+                description: The transaction value.
+              currency:
+                $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1financialMetrics/get/responses/200/content/application~1json/schema/properties/currency'
+                description: The currency of the transaction.
+    EnhancedCashFlowTransactions:
+      title: EnhancedCashFlowTransactions
+      x-stoplight:
+        id: 345628d401ed1
+      type: object
+      properties:
+        reportInfo:
+          type: object
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            reportName:
+              type: string
+            companyName:
+              type: string
+            generatedDate:
+              type: string
+          x-examples:
+            Example 1:
+              pageNumber: 0
+              pageSize: 0
+              totalResults: 0
+              reportName: string
+              companyName: string
+              generatedDate: '2023-01-26T07:36:40.487Z'
+        dataSources:
+          type: array
+          items:
+            type: object
+            properties:
+              accounts:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sourceRef:
+                      type: object
+                      x-examples:
+                        Example 1:
+                          sourceRef:
+                            sourceType: Banking
+                      title: ReportSourceRef
+                      properties:
+                        sourceType:
+                          type: string
+                    platformName:
+                      type: string
+                    accountProvider:
+                      type: string
+                    accountName:
+                      type: string
+                    accountType:
+                      type: string
+                    currency:
+                      type: string
+                    currentBalance:
+                      type: number
+        reportItems:
+          type: array
+          items:
+            type: object
+            properties:
+              transactions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    description:
+                      type: string
+                    amount:
+                      type: number
+                    currency:
+                      type: string
+                    transactionCategory:
+                      type: object
+                      properties:
+                        confidence:
+                          type: number
+                        levels:
+                          type: array
+                          items:
+                            type: string
+                    sourceRef:
+                      $ref: '#/components/schemas/EnhancedCashFlowTransactions/properties/dataSources/items/properties/accounts/items/properties/sourceRef'
+      description: ''
+    FinancialMetric:
+      title: FinancialMetric
+      x-stoplight:
+        id: u8za4ihixgnal
+      type: object
+      examples: []
+      properties:
+        name:
+          type: string
+          description: Metric name.
+        metricUnit:
+          type: string
+          enum:
+            - Ratio
+            - Money
+        key:
+          type: string
+          enum:
+            - Unknown
+            - EBITDA
+            - DebtServiceCoverageRatio
+            - CurrentRatio QuickRatio
+            - GrossProfitMargin
+            - FixedChargeCoverageRatio
+            - WorkingCapital
+            - FreeCashFlow
+            - NetProfitMargin
+            - ReturnOnAssetsRatio
+            - ReturnOnEquityRatio
+            - OperatingProfitMargin
+            - DeptToEquity
+            - DebtToAssets
+            - InterestCoverageRatio
+            - CashRatio
+            - InventoryTurnoverRatio
+            - AssetTurnoverRatio
+            - WorkingCapitalTurnoverRatio
+            - DaysSalesOutstanding
+            - DaysPayablesOutstanding
+        periods:
+          type: array
+          items:
+            type: object
+            properties:
+              fromDate:
+                type: string
+                format: date
+                description: The date from which the report starts.
+              toDate:
+                type: string
+                format: date
+                description: The date on which the report ends (inclusive of day).
+              value:
+                type: number
+                description: |-
+                  The top level metric value that is calculated for the specified period. 
+
+                  If the system cannot calculate for that period, the value will be null. The system will still show the metric inputs.
+              inputs:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 'The name of the metric input e.g. “Current Assets”, “Capital Expenditure”.'
+                    value:
+                      type: number
+                      description: The positive or negative number of the input value.
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - MissingAccountData
+                        - DatesOutOfRange
+                      description: Period error type.
+                    massage:
+                      type: string
+                      example: Missing account data
+                      description: Description of the error.
+                    details:
+                      $ref: '#/components/schemas/FinancialMetric/properties/errors/items/properties/details'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - UncategorizedAccounts
+                  - MissingInputData
+                  - InputDataError
+                description: Metric level error.
+              message:
+                type: string
+                description: Description of the error.
+                example: 'There are uncategorized accounts IDs, see details.'
+              details:
+                title: AssessErrorDetails
+                x-stoplight:
+                  id: zgc85tharf4zx
+                type: object
+                description: Dictionary list outlining the missing properties or allowed values.
+                examples:
+                  - missingData:
+                      - Expense.Operating.Interest
+                      - Expense.NonOperating.Interest
+                properties:
+                  propertyDetail1:
+                    type: array
+                    items:
+                      type: string
+                  propertyDetail2:
+                    type: array
+                    items:
+                      type: string
+                  propertyDetailN:
+                    type: array
+                    items:
+                      type: string
+      description: ''
   securitySchemes:
     Authorization:
       name: Your Base 64 encoded API Key
