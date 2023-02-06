@@ -347,42 +347,42 @@ paths:
 components:
   schemas:
     AccountBalance:
-      allOf:
-        - type: object
-          properties:
-            accountId:
-              minLength: 1
-              type: string
-              description: The unique identifier of the account.
-            balance:
-              type: object
-              required:
-                - current
-              description: An object containing bank balance data.
-              properties:
-                available:
-                  type: number
-                  format: double
-                  nullable: true
-                  description: The funds available to withdraw from the bank account.
-                current:
-                  type: number
-                  format: double
-                  description: The funds in or owed by the bank account.
-                limit:
-                  type: number
-                  format: double
-                  nullable: true
-                  description: The credit limit or overdraft limit of the bank account.
-            date:
-              type: string
-              format: date-time
-              description: Date of the balance.
+      type: object
+      properties:
+        accountId:
+          minLength: 1
+          type: string
+          description: The unique identifier of the account.
+        balance:
+          type: object
           required:
-            - accountId
-            - balance
-            - date
-        - $ref: '#/components/schemas/Transaction/allOf/1'
+            - current
+          description: An object containing bank balance data.
+          properties:
+            available:
+              type: number
+              format: double
+              nullable: true
+              description: The funds available to withdraw from the bank account.
+            current:
+              type: number
+              format: double
+              description: The funds in or owed by the bank account.
+            limit:
+              type: number
+              format: double
+              nullable: true
+              description: The credit limit or overdraft limit of the bank account.
+        date:
+          type: string
+          format: date-time
+          description: Date of the balance.
+      required:
+        - accountId
+        - balance
+        - date
+      allOf:
+        - $ref: '#/components/schemas/Transaction/allOf/0'
       x-stoplight:
         id: 3293652f3df8e
       title: Account Balance
@@ -395,127 +395,127 @@ components:
         An account where payments are made or received, and bank transactions are recorded.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
-      allOf:
-        - type: object
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: The ID of the account from the provider.
+        name:
+          minLength: 1
+          type: string
+          description: The name of the account according to the provider.
+        informalName:
+          type: string
+          nullable: true
+          description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
+        holder:
+          type: string
+          nullable: true
+          description: The name of the person or company who holds the account.
+        type:
+          type: string
+          enum:
+            - Unknown
+            - Credit
+            - Debit
+          description: |-
+            The type of transactions and balances on the account.
+            For Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.
+            For Debit accounts, positive balances are assets and positive transactions increase assets.
+        balance:
+          description: An object containing bank balance data.
+          title: Account Balance Amounts
+          x-stoplight:
+            id: jmyqs1xu3c11z
+          type: object
+          additionalProperties: false
           properties:
-            id:
-              minLength: 1
-              type: string
-              description: The ID of the account from the provider.
-            name:
-              minLength: 1
-              type: string
-              description: The name of the account according to the provider.
-            informalName:
-              type: string
+            available:
+              type: number
+              format: double
               nullable: true
-              description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
-            holder:
-              type: string
+              description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+            current:
+              type: number
+              format: double
+              description: The balance of the account only including cleared transactions.
+            limit:
+              type: number
+              format: double
               nullable: true
-              description: The name of the person or company who holds the account.
+              description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00'
+        identifiers:
+          description: An object containing bank account identification information.
+          title: Account Identifiers
+          x-stoplight:
+            id: ldkvbe2lb7nab
+          type: object
+          additionalProperties: false
+          properties:
             type:
               type: string
+              description: Type of account
               enum:
-                - Unknown
+                - Account
+                - Card
                 - Credit
-                - Debit
-              description: |-
-                The type of transactions and balances on the account.
-                For Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.
-                For Debit accounts, positive balances are assets and positive transactions increase assets.
-            balance:
-              description: An object containing bank balance data.
-              title: Account Balance Amounts
-              x-stoplight:
-                id: jmyqs1xu3c11z
-              type: object
-              additionalProperties: false
-              properties:
-                available:
-                  type: number
-                  format: double
-                  nullable: true
-                  description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
-                current:
-                  type: number
-                  format: double
-                  description: The balance of the account only including cleared transactions.
-                limit:
-                  type: number
-                  format: double
-                  nullable: true
-                  description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00'
-            identifiers:
-              description: An object containing bank account identification information.
-              title: Account Identifiers
-              x-stoplight:
-                id: ldkvbe2lb7nab
-              type: object
-              additionalProperties: false
-              properties:
-                type:
-                  type: string
-                  description: Type of account
-                  enum:
-                    - Account
-                    - Card
-                    - Credit
-                    - Depository
-                    - Investment
-                    - Loan
-                    - Other
-                subtype:
-                  type: string
-                  nullable: true
-                  description: Detailed account category
-                number:
-                  type: string
-                  nullable: true
-                  description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
-                bankCode:
-                  type: string
-                  nullable: true
-                  description: |-
-                    The local (usually national) routing number for the account.
-
-                    This is known by different names in different countries:
-                    * BSB code (Australia)
-                    * routing number (Canada, USA)
-                    * sort code (UK)
-                iban:
-                  type: string
-                  nullable: true
-                  description: 'The international bank account number (IBAN) for the account, if known.'
-                bic:
-                  type: string
-                  nullable: true
-                  description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
-                maskedAccountNumber:
-                  type: string
-                  nullable: true
-                  description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
-              required:
-                - type
-            currency:
-              minLength: 1
+                - Depository
+                - Investment
+                - Loan
+                - Other
+            subtype:
               type: string
-              description: The currency code for the account.
-            institution:
-              description: The bank or other financial institution providing the account.
-              title: Account Institution
-              x-stoplight:
-                id: 5y3yc3euy8v6a
-              type: object
-              additionalProperties: false
-              properties:
-                id:
-                  type: string
-                  description: 'The institution''s ID, according to the provider.'
-                name:
-                  type: string
-                  description: 'The institution''s name, according to the underlying provider.'
-        - $ref: '#/components/schemas/Transaction/allOf/1'
+              nullable: true
+              description: Detailed account category
+            number:
+              type: string
+              nullable: true
+              description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+            bankCode:
+              type: string
+              nullable: true
+              description: |-
+                The local (usually national) routing number for the account.
+
+                This is known by different names in different countries:
+                * BSB code (Australia)
+                * routing number (Canada, USA)
+                * sort code (UK)
+            iban:
+              type: string
+              nullable: true
+              description: 'The international bank account number (IBAN) for the account, if known.'
+            bic:
+              type: string
+              nullable: true
+              description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+            maskedAccountNumber:
+              type: string
+              nullable: true
+              description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+          required:
+            - type
+        currency:
+          minLength: 1
+          type: string
+          description: The currency code for the account.
+        institution:
+          description: The bank or other financial institution providing the account.
+          title: Account Institution
+          x-stoplight:
+            id: 5y3yc3euy8v6a
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+              description: 'The institution''s ID, according to the provider.'
+            name:
+              type: string
+              description: 'The institution''s name, according to the underlying provider.'
+      allOf:
+        - $ref: '#/components/schemas/Transaction/allOf/0'
           required:
             - id
             - name
@@ -525,79 +525,79 @@ components:
             - currency
             - institution
     Transaction:
-      allOf:
-        - type: object
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: The unique identifier of the bank transaction.
+        accountId:
+          minLength: 1
+          type: string
+          description: The unique identifier of the bank account.
+        description:
+          type: string
+          nullable: true
+          description: The description of the bank transaction.
+        amount:
+          type: number
+          format: double
+          description: The amount of the bank transaction.
+        currency:
+          minLength: 1
+          type: string
+          description: The currency of the bank transaction.
+        postedDate:
+          description: The date the bank transaction was cleared.
+          type: string
+          x-stoplight:
+            id: d4d589a0f2c46
+          example: '2022-10-23T00:00:00Z'
+          format: date-time
+        authorizedDate:
+          $ref: '#/components/schemas/Transaction/properties/postedDate'
+          description: The date the bank transaction was authorized.
+        code:
+          type: string
+          enum:
+            - Unknown
+            - Fee
+            - Payment
+            - Cash
+            - Transfer
+            - Interest
+            - Cashback
+            - Cheque
+            - DirectDebit
+            - Purchase
+            - StandingOrder
+            - Adjustment
+            - Credit
+            - Other
+            - NotSupported
+        merchantName:
+          type: string
+          nullable: true
+          description: The name of the merchant.
+        transactionCategoryRef:
+          type: object
+          description: An object of bank transaction category reference data.
           properties:
             id:
               minLength: 1
               type: string
-              description: The unique identifier of the bank transaction.
-            accountId:
-              minLength: 1
-              type: string
-              description: The unique identifier of the bank account.
-            description:
+              description: The unique category reference id for the bank transaction.
+            name:
               type: string
               nullable: true
-              description: The description of the bank transaction.
-            amount:
-              type: number
-              format: double
-              description: The amount of the bank transaction.
-            currency:
-              minLength: 1
-              type: string
-              description: The currency of the bank transaction.
-            postedDate:
-              description: The date the bank transaction was cleared.
-              type: string
-              x-stoplight:
-                id: d4d589a0f2c46
-              example: '2022-10-23T00:00:00Z'
-              format: date-time
-            authorizedDate:
-              $ref: '#/components/schemas/Transaction/allOf/0/properties/postedDate'
-              description: The date the bank transaction was authorized.
-            code:
-              type: string
-              enum:
-                - Unknown
-                - Fee
-                - Payment
-                - Cash
-                - Transfer
-                - Interest
-                - Cashback
-                - Cheque
-                - DirectDebit
-                - Purchase
-                - StandingOrder
-                - Adjustment
-                - Credit
-                - Other
-                - NotSupported
-            merchantName:
-              type: string
-              nullable: true
-              description: The name of the merchant.
-            transactionCategoryRef:
-              type: object
-              description: An object of bank transaction category reference data.
-              properties:
-                id:
-                  minLength: 1
-                  type: string
-                  description: The unique category reference id for the bank transaction.
-                name:
-                  type: string
-                  nullable: true
-                  description: The category name reference for the bank transaction.
-              required:
-                - id
+              description: The category name reference for the bank transaction.
           required:
             - id
-            - accountId
-            - currency
+      required:
+        - id
+        - accountId
+        - currency
+      allOf:
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -605,15 +605,15 @@ components:
               type: object
               properties:
                 modifiedDate:
-                  $ref: '#/components/schemas/Transaction/allOf/0/properties/postedDate'
-                  description: The date on which this record was last modified in Codat.
+                  $ref: '#/components/schemas/Transaction/properties/postedDate'
+                  description: 'The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).'
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
               type: object
               properties:
                 sourceModifiedDate:
-                  $ref: '#/components/schemas/Transaction/allOf/0/properties/postedDate'
+                  $ref: '#/components/schemas/Transaction/properties/postedDate'
                   description: The date on which this record was last modified in the originating system
       title: Transaction
       description: |-
@@ -621,35 +621,35 @@ components:
 
         View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
     TransactionCategory:
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: The unique identifier of the bank transaction category.
+        name:
+          minLength: 1
+          type: string
+          description: The name of the bank transaction category.
+        parentId:
+          type: string
+          nullable: true
+          description: The unique identifier of the parent bank transaction category.
+        hasChildren:
+          type: boolean
+          description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
+        status:
+          type: string
+          enum:
+            - Unknown
+            - Active
+            - Archived
+          description: Status of the bank transaction category.
+      required:
+        - id
+        - name
       allOf:
-        - type: object
-          properties:
-            id:
-              minLength: 1
-              type: string
-              description: The unique identifier of the bank transaction category.
-            name:
-              minLength: 1
-              type: string
-              description: The name of the bank transaction category.
-            parentId:
-              type: string
-              nullable: true
-              description: The unique identifier of the parent bank transaction category.
-            hasChildren:
-              type: boolean
-              description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
-            status:
-              type: string
-              enum:
-                - Unknown
-                - Active
-                - Archived
-              description: Status of the bank transaction category.
-          required:
-            - id
-            - name
-        - $ref: '#/components/schemas/Transaction/allOf/1'
+        - $ref: '#/components/schemas/Transaction/allOf/0'
       title: Transaction Category
       description: The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
   securitySchemes:
