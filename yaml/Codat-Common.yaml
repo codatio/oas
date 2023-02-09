@@ -2,19 +2,19 @@ openapi: 3.1.0
 x-stoplight:
   id: 466k6ayziv9at
 info:
-  title: Codat Common
-  version: '1.0'
-  summary: Codat Common
-  license:
-    name: Apache 2.0
-    identifier: Apache-2.0
+  title: Common API
+  version: 2.1.0
+  summary: Common API
   description: |-
-    The common API to all of Codat's products.
-    Covers creating and managing your companies, data connections, integrations and probably more!
+    An API for the common components of all of Codat's products.
+
+    These end points cover creating and managing your companies, data connections, and integrations.
+
+    [Read about the building blocks of Codat...](https://codat-docs.vercel.app/core-concepts/companies)
   contact:
     name: Codat
-    url: 'https://codat.io'
     email: support@codat.io
+  termsOfService: 'https://www.codat.io/legals/'
 servers:
   - url: 'https://api.codat.io'
     description: Codat
@@ -27,11 +27,11 @@ tags:
     description: Endpoints that allow you to migrate existing connections into Codat.
   - name: Webhooks
     description: 'Endpoints to manage webhooks, rules and alerts.'
-  - name: Company Status
+  - name: Data status
     description: Understand the state of data within Codat.
   - name: Integrations
     description: View and manage your available integrations in Codat.
-  - name: Refresh Data
+  - name: Refresh data
     description: Queue pull operations to refresh data in Codat.
   - name: Settings
     description: Endpoints to manage your Codat instance.
@@ -53,8 +53,8 @@ paths:
                       results:
                         type: array
                         items:
-                          $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
-                  - $ref: '#/components/schemas/_Links'
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1json/schema'
+                  - $ref: '#/paths/~1rules/get/responses/200/content/application~1json/schema/allOf/1'
               examples:
                 List of Companies:
                   value:
@@ -85,10 +85,6 @@ paths:
                         href: /companies?page=1&pageSize=100
                       self:
                         href: /companies
-            application/xml:
-              schema:
-                type: object
-                properties: {}
         '400':
           $ref: '#/components/responses/Malformed-Query'
         '401':
@@ -183,12 +179,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
-            application/xml:
-              schema:
                 title: Company
-                type: object
                 description: 'A company in Codat represent a small or medium sized business, whose data you wish to share'
+                examples:
+                  - id: 0498e921-9b53-4396-a412-4f2f5983b0a2
+                    name: string
+                    platform: string
+                    redirect: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
+                    lastSync: '2022-01-01T12:00:00.000Z'
+                    created: '2022-01-01T12:00:00.000Z'
+                    createdByUserName: string
+                    dataConnections:
+                      - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                        integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                        integrationKey: dfxm
+                        sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                        platformName: Basiq
+                        linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                        status: Linked
+                        lastSync: '2022-10-27T10:22:43.6464237Z'
+                        created: '2022-10-27T09:53:29Z'
+                        sourceType: Banking
+                type: object
                 properties:
                   id:
                     type: string
@@ -222,7 +234,7 @@ paths:
                   - name
                   - redirect
               examples:
-                example-1:
+                Example:
                   value:
                     id: ab12c58d-a678-4ebf-a159-ae99e1807bd0
                     name: My First Company
@@ -257,7 +269,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1xml/schema'
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D/get/responses/200/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
       description: Updates the given company with a new name
@@ -332,7 +344,7 @@ paths:
                         type: array
                         items:
                           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
-                  - $ref: '#/components/schemas/_Links'
+                  - $ref: '#/paths/~1rules/get/responses/200/content/application~1json/schema/allOf/1'
               examples:
                 example-1:
                   value:
@@ -393,10 +405,10 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  example-1:
-                    id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                examples:
+                  - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
                     integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
                     integrationKey: dfxm
                     sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
@@ -406,6 +418,7 @@ paths:
                     lastSync: '2022-10-27T10:22:43.6464237Z'
                     created: '2022-10-27T09:53:29Z'
                     sourceType: Banking
+                type: object
                 properties:
                   id:
                     type: string
@@ -484,19 +497,6 @@ paths:
                   - status
                   - created
                   - sourceType
-                title: Connection
-                description: A connection represents the link between a `company` and a source of data.
-                examples:
-                  - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
-                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
-                    integrationKey: dfxm
-                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
-                    platformName: Basiq
-                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
-                    status: Linked
-                    lastSync: '2022-10-27T10:22:43.6464237Z'
-                    created: '2022-10-27T09:53:29Z'
-                    sourceType: Banking
               examples:
                 example-1:
                   value:
@@ -524,6 +524,7 @@ paths:
             examples:
               Example:
                 value: true
+        description: ''
     delete:
       summary: Delete connection
       operationId: delete-company-connection
@@ -547,10 +548,6 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                type: object
-                properties: {}
-            application/xml:
               schema:
                 $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
         '401':
@@ -576,6 +573,36 @@ paths:
                 value:
                   status: unlinked
         description: ''
+  '/companies/{companyId}/connections/{connectionId}/authorization':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    put:
+      summary: Update authorization
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/get/responses/200/content/application~1json/schema'
+      operationId: get-companies-companyId-connections-connectionId-authorization
+      description: Update data connection's authorization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                property1:
+                  type: string
+                property2:
+                  type: string
+                property3:
+                  type: string
+        description: ''
   '/companies/{companyId}/data/all':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -591,7 +618,7 @@ paths:
           $ref: '#/components/responses/Not-Found'
       description: Initiate the pull of all data types that are enabled for this company
       tags:
-        - Refresh Data
+        - Refresh data
   '/companies/{companyId}/data/queue/{dataType}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -605,7 +632,85 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PullOperation'
+                title: Pull Operation
+                description: |-
+                  Information about a queued, in progress or completed pull operation.
+                  *Formally called `dataset`*
+                examples:
+                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                    dataType: invoices
+                    status: Initial
+                    requested: '2022-11-14T11:18:37.2798351Z'
+                    progress: 10
+                    isCompleted: false
+                    isErrored: false
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 943accd0-4247-42d8-865b-363c8629e1da
+                  companyId:
+                    type: string
+                    format: uuid
+                    example: 22ece347-e5f6-4896-95e0-35a4c7f17023
+                  connectionId:
+                    type: string
+                    format: uuid
+                    example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
+                  dataType:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - Initial
+                      - Queued
+                      - Fetching
+                      - MapQueued
+                      - Mapping
+                      - Complete
+                      - FetchError
+                      - MapError
+                      - InternalError
+                      - ProcessingQueued
+                      - Processing
+                      - ProcessingError
+                      - ValidationQueued
+                      - Validating
+                      - ValidationError
+                      - AuthError
+                      - Cancelled
+                      - Routing
+                      - RoutingError
+                      - NotSupported
+                      - RateLimitError
+                      - PermissionsError
+                      - PrerequisiteNotMet
+                    example: Complete
+                  requested:
+                    type: string
+                    format: date-time
+                    example: '2022-01-01T12:00:00.000Z'
+                  progress:
+                    type: integer
+                  isCompleted:
+                    type: boolean
+                  isErrored:
+                    type: boolean
+                required:
+                  - id
+                  - companyId
+                  - connectionId
+                  - dataType
+                  - status
+                  - requested
+                  - progress
+                  - isCompleted
+                  - isErrored
+                x-stoplight:
+                  id: hvk8xbvt7ekyg
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -622,7 +727,7 @@ paths:
           name: connectionId
           description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
       tags:
-        - Refresh Data
+        - Refresh data
   /rules:
     get:
       summary: List webhooks
@@ -660,11 +765,70 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Webhook'
+                      $ref: '#/paths/~1rules/post/requestBody/content/application~1json/schema'
                 allOf:
                   - type: object
-                    $ref: '#/components/schemas/_Links'
-                  - $ref: '#/components/schemas/_Links'
+                  - title: _Links
+                    description: Codat's Paging Model
+                    examples:
+                      - _links:
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                        pageNumber: 1
+                        pageSize: 10
+                        totalResults: 1
+                    type: object
+                    allOf:
+                      - properties:
+                          _links:
+                            type: object
+                            required:
+                              - self
+                              - current
+                            properties:
+                              self:
+                                type: object
+                                required:
+                                  - href
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              current:
+                                type: object
+                                required:
+                                  - href
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              next:
+                                type: object
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                              previous:
+                                type: object
+                                properties:
+                                  href:
+                                    type: string
+                                    format: uri-reference
+                          pageNumber:
+                            type: integer
+                          pageSize:
+                            type: integer
+                          totalResults:
+                            type: integer
+                        required:
+                          - _links
+                          - pageNumber
+                          - pageSize
+                          - totalResults
+                    x-stoplight:
+                      id: 5wohczray2nz5
               examples:
                 Example:
                   value:
@@ -702,7 +866,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/paths/~1rules/post/requestBody/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
       description: Create a new webhook configuration
@@ -710,7 +874,47 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Webhook'
+              title: Webhook
+              description: Configuration to alert to a url or list of email addresses based on the given type / condition.
+              examples:
+                - id: ff89c50e-a719-4ef5-a182-9917e53927b6
+                  type: string
+                  companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                  notifiers:
+                    emails:
+                      - info@client.com
+                    webhook: 'https://webhook.client.com'
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  example: ff89c50e-a719-4ef5-a182-9917e53927b6
+                type:
+                  type: string
+                companyId:
+                  type: string
+                  format: uuid
+                  example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                notifiers:
+                  type: object
+                  properties:
+                    emails:
+                      type: array
+                      items:
+                        type: string
+                        format: email
+                        example: info@client.com
+                    webhook:
+                      type: string
+                      format: uri
+                      example: 'https://webhook.client.com'
+              required:
+                - id
+                - type
+                - notifiers
+              x-stoplight:
+                id: m6zh3ardbld2w
         description: Create a webhook with the given configuration.
       tags:
         - Webhooks
@@ -727,7 +931,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/paths/~1rules/post/requestBody/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -745,9 +949,41 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/DataStatus'
-                  - $ref: '#/components/schemas/DataStatus'
+                type: object
+                properties:
+                  dataType1:
+                    title: DataStatus
+                    description: Describes the state of data in the Codat cache for a company and data type
+                    type: object
+                    required:
+                      - dataType
+                      - lastSuccessfulSync
+                      - currentStatus
+                    properties:
+                      dataType:
+                        type: string
+                      lastSuccessfulSync:
+                        type: string
+                        format: date-time
+                        example: '2022-01-01T13:00:00.000Z'
+                      currentStatus:
+                        type: string
+                      latestSyncId:
+                        type: string
+                        format: uuid
+                        example: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                      latestSuccessfulSyncId:
+                        type: string
+                        format: uuid
+                        example: 8220fc90-55b6-47bc-9417-48ac6ea93101
+                    examples:
+                      - dataType: string
+                        lastSuccessfulSync: '2022-01-01T13:00:00.000Z'
+                        currentStatus: string
+                        latestSyncId: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                        latestSuccessfulSyncId: 8220fc90-55b6-47bc-9417-48ac6ea93101
+                  dataType2:
+                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1dataStatus/get/responses/200/content/application~1json/schema/properties/dataType1'
               examples:
                 Example:
                   value:
@@ -770,14 +1006,14 @@ paths:
       operationId: get-companies-companyId-dataStatus
       description: Get the state of each data type for a company
       tags:
-        - Company Status
+        - Data status
   '/companies/{companyId}/data/history':
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Get pull operations
       tags:
-        - Company Status
+        - Data status
       responses:
         '200':
           description: OK
@@ -790,8 +1026,8 @@ paths:
                       results:
                         type: array
                         items:
-                          $ref: '#/components/schemas/PullOperation'
-                  - $ref: '#/components/schemas/_Links'
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1queue~1%7BdataType%7D/post/responses/200/content/application~1json/schema'
+                  - $ref: '#/paths/~1rules/get/responses/200/content/application~1json/schema/allOf/1'
               examples:
                 Example:
                   value:
@@ -837,14 +1073,14 @@ paths:
     get:
       summary: Get pull operation
       tags:
-        - Company Status
+        - Data status
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PullOperation'
+                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1queue~1%7BdataType%7D/post/responses/200/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -868,8 +1104,8 @@ paths:
                       results:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Integration'
-                  - $ref: '#/components/schemas/_Links'
+                          $ref: '#/paths/~1integrations~1%7BplatformKey%7D/get/responses/200/content/application~1json/schema'
+                  - $ref: '#/paths/~1rules/get/responses/200/content/application~1json/schema/allOf/1'
         '400':
           $ref: '#/components/responses/Malformed-Query'
         '401':
@@ -894,7 +1130,117 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Integration'
+                title: Integration
+                description: An integration that Codat supports
+                examples:
+                  - key: gbol
+                    logoUrl: 'http://example.com'
+                    name: Xero
+                    enabled: true
+                    sourceId: accounting
+                    integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
+                    sourceType: 8193a927-ab7a-45a3-9dc2-d357a4932dfe
+                    isOfflineConnector: true
+                    isBeta: true
+                    dataProvidedBy: string
+                    datatypeFeatures:
+                      - datatype: invoices
+                        supportedFeatures:
+                          - featureType: get
+                            featureState: release
+                type: object
+                properties:
+                  key:
+                    type: string
+                    maxLength: 4
+                    minLength: 4
+                    pattern: '[a-z]{4}'
+                    example: gbol
+                  logoUrl:
+                    type: string
+                    format: uri
+                  name:
+                    type: string
+                    example: Xero
+                  enabled:
+                    type: boolean
+                    description: Whether this integration is enabled for your customers to use
+                  sourceId:
+                    type: string
+                    enum:
+                      - accounting
+                      - banking
+                      - commerce
+                      - other
+                      - unknown
+                    example: accounting
+                  integrationId:
+                    type: string
+                    format: uuid
+                  sourceType:
+                    type: string
+                    format: uuid
+                  isOfflineConnector:
+                    type: boolean
+                  isBeta:
+                    type: boolean
+                  dataProvidedBy:
+                    type: string
+                  datatypeFeatures:
+                    type: array
+                    items:
+                      title: DatatypeFeature
+                      description: Describes support for a given datatype and associated operations
+                      examples:
+                        - datatype: invoices
+                          supportedFeatures:
+                            - featureType: get
+                              featureState: release
+                      type: object
+                      x-stoplight:
+                        id: ry1x0fplpj8ck
+                      properties:
+                        datatype:
+                          type: string
+                        supportedFeatures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              featureType:
+                                type: string
+                                enum:
+                                  - Get
+                                  - Post
+                                  - Categorization
+                                  - Delete
+                                  - Put
+                                  - GetAsPdf
+                                  - DownloadAttachment
+                                  - GetAttachment
+                                  - GetAttachments
+                                  - UploadAttachment
+                                example: Get
+                              featureState:
+                                type: string
+                                example: Release
+                                enum:
+                                  - Release
+                                  - Beta
+                                  - Deprecated
+                                  - NotSupported
+                                  - NotImplemented
+                            required:
+                              - featureType
+                              - featureState
+                      required:
+                        - datatype
+                        - supportedFeatures
+                required:
+                  - key
+                  - logoUrl
+                  - name
+                  - enabled
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -912,11 +1258,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Profile'
+                $ref: '#/paths/~1profile/put/requestBody/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
       operationId: get-settings-profile
       description: Fetch your Codat profile.
+      deprecated: true
+      x-internal: true
     put:
       summary: Update profile
       operationId: put-profile
@@ -926,7 +1274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Profile'
+                $ref: '#/paths/~1profile/put/requestBody/content/application~1json/schema'
         '401':
           $ref: '#/components/responses/Unauthorized'
       tags:
@@ -936,7 +1284,48 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profile'
+              title: Profile
+              description: Describes your Codat client instance
+              examples:
+                - name: Bob's Burgers
+                  logoUrl: string
+                  iconUrl: string
+                  redirectUrl: string
+                  whiteListUrls:
+                    - 'https://bobs-burgers.com/redirect'
+                  apiKey: string
+                  alertAuthHeader: string
+                  confirmCompanyName: true
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Bob's Burgers
+                logoUrl:
+                  type: string
+                iconUrl:
+                  type: string
+                redirectUrl:
+                  type: string
+                whiteListUrls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                    example: 'https://bobs-burgers.com/redirect'
+                apiKey:
+                  type: string
+                  deprecated: true
+                alertAuthHeader:
+                  type: string
+                confirmCompanyName:
+                  type: boolean
+                  deprecated: true
+              required:
+                - name
+                - redirectUrl
+              x-stoplight:
+                id: b1fyq05edangf
         description: All fields should be included when updating your profile.
   /profile/syncSettings:
     get:
@@ -958,7 +1347,7 @@ paths:
                       settings:
                         type: array
                         items:
-                          $ref: '#/components/schemas/SyncSetting'
+                          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/settings/items'
                       overridesDefaults:
                         type: boolean
                 type: object
@@ -980,6 +1369,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       operationId: get-profile-syncSettings
       description: 'Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.'
+      x-internal: true
+      deprecated: true
     post:
       summary: Update all sync settings
       operationId: post-profile-syncSettings
@@ -1004,7 +1395,53 @@ paths:
                     settings:
                       type: array
                       items:
-                        $ref: '#/components/schemas/SyncSetting'
+                        title: SyncSetting
+                        description: 'Describes how often, and how much history, should be fetched for the given data type when a pull operation is queued.'
+                        examples:
+                          - dataType: invoices
+                            fetchOnFirstLink: true
+                            syncSchedule: 24
+                            syncOrder: 0
+                            syncFromUtc: '2020-01-01T12:00:00.000Z'
+                            syncFromWindow: 24
+                            monthsToSync: 24
+                            isLocked: true
+                        type: object
+                        properties:
+                          dataType:
+                            type: string
+                            example: invoices
+                          fetchOnFirstLink:
+                            type: boolean
+                            description: Whether this data type should be queued after a company has authorized a connection.
+                          syncSchedule:
+                            type: integer
+                            example: 24
+                            description: Number of hours after which this data type should be refreshed.
+                          syncOrder:
+                            type: integer
+                          syncFromUtc:
+                            type: string
+                            format: date-time
+                            example: '2020-01-01T12:00:00.000Z'
+                            description: Date from which data should be fetched. Set this *or* `syncFromWindow`
+                          syncFromWindow:
+                            type: integer
+                            example: 24
+                            description: Number of months of data to be fetched. Set this *or* `syncFromUTC`
+                          monthsToSync:
+                            type: integer
+                            example: 24
+                            description: 'Months of data to fetch, for report data types (`balanceSheet` & `profitAndLoss`) only.'
+                          isLocked:
+                            type: boolean
+                        required:
+                          - dataType
+                          - fetchOnFirstLink
+                          - syncSchedule
+                          - syncOrder
+                        x-stoplight:
+                          id: dhbv5wyl1xr4w
                     overridesDefaults:
                       type: boolean
                       default: true
@@ -1017,447 +1454,10 @@ paths:
           Include a `syncSetting` object for each data type.
           `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
 components:
-  schemas:
-    PullOperation:
-      type: object
-      x-examples:
-        example-1:
-          id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-          companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-          connectionId: 51baa045-4836-4317-a42e-3542e991e581
-          dataType: invoices
-          status: Initial
-          requested: '2022-11-14T11:18:37.2798351Z'
-          progress: 10
-          isCompleted: false
-          isErrored: false
-      examples:
-        - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-          companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-          connectionId: 51baa045-4836-4317-a42e-3542e991e581
-          dataType: invoices
-          status: Initial
-          requested: '2022-11-14T11:18:37.2798351Z'
-          progress: 10
-          isCompleted: false
-          isErrored: false
-      title: Pull Operation
-      description: |-
-        Information about a queued, in progress or completed pull operation.
-        *Formally called `dataset`*
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: 943accd0-4247-42d8-865b-363c8629e1da
-        companyId:
-          type: string
-          format: uuid
-          example: 22ece347-e5f6-4896-95e0-35a4c7f17023
-        connectionId:
-          type: string
-          format: uuid
-          example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
-        dataType:
-          type: string
-        status:
-          type: string
-          enum:
-            - Unknown
-            - Pending
-            - Success
-            - Failure
-            - TimeOut
-            - Initial
-          example: Pending
-        requested:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
-        progress:
-          type: integer
-        isCompleted:
-          type: boolean
-        isErrored:
-          type: boolean
-      required:
-        - id
-        - companyId
-        - connectionId
-        - dataType
-        - status
-        - requested
-        - progress
-        - isCompleted
-        - isErrored
-    Webhook:
-      type: object
-      x-examples:
-        example-1:
-          id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          type: string
-          companyId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          notifiers:
-            emails:
-              - string
-            webhook: string
-      title: Webhook
-      description: Configuration to alert to a url or list of email addresses based on the given type / condition.
-      examples:
-        - id: ff89c50e-a719-4ef5-a182-9917e53927b6
-          type: string
-          companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
-          notifiers:
-            emails:
-              - info@client.com
-            webhook: 'https://webhook.client.com'
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: ff89c50e-a719-4ef5-a182-9917e53927b6
-        type:
-          type: string
-        companyId:
-          type: string
-          format: uuid
-          example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
-        notifiers:
-          type: object
-          properties:
-            emails:
-              type: array
-              items:
-                type: string
-                format: email
-                example: info@client.com
-            webhook:
-              type: string
-              format: uri
-              example: 'https://webhook.client.com'
-      required:
-        - id
-        - type
-        - notifiers
-    _Links:
-      x-examples:
-        example-1:
-          _links:
-            self:
-              href: string
-            current:
-              href: string
-            next:
-              href: string
-            previous:
-              href: string
-      title: _Links
-      description: Codat's Paging Model
-      examples:
-        - _links:
-            self:
-              href: ../dictionary
-            current:
-              href: ../dictionary
-            next:
-              href: ../dictionary
-            previous:
-              href: ../dictionary
-          pageNumber: 0
-          pageSize: 0
-          totalResults: 0
-      allOf:
-        - properties:
-            _links:
-              type: object
-              required:
-                - self
-                - current
-              properties:
-                self:
-                  type: object
-                  required:
-                    - href
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                current:
-                  type: object
-                  required:
-                    - href
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                next:
-                  type: object
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                previous:
-                  type: object
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-            pageNumber:
-              type: integer
-            pageSize:
-              type: integer
-            totalResults:
-              type: integer
-          required:
-            - _links
-            - pageNumber
-            - pageSize
-            - totalResults
-      type: object
-    DataStatus:
-      type: object
-      x-examples:
-        example-1:
-          additionalProp1:
-            dataType: string
-            lastSuccessfulSync: '2022-11-18T14:52:23.923Z'
-            currentStatus: string
-            latestSyncId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-            latestSuccessfulSyncId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-      properties:
-        dataType:
-          type: object
-          properties:
-            dataType:
-              type: string
-            lastSuccessfulSync:
-              type: string
-            currentStatus:
-              type: string
-            latestSyncId:
-              type: string
-            latestSuccessfulSyncId:
-              type: string
-      examples:
-        - invoices:
-            dataType: invoices
-            lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
-            currentStatus: success
-            latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
-            latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
-      title: DataStatus
-      description: Describes the state of data in the Codat cache for a company and data type
-    DatatypeFeature:
-      type: object
-      x-examples:
-        example-1:
-          datatype: string
-          supportedFeatures:
-            - featureType: string
-              featureState: string
-      properties:
-        datatype:
-          type: string
-        supportedFeatures:
-          type: array
-          items:
-            type: object
-            properties:
-              featureType:
-                type: string
-              featureState:
-                type: string
-                enum:
-                  - unknown
-                  - release
-                  - beta
-                  - deprecated
-                example: release
-            required:
-              - featureType
-              - featureState
-      required:
-        - supportedFeatures
-      title: DataType Feature
-      description: Describes support for a given datatype and associated operations
-    Integration:
-      type: object
-      x-examples:
-        example-1:
-          key: string
-          logoUrl: string
-          name: string
-          enabled: true
-          sourceId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          integrationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          sourceType: Unknown
-          isOfflineConnector: true
-          isBeta: true
-          supportedEnvironments: Unknown
-          linkedConnectionsCount: 0
-          totalConnectionsCount: 0
-          dataProvidedBy: Unknown
-          datatypeFeatures:
-            - datatype: string
-              supportedFeatures:
-                - featureType: string
-                  featureState: string
-      examples:
-        - key: gbol
-          logoUrl: 'http://example.com'
-          name: Xero
-          enabled: true
-          sourceId: accounting
-          integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
-          sourceType: 8193a927-ab7a-45a3-9dc2-d357a4932dfe
-          isOfflineConnector: true
-          isBeta: true
-          dataProvidedBy: string
-          datatypeFeatures:
-            - datatype: string
-              supportedFeatures:
-                - featureType: string
-                  featureState: release
-      properties:
-        key:
-          type: string
-          maxLength: 4
-          minLength: 4
-          pattern: '[a-z]{4}'
-          example: gbol
-        logoUrl:
-          type: string
-          format: uri
-        name:
-          type: string
-          example: Xero
-        enabled:
-          type: boolean
-          description: Whether this integration is enabled for your customers to use
-        sourceId:
-          type: string
-          enum:
-            - accounting
-            - banking
-            - commerce
-            - other
-            - unknown
-          example: accounting
-        integrationId:
-          type: string
-          format: uuid
-        sourceType:
-          type: string
-          format: uuid
-        isOfflineConnector:
-          type: boolean
-        isBeta:
-          type: boolean
-        dataProvidedBy:
-          type: string
-        datatypeFeatures:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatatypeFeature'
-      required:
-        - key
-        - logoUrl
-        - name
-        - enabled
-      title: Integration
-      description: An integration that Codat supports
-    Profile:
-      type: object
-      x-examples:
-        example-1:
-          name: string
-          logoUrl: string
-          iconUrl: string
-          redirectUrl: string
-          whiteListUrls:
-            - string
-          apiKey: string
-          alertAuthHeader: string
-          confirmCompanyName: true
-      title: Profile
-      description: ''
-      properties:
-        name:
-          type: string
-          example: Bob's Burgers
-        logoUrl:
-          type: string
-        iconUrl:
-          type: string
-        redirectUrl:
-          type: string
-        whiteListUrls:
-          type: array
-          items:
-            type: string
-            format: uri
-            example: 'https://bobs-burgers.com/redirect'
-        apiKey:
-          type: string
-          deprecated: true
-        alertAuthHeader:
-          type: string
-        confirmCompanyName:
-          type: boolean
-          deprecated: true
-      required:
-        - name
-        - redirectUrl
-    SyncSetting:
-      type: object
-      x-examples:
-        example-1:
-          dataType: string
-          fetchOnFirstLink: true
-          syncSchedule: 0
-          syncOrder: 0
-          syncFromUtc: '2022-11-21T13:43:29.821Z'
-          syncFromWindow: 0
-          monthsToSync: 0
-          isLocked: true
-      properties:
-        dataType:
-          type: string
-          example: invoices
-        fetchOnFirstLink:
-          type: boolean
-          description: Whether this data type should be queued after a company has authorized a connection.
-        syncSchedule:
-          type: integer
-          example: 24
-          description: Number of hours after which this data type should be refreshed.
-        syncOrder:
-          type: integer
-        syncFromUtc:
-          type: string
-          format: date-time
-          example: '2020-01-01T12:00:00.000Z'
-          description: Date from which data should be fetched. Set this *or* `syncFromWindow`
-        syncFromWindow:
-          type: integer
-          example: 24
-          description: Number of months of data to be fetched. Set this *or* `syncFromUTC`
-        monthsToSync:
-          type: integer
-          example: 24
-          description: 'Months of data to fetch, for report data types (`balanceSheet` & `profitAndLoss`) only.'
-        isLocked:
-          type: boolean
-      required:
-        - dataType
-        - fetchOnFirstLink
-        - syncSchedule
-        - syncOrder
-      title: Sync Setting
-      description: 'Describes how often, and how much history, should be fetched for the given data type when a pull operation is queued.'
+  schemas: {}
   securitySchemes:
     API_Key:
-      name: Authorization
+      name: Your Base 64 encoded API Key
       type: apiKey
       in: header
       description: Your base 64 encoded Codat API Key
@@ -1589,7 +1589,7 @@ components:
         type: string
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
-      description: The unique identifier for your SME in Codat
+      description: Unique identifier for your SMB in Codat.
     connectionId:
       name: connectionId
       in: path
@@ -1598,18 +1598,17 @@ components:
         type: string
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-      description: ID of your company's data connection
+      description: Unique identifier for a company's data connection.
     pageSize:
       name: pageSize
       in: query
-      required: true
       schema:
         type: number
         default: 100
         example: 100
         minimum: 1
         maximum: 5000
-      description: Number of records to return on the page
+      description: 'Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
     page:
       name: page
       in: query
@@ -1619,14 +1618,14 @@ components:
         minimum: 0
         example: 1
         default: 1
-      description: Page Number
+      description: 'Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
     query:
       name: query
       in: query
       required: false
       schema:
         type: string
-      description: Codat Query String
+      description: 'Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).'
     orderBy:
       name: orderBy
       in: query
@@ -1634,7 +1633,7 @@ components:
       schema:
         type: string
         example: '-modifiedDate'
-      description: Field to order results by
+      description: 'Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).'
     dataType:
       name: dataType
       in: path
@@ -1661,7 +1660,7 @@ components:
         type: string
         format: uuid
         example: 7318949f-c008-4936-a8ff-10d7ab563fa6
-      description: ID of the webhook or rule
+      description: Unique ID of the webhook or rule.
     datasetId:
       name: datasetId
       in: path
@@ -1670,7 +1669,7 @@ components:
         type: string
         format: uuid
         example: eaed9f0f-e77b-4bc9-a58f-ab8b4b99ab18
-      description: ID of a dataset or pull operation
+      description: Unique ID of a dataset or pull operation.
     platformKey:
       name: platformKey
       in: path
@@ -1681,6 +1680,6 @@ components:
         maxLength: 4
         pattern: '[a-z]{4}'
         example: gbol
-      description: 4 letter key for an integration
+      description: '4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys).'
 security:
   - API_Key: []
