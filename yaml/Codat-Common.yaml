@@ -35,6 +35,8 @@ tags:
     description: Queue pull operations to refresh data in Codat.
   - name: Settings
     description: Endpoints to manage your Codat instance.
+  - name: Push
+    description: Endpoints to view push options and get push statuses.
 paths:
   /companies:
     get:
@@ -1453,6 +1455,279 @@ paths:
         description: |-
           Include a `syncSetting` object for each data type.
           `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
+  '/companies/{companyId}/connections/{connectionId}/options/{dataType}':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/components/parameters/dataType'
+    get:
+      summary: List push options
+      tags:
+        - Push
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: PushOption
+                required:
+                  - description
+                  - displayName
+                  - required
+                  - type
+                type: object
+                properties:
+                  type:
+                    title: OptionType
+                    enum:
+                      - Array
+                      - Object
+                      - String
+                      - Number
+                      - Boolean
+                      - DateTime
+                      - File
+                      - MultiPart
+                    type: string
+                  displayName:
+                    minLength: 1
+                    type: string
+                  description:
+                    minLength: 1
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      title: PushOptionChoice
+                      required:
+                        - description
+                        - displayName
+                        - required
+                        - type
+                        - value
+                      type: object
+                      properties:
+                        value:
+                          minLength: 1
+                          type: string
+                        type:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                        displayName:
+                          minLength: 1
+                          type: string
+                        description:
+                          minLength: 1
+                          type: string
+                        options:
+                          type: array
+                          items:
+                            $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/options/items'
+                          nullable: true
+                        required:
+                          type: boolean
+                        validation:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/validation'
+                        rel:
+                          type: string
+                          nullable: true
+                      additionalProperties: false
+                    nullable: true
+                  required:
+                    type: boolean
+                  validation:
+                    title: PushValidationInfo
+                    type: object
+                    properties:
+                      warnings:
+                        type: array
+                        items:
+                          title: PushFieldValidation
+                          required:
+                            - details
+                            - field
+                          type: object
+                          properties:
+                            field:
+                              minLength: 1
+                              type: string
+                            details:
+                              minLength: 1
+                              type: string
+                            ref:
+                              type: string
+                              format: uri
+                              nullable: true
+                          additionalProperties: false
+                        nullable: true
+                      information:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/validation/properties/warnings/items'
+                        nullable: true
+                    additionalProperties: false
+                  rel:
+                    type: string
+                    nullable: true
+                additionalProperties: false
+      operationId: get-companies-companyId-connections-connectionId-push
+      description: |-
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support push (POST/PUT methods).
+  '/companies/{companyId}/push':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/orderBy'
+      summary: Your GET endpoint
+      tags:
+        - Push
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1push~1%7BpushOperationKey%7D/get/responses/200/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1rules/get/responses/200/content/application~1json/schema/allOf/1'
+      operationId: get-companies-companyId-push
+      description: List push operation records.
+  '/companies/{companyId}/push/{pushOperationKey}':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - schema:
+          type: string
+          format: uuid
+        name: pushOperationKey
+        in: path
+        required: true
+        description: Push operation key.
+    get:
+      summary: Get push operation
+      tags:
+        - Push
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        description: Object submitted in push operation.
+                  - required:
+                      - companyId
+                      - dataConnectionKey
+                      - pushOperationKey
+                      - requestedOnUtc
+                      - status
+                      - statusCode
+                    x-stoplight:
+                      id: b992228353df1
+                    type: object
+                    properties:
+                      changes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              enum:
+                                - Unknown
+                                - Created
+                                - Modified
+                                - Deleted
+                                - AttachmentUploaded
+                              type: string
+                            recordRef:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  nullable: true
+                                dataType:
+                                  type: string
+                                  nullable: true
+                            attachmentId:
+                              type: string
+                              nullable: true
+                        nullable: true
+                      dataType:
+                        type: string
+                        nullable: true
+                      companyId:
+                        type: string
+                        format: uuid
+                      pushOperationKey:
+                        type: string
+                        format: uuid
+                      dataConnectionKey:
+                        type: string
+                        format: uuid
+                      requestedOnUtc:
+                        type: string
+                        format: date-time
+                      completedOnUtc:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      timeoutInMinutes:
+                        type: integer
+                        format: int32
+                        nullable: true
+                      timeoutInSeconds:
+                        type: integer
+                        format: int32
+                        nullable: true
+                        deprecated: true
+                      status:
+                        minLength: 1
+                        type: string
+                      errorMessage:
+                        type: string
+                        nullable: true
+                      validation:
+                        type: object
+                        properties:
+                          errors:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                itemId:
+                                  type: string
+                                  nullable: true
+                                message:
+                                  type: string
+                                  nullable: true
+                                validatorName:
+                                  type: string
+                                  nullable: true
+                            nullable: true
+                          warnings:
+                            type: array
+                            items:
+                              $ref: '#/paths/~1companies~1%7BcompanyId%7D~1push~1%7BpushOperationKey%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/validation/properties/errors/items'
+                            nullable: true
+                      statusCode:
+                        type: integer
+                        format: int32
+      operationId: get-companies-companyId-push-pushOperationKey
+      description: Retreive push operation.
 components:
   schemas: {}
   securitySchemes:

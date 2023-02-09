@@ -2982,7 +2982,12 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/post/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      description: Posts a new bank account to the accounting package for a given company.
+      description: |-
+        Posts a new bank account to the accounting package for a given company.
+
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support pushing bank accounts.
       operationId: post-bank-account
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{bankAccountId}':
     parameters:
@@ -3048,7 +3053,8 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/post/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      description: Posts bank transactions to the accounting package for a given company.
+      description: |
+        Posts bank transactions to the accounting package for a given company.
       operationId: post-bank-transactions
   '/companies/{companyId}/data/bankAccounts/{accountId}':
     parameters:
