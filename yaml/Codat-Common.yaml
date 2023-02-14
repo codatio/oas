@@ -1570,11 +1570,256 @@ paths:
                     type: string
                     nullable: true
                 additionalProperties: false
+              examples:
+                Xero Push Options:
+                  value:
+                    type: Object
+                    displayName: Invoice
+                    description: An invoice is an itemised record of goods sold or services rendered to a customer
+                    properties:
+                      issueDate:
+                        type: DateTime
+                        displayName: Issue Date
+                        description: The issuing date of the invoice
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: IssueDate
+                              details: Must be provided.
+                      dueDate:
+                        type: DateTime
+                        displayName: Due Date
+                        description: The date the invoice is due to be paid by
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: DueDate
+                              details: Must be provided.
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the invoice
+                        required: false
+                      invoiceNumber:
+                        type: String
+                        displayName: Invoice Number
+                        description: User friendly reference identifier for the invoice
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: InvoiceNumber
+                              details: Must not exceed 255 charaters long.
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the invoice and the base currency of the company
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CurrencyRate
+                              details: 'If no rate is specified, the Xero day rate will be applied.'
+                              ref: 'https://central.xero.com/s/#CurrencySettings$Rates'
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the invoice has been sent to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings:
+                                - field: CustomerRef.Id
+                                  details: Must be a valid GUID.
+                                - field: CustomerRef.Id
+                                  details: Must match the Id of an existing customer.
+                              information:
+                                - field: CustomerRef.Id
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CustomerRef
+                              details: Must be provided.
+                      status:
+                        type: String
+                        displayName: Invoice Status
+                        description: The current state of the invoice
+                        options:
+                          - value: Draft
+                            type: String
+                            displayName: Draft
+                            required: false
+                          - value: Submitted
+                            type: String
+                            displayName: Submitted
+                            required: false
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Status
+                              details: Must be provided.
+                      lineItems:
+                        type: Array
+                        displayName: Line Items
+                        description: A collection of lines that detail items related to the invoice
+                        properties:
+                          description:
+                            type: String
+                            displayName: Description
+                            description: Friendly name of the goods or services purchased
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.Description
+                                  details: Must not be longer than 4000 characters long.
+                          quantity:
+                            type: Number
+                            displayName: Quantity
+                            description: The number of units of goods or services purchased
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.Quantity
+                                  details: Must be provided.
+                          unitAmount:
+                            type: Number
+                            displayName: Unit Amount
+                            description: The price of each unit of goods or services
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.UnitAmount
+                                  details: Must be provided.
+                          discountPercentage:
+                            type: Number
+                            displayName: Discount Percentage
+                            description: The percentage rate of any discount that has been applied
+                            required: false
+                          taxAmount:
+                            type: Number
+                            displayName: Tax Amount
+                            description: The amount of tax for the line
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.TaxAmount
+                                  details: Must be provided.
+                          accountRef:
+                            type: Object
+                            displayName: Nominal Account Reference
+                            description: Reference to the nominal account the line item is linked to
+                            properties:
+                              id:
+                                type: String
+                                displayName: Account ID
+                                description: The identifier for the account
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: AccountRef.Id
+                                      details: Must be a valid GUID.
+                                    - field: AccountRef.Id
+                                      details: Must match the Id of an existing account.
+                                  information:
+                                    - field: AccountRef.Id
+                                      details: Must be provided.
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.AccountRef
+                                  details: Must be provided.
+                          trackingCategoryRefs:
+                            type: Array
+                            displayName: Tracking Category References
+                            description: A collection of categories this item is being tracked against
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: 'The identifier for the item, unique per tracking category'
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: TrackingCategoryRefs.Id
+                                      details: Must not be a parent tracking category.
+                                    - field: TrackingCategoryRefs.Id
+                                      details: Must be provided.
+                            required: false
+                            validation:
+                              warnings: []
+                              information:
+                                - field: LineItems.TrackingCategoryRefs
+                                  details: Tracking categories must not have the same parent tracking category.
+                                - field: LineItems.TrackingCategoryRefs
+                                  details: Maximum of 2 Tracking Categories.
+                          taxRateRef:
+                            type: Object
+                            displayName: Tax Rate Reference
+                            description: Reference to the tax rate code the line item is linked to
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The reference identifier for the tax rate
+                                required: false
+                                validation:
+                                  warnings:
+                                    - field: TaxRateRef.Id
+                                      details: Must be a valid GUID.
+                                    - field: TaxRateRef.Id
+                                      details: Must match the ID of an existing tax rate.
+                                  information: []
+                            required: false
+                          itemRef:
+                            type: Object
+                            displayName: Item Reference
+                            description: 'Reference to the product or service type, or inventory item, the line item is linked to'
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The reference identifier for the item
+                                required: false
+                                validation:
+                                  warnings:
+                                    - field: ItemRef.Id
+                                      details: Must be a valid GUID.
+                                    - field: ItemRef.Id
+                                      details: Must match the ID of an existing item.
+                                  information: []
+                            required: false
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: LineItems
+                              details: Must be provided.
+                    required: true
       operationId: get-companies-companyId-connections-connectionId-push
       description: |-
+        Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
+
+        Codat does not wish to limit users to pushing to a very limited number of standard categories, so we have implemented an "options" endpoint, which allows us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.
+
+
         > **Supported Integrations**
         > 
-        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support push (POST/PUT methods).
+        > Check out our [Knowledge UI](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods).
   '/companies/{companyId}/push':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1584,7 +1829,7 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      summary: Your GET endpoint
+      summary: Lists push operations
       tags:
         - Push
       responses:
