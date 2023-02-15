@@ -1,0 +1,1709 @@
+openapi: 3.0.1
+x-stoplight:
+  id: v6f6vc930irb5
+info:
+  contact:
+    name: Codat
+    url: 'https://www.codat.io/'
+    email: syncforexpenses@codat.io
+  title: Sync for Commerce API
+  description: The API to sync commerce data into accounting applications.
+  version: '1.1'
+tags:
+  - name: Company Management
+    description: Manage &amp; create Sync for Commerce companies
+  - name: Sync Configuration
+    description: Configure Sync for Commerce Settings for a company
+  - name: Sync Data
+    description: Send data to be processed by Sync for Commerce
+  - name: Integrations
+    description: View information about Codat's integrations
+  - name: Sync
+    description: Initiate a sync of your merchants data
+servers:
+  - url: 'https://api.codat.io'
+paths:
+  /meta/companies:
+    get:
+      tags:
+        - Company Management
+      summary: List Companies
+      description: Retrieve a list of all Companies the client has created.
+      operationId: companies
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 1
+          description: Page number.
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+          description: Number of records displayed per page.
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 'Filter results, the query takes the form of propertyName=value.'
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: The API can return results in ascending order or descending order. You can also order results returned from custom queries.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseModel'
+  /meta/companies/sync:
+    post:
+      tags:
+        - Company Management
+      summary: Create a Sync for Commerce Company
+      description: Creates a Codat Company with a commerce partner data connection.
+      operationId: post-companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.SyncDirect.Api.Models.AddCompanyModel'
+            example:
+              name: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.SyncDirect.Api.Models.Company'
+  '/meta/companies/{companyId}/connections':
+    get:
+      tags:
+        - Company Management
+      summary: List Data Connections for a company
+      description: Retrieve previously created data connections.
+      operationId: get-dataconnections
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Page number.
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+          description: Number of records displayed per page.
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 'Filter results, the query takes the form of propertyName=value.'
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: The API can return results in ascending order or descending order. You can also order results returned from custom queries.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseModel'
+    post:
+      tags:
+        - Company Management
+      summary: Create Data Connection
+      description: Create a data connection.
+      operationId: add-data-connection
+      parameters:
+        - name: companyId
+          in: path
+          description: Company Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnection'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  '/meta/companies/{companyId}/sync/commerce/status':
+    get:
+      tags:
+        - Sync Configuration
+      summary: Get Sync for Commerce Status for a company
+      description: Check the sync history and status for a company.
+      operationId: get-company-commerce-sync-status
+      parameters:
+        - name: companyId
+          in: path
+          description: Company Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  /config/integrations:
+    get:
+      tags:
+        - Integrations
+      summary: List Codat's integrations
+      description: Retrieve a list of available integrations.
+      operationId: get-integrations
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 1
+          description: Page number.
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+          description: Number of records displayed per page.
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 'Filter results, the query takes the form of propertyName=value.'
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: The API can return results in ascending order or descending order. You can also order results returned from custom queries.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseModel'
+  '/config/integrations/{platformKey}/branding':
+    get:
+      tags:
+        - Integrations
+      summary: Get branding for an integration
+      description: Retrieve Integration branding assets.
+      operationId: get-integration-branding
+      parameters:
+        - name: platformKey
+          in: path
+          description: PlatformKey
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+    parameters:
+      - schema:
+          type: string
+        name: platformKey
+        in: path
+        required: true
+        description: Unique four letter identifier for the platform
+  '/meta/companies/{companyId}/connections/{connectionId}':
+    patch:
+      tags:
+        - Company Management
+      summary: Update Data Connection
+      description: Update a data connection
+      operationId: update-data-connection
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+        - name: connectionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB's connected integration.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.Public.Api.Models.Company.PatchDataConnectionModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnection'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+      - schema:
+          type: string
+        name: connectionId
+        in: path
+        required: true
+        description: Unique identifier for your SMB's connected integration.
+  '/config/companies/{companyId}/sync/commerce':
+    post:
+      tags:
+        - Sync Configuration
+      summary: Post Sync for Commerce settings
+      description: Configure Sync for Commerce for a Company.
+      operationId: configure-sync
+      parameters:
+        - name: companyId
+          in: path
+          description: Company Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.CompanyConfiguration'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.CompanyConfiguration'
+    get:
+      tags:
+        - Sync Configuration
+      summary: Get options for Sync for Commerce settings
+      description: Retrieve sync options and current sync configuration for a Company
+      operationId: get-sync-options
+      parameters:
+        - name: companyId
+          in: path
+          description: Company Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.CompanyConfiguration'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  '/config/sync/commerce/{commerceKey}/{accountingKey}/start':
+    get:
+      tags:
+        - Sync Configuration
+      summary: Get Sync Flow Url
+      description: To get a URL for Sync Flow including a one time passcode.
+      operationId: get-sync-flow-url
+      parameters:
+        - name: commerceKey
+          in: path
+          description: Commerce Key
+          required: true
+          schema:
+            type: string
+        - name: accountingKey
+          in: path
+          description: Accounting Key
+          required: true
+          schema:
+            type: string
+        - name: merchantIdentifier
+          in: query
+          schema:
+            type: string
+          description: 'Identifier for your merchant, can be the merchant name or Codat companyId.'
+      responses:
+        '200':
+          description: Success
+    parameters:
+      - schema:
+          type: string
+        name: commerceKey
+        in: path
+        required: true
+        description: Unique identifier for commerce platform.
+      - schema:
+          type: string
+        name: accountingKey
+        in: path
+        required: true
+        description: Unique identifier for accounting software.
+  '/data/companies/{companyId}/sync/commerce-orders':
+    post:
+      tags:
+        - Sync Data
+      summary: Create Orders Dataset
+      description: Create a dataset of the merchants sales
+      operationId: send-orders-data
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.OrdersDataset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.OrdersDatasetSyncOperation'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  '/data/companies/{companyId}/sync/commerce-payments':
+    post:
+      tags:
+        - Sync Data
+      summary: Create Payments Dataset
+      description: Create a dataset of the merchants payments.
+      operationId: send-payments-data
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentsDataset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentsDatasetSyncOperation'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  '/data/companies/{companyId}/sync/commerce-transactions':
+    post:
+      tags:
+        - Sync Data
+      summary: Create Transactions Dataset
+      description: Create a dataset of the merchants transactions
+      operationId: send-transactions-data
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.TransactionsDataset'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.TransactionsDatasetSyncOperation'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+  '/meta/companies/{companyId}/pull/history/{datasetId}':
+    get:
+      tags:
+        - Sync Data
+      summary: Check Dataset Status
+      operationId: check-data-status
+      description: Check whether the dataset has been accepted and validated.
+      parameters:
+        - name: companyId
+          in: path
+          description: Company Id
+          required: true
+          schema:
+            type: string
+        - name: datasetId
+          in: path
+          description: Dataset Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+      - schema:
+          type: string
+        name: datasetId
+        in: path
+        required: true
+        description: Unique identifier for a dataset.
+  '/companies/{companyId}/sync/commerce/latest':
+    post:
+      tags:
+        - Sync
+      summary: Run a Commerce sync from the last successful sync...
+      description: "Run a Commerce sync from the last successful sync up to the date provided (optional), otherwise UtcNow is used.\r\nIf there was no previously successful sync, the start date in the config is used."
+      operationId: post-sync-latest
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for your SMB in Codat.
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Codat.Commerce.Api.Models.SyncToLatestArgs'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Codat.Commerce.Api.Models.SyncToLatestArgs'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Codat.Commerce.Api.Models.SyncToLatestArgs'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Codat.Commerce.Api.Models.SyncToLatestArgs'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse'
+    parameters:
+      - schema:
+          type: string
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+components:
+  schemas:
+    Codat.Commerce.Api.Models.SyncToLatestArgs:
+      type: object
+      properties:
+        syncTo:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse:
+      type: object
+      properties:
+        syncDateRangeUtc:
+          $ref: '#/components/schemas/Codat.Infrastructure.Date.DateRange'
+        companyId:
+          type: string
+          nullable: true
+        commerceSyncId:
+          type: string
+          nullable: true
+        syncStatusCode:
+          type: integer
+          format: int32
+        syncStatus:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        syncExceptionMessage:
+          type: string
+          nullable: true
+        syncUtc:
+          type: string
+          format: date-time
+          nullable: true
+        dataConnections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnection'
+          nullable: true
+        dataPushed:
+          type: boolean
+      additionalProperties: false
+    Codat.Infrastructure.Date.DateRange:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        finish:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.CustomerRef:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.DiscountAllocation:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        totalAmount:
+          type: number
+          format: double
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.Order:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        orderNumber:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        currency:
+          type: string
+          nullable: true
+        createdDate:
+          type: string
+          format: date-time
+        closedDate:
+          type: string
+          format: date-time
+          nullable: true
+        totalAmount:
+          type: number
+          format: double
+        totalRefund:
+          type: number
+          format: double
+        totalTaxAmount:
+          type: number
+          format: double
+        totalDiscount:
+          type: number
+          format: double
+        totalGratuity:
+          type: number
+          format: double
+        orderLineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.OrderLineItem'
+          nullable: true
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentRef'
+          nullable: true
+        serviceCharges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.ServiceCharge'
+          nullable: true
+        locationRef:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.LocationRef'
+        customerRef:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.CustomerRef'
+        modifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+        sourceModifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.OrderLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        taxPercentage:
+          type: number
+          format: double
+        totalAmount:
+          type: number
+          format: double
+        totalTaxAmount:
+          type: number
+          format: double
+        unitPrice:
+          type: number
+          format: double
+        productRef:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.ProductRef'
+        productVariantRef:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.ProductRef'
+        discountAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.DiscountAllocation'
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.OrdersDataset:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.Order'
+          nullable: true
+        contractVersion:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.OrdersDatasetSyncOperation:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.OrdersDataset'
+        datasetId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentType'
+        status:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentStatus'
+        paymentProvider:
+          type: string
+          nullable: true
+        dueDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+        sourceModifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.PaymentRef:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+        currency:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentType'
+        status:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentStatus'
+        paymentProvider:
+          type: string
+          nullable: true
+        dueDate:
+          type: string
+          format: date-time
+          nullable: true
+        createdDate:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+        sourceModifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.PaymentsDataset:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.Payment'
+          nullable: true
+        contractVersion:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.PaymentsDatasetSyncOperation:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PaymentsDataset'
+        datasetId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.PaymentStatus:
+      enum:
+        - Unknown
+        - Pending
+        - Authorized
+        - Paid
+        - Failed
+        - Cancelled
+      type: string
+    Codat.DataContracts.Datasets.Commerce.PaymentType:
+      enum:
+        - Unknown
+        - Cash
+        - Card
+        - Invoice
+        - OnlineCard
+        - Swish
+        - Vipps
+        - Mobile
+        - StoreCredit
+        - Paypal
+        - Custom
+        - Prepaid
+      type: string
+    Codat.DataContracts.Datasets.Commerce.PlatformTransactionType:
+      enum:
+        - Unknown
+        - Payment
+        - Refund
+        - Payout
+        - FailedPayout
+        - Transfer
+        - PaymentFee
+        - PaymentFeeRefund
+      type: string
+    Codat.DataContracts.Datasets.Commerce.ProductRef:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.ServiceCharge:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        totalAmount:
+          type: number
+          format: double
+        taxPercentage:
+          type: number
+          format: double
+        taxAmount:
+          type: number
+          format: double
+        quantity:
+          type: integer
+          format: int32
+        type:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.ServiceChargeType'
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.ServiceChargeType:
+      enum:
+        - Unknown
+        - Generic
+        - Shipping
+        - Overpayment
+      type: string
+    Codat.DataContracts.Datasets.Commerce.Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        totalAmount:
+          type: number
+          format: double
+        currency:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.PlatformTransactionType'
+        subType:
+          type: string
+          nullable: true
+        transactionSourceRef:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.TransactionSourceRef'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+        sourceModifiedDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.TransactionRefType:
+      enum:
+        - Unknown
+        - Fee
+        - Order
+        - Payment
+        - ServiceCharge
+      type: string
+    Codat.DataContracts.Datasets.Commerce.TransactionsDataset:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.Transaction'
+          nullable: true
+        contractVersion:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.TransactionsDatasetSyncOperation:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.TransactionsDataset'
+        datasetId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Codat.DataContracts.Datasets.Commerce.TransactionSourceRef:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Codat.DataContracts.Datasets.Commerce.TransactionRefType'
+      additionalProperties: false
+    Codat.SyncDirect.Api.Models.AddCompanyModel:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      additionalProperties: false
+    Codat.SyncDirect.Api.Models.Company:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+          nullable: true
+        dataConnections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.SyncDirect.Api.Models.DataConnection'
+          nullable: true
+      additionalProperties: false
+    Codat.SyncDirect.Api.Models.DataConnection:
+      required:
+        - id
+        - integrationId
+        - linkUrl
+        - platformName
+        - sourceId
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        integrationId:
+          type: string
+          format: uuid
+        sourceId:
+          type: string
+          format: uuid
+        platformName:
+          type: string
+        linkUrl:
+          type: string
+        status:
+          type: string
+          nullable: true
+        lastSync:
+          type: string
+          format: date-time
+          nullable: true
+        created:
+          type: string
+          format: date-time
+          nullable: true
+        sourceType:
+          type: string
+          nullable: true
+        dataConnectionErrors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.SyncDirect.Api.Models.DataConnectionError'
+          nullable: true
+      additionalProperties: false
+    Codat.SyncDirect.Api.Models.DataConnectionError:
+      type: object
+      properties:
+        statusCode:
+          type: string
+          nullable: true
+        statusText:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        erroredOnUtc:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.CompanyPagedResponseModel:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.Company.Company'
+          nullable: true
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        _links:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseLinksModel'
+      additionalProperties: false
+      description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+    Codat.Public.Api.Models.Company.Company:
+      required:
+        - dataConnections
+        - id
+        - name
+        - platform
+        - redirect
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        platform:
+          type: string
+        redirect:
+          type: string
+        lastSync:
+          type: string
+          format: date-time
+          nullable: true
+        dataConnections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnection'
+        created:
+          type: string
+          format: date-time
+          nullable: true
+        createdByUserName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.CompanyPagedResponseLinksModel:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel'
+        current:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel'
+        next:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel'
+        previous:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel'
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.DataConnection:
+      required:
+        - id
+        - integrationId
+        - linkUrl
+        - platformName
+        - sourceId
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        integrationId:
+          type: string
+          format: uuid
+        sourceId:
+          type: string
+          format: uuid
+        platformName:
+          type: string
+        linkUrl:
+          type: string
+        status:
+          type: string
+          nullable: true
+        lastSync:
+          type: string
+          format: date-time
+          nullable: true
+        created:
+          type: string
+          format: date-time
+          nullable: true
+        sourceType:
+          type: string
+          nullable: true
+        dataConnectionErrors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionError'
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.DataConnectionError:
+      type: object
+      properties:
+        statusCode:
+          type: string
+          nullable: true
+        statusText:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        erroredOnUtc:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.DataConnectionPagedResponseLinksModel:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel'
+        current:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel'
+        next:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel'
+        previous:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel'
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.DataConnectionPagedResponseModel:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnection'
+          nullable: true
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        _links:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.Company.DataConnectionPagedResponseLinksModel'
+      additionalProperties: false
+      description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+    Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseModel:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModel'
+          nullable: true
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        _links:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseLinksModel'
+      additionalProperties: false
+      description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
+    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModel:
+      type: object
+      properties:
+        sourceType:
+          $ref: '#/components/schemas/Codat.Clients.Api.Client.Contract.SourceType'
+        integrationId:
+          type: string
+          format: uuid
+        key:
+          type: string
+          nullable: true
+        logoUrl:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        enabled:
+          type: boolean
+        sourceId:
+          type: string
+          format: uuid
+        isOfflineConnector:
+          type: boolean
+        isBeta:
+          type: boolean
+        supportedEnvironments:
+          $ref: '#/components/schemas/Codat.Clients.Api.Client.Contract.IntegrationSupportedEnvironments'
+        linkedConnectionsCount:
+          type: integer
+          format: int32
+        totalConnectionsCount:
+          type: integer
+          format: int32
+        datatypeFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Clients.Api.Client.Contract.DatatypeFeatures'
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseLinksModel:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel'
+        current:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel'
+        next:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel'
+        previous:
+          $ref: '#/components/schemas/Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel'
+      additionalProperties: false
+    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Public.Api.Models.Company.PatchDataConnectionModel:
+      type: object
+      properties:
+        status:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Clients.Api.Client.Contract.SourceType:
+      enum:
+        - Unknown
+        - Accounting
+        - Banking
+        - BankFeed
+        - Commerce
+        - Expense
+        - Other
+      type: string
+    Codat.Clients.Api.Client.Contract.IntegrationSupportedEnvironments:
+      enum:
+        - Unknown
+        - SandboxOnly
+        - LiveOnly
+        - LiveAndSandbox
+      type: string
+    Codat.Clients.Api.Client.Contract.DatatypeFeatures:
+      type: object
+      properties:
+        datatype:
+          type: string
+          nullable: true
+        supportedFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Clients.Api.Client.Contract.SupportedFeatureState'
+          nullable: true
+      additionalProperties: false
+    Codat.Clients.Api.Client.Contract.SupportedFeatureState:
+      type: object
+      properties:
+        featureType:
+          type: string
+          nullable: true
+        featureState:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.AccountOption:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+        nominalCode:
+          type: string
+          nullable: true
+        classification:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.CompanyConfiguration:
+      type: object
+      properties:
+        companyId:
+          type: string
+          nullable: true
+        accountingSoftwareCompanyName:
+          type: string
+          nullable: true
+        enabled:
+          type: boolean
+        configured:
+          type: boolean
+        schedule:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Schedule'
+        configuration:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Configuration'
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.ConfigAccount:
+      type: object
+      properties:
+        labelText:
+          type: string
+          nullable: true
+        descriptionText:
+          type: string
+          nullable: true
+        selectedAccountId:
+          type: string
+          nullable: true
+        required:
+          type: boolean
+        accountOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.AccountOption'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Configuration:
+      type: object
+      properties:
+        sales:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Sales'
+        payments:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Payments'
+        newPayments:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.NewPayments'
+        fees:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Fees'
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Fees:
+      type: object
+      properties:
+        feesSupplier:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.FeesSupplier'
+        syncFees:
+          type: boolean
+        accounts:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.ConfigAccount'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.FeesSupplier:
+      type: object
+      properties:
+        selectedSupplierId:
+          type: string
+          nullable: true
+        supplierOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Grouping:
+      type: object
+      properties:
+        groupingPeriod:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.GroupingPeriod'
+        groupingLevels:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.GroupingLevels'
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.GroupingLevels:
+      type: object
+      properties:
+        invoiceLevel:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.InvoiceLevelSelection'
+        invoiceLineLevel:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.InvoiceLineLevelSelection'
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.GroupingPeriod:
+      type: object
+      properties:
+        selectedGroupingPeriod:
+          type: string
+          nullable: true
+        groupingPeriodOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.InvoiceLevelSelection:
+      type: object
+      properties:
+        selectedGroupByOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+        groupByOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.InvoiceLineLevelSelection:
+      type: object
+      properties:
+        selectedGroupByOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+        groupByOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.InvoiceStatus:
+      type: object
+      properties:
+        selectedInvoiceStatus:
+          type: string
+          nullable: true
+        invoiceStatusOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.NewPayments:
+      type: object
+      properties:
+        syncPayments:
+          type: boolean
+        accounts:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.ConfigAccount'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.NewTaxRates:
+      type: object
+      properties:
+        accountingTaxRateOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+        commerceTaxRateOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+        taxRateMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.TaxRateMapping'
+          nullable: true
+        selectedDefaultZeroTaxRateId:
+          type: string
+          nullable: true
+        defaultZeroTaxRateOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Option:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Payments:
+      type: object
+      properties:
+        syncPayments:
+          type: boolean
+        accounts:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.ConfigAccount'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Sales:
+      type: object
+      properties:
+        syncSales:
+          type: boolean
+        accounts:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.ConfigAccount'
+          nullable: true
+        invoiceStatus:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.InvoiceStatus'
+        salesCustomer:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.SalesCustomer'
+        taxRates:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.TaxRateAmount'
+          nullable: true
+        newTaxRates:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.NewTaxRates'
+        grouping:
+          $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Grouping'
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.SalesCustomer:
+      type: object
+      properties:
+        selectedCustomerId:
+          type: string
+          nullable: true
+        customerOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.Schedule:
+      type: object
+      properties:
+        selectedFrequency:
+          type: string
+          nullable: true
+        frequencyOptions:
+          type: array
+          items:
+            type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date-time
+        syncHourUtc:
+          type: integer
+          format: int32
+        timeZone:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.TaxRateAmount:
+      type: object
+      properties:
+        selectedTaxRateId:
+          type: string
+          nullable: true
+        taxRateOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Codat.Commerce.DataContracts.Config.Option'
+          nullable: true
+      additionalProperties: false
+    Codat.Commerce.DataContracts.Config.TaxRateMapping:
+      type: object
+      properties:
+        selectedCommerceTaxRateIds:
+          type: array
+          items:
+            type: string
+          nullable: true
+        selectedAccountingTaxRateId:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    APIKeyAuth:
+      type: apiKey
+      description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app-integration.codat.io/#/profile)'
+      name: Authorization
+      in: header
+security:
+  - APIKeyAuth: []
