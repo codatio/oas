@@ -89,7 +89,7 @@
                   ]
                 },
                 "examples": {
-                  "List of Companies": {
+                  "One company": {
                     "value": {
                       "results": [
                         {
@@ -118,8 +118,73 @@
                         }
                       ],
                       "pageNumber": 1,
-                      "pageSize": 1,
+                      "pageSize": 100,
                       "totalResults": 1,
+                      "_links": {
+                        "current": {
+                          "href": "/companies?page=1&pageSize=100"
+                        },
+                        "self": {
+                          "href": "/companies"
+                        }
+                      }
+                    }
+                  },
+                  "List of Companies": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "d1568dde-adf6-11ed-afa1-0242ac120002",
+                          "name": "Technicalium",
+                          "description": "Technology services, including web and app design and development",
+                          "platform": "",
+                          "redirect": "https://link.codat.io/company/d1568dde-adf6-11ed-afa1-0242ac120002",
+                          "lastSync": "2022-01-01T12:30:00.000Z",
+                          "dataConnections": [
+                            {
+                              "id": "51baa045-4836-4317-a42e-3542e991e581",
+                              "integrationId": "1c312d69-e638-46d4-ad31-72e6c3ba8390",
+                              "integrationKey": "vjms",
+                              "sourceId": "396c3158-5dd7-481b-a7c4-a795ca31792b",
+                              "platformName": "Pandle",
+                              "linkUrl": "https://link-api.codat.io/companies/d1568dde-adf6-11ed-afa1-0242ac120002/connections/51baa045-4836-4317-a42e-3542e991e581/start",
+                              "status": "Linked",
+                              "lastSync": "2022-01-01T12:30:00.000Z",
+                              "created": "2022-01-01T11:30:00Z",
+                              "sourceType": "Accounting"
+                            }
+                          ],
+                          "created": "2022-01-01T11:30:00Z",
+                          "createdByUserName": "Joe Bloggs"
+                        },
+                        {
+                          "id": "096db70b-78de-4ff0-aa98-299cb5fe17a0",
+                          "name": "Godata",
+                          "description": "A fresh new digital agency with a passion for creating amazing digital experiences",
+                          "platform": "",
+                          "redirect": "https://link.codat.io/company/096db70b-78de-4ff0-aa98-299cb5fe17a0",
+                          "lastSync": "2022-01-01T12:30:00.000Z",
+                          "dataConnections": [
+                            {
+                              "id": "a70bc148-dc21-46b2-a257-d9c58ac15cbb",
+                              "integrationId": "1c312d69-e638-46d4-ad31-72e6c3ba8390",
+                              "integrationKey": "vjms",
+                              "sourceId": "396c3158-5dd7-481b-a7c4-a795ca31792b",
+                              "platformName": "Pandle",
+                              "linkUrl": "https://link-api.codat.io/companies/096db70b-78de-4ff0-aa98-299cb5fe17a0/connections/a70bc148-dc21-46b2-a257-d9c58ac15cbb/start",
+                              "status": "Linked",
+                              "lastSync": "2022-01-01T12:30:00.000Z",
+                              "created": "2022-01-01T11:30:00Z",
+                              "sourceType": "Accounting"
+                            }
+                          ],
+                          "created": "2022-01-01T11:30:00Z",
+                          "createdByUserName": "Mike Smith"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 100,
+                      "totalResults": 2,
                       "_links": {
                         "current": {
                           "href": "/companies?page=1&pageSize=100"
@@ -178,6 +243,9 @@
                     "name": {
                       "type": "string"
                     },
+                    "description": {
+                      "type": "string"
+                    },
                     "platform": {
                       "type": "string"
                     },
@@ -202,6 +270,7 @@
                     "example-1": {
                       "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0",
                       "name": "My First Company",
+                      "description": "",
                       "platform": "",
                       "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0",
                       "dataConnections": [],
