@@ -3827,7 +3827,7 @@
         }
       ],
       "get": {
-        "summary": "Enhanced Profit And Loss",
+        "summary": "Enhanced Profit and Loss Accounts",
         "tags": [
           "Reports"
         ],
@@ -3862,7 +3862,7 @@
         }
       ],
       "get": {
-        "summary": "Enhanced Balance Sheet",
+        "summary": "Enhanced Balance Sheet Accounts",
         "tags": [
           "Reports"
         ],
@@ -4276,6 +4276,10 @@
                 "accountName": {
                   "type": "string"
                 },
+                "accountId": {
+                  "type": "string",
+                  "description": "The unique account ID."
+                },
                 "accountCategory": {
                   "type": "object",
                   "properties": {
@@ -4302,7 +4306,81 @@
               }
             }
           }
-        }
+        },
+        "examples": [
+          {
+            "reportInfo": {
+              "reportName": "EnhancedProfitAndLossAccounts",
+              "companyName": "ABC LTD",
+              "generatedDate": "2022-01-01"
+            },
+            "reportItems": [
+              {
+                "date": "2022-01-01",
+                "balance": 70,
+                "accountName": "Sales UK",
+                "accountId": "13931cbf-ea06-4d6e-9538-a8457fa66011",
+                "accountCategory": {
+                  "status": "Suggested",
+                  "levels": [
+                    {
+                      "levelName": "Income",
+                      "confidence": 0.95
+                    },
+                    {
+                      "levelName": "Revenue",
+                      "confidence": 0.9
+                    }
+                  ]
+                }
+              },
+              {
+                "date": "2022-01-01",
+                "balance": 30,
+                "accountName": "Sales US",
+                "accountId": "13931cbf-ea06-4d6e-9538-a8457fa66011",
+                "accountCategory": {
+                  "lastUpdated": "datetime",
+                  "status": "Suggested",
+                  "levels": [
+                    {
+                      "levelName": "Income",
+                      "confidence": 0.95
+                    },
+                    {
+                      "levelName": "Revenue",
+                      "confidence": 0.9
+                    }
+                  ]
+                }
+              },
+              {
+                "date": "2022-01-01",
+                "balance": 70,
+                "accountName": "Amazon",
+                "accountId": "13931cbf-ea06-4d6e-9538-a8457fa66011",
+                "accountCategory": {
+                  "lastUpdated": "datetime",
+                  "status": "Suggested",
+                  "levels": [
+                    {
+                      "levelName": "Income",
+                      "confidence": 0.95
+                    },
+                    {
+                      "levelName": "Revenue",
+                      "confidence": 0.95
+                    },
+                    {
+                      "levelName": "Online",
+                      "confidence": 0.8
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "ExcelStatus": {
         "type": "object",

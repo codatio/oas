@@ -33,6 +33,8 @@ tags:
     description: Retrieve standardized data from linked commerce platforms.
   - name: Products
     description: Retrieve standardized data from linked commerce platforms.
+  - name: Tax components
+    description: Retrieve standardized data from linked commerce platforms.
   - name: Transactions
     description: Retrieve standardized data from linked commerce platforms.
 paths:
@@ -500,6 +502,44 @@ paths:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/2'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-orders/get/parameters/3'
       description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+  '/companies/{companyId}/connections/{connectionId}/data/commerce-taxComponents':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-info/parameters/1'
+    get:
+      summary: Tax components
+      tags:
+        - Tax components
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  taxComponents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaxComponent'
+              examples:
+                Example 1:
+                  value:
+                    taxComponents:
+                      - id: 85b32439-37a0-4085-b710-054732bbcea2
+                        name: Sales Tax (10%)
+                        rate: 0.1
+                        isCompound: false
+                        modifiedDate: '2021-08-06T06:00:27'
+                        sourceModifiedDate: '2021-08-06T06:00:27'
+                      - id: 687e67ae-80f2-44e0-b17a-6a3e1f9c00f9
+                        name: Sales Tax (15%)
+                        rate: 0.15
+                        isCompound: false
+                        modifiedDate: '2021-08-06T06:00:27'
+                        sourceModifiedDate: '2022-04-25T02:45:27'
+      operationId: get-companies-companyId-connections-connectionId-data-commerce-taxComponents
+      description: A list of all the tax components available for a specific platform connection
 components:
   schemas:
     CompanyInfo:
@@ -930,29 +970,11 @@ components:
                 $ref: '#/components/schemas/Order/definitions/serviceCharge'
             locationRef:
               allOf:
-                - title: nameRef
-                  x-stoplight:
-                    id: 34dd919grzbls
-                  type: object
-                  properties:
-                    id:
-                      description: The unique identitifer of the record being referenced
-                      type: string
-                      examples:
-                        - 13d946f0-c5d5-42bc-b092-97ece17923ab
-                        - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-                        - 7110701885
-                        - EILBDVJVNUAGVKRQ
-                    name:
-                      description: Name of the record being referenced.
-                      type: string
-                  required:
-                    - id
-                    - name
+                - $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
                 - description: Reference to the geographic location where the order was placed.
             customerRef:
               allOf:
-                - $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
+                - $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
                 - description: Reference to the customer that placed the order.
         - type: object
           x-stoplight:
@@ -1018,14 +1040,14 @@ components:
                   description: Taxes breakdown as applied to order lines.
                   type: array
                   items:
-                    $ref: '#/components/schemas/Order/definitions/serviceCharge/properties/taxes/items'
+                    $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation'
                 productRef:
                   allOf:
-                    - $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
+                    - $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
                     - description: Reference that links the line item to the correct product details.
                 productVariantRef:
                   allOf:
-                    - $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
+                    - $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
                     - description: Reference that links the line item to the specific version of product that has been ordered.
                 discountAllocations:
                   type: array
@@ -1135,17 +1157,7 @@ components:
               description: Taxes breakdown as applied to service charges.
               type: array
               items:
-                properties:
-                  taxComponentRef:
-                    description: Taxes rates reference object depending on the rates being available on source commerce package.
-                    type: object
-                    allOf:
-                      - $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
-                  rate:
-                    description: Tax amount on order line sale as available from source commerce platform.
-                    type: number
-                    format: decimal
-                    nullable: true
+                $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation'
             quantity:
               description: The number of times the charge is charged.
               type: number
@@ -1191,7 +1203,7 @@ components:
               $ref: '#/components/schemas/CompanyInfo/properties/baseCurrency'
               description: Currency in which the payment was made
             paymentMethodRef:
-              $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
+              $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
               description: The payment method the payment is linked to in the commerce platform.
               example:
                 id: EILBDVJVNUAGVKRQ
@@ -1376,7 +1388,7 @@ components:
                                     format: decimal
                                     example: 1
                                   locationRef:
-                                    $ref: '#/components/schemas/Order/allOf/1/properties/locationRef/allOf/0'
+                                    $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation/properties/taxComponentRef/allOf/0'
                       shippingRequired:
                         type: boolean
                       status:
@@ -1439,6 +1451,83 @@ components:
           example: '2022-01-01T12:00:00.000Z'
       title: Product Category
       description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+    TaxComponent:
+      title: TaxComponent
+      x-stoplight:
+        id: uor9593ahnu9j
+      type: object
+      x-datatype:
+        id: 72715173-20e5-40b5-a825-378ab8195d28
+        databaseId: 42
+        name: commerce-taxComponents
+        domain: commerce
+        singluar: tax component
+        plural: tax components
+        fetchMode: multiple
+      allOf:
+        - $ref: '#/components/schemas/Order/allOf/0'
+        - type: object
+          properties:
+            name:
+              type: string
+              description: Name of the Tax Rate Component in the source commerce platform.
+              example: Sales Tax
+            rate:
+              description: Rate of taxation represented as a fraction of the net price (typically in the range 0.00 - 1.00).
+              type: number
+              format: float
+              examples:
+                - 0.15
+                - 0.2
+            isCompound:
+              description: The Boolean flag to indicate when a Tax Rate Component compounds on a sale.
+              type: boolean
+              examples:
+                - true
+                - false
+          allOf:
+            - $ref: '#/components/schemas/Order/allOf/3'
+          required:
+            - name
+      definitions:
+        taxComponentAllocation:
+          properties:
+            taxComponentRef:
+              description: Taxes rates reference object depending on the rates being available on source commerce package.
+              type: object
+              allOf:
+                - title: nameRef
+                  x-stoplight:
+                    id: 34dd919grzbls
+                  type: object
+                  properties:
+                    id:
+                      description: The unique identitifer of the record being referenced
+                      type: string
+                      examples:
+                        - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                        - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                        - 7110701885
+                        - EILBDVJVNUAGVKRQ
+                    name:
+                      description: Name of the record being referenced.
+                      type: string
+                  required:
+                    - id
+                    - name
+            rate:
+              description: Tax amount on order line sale as available from source commerce platform.
+              type: number
+              format: decimal
+              nullable: true
+      description: ''
+      examples:
+        - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
+          name: Sales Tax (15%)
+          rate: 0.15
+          isCompound: true
+          modifiedDate: '2022-10-23T00:00:00Z'
+          sourceModifiedDate: '2022-10-23T00:00:00Z'
     Transaction:
       title: Commerce-Transaction
       description: A financial transaction recorded in the commerce or point of sale system
