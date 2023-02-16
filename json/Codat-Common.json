@@ -95,6 +95,7 @@
                         {
                           "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                           "name": "My Test Company",
+                          "description": "My Test Company make testing software",
                           "platform": "",
                           "redirect": "https://link.codat.io/company/3fa85f64-5717-4562-b3fc-2c963f66afa6",
                           "lastSync": "2022-01-01T12:30:00.000Z",
@@ -232,12 +233,8 @@
                   "name": {
                     "type": "string"
                   },
-                  "platformType": {
-                    "type": "string",
-                    "example": "gbol",
-                    "pattern": "[a-z][a-z][a-z][a-z]",
-                    "maxLength": 4,
-                    "minLength": 4
+                  "description": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -248,12 +245,14 @@
                 "Example with platform key": {
                   "value": {
                     "name": "My first company",
+                    "description": "",
                     "platformType": "gbol"
                   }
                 },
                 "Example without platform key": {
                   "value": {
-                    "name": "My second company"
+                    "name": "My second company",
+                    "description": "This one has a description too"
                   }
                 }
               }
@@ -311,18 +310,27 @@
                     "id": {
                       "type": "string",
                       "format": "uuid",
-                      "example": "0498e921-9b53-4396-a412-4f2f5983b0a2"
+                      "example": "0498e921-9b53-4396-a412-4f2f5983b0a2",
+                      "description": "The unique ID for a company"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The name of the company",
+                      "example": "Codat Ltd."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Additional information about the company. This can be used to store foreign IDs, references, etc."
                     },
                     "platform": {
                       "type": "string",
-                      "deprecated": true
+                      "deprecated": true,
+                      "example": "Xero"
                     },
                     "redirect": {
                       "type": "string",
                       "format": "uri",
+                      "description": "The [Hosted Link](https://codat-docs.vercel.app/auth-flow/authorize-hosted-link) auth flow URL for the company",
                       "example": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"
                     },
                     "lastSync": {
@@ -356,6 +364,7 @@
                     "value": {
                       "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0",
                       "name": "My First Company",
+                      "description": "",
                       "platform": "",
                       "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0",
                       "dataConnections": [],
@@ -391,7 +400,7 @@
         ]
       },
       "put": {
-        "summary": "Update a company name",
+        "summary": "Update a company",
         "operationId": "put-companies-companyId",
         "responses": {
           "200": {
@@ -408,7 +417,7 @@
             "$ref": "#/components/responses/Unauthorized"
           }
         },
-        "description": "Updates the given company with a new name",
+        "description": "Updates the given company with a new name and description",
         "requestBody": {
           "content": {
             "application/json": {
@@ -416,6 +425,9 @@
                 "type": "object",
                 "properties": {
                   "name": {
+                    "type": "string"
+                  },
+                  "description": {
                     "type": "string"
                   }
                 },
