@@ -16,7 +16,7 @@ info:
   termsOfService: 'https://www.codat.io/legals/'
 servers:
   - url: 'https://api.codat.io'
-    description: Codat
+    description: Production
 tags:
   - name: Bank feeds
     description: Bank feed bank accounts
@@ -27,18 +27,8 @@ paths:
         - Bank feeds
       summary: Update BankFeed BankAccount
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1'
         - $ref: '#/components/parameters/bankAccountId'
       requestBody:
         content:
@@ -68,12 +58,20 @@ paths:
           schema:
             type: string
             format: uuid
+            example: 8a210b68-6988-11ed-a1eb-0242ac120002
+            description: Unique identifier for your SMB in Codat.
+          x-stoplight:
+            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
           schema:
             type: string
             format: uuid
+            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+            description: Unique identifier for a company's data connection.
+          x-stoplight:
+            id: odjhmld3g3nmi
       responses:
         '200':
           description: Success
@@ -92,18 +90,8 @@ paths:
         - Bank feeds
       summary: Update BankFeed BankAccounts
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1'
       requestBody:
         content:
           application/json:

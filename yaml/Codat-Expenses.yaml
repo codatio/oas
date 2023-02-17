@@ -1036,10 +1036,9 @@ components:
           description: Link to next page in paginated response
           nullable: true
   securitySchemes:
-    Authorization:
+    API_Key:
+      name: Your Base 64 encoded API Key
       type: apiKey
-      description: 'The Authorization header used to authenticate to the Codat api, the word "Basic" followed by your base64-encoded api key'
-      name: Authorization
       in: header
 security:
-  - Authorization: []
+  - API_Key: []

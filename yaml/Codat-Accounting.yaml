@@ -16,12 +16,16 @@ info:
   termsOfService: 'https://www.codat.io/legals/'
 servers:
   - url: 'https://api.codat.io'
-    description: Codat
+    description: Production
 tags:
-  - name: Account transactions
-    description: Account transactions
   - name: Accounts
     description: Accounts
+  - name: Account transactions
+    description: Account transactions
+  - name: Bank accounts
+    description: Bank accounts
+  - name: Bank account transactions
+    description: Bank account transactions
   - name: Bill credit notes
     description: Bill credit notes
   - name: Bill payments
@@ -64,8 +68,6 @@ tags:
     description: Tracking categories
   - name: Transfers
     description: Transfers
-  - name: Bank accounts
-    description: Bank accounts
 paths:
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions':
     parameters:
@@ -446,6 +448,8 @@ paths:
             example: 1
             default: 1
           description: 'Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
         - name: pageSize
           in: query
           schema:
@@ -455,12 +459,16 @@ paths:
             minimum: 1
             maximum: 5000
           description: 'Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
         - name: query
           in: query
           required: false
           schema:
             type: string
           description: 'Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
         - name: orderBy
           in: query
           required: false
@@ -468,6 +476,8 @@ paths:
             type: string
             example: '-modifiedDate'
           description: 'Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
       responses:
         '200':
           description: Success
@@ -576,6 +586,8 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
     post:
       tags:
         - Bills
@@ -1622,6 +1634,8 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
+        x-stoplight:
+          id: l1juboychi4p9
     get:
       tags:
         - Info
@@ -5296,24 +5310,6 @@ components:
             Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
 
             Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-            [block:image]
-            {
-              "images": [
-                {
-                  "image": [
-                    "https://files.readme.io/2640a06-foreign_currency.png",
-                    "foreign_currency.png",
-                    588
-                  ],
-                  "align": "center",
-                  "sizing": "80"
-                }
-              ]
-            }
-            [/block]
-
-
 
             Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
 
