@@ -875,7 +875,7 @@
         }
       ],
       "get": {
-        "summary": "Tax components",
+        "summary": "List tax components",
         "tags": [
           "Tax components"
         ],
@@ -924,7 +924,7 @@
           }
         },
         "operationId": "get-companies-companyId-connections-connectionId-data-commerce-taxComponents",
-        "description": "A list of all the tax components available for a specific platform connection"
+        "description": "This endpoint returns a lits of tax rates from the commerce platform, including tax rate names and values. This supports the mapping of tax rates from the commerce platform to the accounting platform."
       }
     }
   },
@@ -1815,7 +1815,96 @@
               }
             }
           }
-        }
+        },
+        "examples": [
+          {
+            "id": "01e63721-1205-478e-8503-9d8bf8a93f44",
+            "orderNumber": "99123956",
+            "country": "CAN",
+            "currency": "CAD",
+            "createdDate": "2021-03-28T03:00:14",
+            "totalAmount": 12,
+            "totalRefund": 0,
+            "totalTaxAmount": 2,
+            "totalDiscount": 0,
+            "totalGratuity": 1,
+            "orderLineItems": [
+              {
+                "id": "116113a6-54d3-4624-ba73-26a77a5ffd51",
+                "quantity": 1,
+                "taxPercentage": 20,
+                "totalAmount": 12,
+                "totalTaxAmount": 2,
+                "unitPrice": 10,
+                "taxes": [
+                  {
+                    "taxComponentRef": {
+                      "id": "72",
+                      "name": "Sales Tax"
+                    },
+                    "taxAmount": ""
+                  },
+                  {
+                    "taxComponentRef": {
+                      "id": "72",
+                      "name": "City Tax"
+                    },
+                    "taxAmount": ""
+                  }
+                ],
+                "productRef": {
+                  "id": "ac186646-41f2-4280-afea-1012c59459ab",
+                  "name": "Intelligent Concrete Salad"
+                },
+                "productVariantRef": {
+                  "id": "f9ca9de5-9e31-460d-ac81-368f4e7c8fc0",
+                  "name": "Small Incredible Wooden Soap"
+                },
+                "discountAllocations": []
+              }
+            ],
+            "payments": [
+              {
+                "id": "defdceb6-83a3-4b7d-a74e-e9ef947d5f48",
+                "amount": 12,
+                "currency": "CAD",
+                "type": "Paypal",
+                "status": "Unknown",
+                "dueDate": "2021-04-04T03:00:14",
+                "createdDate": "2021-03-28T03:00:14",
+                "modifiedDate": "2022-02-02T11:02:45"
+              }
+            ],
+            "serviceCharges": [
+              {
+                "description": "Service Charge",
+                "totalAmount": 1.2,
+                "taxPercentage": 20,
+                "taxAmount": 0.2,
+                "taxes": [
+                  {
+                    "taxComponentRef": {
+                      "id": "72",
+                      "name": "Service Tax"
+                    },
+                    "taxAmount": ""
+                  }
+                ],
+                "quantity": 1,
+                "type": "Generic"
+              }
+            ],
+            "locationRef": {
+              "id": "47bbffc7-c045-4b0f-a3bb-ecf1f669edfa"
+            },
+            "customerRef": {
+              "id": "2634d180-7205-43f0-a73d-84af6443a005",
+              "name": "Emmy Roberts"
+            },
+            "modifiedDate": "2022-02-02T11:02:45Z",
+            "sourceModifiedDate": "2021-03-28T03:00:14"
+          }
+        ]
       },
       "Payment": {
         "title": "Payment",
