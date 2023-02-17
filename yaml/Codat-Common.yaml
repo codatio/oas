@@ -904,6 +904,22 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-integrations-platformKey
       description: 'Get single integration, by platformKey'
+  '/integrations/{platformKey}/branding':
+    parameters:
+      - $ref: '#/components/parameters/platformKey'
+    get:
+      summary: Get branding
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Branding'
+      operationId: get-integrations-platformKey-branding
+      description: Get branding for platform.
   /profile:
     get:
       summary: Get profile
@@ -1637,10 +1653,7 @@ components:
           type: string
           description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
         sourceId:
-          type: string
-          format: uuid
-          example: 35b92968-9851-4095-ad60-395c95cbcba4
-          description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+          $ref: '#/components/schemas/Branding/properties/sourceId'
         platformName:
           type: string
         linkUrl:
@@ -1665,13 +1678,16 @@ components:
           description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
           title: DateTime
         sourceType:
+          title: Source Type
+          description: The type of platform of the connection.
           type: string
-          example: Accounting
           enum:
             - Accounting
             - Banking
             - Commerce
-          description: The type of platform of the connection.
+            - Other
+            - Unknown
+          example: Accounting
         dataConnectionErrors:
           type: array
           items:
@@ -1726,11 +1742,7 @@ components:
       type: object
       properties:
         key:
-          type: string
-          maxLength: 4
-          minLength: 4
-          pattern: '[a-z]{4}'
-          example: gbol
+          $ref: '#/components/parameters/platformKey/schema'
         logoUrl:
           type: string
           format: uri
@@ -1741,20 +1753,11 @@ components:
           type: boolean
           description: Whether this integration is enabled for your customers to use
         sourceId:
-          type: string
-          enum:
-            - accounting
-            - banking
-            - commerce
-            - other
-            - unknown
-          example: accounting
+          $ref: '#/components/schemas/Branding/properties/sourceId'
         integrationId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/Connection/properties/integrationId'
         sourceType:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/Connection/properties/sourceType'
         isOfflineConnector:
           type: boolean
         isBeta:
@@ -2060,6 +2063,64 @@ components:
         - redirectUrl
       x-stoplight:
         id: b1fyq05edangf
+    Branding:
+      title: Branding
+      type: object
+      properties:
+        logo:
+          description: Logo branding references.
+          type: object
+          properties:
+            full:
+              title: Branding Image
+              type: object
+              properties:
+                image:
+                  type: object
+                  description: Image reference.
+                  properties:
+                    src:
+                      type: string
+                      format: uri
+                      description: Source URL for image.
+                    alt:
+                      type: string
+                      description: Alternative text when image is not available.
+              examples: []
+            square:
+              $ref: '#/components/schemas/Branding/properties/logo/properties/full'
+        button:
+          description: Button branding references.
+          properties:
+            default:
+              $ref: '#/components/schemas/Branding/properties/logo/properties/full'
+            hover:
+              $ref: '#/components/schemas/Branding/properties/logo/properties/full'
+        sourceId:
+          type: string
+          format: uuid
+          example: 35b92968-9851-4095-ad60-395c95cbcba4
+          description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+      examples:
+        - logo:
+            full:
+              image:
+                src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
+                alt: xero full icon
+            square:
+              image:
+                src: 'https://static.codat.io/public/officialLogos/Square/8A156A5A-39CB-4F9D-856E-76EF9B2W3607.png'
+                alt: xero square icon
+          button:
+            default:
+              image:
+                src: 'https://static.codat.io/public/officialButtons/Full/8A156A5A-39CB-4F9D-856E-76EF9Q7A9607.png'
+                alt: xero default button icon
+            hover:
+              image:
+                src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
+                alt: xero hover button icon
+          sourceId: 35b92968-9851-4095-ad60-395c95cbcba4
   securitySchemes:
     API_Key:
       name: Your Base 64 encoded API Key
@@ -2285,6 +2346,6 @@ components:
         maxLength: 4
         pattern: '[a-z]{4}'
         example: gbol
-      description: '4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys).'
+        description: '4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys).'
 security:
   - API_Key: []

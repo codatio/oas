@@ -1431,6 +1431,33 @@
         "description": "Get single integration, by platformKey"
       }
     },
+    "/integrations/{platformKey}/branding": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/platformKey"
+        }
+      ],
+      "get": {
+        "summary": "Get branding",
+        "tags": [
+          "Integrations"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Branding"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-integrations-platformKey-branding",
+        "description": "Get branding for platform."
+      }
+    },
     "/profile": {
       "get": {
         "summary": "Get profile",
@@ -2499,10 +2526,7 @@
             "description": "A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future."
           },
           "sourceId": {
-            "type": "string",
-            "format": "uuid",
-            "example": "35b92968-9851-4095-ad60-395c95cbcba4",
-            "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
+            "$ref": "#/components/schemas/Branding/properties/sourceId"
           },
           "platformName": {
             "type": "string"
@@ -2534,14 +2558,17 @@
             "title": "DateTime"
           },
           "sourceType": {
+            "title": "Source Type",
+            "description": "The type of platform of the connection.",
             "type": "string",
-            "example": "Accounting",
             "enum": [
               "Accounting",
               "Banking",
-              "Commerce"
+              "Commerce",
+              "Other",
+              "Unknown"
             ],
-            "description": "The type of platform of the connection."
+            "example": "Accounting"
           },
           "dataConnectionErrors": {
             "type": "array",
@@ -2621,11 +2648,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": "string",
-            "maxLength": 4,
-            "minLength": 4,
-            "pattern": "[a-z]{4}",
-            "example": "gbol"
+            "$ref": "#/components/parameters/platformKey/schema"
           },
           "logoUrl": {
             "type": "string",
@@ -2640,23 +2663,13 @@
             "description": "Whether this integration is enabled for your customers to use"
           },
           "sourceId": {
-            "type": "string",
-            "enum": [
-              "accounting",
-              "banking",
-              "commerce",
-              "other",
-              "unknown"
-            ],
-            "example": "accounting"
+            "$ref": "#/components/schemas/Branding/properties/sourceId"
           },
           "integrationId": {
-            "type": "string",
-            "format": "uuid"
+            "$ref": "#/components/schemas/Connection/properties/integrationId"
           },
           "sourceType": {
-            "type": "string",
-            "format": "uuid"
+            "$ref": "#/components/schemas/Connection/properties/sourceType"
           },
           "isOfflineConnector": {
             "type": "boolean"
@@ -3063,6 +3076,93 @@
         "x-stoplight": {
           "id": "b1fyq05edangf"
         }
+      },
+      "Branding": {
+        "title": "Branding",
+        "type": "object",
+        "properties": {
+          "logo": {
+            "description": "Logo branding references.",
+            "type": "object",
+            "properties": {
+              "full": {
+                "title": "Branding Image",
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "object",
+                    "description": "Image reference.",
+                    "properties": {
+                      "src": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Source URL for image."
+                      },
+                      "alt": {
+                        "type": "string",
+                        "description": "Alternative text when image is not available."
+                      }
+                    }
+                  }
+                },
+                "examples": []
+              },
+              "square": {
+                "$ref": "#/components/schemas/Branding/properties/logo/properties/full"
+              }
+            }
+          },
+          "button": {
+            "description": "Button branding references.",
+            "properties": {
+              "default": {
+                "$ref": "#/components/schemas/Branding/properties/logo/properties/full"
+              },
+              "hover": {
+                "$ref": "#/components/schemas/Branding/properties/logo/properties/full"
+              }
+            }
+          },
+          "sourceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "35b92968-9851-4095-ad60-395c95cbcba4",
+            "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
+          }
+        },
+        "examples": [
+          {
+            "logo": {
+              "full": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png",
+                  "alt": "xero full icon"
+                }
+              },
+              "square": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Square/8A156A5A-39CB-4F9D-856E-76EF9B2W3607.png",
+                  "alt": "xero square icon"
+                }
+              }
+            },
+            "button": {
+              "default": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialButtons/Full/8A156A5A-39CB-4F9D-856E-76EF9Q7A9607.png",
+                  "alt": "xero default button icon"
+                }
+              },
+              "hover": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png",
+                  "alt": "xero hover button icon"
+                }
+              }
+            },
+            "sourceId": "35b92968-9851-4095-ad60-395c95cbcba4"
+          }
+        ]
       }
     },
     "securitySchemes": {
@@ -3359,9 +3459,9 @@
           "minLength": 4,
           "maxLength": 4,
           "pattern": "[a-z]{4}",
-          "example": "gbol"
-        },
-        "description": "4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys)."
+          "example": "gbol",
+          "description": "4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys)."
+        }
       }
     }
   },
