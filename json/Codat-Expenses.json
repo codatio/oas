@@ -3,6 +3,12 @@
   "x-stoplight": {
     "id": "1pm6xajcwr4a0"
   },
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://expensesync.codat.io"
+    }
+  ],
   "info": {
     "title": "Codat Expense API",
     "version": "prealpha",
@@ -14,6 +20,11 @@
     "description": "The API for Sync for Expenses.\nSync for Expenses is an API and a set of supporting tools. It has been built to enable corporate card and expense management platforms to provide high-quality integrations with multiple accounting platforms through a standardized API.\n\n[Read more...](https://codat-docs.vercel.app/sync-for-expenses/overview)",
     "termsOfService": "https://www.codat.io/legals/"
   },
+  "security": [
+    {
+      "API_Key": []
+    }
+  ],
   "tags": [
     {
       "name": "Configuration",
@@ -38,11 +49,6 @@
     {
       "name": "Transaction Status",
       "description": "Retrieve the status of transactions within a sync."
-    }
-  ],
-  "servers": [
-    {
-      "url": "https://expensesync.codat.io"
     }
   ],
   "paths": {
@@ -1522,15 +1528,11 @@
     },
     "securitySchemes": {
       "API_Key": {
-        "name": "Your Base 64 encoded API Key",
         "type": "apiKey",
+        "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
+        "name": "Authorization",
         "in": "header"
       }
     }
-  },
-  "security": [
-    {
-      "API_Key": []
-    }
-  ]
+  }
 }

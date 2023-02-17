@@ -1,6 +1,9 @@
 openapi: 3.1.0
 x-stoplight:
   id: tno0jr6q5xi1y
+servers:
+  - description: Production
+    url: 'https://api.codat.io'
 info:
   title: Assess API
   version: '1.0'
@@ -13,9 +16,8 @@ info:
 
     [Read more...](https://www.codat.io/assess/)
   termsOfService: 'https://www.codat.io/legals/'
-servers:
-  - url: 'https://api.codat.io'
-    description: Codat
+security:
+  - API_Key: []
 tags:
   - name: Data integrity
     description: Data integrity is important
@@ -343,6 +345,8 @@ paths:
             type: string
             example: '-modifiedDate'
           description: 'Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
       description: 'Gets record-by-record match results for a given company and datatype, optionally restricted by a Codat query string.'
   '/data/companies/{companyId}/connections/{connectionId}/assess/financialMetrics':
     parameters:
@@ -355,6 +359,8 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
     get:
       summary: List finanicial metrics for a company
       tags:
@@ -2182,6 +2188,8 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
+        x-stoplight:
+          id: l1juboychi4p9
     post:
       summary: Request an Excel report for download
       tags:
@@ -2256,6 +2264,8 @@ paths:
             example: 1
             default: 1
           description: 'Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
         - name: pageSize
           in: query
           schema:
@@ -2265,12 +2275,16 @@ paths:
             minimum: 1
             maximum: 5000
           description: 'Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
         - name: query
           in: query
           required: false
           schema:
             type: string
           description: 'Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
   '/companies/{companyId}/reports/enhancedProfitAndLoss/accounts':
     parameters:
       - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1assess~1excel/parameters/0'
@@ -3174,11 +3188,6 @@ components:
                     items:
                       type: string
       description: ''
-  securitySchemes:
-    Authorization:
-      name: Your Base 64 encoded API Key
-      type: apiKey
-      in: header
   parameters:
     dataIntegritydataType:
       name: dataType
@@ -3242,4 +3251,9 @@ components:
         enum:
           - audit
       description: The type of report you want to generate and download.
-security: []
+  securitySchemes:
+    API_Key:
+      type: apiKey
+      description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)'
+      name: Authorization
+      in: header

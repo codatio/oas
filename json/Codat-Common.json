@@ -3,6 +3,12 @@
   "x-stoplight": {
     "id": "466k6ayziv9at"
   },
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://api.codat.io"
+    }
+  ],
   "info": {
     "title": "Common API",
     "version": "2.1.0",
@@ -14,28 +20,27 @@
     },
     "termsOfService": "https://www.codat.io/legals/"
   },
-  "servers": [
+  "security": [
     {
-      "url": "https://api.codat.io",
-      "description": "Codat"
+      "API_Key": []
     }
   ],
   "tags": [
     {
       "name": "Companies",
-      "description": "Endpoints to manage your Codat companies."
+      "description": "Create and manage your Codat companies."
     },
     {
       "name": "Connections",
-      "description": "Endpoints to manage your companies' data connections."
+      "description": "Manage your companies' data connections."
     },
     {
       "name": "Migrations",
-      "description": "Endpoints that allow you to migrate existing connections into Codat."
+      "description": "Migrate existing connections into Codat."
     },
     {
       "name": "Webhooks",
-      "description": "Endpoints to manage webhooks, rules and alerts."
+      "description": "Manage webhooks, rules and alerts."
     },
     {
       "name": "Data status",
@@ -51,11 +56,11 @@
     },
     {
       "name": "Settings",
-      "description": "Endpoints to manage your Codat instance."
+      "description": "Manage your Codat instance."
     },
     {
-      "name": "Push",
-      "description": "Endpoints to view push options and get push statuses."
+      "name": "Push data",
+      "description": "View push options and get push statuses."
     }
   ],
   "paths": {
@@ -210,16 +215,16 @@
         "description": "List all companies that you have created in Codat.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/paths/~1rules/get/parameters/0"
           },
           {
-            "$ref": "#/components/parameters/pageSize"
+            "$ref": "#/paths/~1rules/get/parameters/1"
           },
           {
-            "$ref": "#/components/parameters/query"
+            "$ref": "#/paths/~1rules/get/parameters/2"
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "$ref": "#/paths/~1rules/get/parameters/3"
           }
         ]
       },
@@ -332,7 +337,15 @@
     "/companies/{companyId}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Company/properties/id"
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
         }
       ],
       "get": {
@@ -444,7 +457,7 @@
     "/companies/{companyId}/connections": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         }
       ],
       "get": {
@@ -574,16 +587,16 @@
         "description": "List the connections for a company",
         "parameters": [
           {
-            "$ref": "#/components/parameters/pageSize"
+            "$ref": "#/paths/~1rules/get/parameters/0"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/paths/~1rules/get/parameters/1"
           },
           {
-            "$ref": "#/components/parameters/query"
+            "$ref": "#/paths/~1rules/get/parameters/2"
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "$ref": "#/paths/~1rules/get/parameters/3"
           }
         ]
       },
@@ -604,10 +617,18 @@
     "/companies/{companyId}/connections/{connectionId}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
-          "$ref": "#/components/parameters/connectionId"
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Connection/properties/id"
+          },
+          "x-stoplight": {
+            "id": "odjhmld3g3nmi"
+          }
         }
       ],
       "get": {
@@ -743,10 +764,10 @@
     "/companies/{companyId}/connections/{connectionId}/authorization": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
-          "$ref": "#/components/parameters/connectionId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1"
         }
       ],
       "put": {
@@ -794,7 +815,7 @@
     "/companies/{companyId}/data/all": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         }
       ],
       "post": {
@@ -820,7 +841,7 @@
     "/companies/{companyId}/data/queue/{dataType}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
           "$ref": "#/components/parameters/dataType"
@@ -1060,16 +1081,59 @@
         "description": "List webhooks that you are subscribed to.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/page"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/components/parameters/pageSize"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/components/parameters/query"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "x-internal": true
@@ -1146,7 +1210,7 @@
     "/companies/{companyId}/dataStatus": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         }
       ],
       "get": {
@@ -1207,7 +1271,7 @@
     "/companies/{companyId}/data/history": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         }
       ],
       "get": {
@@ -1291,16 +1355,16 @@
         "description": "Gets the pull operation history (datasets) for a given company.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/paths/~1rules/get/parameters/0"
           },
           {
-            "$ref": "#/components/parameters/pageSize"
+            "$ref": "#/paths/~1rules/get/parameters/1"
           },
           {
-            "$ref": "#/components/parameters/query"
+            "$ref": "#/paths/~1rules/get/parameters/2"
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "$ref": "#/paths/~1rules/get/parameters/3"
           }
         ]
       }
@@ -1308,7 +1372,7 @@
     "/companies/{companyId}/data/history/{datasetId}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
           "$ref": "#/components/parameters/datasetId"
@@ -1383,16 +1447,16 @@
         "operationId": "list-integrations",
         "parameters": [
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/paths/~1rules/get/parameters/0"
           },
           {
-            "$ref": "#/components/parameters/pageSize"
+            "$ref": "#/paths/~1rules/get/parameters/1"
           },
           {
-            "$ref": "#/components/parameters/query"
+            "$ref": "#/paths/~1rules/get/parameters/2"
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "$ref": "#/paths/~1rules/get/parameters/3"
           }
         ],
         "description": "List your available integrations"
@@ -1640,10 +1704,10 @@
     "/companies/{companyId}/connections/{connectionId}/options/{dataType}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
-          "$ref": "#/components/parameters/connectionId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1"
         },
         {
           "$ref": "#/components/parameters/dataType"
@@ -1652,7 +1716,7 @@
       "get": {
         "summary": "List push options",
         "tags": [
-          "Push"
+          "Push data"
         ],
         "responses": {
           "200": {
@@ -2171,27 +2235,27 @@
     "/companies/{companyId}/push": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         }
       ],
       "get": {
         "parameters": [
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/paths/~1rules/get/parameters/0"
           },
           {
-            "$ref": "#/components/parameters/pageSize"
+            "$ref": "#/paths/~1rules/get/parameters/1"
           },
           {
-            "$ref": "#/components/parameters/query"
+            "$ref": "#/paths/~1rules/get/parameters/2"
           },
           {
-            "$ref": "#/components/parameters/orderBy"
+            "$ref": "#/paths/~1rules/get/parameters/3"
           }
         ],
         "summary": "Lists push operations",
         "tags": [
-          "Push"
+          "Push data"
         ],
         "responses": {
           "200": {
@@ -2227,7 +2291,7 @@
     "/companies/{companyId}/push/{pushOperationKey}": {
       "parameters": [
         {
-          "$ref": "#/components/parameters/companyId"
+          "$ref": "#/paths/~1companies~1%7BcompanyId%7D/parameters/0"
         },
         {
           "schema": {
@@ -2243,7 +2307,7 @@
       "get": {
         "summary": "Get push operation",
         "tags": [
-          "Push"
+          "Push data"
         ],
         "responses": {
           "200": {
@@ -2307,7 +2371,7 @@
                           "description": "The type of data being pushed, eg invoices, customers."
                         },
                         "companyId": {
-                          "$ref": "#/components/parameters/companyId/schema"
+                          "$ref": "#/components/schemas/Company/properties/id"
                         },
                         "pushOperationKey": {
                           "type": "string",
@@ -2315,7 +2379,7 @@
                           "description": "A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted."
                         },
                         "dataConnectionKey": {
-                          "$ref": "#/components/parameters/connectionId/schema"
+                          "$ref": "#/components/schemas/Connection/properties/id"
                         },
                         "requestedOnUtc": {
                           "$ref": "#/components/schemas/Connection/properties/created",
@@ -2445,7 +2509,10 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/parameters/companyId/schema"
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
           },
           "name": {
             "type": "string",
@@ -2513,7 +2580,10 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/parameters/connectionId/schema"
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "description": "Unique identifier for a company's data connection."
           },
           "integrationId": {
             "type": "string",
@@ -2527,6 +2597,19 @@
           },
           "sourceId": {
             "$ref": "#/components/schemas/Branding/properties/sourceId"
+          },
+          "sourceType": {
+            "title": "Source Type",
+            "description": "The type of platform of the connection.",
+            "type": "string",
+            "enum": [
+              "Accounting",
+              "Banking",
+              "Commerce",
+              "Other",
+              "Unknown"
+            ],
+            "example": "Accounting"
           },
           "platformName": {
             "type": "string"
@@ -2556,19 +2639,6 @@
             "format": "date-time",
             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
             "title": "DateTime"
-          },
-          "sourceType": {
-            "title": "Source Type",
-            "description": "The type of platform of the connection.",
-            "type": "string",
-            "enum": [
-              "Accounting",
-              "Banking",
-              "Commerce",
-              "Other",
-              "Unknown"
-            ],
-            "example": "Accounting"
           },
           "dataConnectionErrors": {
             "type": "array",
@@ -2627,8 +2697,8 @@
             "name": "Xero",
             "enabled": true,
             "sourceId": "accounting",
-            "integrationId": "497a18ca-284e-40c0-985d-f72be35d468e",
             "sourceType": "8193a927-ab7a-45a3-9dc2-d357a4932dfe",
+            "integrationId": "497a18ca-284e-40c0-985d-f72be35d468e",
             "isOfflineConnector": true,
             "isBeta": true,
             "dataProvidedBy": "string",
@@ -2665,11 +2735,11 @@
           "sourceId": {
             "$ref": "#/components/schemas/Branding/properties/sourceId"
           },
-          "integrationId": {
-            "$ref": "#/components/schemas/Connection/properties/integrationId"
-          },
           "sourceType": {
             "$ref": "#/components/schemas/Connection/properties/sourceType"
+          },
+          "integrationId": {
+            "$ref": "#/components/schemas/Connection/properties/integrationId"
           },
           "isOfflineConnector": {
             "type": "boolean"
@@ -3087,6 +3157,9 @@
             "properties": {
               "full": {
                 "title": "Branding Image",
+                "x-stoplight": {
+                  "id": "fd4e5ee5e1ac8"
+                },
                 "type": "object",
                 "properties": {
                   "image": {
@@ -3163,14 +3236,6 @@
             "sourceId": "35b92968-9851-4095-ad60-395c95cbcba4"
           }
         ]
-      }
-    },
-    "securitySchemes": {
-      "API_Key": {
-        "name": "Your Base 64 encoded API Key",
-        "type": "apiKey",
-        "in": "header",
-        "description": "Your base 64 encoded Codat API Key"
       }
     },
     "responses": {
@@ -3342,71 +3407,6 @@
       }
     },
     "parameters": {
-      "companyId": {
-        "name": "companyId",
-        "in": "path",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "format": "uuid",
-          "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-          "description": "Unique identifier for your SMB in Codat."
-        }
-      },
-      "connectionId": {
-        "name": "connectionId",
-        "in": "path",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "format": "uuid",
-          "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-          "description": "Unique identifier for a company's data connection."
-        }
-      },
-      "pageSize": {
-        "name": "pageSize",
-        "in": "query",
-        "schema": {
-          "type": "number",
-          "default": 100,
-          "example": 100,
-          "minimum": 1,
-          "maximum": 5000
-        },
-        "description": "Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging)."
-      },
-      "page": {
-        "name": "page",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "number",
-          "minimum": 0,
-          "example": 1,
-          "default": 1
-        },
-        "description": "Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging)."
-      },
-      "query": {
-        "name": "query",
-        "in": "query",
-        "required": false,
-        "schema": {
-          "type": "string"
-        },
-        "description": "Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying)."
-      },
-      "orderBy": {
-        "name": "orderBy",
-        "in": "query",
-        "required": false,
-        "schema": {
-          "type": "string",
-          "example": "-modifiedDate"
-        },
-        "description": "Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results)."
-      },
       "dataType": {
         "name": "dataType",
         "in": "path",
@@ -3463,11 +3463,14 @@
           "description": "4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys)."
         }
       }
+    },
+    "securitySchemes": {
+      "API_Key": {
+        "type": "apiKey",
+        "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  },
-  "security": [
-    {
-      "API_Key": []
-    }
-  ]
+  }
 }

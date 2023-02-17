@@ -1,6 +1,9 @@
 openapi: 3.1.0
 x-stoplight:
   id: 466k6ayziv9at
+servers:
+  - description: Production
+    url: 'https://api.codat.io'
 info:
   title: Common API
   version: 2.1.0
@@ -15,18 +18,17 @@ info:
     name: Codat
     email: support@codat.io
   termsOfService: 'https://www.codat.io/legals/'
-servers:
-  - url: 'https://api.codat.io'
-    description: Codat
+security:
+  - API_Key: []
 tags:
   - name: Companies
-    description: Endpoints to manage your Codat companies.
+    description: Create and manage your Codat companies.
   - name: Connections
-    description: Endpoints to manage your companies' data connections.
+    description: Manage your companies' data connections.
   - name: Migrations
-    description: Endpoints that allow you to migrate existing connections into Codat.
+    description: Migrate existing connections into Codat.
   - name: Webhooks
-    description: 'Endpoints to manage webhooks, rules and alerts.'
+    description: 'Manage webhooks, rules and alerts.'
   - name: Data status
     description: Understand the state of data within Codat.
   - name: Integrations
@@ -34,9 +36,9 @@ tags:
   - name: Refresh data
     description: Queue pull operations to refresh data in Codat.
   - name: Settings
-    description: Endpoints to manage your Codat instance.
-  - name: Push
-    description: Endpoints to view push options and get push statuses.
+    description: Manage your Codat instance.
+  - name: Push data
+    description: View push options and get push statuses.
 paths:
   /companies:
     get:
@@ -144,10 +146,10 @@ paths:
       operationId: list-companies
       description: List all companies that you have created in Codat.
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
     post:
       summary: Create a company
       tags:
@@ -220,7 +222,13 @@ paths:
                   description: 'Technology services, including web and app design and development'
   '/companies/{companyId}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/Company/properties/id'
+        x-stoplight:
+          id: l1juboychi4p9
     get:
       summary: Get company
       tags:
@@ -294,7 +302,7 @@ paths:
         - Companies
   '/companies/{companyId}/connections':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
     get:
       summary: List connections
       tags:
@@ -380,10 +388,10 @@ paths:
       operationId: list-company-connections
       description: List the connections for a company
       parameters:
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
     post:
       summary: Create a data connection
       operationId: create-data-connection
@@ -395,8 +403,14 @@ paths:
         - Connections
   '/companies/{companyId}/connections/{connectionId}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/Connection/properties/id'
+        x-stoplight:
+          id: odjhmld3g3nmi
     get:
       summary: Get connection
       tags:
@@ -486,8 +500,8 @@ paths:
         description: ''
   '/companies/{companyId}/connections/{connectionId}/authorization':
     parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1'
     put:
       summary: Update authorization
       tags:
@@ -516,7 +530,7 @@ paths:
         description: ''
   '/companies/{companyId}/data/all':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
     post:
       summary: Queue pull operations
       operationId: create--many-pull-operations
@@ -532,7 +546,7 @@ paths:
         - Refresh data
   '/companies/{companyId}/data/queue/{dataType}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
       - $ref: '#/components/parameters/dataType'
     post:
       summary: Queue pull operation
@@ -686,10 +700,45 @@ paths:
       operationId: list-rules
       description: List webhooks that you are subscribed to.
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: number
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
       x-internal: true
     post:
       summary: Create webhook
@@ -736,7 +785,7 @@ paths:
       x-internal: true
   '/companies/{companyId}/dataStatus':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
     get:
       summary: Get data status
       responses:
@@ -776,7 +825,7 @@ paths:
         - Data status
   '/companies/{companyId}/data/history':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
     get:
       summary: Get pull operations
       tags:
@@ -829,13 +878,13 @@ paths:
       operationId: get-company-data-history
       description: Gets the pull operation history (datasets) for a given company.
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
   '/companies/{companyId}/data/history/{datasetId}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
       - $ref: '#/components/parameters/datasetId'
     get:
       summary: Get pull operation
@@ -879,10 +928,10 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       operationId: list-integrations
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
       description: List your available integrations
   '/integrations/{platformKey}':
     parameters:
@@ -1041,13 +1090,13 @@ paths:
           `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
   '/companies/{companyId}/connections/{connectionId}/options/{dataType}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1'
       - $ref: '#/components/parameters/dataType'
     get:
       summary: List push options
       tags:
-        - Push
+        - Push data
       responses:
         '200':
           description: OK
@@ -1406,16 +1455,16 @@ paths:
         > Check out our [Knowledge UI](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods).
   '/companies/{companyId}/push':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
     get:
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
       summary: Lists push operations
       tags:
-        - Push
+        - Push data
       responses:
         '200':
           description: OK
@@ -1434,7 +1483,7 @@ paths:
       description: List push operation records.
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
-      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
       - schema:
           type: string
           format: uuid
@@ -1445,7 +1494,7 @@ paths:
     get:
       summary: Get push operation
       tags:
-        - Push
+        - Push data
       responses:
         '200':
           description: OK
@@ -1492,13 +1541,13 @@ paths:
                         nullable: true
                         description: 'The type of data being pushed, eg invoices, customers.'
                       companyId:
-                        $ref: '#/components/parameters/companyId/schema'
+                        $ref: '#/components/schemas/Company/properties/id'
                       pushOperationKey:
                         type: string
                         format: uuid
                         description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
                       dataConnectionKey:
-                        $ref: '#/components/parameters/connectionId/schema'
+                        $ref: '#/components/schemas/Connection/properties/id'
                       requestedOnUtc:
                         $ref: '#/components/schemas/Connection/properties/created'
                         description: The datetime when the push was requested.
@@ -1591,7 +1640,10 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/parameters/companyId/schema'
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
         name:
           type: string
           description: The name of the company
@@ -1643,7 +1695,10 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/parameters/connectionId/schema'
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
         integrationId:
           type: string
           format: uuid
@@ -1654,6 +1709,17 @@ components:
           description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
         sourceId:
           $ref: '#/components/schemas/Branding/properties/sourceId'
+        sourceType:
+          title: Source Type
+          description: The type of platform of the connection.
+          type: string
+          enum:
+            - Accounting
+            - Banking
+            - Commerce
+            - Other
+            - Unknown
+          example: Accounting
         platformName:
           type: string
         linkUrl:
@@ -1677,17 +1743,6 @@ components:
           format: date-time
           description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
           title: DateTime
-        sourceType:
-          title: Source Type
-          description: The type of platform of the connection.
-          type: string
-          enum:
-            - Accounting
-            - Banking
-            - Commerce
-            - Other
-            - Unknown
-          example: Accounting
         dataConnectionErrors:
           type: array
           items:
@@ -1729,8 +1784,8 @@ components:
           name: Xero
           enabled: true
           sourceId: accounting
-          integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
           sourceType: 8193a927-ab7a-45a3-9dc2-d357a4932dfe
+          integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
           isOfflineConnector: true
           isBeta: true
           dataProvidedBy: string
@@ -1754,10 +1809,10 @@ components:
           description: Whether this integration is enabled for your customers to use
         sourceId:
           $ref: '#/components/schemas/Branding/properties/sourceId'
-        integrationId:
-          $ref: '#/components/schemas/Connection/properties/integrationId'
         sourceType:
           $ref: '#/components/schemas/Connection/properties/sourceType'
+        integrationId:
+          $ref: '#/components/schemas/Connection/properties/integrationId'
         isOfflineConnector:
           type: boolean
         isBeta:
@@ -2073,6 +2128,8 @@ components:
           properties:
             full:
               title: Branding Image
+              x-stoplight:
+                id: fd4e5ee5e1ac8
               type: object
               properties:
                 image:
@@ -2121,12 +2178,6 @@ components:
                 src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
                 alt: xero hover button icon
           sourceId: 35b92968-9851-4095-ad60-395c95cbcba4
-  securitySchemes:
-    API_Key:
-      name: Your Base 64 encoded API Key
-      type: apiKey
-      in: header
-      description: Your base 64 encoded Codat API Key
   responses:
     Unauthorized:
       description: Your API request was not properly authorized.
@@ -2247,59 +2298,6 @@ components:
                 canBeRetried: Unknown
                 detailedErrorCode: 0
   parameters:
-    companyId:
-      name: companyId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 8a210b68-6988-11ed-a1eb-0242ac120002
-        description: Unique identifier for your SMB in Codat.
-    connectionId:
-      name: connectionId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-        description: Unique identifier for a company's data connection.
-    pageSize:
-      name: pageSize
-      in: query
-      schema:
-        type: number
-        default: 100
-        example: 100
-        minimum: 1
-        maximum: 5000
-      description: 'Number of records to return in a page. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
-    page:
-      name: page
-      in: query
-      required: true
-      schema:
-        type: number
-        minimum: 0
-        example: 1
-        default: 1
-      description: 'Page number. [Read more](https://codat-docs.vercel.app/using-the-api/paging).'
-    query:
-      name: query
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'Codat query string. [Read more](https://codat-docs.vercel.app/using-the-api/querying).'
-    orderBy:
-      name: orderBy
-      in: query
-      required: false
-      schema:
-        type: string
-        example: '-modifiedDate'
-      description: 'Field to order results by. [Read more](https://codat-docs.vercel.app/using-the-api/ordering-results).'
     dataType:
       name: dataType
       in: path
@@ -2347,5 +2345,9 @@ components:
         pattern: '[a-z]{4}'
         example: gbol
         description: '4 letter key for an integration. [Read more](https://codat-docs.vercel.app/integrations/accounting/accounting-platform-keys).'
-security:
-  - API_Key: []
+  securitySchemes:
+    API_Key:
+      type: apiKey
+      description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)'
+      name: Authorization
+      in: header
