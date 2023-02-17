@@ -1,5 +1,11 @@
 {
   "openapi": "3.1.0",
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://api.codat.io"
+    }
+  ],
   "info": {
     "title": "Banking API",
     "description": "Codat's Banking API allows you to access standardised data from over bank accounts via third party providers.\n\nStandardize how you connect to your customers’ bank accounts. Retrieve bank account and bank transaction data in the same way via our partnerships with Plaid and TrueLayer.\n\n[Read more...](https://codat-docs.vercel.app/banking-api/overview)",
@@ -11,10 +17,9 @@
     },
     "termsOfService": "https://www.codat.io/legals/"
   },
-  "servers": [
+  "security": [
     {
-      "url": "https://api.codat.io",
-      "description": "Production"
+      "API_Key": []
     }
   ],
   "tags": [
@@ -1018,14 +1023,9 @@
       "API_Key": {
         "type": "apiKey",
         "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
-        "name": "Your Base 64 encoded API Key",
+        "name": "Authorization",
         "in": "header"
       }
     }
-  },
-  "security": [
-    {
-      "API_Key": []
-    }
-  ]
+  }
 }

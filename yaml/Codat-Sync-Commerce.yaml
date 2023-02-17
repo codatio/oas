@@ -1,6 +1,9 @@
 openapi: 3.0.1
 x-stoplight:
   id: v6f6vc930irb5
+servers:
+  - description: Production
+    url: 'https://api.codat.io'
 info:
   contact:
     name: Codat
@@ -9,6 +12,8 @@ info:
   title: Sync for Commerce API
   description: The API to sync commerce data into accounting applications.
   version: '1.1'
+security:
+  - API_Key: []
 tags:
   - name: Company Management
     description: Manage &amp; create Sync for Commerce companies
@@ -20,8 +25,6 @@ tags:
     description: View information about Codat's integrations
   - name: Sync
     description: Initiate a sync of your merchants data
-servers:
-  - url: 'https://api.codat.io'
 paths:
   /meta/companies:
     get:
@@ -1690,7 +1693,5 @@ components:
     API_Key:
       type: apiKey
       description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)'
-      name: Your Base 64 encoded API Key
+      name: Authorization
       in: header
-security:
-  - API_Key: []

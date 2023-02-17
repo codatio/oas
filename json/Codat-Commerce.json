@@ -3,6 +3,12 @@
   "x-stoplight": {
     "id": "32pxuah6hmb9a"
   },
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://api.codat.io"
+    }
+  ],
   "info": {
     "title": "Commerce API",
     "version": "2.1.0",
@@ -14,10 +20,9 @@
     "description": "Codat's Commerce API allows you to access standardised data from over 11 commerce and POS systems.\n\nStandardize how you connect to your customers’ payment, PoS, and eCommerce systems. Retrieve orders, payouts, payments, and product data in the same way for all the leading commerce platforms.\n\n[Read more...](https://codat-docs.vercel.app/commerce-api/overview)",
     "termsOfService": "https://www.codat.io/legals/"
   },
-  "servers": [
+  "security": [
     {
-      "url": "https://api.codat.io",
-      "description": "Production"
+      "API_Key": []
     }
   ],
   "tags": [
@@ -2526,14 +2531,9 @@
       "API_Key": {
         "type": "apiKey",
         "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
-        "name": "Your Base 64 encoded API Key",
+        "name": "Authorization",
         "in": "header"
       }
     }
-  },
-  "security": [
-    {
-      "API_Key": []
-    }
-  ]
+  }
 }
