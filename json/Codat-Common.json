@@ -160,7 +160,7 @@
                         {
                           "id": "096db70b-78de-4ff0-aa98-299cb5fe17a0",
                           "name": "Godata",
-                          "description": "A fresh new digital agency with a passion for creating amazing digital experiences",
+                          "description": "A new digital agency with a passion for creating amazing digital experiences",
                           "platform": "",
                           "redirect": "https://link.codat.io/company/096db70b-78de-4ff0-aa98-299cb5fe17a0",
                           "lastSync": "2022-01-01T12:30:00.000Z",
@@ -1071,7 +1071,8 @@
           {
             "$ref": "#/components/parameters/orderBy"
           }
-        ]
+        ],
+        "x-internal": true
       },
       "post": {
         "summary": "Create webhook",
@@ -1104,7 +1105,8 @@
         },
         "tags": [
           "Webhooks"
-        ]
+        ],
+        "x-internal": true
       }
     },
     "/rules/{ruleId}": {
@@ -1137,7 +1139,8 @@
           }
         },
         "operationId": "get-webhook",
-        "description": "Get a single webhook"
+        "description": "Get a single webhook",
+        "x-internal": true
       }
     },
     "/companies/{companyId}/dataStatus": {
@@ -2288,14 +2291,11 @@
                           "$ref": "#/components/parameters/connectionId/schema"
                         },
                         "requestedOnUtc": {
-                          "description": "The datetime when the push was requested.",
-                          "type": "string",
-                          "example": "2022-10-23T00:00:00Z",
-                          "format": "date-time",
-                          "title": "DateTime"
+                          "$ref": "#/components/schemas/Connection/properties/created",
+                          "description": "The datetime when the push was requested."
                         },
                         "completedOnUtc": {
-                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1push~1%7BpushOperationKey%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/requestedOnUtc",
+                          "$ref": "#/components/schemas/Connection/properties/created",
                           "description": "The datetime when the push was completed, null if Pending."
                         },
                         "timeoutInMinutes": {
@@ -2418,10 +2418,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "0498e921-9b53-4396-a412-4f2f5983b0a2",
-            "description": "The unique ID for a company"
+            "$ref": "#/components/parameters/companyId/schema"
           },
           "name": {
             "type": "string",
@@ -2440,7 +2437,7 @@
           "redirect": {
             "type": "string",
             "format": "uri",
-            "description": "The [Hosted Link](https://codat-docs.vercel.app/auth-flow/authorize-hosted-link) auth flow URL for the company",
+            "description": "The `redirect` [Link URL](https://codat-docs.vercel.app/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.",
             "example": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"
           },
           "lastSync": {
@@ -2489,22 +2486,23 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "33e35bb4-93e7-441f-b651-f46ca049367b"
+            "$ref": "#/components/parameters/connectionId/schema"
           },
           "integrationId": {
             "type": "string",
             "format": "uuid",
-            "example": "fd321cb6-7963-4506-b873-e99593a45e30"
+            "example": "fd321cb6-7963-4506-b873-e99593a45e30",
+            "description": "A Codat ID representing the integration."
           },
           "integrationKey": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future."
           },
           "sourceId": {
             "type": "string",
             "format": "uuid",
-            "example": "35b92968-9851-4095-ad60-395c95cbcba4"
+            "example": "35b92968-9851-4095-ad60-395c95cbcba4",
+            "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
           },
           "platformName": {
             "type": "string"
@@ -2522,17 +2520,18 @@
               "Unlinked",
               "Deauthorized"
             ],
-            "example": "Linked"
+            "example": "Linked",
+            "description": "The current authorization status of the data connection."
           },
           "lastSync": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2022-01-01T12:00:00.000Z"
+            "$ref": "#/components/schemas/Connection/properties/created"
           },
           "created": {
             "type": "string",
+            "example": "2022-10-23T00:00:00Z",
             "format": "date-time",
-            "example": "2022-01-01T12:00:00.000Z"
+            "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+            "title": "DateTime"
           },
           "sourceType": {
             "type": "string",
@@ -2541,7 +2540,8 @@
               "Accounting",
               "Banking",
               "Commerce"
-            ]
+            ],
+            "description": "The type of platform of the connection."
           },
           "dataConnectionErrors": {
             "type": "array",
@@ -2558,9 +2558,7 @@
                   "type": "string"
                 },
                 "erroredOnUtc": {
-                  "type": "string",
-                  "format": "date-time",
-                  "example": "2022-01-01T12:00:00.000Z"
+                  "$ref": "#/components/schemas/Connection/properties/created"
                 }
               }
             }
