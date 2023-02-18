@@ -28,12 +28,12 @@ tags:
     description: Bank accounts
   - name: Bank account transactions
     description: Bank transactions for bank accounts
+  - name: Bills
+    description: Bills
   - name: Bill credit notes
     description: Bill credit notes
   - name: Bill payments
     description: Bill payments
-  - name: Bills
-    description: Bills
   - name: Credit notes
     description: Credit notes
   - name: Customers
@@ -50,14 +50,14 @@ tags:
     description: Invoices
   - name: Items
     description: Items
-  - name: Journal entries
-    description: Journal entries
   - name: Journals
     description: Journals
-  - name: Payment methods
-    description: Payment methods
+  - name: Journal entries
+    description: Journal entries
   - name: Payments
     description: Payments
+  - name: Payment methods
+    description: Payment methods
   - name: Purchase orders
     description: Purchase orders
   - name: Sales orders
@@ -3260,7 +3260,7 @@ paths:
       - $ref: '#/components/parameters/accountId'
     get:
       tags:
-        - Bank accounts
+        - Bank account transactions
       summary: List all bankTransactions
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
@@ -3283,7 +3283,7 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      description: Gets the latest bank transactions for given account ID and company.
+      description: Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.
       operationId: list-bank-transactions
 components:
   schemas:

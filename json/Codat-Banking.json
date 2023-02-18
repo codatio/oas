@@ -24,16 +24,20 @@
   ],
   "tags": [
     {
-      "name": "Account balances",
-      "description": "Retrieve standardized data from linked bank accounts."
+      "name": "Accounts",
+      "description": "Where payments are made or received, and bank transactions are recorded."
     },
     {
-      "name": "Accounts",
-      "description": "Retrieve standardized data from linked bank accounts."
+      "name": "Account balances",
+      "description": "Balances for a bank account including end-of-day batch balance or running balances per transaction."
     },
     {
       "name": "Transactions",
-      "description": "Retrieve standardized data from linked bank accounts."
+      "description": "An immutable source of up-to-date information on income and expenditure."
+    },
+    {
+      "name": "Transaction categories",
+      "description": "Hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
     }
   ],
   "paths": {
@@ -209,9 +213,9 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories": {
       "get": {
         "tags": [
-          "Transactions"
+          "Transaction categories"
         ],
-        "summary": "List bank transaction categories",
+        "summary": "List all transaction categories",
         "parameters": [
           {
             "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
@@ -362,9 +366,9 @@
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}": {
       "get": {
         "tags": [
-          "Transactions"
+          "Transaction categories"
         ],
-        "summary": "Get a bank transaction category for a company",
+        "summary": "Get a transaction category for a company",
         "responses": {
           "200": {
             "description": "Success",
