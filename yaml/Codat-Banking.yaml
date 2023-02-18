@@ -32,6 +32,8 @@ paths:
         - Account balances
       summary: List bank balances
       parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2'
@@ -47,20 +49,19 @@ paths:
                     properties:
                       results:
                         $ref: '#/components/schemas/AccountBalance'
-                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/get/responses/200/content/application~1json/schema/allOf/1'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactionCategories/get/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
       operationId: list-banking-account-balances
       description: Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
         - Accounts
       summary: List bank accounts
       parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2'
@@ -76,6 +77,63 @@ paths:
                     properties:
                       results:
                         $ref: '#/components/schemas/Account'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactionCategories/get/responses/200/content/application~1json/schema/allOf/1'
+      security:
+        - API_Key: []
+      operationId: list-banking-accounts
+      description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
+  '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
+    get:
+      tags:
+        - Accounts
+      summary: Get a bank account for a company
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
+        - x-stoplight:
+            id: lhx5lknu24s8f
+          name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for an account
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      security:
+        - API_Key: []
+      operationId: get-bank-account
+      deprecated: true
+      description: Gets a specified bank account for a given company
+      x-internal: true
+  '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories':
+    get:
+      tags:
+        - Transactions
+      summary: List bank transaction categories
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        $ref: '#/components/schemas/TransactionCategory'
                   - title: _Links
                     description: Codat's Paging Model
                     examples:
@@ -139,76 +197,11 @@ paths:
                       id: 5wohczray2nz5
       security:
         - API_Key: []
-      operationId: list-banking-accounts
-      description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - name: connectionId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-          description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
-  '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
-    get:
-      tags:
-        - Accounts
-      summary: Get a bank account for a company
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-      security:
-        - API_Key: []
-      operationId: get-bank-account
-      deprecated: true
-      description: Gets a specified bank account for a given company
-      x-internal: true
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
-      - schema:
-          type: string
-        name: accountId
-        in: path
-        required: true
-        description: The unique identifier for a banking account
-  '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories':
-    get:
-      tags:
-        - Transactions
-      summary: List bank transaction categories
-      parameters:
-        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0'
-        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1'
-        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2'
-        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - type: object
-                    properties:
-                      results:
-                        $ref: '#/components/schemas/TransactionCategory'
-                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/get/responses/200/content/application~1json/schema/allOf/1'
-      security:
-        - API_Key: []
       description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
       operationId: list-bank-transaction-categories
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}':
     get:
       tags:
@@ -229,7 +222,7 @@ paths:
       x-internal: true
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
       - schema:
           type: string
         name: transactionCategoryId
@@ -263,7 +256,16 @@ paths:
       operationId: list-banking-transactions
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
   '/companies/{companyId}/data/banking-transactions':
     get:
       tags:
@@ -361,7 +363,7 @@ paths:
         in: path
         required: true
         description: The unique identifier for a transaction
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-accounts/parameters/1'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1'
 components:
   schemas:
     AccountBalance:

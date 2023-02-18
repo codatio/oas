@@ -27,7 +27,7 @@ tags:
   - name: Bank accounts
     description: Bank accounts
   - name: Bank account transactions
-    description: Bank account transactions
+    description: Bank transactions for bank accounts
   - name: Bill credit notes
     description: Bill credit notes
   - name: Bill payments
@@ -72,14 +72,13 @@ tags:
     description: Transfers
 paths:
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
     get:
       tags:
         - Account transactions
       summary: List account transactions
       parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
@@ -103,18 +102,20 @@ paths:
       description: Gets the account transactions for a given company.
       operationId: list-account-transactions
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
-      - name: accountTransactionId
-        in: path
-        required: true
-        schema:
-          type: string
     get:
       tags:
         - Account transactions
       summary: Get account transaction
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
+        - x-stoplight:
+            id: mp06jrktetdsr
+          name: accountTransactionId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -127,13 +128,12 @@ paths:
       operationId: get-account-transaction
       description: Gets the account transactions for a given company.Gets the specified account transaction for a given company and connection.
   '/companies/{companyId}/data/accounts':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
     get:
       tags:
         - Accounts
       summary: List accounts
       parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
@@ -2940,15 +2940,25 @@ paths:
       x-internal: true
       operationId: get-bank-account
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
-      - $ref: '#/components/parameters/accountId'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
     get:
+      x-stoplight:
+        id: lldq1gg877yb1
       tags:
-        - Bank accounts
+        - Bank account transactions
       summary: List bankTransactions for bankAccount
       parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
+        - x-stoplight:
+            id: lhx5lknu24s8f
+          name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for an account
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
@@ -2970,16 +2980,22 @@ paths:
       security:
         - API_Key: []
       description: Gets bank transactions for a given bank account ID
-      operationId: list-all-bank-transactions
+      operationId: list-all-bank-transactionscount
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
-      - $ref: '#/components/parameters/accountId'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
     get:
+      x-stoplight:
+        id: z3w4v8rzz9wqi
       tags:
-        - Bank accounts
+        - Bank account transactions
       summary: List push options for bankAccount bankTransactions
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/3'
       responses:
         '200':
           description: Success
@@ -3091,6 +3107,55 @@ paths:
       description: Gets the options of pushing bank account transactions.
       operationId: get-bank-account-push-options
       x-extension-1: null
+  '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions':
+    post:
+      tags:
+        - Bank account transactions
+      summary: Create bank transactions
+      parameters:
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/2'
+        - x-stoplight:
+            id: kc8ehjqr6p02q
+          name: allowSyncOnPushComplete
+          in: query
+          schema:
+            type: boolean
+            default: true
+        - x-stoplight:
+            id: irz50qjbs3yef
+          name: timeoutInMinutes
+          in: query
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankTransactions'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BankTransactions'
+                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/post/responses/200/content/application~1json/schema/allOf/1'
+      security:
+        - API_Key: []
+      description: |-
+        Posts bank transactions to the accounting package for a given company.
+
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
+      operationId: post-bank-transactions
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts':
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
@@ -3166,44 +3231,6 @@ paths:
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support PUT methods.
       operationId: put-bank-account
-  '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions':
-    parameters:
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
-      - $ref: '#/components/parameters/accountId'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
-    post:
-      tags:
-        - Bank accounts
-      summary: Create bank transactions
-      parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
-        - $ref: '#/components/parameters/timeoutInMinutes'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BankTransactions'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/BankTransactions'
-                  - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/post/responses/200/content/application~1json/schema/allOf/1'
-      security:
-        - API_Key: []
-      description: |-
-        Posts bank transactions to the accounting package for a given company.
-
-        > **Supported Integrations**
-        > 
-        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
-      operationId: post-bank-transactions
   '/companies/{companyId}/data/bankAccounts/{accountId}':
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
