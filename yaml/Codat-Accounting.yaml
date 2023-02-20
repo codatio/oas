@@ -254,7 +254,7 @@ paths:
     get:
       tags:
         - Bill credit notes
-      summary: Get billCreditNote
+      summary: Get bill credit note
       responses:
         '200':
           description: Success
@@ -274,7 +274,7 @@ paths:
     post:
       tags:
         - Bill credit notes
-      summary: Create billCreditNote
+      summary: Create bill credit note
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -315,7 +315,7 @@ paths:
     put:
       tags:
         - Bill credit notes
-      summary: Update billCreditNote
+      summary: Update bill credit note
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -351,7 +351,7 @@ paths:
     get:
       tags:
         - Bill payments
-      summary: List billPayments
+      summary: List bill payments
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -395,7 +395,7 @@ paths:
                 $ref: '#/components/schemas/BillPayment'
       security:
         - API_Key: []
-      summary: Get billPayment
+      summary: Get bill payment
       deprecated: true
       description: Get a bill payment
       operationId: get-bill-payments
@@ -406,7 +406,7 @@ paths:
     post:
       tags:
         - Bill payments
-      summary: Create billPayment
+      summary: Create bill payment
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -847,7 +847,7 @@ paths:
     get:
       tags:
         - Credit notes
-      summary: List creditNotes
+      summary: List credit notes
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -882,7 +882,7 @@ paths:
     get:
       tags:
         - Credit notes
-      summary: Get creditNote
+      summary: Get credit note
       responses:
         '200':
           description: Success
@@ -924,7 +924,7 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/post/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      summary: Create creditNote
+      summary: Create credit note
       description: |-
         Push credit note
 
@@ -1238,7 +1238,7 @@ paths:
     post:
       tags:
         - Direct costs
-      summary: Create directCost
+      summary: Create direct cost
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -1275,7 +1275,7 @@ paths:
     post:
       tags:
         - Direct costs
-      summary: Create directCost attachment
+      summary: Create direct cost attachment
       responses:
         '200':
           description: Success
@@ -1313,7 +1313,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: Download directCost attachment
+      summary: Download direct cost attachment
       parameters:
         - $ref: '#/components/parameters/attachmentId'
       responses:
@@ -1331,7 +1331,7 @@ paths:
     get:
       tags:
         - Direct costs
-      summary: List directCost attachments
+      summary: List direct cost attachments
       responses:
         '200':
           description: Success
@@ -1350,7 +1350,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Get directIncomes
+      summary: Get direct incomes
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -1381,7 +1381,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Get directIncome
+      summary: Get direct income
       parameters:
         - name: directIncomeId
           in: path
@@ -1408,7 +1408,7 @@ paths:
     post:
       tags:
         - Direct incomes
-      summary: Create directIncome
+      summary: Create direct income
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -1444,7 +1444,7 @@ paths:
     post:
       tags:
         - Direct incomes
-      summary: Create directIncome attachment
+      summary: Create direct income attachment
       parameters:
         - name: directIncomeId
           in: path
@@ -1467,7 +1467,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Get directIncome attachment
+      summary: Get direct income attachment
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       responses:
@@ -1508,7 +1508,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: List attachments for directIncome
+      summary: List direct income attachments
       responses:
         '200':
           description: Success
@@ -1658,7 +1658,7 @@ paths:
     post:
       tags:
         - Info
-      summary: Initiates the process of synchronising basic info for company
+      summary: Refresh company info
       responses:
         '200':
           description: Success
@@ -2017,7 +2017,7 @@ paths:
     get:
       tags:
         - Journal entries
-      summary: Get journalEntry
+      summary: Get journal entry
       parameters:
         - name: journalEntryId
           in: path
@@ -2044,7 +2044,7 @@ paths:
     post:
       tags:
         - Journal entries
-      summary: Create journalEntry
+      summary: Create journal entry
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -2171,7 +2171,7 @@ paths:
     get:
       tags:
         - Payment methods
-      summary: List all paymentMethods
+      summary: List all payment methods
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -2341,7 +2341,7 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      summary: List purchaseOrders
+      summary: List purchase orders
       description: Get purchase orders
       operationId: list-purchase-orders
   '/companies/{companyId}/data/purchaseOrders/{purchaseOrderId}':
@@ -2367,7 +2367,7 @@ paths:
         - API_Key: []
       x-internal: true
       deprecated: true
-      summary: Get purchaseOrder
+      summary: Get purchase order
       description: Get purchase order
       operationId: get-purchase-order
   '/companies/{companyId}/connections/{connectionId}/push/purchaseOrders':
@@ -2377,7 +2377,7 @@ paths:
     post:
       tags:
         - Purchase orders
-      summary: Create purchaseOrder
+      summary: Create purchase order
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
       requestBody:
@@ -2418,7 +2418,7 @@ paths:
     put:
       tags:
         - Purchase orders
-      summary: Update purchaseOrder
+      summary: Update purchase order
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
         - $ref: '#/components/parameters/forceUpdate'
@@ -2475,7 +2475,7 @@ paths:
                   - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/200/content/application~1json/schema/allOf/1'
       security:
         - API_Key: []
-      summary: List salesOrders
+      summary: List sales orders
       description: Get sales orders
       operationId: list-sales-orders
   '/companies/{companyId}/data/salesOrders/{salesOrderId}':
@@ -2499,7 +2499,7 @@ paths:
                 $ref: '#/components/schemas/SalesOrder'
       security:
         - API_Key: []
-      summary: Get salesOrder
+      summary: Get sales order
       description: Get sales order
       deprecated: true
       x-internal: true
@@ -2895,7 +2895,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: List bankAccounts
+      summary: List bank accounts
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
@@ -2927,7 +2927,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Get bankAccount
+      summary: Get bank account
       responses:
         '200':
           description: Success
@@ -2947,7 +2947,7 @@ paths:
         id: lldq1gg877yb1
       tags:
         - Bank account transactions
-      summary: List bankTransactions for bankAccount
+      summary: List bank transactions for bank account
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
@@ -2989,7 +2989,7 @@ paths:
         id: z3w4v8rzz9wqi
       tags:
         - Bank account transactions
-      summary: List push options for bankAccount bankTransactions
+      summary: List push options for bank account bank transactions
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1info/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bills/parameters/1'
@@ -3240,7 +3240,7 @@ paths:
     get:
       tags:
         - Bank accounts
-      summary: Get bankAccount
+      summary: Get bank account
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/2'
       responses:
@@ -3263,7 +3263,7 @@ paths:
     get:
       tags:
         - Bank account transactions
-      summary: List all bankTransactions
+      summary: List all bank transactions
       parameters:
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/0'
         - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/parameters/1'
