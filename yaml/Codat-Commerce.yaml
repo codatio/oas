@@ -937,7 +937,12 @@ components:
               type: string
               description: Friendly reference for the order in the commerce or point of sale platform.
             country:
-              description: An ISO 3166-1 alpha-3 country code.
+              description: |-
+                The Codat country property is returned as it was provided in the underlying platform by the company without any formatting on our part.
+
+                Depending on the platform the value of this property will either be an <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" target="_blank">ISO 3166</a> code (2-alpha or 3-alpha) or free-form text returned as a string name in our model. 
+
+                For POST operations against platforms that demand a specific format for the country code, we have documented accepted values in the [options](https://docs.codat.io/codat-api#/operations/get-companies-companyId-connections-connectionId-push) endpoint.
               type: string
               format: ISO3166 Alpha-3
               examples:
