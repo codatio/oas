@@ -43,10 +43,32 @@
         "summary": "Update bank feed bank account",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
             "name": "bankAccountId",
@@ -64,7 +86,99 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BankFeedBankAccount"
+                "title": "BankFeedBankAccount",
+                "x-stoplight": {
+                  "id": "bi83u58u7g3vr"
+                },
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique ID for the BankFeedBankAccount"
+                  },
+                  "accountName": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The bank account name"
+                  },
+                  "accountType": {
+                    "type": "string",
+                    "enum": [
+                      "Unknown",
+                      "Credit",
+                      "Debit"
+                    ],
+                    "nullable": true,
+                    "description": "The type of bank account e.g. Credit"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The sort code"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The currency e.g. USD"
+                  },
+                  "balance": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true,
+                    "description": "The latest balance for the bank account"
+                  },
+                  "modifiedDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "nullable": true,
+                    "description": "The last date the bank account was modified"
+                  },
+                  "status": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": null
+                  },
+                  "feedStartDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "nullable": true,
+                    "description": null
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "description": "The target bank account in a supported accounting package for ingestion into a bank feed.",
+                "examples": [
+                  {
+                    "id": "acc-002",
+                    "accountName": "account-081",
+                    "sortCode": "123456",
+                    "accountType": "Credit",
+                    "accountNumber": "12345670",
+                    "currency": "GBP",
+                    "balance": 99.99,
+                    "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                    "status": "pending"
+                  },
+                  {
+                    "id": "acc-003",
+                    "accountName": "account-095",
+                    "sortCode": "123456",
+                    "accountType": "Credit",
+                    "accountNumber": "12345671",
+                    "currency": "USD",
+                    "balance": 0,
+                    "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                    "status": "pending"
+                  }
+                ]
               }
             }
           }
@@ -75,7 +189,99 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BankFeedBankAccount"
+                  "title": "BankFeedBankAccount",
+                  "x-stoplight": {
+                    "id": "bi83u58u7g3vr"
+                  },
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique ID for the BankFeedBankAccount"
+                    },
+                    "accountName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The bank account name"
+                    },
+                    "accountType": {
+                      "type": "string",
+                      "enum": [
+                        "Unknown",
+                        "Credit",
+                        "Debit"
+                      ],
+                      "nullable": true,
+                      "description": "The type of bank account e.g. Credit"
+                    },
+                    "accountNumber": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The account number"
+                    },
+                    "sortCode": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The sort code"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The currency e.g. USD"
+                    },
+                    "balance": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true,
+                      "description": "The latest balance for the bank account"
+                    },
+                    "modifiedDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": "The last date the bank account was modified"
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": null
+                    },
+                    "feedStartDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": null
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "description": "The target bank account in a supported accounting package for ingestion into a bank feed.",
+                  "examples": [
+                    {
+                      "id": "acc-002",
+                      "accountName": "account-081",
+                      "sortCode": "123456",
+                      "accountType": "Credit",
+                      "accountNumber": "12345670",
+                      "currency": "GBP",
+                      "balance": 99.99,
+                      "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                      "status": "pending"
+                    },
+                    {
+                      "id": "acc-003",
+                      "accountName": "account-095",
+                      "sortCode": "123456",
+                      "accountType": "Credit",
+                      "accountNumber": "12345671",
+                      "currency": "USD",
+                      "balance": 0,
+                      "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                      "status": "pending"
+                    }
+                  ]
                 }
               }
             }
@@ -134,7 +340,99 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BankFeedBankAccount"
+                    "title": "BankFeedBankAccount",
+                    "x-stoplight": {
+                      "id": "bi83u58u7g3vr"
+                    },
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Unique ID for the BankFeedBankAccount"
+                      },
+                      "accountName": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The bank account name"
+                      },
+                      "accountType": {
+                        "type": "string",
+                        "enum": [
+                          "Unknown",
+                          "Credit",
+                          "Debit"
+                        ],
+                        "nullable": true,
+                        "description": "The type of bank account e.g. Credit"
+                      },
+                      "accountNumber": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The account number"
+                      },
+                      "sortCode": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The sort code"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The currency e.g. USD"
+                      },
+                      "balance": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The latest balance for the bank account"
+                      },
+                      "modifiedDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": "The last date the bank account was modified"
+                      },
+                      "status": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": null
+                      },
+                      "feedStartDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": null
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "description": "The target bank account in a supported accounting package for ingestion into a bank feed.",
+                    "examples": [
+                      {
+                        "id": "acc-002",
+                        "accountName": "account-081",
+                        "sortCode": "123456",
+                        "accountType": "Credit",
+                        "accountNumber": "12345670",
+                        "currency": "GBP",
+                        "balance": 99.99,
+                        "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                        "status": "pending"
+                      },
+                      {
+                        "id": "acc-003",
+                        "accountName": "account-095",
+                        "sortCode": "123456",
+                        "accountType": "Credit",
+                        "accountNumber": "12345671",
+                        "currency": "USD",
+                        "balance": 0,
+                        "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                        "status": "pending"
+                      }
+                    ]
                   }
                 }
               }
@@ -156,10 +454,32 @@
         "summary": "Update bank feed bank accounts",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           }
         ],
         "requestBody": {
@@ -168,7 +488,99 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/BankFeedBankAccount"
+                  "title": "BankFeedBankAccount",
+                  "x-stoplight": {
+                    "id": "bi83u58u7g3vr"
+                  },
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique ID for the BankFeedBankAccount"
+                    },
+                    "accountName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The bank account name"
+                    },
+                    "accountType": {
+                      "type": "string",
+                      "enum": [
+                        "Unknown",
+                        "Credit",
+                        "Debit"
+                      ],
+                      "nullable": true,
+                      "description": "The type of bank account e.g. Credit"
+                    },
+                    "accountNumber": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The account number"
+                    },
+                    "sortCode": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The sort code"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The currency e.g. USD"
+                    },
+                    "balance": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true,
+                      "description": "The latest balance for the bank account"
+                    },
+                    "modifiedDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": "The last date the bank account was modified"
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": null
+                    },
+                    "feedStartDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": null
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "description": "The target bank account in a supported accounting package for ingestion into a bank feed.",
+                  "examples": [
+                    {
+                      "id": "acc-002",
+                      "accountName": "account-081",
+                      "sortCode": "123456",
+                      "accountType": "Credit",
+                      "accountNumber": "12345670",
+                      "currency": "GBP",
+                      "balance": 99.99,
+                      "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                      "status": "pending"
+                    },
+                    {
+                      "id": "acc-003",
+                      "accountName": "account-095",
+                      "sortCode": "123456",
+                      "accountType": "Credit",
+                      "accountNumber": "12345671",
+                      "currency": "USD",
+                      "balance": 0,
+                      "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                      "status": "pending"
+                    }
+                  ]
                 }
               }
             }
@@ -182,7 +594,99 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BankFeedBankAccount"
+                    "title": "BankFeedBankAccount",
+                    "x-stoplight": {
+                      "id": "bi83u58u7g3vr"
+                    },
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Unique ID for the BankFeedBankAccount"
+                      },
+                      "accountName": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The bank account name"
+                      },
+                      "accountType": {
+                        "type": "string",
+                        "enum": [
+                          "Unknown",
+                          "Credit",
+                          "Debit"
+                        ],
+                        "nullable": true,
+                        "description": "The type of bank account e.g. Credit"
+                      },
+                      "accountNumber": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The account number"
+                      },
+                      "sortCode": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The sort code"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The currency e.g. USD"
+                      },
+                      "balance": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The latest balance for the bank account"
+                      },
+                      "modifiedDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": "The last date the bank account was modified"
+                      },
+                      "status": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": null
+                      },
+                      "feedStartDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": null
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "description": "The target bank account in a supported accounting package for ingestion into a bank feed.",
+                    "examples": [
+                      {
+                        "id": "acc-002",
+                        "accountName": "account-081",
+                        "sortCode": "123456",
+                        "accountType": "Credit",
+                        "accountNumber": "12345670",
+                        "currency": "GBP",
+                        "balance": 99.99,
+                        "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                        "status": "pending"
+                      },
+                      {
+                        "id": "acc-003",
+                        "accountName": "account-095",
+                        "sortCode": "123456",
+                        "accountType": "Credit",
+                        "accountNumber": "12345671",
+                        "currency": "USD",
+                        "balance": 0,
+                        "modifiedDate": "2023-01-09T14:14:14.1057478Z",
+                        "status": "pending"
+                      }
+                    ]
                   }
                 }
               }
@@ -209,10 +713,32 @@
         "summary": "List bank transactions for bank account",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
             "x-stoplight": {
@@ -297,7 +823,97 @@
                         "results": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/components/schemas/BankTransactions"
+                            "type": "object",
+                            "properties": {
+                              "accountId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "transactions": {
+                                "type": "array",
+                                "items": {
+                                  "required": [
+                                    "amount",
+                                    "balance",
+                                    "date",
+                                    "reconciled",
+                                    "transactionType"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "date": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "counterparty": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "reference": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "reconciled": {
+                                      "type": "boolean"
+                                    },
+                                    "amount": {
+                                      "type": "number",
+                                      "format": "double"
+                                    },
+                                    "balance": {
+                                      "type": "number",
+                                      "format": "double"
+                                    },
+                                    "transactionType": {
+                                      "enum": [
+                                        "Unknown",
+                                        "Credit",
+                                        "Debit",
+                                        "Int",
+                                        "Div",
+                                        "Fee",
+                                        "SerChg",
+                                        "Dep",
+                                        "Atm",
+                                        "Pos",
+                                        "Xfer",
+                                        "Check",
+                                        "Payment",
+                                        "Cash",
+                                        "DirectDep",
+                                        "DirectDebit",
+                                        "RepeatPmt",
+                                        "Other"
+                                      ],
+                                      "type": "string"
+                                    },
+                                    "modifiedDate": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "nullable": true
+                                    },
+                                    "sourceModifiedDate": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "nullable": true
+                                    }
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "contractVersion": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
                           }
                         }
                       }
@@ -423,25 +1039,101 @@
         "summary": "List push options for bank account bank transactions",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/2"
+            "x-stoplight": {
+              "id": "lhx5lknu24s8f"
+            },
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+            },
+            "description": "Unique identifier for an account"
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/3"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/4"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/5"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/6"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "responses": {
@@ -499,7 +1191,18 @@
                             "type": "string"
                           },
                           "type": {
-                            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/properties/type"
+                            "title": "OptionType",
+                            "enum": [
+                              "Array",
+                              "Object",
+                              "String",
+                              "Number",
+                              "Boolean",
+                              "DateTime",
+                              "File",
+                              "MultiPart"
+                            ],
+                            "type": "string"
                           },
                           "displayName": {
                             "minLength": 1,
@@ -512,7 +1215,342 @@
                           "options": {
                             "type": "array",
                             "items": {
-                              "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/properties/options/items"
+                              "title": "PushOptionChoice",
+                              "required": [
+                                "description",
+                                "displayName",
+                                "required",
+                                "type",
+                                "value"
+                              ],
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "title": "OptionType",
+                                  "enum": [
+                                    "Array",
+                                    "Object",
+                                    "String",
+                                    "Number",
+                                    "Boolean",
+                                    "DateTime",
+                                    "File",
+                                    "MultiPart"
+                                  ],
+                                  "type": "string"
+                                },
+                                "displayName": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "options": {
+                                  "type": "array",
+                                  "items": {
+                                    "title": "PushOptionChoice",
+                                    "required": [
+                                      "description",
+                                      "displayName",
+                                      "required",
+                                      "type",
+                                      "value"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "type": {
+                                        "title": "OptionType",
+                                        "enum": [
+                                          "Array",
+                                          "Object",
+                                          "String",
+                                          "Number",
+                                          "Boolean",
+                                          "DateTime",
+                                          "File",
+                                          "MultiPart"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "displayName": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "options": {
+                                        "type": "array",
+                                        "items": {
+                                          "title": "PushOptionChoice",
+                                          "required": [
+                                            "description",
+                                            "displayName",
+                                            "required",
+                                            "type",
+                                            "value"
+                                          ],
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "title": "OptionType",
+                                              "enum": [
+                                                "Array",
+                                                "Object",
+                                                "String",
+                                                "Number",
+                                                "Boolean",
+                                                "DateTime",
+                                                "File",
+                                                "MultiPart"
+                                              ],
+                                              "type": "string"
+                                            },
+                                            "displayName": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "description": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "required": {
+                                              "type": "boolean"
+                                            },
+                                            "validation": {
+                                              "title": "PushValidationInfo",
+                                              "type": "object",
+                                              "properties": {
+                                                "warnings": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "title": "PushFieldValidation",
+                                                    "required": [
+                                                      "details",
+                                                      "field"
+                                                    ],
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "field": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "details": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "ref": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "nullable": true
+                                                      }
+                                                    },
+                                                    "additionalProperties": false
+                                                  },
+                                                  "nullable": true
+                                                },
+                                                "information": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "title": "PushFieldValidation",
+                                                    "required": [
+                                                      "details",
+                                                      "field"
+                                                    ],
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "field": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "details": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "ref": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "nullable": true
+                                                      }
+                                                    },
+                                                    "additionalProperties": false
+                                                  },
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "rel": {
+                                              "type": "string",
+                                              "nullable": true
+                                            }
+                                          },
+                                          "additionalProperties": false
+                                        },
+                                        "nullable": true
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      },
+                                      "validation": {
+                                        "title": "PushValidationInfo",
+                                        "type": "object",
+                                        "properties": {
+                                          "warnings": {
+                                            "type": "array",
+                                            "items": {
+                                              "title": "PushFieldValidation",
+                                              "required": [
+                                                "details",
+                                                "field"
+                                              ],
+                                              "type": "object",
+                                              "properties": {
+                                                "field": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "details": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "ref": {
+                                                  "type": "string",
+                                                  "format": "uri",
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "nullable": true
+                                          },
+                                          "information": {
+                                            "type": "array",
+                                            "items": {
+                                              "title": "PushFieldValidation",
+                                              "required": [
+                                                "details",
+                                                "field"
+                                              ],
+                                              "type": "object",
+                                              "properties": {
+                                                "field": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "details": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "ref": {
+                                                  "type": "string",
+                                                  "format": "uri",
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "rel": {
+                                        "type": "string",
+                                        "nullable": true
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  },
+                                  "nullable": true
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                },
+                                "validation": {
+                                  "title": "PushValidationInfo",
+                                  "type": "object",
+                                  "properties": {
+                                    "warnings": {
+                                      "type": "array",
+                                      "items": {
+                                        "title": "PushFieldValidation",
+                                        "required": [
+                                          "details",
+                                          "field"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                          "field": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "details": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "ref": {
+                                            "type": "string",
+                                            "format": "uri",
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "nullable": true
+                                    },
+                                    "information": {
+                                      "type": "array",
+                                      "items": {
+                                        "title": "PushFieldValidation",
+                                        "required": [
+                                          "details",
+                                          "field"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                          "field": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "details": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "ref": {
+                                            "type": "string",
+                                            "format": "uri",
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "rel": {
+                                  "type": "string",
+                                  "nullable": true
+                                }
+                              },
+                              "additionalProperties": false
                             },
                             "nullable": true
                           },
@@ -520,7 +1558,67 @@
                             "type": "boolean"
                           },
                           "validation": {
-                            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/properties/validation"
+                            "title": "PushValidationInfo",
+                            "type": "object",
+                            "properties": {
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "title": "PushFieldValidation",
+                                  "required": [
+                                    "details",
+                                    "field"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "field": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "details": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "ref": {
+                                      "type": "string",
+                                      "format": "uri",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "nullable": true
+                              },
+                              "information": {
+                                "type": "array",
+                                "items": {
+                                  "title": "PushFieldValidation",
+                                  "required": [
+                                    "details",
+                                    "field"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "field": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "details": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "ref": {
+                                      "type": "string",
+                                      "format": "uri",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "nullable": true
+                              }
+                            },
+                            "additionalProperties": false
                           },
                           "rel": {
                             "type": "string",
@@ -569,7 +1667,28 @@
                         "information": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/properties/validation/properties/warnings/items"
+                            "title": "PushFieldValidation",
+                            "required": [
+                              "details",
+                              "field"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "details": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "ref": {
+                                "type": "string",
+                                "format": "uri",
+                                "nullable": true
+                              }
+                            },
+                            "additionalProperties": false
                           },
                           "nullable": true
                         }
@@ -605,13 +1724,46 @@
         "summary": "Create bank transactions",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/parameters/2"
+            "x-stoplight": {
+              "id": "lhx5lknu24s8f"
+            },
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+            },
+            "description": "Unique identifier for an account"
           },
           {
             "x-stoplight": {
@@ -640,7 +1792,97 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BankTransactions"
+                "type": "object",
+                "properties": {
+                  "accountId": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "transactions": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "amount",
+                        "balance",
+                        "date",
+                        "reconciled",
+                        "transactionType"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "counterparty": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "reference": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "reconciled": {
+                          "type": "boolean"
+                        },
+                        "amount": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "balance": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "transactionType": {
+                          "enum": [
+                            "Unknown",
+                            "Credit",
+                            "Debit",
+                            "Int",
+                            "Div",
+                            "Fee",
+                            "SerChg",
+                            "Dep",
+                            "Atm",
+                            "Pos",
+                            "Xfer",
+                            "Check",
+                            "Payment",
+                            "Cash",
+                            "DirectDep",
+                            "DirectDebit",
+                            "RepeatPmt",
+                            "Other"
+                          ],
+                          "type": "string"
+                        },
+                        "modifiedDate": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "sourceModifiedDate": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "contractVersion": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
               }
             }
           }
@@ -656,7 +1898,97 @@
                       "type": "object",
                       "properties": {
                         "data": {
-                          "$ref": "#/components/schemas/BankTransactions"
+                          "type": "object",
+                          "properties": {
+                            "accountId": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "transactions": {
+                              "type": "array",
+                              "items": {
+                                "required": [
+                                  "amount",
+                                  "balance",
+                                  "date",
+                                  "reconciled",
+                                  "transactionType"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "date": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "description": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "counterparty": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "reference": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "reconciled": {
+                                    "type": "boolean"
+                                  },
+                                  "amount": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "balance": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "transactionType": {
+                                    "enum": [
+                                      "Unknown",
+                                      "Credit",
+                                      "Debit",
+                                      "Int",
+                                      "Div",
+                                      "Fee",
+                                      "SerChg",
+                                      "Dep",
+                                      "Atm",
+                                      "Pos",
+                                      "Xfer",
+                                      "Check",
+                                      "Payment",
+                                      "Cash",
+                                      "DirectDep",
+                                      "DirectDebit",
+                                      "RepeatPmt",
+                                      "Other"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "modifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                  },
+                                  "sourceModifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                  }
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "contractVersion": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
                         }
                       }
                     },
@@ -706,7 +2038,10 @@
                           "description": "The type of data being pushed, eg invoices, customers."
                         },
                         "companyId": {
-                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/0/schema"
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                          "description": "Unique identifier for your SMB in Codat."
                         },
                         "pushOperationKey": {
                           "type": "string",
@@ -714,7 +2049,10 @@
                           "description": "A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted."
                         },
                         "dataConnectionKey": {
-                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1connectionInfo~1bankFeedAccounts/get/parameters/1/schema"
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                          "description": "Unique identifier for a company's data connection."
                         },
                         "requestedOnUtc": {
                           "description": "The datetime when the push was requested.",
@@ -724,8 +2062,11 @@
                           "title": "DateTime"
                         },
                         "completedOnUtc": {
-                          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bankAccounts~1%7BaccountId%7D%7D~1bankTransactions/post/responses/200/content/application~1json/schema/allOf/1/properties/requestedOnUtc",
-                          "description": "The datetime when the push was completed, null if Pending."
+                          "description": "The datetime when the push was completed, null if Pending.",
+                          "type": "string",
+                          "example": "2022-10-23T00:00:00Z",
+                          "format": "date-time",
+                          "title": "DateTime"
                         },
                         "timeoutInMinutes": {
                           "type": "integer",
@@ -784,7 +2125,23 @@
                               "type": "array",
                               "nullable": true,
                               "items": {
-                                "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1push~1bankAccounts~1%7BaccountId%7D%7D~1bankTransactions/post/responses/200/content/application~1json/schema/allOf/1/properties/validation/properties/errors/items"
+                                "title": "ValidationItem",
+                                "type": "object",
+                                "properties": {
+                                  "itemId": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "message": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "validatorName": {
+                                    "type": "string",
+                                    "nullable": true
+                                  }
+                                },
+                                "additionalProperties": false
                               }
                             }
                           }

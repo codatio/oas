@@ -49,22 +49,87 @@
         "summary": "List bank balances",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "responses": {
@@ -78,12 +143,190 @@
                       "type": "object",
                       "properties": {
                         "results": {
-                          "$ref": "#/components/schemas/AccountBalance"
+                          "type": "object",
+                          "properties": {
+                            "accountId": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the account."
+                            },
+                            "balance": {
+                              "type": "object",
+                              "required": [
+                                "current"
+                              ],
+                              "description": "An object containing bank balance data.",
+                              "properties": {
+                                "available": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "nullable": true,
+                                  "description": "The funds available to withdraw from the bank account."
+                                },
+                                "current": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "description": "The funds in or owed by the bank account."
+                                },
+                                "limit": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "nullable": true,
+                                  "description": "The credit limit or overdraft limit of the bank account."
+                                }
+                              }
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Date of the balance."
+                            }
+                          },
+                          "required": [
+                            "accountId",
+                            "balance",
+                            "date"
+                          ],
+                          "allOf": [
+                            {
+                              "allOf": [
+                                {
+                                  "title": "ModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "z5gfpfg4fsp6v"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "modifiedDate": {
+                                      "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "SourceModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "s0oihleme8suj"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "sourceModifiedDate": {
+                                      "description": "The date on which this record was last modified in the originating system",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "x-stoplight": {
+                            "id": "3293652f3df8e"
+                          },
+                          "title": "Account Balance",
+                          "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction."
                         }
                       }
                     },
                     {
-                      "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactionCategories/get/responses/200/content/application~1json/schema/allOf/1"
+                      "title": "_Links",
+                      "description": "Codat's Paging Model",
+                      "examples": [
+                        {
+                          "_links": {
+                            "self": {
+                              "href": "/companies/{id}/data/{dataType}"
+                            },
+                            "current": {
+                              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                            }
+                          },
+                          "pageNumber": 1,
+                          "pageSize": 10,
+                          "totalResults": 1
+                        }
+                      ],
+                      "type": "object",
+                      "allOf": [
+                        {
+                          "properties": {
+                            "_links": {
+                              "type": "object",
+                              "required": [
+                                "self",
+                                "current"
+                              ],
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "current": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "previous": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "pageNumber": {
+                              "type": "integer"
+                            },
+                            "pageSize": {
+                              "type": "integer"
+                            },
+                            "totalResults": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "_links",
+                            "pageNumber",
+                            "pageSize",
+                            "totalResults"
+                          ]
+                        }
+                      ],
+                      "x-stoplight": {
+                        "id": "5wohczray2nz5"
+                      }
                     }
                   ]
                 }
@@ -108,22 +351,87 @@
         "summary": "List bank accounts",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "responses": {
@@ -137,12 +445,296 @@
                       "type": "object",
                       "properties": {
                         "results": {
-                          "$ref": "#/components/schemas/Account"
+                          "title": "Account",
+                          "x-stoplight": {
+                            "id": "1ic677fzr6az4"
+                          },
+                          "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).",
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The ID of the account from the provider."
+                            },
+                            "name": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The name of the account according to the provider."
+                            },
+                            "informalName": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available."
+                            },
+                            "holder": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The name of the person or company who holds the account."
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "Unknown",
+                                "Credit",
+                                "Debit"
+                              ],
+                              "description": "The type of transactions and balances on the account.\nFor Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.\nFor Debit accounts, positive balances are assets and positive transactions increase assets."
+                            },
+                            "balance": {
+                              "description": "An object containing bank balance data.",
+                              "title": "Account Balance Amounts",
+                              "x-stoplight": {
+                                "id": "jmyqs1xu3c11z"
+                              },
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "available": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "nullable": true,
+                                  "description": "The balance available in the account, including any pending transactions. This doesn't include additional funds available from any overdrafts."
+                                },
+                                "current": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "description": "The balance of the account only including cleared transactions."
+                                },
+                                "limit": {
+                                  "type": "number",
+                                  "format": "double",
+                                  "nullable": true,
+                                  "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00"
+                                }
+                              }
+                            },
+                            "identifiers": {
+                              "description": "An object containing bank account identification information.",
+                              "title": "Account Identifiers",
+                              "x-stoplight": {
+                                "id": "ldkvbe2lb7nab"
+                              },
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "description": "Type of account",
+                                  "enum": [
+                                    "Account",
+                                    "Card",
+                                    "Credit",
+                                    "Depository",
+                                    "Investment",
+                                    "Loan",
+                                    "Other"
+                                  ]
+                                },
+                                "subtype": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "Detailed account category"
+                                },
+                                "number": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction."
+                                },
+                                "bankCode": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The local (usually national) routing number for the account.\n\nThis is known by different names in different countries:\n* BSB code (Australia)\n* routing number (Canada, USA)\n* sort code (UK)"
+                                },
+                                "iban": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The international bank account number (IBAN) for the account, if known."
+                                },
+                                "bic": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account."
+                                },
+                                "maskedAccountNumber": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "currency": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The currency code for the account."
+                            },
+                            "institution": {
+                              "description": "The bank or other financial institution providing the account.",
+                              "title": "Account Institution",
+                              "x-stoplight": {
+                                "id": "5y3yc3euy8v6a"
+                              },
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "description": "The institution's ID, according to the provider."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "The institution's name, according to the underlying provider."
+                                }
+                              }
+                            }
+                          },
+                          "allOf": [
+                            {
+                              "required": [
+                                "id",
+                                "name",
+                                "type",
+                                "balance",
+                                "identifiers",
+                                "currency",
+                                "institution"
+                              ],
+                              "allOf": [
+                                {
+                                  "title": "ModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "z5gfpfg4fsp6v"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "modifiedDate": {
+                                      "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "SourceModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "s0oihleme8suj"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "sourceModifiedDate": {
+                                      "description": "The date on which this record was last modified in the originating system",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     },
                     {
-                      "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactionCategories/get/responses/200/content/application~1json/schema/allOf/1"
+                      "title": "_Links",
+                      "description": "Codat's Paging Model",
+                      "examples": [
+                        {
+                          "_links": {
+                            "self": {
+                              "href": "/companies/{id}/data/{dataType}"
+                            },
+                            "current": {
+                              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                            }
+                          },
+                          "pageNumber": 1,
+                          "pageSize": 10,
+                          "totalResults": 1
+                        }
+                      ],
+                      "type": "object",
+                      "allOf": [
+                        {
+                          "properties": {
+                            "_links": {
+                              "type": "object",
+                              "required": [
+                                "self",
+                                "current"
+                              ],
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "current": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "previous": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "pageNumber": {
+                              "type": "integer"
+                            },
+                            "pageSize": {
+                              "type": "integer"
+                            },
+                            "totalResults": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "_links",
+                            "pageNumber",
+                            "pageSize",
+                            "totalResults"
+                          ]
+                        }
+                      ],
+                      "x-stoplight": {
+                        "id": "5wohczray2nz5"
+                      }
                     }
                   ]
                 }
@@ -167,10 +759,32 @@
         "summary": "Get bank account",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
           },
           {
             "x-stoplight": {
@@ -193,7 +807,199 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "title": "Account",
+                  "x-stoplight": {
+                    "id": "1ic677fzr6az4"
+                  },
+                  "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The ID of the account from the provider."
+                    },
+                    "name": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The name of the account according to the provider."
+                    },
+                    "informalName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available."
+                    },
+                    "holder": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The name of the person or company who holds the account."
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Unknown",
+                        "Credit",
+                        "Debit"
+                      ],
+                      "description": "The type of transactions and balances on the account.\nFor Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.\nFor Debit accounts, positive balances are assets and positive transactions increase assets."
+                    },
+                    "balance": {
+                      "description": "An object containing bank balance data.",
+                      "title": "Account Balance Amounts",
+                      "x-stoplight": {
+                        "id": "jmyqs1xu3c11z"
+                      },
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "available": {
+                          "type": "number",
+                          "format": "double",
+                          "nullable": true,
+                          "description": "The balance available in the account, including any pending transactions. This doesn't include additional funds available from any overdrafts."
+                        },
+                        "current": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "The balance of the account only including cleared transactions."
+                        },
+                        "limit": {
+                          "type": "number",
+                          "format": "double",
+                          "nullable": true,
+                          "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00"
+                        }
+                      }
+                    },
+                    "identifiers": {
+                      "description": "An object containing bank account identification information.",
+                      "title": "Account Identifiers",
+                      "x-stoplight": {
+                        "id": "ldkvbe2lb7nab"
+                      },
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "Type of account",
+                          "enum": [
+                            "Account",
+                            "Card",
+                            "Credit",
+                            "Depository",
+                            "Investment",
+                            "Loan",
+                            "Other"
+                          ]
+                        },
+                        "subtype": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Detailed account category"
+                        },
+                        "number": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction."
+                        },
+                        "bankCode": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The local (usually national) routing number for the account.\n\nThis is known by different names in different countries:\n* BSB code (Australia)\n* routing number (Canada, USA)\n* sort code (UK)"
+                        },
+                        "iban": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The international bank account number (IBAN) for the account, if known."
+                        },
+                        "bic": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account."
+                        },
+                        "maskedAccountNumber": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "currency": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The currency code for the account."
+                    },
+                    "institution": {
+                      "description": "The bank or other financial institution providing the account.",
+                      "title": "Account Institution",
+                      "x-stoplight": {
+                        "id": "5y3yc3euy8v6a"
+                      },
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "The institution's ID, according to the provider."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "The institution's name, according to the underlying provider."
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "required": [
+                        "id",
+                        "name",
+                        "type",
+                        "balance",
+                        "identifiers",
+                        "currency",
+                        "institution"
+                      ],
+                      "allOf": [
+                        {
+                          "title": "ModifiedDate",
+                          "x-stoplight": {
+                            "id": "z5gfpfg4fsp6v"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "modifiedDate": {
+                              "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        },
+                        {
+                          "title": "SourceModifiedDate",
+                          "x-stoplight": {
+                            "id": "s0oihleme8suj"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "sourceModifiedDate": {
+                              "description": "The date on which this record was last modified in the originating system",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
                 }
               }
             }
@@ -218,16 +1024,59 @@
         "summary": "List all transaction categories",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "responses": {
@@ -241,7 +1090,81 @@
                       "type": "object",
                       "properties": {
                         "results": {
-                          "$ref": "#/components/schemas/TransactionCategory"
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the bank transaction category."
+                            },
+                            "name": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The name of the bank transaction category."
+                            },
+                            "parentId": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The unique identifier of the parent bank transaction category."
+                            },
+                            "hasChildren": {
+                              "type": "boolean",
+                              "description": "A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy."
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "Unknown",
+                                "Active",
+                                "Archived"
+                              ],
+                              "description": "Status of the bank transaction category."
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "allOf": [
+                            {
+                              "allOf": [
+                                {
+                                  "title": "ModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "z5gfpfg4fsp6v"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "modifiedDate": {
+                                      "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "SourceModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "s0oihleme8suj"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "sourceModifiedDate": {
+                                      "description": "The date on which this record was last modified in the originating system",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "title": "Transaction Category",
+                          "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
                         }
                       }
                     },
@@ -356,10 +1279,32 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
         },
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "description": "Unique identifier for a company's data connection."
+          },
+          "x-stoplight": {
+            "id": "odjhmld3g3nmi"
+          }
         }
       ]
     },
@@ -375,7 +1320,81 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransactionCategory"
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The unique identifier of the bank transaction category."
+                    },
+                    "name": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The name of the bank transaction category."
+                    },
+                    "parentId": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The unique identifier of the parent bank transaction category."
+                    },
+                    "hasChildren": {
+                      "type": "boolean",
+                      "description": "A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy."
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "Unknown",
+                        "Active",
+                        "Archived"
+                      ],
+                      "description": "Status of the bank transaction category."
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "allOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "ModifiedDate",
+                          "x-stoplight": {
+                            "id": "z5gfpfg4fsp6v"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "modifiedDate": {
+                              "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        },
+                        {
+                          "title": "SourceModifiedDate",
+                          "x-stoplight": {
+                            "id": "s0oihleme8suj"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "sourceModifiedDate": {
+                              "description": "The date on which this record was last modified in the originating system",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "title": "Transaction Category",
+                  "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
                 }
               }
             }
@@ -393,10 +1412,32 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
         },
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "description": "Unique identifier for a company's data connection."
+          },
+          "x-stoplight": {
+            "id": "odjhmld3g3nmi"
+          }
         },
         {
           "schema": {
@@ -417,16 +1458,59 @@
         "summary": "List bank account transactions",
         "parameters": [
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/0"
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/1"
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/2"
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
           },
           {
-            "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/parameters/3"
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
           }
         ],
         "responses": {
@@ -440,7 +1524,138 @@
                       "type": "object",
                       "properties": {
                         "results": {
-                          "$ref": "#/components/schemas/Transaction"
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the bank transaction."
+                            },
+                            "accountId": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the bank account."
+                            },
+                            "description": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The description of the bank transaction."
+                            },
+                            "amount": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "The amount of the bank transaction."
+                            },
+                            "currency": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The currency of the bank transaction."
+                            },
+                            "postedDate": {
+                              "description": "The date the bank transaction was cleared.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "authorizedDate": {
+                              "description": "The date the bank transaction was authorized.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Code to identify the underlying transaction.",
+                              "enum": [
+                                "Unknown",
+                                "Fee",
+                                "Payment",
+                                "Cash",
+                                "Transfer",
+                                "Interest",
+                                "Cashback",
+                                "Cheque",
+                                "DirectDebit",
+                                "Purchase",
+                                "StandingOrder",
+                                "Adjustment",
+                                "Credit",
+                                "Other",
+                                "NotSupported"
+                              ]
+                            },
+                            "merchantName": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The name of the merchant."
+                            },
+                            "transactionCategoryRef": {
+                              "type": "object",
+                              "description": "An object of bank transaction category reference data.",
+                              "properties": {
+                                "id": {
+                                  "minLength": 1,
+                                  "type": "string",
+                                  "description": "The unique category reference id for the bank transaction."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The category name reference for the bank transaction."
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "accountId",
+                            "currency"
+                          ],
+                          "allOf": [
+                            {
+                              "allOf": [
+                                {
+                                  "title": "ModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "z5gfpfg4fsp6v"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "modifiedDate": {
+                                      "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "SourceModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "s0oihleme8suj"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "sourceModifiedDate": {
+                                      "description": "The date on which this record was last modified in the originating system",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "title": "Transaction",
+                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
                         }
                       }
                     }
@@ -460,7 +1675,18 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
         },
         {
           "name": "connectionId",
@@ -552,7 +1778,138 @@
                       "type": "object",
                       "properties": {
                         "results": {
-                          "$ref": "#/components/schemas/Transaction"
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the bank transaction."
+                            },
+                            "accountId": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The unique identifier of the bank account."
+                            },
+                            "description": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The description of the bank transaction."
+                            },
+                            "amount": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "The amount of the bank transaction."
+                            },
+                            "currency": {
+                              "minLength": 1,
+                              "type": "string",
+                              "description": "The currency of the bank transaction."
+                            },
+                            "postedDate": {
+                              "description": "The date the bank transaction was cleared.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "authorizedDate": {
+                              "description": "The date the bank transaction was authorized.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Code to identify the underlying transaction.",
+                              "enum": [
+                                "Unknown",
+                                "Fee",
+                                "Payment",
+                                "Cash",
+                                "Transfer",
+                                "Interest",
+                                "Cashback",
+                                "Cheque",
+                                "DirectDebit",
+                                "Purchase",
+                                "StandingOrder",
+                                "Adjustment",
+                                "Credit",
+                                "Other",
+                                "NotSupported"
+                              ]
+                            },
+                            "merchantName": {
+                              "type": "string",
+                              "nullable": true,
+                              "description": "The name of the merchant."
+                            },
+                            "transactionCategoryRef": {
+                              "type": "object",
+                              "description": "An object of bank transaction category reference data.",
+                              "properties": {
+                                "id": {
+                                  "minLength": 1,
+                                  "type": "string",
+                                  "description": "The unique category reference id for the bank transaction."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "The category name reference for the bank transaction."
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "accountId",
+                            "currency"
+                          ],
+                          "allOf": [
+                            {
+                              "allOf": [
+                                {
+                                  "title": "ModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "z5gfpfg4fsp6v"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "modifiedDate": {
+                                      "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "SourceModifiedDate",
+                                  "x-stoplight": {
+                                    "id": "s0oihleme8suj"
+                                  },
+                                  "type": "object",
+                                  "properties": {
+                                    "sourceModifiedDate": {
+                                      "description": "The date on which this record was last modified in the originating system",
+                                      "type": "string",
+                                      "example": "2022-10-23T00:00:00Z",
+                                      "format": "date-time",
+                                      "title": "DateTime"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "title": "Transaction",
+                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
                         }
                       }
                     }
@@ -599,7 +1956,138 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The unique identifier of the bank transaction."
+                    },
+                    "accountId": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The unique identifier of the bank account."
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The description of the bank transaction."
+                    },
+                    "amount": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "The amount of the bank transaction."
+                    },
+                    "currency": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "The currency of the bank transaction."
+                    },
+                    "postedDate": {
+                      "description": "The date the bank transaction was cleared.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "authorizedDate": {
+                      "description": "The date the bank transaction was authorized.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Code to identify the underlying transaction.",
+                      "enum": [
+                        "Unknown",
+                        "Fee",
+                        "Payment",
+                        "Cash",
+                        "Transfer",
+                        "Interest",
+                        "Cashback",
+                        "Cheque",
+                        "DirectDebit",
+                        "Purchase",
+                        "StandingOrder",
+                        "Adjustment",
+                        "Credit",
+                        "Other",
+                        "NotSupported"
+                      ]
+                    },
+                    "merchantName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The name of the merchant."
+                    },
+                    "transactionCategoryRef": {
+                      "type": "object",
+                      "description": "An object of bank transaction category reference data.",
+                      "properties": {
+                        "id": {
+                          "minLength": 1,
+                          "type": "string",
+                          "description": "The unique category reference id for the bank transaction."
+                        },
+                        "name": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The category name reference for the bank transaction."
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "accountId",
+                    "currency"
+                  ],
+                  "allOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "ModifiedDate",
+                          "x-stoplight": {
+                            "id": "z5gfpfg4fsp6v"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "modifiedDate": {
+                              "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        },
+                        {
+                          "title": "SourceModifiedDate",
+                          "x-stoplight": {
+                            "id": "s0oihleme8suj"
+                          },
+                          "type": "object",
+                          "properties": {
+                            "sourceModifiedDate": {
+                              "description": "The date on which this record was last modified in the originating system",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "title": "Transaction",
+                  "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
                 }
               }
             }
@@ -617,7 +2105,18 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/parameters/0"
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
         },
         {
           "schema": {
@@ -629,7 +2128,18 @@
           "description": "The unique identifier for a transaction"
         },
         {
-          "$ref": "#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1banking-transactions/parameters/1"
+          "name": "connectionId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "description": "Unique identifier for a company's data connection."
+          },
+          "x-stoplight": {
+            "id": "odjhmld3g3nmi"
+          }
         }
       ]
     }
@@ -683,7 +2193,40 @@
         ],
         "allOf": [
           {
-            "$ref": "#/components/schemas/Transaction/allOf/0"
+            "allOf": [
+              {
+                "title": "ModifiedDate",
+                "x-stoplight": {
+                  "id": "z5gfpfg4fsp6v"
+                },
+                "type": "object",
+                "properties": {
+                  "modifiedDate": {
+                    "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              },
+              {
+                "title": "SourceModifiedDate",
+                "x-stoplight": {
+                  "id": "s0oihleme8suj"
+                },
+                "type": "object",
+                "properties": {
+                  "sourceModifiedDate": {
+                    "description": "The date on which this record was last modified in the originating system",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              }
+            ]
           }
         ],
         "x-stoplight": {
@@ -841,7 +2384,6 @@
         },
         "allOf": [
           {
-            "$ref": "#/components/schemas/Transaction/allOf/0",
             "required": [
               "id",
               "name",
@@ -850,6 +2392,40 @@
               "identifiers",
               "currency",
               "institution"
+            ],
+            "allOf": [
+              {
+                "title": "ModifiedDate",
+                "x-stoplight": {
+                  "id": "z5gfpfg4fsp6v"
+                },
+                "type": "object",
+                "properties": {
+                  "modifiedDate": {
+                    "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              },
+              {
+                "title": "SourceModifiedDate",
+                "x-stoplight": {
+                  "id": "s0oihleme8suj"
+                },
+                "type": "object",
+                "properties": {
+                  "sourceModifiedDate": {
+                    "description": "The date on which this record was last modified in the originating system",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              }
             ]
           }
         ]
@@ -890,8 +2466,11 @@
             "title": "DateTime"
           },
           "authorizedDate": {
-            "$ref": "#/components/schemas/Transaction/properties/postedDate",
-            "description": "The date the bank transaction was authorized."
+            "description": "The date the bank transaction was authorized.",
+            "type": "string",
+            "example": "2022-10-23T00:00:00Z",
+            "format": "date-time",
+            "title": "DateTime"
           },
           "code": {
             "type": "string",
@@ -955,8 +2534,11 @@
                 "type": "object",
                 "properties": {
                   "modifiedDate": {
-                    "$ref": "#/components/schemas/Transaction/properties/postedDate",
-                    "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates)."
+                    "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
                   }
                 }
               },
@@ -968,8 +2550,11 @@
                 "type": "object",
                 "properties": {
                   "sourceModifiedDate": {
-                    "$ref": "#/components/schemas/Transaction/properties/postedDate",
-                    "description": "The date on which this record was last modified in the originating system"
+                    "description": "The date on which this record was last modified in the originating system",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
                   }
                 }
               }
@@ -1017,7 +2602,40 @@
         ],
         "allOf": [
           {
-            "$ref": "#/components/schemas/Transaction/allOf/0"
+            "allOf": [
+              {
+                "title": "ModifiedDate",
+                "x-stoplight": {
+                  "id": "z5gfpfg4fsp6v"
+                },
+                "type": "object",
+                "properties": {
+                  "modifiedDate": {
+                    "description": "The date on which this record was last modified in Codat. [Read more...](https://docs.codat.io/docs/modified-dates).",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              },
+              {
+                "title": "SourceModifiedDate",
+                "x-stoplight": {
+                  "id": "s0oihleme8suj"
+                },
+                "type": "object",
+                "properties": {
+                  "sourceModifiedDate": {
+                    "description": "The date on which this record was last modified in the originating system",
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "format": "date-time",
+                    "title": "DateTime"
+                  }
+                }
+              }
+            ]
           }
         ],
         "title": "Transaction Category",
