@@ -27,16 +27,16 @@
   ],
   "tags": [
     {
-      "name": "Company Management",
-      "description": "Create new &amp manage existing Sync for Commerce companies."
+      "name": "Company management",
+      "description": "Manage and create Sync for Commerce companies"
     },
     {
-      "name": "Sync Configuration",
-      "description": "Configure Sync for Commerce preferences for any given Company."
+      "name": "Sync configuration",
+      "description": "Configure Sync for Commerce Settings for a company"
     },
     {
-      "name": "Sync Data",
-      "description": "Send data to be processed & &amp transformed by Sync for Commerce."
+      "name": "Sync data",
+      "description": "Send data to be processed by Sync for Commerce"
     },
     {
       "name": "Integrations",
@@ -51,10 +51,10 @@
     "/meta/companies": {
       "get": {
         "tags": [
-          "Company Management"
+          "Company management"
         ],
-        "summary": "List Companies",
-        "description": "Retrieve a list of all Companies the client has created.",
+        "summary": "List companies",
+        "description": "Retrieve a list of all companies the client has created.",
         "operationId": "companies",
         "parameters": [
           {
@@ -296,10 +296,10 @@
     "/meta/companies/sync": {
       "post": {
         "tags": [
-          "Company Management"
+          "Company management"
         ],
         "summary": "Create a Sync for commerce company",
-        "description": "Creates a Codat Company with a commerce partner data connection.",
+        "description": "Creates a Codat company with a commerce partner data connection.",
         "operationId": "post-companies",
         "requestBody": {
           "content": {
@@ -329,8 +329,11 @@
               "application/json": {
                 "schema": {
                   "required": [
+                    "dataConnections",
                     "id",
-                    "name"
+                    "name",
+                    "platform",
+                    "redirect"
                   ],
                   "type": "object",
                   "properties": {
@@ -341,7 +344,13 @@
                     "name": {
                       "type": "string"
                     },
-                    "created": {
+                    "platform": {
+                      "type": "string"
+                    },
+                    "redirect": {
+                      "type": "string"
+                    },
+                    "lastSync": {
                       "type": "string",
                       "format": "date-time",
                       "nullable": true
@@ -422,7 +431,15 @@
                           }
                         },
                         "additionalProperties": false
-                      },
+                      }
+                    },
+                    "created": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true
+                    },
+                    "createdByUserName": {
+                      "type": "string",
                       "nullable": true
                     }
                   },
@@ -437,7 +454,7 @@
     "/meta/companies/{companyId}/connections": {
       "get": {
         "tags": [
-          "Company Management"
+          "Company management"
         ],
         "summary": "List connections",
         "description": "Retrieve previously created data connections.",
@@ -646,7 +663,7 @@
       },
       "post": {
         "tags": [
-          "Company Management"
+          "Company management"
         ],
         "summary": "Create data connection",
         "description": "Create a data connection.",
@@ -771,9 +788,9 @@
     "/meta/companies/{companyId}/sync/commerce/status": {
       "get": {
         "tags": [
-          "Sync Configuration"
+          "Sync configuration"
         ],
-        "summary": "Get Sync for Commerce Status",
+        "summary": "Get Sync for Commerce status",
         "description": "Check the sync history and status for a company.",
         "operationId": "get-company-commerce-sync-status",
         "parameters": [
@@ -1068,7 +1085,7 @@
     "/meta/companies/{companyId}/connections/{connectionId}": {
       "patch": {
         "tags": [
-          "Company Management"
+          "Company management"
         ],
         "summary": "Update data connection",
         "description": "Update a data connection",
@@ -1220,9 +1237,9 @@
     "/config/companies/{companyId}/sync/commerce": {
       "post": {
         "tags": [
-          "Sync Configuration"
+          "Sync configuration"
         ],
-        "summary": "Post Sync for Commerce settings",
+        "summary": "Update Sync for Commerce settings",
         "description": "Configure Sync for Commerce for a Company.",
         "operationId": "configure-sync",
         "parameters": [
@@ -2342,9 +2359,9 @@
       },
       "get": {
         "tags": [
-          "Sync Configuration"
+          "Sync configuration"
         ],
-        "summary": "Get options for Sync for Commerce settings",
+        "summary": "List options for Sync for Commerce settings",
         "description": "Retrieve sync options and current sync configuration for a Company",
         "operationId": "get-sync-options",
         "parameters": [
@@ -2927,7 +2944,7 @@
     "/config/sync/commerce/{commerceKey}/{accountingKey}/start": {
       "get": {
         "tags": [
-          "Sync Configuration"
+          "Sync configuration"
         ],
         "summary": "Get Sync Flow Url",
         "description": "To get a URL for Sync Flow including a one time passcode.",
@@ -2990,9 +3007,9 @@
     "/data/companies/{companyId}/sync/commerce-orders": {
       "post": {
         "tags": [
-          "Sync Data"
+          "Sync data"
         ],
-        "summary": "Create Orders Dataset",
+        "summary": "Create orders dataset",
         "description": "Create a dataset of the merchants sales",
         "operationId": "send-orders-data",
         "parameters": [
@@ -3628,9 +3645,9 @@
     "/data/companies/{companyId}/sync/commerce-payments": {
       "post": {
         "tags": [
-          "Sync Data"
+          "Sync data"
         ],
-        "summary": "Create Payments Dataset",
+        "summary": "Create payments dataset",
         "description": "Create a dataset of the merchants payments.",
         "operationId": "send-payments-data",
         "parameters": [
@@ -3848,9 +3865,9 @@
     "/data/companies/{companyId}/sync/commerce-transactions": {
       "post": {
         "tags": [
-          "Sync Data"
+          "Sync data"
         ],
-        "summary": "Create Transactions Dataset",
+        "summary": "Create transactions dataset",
         "description": "Create a dataset of the merchants transactions",
         "operationId": "send-transactions-data",
         "parameters": [
@@ -4068,9 +4085,9 @@
     "/meta/companies/{companyId}/pull/history/{datasetId}": {
       "get": {
         "tags": [
-          "Sync Data"
+          "Sync data"
         ],
-        "summary": "Check Dataset Status",
+        "summary": "Get dataset status",
         "operationId": "check-data-status",
         "description": "Check whether the dataset has been accepted and validated.",
         "parameters": [
@@ -4125,7 +4142,7 @@
         "tags": [
           "Sync"
         ],
-        "summary": "Run a Commerce sync from the last successful sync...",
+        "summary": "Sync commerce data",
         "description": "Run a Commerce sync from the last successful sync up to the date provided (optional), otherwise UtcNow is used.\r\nIf there was no previously successful sync, the start date in the config is used.",
         "operationId": "post-sync-latest",
         "parameters": [
@@ -4613,7 +4630,7 @@
   },
   "components": {
     "schemas": {
-      "Codat.Commerce.Api.Models.SyncToLatestArgs": {
+      "SyncToLatestArgs": {
         "type": "object",
         "properties": {
           "syncTo": {
@@ -4624,7 +4641,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse": {
+      "CreateSyncResponse": {
         "type": "object",
         "properties": {
           "syncDateRangeUtc": {
@@ -4767,7 +4784,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.CustomerRef": {
+      "CustomerRef": {
         "type": "object",
         "properties": {
           "id": {
@@ -4780,7 +4797,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.DiscountAllocation": {
+      "DiscountAllocation": {
         "type": "object",
         "properties": {
           "name": {
@@ -4794,7 +4811,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.LocationRef": {
+      "LocationRef": {
         "type": "object",
         "properties": {
           "id": {
@@ -4807,7 +4824,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.Order": {
+      "Order": {
         "type": "object",
         "properties": {
           "id": {
@@ -5083,7 +5100,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.OrderLineItem": {
+      "OrderLineItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -5156,7 +5173,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.OrdersDataset": {
+      "OrdersDataset": {
         "type": "object",
         "properties": {
           "orders": {
@@ -5446,7 +5463,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.OrdersDatasetSyncOperation": {
+      "OrdersDatasetSyncOperation": {
         "type": "object",
         "properties": {
           "data": {
@@ -5746,7 +5763,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.Payment": {
+      "Payment": {
         "type": "object",
         "properties": {
           "id": {
@@ -5813,7 +5830,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.PaymentRef": {
+      "PaymentRef": {
         "type": "object",
         "properties": {
           "id": {
@@ -5883,7 +5900,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.PaymentsDataset": {
+      "PaymentsDataset": {
         "type": "object",
         "properties": {
           "payments": {
@@ -5964,7 +5981,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.PaymentsDatasetSyncOperation": {
+      "PaymentsDatasetSyncOperation": {
         "type": "object",
         "properties": {
           "data": {
@@ -6055,7 +6072,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.PaymentStatus": {
+      "PaymentStatus": {
         "enum": [
           "Unknown",
           "Pending",
@@ -6066,7 +6083,7 @@
         ],
         "type": "string"
       },
-      "Codat.DataContracts.Datasets.Commerce.PaymentType": {
+      "PaymentType": {
         "enum": [
           "Unknown",
           "Cash",
@@ -6083,7 +6100,7 @@
         ],
         "type": "string"
       },
-      "Codat.DataContracts.Datasets.Commerce.PlatformTransactionType": {
+      "PlatformTransactionType": {
         "enum": [
           "Unknown",
           "Payment",
@@ -6096,7 +6113,7 @@
         ],
         "type": "string"
       },
-      "Codat.DataContracts.Datasets.Commerce.ProductRef": {
+      "ProductRef": {
         "type": "object",
         "properties": {
           "id": {
@@ -6109,7 +6126,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.ServiceCharge": {
+      "ServiceCharge": {
         "type": "object",
         "properties": {
           "description": {
@@ -6144,7 +6161,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.ServiceChargeType": {
+      "ServiceChargeType": {
         "enum": [
           "Unknown",
           "Generic",
@@ -6153,7 +6170,7 @@
         ],
         "type": "string"
       },
-      "Codat.DataContracts.Datasets.Commerce.Transaction": {
+      "Transaction": {
         "type": "object",
         "properties": {
           "id": {
@@ -6220,7 +6237,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.TransactionRefType": {
+      "TransactionRefType": {
         "enum": [
           "Unknown",
           "Fee",
@@ -6230,7 +6247,7 @@
         ],
         "type": "string"
       },
-      "Codat.DataContracts.Datasets.Commerce.TransactionsDataset": {
+      "TransactionsDataset": {
         "type": "object",
         "properties": {
           "transactions": {
@@ -6311,7 +6328,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.TransactionsDatasetSyncOperation": {
+      "TransactionsDatasetSyncOperation": {
         "type": "object",
         "properties": {
           "data": {
@@ -6402,7 +6419,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.DataContracts.Datasets.Commerce.TransactionSourceRef": {
+      "TransactionSourceRef": {
         "type": "object",
         "properties": {
           "id": {
@@ -6421,7 +6438,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.SyncDirect.Api.Models.AddCompanyModel": {
+      "AddCompanyModel": {
         "required": [
           "name"
         ],
@@ -6433,205 +6450,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.SyncDirect.Api.Models.Company": {
-        "required": [
-          "id",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "type": "string"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "dataConnections": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "integrationId",
-                "linkUrl",
-                "platformName",
-                "sourceId"
-              ],
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "integrationId": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "sourceId": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "platformName": {
-                  "type": "string"
-                },
-                "linkUrl": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "lastSync": {
-                  "type": "string",
-                  "format": "date-time",
-                  "nullable": true
-                },
-                "created": {
-                  "type": "string",
-                  "format": "date-time",
-                  "nullable": true
-                },
-                "sourceType": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "dataConnectionErrors": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "statusCode": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "statusText": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "errorMessage": {
-                        "type": "string",
-                        "nullable": true
-                      },
-                      "erroredOnUtc": {
-                        "type": "string",
-                        "format": "date-time"
-                      }
-                    },
-                    "additionalProperties": false
-                  },
-                  "nullable": true
-                }
-              },
-              "additionalProperties": false
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Codat.SyncDirect.Api.Models.DataConnection": {
-        "required": [
-          "id",
-          "integrationId",
-          "linkUrl",
-          "platformName",
-          "sourceId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "integrationId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "sourceId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "platformName": {
-            "type": "string"
-          },
-          "linkUrl": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastSync": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "sourceType": {
-            "type": "string",
-            "nullable": true
-          },
-          "dataConnectionErrors": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "statusText": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "errorMessage": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "erroredOnUtc": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              },
-              "additionalProperties": false
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Codat.SyncDirect.Api.Models.DataConnectionError": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusText": {
-            "type": "string",
-            "nullable": true
-          },
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "erroredOnUtc": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Codat.Public.Api.Models.Company.CompanyPagedResponseModel": {
+      "CompanyPagedResponseModel": {
         "type": "object",
         "properties": {
           "results": {
@@ -6818,7 +6637,7 @@
         "additionalProperties": false,
         "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
       },
-      "Codat.Public.Api.Models.Company.Company": {
+      "Company": {
         "required": [
           "dataConnections",
           "id",
@@ -6936,7 +6755,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.CompanyPagedResponseLinksModel": {
+      "CompanyPagedResponseLinksModel": {
         "type": "object",
         "properties": {
           "self": {
@@ -6982,7 +6801,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel": {
+      "CompanyPagedResponseHrefModel": {
         "type": "object",
         "properties": {
           "href": {
@@ -6992,7 +6811,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.DataConnection": {
+      "DataConnection": {
         "required": [
           "id",
           "integrationId",
@@ -7067,7 +6886,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.DataConnectionError": {
+      "DataConnectionError": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -7089,7 +6908,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.DataConnectionPagedResponseLinksModel": {
+      "DataConnectionPagedResponseLinksModel": {
         "type": "object",
         "properties": {
           "self": {
@@ -7135,7 +6954,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.DataConnectionPagedResponseModel": {
+      "DataConnectionPagedResponseModel": {
         "type": "object",
         "properties": {
           "results": {
@@ -7279,7 +7098,7 @@
         "additionalProperties": false,
         "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
       },
-      "Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel": {
+      "DataConnectionPagedResponseHrefModel": {
         "type": "object",
         "properties": {
           "href": {
@@ -7289,7 +7108,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseModel": {
+      "PlatformSourceModelPagedResponseModel": {
         "type": "object",
         "properties": {
           "results": {
@@ -7454,7 +7273,7 @@
         "additionalProperties": false,
         "description": "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
       },
-      "Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModel": {
+      "PlatformSourceModel": {
         "type": "object",
         "properties": {
           "sourceType": {
@@ -7550,7 +7369,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseLinksModel": {
+      "PlatformSourceModelPagedResponseLinksModel": {
         "type": "object",
         "properties": {
           "self": {
@@ -7596,7 +7415,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel": {
+      "PlatformSourceModelPagedResponseHrefModel": {
         "type": "object",
         "properties": {
           "href": {
@@ -7606,7 +7425,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Public.Api.Models.Company.PatchDataConnectionModel": {
+      "PatchDataConnectionModel": {
         "type": "object",
         "properties": {
           "status": {
@@ -7616,7 +7435,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Clients.Api.Client.Contract.SourceType": {
+      "SourceType": {
         "enum": [
           "Unknown",
           "Accounting",
@@ -7628,7 +7447,7 @@
         ],
         "type": "string"
       },
-      "Codat.Clients.Api.Client.Contract.IntegrationSupportedEnvironments": {
+      "IntegrationSupportedEnvironments": {
         "enum": [
           "Unknown",
           "SandboxOnly",
@@ -7637,7 +7456,7 @@
         ],
         "type": "string"
       },
-      "Codat.Clients.Api.Client.Contract.DatatypeFeatures": {
+      "DatatypeFeatures": {
         "type": "object",
         "properties": {
           "datatype": {
@@ -7665,7 +7484,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Clients.Api.Client.Contract.SupportedFeatureState": {
+      "SupportedFeatureState": {
         "type": "object",
         "properties": {
           "featureType": {
@@ -7679,7 +7498,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.AccountOption": {
+      "AccountOption": {
         "type": "object",
         "properties": {
           "name": {
@@ -7700,7 +7519,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.CompanyConfiguration": {
+      "CompanyConfiguration": {
         "type": "object",
         "properties": {
           "companyId": {
@@ -8244,7 +8063,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.ConfigAccount": {
+      "ConfigAccount": {
         "type": "object",
         "properties": {
           "labelText": {
@@ -8290,7 +8109,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Configuration": {
+      "Configuration": {
         "type": "object",
         "properties": {
           "sales": {
@@ -8785,7 +8604,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Fees": {
+      "Fees": {
         "type": "object",
         "properties": {
           "feesSupplier": {
@@ -8871,7 +8690,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.FeesSupplier": {
+      "FeesSupplier": {
         "type": "object",
         "properties": {
           "selectedSupplierId": {
@@ -8898,7 +8717,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Grouping": {
+      "Grouping": {
         "type": "object",
         "properties": {
           "groupingPeriod": {
@@ -8967,7 +8786,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.GroupingLevels": {
+      "GroupingLevels": {
         "type": "object",
         "properties": {
           "invoiceLevel": {
@@ -9013,7 +8832,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.GroupingPeriod": {
+      "GroupingPeriod": {
         "type": "object",
         "properties": {
           "selectedGroupingPeriod": {
@@ -9030,7 +8849,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.InvoiceLevelSelection": {
+      "InvoiceLevelSelection": {
         "type": "object",
         "properties": {
           "selectedGroupByOptions": {
@@ -9050,7 +8869,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.InvoiceLineLevelSelection": {
+      "InvoiceLineLevelSelection": {
         "type": "object",
         "properties": {
           "selectedGroupByOptions": {
@@ -9070,7 +8889,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.InvoiceStatus": {
+      "InvoiceStatus": {
         "type": "object",
         "properties": {
           "selectedInvoiceStatus": {
@@ -9087,7 +8906,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.NewPayments": {
+      "NewPayments": {
         "type": "object",
         "properties": {
           "syncPayments": {
@@ -9146,7 +8965,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.NewTaxRates": {
+      "NewTaxRates": {
         "type": "object",
         "properties": {
           "accountingTaxRateOptions": {
@@ -9228,7 +9047,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Option": {
+      "Option": {
         "type": "object",
         "properties": {
           "name": {
@@ -9241,7 +9060,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Payments": {
+      "Payments": {
         "type": "object",
         "properties": {
           "syncPayments": {
@@ -9300,7 +9119,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Sales": {
+      "Sales": {
         "type": "object",
         "properties": {
           "syncSales": {
@@ -9585,7 +9404,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.SalesCustomer": {
+      "SalesCustomer": {
         "type": "object",
         "properties": {
           "selectedCustomerId": {
@@ -9612,7 +9431,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.Schedule": {
+      "Schedule": {
         "type": "object",
         "properties": {
           "selectedFrequency": {
@@ -9641,7 +9460,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.TaxRateAmount": {
+      "TaxRateAmount": {
         "type": "object",
         "properties": {
           "selectedTaxRateId": {
@@ -9668,7 +9487,7 @@
         },
         "additionalProperties": false
       },
-      "Codat.Commerce.DataContracts.Config.TaxRateMapping": {
+      "TaxRateMapping": {
         "type": "object",
         "properties": {
           "selectedCommerceTaxRateIds": {

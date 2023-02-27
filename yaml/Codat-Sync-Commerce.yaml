@@ -18,12 +18,12 @@ info:
 security:
   - API_Key: []
 tags:
-  - name: Company Management
-    description: Create new &amp manage existing Sync for Commerce companies.
-  - name: Sync Configuration
-    description: Configure Sync for Commerce preferences for any given Company.
-  - name: Sync Data
-    description: Send data to be processed & &amp transformed by Sync for Commerce.
+  - name: Company management
+    description: Manage and create Sync for Commerce companies
+  - name: Sync configuration
+    description: Configure Sync for Commerce Settings for a company
+  - name: Sync data
+    description: Send data to be processed by Sync for Commerce
   - name: Integrations
     description: View useful information about Codat's integrations.
   - name: Sync
@@ -32,9 +32,9 @@ paths:
   /meta/companies:
     get:
       tags:
-        - Company Management
-      summary: List Companies
-      description: Retrieve a list of all Companies the client has created.
+        - Company management
+      summary: List companies
+      description: Retrieve a list of all companies the client has created.
       operationId: companies
       parameters:
         - name: page
@@ -207,9 +207,9 @@ paths:
   /meta/companies/sync:
     post:
       tags:
-        - Company Management
+        - Company management
       summary: Create a Sync for commerce company
-      description: Creates a Codat Company with a commerce partner data connection.
+      description: Creates a Codat company with a commerce partner data connection.
       operationId: post-companies
       requestBody:
         content:
@@ -231,8 +231,11 @@ paths:
             application/json:
               schema:
                 required:
+                  - dataConnections
                   - id
                   - name
+                  - platform
+                  - redirect
                 type: object
                 properties:
                   id:
@@ -240,7 +243,11 @@ paths:
                     format: uuid
                   name:
                     type: string
-                  created:
+                  platform:
+                    type: string
+                  redirect:
+                    type: string
+                  lastSync:
                     type: string
                     format: date-time
                     nullable: true
@@ -302,12 +309,18 @@ paths:
                             additionalProperties: false
                           nullable: true
                       additionalProperties: false
+                  created:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  createdByUserName:
+                    type: string
                     nullable: true
                 additionalProperties: false
   '/meta/companies/{companyId}/connections':
     get:
       tags:
-        - Company Management
+        - Company management
       summary: List connections
       description: Retrieve previously created data connections.
       operationId: get-dataconnections
@@ -455,7 +468,7 @@ paths:
                 description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
     post:
       tags:
-        - Company Management
+        - Company management
       summary: Create data connection
       description: Create a data connection.
       operationId: add-data-connection
@@ -542,8 +555,8 @@ paths:
   '/meta/companies/{companyId}/sync/commerce/status':
     get:
       tags:
-        - Sync Configuration
-      summary: Get Sync for Commerce Status
+        - Sync configuration
+      summary: Get Sync for Commerce status
       description: Check the sync history and status for a company.
       operationId: get-company-commerce-sync-status
       parameters:
@@ -748,7 +761,7 @@ paths:
   '/meta/companies/{companyId}/connections/{connectionId}':
     patch:
       tags:
-        - Company Management
+        - Company management
       summary: Update data connection
       description: Update a data connection
       operationId: update-data-connection
@@ -854,8 +867,8 @@ paths:
   '/config/companies/{companyId}/sync/commerce':
     post:
       tags:
-        - Sync Configuration
-      summary: Post Sync for Commerce settings
+        - Sync configuration
+      summary: Update Sync for Commerce settings
       description: Configure Sync for Commerce for a Company.
       operationId: configure-sync
       parameters:
@@ -1645,8 +1658,8 @@ paths:
                 additionalProperties: false
     get:
       tags:
-        - Sync Configuration
-      summary: Get options for Sync for Commerce settings
+        - Sync configuration
+      summary: List options for Sync for Commerce settings
       description: Retrieve sync options and current sync configuration for a Company
       operationId: get-sync-options
       parameters:
@@ -2056,7 +2069,7 @@ paths:
   '/config/sync/commerce/{commerceKey}/{accountingKey}/start':
     get:
       tags:
-        - Sync Configuration
+        - Sync configuration
       summary: Get Sync Flow Url
       description: To get a URL for Sync Flow including a one time passcode.
       operationId: get-sync-flow-url
@@ -2097,8 +2110,8 @@ paths:
   '/data/companies/{companyId}/sync/commerce-orders':
     post:
       tags:
-        - Sync Data
-      summary: Create Orders Dataset
+        - Sync data
+      summary: Create orders dataset
       description: Create a dataset of the merchants sales
       operationId: send-orders-data
       parameters:
@@ -2566,8 +2579,8 @@ paths:
   '/data/companies/{companyId}/sync/commerce-payments':
     post:
       tags:
-        - Sync Data
-      summary: Create Payments Dataset
+        - Sync data
+      summary: Create payments dataset
       description: Create a dataset of the merchants payments.
       operationId: send-payments-data
       parameters:
@@ -2729,8 +2742,8 @@ paths:
   '/data/companies/{companyId}/sync/commerce-transactions':
     post:
       tags:
-        - Sync Data
-      summary: Create Transactions Dataset
+        - Sync data
+      summary: Create transactions dataset
       description: Create a dataset of the merchants transactions
       operationId: send-transactions-data
       parameters:
@@ -2888,8 +2901,8 @@ paths:
   '/meta/companies/{companyId}/pull/history/{datasetId}':
     get:
       tags:
-        - Sync Data
-      summary: Check Dataset Status
+        - Sync data
+      summary: Get dataset status
       operationId: check-data-status
       description: Check whether the dataset has been accepted and validated.
       parameters:
@@ -2925,7 +2938,7 @@ paths:
     post:
       tags:
         - Sync
-      summary: Run a Commerce sync from the last successful sync...
+      summary: Sync commerce data
       description: "Run a Commerce sync from the last successful sync up to the date provided (optional), otherwise UtcNow is used.\r\nIf there was no previously successful sync, the start date in the config is used."
       operationId: post-sync-latest
       parameters:
@@ -3276,7 +3289,7 @@ paths:
         description: Unique identifier for your SMB in Codat.
 components:
   schemas:
-    Codat.Commerce.Api.Models.SyncToLatestArgs:
+    SyncToLatestArgs:
       type: object
       properties:
         syncTo:
@@ -3284,7 +3297,7 @@ components:
           format: date-time
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Models.Commerce.Sync.CreateSyncResponse:
+    CreateSyncResponse:
       type: object
       properties:
         syncDateRangeUtc:
@@ -3389,7 +3402,7 @@ components:
           type: string
           format: date-time
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.CustomerRef:
+    CustomerRef:
       type: object
       properties:
         id:
@@ -3398,7 +3411,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.DiscountAllocation:
+    DiscountAllocation:
       type: object
       properties:
         name:
@@ -3408,7 +3421,7 @@ components:
           type: number
           format: double
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.LocationRef:
+    LocationRef:
       type: object
       properties:
         id:
@@ -3417,7 +3430,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.Order:
+    Order:
       type: object
       properties:
         id:
@@ -3623,7 +3636,7 @@ components:
           format: date-time
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.OrderLineItem:
+    OrderLineItem:
       type: object
       properties:
         id:
@@ -3675,7 +3688,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.OrdersDataset:
+    OrdersDataset:
       type: object
       properties:
         orders:
@@ -3891,7 +3904,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.OrdersDatasetSyncOperation:
+    OrdersDatasetSyncOperation:
       type: object
       properties:
         data:
@@ -4114,7 +4127,7 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.Payment:
+    Payment:
       type: object
       properties:
         id:
@@ -4167,7 +4180,7 @@ components:
           format: date-time
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.PaymentRef:
+    PaymentRef:
       type: object
       properties:
         id:
@@ -4223,7 +4236,7 @@ components:
           format: date-time
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.PaymentsDataset:
+    PaymentsDataset:
       type: object
       properties:
         payments:
@@ -4286,7 +4299,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.PaymentsDatasetSyncOperation:
+    PaymentsDatasetSyncOperation:
       type: object
       properties:
         data:
@@ -4356,7 +4369,7 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.PaymentStatus:
+    PaymentStatus:
       enum:
         - Unknown
         - Pending
@@ -4365,7 +4378,7 @@ components:
         - Failed
         - Cancelled
       type: string
-    Codat.DataContracts.Datasets.Commerce.PaymentType:
+    PaymentType:
       enum:
         - Unknown
         - Cash
@@ -4380,7 +4393,7 @@ components:
         - Custom
         - Prepaid
       type: string
-    Codat.DataContracts.Datasets.Commerce.PlatformTransactionType:
+    PlatformTransactionType:
       enum:
         - Unknown
         - Payment
@@ -4391,7 +4404,7 @@ components:
         - PaymentFee
         - PaymentFeeRefund
       type: string
-    Codat.DataContracts.Datasets.Commerce.ProductRef:
+    ProductRef:
       type: object
       properties:
         id:
@@ -4400,7 +4413,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.ServiceCharge:
+    ServiceCharge:
       type: object
       properties:
         description:
@@ -4426,14 +4439,14 @@ components:
             - Overpayment
           type: string
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.ServiceChargeType:
+    ServiceChargeType:
       enum:
         - Unknown
         - Generic
         - Shipping
         - Overpayment
       type: string
-    Codat.DataContracts.Datasets.Commerce.Transaction:
+    Transaction:
       type: object
       properties:
         id:
@@ -4484,7 +4497,7 @@ components:
           format: date-time
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.TransactionRefType:
+    TransactionRefType:
       enum:
         - Unknown
         - Fee
@@ -4492,7 +4505,7 @@ components:
         - Payment
         - ServiceCharge
       type: string
-    Codat.DataContracts.Datasets.Commerce.TransactionsDataset:
+    TransactionsDataset:
       type: object
       properties:
         transactions:
@@ -4553,7 +4566,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.TransactionsDatasetSyncOperation:
+    TransactionsDatasetSyncOperation:
       type: object
       properties:
         data:
@@ -4621,7 +4634,7 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    Codat.DataContracts.Datasets.Commerce.TransactionSourceRef:
+    TransactionSourceRef:
       type: object
       properties:
         id:
@@ -4635,7 +4648,7 @@ components:
             - ServiceCharge
           type: string
       additionalProperties: false
-    Codat.SyncDirect.Api.Models.AddCompanyModel:
+    AddCompanyModel:
       required:
         - name
       type: object
@@ -4643,154 +4656,7 @@ components:
         name:
           type: string
       additionalProperties: false
-    Codat.SyncDirect.Api.Models.Company:
-      required:
-        - id
-        - name
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        created:
-          type: string
-          format: date-time
-          nullable: true
-        dataConnections:
-          type: array
-          items:
-            required:
-              - id
-              - integrationId
-              - linkUrl
-              - platformName
-              - sourceId
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-              integrationId:
-                type: string
-                format: uuid
-              sourceId:
-                type: string
-                format: uuid
-              platformName:
-                type: string
-              linkUrl:
-                type: string
-              status:
-                type: string
-                nullable: true
-              lastSync:
-                type: string
-                format: date-time
-                nullable: true
-              created:
-                type: string
-                format: date-time
-                nullable: true
-              sourceType:
-                type: string
-                nullable: true
-              dataConnectionErrors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    statusCode:
-                      type: string
-                      nullable: true
-                    statusText:
-                      type: string
-                      nullable: true
-                    errorMessage:
-                      type: string
-                      nullable: true
-                    erroredOnUtc:
-                      type: string
-                      format: date-time
-                  additionalProperties: false
-                nullable: true
-            additionalProperties: false
-          nullable: true
-      additionalProperties: false
-    Codat.SyncDirect.Api.Models.DataConnection:
-      required:
-        - id
-        - integrationId
-        - linkUrl
-        - platformName
-        - sourceId
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        integrationId:
-          type: string
-          format: uuid
-        sourceId:
-          type: string
-          format: uuid
-        platformName:
-          type: string
-        linkUrl:
-          type: string
-        status:
-          type: string
-          nullable: true
-        lastSync:
-          type: string
-          format: date-time
-          nullable: true
-        created:
-          type: string
-          format: date-time
-          nullable: true
-        sourceType:
-          type: string
-          nullable: true
-        dataConnectionErrors:
-          type: array
-          items:
-            type: object
-            properties:
-              statusCode:
-                type: string
-                nullable: true
-              statusText:
-                type: string
-                nullable: true
-              errorMessage:
-                type: string
-                nullable: true
-              erroredOnUtc:
-                type: string
-                format: date-time
-            additionalProperties: false
-          nullable: true
-      additionalProperties: false
-    Codat.SyncDirect.Api.Models.DataConnectionError:
-      type: object
-      properties:
-        statusCode:
-          type: string
-          nullable: true
-        statusText:
-          type: string
-          nullable: true
-        errorMessage:
-          type: string
-          nullable: true
-        erroredOnUtc:
-          type: string
-          format: date-time
-      additionalProperties: false
-    Codat.Public.Api.Models.Company.CompanyPagedResponseModel:
+    CompanyPagedResponseModel:
       type: object
       properties:
         results:
@@ -4927,7 +4793,7 @@ components:
           additionalProperties: false
       additionalProperties: false
       description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
-    Codat.Public.Api.Models.Company.Company:
+    Company:
       required:
         - dataConnections
         - id
@@ -5015,7 +4881,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.Company.CompanyPagedResponseLinksModel:
+    CompanyPagedResponseLinksModel:
       type: object
       properties:
         self:
@@ -5047,14 +4913,14 @@ components:
               nullable: true
           additionalProperties: false
       additionalProperties: false
-    Codat.Public.Api.Models.Company.CompanyPagedResponseHrefModel:
+    CompanyPagedResponseHrefModel:
       type: object
       properties:
         href:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.Company.DataConnection:
+    DataConnection:
       required:
         - id
         - integrationId
@@ -5110,7 +4976,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.Company.DataConnectionError:
+    DataConnectionError:
       type: object
       properties:
         statusCode:
@@ -5126,7 +4992,7 @@ components:
           type: string
           format: date-time
       additionalProperties: false
-    Codat.Public.Api.Models.Company.DataConnectionPagedResponseLinksModel:
+    DataConnectionPagedResponseLinksModel:
       type: object
       properties:
         self:
@@ -5158,7 +5024,7 @@ components:
               nullable: true
           additionalProperties: false
       additionalProperties: false
-    Codat.Public.Api.Models.Company.DataConnectionPagedResponseModel:
+    DataConnectionPagedResponseModel:
       type: object
       properties:
         results:
@@ -5263,14 +5129,14 @@ components:
           additionalProperties: false
       additionalProperties: false
       description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
-    Codat.Public.Api.Models.Company.DataConnectionPagedResponseHrefModel:
+    DataConnectionPagedResponseHrefModel:
       type: object
       properties:
         href:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseModel:
+    PlatformSourceModelPagedResponseModel:
       type: object
       properties:
         results:
@@ -5390,7 +5256,7 @@ components:
           additionalProperties: false
       additionalProperties: false
       description: "Used to represent what can be returned by an endpoint that supports paging.\r\nUsable with the [ProducesResponseType] attribute on a controller action."
-    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModel:
+    PlatformSourceModel:
       type: object
       properties:
         sourceType:
@@ -5461,7 +5327,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseLinksModel:
+    PlatformSourceModelPagedResponseLinksModel:
       type: object
       properties:
         self:
@@ -5493,21 +5359,21 @@ components:
               nullable: true
           additionalProperties: false
       additionalProperties: false
-    Codat.Public.Api.Models.PlatformCredentials.PlatformSourceModelPagedResponseHrefModel:
+    PlatformSourceModelPagedResponseHrefModel:
       type: object
       properties:
         href:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Public.Api.Models.Company.PatchDataConnectionModel:
+    PatchDataConnectionModel:
       type: object
       properties:
         status:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Clients.Api.Client.Contract.SourceType:
+    SourceType:
       enum:
         - Unknown
         - Accounting
@@ -5517,14 +5383,14 @@ components:
         - Expense
         - Other
       type: string
-    Codat.Clients.Api.Client.Contract.IntegrationSupportedEnvironments:
+    IntegrationSupportedEnvironments:
       enum:
         - Unknown
         - SandboxOnly
         - LiveOnly
         - LiveAndSandbox
       type: string
-    Codat.Clients.Api.Client.Contract.DatatypeFeatures:
+    DatatypeFeatures:
       type: object
       properties:
         datatype:
@@ -5544,7 +5410,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Clients.Api.Client.Contract.SupportedFeatureState:
+    SupportedFeatureState:
       type: object
       properties:
         featureType:
@@ -5554,7 +5420,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.AccountOption:
+    AccountOption:
       type: object
       properties:
         name:
@@ -5569,7 +5435,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.CompanyConfiguration:
+    CompanyConfiguration:
       type: object
       properties:
         companyId:
@@ -5954,7 +5820,7 @@ components:
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.ConfigAccount:
+    ConfigAccount:
       type: object
       properties:
         labelText:
@@ -5987,7 +5853,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Configuration:
+    Configuration:
       type: object
       properties:
         sales:
@@ -6337,7 +6203,7 @@ components:
               nullable: true
           additionalProperties: false
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Fees:
+    Fees:
       type: object
       properties:
         feesSupplier:
@@ -6398,7 +6264,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.FeesSupplier:
+    FeesSupplier:
       type: object
       properties:
         selectedSupplierId:
@@ -6417,7 +6283,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Grouping:
+    Grouping:
       type: object
       properties:
         groupingPeriod:
@@ -6465,7 +6331,7 @@ components:
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.GroupingLevels:
+    GroupingLevels:
       type: object
       properties:
         invoiceLevel:
@@ -6497,7 +6363,7 @@ components:
               nullable: true
           additionalProperties: false
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.GroupingPeriod:
+    GroupingPeriod:
       type: object
       properties:
         selectedGroupingPeriod:
@@ -6509,7 +6375,7 @@ components:
             type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.InvoiceLevelSelection:
+    InvoiceLevelSelection:
       type: object
       properties:
         selectedGroupByOptions:
@@ -6523,7 +6389,7 @@ components:
             type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.InvoiceLineLevelSelection:
+    InvoiceLineLevelSelection:
       type: object
       properties:
         selectedGroupByOptions:
@@ -6537,7 +6403,7 @@ components:
             type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.InvoiceStatus:
+    InvoiceStatus:
       type: object
       properties:
         selectedInvoiceStatus:
@@ -6549,7 +6415,7 @@ components:
             type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.NewPayments:
+    NewPayments:
       type: object
       properties:
         syncPayments:
@@ -6591,7 +6457,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.NewTaxRates:
+    NewTaxRates:
       type: object
       properties:
         accountingTaxRateOptions:
@@ -6649,7 +6515,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Option:
+    Option:
       type: object
       properties:
         name:
@@ -6658,7 +6524,7 @@ components:
         id:
           type: string
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Payments:
+    Payments:
       type: object
       properties:
         syncPayments:
@@ -6700,7 +6566,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Sales:
+    Sales:
       type: object
       properties:
         syncSales:
@@ -6901,7 +6767,7 @@ components:
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.SalesCustomer:
+    SalesCustomer:
       type: object
       properties:
         selectedCustomerId:
@@ -6920,7 +6786,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.Schedule:
+    Schedule:
       type: object
       properties:
         selectedFrequency:
@@ -6941,7 +6807,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.TaxRateAmount:
+    TaxRateAmount:
       type: object
       properties:
         selectedTaxRateId:
@@ -6960,7 +6826,7 @@ components:
             additionalProperties: false
           nullable: true
       additionalProperties: false
-    Codat.Commerce.DataContracts.Config.TaxRateMapping:
+    TaxRateMapping:
       type: object
       properties:
         selectedCommerceTaxRateIds:
