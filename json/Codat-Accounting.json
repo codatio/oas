@@ -124,6 +124,10 @@
     {
       "name": "Transfers",
       "description": "Transfers"
+    },
+    {
+      "name": "Reports",
+      "description": "Reports"
     }
   ],
   "paths": {
@@ -49035,6 +49039,500 @@
         "description": "Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.",
         "operationId": "list-bank-transactions"
       }
+    },
+    "/companies/{companyId}/reports/agedDebtor/available": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Aged debtors report available",
+        "description": "Indicates whether the aged debtor report is available for the company.",
+        "operationId": "is-aged-debtor-report-available",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{companyId}/reports/agedDebtor": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "reportDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2022-12-31"
+            },
+            "description": "Date the report is generated up to."
+          },
+          {
+            "name": "numberOfPeriods",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 12
+            },
+            "description": "Number of periods to include in the report."
+          },
+          {
+            "name": "periodLengthDays",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 30
+            },
+            "description": "The length of period in days."
+          }
+        ],
+        "summary": "Aged debtors report",
+        "description": "Returns aged debtors report for company.",
+        "operationId": "get-aged-debtors-report",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Aged debtors report",
+                  "properties": {
+                    "generated": {
+                      "description": "Date and time the report was generated.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "reportDate": {
+                      "description": "Date the report is generated up to.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Array of aged debtors.",
+                      "items": {
+                        "type": "object",
+                        "title": "Aged debtor",
+                        "properties": {
+                          "customerId": {
+                            "type": "string",
+                            "description": "Customer ID of the aged debtor.",
+                            "example": "f594cefb-7750-4c3a-bab2-b5322026dee9"
+                          },
+                          "customerName": {
+                            "type": "string",
+                            "description": "Customer name of the aged debtor.",
+                            "example": "John Doe"
+                          },
+                          "agedCurrencyOutstanding": {
+                            "type": "array",
+                            "description": "Array of aged credits by currency.",
+                            "items": {
+                              "type": "object",
+                              "title": "Aged currency outstanding",
+                              "properties": {
+                                "currency": {
+                                  "title": "Currency",
+                                  "x-stoplight": {
+                                    "id": "8ljuulqyuc5l4"
+                                  },
+                                  "type": "string",
+                                  "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                  "format": "ISO4217",
+                                  "examples": [
+                                    "GBP",
+                                    "USD",
+                                    "EUR"
+                                  ]
+                                },
+                                "agedOutstandingAmounts": {
+                                  "type": "array",
+                                  "description": "Array of outstanding amounts by period.",
+                                  "items": {
+                                    "type": "object",
+                                    "title": "Aged outstanding amount",
+                                    "properties": {
+                                      "fromDate": {
+                                        "description": "Start date of period.",
+                                        "type": "string",
+                                        "example": "2022-10-23T00:00:00Z",
+                                        "format": "date-time",
+                                        "title": "DateTime"
+                                      },
+                                      "toDate": {
+                                        "description": "End date of period.",
+                                        "type": "string",
+                                        "example": "2022-10-23T00:00:00Z",
+                                        "format": "date-time",
+                                        "title": "DateTime"
+                                      },
+                                      "amount": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "description": "The amount outstanding."
+                                      },
+                                      "details": {
+                                        "type": "array",
+                                        "description": "Array of details.",
+                                        "items": {
+                                          "type": "object",
+                                          "title": "Amounts outstanding by data type",
+                                          "properties": {
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Name of data type with outstanding amount for given period."
+                                            },
+                                            "amount": {
+                                              "type": "number",
+                                              "format": "double",
+                                              "description": "The amount outstanding."
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "examples": [
+                    {
+                      "generated": "2022-10-23T00:00:00Z",
+                      "reportDate": "2022-10-23T00:00:00Z",
+                      "data": [
+                        {
+                          "customerId": "f594cefb-7750-4c3a-bab2-b5322026dee9",
+                          "customerName": "John Doe",
+                          "agedCurrencyOutstanding": [
+                            {
+                              "currency": "GBP",
+                              "agedOutstandingAmounts": [
+                                {
+                                  "fromDate": "2022-10-01T00:00:00Z",
+                                  "toDate": "2022-10-31T00:00:00Z",
+                                  "amount": 1547.5,
+                                  "details": [
+                                    {
+                                      "name": "Invoices",
+                                      "amount": 1547.5
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{companyId}/reports/agedCreditor/available": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Aged creditors report available",
+        "description": "Indicates whether the aged creditor report is available for the company.",
+        "operationId": "is-aged-creditors-report-available",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{companyId}/reports/agedCreditor": {
+      "parameters": [
+        {
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "x-stoplight": {
+            "id": "l1juboychi4p9"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "reportDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2022-12-31"
+            },
+            "description": "Date the report is generated up to."
+          },
+          {
+            "name": "numberOfPeriods",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 12
+            },
+            "description": "Number of periods to include in the report."
+          },
+          {
+            "name": "periodLengthDays",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 30
+            },
+            "description": "The length of period in days."
+          }
+        ],
+        "summary": "Aged creditors report",
+        "description": "Returns aged creditors report for company",
+        "operationId": "get-aged-creditors-report",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Aged creditors report",
+                  "properties": {
+                    "generated": {
+                      "description": "Date and time the report was generated.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "reportDate": {
+                      "description": "Date the report is generated up to.",
+                      "type": "string",
+                      "example": "2022-10-23T00:00:00Z",
+                      "format": "date-time",
+                      "title": "DateTime"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Array of aged debtors.",
+                      "items": {
+                        "type": "object",
+                        "title": "Aged creditor",
+                        "properties": {
+                          "supplierId": {
+                            "type": "string",
+                            "description": "Supplier ID of the aged creditor.",
+                            "example": "f594cefb-7750-4c3a-bab2-b5322026dee9"
+                          },
+                          "supplierName": {
+                            "type": "string",
+                            "description": "Supplier name of the aged creditor.",
+                            "example": "John Doe"
+                          },
+                          "agedCurrencyOutstanding": {
+                            "type": "array",
+                            "description": "Array of aged credits by currency.",
+                            "items": {
+                              "type": "object",
+                              "title": "Aged currency outstanding",
+                              "properties": {
+                                "currency": {
+                                  "title": "Currency",
+                                  "x-stoplight": {
+                                    "id": "8ljuulqyuc5l4"
+                                  },
+                                  "type": "string",
+                                  "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                  "format": "ISO4217",
+                                  "examples": [
+                                    "GBP",
+                                    "USD",
+                                    "EUR"
+                                  ]
+                                },
+                                "agedOutstandingAmounts": {
+                                  "type": "array",
+                                  "description": "Array of outstanding amounts by period.",
+                                  "items": {
+                                    "type": "object",
+                                    "title": "Aged outstanding amount",
+                                    "properties": {
+                                      "fromDate": {
+                                        "description": "Start date of period.",
+                                        "type": "string",
+                                        "example": "2022-10-23T00:00:00Z",
+                                        "format": "date-time",
+                                        "title": "DateTime"
+                                      },
+                                      "toDate": {
+                                        "description": "End date of period.",
+                                        "type": "string",
+                                        "example": "2022-10-23T00:00:00Z",
+                                        "format": "date-time",
+                                        "title": "DateTime"
+                                      },
+                                      "amount": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "description": "The amount outstanding."
+                                      },
+                                      "details": {
+                                        "type": "array",
+                                        "description": "Array of details.",
+                                        "items": {
+                                          "type": "object",
+                                          "title": "Amounts outstanding by data type",
+                                          "properties": {
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Name of data type with outstanding amount for given period."
+                                            },
+                                            "amount": {
+                                              "type": "number",
+                                              "format": "double",
+                                              "description": "The amount outstanding."
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "examples": [
+                    {
+                      "generated": "2022-10-23T00:00:00Z",
+                      "reportDate": "2022-10-23T00:00:00Z",
+                      "data": [
+                        {
+                          "customerId": "f594cefb-7750-4c3a-bab2-b5322026dee9",
+                          "customerName": "John Doe",
+                          "agedCurrencyOutstanding": [
+                            {
+                              "currency": "GBP",
+                              "agedOutstandingAmounts": [
+                                {
+                                  "fromDate": "2022-10-01T00:00:00Z",
+                                  "toDate": "2022-10-31T00:00:00Z",
+                                  "amount": 1547.5,
+                                  "details": [
+                                    {
+                                      "name": "Bills",
+                                      "amount": 1547.5
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -59008,6 +59506,290 @@
           "reportBasis",
           "currency"
         ]
+      },
+      "AgedDebtorReport": {
+        "type": "object",
+        "title": "Aged debtors report",
+        "properties": {
+          "generated": {
+            "description": "Date and time the report was generated.",
+            "type": "string",
+            "example": "2022-10-23T00:00:00Z",
+            "format": "date-time",
+            "title": "DateTime"
+          },
+          "reportDate": {
+            "description": "Date the report is generated up to.",
+            "type": "string",
+            "example": "2022-10-23T00:00:00Z",
+            "format": "date-time",
+            "title": "DateTime"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of aged debtors.",
+            "items": {
+              "type": "object",
+              "title": "Aged debtor",
+              "properties": {
+                "customerId": {
+                  "type": "string",
+                  "description": "Customer ID of the aged debtor.",
+                  "example": "f594cefb-7750-4c3a-bab2-b5322026dee9"
+                },
+                "customerName": {
+                  "type": "string",
+                  "description": "Customer name of the aged debtor.",
+                  "example": "John Doe"
+                },
+                "agedCurrencyOutstanding": {
+                  "type": "array",
+                  "description": "Array of aged credits by currency.",
+                  "items": {
+                    "type": "object",
+                    "title": "Aged currency outstanding",
+                    "properties": {
+                      "currency": {
+                        "title": "Currency",
+                        "x-stoplight": {
+                          "id": "8ljuulqyuc5l4"
+                        },
+                        "type": "string",
+                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                        "format": "ISO4217",
+                        "examples": [
+                          "GBP",
+                          "USD",
+                          "EUR"
+                        ]
+                      },
+                      "agedOutstandingAmounts": {
+                        "type": "array",
+                        "description": "Array of outstanding amounts by period.",
+                        "items": {
+                          "type": "object",
+                          "title": "Aged outstanding amount",
+                          "properties": {
+                            "fromDate": {
+                              "description": "Start date of period.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "toDate": {
+                              "description": "End date of period.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "amount": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "The amount outstanding."
+                            },
+                            "details": {
+                              "type": "array",
+                              "description": "Array of details.",
+                              "items": {
+                                "type": "object",
+                                "title": "Amounts outstanding by data type",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Name of data type with outstanding amount for given period."
+                                  },
+                                  "amount": {
+                                    "type": "number",
+                                    "format": "double",
+                                    "description": "The amount outstanding."
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "generated": "2022-10-23T00:00:00Z",
+            "reportDate": "2022-10-23T00:00:00Z",
+            "data": [
+              {
+                "customerId": "f594cefb-7750-4c3a-bab2-b5322026dee9",
+                "customerName": "John Doe",
+                "agedCurrencyOutstanding": [
+                  {
+                    "currency": "GBP",
+                    "agedOutstandingAmounts": [
+                      {
+                        "fromDate": "2022-10-01T00:00:00Z",
+                        "toDate": "2022-10-31T00:00:00Z",
+                        "amount": 1547.5,
+                        "details": [
+                          {
+                            "name": "Invoices",
+                            "amount": 1547.5
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "AgedCreditorReport": {
+        "type": "object",
+        "title": "Aged creditors report",
+        "properties": {
+          "generated": {
+            "description": "Date and time the report was generated.",
+            "type": "string",
+            "example": "2022-10-23T00:00:00Z",
+            "format": "date-time",
+            "title": "DateTime"
+          },
+          "reportDate": {
+            "description": "Date the report is generated up to.",
+            "type": "string",
+            "example": "2022-10-23T00:00:00Z",
+            "format": "date-time",
+            "title": "DateTime"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of aged debtors.",
+            "items": {
+              "type": "object",
+              "title": "Aged creditor",
+              "properties": {
+                "supplierId": {
+                  "type": "string",
+                  "description": "Supplier ID of the aged creditor.",
+                  "example": "f594cefb-7750-4c3a-bab2-b5322026dee9"
+                },
+                "supplierName": {
+                  "type": "string",
+                  "description": "Supplier name of the aged creditor.",
+                  "example": "John Doe"
+                },
+                "agedCurrencyOutstanding": {
+                  "type": "array",
+                  "description": "Array of aged credits by currency.",
+                  "items": {
+                    "type": "object",
+                    "title": "Aged currency outstanding",
+                    "properties": {
+                      "currency": {
+                        "title": "Currency",
+                        "x-stoplight": {
+                          "id": "8ljuulqyuc5l4"
+                        },
+                        "type": "string",
+                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                        "format": "ISO4217",
+                        "examples": [
+                          "GBP",
+                          "USD",
+                          "EUR"
+                        ]
+                      },
+                      "agedOutstandingAmounts": {
+                        "type": "array",
+                        "description": "Array of outstanding amounts by period.",
+                        "items": {
+                          "type": "object",
+                          "title": "Aged outstanding amount",
+                          "properties": {
+                            "fromDate": {
+                              "description": "Start date of period.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "toDate": {
+                              "description": "End date of period.",
+                              "type": "string",
+                              "example": "2022-10-23T00:00:00Z",
+                              "format": "date-time",
+                              "title": "DateTime"
+                            },
+                            "amount": {
+                              "type": "number",
+                              "format": "double",
+                              "description": "The amount outstanding."
+                            },
+                            "details": {
+                              "type": "array",
+                              "description": "Array of details.",
+                              "items": {
+                                "type": "object",
+                                "title": "Amounts outstanding by data type",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Name of data type with outstanding amount for given period."
+                                  },
+                                  "amount": {
+                                    "type": "number",
+                                    "format": "double",
+                                    "description": "The amount outstanding."
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "generated": "2022-10-23T00:00:00Z",
+            "reportDate": "2022-10-23T00:00:00Z",
+            "data": [
+              {
+                "customerId": "f594cefb-7750-4c3a-bab2-b5322026dee9",
+                "customerName": "John Doe",
+                "agedCurrencyOutstanding": [
+                  {
+                    "currency": "GBP",
+                    "agedOutstandingAmounts": [
+                      {
+                        "fromDate": "2022-10-01T00:00:00Z",
+                        "toDate": "2022-10-31T00:00:00Z",
+                        "amount": 1547.5,
+                        "details": [
+                          {
+                            "name": "Bills",
+                            "amount": 1547.5
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     },
     "parameters": {
@@ -59121,6 +59903,36 @@
           "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
         },
         "description": "Unique identifier for a direct income"
+      },
+      "reportDate": {
+        "name": "reportDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2022-12-31"
+        },
+        "description": "Date the report is generated up to."
+      },
+      "numberOfPeriods": {
+        "name": "numberOfPeriods",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12
+        },
+        "description": "Number of periods to include in the report."
+      },
+      "periodLengthDays": {
+        "name": "periodLengthDays",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "example": 30
+        },
+        "description": "The length of period in days."
       }
     },
     "securitySchemes": {
