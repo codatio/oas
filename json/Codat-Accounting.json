@@ -1312,7 +1312,8 @@
           }
         ],
         "description": "Gets a single account corresponding to the supplied Id",
-        "operationId": "get-account"
+        "operationId": "get-account",
+        "deprecated": true
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/accounts": {
@@ -20066,7 +20067,7 @@
         "tags": [
           "Direct costs"
         ],
-        "summary": "List directCosts",
+        "summary": "List direct costs",
         "parameters": [
           {
             "name": "page",
@@ -20720,7 +20721,7 @@
         "tags": [
           "Direct costs"
         ],
-        "summary": "Get directCost",
+        "summary": "Get direct cost",
         "responses": {
           "200": {
             "description": "Success",
@@ -22370,7 +22371,7 @@
         "tags": [
           "Direct costs"
         ],
-        "summary": "Get directCost attachment",
+        "summary": "Get direct cost attachment",
         "parameters": [
           {
             "name": "attachmentId",
@@ -25021,7 +25022,7 @@
         "tags": [
           "Direct incomes"
         ],
-        "summary": "Download directIncome attachment",
+        "summary": "Download direct income attachment",
         "parameters": [
           {
             "name": "attachmentId",
@@ -46092,1479 +46093,6 @@
         "operationId": "get-bank-account"
       }
     },
-    "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions": {
-      "get": {
-        "x-stoplight": {
-          "id": "lldq1gg877yb1"
-        },
-        "tags": [
-          "Bank account transactions"
-        ],
-        "summary": "List bank transactions for bank account",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-              "description": "Unique identifier for your SMB in Codat."
-            },
-            "x-stoplight": {
-              "id": "l1juboychi4p9"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-              "description": "Unique identifier for a company's data connection."
-            },
-            "x-stoplight": {
-              "id": "odjhmld3g3nmi"
-            }
-          },
-          {
-            "x-stoplight": {
-              "id": "lhx5lknu24s8f"
-            },
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
-            },
-            "description": "Unique identifier for an account"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "minimum": 0,
-              "example": 1,
-              "default": 1
-            },
-            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "1318joqblpp4e"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "default": 100,
-              "example": 100,
-              "minimum": 1,
-              "maximum": 5000
-            },
-            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "s2ika6rltk5y6"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
-            "x-stoplight": {
-              "id": "gupdb9kt30hfq"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "-modifiedDate"
-            },
-            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
-            "x-stoplight": {
-              "id": "4je9lwo02netu"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "results": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "accountId": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "transactions": {
-                                "type": "array",
-                                "items": {
-                                  "required": [
-                                    "amount",
-                                    "balance",
-                                    "date",
-                                    "reconciled",
-                                    "transactionType"
-                                  ],
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "date": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "description": {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    "counterparty": {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    "reference": {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    "reconciled": {
-                                      "type": "boolean"
-                                    },
-                                    "amount": {
-                                      "type": "number",
-                                      "format": "double"
-                                    },
-                                    "balance": {
-                                      "type": "number",
-                                      "format": "double"
-                                    },
-                                    "transactionType": {
-                                      "enum": [
-                                        "Unknown",
-                                        "Credit",
-                                        "Debit",
-                                        "Int",
-                                        "Div",
-                                        "Fee",
-                                        "SerChg",
-                                        "Dep",
-                                        "Atm",
-                                        "Pos",
-                                        "Xfer",
-                                        "Check",
-                                        "Payment",
-                                        "Cash",
-                                        "DirectDep",
-                                        "DirectDebit",
-                                        "RepeatPmt",
-                                        "Other"
-                                      ],
-                                      "type": "string"
-                                    },
-                                    "modifiedDate": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "nullable": true
-                                    },
-                                    "sourceModifiedDate": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "nullable": true
-                                    }
-                                  }
-                                },
-                                "nullable": true
-                              },
-                              "contractVersion": {
-                                "type": "string",
-                                "nullable": true
-                              }
-                            },
-                            "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "title": "_Links",
-                      "description": "Codat's Paging Model",
-                      "examples": [
-                        {
-                          "_links": {
-                            "self": {
-                              "href": "/companies/{id}/data/{dataType}"
-                            },
-                            "current": {
-                              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
-                            }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
-                        }
-                      ],
-                      "type": "object",
-                      "allOf": [
-                        {
-                          "properties": {
-                            "_links": {
-                              "type": "object",
-                              "required": [
-                                "self",
-                                "current"
-                              ],
-                              "properties": {
-                                "self": {
-                                  "type": "object",
-                                  "required": [
-                                    "href"
-                                  ],
-                                  "properties": {
-                                    "href": {
-                                      "type": "string",
-                                      "format": "uri-reference"
-                                    }
-                                  }
-                                },
-                                "current": {
-                                  "type": "object",
-                                  "required": [
-                                    "href"
-                                  ],
-                                  "properties": {
-                                    "href": {
-                                      "type": "string",
-                                      "format": "uri-reference"
-                                    }
-                                  }
-                                },
-                                "next": {
-                                  "type": "object",
-                                  "properties": {
-                                    "href": {
-                                      "type": "string",
-                                      "format": "uri-reference"
-                                    }
-                                  }
-                                },
-                                "previous": {
-                                  "type": "object",
-                                  "properties": {
-                                    "href": {
-                                      "type": "string",
-                                      "format": "uri-reference"
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "pageNumber": {
-                              "type": "integer"
-                            },
-                            "pageSize": {
-                              "type": "integer"
-                            },
-                            "totalResults": {
-                              "type": "integer"
-                            }
-                          },
-                          "required": [
-                            "_links",
-                            "pageNumber",
-                            "pageSize",
-                            "totalResults"
-                          ]
-                        }
-                      ],
-                      "x-stoplight": {
-                        "id": "5wohczray2nz5"
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets bank transactions for a given bank account ID",
-        "operationId": "list-all-bank-transactionscount"
-      }
-    },
-    "/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions": {
-      "get": {
-        "x-stoplight": {
-          "id": "z3w4v8rzz9wqi"
-        },
-        "tags": [
-          "Bank account transactions"
-        ],
-        "summary": "List push options for bank account bank transactions",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-              "description": "Unique identifier for your SMB in Codat."
-            },
-            "x-stoplight": {
-              "id": "l1juboychi4p9"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-              "description": "Unique identifier for a company's data connection."
-            },
-            "x-stoplight": {
-              "id": "odjhmld3g3nmi"
-            }
-          },
-          {
-            "x-stoplight": {
-              "id": "lhx5lknu24s8f"
-            },
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
-            },
-            "description": "Unique identifier for an account"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "minimum": 0,
-              "example": 1,
-              "default": 1
-            },
-            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "1318joqblpp4e"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "default": 100,
-              "example": 100,
-              "minimum": 1,
-              "maximum": 5000
-            },
-            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "s2ika6rltk5y6"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
-            "x-stoplight": {
-              "id": "gupdb9kt30hfq"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "-modifiedDate"
-            },
-            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
-            "x-stoplight": {
-              "id": "4je9lwo02netu"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "PushOption",
-                  "required": [
-                    "description",
-                    "displayName",
-                    "required",
-                    "type"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "title": "OptionType",
-                      "enum": [
-                        "Array",
-                        "Object",
-                        "String",
-                        "Number",
-                        "Boolean",
-                        "DateTime",
-                        "File",
-                        "MultiPart"
-                      ],
-                      "type": "string"
-                    },
-                    "displayName": {
-                      "minLength": 1,
-                      "type": "string"
-                    },
-                    "description": {
-                      "minLength": 1,
-                      "type": "string"
-                    },
-                    "options": {
-                      "type": "array",
-                      "items": {
-                        "title": "PushOptionChoice",
-                        "required": [
-                          "description",
-                          "displayName",
-                          "required",
-                          "type",
-                          "value"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "type": {
-                            "title": "OptionType",
-                            "enum": [
-                              "Array",
-                              "Object",
-                              "String",
-                              "Number",
-                              "Boolean",
-                              "DateTime",
-                              "File",
-                              "MultiPart"
-                            ],
-                            "type": "string"
-                          },
-                          "displayName": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "description": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "options": {
-                            "type": "array",
-                            "items": {
-                              "title": "PushOptionChoice",
-                              "required": [
-                                "description",
-                                "displayName",
-                                "required",
-                                "type",
-                                "value"
-                              ],
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "minLength": 1,
-                                  "type": "string"
-                                },
-                                "type": {
-                                  "title": "OptionType",
-                                  "enum": [
-                                    "Array",
-                                    "Object",
-                                    "String",
-                                    "Number",
-                                    "Boolean",
-                                    "DateTime",
-                                    "File",
-                                    "MultiPart"
-                                  ],
-                                  "type": "string"
-                                },
-                                "displayName": {
-                                  "minLength": 1,
-                                  "type": "string"
-                                },
-                                "description": {
-                                  "minLength": 1,
-                                  "type": "string"
-                                },
-                                "options": {
-                                  "type": "array",
-                                  "items": {
-                                    "title": "PushOptionChoice",
-                                    "required": [
-                                      "description",
-                                      "displayName",
-                                      "required",
-                                      "type",
-                                      "value"
-                                    ],
-                                    "type": "object",
-                                    "properties": {
-                                      "value": {
-                                        "minLength": 1,
-                                        "type": "string"
-                                      },
-                                      "type": {
-                                        "title": "OptionType",
-                                        "enum": [
-                                          "Array",
-                                          "Object",
-                                          "String",
-                                          "Number",
-                                          "Boolean",
-                                          "DateTime",
-                                          "File",
-                                          "MultiPart"
-                                        ],
-                                        "type": "string"
-                                      },
-                                      "displayName": {
-                                        "minLength": 1,
-                                        "type": "string"
-                                      },
-                                      "description": {
-                                        "minLength": 1,
-                                        "type": "string"
-                                      },
-                                      "options": {
-                                        "type": "array",
-                                        "items": {
-                                          "title": "PushOptionChoice",
-                                          "required": [
-                                            "description",
-                                            "displayName",
-                                            "required",
-                                            "type",
-                                            "value"
-                                          ],
-                                          "type": "object",
-                                          "properties": {
-                                            "value": {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
-                                            "type": {
-                                              "title": "OptionType",
-                                              "enum": [
-                                                "Array",
-                                                "Object",
-                                                "String",
-                                                "Number",
-                                                "Boolean",
-                                                "DateTime",
-                                                "File",
-                                                "MultiPart"
-                                              ],
-                                              "type": "string"
-                                            },
-                                            "displayName": {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
-                                            "description": {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
-                                            "required": {
-                                              "type": "boolean"
-                                            },
-                                            "validation": {
-                                              "title": "PushValidationInfo",
-                                              "type": "object",
-                                              "properties": {
-                                                "warnings": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "title": "PushFieldValidation",
-                                                    "required": [
-                                                      "details",
-                                                      "field"
-                                                    ],
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "field": {
-                                                        "minLength": 1,
-                                                        "type": "string"
-                                                      },
-                                                      "details": {
-                                                        "minLength": 1,
-                                                        "type": "string"
-                                                      },
-                                                      "ref": {
-                                                        "type": "string",
-                                                        "format": "uri",
-                                                        "nullable": true
-                                                      }
-                                                    },
-                                                    "additionalProperties": false
-                                                  },
-                                                  "nullable": true
-                                                },
-                                                "information": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "title": "PushFieldValidation",
-                                                    "required": [
-                                                      "details",
-                                                      "field"
-                                                    ],
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "field": {
-                                                        "minLength": 1,
-                                                        "type": "string"
-                                                      },
-                                                      "details": {
-                                                        "minLength": 1,
-                                                        "type": "string"
-                                                      },
-                                                      "ref": {
-                                                        "type": "string",
-                                                        "format": "uri",
-                                                        "nullable": true
-                                                      }
-                                                    },
-                                                    "additionalProperties": false
-                                                  },
-                                                  "nullable": true
-                                                }
-                                              },
-                                              "additionalProperties": false
-                                            },
-                                            "rel": {
-                                              "type": "string",
-                                              "nullable": true
-                                            }
-                                          },
-                                          "additionalProperties": false
-                                        },
-                                        "nullable": true
-                                      },
-                                      "required": {
-                                        "type": "boolean"
-                                      },
-                                      "validation": {
-                                        "title": "PushValidationInfo",
-                                        "type": "object",
-                                        "properties": {
-                                          "warnings": {
-                                            "type": "array",
-                                            "items": {
-                                              "title": "PushFieldValidation",
-                                              "required": [
-                                                "details",
-                                                "field"
-                                              ],
-                                              "type": "object",
-                                              "properties": {
-                                                "field": {
-                                                  "minLength": 1,
-                                                  "type": "string"
-                                                },
-                                                "details": {
-                                                  "minLength": 1,
-                                                  "type": "string"
-                                                },
-                                                "ref": {
-                                                  "type": "string",
-                                                  "format": "uri",
-                                                  "nullable": true
-                                                }
-                                              },
-                                              "additionalProperties": false
-                                            },
-                                            "nullable": true
-                                          },
-                                          "information": {
-                                            "type": "array",
-                                            "items": {
-                                              "title": "PushFieldValidation",
-                                              "required": [
-                                                "details",
-                                                "field"
-                                              ],
-                                              "type": "object",
-                                              "properties": {
-                                                "field": {
-                                                  "minLength": 1,
-                                                  "type": "string"
-                                                },
-                                                "details": {
-                                                  "minLength": 1,
-                                                  "type": "string"
-                                                },
-                                                "ref": {
-                                                  "type": "string",
-                                                  "format": "uri",
-                                                  "nullable": true
-                                                }
-                                              },
-                                              "additionalProperties": false
-                                            },
-                                            "nullable": true
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      },
-                                      "rel": {
-                                        "type": "string",
-                                        "nullable": true
-                                      }
-                                    },
-                                    "additionalProperties": false
-                                  },
-                                  "nullable": true
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                },
-                                "validation": {
-                                  "title": "PushValidationInfo",
-                                  "type": "object",
-                                  "properties": {
-                                    "warnings": {
-                                      "type": "array",
-                                      "items": {
-                                        "title": "PushFieldValidation",
-                                        "required": [
-                                          "details",
-                                          "field"
-                                        ],
-                                        "type": "object",
-                                        "properties": {
-                                          "field": {
-                                            "minLength": 1,
-                                            "type": "string"
-                                          },
-                                          "details": {
-                                            "minLength": 1,
-                                            "type": "string"
-                                          },
-                                          "ref": {
-                                            "type": "string",
-                                            "format": "uri",
-                                            "nullable": true
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      },
-                                      "nullable": true
-                                    },
-                                    "information": {
-                                      "type": "array",
-                                      "items": {
-                                        "title": "PushFieldValidation",
-                                        "required": [
-                                          "details",
-                                          "field"
-                                        ],
-                                        "type": "object",
-                                        "properties": {
-                                          "field": {
-                                            "minLength": 1,
-                                            "type": "string"
-                                          },
-                                          "details": {
-                                            "minLength": 1,
-                                            "type": "string"
-                                          },
-                                          "ref": {
-                                            "type": "string",
-                                            "format": "uri",
-                                            "nullable": true
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      },
-                                      "nullable": true
-                                    }
-                                  },
-                                  "additionalProperties": false
-                                },
-                                "rel": {
-                                  "type": "string",
-                                  "nullable": true
-                                }
-                              },
-                              "additionalProperties": false
-                            },
-                            "nullable": true
-                          },
-                          "required": {
-                            "type": "boolean"
-                          },
-                          "validation": {
-                            "title": "PushValidationInfo",
-                            "type": "object",
-                            "properties": {
-                              "warnings": {
-                                "type": "array",
-                                "items": {
-                                  "title": "PushFieldValidation",
-                                  "required": [
-                                    "details",
-                                    "field"
-                                  ],
-                                  "type": "object",
-                                  "properties": {
-                                    "field": {
-                                      "minLength": 1,
-                                      "type": "string"
-                                    },
-                                    "details": {
-                                      "minLength": 1,
-                                      "type": "string"
-                                    },
-                                    "ref": {
-                                      "type": "string",
-                                      "format": "uri",
-                                      "nullable": true
-                                    }
-                                  },
-                                  "additionalProperties": false
-                                },
-                                "nullable": true
-                              },
-                              "information": {
-                                "type": "array",
-                                "items": {
-                                  "title": "PushFieldValidation",
-                                  "required": [
-                                    "details",
-                                    "field"
-                                  ],
-                                  "type": "object",
-                                  "properties": {
-                                    "field": {
-                                      "minLength": 1,
-                                      "type": "string"
-                                    },
-                                    "details": {
-                                      "minLength": 1,
-                                      "type": "string"
-                                    },
-                                    "ref": {
-                                      "type": "string",
-                                      "format": "uri",
-                                      "nullable": true
-                                    }
-                                  },
-                                  "additionalProperties": false
-                                },
-                                "nullable": true
-                              }
-                            },
-                            "additionalProperties": false
-                          },
-                          "rel": {
-                            "type": "string",
-                            "nullable": true
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "nullable": true
-                    },
-                    "required": {
-                      "type": "boolean"
-                    },
-                    "validation": {
-                      "title": "PushValidationInfo",
-                      "type": "object",
-                      "properties": {
-                        "warnings": {
-                          "type": "array",
-                          "items": {
-                            "title": "PushFieldValidation",
-                            "required": [
-                              "details",
-                              "field"
-                            ],
-                            "type": "object",
-                            "properties": {
-                              "field": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "details": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "ref": {
-                                "type": "string",
-                                "format": "uri",
-                                "nullable": true
-                              }
-                            },
-                            "additionalProperties": false
-                          },
-                          "nullable": true
-                        },
-                        "information": {
-                          "type": "array",
-                          "items": {
-                            "title": "PushFieldValidation",
-                            "required": [
-                              "details",
-                              "field"
-                            ],
-                            "type": "object",
-                            "properties": {
-                              "field": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "details": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "ref": {
-                                "type": "string",
-                                "format": "uri",
-                                "nullable": true
-                              }
-                            },
-                            "additionalProperties": false
-                          },
-                          "nullable": true
-                        }
-                      },
-                      "additionalProperties": false
-                    },
-                    "rel": {
-                      "type": "string",
-                      "nullable": true
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets the options of pushing bank account transactions.",
-        "operationId": "get-bank-account-push-options",
-        "x-extension-1": null
-      }
-    },
-    "/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions": {
-      "post": {
-        "tags": [
-          "Bank account transactions"
-        ],
-        "summary": "Create bank transactions",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-              "description": "Unique identifier for your SMB in Codat."
-            },
-            "x-stoplight": {
-              "id": "l1juboychi4p9"
-            }
-          },
-          {
-            "name": "connectionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-              "description": "Unique identifier for a company's data connection."
-            },
-            "x-stoplight": {
-              "id": "odjhmld3g3nmi"
-            }
-          },
-          {
-            "x-stoplight": {
-              "id": "lhx5lknu24s8f"
-            },
-            "name": "accountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
-            },
-            "description": "Unique identifier for an account"
-          },
-          {
-            "x-stoplight": {
-              "id": "kc8ehjqr6p02q"
-            },
-            "name": "allowSyncOnPushComplete",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          {
-            "x-stoplight": {
-              "id": "irz50qjbs3yef"
-            },
-            "name": "timeoutInMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accountId": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "transactions": {
-                    "type": "array",
-                    "items": {
-                      "required": [
-                        "amount",
-                        "balance",
-                        "date",
-                        "reconciled",
-                        "transactionType"
-                      ],
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "date": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "description": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "counterparty": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "reference": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "reconciled": {
-                          "type": "boolean"
-                        },
-                        "amount": {
-                          "type": "number",
-                          "format": "double"
-                        },
-                        "balance": {
-                          "type": "number",
-                          "format": "double"
-                        },
-                        "transactionType": {
-                          "enum": [
-                            "Unknown",
-                            "Credit",
-                            "Debit",
-                            "Int",
-                            "Div",
-                            "Fee",
-                            "SerChg",
-                            "Dep",
-                            "Atm",
-                            "Pos",
-                            "Xfer",
-                            "Check",
-                            "Payment",
-                            "Cash",
-                            "DirectDep",
-                            "DirectDebit",
-                            "RepeatPmt",
-                            "Other"
-                          ],
-                          "type": "string"
-                        },
-                        "modifiedDate": {
-                          "type": "string",
-                          "format": "date-time",
-                          "nullable": true
-                        },
-                        "sourceModifiedDate": {
-                          "type": "string",
-                          "format": "date-time",
-                          "nullable": true
-                        }
-                      }
-                    },
-                    "nullable": true
-                  },
-                  "contractVersion": {
-                    "type": "string",
-                    "nullable": true
-                  }
-                },
-                "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "accountId": {
-                              "type": "string",
-                              "nullable": true
-                            },
-                            "transactions": {
-                              "type": "array",
-                              "items": {
-                                "required": [
-                                  "amount",
-                                  "balance",
-                                  "date",
-                                  "reconciled",
-                                  "transactionType"
-                                ],
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "date": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "description": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "counterparty": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "reference": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "reconciled": {
-                                    "type": "boolean"
-                                  },
-                                  "amount": {
-                                    "type": "number",
-                                    "format": "double"
-                                  },
-                                  "balance": {
-                                    "type": "number",
-                                    "format": "double"
-                                  },
-                                  "transactionType": {
-                                    "enum": [
-                                      "Unknown",
-                                      "Credit",
-                                      "Debit",
-                                      "Int",
-                                      "Div",
-                                      "Fee",
-                                      "SerChg",
-                                      "Dep",
-                                      "Atm",
-                                      "Pos",
-                                      "Xfer",
-                                      "Check",
-                                      "Payment",
-                                      "Cash",
-                                      "DirectDep",
-                                      "DirectDebit",
-                                      "RepeatPmt",
-                                      "Other"
-                                    ],
-                                    "type": "string"
-                                  },
-                                  "modifiedDate": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "nullable": true
-                                  },
-                                  "sourceModifiedDate": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "nullable": true
-                                  }
-                                }
-                              },
-                              "nullable": true
-                            },
-                            "contractVersion": {
-                              "type": "string",
-                              "nullable": true
-                            }
-                          },
-                          "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "changes": {
-                          "type": "array",
-                          "nullable": true,
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "enum": [
-                                  "Unknown",
-                                  "Created",
-                                  "Modified",
-                                  "Deleted",
-                                  "AttachmentUploaded"
-                                ]
-                              },
-                              "recordRef": {
-                                "title": "PushOperationRecordRef",
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "dataType": {
-                                    "type": "string",
-                                    "nullable": true
-                                  }
-                                },
-                                "additionalProperties": false
-                              },
-                              "attachmentId": {
-                                "type": "string",
-                                "nullable": true
-                              }
-                            }
-                          }
-                        },
-                        "dataType": {
-                          "type": "string",
-                          "nullable": true,
-                          "description": "The type of data being pushed, eg invoices, customers."
-                        },
-                        "companyId": {
-                          "type": "string",
-                          "format": "uuid",
-                          "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-                          "description": "Unique identifier for your SMB in Codat."
-                        },
-                        "pushOperationKey": {
-                          "type": "string",
-                          "format": "uuid",
-                          "description": "A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted."
-                        },
-                        "dataConnectionKey": {
-                          "type": "string",
-                          "format": "uuid",
-                          "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-                          "description": "Unique identifier for a company's data connection."
-                        },
-                        "requestedOnUtc": {
-                          "description": "The datetime when the push was requested.",
-                          "type": "string",
-                          "example": "2022-10-23T00:00:00Z",
-                          "format": "date-time",
-                          "title": "DateTime"
-                        },
-                        "completedOnUtc": {
-                          "description": "The datetime when the push was completed, null if Pending.",
-                          "type": "string",
-                          "example": "2022-10-23T00:00:00Z",
-                          "format": "date-time",
-                          "title": "DateTime"
-                        },
-                        "timeoutInMinutes": {
-                          "type": "integer",
-                          "format": "int32",
-                          "nullable": true
-                        },
-                        "timeoutInSeconds": {
-                          "type": "integer",
-                          "format": "int32",
-                          "nullable": true,
-                          "deprecated": true
-                        },
-                        "status": {
-                          "minLength": 1,
-                          "type": "string",
-                          "enum": [
-                            "Pending",
-                            "Failed",
-                            "Success",
-                            "TimedOut"
-                          ],
-                          "description": "The status of the push operation."
-                        },
-                        "errorMessage": {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        "validation": {
-                          "type": "object",
-                          "description": "A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.",
-                          "properties": {
-                            "errors": {
-                              "type": "array",
-                              "nullable": true,
-                              "items": {
-                                "title": "ValidationItem",
-                                "type": "object",
-                                "properties": {
-                                  "itemId": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "message": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "validatorName": {
-                                    "type": "string",
-                                    "nullable": true
-                                  }
-                                },
-                                "additionalProperties": false
-                              }
-                            },
-                            "warnings": {
-                              "type": "array",
-                              "nullable": true,
-                              "items": {
-                                "title": "ValidationItem",
-                                "type": "object",
-                                "properties": {
-                                  "itemId": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "message": {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  "validatorName": {
-                                    "type": "string",
-                                    "nullable": true
-                                  }
-                                },
-                                "additionalProperties": false
-                              }
-                            }
-                          }
-                        },
-                        "statusCode": {
-                          "type": "integer",
-                          "format": "int32"
-                        }
-                      },
-                      "required": [
-                        "companyId",
-                        "pushOperationKey",
-                        "dataConnectionKey",
-                        "requestedOnUtc",
-                        "status",
-                        "statusCode"
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Posts bank transactions to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.",
-        "operationId": "post-bank-transactions"
-      }
-    },
     "/companies/{companyId}/connections/{connectionId}/push/bankAccounts": {
       "parameters": [
         {
@@ -49038,6 +47566,1479 @@
         ],
         "description": "Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.",
         "operationId": "list-bank-transactions"
+      }
+    },
+    "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions": {
+      "get": {
+        "x-stoplight": {
+          "id": "lldq1gg877yb1"
+        },
+        "tags": [
+          "Bank account transactions"
+        ],
+        "summary": "List bank transactions for bank account",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
+          },
+          {
+            "x-stoplight": {
+              "id": "lhx5lknu24s8f"
+            },
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+            },
+            "description": "Unique identifier for an account"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "accountId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "transactions": {
+                                "type": "array",
+                                "items": {
+                                  "required": [
+                                    "amount",
+                                    "balance",
+                                    "date",
+                                    "reconciled",
+                                    "transactionType"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "date": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "counterparty": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "reference": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "reconciled": {
+                                      "type": "boolean"
+                                    },
+                                    "amount": {
+                                      "type": "number",
+                                      "format": "double"
+                                    },
+                                    "balance": {
+                                      "type": "number",
+                                      "format": "double"
+                                    },
+                                    "transactionType": {
+                                      "enum": [
+                                        "Unknown",
+                                        "Credit",
+                                        "Debit",
+                                        "Int",
+                                        "Div",
+                                        "Fee",
+                                        "SerChg",
+                                        "Dep",
+                                        "Atm",
+                                        "Pos",
+                                        "Xfer",
+                                        "Check",
+                                        "Payment",
+                                        "Cash",
+                                        "DirectDep",
+                                        "DirectDebit",
+                                        "RepeatPmt",
+                                        "Other"
+                                      ],
+                                      "type": "string"
+                                    },
+                                    "modifiedDate": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "nullable": true
+                                    },
+                                    "sourceModifiedDate": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "nullable": true
+                                    }
+                                  }
+                                },
+                                "nullable": true
+                              },
+                              "contractVersion": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "title": "_Links",
+                      "description": "Codat's Paging Model",
+                      "examples": [
+                        {
+                          "_links": {
+                            "self": {
+                              "href": "/companies/{id}/data/{dataType}"
+                            },
+                            "current": {
+                              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                            }
+                          },
+                          "pageNumber": 1,
+                          "pageSize": 10,
+                          "totalResults": 1
+                        }
+                      ],
+                      "type": "object",
+                      "allOf": [
+                        {
+                          "properties": {
+                            "_links": {
+                              "type": "object",
+                              "required": [
+                                "self",
+                                "current"
+                              ],
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "current": {
+                                  "type": "object",
+                                  "required": [
+                                    "href"
+                                  ],
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                },
+                                "previous": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "type": "string",
+                                      "format": "uri-reference"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "pageNumber": {
+                              "type": "integer"
+                            },
+                            "pageSize": {
+                              "type": "integer"
+                            },
+                            "totalResults": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "_links",
+                            "pageNumber",
+                            "pageSize",
+                            "totalResults"
+                          ]
+                        }
+                      ],
+                      "x-stoplight": {
+                        "id": "5wohczray2nz5"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets bank transactions for a given bank account ID",
+        "operationId": "list-all-bank-transactionscount"
+      }
+    },
+    "/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions": {
+      "get": {
+        "x-stoplight": {
+          "id": "z3w4v8rzz9wqi"
+        },
+        "tags": [
+          "Bank account transactions"
+        ],
+        "summary": "List push options for bank account bank transactions",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
+          },
+          {
+            "x-stoplight": {
+              "id": "lhx5lknu24s8f"
+            },
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+            },
+            "description": "Unique identifier for an account"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "PushOption",
+                  "required": [
+                    "description",
+                    "displayName",
+                    "required",
+                    "type"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "title": "OptionType",
+                      "enum": [
+                        "Array",
+                        "Object",
+                        "String",
+                        "Number",
+                        "Boolean",
+                        "DateTime",
+                        "File",
+                        "MultiPart"
+                      ],
+                      "type": "string"
+                    },
+                    "displayName": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "description": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "title": "PushOptionChoice",
+                        "required": [
+                          "description",
+                          "displayName",
+                          "required",
+                          "type",
+                          "value"
+                        ],
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "minLength": 1,
+                            "type": "string"
+                          },
+                          "type": {
+                            "title": "OptionType",
+                            "enum": [
+                              "Array",
+                              "Object",
+                              "String",
+                              "Number",
+                              "Boolean",
+                              "DateTime",
+                              "File",
+                              "MultiPart"
+                            ],
+                            "type": "string"
+                          },
+                          "displayName": {
+                            "minLength": 1,
+                            "type": "string"
+                          },
+                          "description": {
+                            "minLength": 1,
+                            "type": "string"
+                          },
+                          "options": {
+                            "type": "array",
+                            "items": {
+                              "title": "PushOptionChoice",
+                              "required": [
+                                "description",
+                                "displayName",
+                                "required",
+                                "type",
+                                "value"
+                              ],
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "title": "OptionType",
+                                  "enum": [
+                                    "Array",
+                                    "Object",
+                                    "String",
+                                    "Number",
+                                    "Boolean",
+                                    "DateTime",
+                                    "File",
+                                    "MultiPart"
+                                  ],
+                                  "type": "string"
+                                },
+                                "displayName": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                "options": {
+                                  "type": "array",
+                                  "items": {
+                                    "title": "PushOptionChoice",
+                                    "required": [
+                                      "description",
+                                      "displayName",
+                                      "required",
+                                      "type",
+                                      "value"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "type": {
+                                        "title": "OptionType",
+                                        "enum": [
+                                          "Array",
+                                          "Object",
+                                          "String",
+                                          "Number",
+                                          "Boolean",
+                                          "DateTime",
+                                          "File",
+                                          "MultiPart"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "displayName": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                      },
+                                      "options": {
+                                        "type": "array",
+                                        "items": {
+                                          "title": "PushOptionChoice",
+                                          "required": [
+                                            "description",
+                                            "displayName",
+                                            "required",
+                                            "type",
+                                            "value"
+                                          ],
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "title": "OptionType",
+                                              "enum": [
+                                                "Array",
+                                                "Object",
+                                                "String",
+                                                "Number",
+                                                "Boolean",
+                                                "DateTime",
+                                                "File",
+                                                "MultiPart"
+                                              ],
+                                              "type": "string"
+                                            },
+                                            "displayName": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "description": {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            "required": {
+                                              "type": "boolean"
+                                            },
+                                            "validation": {
+                                              "title": "PushValidationInfo",
+                                              "type": "object",
+                                              "properties": {
+                                                "warnings": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "title": "PushFieldValidation",
+                                                    "required": [
+                                                      "details",
+                                                      "field"
+                                                    ],
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "field": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "details": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "ref": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "nullable": true
+                                                      }
+                                                    },
+                                                    "additionalProperties": false
+                                                  },
+                                                  "nullable": true
+                                                },
+                                                "information": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "title": "PushFieldValidation",
+                                                    "required": [
+                                                      "details",
+                                                      "field"
+                                                    ],
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "field": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "details": {
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                      },
+                                                      "ref": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "nullable": true
+                                                      }
+                                                    },
+                                                    "additionalProperties": false
+                                                  },
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "rel": {
+                                              "type": "string",
+                                              "nullable": true
+                                            }
+                                          },
+                                          "additionalProperties": false
+                                        },
+                                        "nullable": true
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      },
+                                      "validation": {
+                                        "title": "PushValidationInfo",
+                                        "type": "object",
+                                        "properties": {
+                                          "warnings": {
+                                            "type": "array",
+                                            "items": {
+                                              "title": "PushFieldValidation",
+                                              "required": [
+                                                "details",
+                                                "field"
+                                              ],
+                                              "type": "object",
+                                              "properties": {
+                                                "field": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "details": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "ref": {
+                                                  "type": "string",
+                                                  "format": "uri",
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "nullable": true
+                                          },
+                                          "information": {
+                                            "type": "array",
+                                            "items": {
+                                              "title": "PushFieldValidation",
+                                              "required": [
+                                                "details",
+                                                "field"
+                                              ],
+                                              "type": "object",
+                                              "properties": {
+                                                "field": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "details": {
+                                                  "minLength": 1,
+                                                  "type": "string"
+                                                },
+                                                "ref": {
+                                                  "type": "string",
+                                                  "format": "uri",
+                                                  "nullable": true
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "rel": {
+                                        "type": "string",
+                                        "nullable": true
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  },
+                                  "nullable": true
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                },
+                                "validation": {
+                                  "title": "PushValidationInfo",
+                                  "type": "object",
+                                  "properties": {
+                                    "warnings": {
+                                      "type": "array",
+                                      "items": {
+                                        "title": "PushFieldValidation",
+                                        "required": [
+                                          "details",
+                                          "field"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                          "field": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "details": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "ref": {
+                                            "type": "string",
+                                            "format": "uri",
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "nullable": true
+                                    },
+                                    "information": {
+                                      "type": "array",
+                                      "items": {
+                                        "title": "PushFieldValidation",
+                                        "required": [
+                                          "details",
+                                          "field"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                          "field": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "details": {
+                                            "minLength": 1,
+                                            "type": "string"
+                                          },
+                                          "ref": {
+                                            "type": "string",
+                                            "format": "uri",
+                                            "nullable": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "rel": {
+                                  "type": "string",
+                                  "nullable": true
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            "nullable": true
+                          },
+                          "required": {
+                            "type": "boolean"
+                          },
+                          "validation": {
+                            "title": "PushValidationInfo",
+                            "type": "object",
+                            "properties": {
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "title": "PushFieldValidation",
+                                  "required": [
+                                    "details",
+                                    "field"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "field": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "details": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "ref": {
+                                      "type": "string",
+                                      "format": "uri",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "nullable": true
+                              },
+                              "information": {
+                                "type": "array",
+                                "items": {
+                                  "title": "PushFieldValidation",
+                                  "required": [
+                                    "details",
+                                    "field"
+                                  ],
+                                  "type": "object",
+                                  "properties": {
+                                    "field": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "details": {
+                                      "minLength": 1,
+                                      "type": "string"
+                                    },
+                                    "ref": {
+                                      "type": "string",
+                                      "format": "uri",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                },
+                                "nullable": true
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "rel": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "nullable": true
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "validation": {
+                      "title": "PushValidationInfo",
+                      "type": "object",
+                      "properties": {
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "title": "PushFieldValidation",
+                            "required": [
+                              "details",
+                              "field"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "details": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "ref": {
+                                "type": "string",
+                                "format": "uri",
+                                "nullable": true
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "nullable": true
+                        },
+                        "information": {
+                          "type": "array",
+                          "items": {
+                            "title": "PushFieldValidation",
+                            "required": [
+                              "details",
+                              "field"
+                            ],
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "details": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "ref": {
+                                "type": "string",
+                                "format": "uri",
+                                "nullable": true
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "nullable": true
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "rel": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Gets the options of pushing bank account transactions.",
+        "operationId": "get-bank-account-push-options",
+        "x-extension-1": null
+      }
+    },
+    "/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions": {
+      "post": {
+        "tags": [
+          "Bank account transactions"
+        ],
+        "summary": "Create bank transactions",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+              "description": "Unique identifier for your SMB in Codat."
+            },
+            "x-stoplight": {
+              "id": "l1juboychi4p9"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "description": "Unique identifier for a company's data connection."
+            },
+            "x-stoplight": {
+              "id": "odjhmld3g3nmi"
+            }
+          },
+          {
+            "x-stoplight": {
+              "id": "lhx5lknu24s8f"
+            },
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "8a210b68-6988-11ed-a1eb-0242ac120002"
+            },
+            "description": "Unique identifier for an account"
+          },
+          {
+            "x-stoplight": {
+              "id": "kc8ehjqr6p02q"
+            },
+            "name": "allowSyncOnPushComplete",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "x-stoplight": {
+              "id": "irz50qjbs3yef"
+            },
+            "name": "timeoutInMinutes",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountId": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "transactions": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "amount",
+                        "balance",
+                        "date",
+                        "reconciled",
+                        "transactionType"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "counterparty": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "reference": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "reconciled": {
+                          "type": "boolean"
+                        },
+                        "amount": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "balance": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "transactionType": {
+                          "enum": [
+                            "Unknown",
+                            "Credit",
+                            "Debit",
+                            "Int",
+                            "Div",
+                            "Fee",
+                            "SerChg",
+                            "Dep",
+                            "Atm",
+                            "Pos",
+                            "Xfer",
+                            "Check",
+                            "Payment",
+                            "Cash",
+                            "DirectDep",
+                            "DirectDebit",
+                            "RepeatPmt",
+                            "Other"
+                          ],
+                          "type": "string"
+                        },
+                        "modifiedDate": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "sourceModifiedDate": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "contractVersion": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "accountId": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "transactions": {
+                              "type": "array",
+                              "items": {
+                                "required": [
+                                  "amount",
+                                  "balance",
+                                  "date",
+                                  "reconciled",
+                                  "transactionType"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "date": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "description": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "counterparty": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "reference": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "reconciled": {
+                                    "type": "boolean"
+                                  },
+                                  "amount": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "balance": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "transactionType": {
+                                    "enum": [
+                                      "Unknown",
+                                      "Credit",
+                                      "Debit",
+                                      "Int",
+                                      "Div",
+                                      "Fee",
+                                      "SerChg",
+                                      "Dep",
+                                      "Atm",
+                                      "Pos",
+                                      "Xfer",
+                                      "Check",
+                                      "Payment",
+                                      "Cash",
+                                      "DirectDep",
+                                      "DirectDebit",
+                                      "RepeatPmt",
+                                      "Other"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "modifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                  },
+                                  "sourceModifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                  }
+                                }
+                              },
+                              "nullable": true
+                            },
+                            "contractVersion": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "changes": {
+                          "type": "array",
+                          "nullable": true,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "Unknown",
+                                  "Created",
+                                  "Modified",
+                                  "Deleted",
+                                  "AttachmentUploaded"
+                                ]
+                              },
+                              "recordRef": {
+                                "title": "PushOperationRecordRef",
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "dataType": {
+                                    "type": "string",
+                                    "nullable": true
+                                  }
+                                },
+                                "additionalProperties": false
+                              },
+                              "attachmentId": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "dataType": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The type of data being pushed, eg invoices, customers."
+                        },
+                        "companyId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                          "description": "Unique identifier for your SMB in Codat."
+                        },
+                        "pushOperationKey": {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted."
+                        },
+                        "dataConnectionKey": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                          "description": "Unique identifier for a company's data connection."
+                        },
+                        "requestedOnUtc": {
+                          "description": "The datetime when the push was requested.",
+                          "type": "string",
+                          "example": "2022-10-23T00:00:00Z",
+                          "format": "date-time",
+                          "title": "DateTime"
+                        },
+                        "completedOnUtc": {
+                          "description": "The datetime when the push was completed, null if Pending.",
+                          "type": "string",
+                          "example": "2022-10-23T00:00:00Z",
+                          "format": "date-time",
+                          "title": "DateTime"
+                        },
+                        "timeoutInMinutes": {
+                          "type": "integer",
+                          "format": "int32",
+                          "nullable": true
+                        },
+                        "timeoutInSeconds": {
+                          "type": "integer",
+                          "format": "int32",
+                          "nullable": true,
+                          "deprecated": true
+                        },
+                        "status": {
+                          "minLength": 1,
+                          "type": "string",
+                          "enum": [
+                            "Pending",
+                            "Failed",
+                            "Success",
+                            "TimedOut"
+                          ],
+                          "description": "The status of the push operation."
+                        },
+                        "errorMessage": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "validation": {
+                          "type": "object",
+                          "description": "A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.",
+                          "properties": {
+                            "errors": {
+                              "type": "array",
+                              "nullable": true,
+                              "items": {
+                                "title": "ValidationItem",
+                                "type": "object",
+                                "properties": {
+                                  "itemId": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "message": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "validatorName": {
+                                    "type": "string",
+                                    "nullable": true
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "nullable": true,
+                              "items": {
+                                "title": "ValidationItem",
+                                "type": "object",
+                                "properties": {
+                                  "itemId": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "message": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "validatorName": {
+                                    "type": "string",
+                                    "nullable": true
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            }
+                          }
+                        },
+                        "statusCode": {
+                          "type": "integer",
+                          "format": "int32"
+                        }
+                      },
+                      "required": [
+                        "companyId",
+                        "pushOperationKey",
+                        "dataConnectionKey",
+                        "requestedOnUtc",
+                        "status",
+                        "statusCode"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API_Key": []
+          }
+        ],
+        "description": "Posts bank transactions to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.",
+        "operationId": "post-bank-transactions"
       }
     },
     "/companies/{companyId}/reports/agedDebtor/available": {
