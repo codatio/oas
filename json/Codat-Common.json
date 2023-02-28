@@ -216,15 +216,15 @@
                                       "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                                     },
                                     "status": {
+                                      "title": "Data connection status",
+                                      "description": "The current authorization status of the data connection.",
                                       "type": "string",
                                       "enum": [
                                         "PendingAuth",
                                         "Linked",
                                         "Unlinked",
                                         "Deauthorized"
-                                      ],
-                                      "example": "Linked",
-                                      "description": "The current authorization status of the data connection."
+                                      ]
                                     },
                                     "lastSync": {
                                       "type": "string",
@@ -991,15 +991,15 @@
                             "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                           },
                           "status": {
+                            "title": "Data connection status",
+                            "description": "The current authorization status of the data connection.",
                             "type": "string",
                             "enum": [
                               "PendingAuth",
                               "Linked",
                               "Unlinked",
                               "Deauthorized"
-                            ],
-                            "example": "Linked",
-                            "description": "The current authorization status of the data connection."
+                            ]
                           },
                           "lastSync": {
                             "type": "string",
@@ -1354,15 +1354,15 @@
                             "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                           },
                           "status": {
+                            "title": "Data connection status",
+                            "description": "The current authorization status of the data connection.",
                             "type": "string",
                             "enum": [
                               "PendingAuth",
                               "Linked",
                               "Unlinked",
                               "Deauthorized"
-                            ],
-                            "example": "Linked",
-                            "description": "The current authorization status of the data connection."
+                            ]
                           },
                           "lastSync": {
                             "type": "string",
@@ -1673,15 +1673,15 @@
                                 "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                               },
                               "status": {
+                                "title": "Data connection status",
+                                "description": "The current authorization status of the data connection.",
                                 "type": "string",
                                 "enum": [
                                   "PendingAuth",
                                   "Linked",
                                   "Unlinked",
                                   "Deauthorized"
-                                ],
-                                "example": "Linked",
-                                "description": "The current authorization status of the data connection."
+                                ]
                               },
                               "lastSync": {
                                 "type": "string",
@@ -2171,15 +2171,15 @@
                       "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                     },
                     "status": {
+                      "title": "Data connection status",
+                      "description": "The current authorization status of the data connection.",
                       "type": "string",
                       "enum": [
                         "PendingAuth",
                         "Linked",
                         "Unlinked",
                         "Deauthorized"
-                      ],
-                      "example": "Linked",
-                      "description": "The current authorization status of the data connection."
+                      ]
                     },
                     "lastSync": {
                       "type": "string",
@@ -2581,15 +2581,15 @@
                       "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                     },
                     "status": {
+                      "title": "Data connection status",
+                      "description": "The current authorization status of the data connection.",
                       "type": "string",
                       "enum": [
                         "PendingAuth",
                         "Linked",
                         "Unlinked",
                         "Deauthorized"
-                      ],
-                      "example": "Linked",
-                      "description": "The current authorization status of the data connection."
+                      ]
                     },
                     "lastSync": {
                       "type": "string",
@@ -2911,15 +2911,15 @@
                       "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                     },
                     "status": {
+                      "title": "Data connection status",
+                      "description": "The current authorization status of the data connection.",
                       "type": "string",
                       "enum": [
                         "PendingAuth",
                         "Linked",
                         "Unlinked",
                         "Deauthorized"
-                      ],
-                      "example": "Linked",
-                      "description": "The current authorization status of the data connection."
+                      ]
                     },
                     "lastSync": {
                       "type": "string",
@@ -8090,7 +8090,587 @@
           }
         },
         "operationId": "get-companies-companyId-push-pushOperationKey",
-        "description": "Retreive push operation."
+        "description": "Retrieve push operation."
+      }
+    }
+  },
+  "webhooks": {
+    "Company data connection status changed": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered anytime a data connection's status changes.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Company data connection status changed webhook",
+                "description": "Webhook request body for a company's data connection status changed.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataConnectionId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                        "description": "Unique identifier for a company's data connection."
+                      },
+                      "newStatus": {
+                        "title": "Data connection status",
+                        "description": "The current authorization status of the data connection.",
+                        "type": "string",
+                        "enum": [
+                          "PendingAuth",
+                          "Linked",
+                          "Unlinked",
+                          "Deauthorized"
+                        ]
+                      },
+                      "oldStatus": {
+                        "title": "Data connection status",
+                        "description": "The current authorization status of the data connection.",
+                        "type": "string",
+                        "enum": [
+                          "PendingAuth",
+                          "Linked",
+                          "Unlinked",
+                          "Deauthorized"
+                        ]
+                      },
+                      "platformKey": {
+                        "type": "string",
+                        "minLength": 4,
+                        "maxLength": 4,
+                        "pattern": "[a-z]{4}",
+                        "example": "gbol",
+                        "description": "4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys)."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "DataConnectionStatusChanged",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "Data connection for SandBox status changed from PendingAuth to Linked",
+                    "data": {
+                      "dataConnectionId": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                      "newStatus": "Linked",
+                      "oldStatus": "PendingAuth",
+                      "platformKey": "gbol"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "Data sync completed": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered when a data synchronization is completed; a notification will be generated for each `dataType` as the sync completes.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Data sync complete webhook",
+                "description": "Webhook request body to notify the completion of a data sync.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "clientId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for your client in Codat."
+                  },
+                  "clientName": {
+                    "type": "string",
+                    "description": "Name of your client in Codat."
+                  },
+                  "dataConnectionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                    "description": "Unique identifier for a company's data connection."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "description": "Data type the sync completed for."
+                      },
+                      "datasetId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Unique identifier for the dataset that completed its sync."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "clientId": "5e505642-9024-474d-9434-e5a44f505cc5",
+                    "clientName": "string",
+                    "dataConnectionId": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "Data sync completed",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "Data sync of type creditNotes completed for company 5e505642-9024-474d-9434-e5a44f505cc5",
+                    "data": {
+                      "dataType": "creditNotes",
+                      "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "Dataset data changed": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered when a dataset synchronization has completed and this has resulted in updates within Codat's data cache - this could be through the creation of new records or a change to existing records.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Dataset data changed webhook",
+                "description": "Webhook request body to notify that a data synchronization has completed.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "description": "Data type the sync completed for."
+                      },
+                      "datasetId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Unique identifier for the dataset that completed its sync."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "Dataset data changed",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "Data has changed for dataset type invoices, company 8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "data": {
+                      "dataType": "invoices",
+                      "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "Dataset status has changed to an error state": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered when the synchronization of a dataset fails.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Dataset data error webhook",
+                "description": "Webhook request body to notify that a data synchronization has completed.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "description": "Data type the sync completed for."
+                      },
+                      "datasetStatus": {
+                        "type": "string",
+                        "description": "The current status of the dataset's sync."
+                      },
+                      "datasetId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Unique identifier for the dataset that completed its sync."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "Data Sync Status Changed to Error",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "ERROR: syncing payments triggered a ProcessingError notification at 2020-04-21T12:12:57.4250446Z.",
+                    "data": {
+                      "dataType": "payments",
+                      "datasetStatus": "ProcessingError",
+                      "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "New company synchronized": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered after a new company has successfully synchronized at least one dataType for the first time.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "New company synchronized webhook",
+                "description": "Webhook request body to notify that a new company has successfully synchronized at least one dataType for the first time.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "New company synchronised",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "Company 8a210b68-6988-11ed-a1eb-0242ac120002 synced for the first time"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "Push operation status has changed": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered when a push operation's status changes.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Push operation status changed webhook",
+                "description": "Webhook request body for a push operation status change.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "description": "Data type used in the push operation."
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "The current status of the push operation."
+                      },
+                      "pushOperationKey": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Unique identifier for the push operation."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "Push Operation Status Changed",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "invoices triggered notification for PushOperationStatusChanged at 2019-05-22T18:19:42.742Z",
+                    "data": {
+                      "dataType": "invoices",
+                      "status": "Success",
+                      "pushOperationKey": "c2f8847d-3047-4619-a157-6d947d8e4a73"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
+      }
+    },
+    "Push operation has timed out": {
+      "post": {
+        "requestBody": {
+          "description": "Triggered when a push operation times out.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Push operation timed out webhook",
+                "description": "Webhook request body notifying that a push push operation has timed out.",
+                "type": "object",
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "description": "Unique identifier for your SMB in Codat."
+                  },
+                  "ruleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the rule."
+                  },
+                  "ruleType": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "34d52a089f08a"
+                    },
+                    "description": "The type of rule."
+                  },
+                  "alertId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier of the alert."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "A human readable message about the webhook."
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "description": "Data type used in the push operation."
+                      },
+                      "pushOperationKey": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Unique identifier for the push operation."
+                      }
+                    }
+                  }
+                },
+                "examples": [
+                  {
+                    "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+                    "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+                    "ruleType": "Push Operation Timed Out",
+                    "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+                    "message": "ERROR: pushing invoices never finished in time, timing out at 2020-09-07T08:42:13",
+                    "data": {
+                      "dataType": "invoices",
+                      "pushOperationKey": "c2f8847d-3047-4619-a157-6d947d8e4a73"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the webhook was received successfully."
+          }
+        }
       }
     }
   },
@@ -8230,15 +8810,15 @@
                   "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
                 },
                 "status": {
+                  "title": "Data connection status",
+                  "description": "The current authorization status of the data connection.",
                   "type": "string",
                   "enum": [
                     "PendingAuth",
                     "Linked",
                     "Unlinked",
                     "Deauthorized"
-                  ],
-                  "example": "Linked",
-                  "description": "The current authorization status of the data connection."
+                  ]
                 },
                 "lastSync": {
                   "type": "string",
@@ -8376,15 +8956,15 @@
             "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
           },
           "status": {
+            "title": "Data connection status",
+            "description": "The current authorization status of the data connection.",
             "type": "string",
             "enum": [
               "PendingAuth",
               "Linked",
               "Unlinked",
               "Deauthorized"
-            ],
-            "example": "Linked",
-            "description": "The current authorization status of the data connection."
+            ]
           },
           "lastSync": {
             "type": "string",
@@ -9094,6 +9674,472 @@
         "format": "date-time",
         "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
         "title": "DateTime"
+      },
+      "CompanyDataConnectionStatusChangedWebhook": {
+        "title": "Company data connection status changed webhook",
+        "description": "Webhook request body for a company's data connection status changed.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataConnectionId": {
+                "type": "string",
+                "format": "uuid",
+                "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+                "description": "Unique identifier for a company's data connection."
+              },
+              "newStatus": {
+                "title": "Data connection status",
+                "description": "The current authorization status of the data connection.",
+                "type": "string",
+                "enum": [
+                  "PendingAuth",
+                  "Linked",
+                  "Unlinked",
+                  "Deauthorized"
+                ]
+              },
+              "oldStatus": {
+                "title": "Data connection status",
+                "description": "The current authorization status of the data connection.",
+                "type": "string",
+                "enum": [
+                  "PendingAuth",
+                  "Linked",
+                  "Unlinked",
+                  "Deauthorized"
+                ]
+              },
+              "platformKey": {
+                "type": "string",
+                "minLength": 4,
+                "maxLength": 4,
+                "pattern": "[a-z]{4}",
+                "example": "gbol",
+                "description": "4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys)."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "DataConnectionStatusChanged",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "Data connection for SandBox status changed from PendingAuth to Linked",
+            "data": {
+              "dataConnectionId": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+              "newStatus": "Linked",
+              "oldStatus": "PendingAuth",
+              "platformKey": "gbol"
+            }
+          }
+        ]
+      },
+      "DataSyncCompletedWebhook": {
+        "title": "Data sync complete webhook",
+        "description": "Webhook request body to notify the completion of a data sync.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for your client in Codat."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "Name of your client in Codat."
+          },
+          "dataConnectionId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "description": "Unique identifier for a company's data connection."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Data type the sync completed for."
+              },
+              "datasetId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Unique identifier for the dataset that completed its sync."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "clientId": "5e505642-9024-474d-9434-e5a44f505cc5",
+            "clientName": "string",
+            "dataConnectionId": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "Data sync completed",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "Data sync of type creditNotes completed for company 5e505642-9024-474d-9434-e5a44f505cc5",
+            "data": {
+              "dataType": "creditNotes",
+              "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+            }
+          }
+        ]
+      },
+      "DatasetDataChangedWebhook": {
+        "title": "Dataset data changed webhook",
+        "description": "Webhook request body to notify that a data synchronization has completed.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Data type the sync completed for."
+              },
+              "datasetId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Unique identifier for the dataset that completed its sync."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "Dataset data changed",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "Data has changed for dataset type invoices, company 8a210b68-6988-11ed-a1eb-0242ac120002",
+            "data": {
+              "dataType": "invoices",
+              "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+            }
+          }
+        ]
+      },
+      "NewCompanySynchronizedWebhook": {
+        "title": "New company synchronized webhook",
+        "description": "Webhook request body to notify that a new company has successfully synchronized at least one dataType for the first time.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "New company synchronised",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "Company 8a210b68-6988-11ed-a1eb-0242ac120002 synced for the first time"
+          }
+        ]
+      },
+      "PushOperationStatusChangedWebhook": {
+        "title": "Push operation status changed webhook",
+        "description": "Webhook request body for a push operation status change.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Data type used in the push operation."
+              },
+              "status": {
+                "type": "string",
+                "description": "The current status of the push operation."
+              },
+              "pushOperationKey": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Unique identifier for the push operation."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "Push Operation Status Changed",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "invoices triggered notification for PushOperationStatusChanged at 2019-05-22T18:19:42.742Z",
+            "data": {
+              "dataType": "invoices",
+              "status": "Success",
+              "pushOperationKey": "c2f8847d-3047-4619-a157-6d947d8e4a73"
+            }
+          }
+        ]
+      },
+      "PushOperationTimedOutWebhook": {
+        "title": "Push operation timed out webhook",
+        "description": "Webhook request body notifying that a push push operation has timed out.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Data type used in the push operation."
+              },
+              "pushOperationKey": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Unique identifier for the push operation."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "Push Operation Timed Out",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "ERROR: pushing invoices never finished in time, timing out at 2020-09-07T08:42:13",
+            "data": {
+              "dataType": "invoices",
+              "pushOperationKey": "c2f8847d-3047-4619-a157-6d947d8e4a73"
+            }
+          }
+        ]
+      },
+      "DatasetStatusChangedErrorWebhook": {
+        "title": "Dataset data error webhook",
+        "description": "Webhook request body to notify that a data synchronization has completed.",
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "description": "Unique identifier for your SMB in Codat."
+          },
+          "ruleId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the rule."
+          },
+          "ruleType": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "34d52a089f08a"
+            },
+            "description": "The type of rule."
+          },
+          "alertId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the alert."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message about the webhook."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Data type the sync completed for."
+              },
+              "datasetStatus": {
+                "type": "string",
+                "description": "The current status of the dataset's sync."
+              },
+              "datasetId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Unique identifier for the dataset that completed its sync."
+              }
+            }
+          }
+        },
+        "examples": [
+          {
+            "companyId": "8a210b68-6988-11ed-a1eb-0242ac120002",
+            "ruleId": "70af3071-65d9-4ec3-b3cb-5283e8d55dac",
+            "ruleType": "Data Sync Status Changed to Error",
+            "alertId": "a9367074-b5c3-42c4-9be4-be129f43577e",
+            "message": "ERROR: syncing payments triggered a ProcessingError notification at 2020-04-21T12:12:57.4250446Z.",
+            "data": {
+              "dataType": "payments",
+              "datasetStatus": "ProcessingError",
+              "datasetId": "6586f21b-ad4d-4d06-a309-712af47184a2"
+            }
+          }
+        ]
       }
     },
     "responses": {
