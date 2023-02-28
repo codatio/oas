@@ -19,15 +19,15 @@ info:
 tags:
   - name: Configuration
     description: Companies sync configuration.
-  - name: Mapping Options
+  - name: Mapping options
     description: Mapping options for a companies expenses.
   - name: Sync
     description: Triggering a new sync of expenses to accounting software.
-  - name: Sync Status
+  - name: Sync status
     description: Check the status of ongoing or previous expense syncs.
   - name: Expenses
     description: Create expense datasets and upload receipts.
-  - name: Transaction Status
+  - name: Transaction status
     description: Retrieve the status of transactions within a sync.
 servers:
   - url: 'https://expensesync.codat.io'
@@ -84,7 +84,7 @@ paths:
                         type: string
                         description: id of the customer for all income related activities to be associated to.
                         example: '142'
-      summary: Get Company Configuration
+      summary: Get Company configuration
       description: Gets a companies expense sync configuration
       operationId: get-company-configuration
     post:
@@ -264,7 +264,7 @@ paths:
                       warnings: []
                     canBeRetried: 'No'
                     detailedErrorCode: 0
-      summary: Set Company Configuration
+      summary: Set Company configuration
       description: Sets a companies expense sync configuration
       operationId: save-company-configuration
     parameters:
@@ -281,7 +281,7 @@ paths:
   '/companies/{companyId}/mappingoptions':
     get:
       tags:
-        - Mapping Options
+        - Mapping options
       parameters:
         - name: companyId
           in: path
@@ -477,7 +477,7 @@ paths:
                               - AdjustmentOut
                             example: Payment
       description: Gets the expense mapping options for a companies accounting software
-      summary: Mapping Options
+      summary: Mapping options
       operationId: get-mapping-options
     parameters:
       - name: companyId
@@ -505,7 +505,7 @@ paths:
             description: Unique identifier for your SMB in Codat.
           x-stoplight:
             id: l1juboychi4p9
-      summary: Initiate Sync
+      summary: Initiate sync
       description: Initiate sync of pending transactions.
       requestBody:
         content:
@@ -556,7 +556,7 @@ paths:
   '/companies/{companyId}/syncs/lastSuccessful/status':
     get:
       tags:
-        - Sync Status
+        - Sync status
       parameters:
         - name: companyId
           in: path
@@ -650,7 +650,7 @@ paths:
   '/companies/{companyId}/syncs/latest/status':
     get:
       tags:
-        - Sync Status
+        - Sync status
       parameters:
         - name: companyId
           in: path
@@ -744,7 +744,7 @@ paths:
   '/companies/{companyId}/syncs/list/status':
     get:
       tags:
-        - Sync Status
+        - Sync status
       parameters:
         - name: companyId
           in: path
@@ -840,7 +840,7 @@ paths:
   '/companies/{companyId}/syncs/{syncId}/status':
     get:
       tags:
-        - Sync Status
+        - Sync status
       parameters:
         - name: companyId
           in: path
@@ -925,7 +925,7 @@ paths:
                   dataPushed:
                     type: boolean
                     description: Boolean of whether the sync resulted in data being pushed.
-      summary: Get Sync Status
+      summary: Get Sync status
       description: Get the sync status for a specified sync
       operationId: get-sync-by-id
     parameters:
@@ -1097,8 +1097,8 @@ paths:
                   - pageSize
                   - totalResults
       tags:
-        - Transaction Status
-      summary: Get Sync Transactions
+        - Transaction status
+      summary: Get Sync transactions
       description: Get's the transactions and status for a sync
       operationId: get-sync-transactions
     parameters:
@@ -1200,7 +1200,7 @@ paths:
                       example: expenses
                       nullable: true
       tags:
-        - Transaction Status
+        - Transaction status
       summary: Get Sync Transaction
       description: Gets the status of a transaction for a sync
       operationId: get-sync-transaction
@@ -1507,7 +1507,7 @@ paths:
           example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
         description: Unique identifier for a sync.
     post:
-      summary: Upload Attachment
+      summary: Upload attachment
       operationId: upload-attachment
       responses:
         '200':
