@@ -29,6 +29,8 @@ tags:
     description: Create expense datasets and upload receipts.
   - name: Transaction status
     description: Retrieve the status of transactions within a sync.
+  - name: Connections
+    description: Create and manage partner expense connection.
 servers:
   - url: 'https://expensesync.codat.io'
 paths:
@@ -278,7 +280,138 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/mappingoptions':
+  '/companies/{companyId}/connections/partnerExpense':
+    post:
+      tags:
+        - Connections
+      description: Creates a Partner Expense data connection
+      summary: Create Partner Expense connection
+      operationId: create-partnerexpense-connection
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 8a210b68-6988-11ed-a1eb-0242ac120002
+            description: Unique identifier for your SMB in Codat.
+          x-stoplight:
+            id: l1juboychi4p9
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                    description: Unique identifier for a company's data connection.
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  integrationKey:
+                    type: string
+                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  lastSync:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    format: date-time
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  created:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    format: date-time
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          format: date-time
+                          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                          title: DateTime
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+                x-examples:
+                  - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
+  '/companies/{companyId}/mappingOptions':
     get:
       tags:
         - Mapping options
@@ -512,33 +645,298 @@ paths:
               type: object
               properties:
                 datasetIds:
-                  type: array
                   minItems: 1
-                  maxItems: 100
+                  type: array
                   items:
                     type: string
                     format: uuid
-                    example: fd4cc60e-8666-4443-8fad-12c56d7420ee
-                    writeOnly: true
-              required:
-                - datasetIds
-            examples: {}
+                  nullable: true
+              additionalProperties: false
       responses:
-        '200':
-          description: OK
+        '202':
+          description: Returns the newly created SyncId
           content:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    syncId: 0d5fd262-35af-4a1a-bdf2-c6b7ed2988fe
                 properties:
                   syncId:
                     type: string
-                    description: Unique Sync Id
                     format: uuid
-                    example: 6686f945-4a8b-4f16-8edc-1c4d87c25d82
+                additionalProperties: false
+        '400':
+          description: If model is incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  validation:
+                    type: object
+                    properties:
+                      hasErrors:
+                        type: boolean
+                      hasWarnings:
+                        type: boolean
+                      hasInternals:
+                        type: boolean
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      warnings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      internals:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                  inner:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  Not Found:
+                    statusCode: 404
+                    service: ExpenseSyncApi
+                    error: NotFound
+                    correlationId: ''
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                  Invalid Dataset:
+                    statusCode: 400
+                    service: ExpenseSyncApi
+                    error: 'There are problems with the request, see the Validation property for more detail.'
+                    correlationId: 2201579598a29055025d2e0f829fa89a
+                    validation:
+                      errors:
+                        - itemId: 'Items[0].Lines[0].NetAmount'
+                          message: The field NetAmount must be between 0 and 5000000.
+                        - itemId: 'Items[0].Lines[0].TaxAmount'
+                          message: The field TaxAmount must be between 0 and 5000000.
+                      warnings: []
+                    canBeRetried: 'No'
+                    detailedErrorCode: 0
+        '404':
+          description: If company not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  validation:
+                    type: object
+                    properties:
+                      hasErrors:
+                        type: boolean
+                      hasWarnings:
+                        type: boolean
+                      hasInternals:
+                        type: boolean
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      warnings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      internals:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                  inner:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  Not Found:
+                    statusCode: 404
+                    service: ExpenseSyncApi
+                    error: NotFound
+                    correlationId: ''
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                  Invalid Dataset:
+                    statusCode: 400
+                    service: ExpenseSyncApi
+                    error: 'There are problems with the request, see the Validation property for more detail.'
+                    correlationId: 2201579598a29055025d2e0f829fa89a
+                    validation:
+                      errors:
+                        - itemId: 'Items[0].Lines[0].NetAmount'
+                          message: The field NetAmount must be between 0 and 5000000.
+                        - itemId: 'Items[0].Lines[0].TaxAmount'
+                          message: The field TaxAmount must be between 0 and 5000000.
+                      warnings: []
+                    canBeRetried: 'No'
+                    detailedErrorCode: 0
+        '422':
+          description: If the specified company does not have a valid set of DataConnections setup
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  validation:
+                    type: object
+                    properties:
+                      hasErrors:
+                        type: boolean
+                      hasWarnings:
+                        type: boolean
+                      hasInternals:
+                        type: boolean
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      warnings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                      internals:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                            message:
+                              type: string
+                            validatorName:
+                              type: string
+                            ruleId:
+                              type: string
+                  inner:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  Not Found:
+                    statusCode: 404
+                    service: ExpenseSyncApi
+                    error: NotFound
+                    correlationId: ''
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                  Invalid Dataset:
+                    statusCode: 400
+                    service: ExpenseSyncApi
+                    error: 'There are problems with the request, see the Validation property for more detail.'
+                    correlationId: 2201579598a29055025d2e0f829fa89a
+                    validation:
+                      errors:
+                        - itemId: 'Items[0].Lines[0].NetAmount'
+                          message: The field NetAmount must be between 0 and 5000000.
+                        - itemId: 'Items[0].Lines[0].TaxAmount'
+                          message: The field TaxAmount must be between 0 and 5000000.
+                      warnings: []
+                    canBeRetried: 'No'
+                    detailedErrorCode: 0
       operationId: intiate-sync
     parameters:
       - name: companyId
@@ -1534,6 +1932,114 @@ paths:
       description: Creates an attachment in the accounting software against the given transactionId
 components:
   schemas:
+    DataConnectionResourceRepresentation:
+      title: Connection
+      description: A connection represents the link between a `company` and a source of data.
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
+        integrationId:
+          type: string
+          format: uuid
+          example: fd321cb6-7963-4506-b873-e99593a45e30
+          description: A Codat ID representing the integration.
+        integrationKey:
+          type: string
+          description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+        sourceId:
+          type: string
+          format: uuid
+          example: 35b92968-9851-4095-ad60-395c95cbcba4
+          description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+        sourceType:
+          title: Source Type
+          description: The type of platform of the connection.
+          type: string
+          enum:
+            - Accounting
+            - Banking
+            - Commerce
+            - Other
+            - Unknown
+          example: Accounting
+        platformName:
+          type: string
+        linkUrl:
+          type: string
+          format: uri
+          example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+        status:
+          title: Data connection status
+          description: The current authorization status of the data connection.
+          type: string
+          enum:
+            - PendingAuth
+            - Linked
+            - Unlinked
+            - Deauthorized
+        lastSync:
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          format: date-time
+          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+          title: DateTime
+        created:
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          format: date-time
+          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+          title: DateTime
+        dataConnectionErrors:
+          type: array
+          items:
+            type: object
+            properties:
+              statusCode:
+                type: string
+              statusText:
+                type: string
+              errorMessage:
+                type: string
+              erroredOnUtc:
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                format: date-time
+                description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                title: DateTime
+        connectionInfo:
+          type: object
+          properties:
+            additionalProp1:
+              type: string
+            additionalProp2:
+              type: string
+            additionalProp3:
+              type: string
+      required:
+        - id
+        - integrationId
+        - integrationKey
+        - sourceId
+        - platformName
+        - linkUrl
+        - status
+        - created
+        - sourceType
+      x-examples:
+        - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+          integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+          integrationKey: dfxm
+          sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+          platformName: Basiq
+          linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+          status: Linked
+          lastSync: '2022-10-27T10:22:43.6464237Z'
+          created: '2022-10-27T09:53:29Z'
+          sourceType: Banking
     AccountMappingInfo:
       type: object
       additionalProperties: false
@@ -2328,6 +2834,24 @@ components:
               type: string
               description: id of the customer for all income related activities to be associated to.
               example: '142'
+    SyncInitiatedResourceRepresentation:
+      type: object
+      properties:
+        syncId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    PostSyncResourceRepresentation:
+      type: object
+      properties:
+        datasetIds:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
     CodatErrorMessage:
       type: object
       properties:
