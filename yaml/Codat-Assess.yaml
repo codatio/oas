@@ -98,7 +98,7 @@ paths:
                       detailType: GeneralServices
                       detailTypeDisplayName: General services
                       detailTypeDescription: Use 'General services' for income generated from services the company performs or usage fees charged.
-      operationId: get-data-assess-accounts-categories
+      operationId: list-available-account-categories
       description: 'Lists available account categories Codat''s categorisation engine can provide. '
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories':
     parameters:
@@ -321,7 +321,7 @@ paths:
                     pageNumber: 1
                     pageSize: 10
                     totalResults: 1
-      operationId: get-data-companies-companyId-connections-connectionId-assess-accounts-categories
+      operationId: list-accounts-categories
       description: Lists suggested and confirmed chart of account categories for the given company and data connection.
       parameters:
         - name: page
@@ -367,7 +367,7 @@ paths:
       summary: Confirm categories for accounts
       tags:
         - Categories
-      operationId: patch-data-companies-companyId-connections-connectionId-assess-accounts-categories
+      operationId: update-accounts-categories
       responses:
         '200':
           description: OK
@@ -643,13 +643,13 @@ paths:
                             example: '2022-10-23T00:00:00Z'
                             format: date-time
                             title: DateTime
-      operationId: get-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories
+      operationId: get-account-category
       description: Get category for specific nominal account.
     patch:
       summary: Patch account categories
       tags:
         - Categories
-      operationId: patch-data-companies-companyId-connections-connectionId-assess-accounts-accountId-categories
+      operationId: update-account-category
       responses:
         '200':
           description: OK
@@ -939,7 +939,7 @@ paths:
                             maxDate: '2021-12-16T12:12:53.441Z'
                             minOverlappingDate: '2021-09-30T12:09:13.441Z'
                             maxOverlappingDate: '2021-11-27T12:19:33.441Z'
-      operationId: get-dataIntegrity-status-for-dataType
+      operationId: get-data-integrity-status
       description: Gets match status for a given company and datatype.
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/summaries':
     parameters:
@@ -1039,7 +1039,7 @@ paths:
                                 total:
                                   type: number
                                   description: The total of unmatched and matched.
-      operationId: get-data-companies-companyId-assess-dataTypes-dataType-dataIntegrity-summaries
+      operationId: get-data-integrity-summaries
       description: 'Gets match summary for a given company and datatype, optionally restricted by a Codat query string.'
       parameters:
         - name: query
@@ -1223,7 +1223,7 @@ paths:
                           - totalResults
                     x-stoplight:
                       id: 5wohczray2nz5
-      operationId: get-data-companies-companyId-assess-dataTypes-dataType-dataIntegrity-details
+      operationId: get-data-integrity-details
       parameters:
         - name: page
           in: query
@@ -1522,7 +1522,7 @@ paths:
                     errors:
                       - type: DataNotSynced
                         message: Account categories data has not been synced
-      operationId: get-data-companies-companyId-connections-connectionId-assess-financialMetrics
+      operationId: get-enhanced-financial-metrics
       description: 'Gets all the available financial metrics for a given company, over one or more periods.'
       parameters:
         - name: reportDate
@@ -1575,7 +1575,7 @@ paths:
       summary: Enhanced Profit and Loss
       tags:
         - Reports
-      operationId: get-data-companies-companyId-connections-connectionId-assess-enhancedProfitAndLoss
+      operationId: get-enhanced-profit-and-loss
       description: 'Gets a fully categorized profit and loss statement for a given company, over one or more period(s).'
       parameters:
         - name: reportDate
@@ -2563,7 +2563,7 @@ paths:
       summary: Enhanced Balance Sheet
       tags:
         - Reports
-      operationId: get-data-companies-companyId-connections-connectionId-assess-enhancedBalanceSheet
+      operationId: get-enhanced-balance-sheet
       parameters:
         - name: reportDate
           in: query
@@ -3822,7 +3822,7 @@ paths:
                               - index: 1
                                 measureDisplayName: Percentage change vs. previous period
                                 value: 276.65
-      operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-revenue
+      operationId: get-commerce-revenue-metrics
       description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
       parameters:
         - name: reportDate
@@ -4257,7 +4257,7 @@ paths:
                               - index: 1
                                 measureDisplayName: Value
                                 value: 35.27
-      operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-orders
+      operationId: get-commerce-orders-metrics
       description: 'Gets the order information for a specific company connection, over one or more periods of time.'
       parameters:
         - name: reportDate
@@ -4696,7 +4696,7 @@ paths:
                               - index: 2
                                 measureDisplayName: Percentage
                                 value: 0.41
-      operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-refunds
+      operationId: get-commerce-refunds-metrics
       description: 'Gets the refunds information for a specific company connection, over one or more periods of time.'
       parameters:
         - name: reportDate
@@ -5150,7 +5150,7 @@ paths:
                               - index: 1
                                 measureDisplayName: Percentage
                                 value: 21.67
-      operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-customerRetention
+      operationId: get-commerce-customer-retention-metrics
       description: 'Gets the customer retention metrics for a specific company connection, over one or more periods of time.'
       parameters:
         - name: reportDate
@@ -5562,7 +5562,7 @@ paths:
                               - index: 0
                                 measureDisplayName: Value
                                 value: 3782.07
-      operationId: get-data-companies-companyId-connections-connectionId-assess-commerceMetrics-lifetimeValue
+      operationId: get-commerce-lifetime-value-metrics
       description: 'Gets the lifetime value metric for a specific company connection, over one or more periods of time.'
       parameters:
         - name: reportDate
@@ -5994,7 +5994,7 @@ paths:
                               - index: 1
                                 measureDisplayName: Percentage change vs previous period
                                 value: 0.12
-      operationId: get-data-companies-companyId-connections-connectionId-assess-accountingMetrics-marketing
+      operationId: get-accounting-marketing-metrics
       description: Request an Excel report for download.
       parameters:
         - name: reportDate
@@ -6093,7 +6093,7 @@ paths:
                     type: string
                   fileSize:
                     type: integer
-      operationId: post-data-companies-companyId-assess-excel
+      operationId: request-excel-report-for-download
       description: Request an Excel report for download.
       parameters:
         - name: reportType
@@ -6148,7 +6148,7 @@ paths:
                     type: string
                   fileSize:
                     type: integer
-      operationId: get-data-companies-companyId-assess-excel
+      operationId: make-request-to-download-excel-report
       description: Returns the status of the latest report requested.
       parameters:
         - name: reportType
@@ -6182,7 +6182,7 @@ paths:
             application/octet-stream:
               schema:
                 type: object
-      operationId: post-data-companies-companyId-assess-excel-download
+      operationId: get-excel-report
       description: Download the Excel report to a local drive.
       parameters:
         - name: reportType
@@ -6316,7 +6316,7 @@ paths:
                                   sourceType:
                                     type: string
                 description: ''
-      operationId: get-companies-companyId-reports-enhancedCashFlow-transactions
+      operationId: get-enhanced-cash-flow-transactions
       description: Gets a list of banking transactions and their categories.
       parameters:
         - name: page
@@ -6483,7 +6483,7 @@ paths:
                               confidence: 0.95
                             - levelName: Online
                               confidence: 0.8
-      operationId: get-companies-companyId-reports-enhancedProfitAndLoss-accounts
+      operationId: get-accounts-for-enhanced-profit-and-loss
       parameters:
         - name: reportDate
           in: query
@@ -6633,7 +6633,7 @@ paths:
                               confidence: 0.95
                             - levelName: Online
                               confidence: 0.8
-      operationId: get-companies-companyId-reports-enhancedBalanaceSheet-accounts
+      operationId: get-accounts-for-enhanced-balance-sheet
       parameters:
         - name: reportDate
           in: query
@@ -6983,7 +6983,7 @@ paths:
                   # Data model
 
                   ## Dimensions
-      operationId: get-data-companies-companyId-connections-connectionId-assess-subscriptions-mrr
+      operationId: get-recurring-revenue-metrics
       description: Gets key metrics for subscription revenue.
   '/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process':
     parameters:
@@ -7319,7 +7319,7 @@ paths:
                   # Data model
 
                   ## Dimensions
-      operationId: get-data-companies-companyId-connections-connectionId-assess-subscriptions-process
+      operationId: request-recurring-revenue-metrics
       description: Request production of key subscription revenue metrics.
 webhooks:
   Account categories updated:
