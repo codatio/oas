@@ -1484,6 +1484,129 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                examples:
+                  - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                    description: Unique identifier for a company's data connection.
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  integrationKey:
+                    type: string
+                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  lastSync:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    format: date-time
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  created:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    format: date-time
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          format: date-time
+                          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                          title: DateTime
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+              examples:
+                example-1:
+                  value:
+                    id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
   '/companies/{companyId}/connections/{connectionId}':
     parameters:
       - name: companyId
@@ -4350,8 +4473,6 @@ paths:
                     properties:
                       full:
                         title: Branding Image
-                        x-stoplight:
-                          id: fd4e5ee5e1ac8
                         type: object
                         properties:
                           image:
@@ -4368,8 +4489,6 @@ paths:
                         examples: []
                       square:
                         title: Branding Image
-                        x-stoplight:
-                          id: fd4e5ee5e1ac8
                         type: object
                         properties:
                           image:
@@ -4389,8 +4508,6 @@ paths:
                     properties:
                       default:
                         title: Branding Image
-                        x-stoplight:
-                          id: fd4e5ee5e1ac8
                         type: object
                         properties:
                           image:
@@ -4407,8 +4524,6 @@ paths:
                         examples: []
                       hover:
                         title: Branding Image
-                        x-stoplight:
-                          id: fd4e5ee5e1ac8
                         type: object
                         properties:
                           image:
@@ -6896,8 +7011,6 @@ components:
           properties:
             full:
               title: Branding Image
-              x-stoplight:
-                id: fd4e5ee5e1ac8
               type: object
               properties:
                 image:
@@ -6914,8 +7027,6 @@ components:
               examples: []
             square:
               title: Branding Image
-              x-stoplight:
-                id: fd4e5ee5e1ac8
               type: object
               properties:
                 image:
@@ -6935,8 +7046,6 @@ components:
           properties:
             default:
               title: Branding Image
-              x-stoplight:
-                id: fd4e5ee5e1ac8
               type: object
               properties:
                 image:
@@ -6953,8 +7062,6 @@ components:
               examples: []
             hover:
               title: Branding Image
-              x-stoplight:
-                id: fd4e5ee5e1ac8
               type: object
               properties:
                 image:
@@ -7520,6 +7627,6 @@ components:
   securitySchemes:
     API_Key:
       type: apiKey
-      description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)'
+      description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)'
       name: Authorization
       in: header
