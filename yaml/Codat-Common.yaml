@@ -600,6 +600,8 @@ paths:
           id: l1juboychi4p9
     get:
       summary: Get company
+      operationId: get-company
+      description: Get metadata for a single company
       tags:
         - Companies
       responses:
@@ -823,11 +825,14 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      operationId: get-companies-companyId
-      description: Get metadata for a single company
     delete:
       summary: Delete a company
-      operationId: delete-companies-companyId
+      operationId: delete-company
+      description: |-
+        Delete the given company from Codat.
+        This operation is not reversible.
+      tags:
+        - Companies
       responses:
         '204':
           description: No Content
@@ -867,14 +872,12 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: |-
-        Delete the given company from Codat.
-        This operation is not reversible.
-      tags:
-        - Companies
     put:
       summary: Update a company
-      operationId: put-companies-companyId
+      description: Updates the given company with a new name and description
+      operationId: put-company
+      tags:
+        - Companies
       responses:
         '200':
           description: OK
@@ -1085,7 +1088,6 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: Updates the given company with a new name and description
       requestBody:
         content:
           application/json:
@@ -1103,8 +1105,6 @@ paths:
               example-1:
                 value:
                   name: New Name
-      tags:
-        - Companies
   '/companies/{companyId}/connections':
     parameters:
       - name: companyId
@@ -1119,8 +1119,50 @@ paths:
           id: l1juboychi4p9
     get:
       summary: List connections
+      description: List the connections for a company
+      operationId: list-company-connections
       tags:
         - Connections
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: number
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
       responses:
         '200':
           description: OK
@@ -1433,48 +1475,6 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      operationId: list-company-connections
-      description: List the connections for a company
-      parameters:
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: number
-            minimum: 0
-            example: 1
-            default: 1
-          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: 1318joqblpp4e
-        - name: pageSize
-          in: query
-          schema:
-            type: number
-            default: 100
-            example: 100
-            minimum: 1
-            maximum: 5000
-          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: s2ika6rltk5y6
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
-          x-stoplight:
-            id: gupdb9kt30hfq
-        - name: orderBy
-          in: query
-          required: false
-          schema:
-            type: string
-            example: '-modifiedDate'
-          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-          x-stoplight:
-            id: 4je9lwo02netu
     post:
       summary: Create a data connection
       description: Create a data connection for a company
@@ -1846,6 +1846,11 @@ paths:
     delete:
       summary: Delete connection
       operationId: delete-company-connection
+      description: |-
+        Revoke and remove a connection from a company.
+        This operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.
+      tags:
+        - Connections
       responses:
         '200':
           description: OK
@@ -1931,14 +1936,12 @@ paths:
                     correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: |-
-        Revoke and remove a connection from a company.
-        This operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.
-      tags:
-        - Connections
     patch:
       summary: Unlink connection
+      description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
       operationId: patch-company-connection
+      tags:
+        - Connections
       responses:
         '200':
           description: OK
@@ -2134,9 +2137,6 @@ paths:
                     correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
-      tags:
-        - Connections
       requestBody:
         content:
           application/json:
@@ -2177,6 +2177,8 @@ paths:
           id: odjhmld3g3nmi
     put:
       summary: Update authorization
+      operationId: get-companies-companyId-connections-connectionId-authorization
+      description: Update data connection's authorization.
       tags:
         - Connections
       responses:
@@ -2292,8 +2294,6 @@ paths:
                   lastSync: '2022-10-27T10:22:43.6464237Z'
                   created: '2022-10-27T09:53:29Z'
                   sourceType: Banking
-      operationId: get-companies-companyId-connections-connectionId-authorization
-      description: Update data connection's authorization.
       requestBody:
         content:
           application/json:
@@ -2442,6 +2442,19 @@ paths:
     post:
       summary: Queue pull operation
       operationId: create-pull-operation
+      description: |-
+        Queue a single pull operation for the given company and data type.
+
+        This will bring updated data into Codat from the linked integration for you to view.
+      tags:
+        - Refresh data
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: connectionId
+          description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
       responses:
         '200':
           description: OK
@@ -2609,22 +2622,52 @@ paths:
                     correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: |-
-        Queue a single pull operation for the given company and data type.
-
-        This will bring updated data into Codat from the linked integration for you to view.
-      parameters:
-        - schema:
-            type: string
-            format: uuid
-          in: query
-          name: connectionId
-          description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
-      tags:
-        - Refresh data
   /rules:
     get:
       summary: List webhooks
+      operationId: list-rules
+      description: List webhooks that you are subscribed to.
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: number
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+      x-internal: true
       tags:
         - Webhooks
       responses:
@@ -2852,52 +2895,13 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      operationId: list-rules
-      description: List webhooks that you are subscribed to.
-      parameters:
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: number
-            minimum: 0
-            example: 1
-            default: 1
-          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: 1318joqblpp4e
-        - name: pageSize
-          in: query
-          schema:
-            type: number
-            default: 100
-            example: 100
-            minimum: 1
-            maximum: 5000
-          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: s2ika6rltk5y6
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
-          x-stoplight:
-            id: gupdb9kt30hfq
-        - name: orderBy
-          in: query
-          required: false
-          schema:
-            type: string
-            example: '-modifiedDate'
-          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-          x-stoplight:
-            id: 4je9lwo02netu
-      x-internal: true
     post:
       summary: Create webhook
+      description: Create a new webhook configuration
       operationId: post-rules
+      tags:
+        - Webhooks
+      x-internal: true
       responses:
         '200':
           description: OK
@@ -2981,7 +2985,6 @@ paths:
                     correlationId: 7eb40d6b415d7bcd99ce658268284056
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: Create a new webhook configuration
       requestBody:
         content:
           application/json:
@@ -3028,9 +3031,6 @@ paths:
               x-stoplight:
                 id: m6zh3ardbld2w
         description: Create a webhook with the given configuration.
-      tags:
-        - Webhooks
-      x-internal: true
   '/rules/{ruleId}':
     parameters:
       - name: ruleId
@@ -3043,6 +3043,9 @@ paths:
         description: Unique ID of the webhook or rule.
     get:
       summary: Get webhook
+      operationId: get-webhook
+      description: Get a single webhook
+      x-internal: true
       tags:
         - Webhooks
       responses:
@@ -3174,9 +3177,6 @@ paths:
                     correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      operationId: get-webhook
-      description: Get a single webhook
-      x-internal: true
   '/companies/{companyId}/dataStatus':
     parameters:
       - name: companyId
@@ -3191,6 +3191,10 @@ paths:
           id: l1juboychi4p9
     get:
       summary: Get data status
+      operationId: get-companies-companyId-dataStatus
+      description: Get the state of each data type for a company
+      tags:
+        - Data status
       responses:
         '200':
           description: OK
@@ -3358,10 +3362,6 @@ paths:
                     correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      operationId: get-companies-companyId-dataStatus
-      description: Get the state of each data type for a company
-      tags:
-        - Data status
   '/companies/{companyId}/data/history':
     parameters:
       - name: companyId

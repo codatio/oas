@@ -847,6 +847,8 @@
       ],
       "get": {
         "summary": "Get company",
+        "operationId": "get-company",
+        "description": "Get metadata for a single company",
         "tags": [
           "Companies"
         ],
@@ -1139,13 +1141,15 @@
               }
             }
           }
-        },
-        "operationId": "get-companies-companyId",
-        "description": "Get metadata for a single company"
+        }
       },
       "delete": {
         "summary": "Delete a company",
-        "operationId": "delete-companies-companyId",
+        "operationId": "delete-company",
+        "description": "Delete the given company from Codat.\nThis operation is not reversible.",
+        "tags": [
+          "Companies"
+        ],
         "responses": {
           "204": {
             "description": "No Content"
@@ -1202,15 +1206,15 @@
               }
             }
           }
-        },
-        "description": "Delete the given company from Codat.\nThis operation is not reversible.",
-        "tags": [
-          "Companies"
-        ]
+        }
       },
       "put": {
         "summary": "Update a company",
-        "operationId": "put-companies-companyId",
+        "description": "Updates the given company with a new name and description",
+        "operationId": "put-company",
+        "tags": [
+          "Companies"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1487,7 +1491,6 @@
             }
           }
         },
-        "description": "Updates the given company with a new name and description",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1516,10 +1519,7 @@
               }
             }
           }
-        },
-        "tags": [
-          "Companies"
-        ]
+        }
       }
     },
     "/companies/{companyId}/connections": {
@@ -1541,8 +1541,67 @@
       ],
       "get": {
         "summary": "List connections",
+        "description": "List the connections for a company",
+        "operationId": "list-company-connections",
         "tags": [
           "Connections"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1984,66 +2043,7 @@
               }
             }
           }
-        },
-        "operationId": "list-company-connections",
-        "description": "List the connections for a company",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "minimum": 0,
-              "example": 1,
-              "default": 1
-            },
-            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "1318joqblpp4e"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "default": 100,
-              "example": 100,
-              "minimum": 1,
-              "maximum": 5000
-            },
-            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "s2ika6rltk5y6"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
-            "x-stoplight": {
-              "id": "gupdb9kt30hfq"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "-modifiedDate"
-            },
-            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
-            "x-stoplight": {
-              "id": "4je9lwo02netu"
-            }
-          }
-        ]
+        }
       },
       "post": {
         "summary": "Create a data connection",
@@ -2532,6 +2532,10 @@
       "delete": {
         "summary": "Delete connection",
         "operationId": "delete-company-connection",
+        "description": "Revoke and remove a connection from a company.\nThis operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.",
+        "tags": [
+          "Connections"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -2650,15 +2654,15 @@
               }
             }
           }
-        },
-        "description": "Revoke and remove a connection from a company.\nThis operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.",
-        "tags": [
-          "Connections"
-        ]
+        }
       },
       "patch": {
         "summary": "Unlink connection",
+        "description": "This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.",
         "operationId": "patch-company-connection",
+        "tags": [
+          "Connections"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -2918,10 +2922,6 @@
             }
           }
         },
-        "description": "This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.",
-        "tags": [
-          "Connections"
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2984,6 +2984,8 @@
       ],
       "put": {
         "summary": "Update authorization",
+        "operationId": "get-companies-companyId-connections-connectionId-authorization",
+        "description": "Update data connection's authorization.",
         "tags": [
           "Connections"
         ],
@@ -3132,8 +3134,6 @@
             }
           }
         },
-        "operationId": "get-companies-companyId-connections-connectionId-authorization",
-        "description": "Update data connection's authorization.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3343,6 +3343,21 @@
       "post": {
         "summary": "Queue pull operation",
         "operationId": "create-pull-operation",
+        "description": "Queue a single pull operation for the given company and data type.\n\nThis will bring updated data into Codat from the linked integration for you to view.",
+        "tags": [
+          "Refresh data"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "connectionId",
+            "description": "Optionally, provide a data connection id to only queue pull operations on that connection."
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3560,27 +3575,72 @@
               }
             }
           }
-        },
-        "description": "Queue a single pull operation for the given company and data type.\n\nThis will bring updated data into Codat from the linked integration for you to view.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "in": "query",
-            "name": "connectionId",
-            "description": "Optionally, provide a data connection id to only queue pull operations on that connection."
-          }
-        ],
-        "tags": [
-          "Refresh data"
-        ]
+        }
       }
     },
     "/rules": {
       "get": {
         "summary": "List webhooks",
+        "operationId": "list-rules",
+        "description": "List webhooks that you are subscribed to.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 1,
+              "default": 1
+            },
+            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "1318joqblpp4e"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "example": 100,
+              "minimum": 1,
+              "maximum": 5000
+            },
+            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+            "x-stoplight": {
+              "id": "s2ika6rltk5y6"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+            "x-stoplight": {
+              "id": "gupdb9kt30hfq"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-modifiedDate"
+            },
+            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+            "x-stoplight": {
+              "id": "4je9lwo02netu"
+            }
+          }
+        ],
+        "x-internal": true,
         "tags": [
           "Webhooks"
         ],
@@ -3923,71 +3983,16 @@
               }
             }
           }
-        },
-        "operationId": "list-rules",
-        "description": "List webhooks that you are subscribed to.",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "minimum": 0,
-              "example": 1,
-              "default": 1
-            },
-            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "1318joqblpp4e"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "default": 100,
-              "example": 100,
-              "minimum": 1,
-              "maximum": 5000
-            },
-            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "s2ika6rltk5y6"
-            }
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
-            "x-stoplight": {
-              "id": "gupdb9kt30hfq"
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "-modifiedDate"
-            },
-            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
-            "x-stoplight": {
-              "id": "4je9lwo02netu"
-            }
-          }
-        ],
-        "x-internal": true
+        }
       },
       "post": {
         "summary": "Create webhook",
+        "description": "Create a new webhook configuration",
         "operationId": "post-rules",
+        "tags": [
+          "Webhooks"
+        ],
+        "x-internal": true,
         "responses": {
           "200": {
             "description": "OK",
@@ -4108,7 +4113,6 @@
             }
           }
         },
-        "description": "Create a new webhook configuration",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4174,11 +4178,7 @@
             }
           },
           "description": "Create a webhook with the given configuration."
-        },
-        "tags": [
-          "Webhooks"
-        ],
-        "x-internal": true
+        }
       }
     },
     "/rules/{ruleId}": {
@@ -4197,6 +4197,9 @@
       ],
       "get": {
         "summary": "Get webhook",
+        "operationId": "get-webhook",
+        "description": "Get a single webhook",
+        "x-internal": true,
         "tags": [
           "Webhooks"
         ],
@@ -4381,10 +4384,7 @@
               }
             }
           }
-        },
-        "operationId": "get-webhook",
-        "description": "Get a single webhook",
-        "x-internal": true
+        }
       }
     },
     "/companies/{companyId}/dataStatus": {
@@ -4406,6 +4406,11 @@
       ],
       "get": {
         "summary": "Get data status",
+        "operationId": "get-companies-companyId-dataStatus",
+        "description": "Get the state of each data type for a company",
+        "tags": [
+          "Data status"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -4637,12 +4642,7 @@
               }
             }
           }
-        },
-        "operationId": "get-companies-companyId-dataStatus",
-        "description": "Get the state of each data type for a company",
-        "tags": [
-          "Data status"
-        ]
+        }
       }
     },
     "/companies/{companyId}/data/history": {
