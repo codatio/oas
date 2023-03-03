@@ -19,7 +19,7 @@ info:
     email: support@codat.io
   termsOfService: 'https://www.codat.io/legals/'
 security:
-  - API_Key: []
+  - auth_header: []
 tags:
   - name: Accounts
     description: 'Where payments are made or received, and bank transactions are recorded.'
@@ -35,6 +35,8 @@ paths:
       tags:
         - Account balances
       summary: List bank balances
+      operationId: list-banking-account-balances
+      description: Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
       parameters:
         - name: companyId
           in: path
@@ -225,15 +227,13 @@ paths:
                           - totalResults
                     x-stoplight:
                       id: 5wohczray2nz5
-      security:
-        - API_Key: []
-      operationId: list-banking-account-balances
-      description: Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
         - Accounts
       summary: List bank accounts
+      operationId: list-banking-accounts
+      description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
       parameters:
         - name: companyId
           in: path
@@ -520,15 +520,15 @@ paths:
                           - totalResults
                     x-stoplight:
                       id: 5wohczray2nz5
-      security:
-        - API_Key: []
-      operationId: list-banking-accounts
-      description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
         - Accounts
       summary: Get bank account
+      operationId: get-bank-account
+      deprecated: true
+      description: Gets a specified bank account for a given company
+      x-internal: true
       parameters:
         - name: companyId
           in: path
@@ -721,12 +721,6 @@ paths:
                             example: '2022-10-23T00:00:00Z'
                             format: date-time
                             title: DateTime
-      security:
-        - API_Key: []
-      operationId: get-bank-account
-      deprecated: true
-      description: Gets a specified bank account for a given company
-      x-internal: true
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories':
     get:
       tags:
@@ -896,8 +890,6 @@ paths:
                           - totalResults
                     x-stoplight:
                       id: 5wohczray2nz5
-      security:
-        - API_Key: []
       description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
       operationId: list-bank-transaction-categories
     parameters:
@@ -985,8 +977,6 @@ paths:
                             title: DateTime
                 title: Transaction Category
                 description: The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
-      security:
-        - API_Key: []
       deprecated: true
       operationId: get-bank-transaction-category
       description: Gets a specified bank transaction category for a given company
@@ -1176,8 +1166,6 @@ paths:
                           The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
                           View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
-      security:
-        - API_Key: []
       description: Gets a list of transactions incurred by a bank account.
       operationId: list-banking-transactions
     parameters:
@@ -1359,8 +1347,6 @@ paths:
                           The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
                           View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
-      security:
-        - API_Key: []
       description: Gets a list of transactions incurred by a company across all bank accounts.
       operationId: list-all-banking-transactions
     parameters:
@@ -1488,8 +1474,6 @@ paths:
                   The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
                   View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
-      security:
-        - API_Key: []
       description: Gets a specified bank transaction for a given company
       operationId: get-banking-transaction
       deprecated: true
@@ -1898,7 +1882,7 @@ components:
       title: Transaction Category
       description: The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
   securitySchemes:
-    API_Key:
+    auth_header:
       type: apiKey
       description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)'
       name: Authorization

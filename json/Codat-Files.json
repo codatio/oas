@@ -21,7 +21,7 @@
   },
   "security": [
     {
-      "API_Key": []
+      "auth_header": []
     }
   ],
   "tags": [
@@ -62,11 +62,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Upload files",
         "operationId": "upload-files"
       },
@@ -156,11 +151,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Returns an array of files that have been uploaded for a given company.",
         "operationId": "list-files"
       },
@@ -212,11 +202,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "You can specify a date to download specific files for.",
         "operationId": "download-files"
       },
@@ -241,7 +226,7 @@
   "components": {
     "schemas": {},
     "securitySchemes": {
-      "API_Key": {
+      "auth_header": {
         "type": "apiKey",
         "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)",
         "name": "Authorization",

@@ -21,7 +21,7 @@
   },
   "security": [
     {
-      "API_Key": []
+      "auth_header": []
     }
   ],
   "tags": [
@@ -137,6 +137,8 @@
           "Account transactions"
         ],
         "summary": "List account transactions",
+        "description": "Gets the account transactions for a given company.",
+        "operationId": "list-account-transactions",
         "parameters": [
           {
             "name": "companyId",
@@ -497,14 +499,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets the account transactions for a given company.",
-        "operationId": "list-account-transactions"
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}": {
@@ -513,6 +508,8 @@
           "Account transactions"
         ],
         "summary": "Get account transaction",
+        "operationId": "get-account-transaction",
+        "description": "Gets the account transactions for a given company.Gets the specified account transaction for a given company and connection.",
         "parameters": [
           {
             "name": "companyId",
@@ -722,14 +719,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "operationId": "get-account-transaction",
-        "description": "Gets the account transactions for a given company.Gets the specified account transaction for a given company and connection."
+        }
       }
     },
     "/companies/{companyId}/data/accounts": {
@@ -738,6 +728,8 @@
           "Accounts"
         ],
         "summary": "List accounts",
+        "description": "Gets the latest accounts for a company",
+        "operationId": "get-accounts",
         "parameters": [
           {
             "name": "companyId",
@@ -1085,14 +1077,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets the latest accounts for a company",
-        "operationId": "get-accounts"
+        }
       }
     },
     "/companies/{companyId}/data/accounts/{accountId}": {
@@ -1298,11 +1283,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single account corresponding to the supplied Id",
         "operationId": "get-account",
         "deprecated": true
@@ -1868,11 +1848,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an individual account for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support POST methods.",
         "operationId": "post-account"
       }
@@ -2593,11 +2568,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a list of all bill credit notes for a company, with pagination",
         "operationId": "list-bill-credit-notes"
       }
@@ -3162,11 +3132,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single billCreditNote corresponding to the supplied Id",
         "deprecated": true,
         "operationId": "get-bill-credit-note"
@@ -4452,11 +4417,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new billCreditNote to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) for integrations that support POST methods.",
         "operationId": "post-bill-credit-note"
       }
@@ -5757,11 +5717,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated billCreditNote to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) for integrations that support PUT methods.",
         "operationId": "update-bill-credit-note"
       }
@@ -6536,11 +6491,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest billPayments for a company, with pagination",
         "operationId": "list-bill-payments"
       }
@@ -7158,11 +7108,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get bill payment",
         "deprecated": true,
         "description": "Get a bill payment",
@@ -8557,11 +8502,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new bill payment to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support POST methods.",
         "operationId": "post-bill-payment"
       }
@@ -9286,11 +9226,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest bills for a company, with pagination",
         "operationId": "list-bills"
       }
@@ -9861,11 +9796,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get bill",
         "description": "Get bill",
         "operationId": "get-bill"
@@ -11159,11 +11089,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new bill to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support POST methods.",
         "operationId": "post-bill"
       }
@@ -12475,11 +12400,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated bill to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support PUT methods.",
         "operationId": "update-bill"
       }
@@ -12589,11 +12509,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "operationId": "get-bill-attachments",
         "summary": "List bill attachments",
         "description": "Get bill attachments"
@@ -12707,11 +12622,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get bill attachment",
         "description": "Get bill attachment",
         "operationId": "get-bill-attachment"
@@ -12781,11 +12691,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Download bill attachment",
         "description": "Download bill attachment",
         "operationId": "download-bill-attachment"
@@ -12842,11 +12747,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Create bill attachments",
         "description": "Post bill attachments",
         "operationId": "post-bill-attachments"
@@ -13577,11 +13477,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a list of all credit notes for a company, with pagination",
         "operationId": "list-credit-notes"
       }
@@ -14155,11 +14050,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single creditNote corresponding to the supplied Id",
         "operationId": "get-credit-note",
         "deprecated": true,
@@ -15463,11 +15353,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Create credit note",
         "description": "Push credit note\n\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes) for integrations that support POST methods.",
         "operationId": "push-credit-note"
@@ -16787,11 +16672,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated credit note to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes) for integrations that support PUT methods.",
         "operationId": "post-credit-note"
       }
@@ -17289,11 +17169,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest customers for a company, with pagination",
         "operationId": "get-customers"
       }
@@ -17635,11 +17510,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single customer corresponding to the supplied Id",
         "operationId": "get-customer",
         "x-internal": true,
@@ -18480,11 +18350,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "operationId": "post-customer",
         "description": "Posts an individual customer for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support POST methods."
       }
@@ -19339,11 +19204,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated customer for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support PUT methods.",
         "operationId": "update-customer"
       }
@@ -19450,11 +19310,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "List customer attachments",
         "description": "Get customer attachments",
         "operationId": "get-customer-attachments"
@@ -19563,11 +19418,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get customer attachment",
         "description": "Get  customer attachment",
         "operationId": "get-customer-attachment"
@@ -19632,11 +19482,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Download customer attachment",
         "description": "Download customer attachment",
         "operationId": "download-customer-attachment"
@@ -20260,11 +20105,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the direct costs for the company.",
         "operationId": "get-direct-costs"
       }
@@ -20734,11 +20574,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified direct cost for a given company.",
         "operationId": "get-direct-cost",
         "deprecated": true,
@@ -21801,11 +21636,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new direct cost to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support POST methods.",
         "operationId": "post-direct-cost"
       }
@@ -21862,11 +21692,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new direct cost attachment for a given company.",
         "operationId": "post-direct-cost-attachment"
       }
@@ -21980,11 +21805,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified direct cost attachment for a given company.",
         "operationId": "get-direct-cost-attachment"
       }
@@ -22054,11 +21874,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Downloads an attachment for the specified direct cost for a given company.",
         "operationId": "download-direct-cost-attachment"
       }
@@ -22169,11 +21984,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets all attachments for the specified direct cost for a given company.",
         "operationId": "list-direct-cost-attachments"
       }
@@ -22775,11 +22585,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the direct incomes for a given company.",
         "operationId": "get-direct-incomes"
       }
@@ -23227,11 +23032,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified direct income for a given company and connection.",
         "operationId": "get-direct-income",
         "deprecated": true,
@@ -24252,11 +24052,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new direct income to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support POST methods.",
         "operationId": "post-direct-income"
       }
@@ -24312,11 +24107,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new direct income attachment for a given company.",
         "operationId": "post-direct-income-attachment"
       }
@@ -24438,11 +24228,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified direct income attachment for a given company.",
         "operationId": "get-direct-income-attachment"
       }
@@ -24523,11 +24308,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Downloads an attachment for the specified direct income for a given company.",
         "operationId": "download-direct-income-attachment"
       }
@@ -24638,11 +24418,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets all attachments for the specified direct income for a given company.",
         "operationId": "list-direct-income-attachments"
       }
@@ -25091,11 +24866,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest balance sheet for a company.",
         "operationId": "get-balance-sheet"
       }
@@ -25785,11 +25555,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest profit and loss for a company.",
         "operationId": "get-profit-and-loss"
       }
@@ -26146,11 +25911,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest cash flow statement for a company.",
         "operationId": "get-cash-flow-statement"
       }
@@ -26399,11 +26159,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest basic info for a company.",
         "operationId": "get-company-info"
       },
@@ -26510,11 +26265,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Initiates the process of synchronising basic info for a company",
         "operationId": "post-sync-info"
       }
@@ -27261,11 +27011,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest invoices for a company, with pagination",
         "operationId": "list-invoices"
       }
@@ -27860,11 +27605,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get invoice",
         "deprecated": true,
         "description": "Get invoice",
@@ -27910,11 +27650,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get invoice as PDF",
         "description": "Get invoice as PDF",
         "operationId": "get-invoice-pdf"
@@ -28027,11 +27762,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get invoice attachments",
         "description": "Get invoice attachments",
         "operationId": "get-invoice-attachments"
@@ -28145,11 +27875,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get invoice attachment",
         "description": "Get invoice attachments",
         "operationId": "get-invoice-attachment"
@@ -28219,11 +27944,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Download invoice attachment",
         "description": "Download invoice attachments",
         "operationId": "donwload-invoice-attachment"
@@ -29561,11 +29281,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new invoice to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support POST methods.",
         "operationId": "post-invoice"
       }
@@ -30921,11 +30636,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated invoice to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support PUT methods.",
         "operationId": "update-invoice"
       }
@@ -30983,11 +30693,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Push invoice attachment",
         "description": "Push invoice attachment",
         "operationId": "push-invoice-attachment"
@@ -31388,11 +31093,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the items for a given company.",
         "operationId": "list-items"
       }
@@ -31638,11 +31338,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "operationId": "get-item",
         "description": "Gets the specified item for a given company.",
         "x-internal": true,
@@ -32287,11 +31982,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new item to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=items) for integrations that support POST methods.",
         "operationId": "post-item"
       }
@@ -32678,11 +32368,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest journal entries for a company, with pagination",
         "operationId": "list-journal-entries"
       }
@@ -32915,11 +32600,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single JournalEntry corresponding to the supplied Id",
         "operationId": "get-journal-entry",
         "deprecated": true,
@@ -33538,11 +33218,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new journalEntry to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journalEntries) for integrations that support POST methods.",
         "operationId": "post-journal-entry"
       }
@@ -33857,11 +33532,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest journals for a company, with pagination",
         "operationId": "list-journals"
       }
@@ -34022,11 +33692,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single journal corresponding to the supplied Id",
         "operationId": "get-journal",
         "x-internal": true,
@@ -34501,11 +34166,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new journal to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journals) for integrations that support POST methods.",
         "operationId": "push-journal"
       }
@@ -34793,11 +34453,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the payment methods for a given company.",
         "operationId": "list-payment-methods",
         "deprecated": true,
@@ -34931,11 +34586,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified payment method for a given company.",
         "operationId": "get-payment-method",
         "deprecated": true,
@@ -35377,11 +35027,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest payments for a company, with pagination",
         "operationId": "list-payments"
       }
@@ -35666,11 +35311,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get payment",
         "description": "Get payment",
         "deprecated": true,
@@ -36396,11 +36036,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new payment to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support POST methods.",
         "operationId": "post-payment"
       }
@@ -36949,11 +36584,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "List purchase orders",
         "description": "Get purchase orders",
         "operationId": "list-purchase-orders"
@@ -37349,11 +36979,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "x-internal": true,
         "deprecated": true,
         "summary": "Get purchase order",
@@ -38299,11 +37924,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new purchase order to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=purchaseOrders) for integrations that support POST methods.",
         "operationId": "post-purchase-order"
       }
@@ -39262,11 +38882,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated purchase order to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=purchaseOrders) for integrations that support PUT methods.",
         "operationId": "update-purchase-order"
       }
@@ -39811,11 +39426,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "List sales orders",
         "description": "Get sales orders",
         "operationId": "list-sales-orders"
@@ -40207,11 +39817,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get sales order",
         "description": "Get sales order",
         "deprecated": true,
@@ -40586,11 +40191,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest suppliers for a company, with pagination",
         "operationId": "list-suppliers"
       }
@@ -40808,11 +40408,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets a single supplier corresponding to the supplied Id",
         "deprecated": true,
         "x-internal": true,
@@ -41400,11 +40995,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Create suppliers",
         "description": "Push suppliers\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support POST methods.",
         "operationId": "post-suppliers"
@@ -42009,11 +41599,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Update supplier",
         "description": "Push supplier\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support PUT methods.",
         "operationId": "put-supplier"
@@ -42123,11 +41708,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "List supplier attachments",
         "description": "Get supplier attachments",
         "operationId": "list-supplier-attachments"
@@ -42238,11 +41818,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Get supplier attachment",
         "description": "Get supplier attachment",
         "operationId": "get-supplier-attachment"
@@ -42309,11 +41884,6 @@
             "description": "Success"
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "summary": "Download supplier attachment",
         "description": "Download supplier attachment",
         "operationId": "download-supplier-attachment"
@@ -42616,11 +42186,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest tax rates for a given company.",
         "operationId": "list-tax-rates"
       }
@@ -42766,11 +42331,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified tax rate for a given company.",
         "operationId": "get-tax-rate",
         "deprecated": true,
@@ -43046,11 +42606,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest tracking categories for a given company.",
         "operationId": "list-tracking-categories"
       }
@@ -43401,11 +42956,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified tracking categories for a given company.",
         "operationId": "get-tracking-category",
         "deprecated": true,
@@ -43811,11 +43361,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the transfers for a given company.",
         "operationId": "list-transfers"
       }
@@ -44063,11 +43608,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the specified transfer for a given company.",
         "operationId": "get-transfer",
         "deprecated": true,
@@ -44682,11 +44222,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new transfer to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers) for integrations that support POST methods.",
         "operationId": "post-transfer"
       }
@@ -45029,11 +44564,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the list of bank accounts for a given connection",
         "operationId": "list-bank-accounts"
       }
@@ -45223,11 +44753,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the bank account with a given ID",
         "deprecated": true,
         "x-internal": true,
@@ -45738,11 +45263,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts a new bank account to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support pushing bank accounts.",
         "operationId": "post-bank-account"
       }
@@ -46262,11 +45782,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Posts an updated bank account to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support PUT methods.",
         "operationId": "put-bank-account"
       }
@@ -46394,11 +45909,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the bank account for given account ID.",
         "operationId": "get-all-bank-account",
         "x-internal": true
@@ -46683,11 +46193,6 @@
             }
           }
         },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
         "description": "Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.",
         "operationId": "list-bank-transactions"
       }
@@ -46701,6 +46206,8 @@
           "Bank account transactions"
         ],
         "summary": "List bank transactions for bank account",
+        "description": "Gets bank transactions for a given bank account ID",
+        "operationId": "list-all-bank-transactionscount",
         "parameters": [
           {
             "name": "companyId",
@@ -47006,14 +46513,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets bank transactions for a given bank account ID",
-        "operationId": "list-all-bank-transactionscount"
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions": {
@@ -47025,6 +46525,9 @@
           "Bank account transactions"
         ],
         "summary": "List push options for bank account bank transactions",
+        "description": "Gets the options of pushing bank account transactions.",
+        "operationId": "get-bank-account-push-options",
+        "x-extension-1": null,
         "parameters": [
           {
             "name": "companyId",
@@ -47693,15 +47196,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Gets the options of pushing bank account transactions.",
-        "operationId": "get-bank-account-push-options",
-        "x-extension-1": null
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions": {
@@ -47710,6 +47205,8 @@
           "Bank account transactions"
         ],
         "summary": "Create bank transactions",
+        "description": "Posts bank transactions to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.",
+        "operationId": "post-bank-transactions",
         "parameters": [
           {
             "name": "companyId",
@@ -48149,14 +47646,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "API_Key": []
-          }
-        ],
-        "description": "Posts bank transactions to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.",
-        "operationId": "post-bank-transactions"
+        }
       }
     },
     "/companies/{companyId}/reports/agedDebtor/available": {
@@ -58783,7 +58273,7 @@
       }
     },
     "securitySchemes": {
-      "API_Key": {
+      "auth_header": {
         "type": "apiKey",
         "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)",
         "name": "Authorization",

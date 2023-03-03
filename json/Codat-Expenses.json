@@ -14,6 +14,11 @@
     "description": "The API for Sync for Expenses.\nSync for Expenses is an API and a set of supporting tools. It has been built to enable corporate card and expense management platforms to provide high-quality integrations with multiple accounting platforms through a standardized API.\n\n[Read more...](https://docs.codat.io/sync-for-expenses/overview)\n\n[See our OpenAPI spec](https://github.com/codatio/oas)",
     "termsOfService": "https://www.codat.io/legals/"
   },
+  "security": [
+    {
+      "auth_header": []
+    }
+  ],
   "tags": [
     {
       "name": "Configuration",
@@ -4011,17 +4016,12 @@
       }
     },
     "securitySchemes": {
-      "Authorization": {
+      "auth_header": {
         "type": "apiKey",
         "description": "The Authorization header used to authenticate to the Codat api, the word \"Basic\" followed by your base64-encoded api key. It can be found [here](https://app.codat.io/developers/api-keys).",
         "name": "Authorization",
         "in": "header"
       }
     }
-  },
-  "security": [
-    {
-      "Authorization": []
-    }
-  ]
+  }
 }

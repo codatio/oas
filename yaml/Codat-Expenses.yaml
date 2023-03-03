@@ -16,6 +16,8 @@ info:
 
     [See our OpenAPI spec](https://github.com/codatio/oas)
   termsOfService: 'https://www.codat.io/legals/'
+security:
+  - auth_header: []
 tags:
   - name: Configuration
     description: Companies sync configuration.
@@ -2969,10 +2971,8 @@ components:
         example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
       description: The unique identifier for your SMB's transaction.
   securitySchemes:
-    Authorization:
+    auth_header:
       type: apiKey
       description: 'The Authorization header used to authenticate to the Codat api, the word "Basic" followed by your base64-encoded api key. It can be found [here](https://app.codat.io/developers/api-keys).'
       name: Authorization
       in: header
-security:
-  - Authorization: []

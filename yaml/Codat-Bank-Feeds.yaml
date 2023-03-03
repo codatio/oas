@@ -20,7 +20,7 @@ info:
     [See our OpenAPI spec](https://github.com/codatio/oas) 
   termsOfService: 'https://www.codat.io/legals/'
 security:
-  - API_Key: []
+  - auth_header: []
 tags:
   - name: Bank feed accounts
     description: Bank feed bank accounts
@@ -32,6 +32,8 @@ paths:
       tags:
         - Bank feed accounts
       summary: Update bank feed bank account
+      description: Update a single BankFeed BankAccount for a single data source connected to a single company.
+      operationId: update-bank-feed
       parameters:
         - name: companyId
           in: path
@@ -217,15 +219,13 @@ paths:
                     balance: 0
                     modifiedDate: '2023-01-09T14:14:14.1057478Z'
                     status: pending
-      security:
-        - API_Key: []
-      description: Update a single BankFeed BankAccount for a single data source connected to a single company.
-      operationId: update-bank-feed
   '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts':
     get:
       tags:
         - Bank feed accounts
       summary: List bank feed bank accounts
+      description: Get BankFeed BankAccounts for a single data source connected to a single company.
+      operationId: get-bank-feeds
       parameters:
         - name: companyId
           in: path
@@ -328,14 +328,12 @@ paths:
                       balance: 0
                       modifiedDate: '2023-01-09T14:14:14.1057478Z'
                       status: pending
-      security:
-        - API_Key: []
-      description: Get BankFeed BankAccounts for a single data source connected to a single company.
-      operationId: get-bank-feeds
     put:
       tags:
         - Bank feed accounts
       summary: Update bank feed bank accounts
+      description: Put BankFeed BankAccounts for a single data source connected to a single company.
+      operationId: put-bank-feeds
       parameters:
         - name: companyId
           in: path
@@ -517,10 +515,6 @@ paths:
                       balance: 0
                       modifiedDate: '2023-01-09T14:14:14.1057478Z'
                       status: pending
-      security:
-        - API_Key: []
-      description: Put BankFeed BankAccounts for a single data source connected to a single company.
-      operationId: put-bank-feeds
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
       x-stoplight:
@@ -528,6 +522,8 @@ paths:
       tags:
         - Bank account transactions
       summary: List bank transactions for bank account
+      description: Gets bank transactions for a given bank account ID
+      operationId: list-all-bank-transactionscount
       parameters:
         - name: companyId
           in: path
@@ -757,10 +753,6 @@ paths:
                           - totalResults
                     x-stoplight:
                       id: 5wohczray2nz5
-      security:
-        - API_Key: []
-      description: Gets bank transactions for a given bank account ID
-      operationId: list-all-bank-transactionscount
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
     get:
       x-stoplight:
@@ -768,6 +760,9 @@ paths:
       tags:
         - Bank account transactions
       summary: List push options for bank account bank transactions
+      description: Gets the options of pushing bank account transactions.
+      operationId: get-bank-account-push-options
+      x-extension-1: null
       parameters:
         - name: companyId
           in: path
@@ -1271,16 +1266,18 @@ paths:
                     type: string
                     nullable: true
                 additionalProperties: false
-      security:
-        - API_Key: []
-      description: Gets the options of pushing bank account transactions.
-      operationId: get-bank-account-push-options
-      x-extension-1: null
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}}/bankTransactions':
     post:
       tags:
         - Bank account transactions
       summary: Create bank transactions
+      description: |-
+        Posts bank transactions to the accounting package for a given company.
+
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
+      operationId: post-bank-transactions
       parameters:
         - name: companyId
           in: path
@@ -1640,15 +1637,6 @@ paths:
                       - requestedOnUtc
                       - status
                       - statusCode
-      security:
-        - API_Key: []
-      description: |-
-        Posts bank transactions to the accounting package for a given company.
-
-        > **Supported Integrations**
-        > 
-        > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
-      operationId: post-bank-transactions
 components:
   schemas:
     BankFeedBankAccount:
@@ -1813,7 +1801,7 @@ components:
         * Current account balance.
         * Transaction type, for example, credit, debit, or transfer.
   securitySchemes:
-    API_Key:
+    auth_header:
       type: apiKey
       description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)'
       name: Authorization

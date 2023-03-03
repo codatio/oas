@@ -20,7 +20,7 @@ info:
     email: support@codat.io
   termsOfService: 'https://www.codat.io/legals/'
 security:
-  - API_Key: []
+  - auth_header: []
 tags:
   - name: Files
     description: Endpoints to manage uploaded files.
@@ -46,8 +46,6 @@ paths:
       responses:
         '200':
           description: Success
-      security:
-        - API_Key: []
       description: Upload files
       operationId: upload-files
     parameters:
@@ -109,8 +107,6 @@ paths:
                       type: string
                       format: date-time
                   additionalProperties: false
-      security:
-        - API_Key: []
       description: Returns an array of files that have been uploaded for a given company.
       operationId: list-files
     parameters:
@@ -145,8 +141,6 @@ paths:
       responses:
         '200':
           description: Success
-      security:
-        - API_Key: []
       description: You can specify a date to download specific files for.
       operationId: download-files
     parameters:
@@ -163,7 +157,7 @@ paths:
 components:
   schemas: {}
   securitySchemes:
-    API_Key:
+    auth_header:
       type: apiKey
       description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/developers/api-keys)'
       name: Authorization
