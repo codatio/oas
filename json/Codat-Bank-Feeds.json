@@ -1118,9 +1118,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "PushOption",
+                  "title": "Push Option",
                   "required": [
-                    "description",
                     "displayName",
                     "required",
                     "type"
@@ -1146,26 +1145,20 @@
                       "type": "string"
                     },
                     "description": {
-                      "minLength": 1,
                       "type": "string"
                     },
-                    "options": {
-                      "type": "array",
-                      "items": {
-                        "title": "PushOptionChoice",
+                    "properties": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "title": "Push Option Property",
                         "required": [
                           "description",
                           "displayName",
                           "required",
-                          "type",
-                          "value"
+                          "type"
                         ],
                         "type": "object",
                         "properties": {
-                          "value": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
                           "type": {
                             "title": "OptionType",
                             "enum": [
@@ -1188,23 +1181,18 @@
                             "minLength": 1,
                             "type": "string"
                           },
-                          "options": {
-                            "type": "array",
-                            "items": {
-                              "title": "PushOptionChoice",
+                          "properties": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "title": "Push Option Property",
                               "required": [
                                 "description",
                                 "displayName",
                                 "required",
-                                "type",
-                                "value"
+                                "type"
                               ],
                               "type": "object",
                               "properties": {
-                                "value": {
-                                  "minLength": 1,
-                                  "type": "string"
-                                },
                                 "type": {
                                   "title": "OptionType",
                                   "enum": [
@@ -1227,23 +1215,18 @@
                                   "minLength": 1,
                                   "type": "string"
                                 },
-                                "options": {
-                                  "type": "array",
-                                  "items": {
-                                    "title": "PushOptionChoice",
+                                "properties": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "title": "Push Option Property",
                                     "required": [
                                       "description",
                                       "displayName",
                                       "required",
-                                      "type",
-                                      "value"
+                                      "type"
                                     ],
                                     "type": "object",
                                     "properties": {
-                                      "value": {
-                                        "minLength": 1,
-                                        "type": "string"
-                                      },
                                       "type": {
                                         "title": "OptionType",
                                         "enum": [
@@ -1266,23 +1249,18 @@
                                         "minLength": 1,
                                         "type": "string"
                                       },
-                                      "options": {
-                                        "type": "array",
-                                        "items": {
-                                          "title": "PushOptionChoice",
+                                      "properties": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                          "title": "Push Option Property",
                                           "required": [
                                             "description",
                                             "displayName",
                                             "required",
-                                            "type",
-                                            "value"
+                                            "type"
                                           ],
                                           "type": "object",
                                           "properties": {
-                                            "value": {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
                                             "type": {
                                               "title": "OptionType",
                                               "enum": [
@@ -1305,6 +1283,44 @@
                                               "minLength": 1,
                                               "type": "string"
                                             },
+                                            "options": {
+                                              "type": "array",
+                                              "items": {
+                                                "title": "Push Option Choice",
+                                                "type": "object",
+                                                "properties": {
+                                                  "value": {
+                                                    "type": "string",
+                                                    "minLength": 1,
+                                                    "description": "Allowed value for field."
+                                                  },
+                                                  "type": {
+                                                    "title": "OptionType",
+                                                    "enum": [
+                                                      "Array",
+                                                      "Object",
+                                                      "String",
+                                                      "Number",
+                                                      "Boolean",
+                                                      "DateTime",
+                                                      "File",
+                                                      "MultiPart"
+                                                    ],
+                                                    "type": "string"
+                                                  },
+                                                  "displayName": {
+                                                    "type": "string"
+                                                  },
+                                                  "description": {
+                                                    "type": "string"
+                                                  },
+                                                  "required": {
+                                                    "type": "boolean"
+                                                  }
+                                                }
+                                              },
+                                              "nullable": true
+                                            },
                                             "required": {
                                               "type": "boolean"
                                             },
@@ -1317,13 +1333,11 @@
                                                   "items": {
                                                     "title": "PushFieldValidation",
                                                     "required": [
-                                                      "details",
-                                                      "field"
+                                                      "details"
                                                     ],
                                                     "type": "object",
                                                     "properties": {
                                                       "field": {
-                                                        "minLength": 1,
                                                         "type": "string"
                                                       },
                                                       "details": {
@@ -1345,13 +1359,11 @@
                                                   "items": {
                                                     "title": "PushFieldValidation",
                                                     "required": [
-                                                      "details",
-                                                      "field"
+                                                      "details"
                                                     ],
                                                     "type": "object",
                                                     "properties": {
                                                       "field": {
-                                                        "minLength": 1,
                                                         "type": "string"
                                                       },
                                                       "details": {
@@ -1370,13 +1382,46 @@
                                                 }
                                               },
                                               "additionalProperties": false
-                                            },
-                                            "rel": {
-                                              "type": "string",
-                                              "nullable": true
                                             }
-                                          },
-                                          "additionalProperties": false
+                                          }
+                                        },
+                                        "nullable": true
+                                      },
+                                      "options": {
+                                        "type": "array",
+                                        "items": {
+                                          "title": "Push Option Choice",
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "description": "Allowed value for field."
+                                            },
+                                            "type": {
+                                              "title": "OptionType",
+                                              "enum": [
+                                                "Array",
+                                                "Object",
+                                                "String",
+                                                "Number",
+                                                "Boolean",
+                                                "DateTime",
+                                                "File",
+                                                "MultiPart"
+                                              ],
+                                              "type": "string"
+                                            },
+                                            "displayName": {
+                                              "type": "string"
+                                            },
+                                            "description": {
+                                              "type": "string"
+                                            },
+                                            "required": {
+                                              "type": "boolean"
+                                            }
+                                          }
                                         },
                                         "nullable": true
                                       },
@@ -1392,13 +1437,11 @@
                                             "items": {
                                               "title": "PushFieldValidation",
                                               "required": [
-                                                "details",
-                                                "field"
+                                                "details"
                                               ],
                                               "type": "object",
                                               "properties": {
                                                 "field": {
-                                                  "minLength": 1,
                                                   "type": "string"
                                                 },
                                                 "details": {
@@ -1420,13 +1463,11 @@
                                             "items": {
                                               "title": "PushFieldValidation",
                                               "required": [
-                                                "details",
-                                                "field"
+                                                "details"
                                               ],
                                               "type": "object",
                                               "properties": {
                                                 "field": {
-                                                  "minLength": 1,
                                                   "type": "string"
                                                 },
                                                 "details": {
@@ -1445,13 +1486,46 @@
                                           }
                                         },
                                         "additionalProperties": false
-                                      },
-                                      "rel": {
-                                        "type": "string",
-                                        "nullable": true
                                       }
-                                    },
-                                    "additionalProperties": false
+                                    }
+                                  },
+                                  "nullable": true
+                                },
+                                "options": {
+                                  "type": "array",
+                                  "items": {
+                                    "title": "Push Option Choice",
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "description": "Allowed value for field."
+                                      },
+                                      "type": {
+                                        "title": "OptionType",
+                                        "enum": [
+                                          "Array",
+                                          "Object",
+                                          "String",
+                                          "Number",
+                                          "Boolean",
+                                          "DateTime",
+                                          "File",
+                                          "MultiPart"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "displayName": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    }
                                   },
                                   "nullable": true
                                 },
@@ -1467,13 +1541,11 @@
                                       "items": {
                                         "title": "PushFieldValidation",
                                         "required": [
-                                          "details",
-                                          "field"
+                                          "details"
                                         ],
                                         "type": "object",
                                         "properties": {
                                           "field": {
-                                            "minLength": 1,
                                             "type": "string"
                                           },
                                           "details": {
@@ -1495,13 +1567,11 @@
                                       "items": {
                                         "title": "PushFieldValidation",
                                         "required": [
-                                          "details",
-                                          "field"
+                                          "details"
                                         ],
                                         "type": "object",
                                         "properties": {
                                           "field": {
-                                            "minLength": 1,
                                             "type": "string"
                                           },
                                           "details": {
@@ -1520,13 +1590,46 @@
                                     }
                                   },
                                   "additionalProperties": false
-                                },
-                                "rel": {
-                                  "type": "string",
-                                  "nullable": true
                                 }
-                              },
-                              "additionalProperties": false
+                              }
+                            },
+                            "nullable": true
+                          },
+                          "options": {
+                            "type": "array",
+                            "items": {
+                              "title": "Push Option Choice",
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "description": "Allowed value for field."
+                                },
+                                "type": {
+                                  "title": "OptionType",
+                                  "enum": [
+                                    "Array",
+                                    "Object",
+                                    "String",
+                                    "Number",
+                                    "Boolean",
+                                    "DateTime",
+                                    "File",
+                                    "MultiPart"
+                                  ],
+                                  "type": "string"
+                                },
+                                "displayName": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                }
+                              }
                             },
                             "nullable": true
                           },
@@ -1542,13 +1645,11 @@
                                 "items": {
                                   "title": "PushFieldValidation",
                                   "required": [
-                                    "details",
-                                    "field"
+                                    "details"
                                   ],
                                   "type": "object",
                                   "properties": {
                                     "field": {
-                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "details": {
@@ -1570,13 +1671,11 @@
                                 "items": {
                                   "title": "PushFieldValidation",
                                   "required": [
-                                    "details",
-                                    "field"
+                                    "details"
                                   ],
                                   "type": "object",
                                   "properties": {
                                     "field": {
-                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "details": {
@@ -1595,88 +1694,15 @@
                               }
                             },
                             "additionalProperties": false
-                          },
-                          "rel": {
-                            "type": "string",
-                            "nullable": true
                           }
-                        },
-                        "additionalProperties": false
+                        }
                       },
                       "nullable": true
                     },
                     "required": {
                       "type": "boolean"
-                    },
-                    "validation": {
-                      "title": "PushValidationInfo",
-                      "type": "object",
-                      "properties": {
-                        "warnings": {
-                          "type": "array",
-                          "items": {
-                            "title": "PushFieldValidation",
-                            "required": [
-                              "details",
-                              "field"
-                            ],
-                            "type": "object",
-                            "properties": {
-                              "field": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "details": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "ref": {
-                                "type": "string",
-                                "format": "uri",
-                                "nullable": true
-                              }
-                            },
-                            "additionalProperties": false
-                          },
-                          "nullable": true
-                        },
-                        "information": {
-                          "type": "array",
-                          "items": {
-                            "title": "PushFieldValidation",
-                            "required": [
-                              "details",
-                              "field"
-                            ],
-                            "type": "object",
-                            "properties": {
-                              "field": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "details": {
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "ref": {
-                                "type": "string",
-                                "format": "uri",
-                                "nullable": true
-                              }
-                            },
-                            "additionalProperties": false
-                          },
-                          "nullable": true
-                        }
-                      },
-                      "additionalProperties": false
-                    },
-                    "rel": {
-                      "type": "string",
-                      "nullable": true
                     }
-                  },
-                  "additionalProperties": false
+                  }
                 }
               }
             }

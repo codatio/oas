@@ -5084,9 +5084,8 @@ paths:
           content:
             application/json:
               schema:
-                title: PushOption
+                title: Push Option
                 required:
-                  - description
                   - displayName
                   - required
                   - type
@@ -5108,23 +5107,18 @@ paths:
                     minLength: 1
                     type: string
                   description:
-                    minLength: 1
                     type: string
-                  options:
-                    type: array
-                    items:
-                      title: PushOptionChoice
+                  properties:
+                    type: object
+                    additionalProperties:
+                      title: Push Option Property
                       required:
                         - description
                         - displayName
                         - required
                         - type
-                        - value
                       type: object
                       properties:
-                        value:
-                          minLength: 1
-                          type: string
                         type:
                           title: OptionType
                           enum:
@@ -5143,21 +5137,17 @@ paths:
                         description:
                           minLength: 1
                           type: string
-                        options:
-                          type: array
-                          items:
-                            title: PushOptionChoice
+                        properties:
+                          type: object
+                          additionalProperties:
+                            title: Push Option Property
                             required:
                               - description
                               - displayName
                               - required
                               - type
-                              - value
                             type: object
                             properties:
-                              value:
-                                minLength: 1
-                                type: string
                               type:
                                 title: OptionType
                                 enum:
@@ -5176,21 +5166,17 @@ paths:
                               description:
                                 minLength: 1
                                 type: string
-                              options:
-                                type: array
-                                items:
-                                  title: PushOptionChoice
+                              properties:
+                                type: object
+                                additionalProperties:
+                                  title: Push Option Property
                                   required:
                                     - description
                                     - displayName
                                     - required
                                     - type
-                                    - value
                                   type: object
                                   properties:
-                                    value:
-                                      minLength: 1
-                                      type: string
                                     type:
                                       title: OptionType
                                       enum:
@@ -5209,21 +5195,17 @@ paths:
                                     description:
                                       minLength: 1
                                       type: string
-                                    options:
-                                      type: array
-                                      items:
-                                        title: PushOptionChoice
+                                    properties:
+                                      type: object
+                                      additionalProperties:
+                                        title: Push Option Property
                                         required:
                                           - description
                                           - displayName
                                           - required
                                           - type
-                                          - value
                                         type: object
                                         properties:
-                                          value:
-                                            minLength: 1
-                                            type: string
                                           type:
                                             title: OptionType
                                             enum:
@@ -5242,6 +5224,35 @@ paths:
                                           description:
                                             minLength: 1
                                             type: string
+                                          options:
+                                            type: array
+                                            items:
+                                              title: Push Option Choice
+                                              type: object
+                                              properties:
+                                                value:
+                                                  type: string
+                                                  minLength: 1
+                                                  description: Allowed value for field.
+                                                type:
+                                                  title: OptionType
+                                                  enum:
+                                                    - Array
+                                                    - Object
+                                                    - String
+                                                    - Number
+                                                    - Boolean
+                                                    - DateTime
+                                                    - File
+                                                    - MultiPart
+                                                  type: string
+                                                displayName:
+                                                  type: string
+                                                description:
+                                                  type: string
+                                                required:
+                                                  type: boolean
+                                            nullable: true
                                           required:
                                             type: boolean
                                           validation:
@@ -5254,11 +5265,9 @@ paths:
                                                   title: PushFieldValidation
                                                   required:
                                                     - details
-                                                    - field
                                                   type: object
                                                   properties:
                                                     field:
-                                                      minLength: 1
                                                       type: string
                                                     details:
                                                       minLength: 1
@@ -5275,11 +5284,9 @@ paths:
                                                   title: PushFieldValidation
                                                   required:
                                                     - details
-                                                    - field
                                                   type: object
                                                   properties:
                                                     field:
-                                                      minLength: 1
                                                       type: string
                                                     details:
                                                       minLength: 1
@@ -5291,10 +5298,35 @@ paths:
                                                   additionalProperties: false
                                                 nullable: true
                                             additionalProperties: false
-                                          rel:
+                                      nullable: true
+                                    options:
+                                      type: array
+                                      items:
+                                        title: Push Option Choice
+                                        type: object
+                                        properties:
+                                          value:
                                             type: string
-                                            nullable: true
-                                        additionalProperties: false
+                                            minLength: 1
+                                            description: Allowed value for field.
+                                          type:
+                                            title: OptionType
+                                            enum:
+                                              - Array
+                                              - Object
+                                              - String
+                                              - Number
+                                              - Boolean
+                                              - DateTime
+                                              - File
+                                              - MultiPart
+                                            type: string
+                                          displayName:
+                                            type: string
+                                          description:
+                                            type: string
+                                          required:
+                                            type: boolean
                                       nullable: true
                                     required:
                                       type: boolean
@@ -5308,11 +5340,9 @@ paths:
                                             title: PushFieldValidation
                                             required:
                                               - details
-                                              - field
                                             type: object
                                             properties:
                                               field:
-                                                minLength: 1
                                                 type: string
                                               details:
                                                 minLength: 1
@@ -5329,11 +5359,9 @@ paths:
                                             title: PushFieldValidation
                                             required:
                                               - details
-                                              - field
                                             type: object
                                             properties:
                                               field:
-                                                minLength: 1
                                                 type: string
                                               details:
                                                 minLength: 1
@@ -5345,10 +5373,35 @@ paths:
                                             additionalProperties: false
                                           nullable: true
                                       additionalProperties: false
-                                    rel:
+                                nullable: true
+                              options:
+                                type: array
+                                items:
+                                  title: Push Option Choice
+                                  type: object
+                                  properties:
+                                    value:
                                       type: string
-                                      nullable: true
-                                  additionalProperties: false
+                                      minLength: 1
+                                      description: Allowed value for field.
+                                    type:
+                                      title: OptionType
+                                      enum:
+                                        - Array
+                                        - Object
+                                        - String
+                                        - Number
+                                        - Boolean
+                                        - DateTime
+                                        - File
+                                        - MultiPart
+                                      type: string
+                                    displayName:
+                                      type: string
+                                    description:
+                                      type: string
+                                    required:
+                                      type: boolean
                                 nullable: true
                               required:
                                 type: boolean
@@ -5362,11 +5415,9 @@ paths:
                                       title: PushFieldValidation
                                       required:
                                         - details
-                                        - field
                                       type: object
                                       properties:
                                         field:
-                                          minLength: 1
                                           type: string
                                         details:
                                           minLength: 1
@@ -5383,11 +5434,9 @@ paths:
                                       title: PushFieldValidation
                                       required:
                                         - details
-                                        - field
                                       type: object
                                       properties:
                                         field:
-                                          minLength: 1
                                           type: string
                                         details:
                                           minLength: 1
@@ -5399,10 +5448,35 @@ paths:
                                       additionalProperties: false
                                     nullable: true
                                 additionalProperties: false
-                              rel:
+                          nullable: true
+                        options:
+                          type: array
+                          items:
+                            title: Push Option Choice
+                            type: object
+                            properties:
+                              value:
                                 type: string
-                                nullable: true
-                            additionalProperties: false
+                                minLength: 1
+                                description: Allowed value for field.
+                              type:
+                                title: OptionType
+                                enum:
+                                  - Array
+                                  - Object
+                                  - String
+                                  - Number
+                                  - Boolean
+                                  - DateTime
+                                  - File
+                                  - MultiPart
+                                type: string
+                              displayName:
+                                type: string
+                              description:
+                                type: string
+                              required:
+                                type: boolean
                           nullable: true
                         required:
                           type: boolean
@@ -5416,11 +5490,9 @@ paths:
                                 title: PushFieldValidation
                                 required:
                                   - details
-                                  - field
                                 type: object
                                 properties:
                                   field:
-                                    minLength: 1
                                     type: string
                                   details:
                                     minLength: 1
@@ -5437,11 +5509,9 @@ paths:
                                 title: PushFieldValidation
                                 required:
                                   - details
-                                  - field
                                 type: object
                                 properties:
                                   field:
-                                    minLength: 1
                                     type: string
                                   details:
                                     minLength: 1
@@ -5453,64 +5523,9 @@ paths:
                                 additionalProperties: false
                               nullable: true
                           additionalProperties: false
-                        rel:
-                          type: string
-                          nullable: true
-                      additionalProperties: false
                     nullable: true
                   required:
                     type: boolean
-                  validation:
-                    title: PushValidationInfo
-                    type: object
-                    properties:
-                      warnings:
-                        type: array
-                        items:
-                          title: PushFieldValidation
-                          required:
-                            - details
-                            - field
-                          type: object
-                          properties:
-                            field:
-                              minLength: 1
-                              type: string
-                            details:
-                              minLength: 1
-                              type: string
-                            ref:
-                              type: string
-                              format: uri
-                              nullable: true
-                          additionalProperties: false
-                        nullable: true
-                      information:
-                        type: array
-                        items:
-                          title: PushFieldValidation
-                          required:
-                            - details
-                            - field
-                          type: object
-                          properties:
-                            field:
-                              minLength: 1
-                              type: string
-                            details:
-                              minLength: 1
-                              type: string
-                            ref:
-                              type: string
-                              format: uri
-                              nullable: true
-                          additionalProperties: false
-                        nullable: true
-                    additionalProperties: false
-                  rel:
-                    type: string
-                    nullable: true
-                additionalProperties: false
       operationId: get-companies-companyId-connections-connectionId-push
       description: |-
         Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
