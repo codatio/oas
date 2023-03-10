@@ -36,7 +36,7 @@ tags:
 servers:
   - url: 'https://api.codat.io'
 paths:
-  '/companies/{companyId}/config':
+  '/companies/{companyId}/sync/expenses/config':
     get:
       tags:
         - Configuration
@@ -282,7 +282,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/connections/partnerExpense':
+  '/companies/{companyId}/sync/expenses/connections/partnerExpense':
     post:
       tags:
         - Connections
@@ -413,7 +413,7 @@ paths:
                   lastSync: '2022-10-27T10:22:43.6464237Z'
                   created: '2022-10-27T09:53:29Z'
                   sourceType: Banking
-  '/companies/{companyId}/mappingOptions':
+  '/companies/{companyId}/sync/expenses/mappingOptions':
     get:
       tags:
         - Mapping options
@@ -623,7 +623,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/syncs':
+  '/companies/{companyId}/sync/expenses/syncs':
     post:
       tags:
         - Sync
@@ -951,7 +951,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/syncs/lastSuccessful/status':
+  '/companies/{companyId}/sync/expenses/syncs/lastSuccessful/status':
     get:
       tags:
         - Sync status
@@ -1045,7 +1045,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/syncs/latest/status':
+  '/companies/{companyId}/sync/expenses/syncs/latest/status':
     get:
       tags:
         - Sync status
@@ -1139,7 +1139,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/syncs/list/status':
+  '/companies/{companyId}/sync/expenses/syncs/list/status':
     get:
       tags:
         - Sync status
@@ -1235,7 +1235,7 @@ paths:
           description: Unique identifier for your SMB in Codat.
         x-stoplight:
           id: l1juboychi4p9
-  '/companies/{companyId}/syncs/{syncId}/status':
+  '/companies/{companyId}/sync/expenses/syncs/{syncId}/status':
     get:
       tags:
         - Sync status
@@ -1345,7 +1345,7 @@ paths:
           format: uuid
           example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
         description: Unique identifier for a sync.
-  '/companies/{companyId}/syncs/{syncId}/transactions':
+  '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions':
     get:
       parameters:
         - name: companyId
@@ -1518,7 +1518,7 @@ paths:
           format: uuid
           example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
         description: Unique identifier for a sync.
-  '/companies/{companyId}/syncs/{syncId}/transactions/{transactionId}':
+  '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}':
     get:
       parameters:
         - name: companyId
@@ -1629,7 +1629,7 @@ paths:
           format: uuid
           example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
         description: The unique identifier for your SMB's transaction.
-  '/companies/{companyId}/data/expense-transactions':
+  '/companies/{companyId}/sync/expenses/data/expense-transactions':
     parameters:
       - name: companyId
         in: path
@@ -1875,7 +1875,7 @@ paths:
                             id: 40e3e57c-2322-4898-966c-ca41adfd23fd
                       notes: Credit Card Payment
         description: ''
-  '/companies/{companyId}/syncs/{syncId}/transactions/{transactionId}/attachments':
+  '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}/attachments':
     parameters:
       - name: companyId
         in: path
