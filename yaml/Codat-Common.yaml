@@ -1485,6 +1485,14 @@ paths:
       tags:
         - Connections
       operationId: create-data-connection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                platformKey:
+                  type: string
       responses:
         '200':
           description: OK
@@ -2325,7 +2333,7 @@ paths:
           id: l1juboychi4p9
     post:
       summary: Queue pull operations
-      operationId: create--many-pull-operations
+      operationId: create-many-pull-operations
       responses:
         '204':
           description: No Content
