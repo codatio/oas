@@ -2440,17 +2440,51 @@ paths:
         schema:
           type: string
           enum:
-            - invoices
-            - accounts
-            - commerce-payments
-            - banking-accounts
-            - company
-            - profitAndLoss
-            - commerce-transactions
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
             - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
             - customers
-          example: customers
-        description: A key for a Codat data type
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - projects
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
+        description: The key of a Codat data type
     post:
       summary: Queue pull operation
       operationId: create-pull-operation
@@ -2477,16 +2511,8 @@ paths:
                 description: |-
                   Information about a queued, in progress or completed pull operation.
                   *Formally called `dataset`*
-                examples:
-                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
-                    dataType: invoices
-                    status: Initial
-                    requested: '2022-11-14T11:18:37.2798351Z'
-                    progress: 10
-                    isCompleted: false
-                    isErrored: false
+                x-stoplight:
+                  id: hvk8xbvt7ekyg
                 type: object
                 properties:
                   id:
@@ -2550,8 +2576,16 @@ paths:
                   - progress
                   - isCompleted
                   - isErrored
-                x-stoplight:
-                  id: hvk8xbvt7ekyg
+                examples:
+                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                    dataType: invoices
+                    status: Initial
+                    requested: '2022-11-14T11:18:37.2798351Z'
+                    progress: 10
+                    isCompleted: false
+                    isErrored: false
         '401':
           description: Your API request was not properly authorized.
           content:
@@ -3408,16 +3442,8 @@ paths:
                           description: |-
                             Information about a queued, in progress or completed pull operation.
                             *Formally called `dataset`*
-                          examples:
-                            - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-                              companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-                              connectionId: 51baa045-4836-4317-a42e-3542e991e581
-                              dataType: invoices
-                              status: Initial
-                              requested: '2022-11-14T11:18:37.2798351Z'
-                              progress: 10
-                              isCompleted: false
-                              isErrored: false
+                          x-stoplight:
+                            id: hvk8xbvt7ekyg
                           type: object
                           properties:
                             id:
@@ -3481,8 +3507,16 @@ paths:
                             - progress
                             - isCompleted
                             - isErrored
-                          x-stoplight:
-                            id: hvk8xbvt7ekyg
+                          examples:
+                            - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                              companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                              connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                              dataType: invoices
+                              status: Initial
+                              requested: '2022-11-14T11:18:37.2798351Z'
+                              progress: 10
+                              isCompleted: false
+                              isErrored: false
                   - title: _Links
                     description: Codat's Paging Model
                     examples:
@@ -3765,16 +3799,8 @@ paths:
                 description: |-
                   Information about a queued, in progress or completed pull operation.
                   *Formally called `dataset`*
-                examples:
-                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
-                    dataType: invoices
-                    status: Initial
-                    requested: '2022-11-14T11:18:37.2798351Z'
-                    progress: 10
-                    isCompleted: false
-                    isErrored: false
+                x-stoplight:
+                  id: hvk8xbvt7ekyg
                 type: object
                 properties:
                   id:
@@ -3838,8 +3864,16 @@ paths:
                   - progress
                   - isCompleted
                   - isErrored
-                x-stoplight:
-                  id: hvk8xbvt7ekyg
+                examples:
+                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                    dataType: invoices
+                    status: Initial
+                    requested: '2022-11-14T11:18:37.2798351Z'
+                    progress: 10
+                    isCompleted: false
+                    isErrored: false
         '401':
           description: Your API request was not properly authorized.
           content:
@@ -5081,17 +5115,51 @@ paths:
         schema:
           type: string
           enum:
-            - invoices
-            - accounts
-            - commerce-payments
-            - banking-accounts
-            - company
-            - profitAndLoss
-            - commerce-transactions
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
             - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
             - customers
-          example: customers
-        description: A key for a Codat data type
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - projects
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
+        description: The key of a Codat data type
     get:
       summary: List push options
       tags:
@@ -6847,16 +6915,8 @@ components:
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
-      examples:
-        - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-          companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-          connectionId: 51baa045-4836-4317-a42e-3542e991e581
-          dataType: invoices
-          status: Initial
-          requested: '2022-11-14T11:18:37.2798351Z'
-          progress: 10
-          isCompleted: false
-          isErrored: false
+      x-stoplight:
+        id: hvk8xbvt7ekyg
       type: object
       properties:
         id:
@@ -6920,8 +6980,16 @@ components:
         - progress
         - isCompleted
         - isErrored
-      x-stoplight:
-        id: hvk8xbvt7ekyg
+      examples:
+        - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+          companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+          connectionId: 51baa045-4836-4317-a42e-3542e991e581
+          dataType: invoices
+          status: Initial
+          requested: '2022-11-14T11:18:37.2798351Z'
+          progress: 10
+          isCompleted: false
+          isErrored: false
     Rule:
       title: Webhook
       description: Configuration to alert to a url or list of email addresses based on the given type / condition.
@@ -7621,17 +7689,51 @@ components:
       schema:
         type: string
         enum:
-          - invoices
-          - accounts
-          - commerce-payments
-          - banking-accounts
-          - company
-          - profitAndLoss
-          - commerce-transactions
+          - accountTransactions
+          - balanceSheet
+          - bankAccounts
+          - bankTransactions
+          - billCreditNotes
+          - billPayments
           - bills
+          - cashFlowStatement
+          - chartOfAccounts
+          - company
+          - creditNotes
           - customers
-        example: customers
-      description: A key for a Codat data type
+          - directCosts
+          - directIncomes
+          - invoices
+          - items
+          - journalEntries
+          - journals
+          - paymentMethods
+          - payments
+          - profitAndLoss
+          - projects
+          - purchaseOrders
+          - salesOrders
+          - suppliers
+          - taxRates
+          - trackingCategories
+          - transfers
+          - banking-accountBalances
+          - banking-accounts
+          - banking-transactionCategories
+          - banking-transactions
+          - commerce-companyInfo
+          - commerce-customers
+          - commerce-disputes
+          - commerce-locations
+          - commerce-orders
+          - commerce-paymentMethods
+          - commerce-payments
+          - commerce-productCategories
+          - commerce-products
+          - commerce-taxComponents
+          - commerce-transactions
+        example: invoices
+      description: The key of a Codat data type
     ruleId:
       name: ruleId
       in: path
