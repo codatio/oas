@@ -2450,6 +2450,7 @@
                           "datatypeFeatures": {
                             "type": "array",
                             "items": {
+                              "x-internal": true,
                               "type": "object",
                               "properties": {
                                 "datatype": {
@@ -4859,6 +4860,7 @@
                 "datatypeFeatures": {
                   "type": "array",
                   "items": {
+                    "x-internal": true,
                     "type": "object",
                     "properties": {
                       "datatype": {
@@ -5036,6 +5038,7 @@
           "datatypeFeatures": {
             "type": "array",
             "items": {
+              "x-internal": true,
               "type": "object",
               "properties": {
                 "datatype": {
@@ -5165,6 +5168,7 @@
         "description": "Supported environments for the integration."
       },
       "DatatypeFeatures": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "datatype": {
@@ -7622,11 +7626,12 @@
       }
     },
     "securitySchemes": {
-      "API_Key": {
+      "auth_header": {
         "type": "apiKey",
         "description": "The word \"Basic\" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)",
         "name": "Authorization",
-        "in": "header"
+        "in": "header",
+        "x-speakeasy-example": "Basic YOUR_ENCODED_API_KEY"
       }
     }
   }

@@ -1838,6 +1838,7 @@ paths:
                         datatypeFeatures:
                           type: array
                           items:
+                            x-internal: true
                             type: object
                             properties:
                               datatype:
@@ -3658,6 +3659,7 @@ components:
               datatypeFeatures:
                 type: array
                 items:
+                  x-internal: true
                   type: object
                   properties:
                     datatype:
@@ -3790,6 +3792,7 @@ components:
         datatypeFeatures:
           type: array
           items:
+            x-internal: true
             type: object
             properties:
               datatype:
@@ -3884,6 +3887,7 @@ components:
       type: string
       description: Supported environments for the integration.
     DatatypeFeatures:
+      x-internal: true
       type: object
       properties:
         datatype:
@@ -5719,8 +5723,9 @@ components:
           description: Sync flow URL.
           example: 'https://sync-flow-integration.codat.io/57b6fad9-e3ca-447b-89db-e4ffa21e6ef3/aiwb/mqjo/start?otp=836415'
   securitySchemes:
-    API_Key:
+    auth_header:
       type: apiKey
       description: 'The word "Basic" followed by a space and your API Key, base64 encoded, which can be found [here](https://app.codat.io/#/profile)'
       name: Authorization
       in: header
+      x-speakeasy-example: Basic YOUR_ENCODED_API_KEY
