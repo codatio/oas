@@ -508,9 +508,8 @@ paths:
                                 dueDate:
                                   description: Date when the next action in the dispute resolution is due
                                   type: string
-                                  format: date-time
-                                  examples:
-                                    - '2021-03-29T14:39:55'
+                                  example: '2022-10-23T00:00:00Z'
+                                  title: DateTime
                               allOf:
                                 - type: object
                                   x-stoplight:
@@ -1284,7 +1283,8 @@ paths:
                                 closedDate:
                                   description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
                                   type: string
-                                  format: date-time
+                                  example: '2022-10-23T00:00:00Z'
+                                  title: DateTime
                                 totalAmount:
                                   description: 'Total amount of the order, including tax, net of any discounts and refunds.'
                                   type: number
@@ -1524,7 +1524,8 @@ paths:
                                           dueDate:
                                             description: Date by which payment must be made
                                             type: string
-                                            format: date-time
+                                            example: '2022-10-23T00:00:00Z'
+                                            title: DateTime
                                       - type: object
                                         x-stoplight:
                                           id: yptfg1r7vj69j
@@ -1928,7 +1929,8 @@ paths:
                                     dueDate:
                                       description: Date by which payment must be made
                                       type: string
-                                      format: date-time
+                                      example: '2022-10-23T00:00:00Z'
+                                      title: DateTime
                                 - type: object
                                   x-stoplight:
                                     id: yptfg1r7vj69j
@@ -2338,7 +2340,8 @@ paths:
                                 dueDate:
                                   description: Date by which payment must be made
                                   type: string
-                                  format: date-time
+                                  example: '2022-10-23T00:00:00Z'
+                                  title: DateTime
                             - type: object
                               x-stoplight:
                                 id: yptfg1r7vj69j
@@ -3432,13 +3435,27 @@ paths:
                             hasChildren:
                               type: boolean
                             modifiedDate:
-                              type: string
-                              format: date-time
-                              example: '2022-01-01T12:00:00.000Z'
+                              title: ModifiedDate
+                              x-stoplight:
+                                id: z5gfpfg4fsp6v
+                              type: object
+                              properties:
+                                modifiedDate:
+                                  description: The date on which this record was last modified in Codat.
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                  title: DateTime
                             sourceModifiedDate:
-                              type: string
-                              format: date-time
-                              example: '2022-01-01T12:00:00.000Z'
+                              title: SourceModifiedDate
+                              x-stoplight:
+                                id: s0oihleme8suj
+                              type: object
+                              properties:
+                                sourceModifiedDate:
+                                  description: The date on which this record was last modified in the originating system
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                  title: DateTime
                           title: Product Category
                           description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
                   - title: _Links
@@ -4190,9 +4207,8 @@ components:
             dueDate:
               description: Date when the next action in the dispute resolution is due
               type: string
-              format: date-time
-              examples:
-                - '2021-03-29T14:39:55'
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
           allOf:
             - type: object
               x-stoplight:
@@ -4412,7 +4428,8 @@ components:
             closedDate:
               description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
               type: string
-              format: date-time
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
             totalAmount:
               description: 'Total amount of the order, including tax, net of any discounts and refunds.'
               type: number
@@ -4652,7 +4669,8 @@ components:
                       dueDate:
                         description: Date by which payment must be made
                         type: string
-                        format: date-time
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
                   - type: object
                     x-stoplight:
                       id: yptfg1r7vj69j
@@ -5056,7 +5074,8 @@ components:
                 dueDate:
                   description: Date by which payment must be made
                   type: string
-                  format: date-time
+                  example: '2022-10-23T00:00:00Z'
+                  title: DateTime
             - type: object
               x-stoplight:
                 id: yptfg1r7vj69j
@@ -5324,7 +5343,8 @@ components:
             dueDate:
               description: Date by which payment must be made
               type: string
-              format: date-time
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
         - type: object
           x-stoplight:
             id: yptfg1r7vj69j
@@ -5693,13 +5713,27 @@ components:
         hasChildren:
           type: boolean
         modifiedDate:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
+          title: ModifiedDate
+          x-stoplight:
+            id: z5gfpfg4fsp6v
+          type: object
+          properties:
+            modifiedDate:
+              description: The date on which this record was last modified in Codat.
+              type: string
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
         sourceModifiedDate:
-          type: string
-          format: date-time
-          example: '2022-01-01T12:00:00.000Z'
+          title: SourceModifiedDate
+          x-stoplight:
+            id: s0oihleme8suj
+          type: object
+          properties:
+            sourceModifiedDate:
+              description: The date on which this record was last modified in the originating system
+              type: string
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
       title: Product Category
       description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
     TaxComponent:

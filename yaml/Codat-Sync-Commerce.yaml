@@ -116,11 +116,11 @@ paths:
                           description: The redirect Link URL enabling the customer to start their auth flow journey for the company.
                           example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
                         lastSync:
-                          type: string
-                          format: date-time
                           description: The date time for the previous sync operation.
-                          example: 2022-01-01T12:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         dataConnections:
                           type: array
                           items:
@@ -169,17 +169,17 @@ paths:
                                 example: Linked
                                 nullable: true
                               lastSync:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                                example: 2022-10-23T00:00:00.000Z
                                 nullable: true
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                               created:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                                example: 2022-10-23T00:00:00.000Z
                                 nullable: true
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                               sourceType:
                                 enum:
                                   - Accounting
@@ -210,17 +210,19 @@ paths:
                                       nullable: true
                                       description: Message on the data connection error.
                                     erroredOnUtc:
-                                      type: string
-                                      format: date-time
                                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                      title: DateTime
                                   additionalProperties: false
                                 nullable: true
                             additionalProperties: false
                         created:
-                          type: string
-                          format: date-time
                           description: The date the data connection was established.
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         createdByUserName:
                           type: string
                           description: Name of the Codat user who created the data connection.
@@ -326,11 +328,11 @@ paths:
                     description: The redirect Link URL enabling the customer to start their auth flow journey for the company.
                     example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
                   lastSync:
-                    type: string
-                    format: date-time
                     description: The date time for the previous sync operation.
-                    example: 2022-01-01T12:00:00.000Z
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   dataConnections:
                     type: array
                     items:
@@ -379,17 +381,17 @@ paths:
                           example: Linked
                           nullable: true
                         lastSync:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         created:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         sourceType:
                           enum:
                             - Accounting
@@ -420,17 +422,19 @@ paths:
                                 nullable: true
                                 description: Message on the data connection error.
                               erroredOnUtc:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                             additionalProperties: false
                           nullable: true
                       additionalProperties: false
                   created:
-                    type: string
-                    format: date-time
                     description: The date the data connection was established.
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   createdByUserName:
                     type: string
                     description: Name of the Codat user who created the data connection.
@@ -552,17 +556,17 @@ paths:
                           example: Linked
                           nullable: true
                         lastSync:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         created:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         sourceType:
                           enum:
                             - Accounting
@@ -593,9 +597,10 @@ paths:
                                 nullable: true
                                 description: Message on the data connection error.
                               erroredOnUtc:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                             additionalProperties: false
                           nullable: true
                       additionalProperties: false
@@ -718,17 +723,17 @@ paths:
                     example: Linked
                     nullable: true
                   lastSync:
-                    type: string
-                    format: date-time
                     description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                    example: 2022-10-23T00:00:00.000Z
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   created:
-                    type: string
-                    format: date-time
                     description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                    example: 2022-10-23T00:00:00.000Z
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   sourceType:
                     enum:
                       - Accounting
@@ -759,9 +764,10 @@ paths:
                           nullable: true
                           description: Message on the data connection error.
                         erroredOnUtc:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                       additionalProperties: false
                     nullable: true
                 additionalProperties: false
@@ -2023,17 +2029,17 @@ paths:
                     example: Linked
                     nullable: true
                   lastSync:
-                    type: string
-                    format: date-time
                     description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                    example: 2022-10-23T00:00:00.000Z
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   created:
-                    type: string
-                    format: date-time
                     description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                    example: 2022-10-23T00:00:00.000Z
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   sourceType:
                     enum:
                       - Accounting
@@ -2064,9 +2070,10 @@ paths:
                           nullable: true
                           description: Message on the data connection error.
                         erroredOnUtc:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                       additionalProperties: false
                     nullable: true
                 additionalProperties: false
@@ -2369,11 +2376,11 @@ paths:
               type: object
               properties:
                 syncTo:
-                  type: string
-                  format: date-time
                   description: 'The DateTime, upto which Sync will run up to starting from the previous successful sync'
-                  example: 2022-08-28T00:00:00.000Z
                   nullable: true
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+                  title: DateTime
       responses:
         '200':
           description: Success
@@ -2386,15 +2393,15 @@ paths:
                     type: object
                     properties:
                       start:
-                        type: string
-                        format: date-time
                         description: Start date of the Sync.
-                        example: 2022-08-28T00:00:00.000Z
-                      finish:
                         type: string
-                        format: date-time
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
+                      finish:
                         description: Finish date of the Sync.
-                        example: 2022-08-29T00:00:00.000Z
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
                     additionalProperties: false
                   companyId:
                     type: string
@@ -2427,10 +2434,11 @@ paths:
                     description: Exception message for the sync operation.
                     example: Customer 3b9bf2ed-a618-4af2-80f2-f2b57fddc748 is not in an Active state. (Archived)
                   syncUtc:
-                    type: string
-                    format: date-time
                     description: UTC DateTime for the Sync.
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   dataConnections:
                     type: array
                     description: Array of containing objects data connection information for the company.
@@ -2480,17 +2488,17 @@ paths:
                           example: Linked
                           nullable: true
                         lastSync:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         created:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         sourceType:
                           enum:
                             - Accounting
@@ -2521,9 +2529,10 @@ paths:
                                 nullable: true
                                 description: Message on the data connection error.
                               erroredOnUtc:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                             additionalProperties: false
                           nullable: true
                       additionalProperties: false
@@ -2570,15 +2579,15 @@ paths:
               type: object
               properties:
                 start:
-                  type: string
-                  format: date-time
                   description: Start date of the Sync.
-                  example: 2022-08-28T00:00:00.000Z
-                finish:
                   type: string
-                  format: date-time
+                  example: '2022-10-23T00:00:00Z'
+                  title: DateTime
+                finish:
                   description: Finish date of the Sync.
-                  example: 2022-08-29T00:00:00.000Z
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+                  title: DateTime
               additionalProperties: false
       responses:
         '200':
@@ -2592,15 +2601,15 @@ paths:
                     type: object
                     properties:
                       start:
-                        type: string
-                        format: date-time
                         description: Start date of the Sync.
-                        example: 2022-08-28T00:00:00.000Z
-                      finish:
                         type: string
-                        format: date-time
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
+                      finish:
                         description: Finish date of the Sync.
-                        example: 2022-08-29T00:00:00.000Z
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
                     additionalProperties: false
                   companyId:
                     type: string
@@ -2633,10 +2642,11 @@ paths:
                     description: Exception message for the sync operation.
                     example: Customer 3b9bf2ed-a618-4af2-80f2-f2b57fddc748 is not in an Active state. (Archived)
                   syncUtc:
-                    type: string
-                    format: date-time
                     description: UTC DateTime for the Sync.
                     nullable: true
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    title: DateTime
                   dataConnections:
                     type: array
                     description: Array of containing objects data connection information for the company.
@@ -2686,17 +2696,17 @@ paths:
                           example: Linked
                           nullable: true
                         lastSync:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         created:
-                          type: string
-                          format: date-time
                           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                          example: 2022-10-23T00:00:00.000Z
                           nullable: true
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          title: DateTime
                         sourceType:
                           enum:
                             - Accounting
@@ -2727,9 +2737,10 @@ paths:
                                 nullable: true
                                 description: Message on the data connection error.
                               erroredOnUtc:
-                                type: string
-                                format: date-time
                                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                                title: DateTime
                             additionalProperties: false
                           nullable: true
                       additionalProperties: false
@@ -2746,11 +2757,11 @@ components:
       type: object
       properties:
         syncTo:
-          type: string
-          format: date-time
           description: 'The DateTime, upto which Sync will run up to starting from the previous successful sync'
-          example: 2022-08-28T00:00:00.000Z
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
     CreateSyncResponse:
       type: object
       properties:
@@ -2758,15 +2769,15 @@ components:
           type: object
           properties:
             start:
-              type: string
-              format: date-time
               description: Start date of the Sync.
-              example: 2022-08-28T00:00:00.000Z
-            finish:
               type: string
-              format: date-time
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
+            finish:
               description: Finish date of the Sync.
-              example: 2022-08-29T00:00:00.000Z
+              type: string
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
           additionalProperties: false
         companyId:
           type: string
@@ -2799,10 +2810,11 @@ components:
           description: Exception message for the sync operation.
           example: Customer 3b9bf2ed-a618-4af2-80f2-f2b57fddc748 is not in an Active state. (Archived)
         syncUtc:
-          type: string
-          format: date-time
           description: UTC DateTime for the Sync.
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         dataConnections:
           type: array
           description: Array of containing objects data connection information for the company.
@@ -2852,17 +2864,17 @@ components:
                 example: Linked
                 nullable: true
               lastSync:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               created:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               sourceType:
                 enum:
                   - Accounting
@@ -2893,9 +2905,10 @@ components:
                       nullable: true
                       description: Message on the data connection error.
                     erroredOnUtc:
-                      type: string
-                      format: date-time
                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                      type: string
+                      example: '2022-10-23T00:00:00Z'
+                      title: DateTime
                   additionalProperties: false
                 nullable: true
             additionalProperties: false
@@ -2909,15 +2922,15 @@ components:
       type: object
       properties:
         start:
-          type: string
-          format: date-time
           description: Start date of the Sync.
-          example: 2022-08-28T00:00:00.000Z
-        finish:
           type: string
-          format: date-time
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
+        finish:
           description: Finish date of the Sync.
-          example: 2022-08-29T00:00:00.000Z
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
       additionalProperties: false
     AddCompanyModel:
       required:
@@ -2976,17 +2989,17 @@ components:
           example: Linked
           nullable: true
         lastSync:
-          type: string
-          format: date-time
           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-          example: 2022-10-23T00:00:00.000Z
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         created:
-          type: string
-          format: date-time
           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-          example: 2022-10-23T00:00:00.000Z
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         sourceType:
           enum:
             - Accounting
@@ -3017,9 +3030,10 @@ components:
                 nullable: true
                 description: Message on the data connection error.
               erroredOnUtc:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
             additionalProperties: false
           nullable: true
       additionalProperties: false
@@ -3056,11 +3070,11 @@ components:
                 description: The redirect Link URL enabling the customer to start their auth flow journey for the company.
                 example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
               lastSync:
-                type: string
-                format: date-time
                 description: The date time for the previous sync operation.
-                example: 2022-01-01T12:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               dataConnections:
                 type: array
                 items:
@@ -3109,17 +3123,17 @@ components:
                       example: Linked
                       nullable: true
                     lastSync:
-                      type: string
-                      format: date-time
                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                      example: 2022-10-23T00:00:00.000Z
                       nullable: true
+                      type: string
+                      example: '2022-10-23T00:00:00Z'
+                      title: DateTime
                     created:
-                      type: string
-                      format: date-time
                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                      example: 2022-10-23T00:00:00.000Z
                       nullable: true
+                      type: string
+                      example: '2022-10-23T00:00:00Z'
+                      title: DateTime
                     sourceType:
                       enum:
                         - Accounting
@@ -3150,17 +3164,19 @@ components:
                             nullable: true
                             description: Message on the data connection error.
                           erroredOnUtc:
-                            type: string
-                            format: date-time
                             description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                            title: DateTime
                         additionalProperties: false
                       nullable: true
                   additionalProperties: false
               created:
-                type: string
-                format: date-time
                 description: The date the data connection was established.
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               createdByUserName:
                 type: string
                 description: Name of the Codat user who created the data connection.
@@ -3238,11 +3254,11 @@ components:
           description: The redirect Link URL enabling the customer to start their auth flow journey for the company.
           example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
         lastSync:
-          type: string
-          format: date-time
           description: The date time for the previous sync operation.
-          example: 2022-01-01T12:00:00.000Z
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         dataConnections:
           type: array
           items:
@@ -3291,17 +3307,17 @@ components:
                 example: Linked
                 nullable: true
               lastSync:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               created:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               sourceType:
                 enum:
                   - Accounting
@@ -3332,17 +3348,19 @@ components:
                       nullable: true
                       description: Message on the data connection error.
                     erroredOnUtc:
-                      type: string
-                      format: date-time
                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                      type: string
+                      example: '2022-10-23T00:00:00Z'
+                      title: DateTime
                   additionalProperties: false
                 nullable: true
             additionalProperties: false
         created:
-          type: string
-          format: date-time
           description: The date the data connection was established.
           nullable: true
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         createdByUserName:
           type: string
           description: Name of the Codat user who created the data connection.
@@ -3403,9 +3421,10 @@ components:
           nullable: true
           description: Message on the data connection error.
         erroredOnUtc:
-          type: string
-          format: date-time
           description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
       additionalProperties: false
     DataConnectionPagedResponseLinksModel:
       type: object
@@ -3491,17 +3510,17 @@ components:
                 example: Linked
                 nullable: true
               lastSync:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               created:
-                type: string
-                format: date-time
                 description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as string.'
-                example: 2022-10-23T00:00:00.000Z
                 nullable: true
+                type: string
+                example: '2022-10-23T00:00:00Z'
+                title: DateTime
               sourceType:
                 enum:
                   - Accounting
@@ -3532,9 +3551,10 @@ components:
                       nullable: true
                       description: Message on the data connection error.
                     erroredOnUtc:
-                      type: string
-                      format: date-time
                       description: 'In Codat''s data model, dates and times are represented using the ISO 8601 standard. Date and time fields are formatted as strings.'
+                      type: string
+                      example: '2022-10-23T00:00:00Z'
+                      title: DateTime
                   additionalProperties: false
                 nullable: true
             additionalProperties: false
@@ -3976,9 +3996,10 @@ components:
                 type: string
               nullable: true
             startDate:
-              type: string
-              format: date-time
               description: Start date of the sync schedule.
+              type: string
+              example: '2022-10-23T00:00:00Z'
+              title: DateTime
             syncHourUtc:
               type: integer
               format: int32
@@ -5620,9 +5641,10 @@ components:
             type: string
           nullable: true
         startDate:
-          type: string
-          format: date-time
           description: Start date of the sync schedule.
+          type: string
+          example: '2022-10-23T00:00:00Z'
+          title: DateTime
         syncHourUtc:
           type: integer
           format: int32

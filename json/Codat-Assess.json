@@ -1258,9 +1258,10 @@
                                 "properties": {
                                   "lastMatched": {
                                     "type": "string",
-                                    "format": "date-time",
                                     "description": "The date the matching algorithm last ran against the company’s data type specified.",
-                                    "readOnly": true
+                                    "readOnly": true,
+                                    "example": "2022-10-23T00:00:00Z",
+                                    "title": "DateTime"
                                   },
                                   "currentStatus": {
                                     "type": "string",
@@ -1330,28 +1331,32 @@
                                 "description": "Only returned for transactions. For accounts, there is nothing returned.",
                                 "properties": {
                                   "minDate": {
-                                    "type": "string",
-                                    "format": "date-time",
                                     "description": "Earliest date of transaction set.",
-                                    "readOnly": true
+                                    "readOnly": true,
+                                    "type": "string",
+                                    "example": "2022-10-23T00:00:00Z",
+                                    "title": "DateTime"
                                   },
                                   "maxDate": {
-                                    "type": "string",
-                                    "format": "date-time",
                                     "description": "Latest date of transaction set.",
-                                    "readOnly": true
+                                    "readOnly": true,
+                                    "type": "string",
+                                    "example": "2022-10-23T00:00:00Z",
+                                    "title": "DateTime"
                                   },
                                   "minOverlappingDate": {
-                                    "type": "string",
-                                    "format": "date-time",
                                     "description": "Earliest date where transactions exist in both accounting and banking platforms.",
-                                    "readOnly": true
+                                    "readOnly": true,
+                                    "type": "string",
+                                    "example": "2022-10-23T00:00:00Z",
+                                    "title": "DateTime"
                                   },
                                   "maxOverlappingDate": {
-                                    "type": "string",
-                                    "format": "date-time",
                                     "description": "Latest date where transactions exist in both account and banking platforms.",
-                                    "readOnly": true
+                                    "readOnly": true,
+                                    "type": "string",
+                                    "example": "2022-10-23T00:00:00Z",
+                                    "title": "DateTime"
                                   }
                                 }
                               }
@@ -1624,9 +1629,10 @@
                                 "readOnly": true
                               },
                               "date": {
+                                "description": "The date of the transaction.",
                                 "type": "string",
-                                "format": "date-time",
-                                "description": "The date of the transaction."
+                                "example": "2022-10-23T00:00:00Z",
+                                "title": "DateTime"
                               },
                               "description": {
                                 "type": "string",
@@ -9672,7 +9678,9 @@
                                 },
                                 "date": {
                                   "type": "string",
-                                  "format": "date-time"
+                                  "example": "2022-10-23T00:00:00Z",
+                                  "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+                                  "title": "DateTime"
                                 },
                                 "description": {
                                   "type": "string"
@@ -9851,7 +9859,9 @@
                         "properties": {
                           "date": {
                             "type": "string",
-                            "format": "date-time"
+                            "example": "2022-10-23T00:00:00Z",
+                            "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+                            "title": "DateTime"
                           },
                           "balance": {
                             "type": "string"
@@ -10068,7 +10078,9 @@
                         "properties": {
                           "date": {
                             "type": "string",
-                            "format": "date-time"
+                            "example": "2022-10-23T00:00:00Z",
+                            "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+                            "title": "DateTime"
                           },
                           "balance": {
                             "type": "string"
@@ -11295,9 +11307,10 @@
                     "type": "object",
                     "properties": {
                       "modifiedDate": {
+                        "description": "The date on which this account categories were last modified in Codat.",
                         "type": "string",
-                        "format": "date-time",
-                        "description": "The date on which this account categories were last modified in Codat."
+                        "example": "2022-10-23",
+                        "title": "Date"
                       }
                     }
                   }
@@ -11843,7 +11856,9 @@
               "properties": {
                 "date": {
                   "type": "string",
-                  "format": "date-time"
+                  "example": "2022-10-23T00:00:00Z",
+                  "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+                  "title": "DateTime"
                 },
                 "balance": {
                   "type": "string"
@@ -12276,9 +12291,10 @@
                 "properties": {
                   "lastMatched": {
                     "type": "string",
-                    "format": "date-time",
                     "description": "The date the matching algorithm last ran against the company’s data type specified.",
-                    "readOnly": true
+                    "readOnly": true,
+                    "example": "2022-10-23T00:00:00Z",
+                    "title": "DateTime"
                   },
                   "currentStatus": {
                     "type": "string",
@@ -12348,28 +12364,32 @@
                 "description": "Only returned for transactions. For accounts, there is nothing returned.",
                 "properties": {
                   "minDate": {
-                    "type": "string",
-                    "format": "date-time",
                     "description": "Earliest date of transaction set.",
-                    "readOnly": true
+                    "readOnly": true,
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "title": "DateTime"
                   },
                   "maxDate": {
-                    "type": "string",
-                    "format": "date-time",
                     "description": "Latest date of transaction set.",
-                    "readOnly": true
+                    "readOnly": true,
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "title": "DateTime"
                   },
                   "minOverlappingDate": {
-                    "type": "string",
-                    "format": "date-time",
                     "description": "Earliest date where transactions exist in both accounting and banking platforms.",
-                    "readOnly": true
+                    "readOnly": true,
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "title": "DateTime"
                   },
                   "maxOverlappingDate": {
-                    "type": "string",
-                    "format": "date-time",
                     "description": "Latest date where transactions exist in both account and banking platforms.",
-                    "readOnly": true
+                    "readOnly": true,
+                    "type": "string",
+                    "example": "2022-10-23T00:00:00Z",
+                    "title": "DateTime"
                   }
                 }
               }
@@ -12508,9 +12528,10 @@
             "readOnly": true
           },
           "date": {
+            "description": "The date of the transaction.",
             "type": "string",
-            "format": "date-time",
-            "description": "The date of the transaction."
+            "example": "2022-10-23T00:00:00Z",
+            "title": "DateTime"
           },
           "description": {
             "type": "string",
@@ -12688,7 +12709,9 @@
                       },
                       "date": {
                         "type": "string",
-                        "format": "date-time"
+                        "example": "2022-10-23T00:00:00Z",
+                        "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
+                        "title": "DateTime"
                       },
                       "description": {
                         "type": "string"
@@ -12990,9 +13013,10 @@
             "type": "object",
             "properties": {
               "modifiedDate": {
+                "description": "The date on which this account categories were last modified in Codat.",
                 "type": "string",
-                "format": "date-time",
-                "description": "The date on which this account categories were last modified in Codat."
+                "example": "2022-10-23",
+                "title": "Date"
               }
             }
           }
