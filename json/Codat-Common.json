@@ -76,6 +76,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "title": "ListCompaniesResponse",
                   "x-internal": true,
                   "allOf": [
                     {
@@ -307,20 +308,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -329,10 +339,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -341,10 +349,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -353,6 +359,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -362,6 +369,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -370,23 +378,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -1801,20 +1810,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -1823,10 +1841,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -1835,10 +1851,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -1847,6 +1861,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -1856,6 +1871,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -1864,23 +1880,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -3782,20 +3799,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -3804,10 +3830,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -3816,10 +3840,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -3828,6 +3850,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -3837,6 +3860,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -3845,23 +3869,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -4803,20 +4828,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -4825,10 +4859,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -4837,10 +4869,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -4849,6 +4879,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -4858,6 +4889,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -4866,23 +4898,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -5601,20 +5634,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -5623,10 +5665,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -5635,10 +5675,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -5647,6 +5685,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -5656,6 +5695,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -5664,23 +5704,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -7968,20 +8009,29 @@
                       "examples": [
                         {
                           "_links": {
+                            "pageNumber": 1,
+                            "pageSize": 10,
+                            "totalResults": 1,
                             "self": {
                               "href": "/companies/{id}/data/{dataType}"
                             },
                             "current": {
                               "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                             }
-                          },
-                          "pageNumber": 1,
-                          "pageSize": 10,
-                          "totalResults": 1
+                          }
                         }
                       ],
                       "type": "object",
                       "properties": {
+                        "pageNumber": {
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "type": "integer"
+                        },
+                        "totalResults": {
+                          "type": "integer"
+                        },
                         "_links": {
                           "type": "object",
                           "required": [
@@ -7990,10 +8040,8 @@
                           ],
                           "properties": {
                             "self": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -8002,10 +8050,8 @@
                               }
                             },
                             "current": {
+                              "title": "Hypertext reference",
                               "type": "object",
-                              "required": [
-                                "href"
-                              ],
                               "properties": {
                                 "href": {
                                   "type": "string",
@@ -8014,6 +8060,7 @@
                               }
                             },
                             "next": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -8023,6 +8070,7 @@
                               }
                             },
                             "previous": {
+                              "title": "Hypertext reference",
                               "type": "object",
                               "properties": {
                                 "href": {
@@ -8031,23 +8079,24 @@
                                 }
                               }
                             }
-                          }
-                        },
-                        "pageNumber": {
-                          "type": "integer"
-                        },
-                        "pageSize": {
-                          "type": "integer"
-                        },
-                        "totalResults": {
-                          "type": "integer"
+                          },
+                          "examples": [
+                            {
+                              "self": {
+                                "href": "/companies/{id}/data/{dataType}"
+                              },
+                              "current": {
+                                "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
-                        "_links",
                         "pageNumber",
                         "pageSize",
-                        "totalResults"
+                        "totalResults",
+                        "_links"
                       ]
                     }
                   ]
@@ -8868,6 +8917,7 @@
   "components": {
     "schemas": {
       "ListCompaniesResponse": {
+        "title": "ListCompaniesResponse",
         "x-internal": true,
         "allOf": [
           {
@@ -9099,20 +9149,29 @@
             "examples": [
               {
                 "_links": {
+                  "pageNumber": 1,
+                  "pageSize": 10,
+                  "totalResults": 1,
                   "self": {
                     "href": "/companies/{id}/data/{dataType}"
                   },
                   "current": {
                     "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
                   }
-                },
-                "pageNumber": 1,
-                "pageSize": 10,
-                "totalResults": 1
+                }
               }
             ],
             "type": "object",
             "properties": {
+              "pageNumber": {
+                "type": "integer"
+              },
+              "pageSize": {
+                "type": "integer"
+              },
+              "totalResults": {
+                "type": "integer"
+              },
               "_links": {
                 "type": "object",
                 "required": [
@@ -9121,10 +9180,8 @@
                 ],
                 "properties": {
                   "self": {
+                    "title": "Hypertext reference",
                     "type": "object",
-                    "required": [
-                      "href"
-                    ],
                     "properties": {
                       "href": {
                         "type": "string",
@@ -9133,10 +9190,8 @@
                     }
                   },
                   "current": {
+                    "title": "Hypertext reference",
                     "type": "object",
-                    "required": [
-                      "href"
-                    ],
                     "properties": {
                       "href": {
                         "type": "string",
@@ -9145,6 +9200,7 @@
                     }
                   },
                   "next": {
+                    "title": "Hypertext reference",
                     "type": "object",
                     "properties": {
                       "href": {
@@ -9154,6 +9210,7 @@
                     }
                   },
                   "previous": {
+                    "title": "Hypertext reference",
                     "type": "object",
                     "properties": {
                       "href": {
@@ -9162,23 +9219,24 @@
                       }
                     }
                   }
-                }
-              },
-              "pageNumber": {
-                "type": "integer"
-              },
-              "pageSize": {
-                "type": "integer"
-              },
-              "totalResults": {
-                "type": "integer"
+                },
+                "examples": [
+                  {
+                    "self": {
+                      "href": "/companies/{id}/data/{dataType}"
+                    },
+                    "current": {
+                      "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
+                    }
+                  }
+                ]
               }
             },
             "required": [
-              "_links",
               "pageNumber",
               "pageSize",
-              "totalResults"
+              "totalResults",
+              "_links"
             ]
           }
         ]

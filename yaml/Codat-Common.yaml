@@ -53,6 +53,7 @@ paths:
           content:
             application/json:
               schema:
+                title: ListCompaniesResponse
                 x-internal: true
                 allOf:
                   - type: object
@@ -232,15 +233,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -248,44 +255,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
               examples:
                 One company:
                   value:
@@ -1317,15 +1323,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -1333,44 +1345,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
               examples:
                 example-1:
                   value:
@@ -2775,15 +2786,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -2791,44 +2808,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
               examples:
                 Example:
                   value:
@@ -3499,15 +3515,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -3515,44 +3537,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
               examples:
                 Example:
                   value:
@@ -4073,15 +4094,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -4089,44 +4116,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
         '400':
           description: Your `query` parameter was not correctly formed
           content:
@@ -5796,15 +5822,21 @@ paths:
                     description: Codat's Paging Model
                     examples:
                       - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
                           self:
                             href: '/companies/{id}/data/{dataType}'
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                        pageNumber: 1
-                        pageSize: 10
-                        totalResults: 1
                     type: object
                     properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
                       _links:
                         type: object
                         required:
@@ -5812,44 +5844,43 @@ paths:
                           - current
                         properties:
                           self:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           current:
+                            title: Hypertext reference
                             type: object
-                            required:
-                              - href
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           next:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
                           previous:
+                            title: Hypertext reference
                             type: object
                             properties:
                               href:
                                 type: string
                                 format: uri-reference
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
                     required:
-                      - _links
                       - pageNumber
                       - pageSize
                       - totalResults
+                      - _links
       operationId: get-companies-companyId-push
       description: List push operation records.
   '/companies/{companyId}/push/{pushOperationKey}':
@@ -6432,6 +6463,7 @@ webhooks:
 components:
   schemas:
     ListCompaniesResponse:
+      title: ListCompaniesResponse
       x-internal: true
       allOf:
         - type: object
@@ -6611,15 +6643,21 @@ components:
           description: Codat's Paging Model
           examples:
             - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
                 self:
                   href: '/companies/{id}/data/{dataType}'
                 current:
                   href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-              pageNumber: 1
-              pageSize: 10
-              totalResults: 1
           type: object
           properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
             _links:
               type: object
               required:
@@ -6627,44 +6665,43 @@ components:
                 - current
               properties:
                 self:
+                  title: Hypertext reference
                   type: object
-                  required:
-                    - href
                   properties:
                     href:
                       type: string
                       format: uri-reference
                 current:
+                  title: Hypertext reference
                   type: object
-                  required:
-                    - href
                   properties:
                     href:
                       type: string
                       format: uri-reference
                 next:
+                  title: Hypertext reference
                   type: object
                   properties:
                     href:
                       type: string
                       format: uri-reference
                 previous:
+                  title: Hypertext reference
                   type: object
                   properties:
                     href:
                       type: string
                       format: uri-reference
-            pageNumber:
-              type: integer
-            pageSize:
-              type: integer
-            totalResults:
-              type: integer
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
           required:
-            - _links
             - pageNumber
             - pageSize
             - totalResults
+            - _links
     ListConnectionsResponse:
       title: ListConnectionsResponse
       x-internal: true
