@@ -707,55 +707,52 @@ paths:
                         pageSize: 10
                         totalResults: 1
                     type: object
-                    allOf:
-                      - properties:
-                          _links:
+                    properties:
+                      _links:
+                        type: object
+                        required:
+                          - self
+                          - current
+                        properties:
+                          self:
                             type: object
                             required:
-                              - self
-                              - current
+                              - href
                             properties:
-                              self:
-                                type: object
-                                required:
-                                  - href
-                                properties:
-                                  href:
-                                    type: string
-                                    format: uri-reference
-                              current:
-                                type: object
-                                required:
-                                  - href
-                                properties:
-                                  href:
-                                    type: string
-                                    format: uri-reference
-                              next:
-                                type: object
-                                properties:
-                                  href:
-                                    type: string
-                                    format: uri-reference
-                              previous:
-                                type: object
-                                properties:
-                                  href:
-                                    type: string
-                                    format: uri-reference
-                          pageNumber:
-                            type: integer
-                          pageSize:
-                            type: integer
-                          totalResults:
-                            type: integer
-                        required:
-                          - _links
-                          - pageNumber
-                          - pageSize
-                          - totalResults
-                    x-stoplight:
-                      id: 5wohczray2nz5
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            type: object
+                            required:
+                              - href
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                    required:
+                      - _links
+                      - pageNumber
+                      - pageSize
+                      - totalResults
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
     get:
       x-stoplight:
