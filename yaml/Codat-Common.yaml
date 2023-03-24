@@ -141,47 +141,10 @@ paths:
       operationId: list-companies
       description: List all companies that you have created in Codat.
       parameters:
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            example: 1
-            default: 1
-          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: 1318joqblpp4e
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-            default: 100
-            example: 100
-            minimum: 1
-            maximum: 5000
-          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: s2ika6rltk5y6
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
-          x-stoplight:
-            id: gupdb9kt30hfq
-        - name: orderBy
-          in: query
-          required: false
-          schema:
-            type: string
-            example: '-modifiedDate'
-          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-          x-stoplight:
-            id: 4je9lwo02netu
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
     post:
       summary: Create company
       tags:
@@ -342,10 +305,10 @@ paths:
       tags:
         - Connections
       parameters:
-        - $ref: '#/paths/~1companies/get/parameters/0'
-        - $ref: '#/paths/~1companies/get/parameters/1'
-        - $ref: '#/paths/~1companies/get/parameters/2'
-        - $ref: '#/paths/~1companies/get/parameters/3'
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
       responses:
         '200':
           description: OK
@@ -491,6 +454,956 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-company-connection
       description: Get a single connection for a company
+    delete:
+      summary: Delete connection
+      operationId: delete-company-connection
+      description: |-
+        Revoke and remove a connection from a company.
+        This operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+    patch:
+      summary: Unlink connection
+      description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
+      operationId: unlink-company-connection
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+              x-examples:
+                example-1:
+                  status: unlinked
+            examples:
+              Example:
+                value:
+                  status: unlinked
+        description: ''
+  '/companies/{companyId}/connections/{connectionId}/authorization':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1'
+    put:
+      summary: Update authorization
+      operationId: get-company-authorization
+      description: Update data connection's authorization.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                property1:
+                  type: string
+                property2:
+                  type: string
+                property3:
+                  type: string
+        description: ''
+  '/companies/{companyId}/data/all':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+    post:
+      summary: Queue pull operations
+      operationId: create-many-pull-operations
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      description: Refreshes all data types marked Fetch on first link.
+      tags:
+        - Refresh data
+  '/companies/{companyId}/data/queue/{dataType}':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/components/parameters/dataType'
+    post:
+      summary: Queue pull operation
+      operationId: create-pull-operation
+      description: |-
+        Queue a single pull operation for the given company and data type.
+
+        This will bring updated data into Codat from the linked integration for you to view.
+      tags:
+        - Refresh data
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: connectionId
+          description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PullOperation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+  /rules:
+    get:
+      summary: List webhooks
+      operationId: list-rules
+      description: List webhooks that you are subscribed to.
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+      x-internal: true
+      tags:
+        - Webhooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-examples:
+                  example-1:
+                    results:
+                      - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                        type: string
+                        companyId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                        notifiers:
+                          emails:
+                            - string
+                          webhook: string
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+                    _links:
+                      self:
+                        href: string
+                      current:
+                        href: string
+                      next:
+                        href: string
+                      previous:
+                        href: string
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rule'
+                allOf:
+                  - type: object
+                  - $ref: '#/components/schemas/ListCompaniesResponse/allOf/1'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: fcfbfe0b-fe73-47ed-a7fe-0018567f5da2
+                        type: DataConnectionStatusChanged
+                        notifiers:
+                          emails: []
+                          webhook: 'https://webhook.site/6d385ea9-bcf9-48e4-9103-1958ccb54997'
+                    pageNumber: 1
+                    pageSize: 100
+                    totalResults: 1
+                    _links:
+                      current:
+                        href: /rules?page=1&pageSize=100
+                      self:
+                        href: /rules
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      summary: Create webhook
+      description: Create a new webhook configuration
+      operationId: create-rule
+      tags:
+        - Webhooks
+      x-internal: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+        description: Create a webhook with the given configuration.
+  '/rules/{ruleId}':
+    parameters:
+      - $ref: '#/components/parameters/ruleId'
+    get:
+      summary: Get webhook
+      operationId: get-webhook
+      description: Get a single webhook
+      x-internal: true
+      tags:
+        - Webhooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+  '/companies/{companyId}/dataStatus':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+    get:
+      summary: Get data status
+      operationId: get-companies-companyId-dataStatus
+      description: Get the state of each data type for a company
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dataType1:
+                    $ref: '#/components/schemas/DataStatus'
+                  dataType2:
+                    $ref: '#/components/schemas/DataStatus'
+              examples:
+                Example:
+                  value:
+                    invoices:
+                      dataType: invoices
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: success
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+                    bills:
+                      dataType: bills
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: failure
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+  '/companies/{companyId}/data/history':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+    get:
+      summary: Get pull operations
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PullOperation'
+                  - $ref: '#/components/schemas/ListCompaniesResponse/allOf/1'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                        companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                        connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                        dataType: invoices
+                        status: Initial
+                        requested: '2022-11-14T11:18:37.2798351Z'
+                        progress: 10
+                        isCompleted: false
+                        isErrored: false
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      operationId: get-company-data-history
+      description: Gets the pull operation history (datasets) for a given company.
+      parameters:
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
+  '/companies/{companyId}/data/history/{datasetId}':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/components/parameters/datasetId'
+    get:
+      summary: Get pull operation
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PullOperation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      operationId: get-pull-operation
+      description: Retrieve information about a single dataset or pull operation.
+  /integrations:
+    get:
+      summary: List integrations
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Integration'
+                  - $ref: '#/components/schemas/ListCompaniesResponse/allOf/1'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: list-integrations
+      parameters:
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
+      description: List your available integrations
+  '/integrations/{platformKey}':
+    parameters:
+      - $ref: '#/components/parameters/platformKey'
+    get:
+      summary: Get integration
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      operationId: get-integrations-platformKey
+      description: 'Get single integration, by platformKey'
+  '/integrations/{platformKey}/branding':
+    parameters:
+      - $ref: '#/components/parameters/platformKey'
+    get:
+      summary: Get branding
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Branding'
+      operationId: get-integrations-platformKey-branding
+      description: Get branding for platform.
+  /profile:
+    get:
+      summary: Get profile
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: get-settings-profile
+      description: Fetch your Codat profile.
+      deprecated: true
+      x-internal: true
+    put:
+      summary: Update profile
+      operationId: put-profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+        - Settings
+      description: Update your Codat profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        description: All fields should be included when updating your profile.
+  /profile/syncSettings:
+    get:
+      summary: Get sync settings
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      clientId:
+                        type: string
+                        format: uuid
+                        example: 367f7975-267b-439b-90c6-a6040ee680f3
+                      settings:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/SyncSetting'
+                      overridesDefaults:
+                        type: boolean
+                type: object
+              examples:
+                Example:
+                  value:
+                    clientId: 367f7975-267b-439b-90c6-a6040ee680f3
+                    settings:
+                      - dataType: invoices
+                        fetchOnFirstLink: true
+                        syncSchedule: 24
+                        syncOrder: 0
+                        syncFromUtc: '2020-01-01T12:00:00.000Z'
+                        syncFromWindow: 24
+                        monthsToSync: 24
+                        isLocked: true
+                    overridesDefaults: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: get-profile-syncSettings
+      description: 'Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.'
+      x-internal: true
+      deprecated: true
+    post:
+      summary: Update all sync settings
+      operationId: post-profile-syncSettings
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      description: Update sync settings for all data types.
+      tags:
+        - Settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - properties:
+                    clientId:
+                      type: string
+                      format: uuid
+                      example: 367f7975-267b-439b-90c6-a6040ee680f3
+                    settings:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SyncSetting'
+                    overridesDefaults:
+                      type: boolean
+                      default: true
+                  required:
+                    - clientId
+                    - settings
+                    - overridesDefaults
+              type: object
+        description: |-
+          Include a `syncSetting` object for each data type.
+          `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
+  '/companies/{companyId}/connections/{connectionId}/options/{dataType}':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1'
+      - $ref: '#/components/parameters/dataType'
+    get:
+      summary: List push options
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Push Option
+                required:
+                  - displayName
+                  - required
+                  - type
+                type: object
+                properties:
+                  type:
+                    title: OptionType
+                    enum:
+                      - Array
+                      - Object
+                      - String
+                      - Number
+                      - Boolean
+                      - DateTime
+                      - File
+                      - MultiPart
+                    type: string
+                  displayName:
+                    minLength: 1
+                    type: string
+                  description:
+                    type: string
+                  properties:
+                    type: object
+                    additionalProperties:
+                      title: Push Option Property
+                      required:
+                        - description
+                        - displayName
+                        - required
+                        - type
+                      type: object
+                      properties:
+                        type:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                        displayName:
+                          minLength: 1
+                          type: string
+                        description:
+                          minLength: 1
+                          type: string
+                        properties:
+                          type: object
+                          additionalProperties:
+                            title: Push Option Property
+                            required:
+                              - description
+                              - displayName
+                              - required
+                              - type
+                            type: object
+                            properties:
+                              type:
+                                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                              displayName:
+                                minLength: 1
+                                type: string
+                              description:
+                                minLength: 1
+                                type: string
+                              properties:
+                                type: object
+                                additionalProperties:
+                                  title: Push Option Property
+                                  required:
+                                    - description
+                                    - displayName
+                                    - required
+                                    - type
+                                  type: object
+                                  properties:
+                                    type:
+                                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                                    displayName:
+                                      minLength: 1
+                                      type: string
+                                    description:
+                                      minLength: 1
+                                      type: string
+                                    properties:
+                                      type: object
+                                      additionalProperties:
+                                        title: Push Option Property
+                                        required:
+                                          - description
+                                          - displayName
+                                          - required
+                                          - type
+                                        type: object
+                                        properties:
+                                          type:
+                                            $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                                          displayName:
+                                            minLength: 1
+                                            type: string
+                                          description:
+                                            minLength: 1
+                                            type: string
+                                          options:
+                                            type: array
+                                            items:
+                                              $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/options/items'
+                                            nullable: true
+                                          required:
+                                            type: boolean
+                                          validation:
+                                            $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/validation'
+                                      nullable: true
+                                    options:
+                                      type: array
+                                      items:
+                                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/options/items'
+                                      nullable: true
+                                    required:
+                                      type: boolean
+                                    validation:
+                                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/validation'
+                                nullable: true
+                              options:
+                                type: array
+                                items:
+                                  $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/options/items'
+                                nullable: true
+                              required:
+                                type: boolean
+                              validation:
+                                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/validation'
+                          nullable: true
+                        options:
+                          type: array
+                          items:
+                            title: Push Option Choice
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                minLength: 1
+                                description: Allowed value for field.
+                              type:
+                                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/type'
+                              displayName:
+                                type: string
+                              description:
+                                type: string
+                              required:
+                                type: boolean
+                          nullable: true
+                        required:
+                          type: boolean
+                        validation:
+                          title: PushValidationInfo
+                          type: object
+                          properties:
+                            warnings:
+                              type: array
+                              items:
+                                title: PushFieldValidation
+                                required:
+                                  - details
+                                type: object
+                                properties:
+                                  field:
+                                    type: string
+                                  details:
+                                    minLength: 1
+                                    type: string
+                                  ref:
+                                    type: string
+                                    format: uri
+                                    nullable: true
+                                additionalProperties: false
+                              nullable: true
+                            information:
+                              type: array
+                              items:
+                                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1%7BdataType%7D/get/responses/200/content/application~1json/schema/properties/properties/additionalProperties/properties/validation/properties/warnings/items'
+                              nullable: true
+                          additionalProperties: false
+                    nullable: true
+                  required:
+                    type: boolean
+      operationId: get-companies-companyId-connections-connectionId-push
+      description: |-
+        This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
+
+        Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
+
+        Codat tries not to limit users to pushing to a very limited number of standard categories, so we have implemented "options" endpoints, which allow us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.
+
+
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods).
+  '/companies/{companyId}/push':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+    get:
+      parameters:
+        - $ref: '#/paths/~1rules/get/parameters/0'
+        - $ref: '#/paths/~1rules/get/parameters/1'
+        - $ref: '#/paths/~1rules/get/parameters/2'
+        - $ref: '#/paths/~1rules/get/parameters/3'
+      summary: List push operations
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1push~1%7BpushOperationKey%7D/get/responses/200/content/application~1json/schema/allOf/1'
+                  - $ref: '#/components/schemas/ListCompaniesResponse/allOf/1'
+      operationId: get-companies-companyId-push
+      description: List push operation records.
+  '/companies/{companyId}/push/{pushOperationKey}':
+    parameters:
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D/parameters/0'
+      - schema:
+          type: string
+          format: uuid
+        name: pushOperationKey
+        in: path
+        required: true
+        description: Push operation key.
+    get:
+      summary: Get push operation
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        description: Object submitted in push operation.
+                  - type: object
+                    properties:
+                      changes:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - Unknown
+                                - Created
+                                - Modified
+                                - Deleted
+                                - AttachmentUploaded
+                            recordRef:
+                              title: PushOperationRecordRef
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                dataType:
+                                  type: string
+                                  nullable: true
+                              additionalProperties: false
+                            attachmentId:
+                              type: string
+                              nullable: true
+                      dataType:
+                        type: string
+                        nullable: true
+                        description: 'The type of data being pushed, eg invoices, customers.'
+                      companyId:
+                        $ref: '#/components/schemas/Company/properties/id'
+                      pushOperationKey:
+                        type: string
+                        format: uuid
+                        description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
+                      dataConnectionKey:
+                        $ref: '#/components/schemas/Connection/properties/id'
+                      requestedOnUtc:
+                        $ref: '#/components/schemas/DateTime'
+                        description: The datetime when the push was requested.
+                      completedOnUtc:
+                        $ref: '#/components/schemas/DateTime'
+                        description: 'The datetime when the push was completed, null if Pending.'
+                      timeoutInMinutes:
+                        type: integer
+                        format: int32
+                        nullable: true
+                      timeoutInSeconds:
+                        type: integer
+                        format: int32
+                        nullable: true
+                        deprecated: true
+                      status:
+                        minLength: 1
+                        type: string
+                        enum:
+                          - Pending
+                          - Failed
+                          - Success
+                          - TimedOut
+                        description: The status of the push operation.
+                      errorMessage:
+                        type: string
+                        nullable: true
+                      validation:
+                        type: object
+                        description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
+                        properties:
+                          errors:
+                            type: array
+                            nullable: true
+                            items:
+                              title: ValidationItem
+                              type: object
+                              properties:
+                                itemId:
+                                  type: string
+                                  nullable: true
+                                message:
+                                  type: string
+                                  nullable: true
+                                validatorName:
+                                  type: string
+                                  nullable: true
+                              additionalProperties: false
+                          warnings:
+                            type: array
+                            nullable: true
+                            items:
+                              $ref: '#/paths/~1companies~1%7BcompanyId%7D~1push~1%7BpushOperationKey%7D/get/responses/200/content/application~1json/schema/allOf/1/properties/validation/properties/errors/items'
+                      statusCode:
+                        type: integer
+                        format: int32
+                    required:
+                      - companyId
+                      - pushOperationKey
+                      - dataConnectionKey
+                      - requestedOnUtc
+                      - status
+                      - statusCode
+      operationId: get-companies-companyId-push-pushOperationKey
+      description: Retrieve push operation.
 webhooks:
   Company data connection status changed:
     post:
@@ -576,6 +1489,7 @@ components:
       x-internal: true
       allOf:
         - type: object
+          title: data
           properties:
             results:
               type: array
@@ -1459,7 +2373,6 @@ components:
       content:
         application/json:
           schema:
-            title: Unauthorized
             type: object
             properties:
               statusCode:
@@ -1496,7 +2409,6 @@ components:
       content:
         application/json:
           schema:
-            title: Malformed Query
             type: object
             properties:
               statusCode:
