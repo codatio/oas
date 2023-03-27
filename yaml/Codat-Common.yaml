@@ -1603,6 +1603,4439 @@ paths:
                     lastSync: '2022-10-27T10:22:43.6464237Z'
                     created: '2022-10-27T09:53:29Z'
                     sourceType: Banking
+  '/companies/{companyId}/connections/{connectionId}':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
+    get:
+      summary: Get connection
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                    description: Unique identifier for a company's data connection.
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  integrationKey:
+                    type: string
+                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  lastSync:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  created:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                          title: DateTime
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+                example:
+                  id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                  integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                  integrationKey: dfxm
+                  sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                  platformName: Basiq
+                  linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                  status: Linked
+                  lastSync: '2022-10-27T10:22:43.6464237Z'
+                  created: '2022-10-27T09:53:29Z'
+                  sourceType: Banking
+              examples:
+                example-1:
+                  value:
+                    id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                    integrationKey: dfxm
+                    sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                    platformName: Basiq
+                    linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                    status: Linked
+                    lastSync: '2022-10-27T10:22:43.6464237Z'
+                    created: '2022-10-27T09:53:29Z'
+                    sourceType: Banking
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-company-connection
+      description: Get a single connection for a company
+    delete:
+      summary: Delete connection
+      operationId: delete-company-connection
+      description: |-
+        Revoke and remove a connection from a company.
+        This operation is not reversible - the end user would need to reauthorize a new data connection if you wish to view new data for this company.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+    patch:
+      summary: Unlink connection
+      description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
+      operationId: unlink-company-connection
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                    description: Unique identifier for a company's data connection.
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  integrationKey:
+                    type: string
+                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  lastSync:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  created:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                          title: DateTime
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+                example:
+                  id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                  integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                  integrationKey: dfxm
+                  sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                  platformName: Basiq
+                  linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                  status: Linked
+                  lastSync: '2022-10-27T10:22:43.6464237Z'
+                  created: '2022-10-27T09:53:29Z'
+                  sourceType: Banking
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+              x-examples:
+                example-1:
+                  status: unlinked
+            examples:
+              Example:
+                value:
+                  status: unlinked
+        description: ''
+  '/companies/{companyId}/connections/{connectionId}/authorization':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
+    put:
+      summary: Update authorization
+      operationId: get-company-authorization
+      description: Update data connection's authorization.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Connection
+                description: A connection represents the link between a `company` and a source of data.
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                    description: Unique identifier for a company's data connection.
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  integrationKey:
+                    type: string
+                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  platformName:
+                    type: string
+                  linkUrl:
+                    type: string
+                    format: uri
+                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
+                  status:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  lastSync:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  created:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  dataConnectionErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                        statusText:
+                          type: string
+                        errorMessage:
+                          type: string
+                        erroredOnUtc:
+                          type: string
+                          example: '2022-10-23T00:00:00Z'
+                          description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                          title: DateTime
+                  connectionInfo:
+                    type: object
+                    properties:
+                      additionalProp1:
+                        type: string
+                      additionalProp2:
+                        type: string
+                      additionalProp3:
+                        type: string
+                required:
+                  - id
+                  - integrationId
+                  - integrationKey
+                  - sourceId
+                  - platformName
+                  - linkUrl
+                  - status
+                  - created
+                  - sourceType
+                example:
+                  id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                  integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
+                  integrationKey: dfxm
+                  sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
+                  platformName: Basiq
+                  linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
+                  status: Linked
+                  lastSync: '2022-10-27T10:22:43.6464237Z'
+                  created: '2022-10-27T09:53:29Z'
+                  sourceType: Banking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                property1:
+                  type: string
+                property2:
+                  type: string
+                property3:
+                  type: string
+        description: ''
+  '/companies/{companyId}/data/all':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+    post:
+      summary: Queue pull operations
+      operationId: create-many-pull-operations
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      description: Refreshes all data types marked Fetch on first link.
+      tags:
+        - Refresh data
+  '/companies/{companyId}/data/queue/{dataType}':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - name: dataType
+        description: The key of a Codat data type
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Available Data types
+          enum:
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
+            - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
+            - customers
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
+    post:
+      summary: Queue pull operation
+      operationId: create-pull-operation
+      description: |-
+        Queue a single pull operation for the given company and data type.
+
+        This will bring updated data into Codat from the linked integration for you to view.
+      tags:
+        - Refresh data
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: connectionId
+          description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Pull Operation
+                description: |-
+                  Information about a queued, in progress or completed pull operation.
+                  *Formally called `dataset`*
+                x-stoplight:
+                  id: hvk8xbvt7ekyg
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 943accd0-4247-42d8-865b-363c8629e1da
+                  companyId:
+                    type: string
+                    format: uuid
+                    example: 22ece347-e5f6-4896-95e0-35a4c7f17023
+                  connectionId:
+                    type: string
+                    format: uuid
+                    example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
+                  dataType:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - Initial
+                      - Queued
+                      - Fetching
+                      - MapQueued
+                      - Mapping
+                      - Complete
+                      - FetchError
+                      - MapError
+                      - InternalError
+                      - ProcessingQueued
+                      - Processing
+                      - ProcessingError
+                      - ValidationQueued
+                      - Validating
+                      - ValidationError
+                      - AuthError
+                      - Cancelled
+                      - Routing
+                      - RoutingError
+                      - NotSupported
+                      - RateLimitError
+                      - PermissionsError
+                      - PrerequisiteNotMet
+                    example: Complete
+                  requested:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  progress:
+                    type: integer
+                  isCompleted:
+                    type: boolean
+                  isErrored:
+                    type: boolean
+                required:
+                  - id
+                  - companyId
+                  - connectionId
+                  - dataType
+                  - status
+                  - requested
+                  - progress
+                  - isCompleted
+                  - isErrored
+                examples:
+                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                    dataType: invoices
+                    status: Initial
+                    requested: '2022-11-14T11:18:37.2798351Z'
+                    progress: 10
+                    isCompleted: false
+                    isErrored: false
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+  /rules:
+    get:
+      summary: List webhooks
+      operationId: list-rules
+      description: List webhooks that you are subscribed to.
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+      x-internal: true
+      tags:
+        - Webhooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-examples:
+                  example-1:
+                    results:
+                      - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                        type: string
+                        companyId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                        notifiers:
+                          emails:
+                            - string
+                          webhook: string
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+                    _links:
+                      self:
+                        href: string
+                      current:
+                        href: string
+                      next:
+                        href: string
+                      previous:
+                        href: string
+                properties:
+                  results:
+                    type: array
+                    items:
+                      title: Webhook
+                      description: Configuration to alert to a url or list of email addresses based on the given type / condition.
+                      examples:
+                        - id: ff89c50e-a719-4ef5-a182-9917e53927b6
+                          type: string
+                          companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                          notifiers:
+                            emails:
+                              - info@client.com
+                            webhook: 'https://webhook.client.com'
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: ff89c50e-a719-4ef5-a182-9917e53927b6
+                        type:
+                          type: string
+                        companyId:
+                          type: string
+                          format: uuid
+                          example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                        notifiers:
+                          type: object
+                          properties:
+                            emails:
+                              type: array
+                              items:
+                                type: string
+                                format: email
+                                example: info@client.com
+                            webhook:
+                              type: string
+                              format: uri
+                              example: 'https://webhook.client.com'
+                      required:
+                        - id
+                        - type
+                        - notifiers
+                      x-stoplight:
+                        id: m6zh3ardbld2w
+                allOf:
+                  - type: object
+                  - type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
+                        type: object
+                        required:
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: fcfbfe0b-fe73-47ed-a7fe-0018567f5da2
+                        type: DataConnectionStatusChanged
+                        notifiers:
+                          emails: []
+                          webhook: 'https://webhook.site/6d385ea9-bcf9-48e4-9103-1958ccb54997'
+                    pageNumber: 1
+                    pageSize: 100
+                    totalResults: 1
+                    _links:
+                      current:
+                        href: /rules?page=1&pageSize=100
+                      self:
+                        href: /rules
+        '400':
+          description: Your `query` parameter was not correctly formed
+          content:
+            application/json:
+              schema:
+                title: Malformed-Query
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+    post:
+      summary: Create webhook
+      description: Create a new webhook configuration
+      operationId: create-rule
+      tags:
+        - Webhooks
+      x-internal: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Webhook
+                description: Configuration to alert to a url or list of email addresses based on the given type / condition.
+                examples:
+                  - id: ff89c50e-a719-4ef5-a182-9917e53927b6
+                    type: string
+                    companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                    notifiers:
+                      emails:
+                        - info@client.com
+                      webhook: 'https://webhook.client.com'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: ff89c50e-a719-4ef5-a182-9917e53927b6
+                  type:
+                    type: string
+                  companyId:
+                    type: string
+                    format: uuid
+                    example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                  notifiers:
+                    type: object
+                    properties:
+                      emails:
+                        type: array
+                        items:
+                          type: string
+                          format: email
+                          example: info@client.com
+                      webhook:
+                        type: string
+                        format: uri
+                        example: 'https://webhook.client.com'
+                required:
+                  - id
+                  - type
+                  - notifiers
+                x-stoplight:
+                  id: m6zh3ardbld2w
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Webhook
+              description: Configuration to alert to a url or list of email addresses based on the given type / condition.
+              examples:
+                - id: ff89c50e-a719-4ef5-a182-9917e53927b6
+                  type: string
+                  companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                  notifiers:
+                    emails:
+                      - info@client.com
+                    webhook: 'https://webhook.client.com'
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  example: ff89c50e-a719-4ef5-a182-9917e53927b6
+                type:
+                  type: string
+                companyId:
+                  type: string
+                  format: uuid
+                  example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                notifiers:
+                  type: object
+                  properties:
+                    emails:
+                      type: array
+                      items:
+                        type: string
+                        format: email
+                        example: info@client.com
+                    webhook:
+                      type: string
+                      format: uri
+                      example: 'https://webhook.client.com'
+              required:
+                - id
+                - type
+                - notifiers
+              x-stoplight:
+                id: m6zh3ardbld2w
+        description: Create a webhook with the given configuration.
+  '/rules/{ruleId}':
+    parameters:
+      - name: ruleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 7318949f-c008-4936-a8ff-10d7ab563fa6
+        description: Unique ID of the webhook or rule.
+    get:
+      summary: Get webhook
+      operationId: get-webhook
+      description: Get a single webhook
+      x-internal: true
+      tags:
+        - Webhooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Webhook
+                description: Configuration to alert to a url or list of email addresses based on the given type / condition.
+                examples:
+                  - id: ff89c50e-a719-4ef5-a182-9917e53927b6
+                    type: string
+                    companyId: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                    notifiers:
+                      emails:
+                        - info@client.com
+                      webhook: 'https://webhook.client.com'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: ff89c50e-a719-4ef5-a182-9917e53927b6
+                  type:
+                    type: string
+                  companyId:
+                    type: string
+                    format: uuid
+                    example: 39b73b17-cc2e-429e-915d-71654e9dcd1e
+                  notifiers:
+                    type: object
+                    properties:
+                      emails:
+                        type: array
+                        items:
+                          type: string
+                          format: email
+                          example: info@client.com
+                      webhook:
+                        type: string
+                        format: uri
+                        example: 'https://webhook.client.com'
+                required:
+                  - id
+                  - type
+                  - notifiers
+                x-stoplight:
+                  id: m6zh3ardbld2w
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+  '/companies/{companyId}/dataStatus':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+    get:
+      summary: Get data status
+      operationId: get-companies-companyId-dataStatus
+      description: Get the state of each data type for a company
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dataType1:
+                    title: DataStatus
+                    description: Describes the state of data in the Codat cache for a company and data type
+                    type: object
+                    required:
+                      - dataType
+                      - lastSuccessfulSync
+                      - currentStatus
+                    properties:
+                      dataType:
+                        type: string
+                      lastSuccessfulSync:
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                        title: DateTime
+                      currentStatus:
+                        type: string
+                      latestSyncId:
+                        type: string
+                        format: uuid
+                        example: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                      latestSuccessfulSyncId:
+                        type: string
+                        format: uuid
+                        example: 8220fc90-55b6-47bc-9417-48ac6ea93101
+                    examples:
+                      - dataType: string
+                        lastSuccessfulSync: '2022-01-01T13:00:00.000Z'
+                        currentStatus: string
+                        latestSyncId: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                        latestSuccessfulSyncId: 8220fc90-55b6-47bc-9417-48ac6ea93101
+                  dataType2:
+                    title: DataStatus
+                    description: Describes the state of data in the Codat cache for a company and data type
+                    type: object
+                    required:
+                      - dataType
+                      - lastSuccessfulSync
+                      - currentStatus
+                    properties:
+                      dataType:
+                        type: string
+                      lastSuccessfulSync:
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                        title: DateTime
+                      currentStatus:
+                        type: string
+                      latestSyncId:
+                        type: string
+                        format: uuid
+                        example: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                      latestSuccessfulSyncId:
+                        type: string
+                        format: uuid
+                        example: 8220fc90-55b6-47bc-9417-48ac6ea93101
+                    examples:
+                      - dataType: string
+                        lastSuccessfulSync: '2022-01-01T13:00:00.000Z'
+                        currentStatus: string
+                        latestSyncId: ad474a37-2003-478e-baee-9af9f1ec2fe3
+                        latestSuccessfulSyncId: 8220fc90-55b6-47bc-9417-48ac6ea93101
+              examples:
+                Example:
+                  value:
+                    invoices:
+                      dataType: invoices
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: success
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+                    bills:
+                      dataType: bills
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: failure
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+  '/companies/{companyId}/data/history':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+    get:
+      summary: Get pull operations
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Pull Operation
+                          description: |-
+                            Information about a queued, in progress or completed pull operation.
+                            *Formally called `dataset`*
+                          x-stoplight:
+                            id: hvk8xbvt7ekyg
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              example: 943accd0-4247-42d8-865b-363c8629e1da
+                            companyId:
+                              type: string
+                              format: uuid
+                              example: 22ece347-e5f6-4896-95e0-35a4c7f17023
+                            connectionId:
+                              type: string
+                              format: uuid
+                              example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
+                            dataType:
+                              type: string
+                            status:
+                              type: string
+                              enum:
+                                - Initial
+                                - Queued
+                                - Fetching
+                                - MapQueued
+                                - Mapping
+                                - Complete
+                                - FetchError
+                                - MapError
+                                - InternalError
+                                - ProcessingQueued
+                                - Processing
+                                - ProcessingError
+                                - ValidationQueued
+                                - Validating
+                                - ValidationError
+                                - AuthError
+                                - Cancelled
+                                - Routing
+                                - RoutingError
+                                - NotSupported
+                                - RateLimitError
+                                - PermissionsError
+                                - PrerequisiteNotMet
+                              example: Complete
+                            requested:
+                              type: string
+                              example: '2022-10-23T00:00:00Z'
+                              description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                              title: DateTime
+                            progress:
+                              type: integer
+                            isCompleted:
+                              type: boolean
+                            isErrored:
+                              type: boolean
+                          required:
+                            - id
+                            - companyId
+                            - connectionId
+                            - dataType
+                            - status
+                            - requested
+                            - progress
+                            - isCompleted
+                            - isErrored
+                          examples:
+                            - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                              companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                              connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                              dataType: invoices
+                              status: Initial
+                              requested: '2022-11-14T11:18:37.2798351Z'
+                              progress: 10
+                              isCompleted: false
+                              isErrored: false
+                  - type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
+                        type: object
+                        required:
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                        companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                        connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                        dataType: invoices
+                        status: Initial
+                        requested: '2022-11-14T11:18:37.2798351Z'
+                        progress: 10
+                        isCompleted: false
+                        isErrored: false
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+        '400':
+          description: Your `query` parameter was not correctly formed
+          content:
+            application/json:
+              schema:
+                title: Malformed-Query
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-company-data-history
+      description: Gets the pull operation history (datasets) for a given company.
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+  '/companies/{companyId}/data/history/{datasetId}':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - name: datasetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: eaed9f0f-e77b-4bc9-a58f-ab8b4b99ab18
+        description: Unique ID of a dataset or pull operation.
+    get:
+      summary: Get pull operation
+      tags:
+        - Data status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Pull Operation
+                description: |-
+                  Information about a queued, in progress or completed pull operation.
+                  *Formally called `dataset`*
+                x-stoplight:
+                  id: hvk8xbvt7ekyg
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 943accd0-4247-42d8-865b-363c8629e1da
+                  companyId:
+                    type: string
+                    format: uuid
+                    example: 22ece347-e5f6-4896-95e0-35a4c7f17023
+                  connectionId:
+                    type: string
+                    format: uuid
+                    example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
+                  dataType:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - Initial
+                      - Queued
+                      - Fetching
+                      - MapQueued
+                      - Mapping
+                      - Complete
+                      - FetchError
+                      - MapError
+                      - InternalError
+                      - ProcessingQueued
+                      - Processing
+                      - ProcessingError
+                      - ValidationQueued
+                      - Validating
+                      - ValidationError
+                      - AuthError
+                      - Cancelled
+                      - Routing
+                      - RoutingError
+                      - NotSupported
+                      - RateLimitError
+                      - PermissionsError
+                      - PrerequisiteNotMet
+                    example: Complete
+                  requested:
+                    type: string
+                    example: '2022-10-23T00:00:00Z'
+                    description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+                    title: DateTime
+                  progress:
+                    type: integer
+                  isCompleted:
+                    type: boolean
+                  isErrored:
+                    type: boolean
+                required:
+                  - id
+                  - companyId
+                  - connectionId
+                  - dataType
+                  - status
+                  - requested
+                  - progress
+                  - isCompleted
+                  - isErrored
+                examples:
+                  - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                    companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                    connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                    dataType: invoices
+                    status: Initial
+                    requested: '2022-11-14T11:18:37.2798351Z'
+                    progress: 10
+                    isCompleted: false
+                    isErrored: false
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-pull-operation
+      description: Retrieve information about a single dataset or pull operation.
+  /integrations:
+    get:
+      summary: List integrations
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          title: Integration
+                          description: An integration that Codat supports
+                          examples:
+                            - key: gbol
+                              logoUrl: 'http://example.com'
+                              name: Xero
+                              enabled: true
+                              sourceId: accounting
+                              sourceType: 8193a927-ab7a-45a3-9dc2-d357a4932dfe
+                              integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
+                              isOfflineConnector: true
+                              isBeta: true
+                              dataProvidedBy: string
+                              datatypeFeatures:
+                                - datatype: invoices
+                                  supportedFeatures:
+                                    - featureType: get
+                                      featureState: release
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              minLength: 4
+                              maxLength: 4
+                              pattern: '[a-z]{4}'
+                              example: gbol
+                              description: '4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys).'
+                            logoUrl:
+                              type: string
+                              format: uri
+                            name:
+                              type: string
+                              example: Xero
+                            enabled:
+                              type: boolean
+                              description: Whether this integration is enabled for your customers to use
+                            sourceId:
+                              type: string
+                              format: uuid
+                              example: 35b92968-9851-4095-ad60-395c95cbcba4
+                              description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                            sourceType:
+                              title: Source Type
+                              description: The type of platform of the connection.
+                              type: string
+                              enum:
+                                - Accounting
+                                - Banking
+                                - Commerce
+                                - Other
+                                - Unknown
+                              example: Accounting
+                            integrationId:
+                              type: string
+                              format: uuid
+                              example: fd321cb6-7963-4506-b873-e99593a45e30
+                              description: A Codat ID representing the integration.
+                            isOfflineConnector:
+                              type: boolean
+                            isBeta:
+                              type: boolean
+                            dataProvidedBy:
+                              type: string
+                            datatypeFeatures:
+                              type: array
+                              items:
+                                title: DatatypeFeature
+                                description: Describes support for a given datatype and associated operations
+                                examples:
+                                  - datatype: invoices
+                                    supportedFeatures:
+                                      - featureType: get
+                                        featureState: release
+                                type: object
+                                x-stoplight:
+                                  id: ry1x0fplpj8ck
+                                properties:
+                                  datatype:
+                                    type: string
+                                  supportedFeatures:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        featureType:
+                                          type: string
+                                          enum:
+                                            - Get
+                                            - Post
+                                            - Categorization
+                                            - Delete
+                                            - Put
+                                            - GetAsPdf
+                                            - DownloadAttachment
+                                            - GetAttachment
+                                            - GetAttachments
+                                            - UploadAttachment
+                                          example: Get
+                                        featureState:
+                                          type: string
+                                          example: Release
+                                          enum:
+                                            - Release
+                                            - Beta
+                                            - Deprecated
+                                            - NotSupported
+                                            - NotImplemented
+                                      required:
+                                        - featureType
+                                        - featureState
+                                required:
+                                  - datatype
+                                  - supportedFeatures
+                          required:
+                            - key
+                            - logoUrl
+                            - name
+                            - enabled
+                  - type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
+                        type: object
+                        required:
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+        '400':
+          description: Your `query` parameter was not correctly formed
+          content:
+            application/json:
+              schema:
+                title: Malformed-Query
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 400
+                    service: ClientsApi
+                    error: Error parsing query - Malformed query.
+                    correlationId: bc997528a9d7abb9161ef45f05d38599
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: list-integrations
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+      description: List your available integrations
+  '/integrations/{platformKey}':
+    parameters:
+      - name: platformKey
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 4
+          maxLength: 4
+          pattern: '[a-z]{4}'
+          example: gbol
+          description: '4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys).'
+    get:
+      summary: Get integration
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Integration
+                description: An integration that Codat supports
+                examples:
+                  - key: gbol
+                    logoUrl: 'http://example.com'
+                    name: Xero
+                    enabled: true
+                    sourceId: accounting
+                    sourceType: 8193a927-ab7a-45a3-9dc2-d357a4932dfe
+                    integrationId: 497a18ca-284e-40c0-985d-f72be35d468e
+                    isOfflineConnector: true
+                    isBeta: true
+                    dataProvidedBy: string
+                    datatypeFeatures:
+                      - datatype: invoices
+                        supportedFeatures:
+                          - featureType: get
+                            featureState: release
+                type: object
+                properties:
+                  key:
+                    type: string
+                    minLength: 4
+                    maxLength: 4
+                    pattern: '[a-z]{4}'
+                    example: gbol
+                    description: '4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys).'
+                  logoUrl:
+                    type: string
+                    format: uri
+                  name:
+                    type: string
+                    example: Xero
+                  enabled:
+                    type: boolean
+                    description: Whether this integration is enabled for your customers to use
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                  sourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
+                  integrationId:
+                    type: string
+                    format: uuid
+                    example: fd321cb6-7963-4506-b873-e99593a45e30
+                    description: A Codat ID representing the integration.
+                  isOfflineConnector:
+                    type: boolean
+                  isBeta:
+                    type: boolean
+                  dataProvidedBy:
+                    type: string
+                  datatypeFeatures:
+                    type: array
+                    items:
+                      title: DatatypeFeature
+                      description: Describes support for a given datatype and associated operations
+                      examples:
+                        - datatype: invoices
+                          supportedFeatures:
+                            - featureType: get
+                              featureState: release
+                      type: object
+                      x-stoplight:
+                        id: ry1x0fplpj8ck
+                      properties:
+                        datatype:
+                          type: string
+                        supportedFeatures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              featureType:
+                                type: string
+                                enum:
+                                  - Get
+                                  - Post
+                                  - Categorization
+                                  - Delete
+                                  - Put
+                                  - GetAsPdf
+                                  - DownloadAttachment
+                                  - GetAttachment
+                                  - GetAttachments
+                                  - UploadAttachment
+                                example: Get
+                              featureState:
+                                type: string
+                                example: Release
+                                enum:
+                                  - Release
+                                  - Beta
+                                  - Deprecated
+                                  - NotSupported
+                                  - NotImplemented
+                            required:
+                              - featureType
+                              - featureState
+                      required:
+                        - datatype
+                        - supportedFeatures
+                required:
+                  - key
+                  - logoUrl
+                  - name
+                  - enabled
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '404':
+          description: |-
+            One or more of the resources you referenced could not be found.
+            This might be because your company or data connection id is wrong, or was already deleted.
+          content:
+            application/json:
+              schema:
+                title: Not-Found
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                Data connection not found:
+                  value:
+                    statusCode: 404
+                    service: PublicApi
+                    error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                    correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+                Company not found:
+                  value:
+                    statusCode: 404
+                    service: ClientsApi
+                    error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                    correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-integrations-platformKey
+      description: 'Get single integration, by platformKey'
+  '/integrations/{platformKey}/branding':
+    parameters:
+      - name: platformKey
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 4
+          maxLength: 4
+          pattern: '[a-z]{4}'
+          example: gbol
+          description: '4 letter key for an integration. [Read more](https://docs.codat.io/integrations/accounting/accounting-platform-keys).'
+    get:
+      summary: Get branding
+      tags:
+        - Integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Branding
+                type: object
+                properties:
+                  logo:
+                    description: Logo branding references.
+                    type: object
+                    properties:
+                      full:
+                        title: Branding Image
+                        type: object
+                        properties:
+                          image:
+                            type: object
+                            description: Image reference.
+                            properties:
+                              src:
+                                type: string
+                                format: uri
+                                description: Source URL for image.
+                              alt:
+                                type: string
+                                description: Alternative text when image is not available.
+                        examples: []
+                      square:
+                        title: Branding Image
+                        type: object
+                        properties:
+                          image:
+                            type: object
+                            description: Image reference.
+                            properties:
+                              src:
+                                type: string
+                                format: uri
+                                description: Source URL for image.
+                              alt:
+                                type: string
+                                description: Alternative text when image is not available.
+                        examples: []
+                  button:
+                    description: Button branding references.
+                    properties:
+                      default:
+                        title: Branding Image
+                        type: object
+                        properties:
+                          image:
+                            type: object
+                            description: Image reference.
+                            properties:
+                              src:
+                                type: string
+                                format: uri
+                                description: Source URL for image.
+                              alt:
+                                type: string
+                                description: Alternative text when image is not available.
+                        examples: []
+                      hover:
+                        title: Branding Image
+                        type: object
+                        properties:
+                          image:
+                            type: object
+                            description: Image reference.
+                            properties:
+                              src:
+                                type: string
+                                format: uri
+                                description: Source URL for image.
+                              alt:
+                                type: string
+                                description: Alternative text when image is not available.
+                        examples: []
+                  sourceId:
+                    type: string
+                    format: uuid
+                    example: 35b92968-9851-4095-ad60-395c95cbcba4
+                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+                examples:
+                  - logo:
+                      full:
+                        image:
+                          src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
+                          alt: xero full icon
+                      square:
+                        image:
+                          src: 'https://static.codat.io/public/officialLogos/Square/8A156A5A-39CB-4F9D-856E-76EF9B2W3607.png'
+                          alt: xero square icon
+                    button:
+                      default:
+                        image:
+                          src: 'https://static.codat.io/public/officialButtons/Full/8A156A5A-39CB-4F9D-856E-76EF9Q7A9607.png'
+                          alt: xero default button icon
+                      hover:
+                        image:
+                          src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
+                          alt: xero hover button icon
+                    sourceId: 35b92968-9851-4095-ad60-395c95cbcba4
+      operationId: get-integrations-platformKey-branding
+      description: Get branding for platform.
+  /profile:
+    get:
+      summary: Get profile
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Profile
+                description: Describes your Codat client instance
+                examples:
+                  - name: Bob's Burgers
+                    logoUrl: string
+                    iconUrl: string
+                    redirectUrl: string
+                    whiteListUrls:
+                      - 'https://bobs-burgers.com/redirect'
+                    apiKey: string
+                    alertAuthHeader: string
+                    confirmCompanyName: true
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Bob's Burgers
+                  logoUrl:
+                    type: string
+                  iconUrl:
+                    type: string
+                  redirectUrl:
+                    type: string
+                  whiteListUrls:
+                    type: array
+                    items:
+                      type: string
+                      format: uri
+                      example: 'https://bobs-burgers.com/redirect'
+                  apiKey:
+                    type: string
+                    deprecated: true
+                  alertAuthHeader:
+                    type: string
+                  confirmCompanyName:
+                    type: boolean
+                    deprecated: true
+                required:
+                  - name
+                  - redirectUrl
+                x-stoplight:
+                  id: b1fyq05edangf
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-settings-profile
+      description: Fetch your Codat profile.
+      deprecated: true
+      x-internal: true
+    put:
+      summary: Update profile
+      operationId: put-profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Profile
+                description: Describes your Codat client instance
+                examples:
+                  - name: Bob's Burgers
+                    logoUrl: string
+                    iconUrl: string
+                    redirectUrl: string
+                    whiteListUrls:
+                      - 'https://bobs-burgers.com/redirect'
+                    apiKey: string
+                    alertAuthHeader: string
+                    confirmCompanyName: true
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Bob's Burgers
+                  logoUrl:
+                    type: string
+                  iconUrl:
+                    type: string
+                  redirectUrl:
+                    type: string
+                  whiteListUrls:
+                    type: array
+                    items:
+                      type: string
+                      format: uri
+                      example: 'https://bobs-burgers.com/redirect'
+                  apiKey:
+                    type: string
+                    deprecated: true
+                  alertAuthHeader:
+                    type: string
+                  confirmCompanyName:
+                    type: boolean
+                    deprecated: true
+                required:
+                  - name
+                  - redirectUrl
+                x-stoplight:
+                  id: b1fyq05edangf
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      tags:
+        - Settings
+      description: Update your Codat profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Profile
+              description: Describes your Codat client instance
+              examples:
+                - name: Bob's Burgers
+                  logoUrl: string
+                  iconUrl: string
+                  redirectUrl: string
+                  whiteListUrls:
+                    - 'https://bobs-burgers.com/redirect'
+                  apiKey: string
+                  alertAuthHeader: string
+                  confirmCompanyName: true
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Bob's Burgers
+                logoUrl:
+                  type: string
+                iconUrl:
+                  type: string
+                redirectUrl:
+                  type: string
+                whiteListUrls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                    example: 'https://bobs-burgers.com/redirect'
+                apiKey:
+                  type: string
+                  deprecated: true
+                alertAuthHeader:
+                  type: string
+                confirmCompanyName:
+                  type: boolean
+                  deprecated: true
+              required:
+                - name
+                - redirectUrl
+              x-stoplight:
+                id: b1fyq05edangf
+        description: All fields should be included when updating your profile.
+  /profile/syncSettings:
+    get:
+      summary: Get sync settings
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - properties:
+                      clientId:
+                        type: string
+                        format: uuid
+                        example: 367f7975-267b-439b-90c6-a6040ee680f3
+                      settings:
+                        type: array
+                        items:
+                          title: SyncSetting
+                          description: 'Describes how often, and how much history, should be fetched for the given data type when a pull operation is queued.'
+                          examples:
+                            - dataType: invoices
+                              fetchOnFirstLink: true
+                              syncSchedule: 24
+                              syncOrder: 0
+                              syncFromUtc: '2020-01-01T12:00:00.000Z'
+                              syncFromWindow: 24
+                              monthsToSync: 24
+                              isLocked: true
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: invoices
+                            fetchOnFirstLink:
+                              type: boolean
+                              description: Whether this data type should be queued after a company has authorized a connection.
+                            syncSchedule:
+                              type: integer
+                              example: 24
+                              description: Number of hours after which this data type should be refreshed.
+                            syncOrder:
+                              type: integer
+                            syncFromUtc:
+                              description: Date from which data should be fetched. Set this *or* `syncFromWindow`
+                              type: string
+                              example: '2022-10-23T00:00:00Z'
+                              title: DateTime
+                            syncFromWindow:
+                              type: integer
+                              example: 24
+                              description: Number of months of data to be fetched. Set this *or* `syncFromUTC`
+                            monthsToSync:
+                              type: integer
+                              example: 24
+                              description: 'Months of data to fetch, for report data types (`balanceSheet` & `profitAndLoss`) only.'
+                            isLocked:
+                              type: boolean
+                          required:
+                            - dataType
+                            - fetchOnFirstLink
+                            - syncSchedule
+                            - syncOrder
+                          x-stoplight:
+                            id: dhbv5wyl1xr4w
+                      overridesDefaults:
+                        type: boolean
+                type: object
+              examples:
+                Example:
+                  value:
+                    clientId: 367f7975-267b-439b-90c6-a6040ee680f3
+                    settings:
+                      - dataType: invoices
+                        fetchOnFirstLink: true
+                        syncSchedule: 24
+                        syncOrder: 0
+                        syncFromUtc: '2020-01-01T12:00:00.000Z'
+                        syncFromWindow: 24
+                        monthsToSync: 24
+                        isLocked: true
+                    overridesDefaults: true
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      operationId: get-profile-syncSettings
+      description: 'Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.'
+      x-internal: true
+      deprecated: true
+    post:
+      summary: Update all sync settings
+      operationId: post-profile-syncSettings
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Your API request was not properly authorized.
+          content:
+            application/json:
+              schema:
+                title: Unauthorized
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  example-1:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+              examples:
+                example-1:
+                  value:
+                    statusCode: 401
+                    service: PublicApi
+                    error: Unauthorized
+                    correlationId: 7eb40d6b415d7bcd99ce658268284056
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+      description: Update sync settings for all data types.
+      tags:
+        - Settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - properties:
+                    clientId:
+                      type: string
+                      format: uuid
+                      example: 367f7975-267b-439b-90c6-a6040ee680f3
+                    settings:
+                      type: array
+                      items:
+                        title: SyncSetting
+                        description: 'Describes how often, and how much history, should be fetched for the given data type when a pull operation is queued.'
+                        examples:
+                          - dataType: invoices
+                            fetchOnFirstLink: true
+                            syncSchedule: 24
+                            syncOrder: 0
+                            syncFromUtc: '2020-01-01T12:00:00.000Z'
+                            syncFromWindow: 24
+                            monthsToSync: 24
+                            isLocked: true
+                        type: object
+                        properties:
+                          dataType:
+                            type: string
+                            example: invoices
+                          fetchOnFirstLink:
+                            type: boolean
+                            description: Whether this data type should be queued after a company has authorized a connection.
+                          syncSchedule:
+                            type: integer
+                            example: 24
+                            description: Number of hours after which this data type should be refreshed.
+                          syncOrder:
+                            type: integer
+                          syncFromUtc:
+                            description: Date from which data should be fetched. Set this *or* `syncFromWindow`
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                            title: DateTime
+                          syncFromWindow:
+                            type: integer
+                            example: 24
+                            description: Number of months of data to be fetched. Set this *or* `syncFromUTC`
+                          monthsToSync:
+                            type: integer
+                            example: 24
+                            description: 'Months of data to fetch, for report data types (`balanceSheet` & `profitAndLoss`) only.'
+                          isLocked:
+                            type: boolean
+                        required:
+                          - dataType
+                          - fetchOnFirstLink
+                          - syncSchedule
+                          - syncOrder
+                        x-stoplight:
+                          id: dhbv5wyl1xr4w
+                    overridesDefaults:
+                      type: boolean
+                      default: true
+                  required:
+                    - clientId
+                    - settings
+                    - overridesDefaults
+              type: object
+        description: |-
+          Include a `syncSetting` object for each data type.
+          `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
+  '/companies/{companyId}/connections/{connectionId}/options/{dataType}':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - name: connectionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+          description: Unique identifier for a company's data connection.
+        x-stoplight:
+          id: odjhmld3g3nmi
+      - name: dataType
+        description: The key of a Codat data type
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Available Data types
+          enum:
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
+            - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
+            - customers
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
+    get:
+      summary: List push options
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Push Option
+                required:
+                  - displayName
+                  - required
+                  - type
+                type: object
+                properties:
+                  type:
+                    title: OptionType
+                    enum:
+                      - Array
+                      - Object
+                      - String
+                      - Number
+                      - Boolean
+                      - DateTime
+                      - File
+                      - MultiPart
+                    type: string
+                  displayName:
+                    minLength: 1
+                    type: string
+                  description:
+                    type: string
+                  properties:
+                    type: object
+                    additionalProperties:
+                      title: Push Option Property
+                      required:
+                        - description
+                        - displayName
+                        - required
+                        - type
+                      type: object
+                      properties:
+                        type:
+                          title: OptionType
+                          enum:
+                            - Array
+                            - Object
+                            - String
+                            - Number
+                            - Boolean
+                            - DateTime
+                            - File
+                            - MultiPart
+                          type: string
+                        displayName:
+                          minLength: 1
+                          type: string
+                        description:
+                          minLength: 1
+                          type: string
+                        properties:
+                          type: object
+                          additionalProperties:
+                            title: Push Option Property
+                            required:
+                              - description
+                              - displayName
+                              - required
+                              - type
+                            type: object
+                            properties:
+                              type:
+                                title: OptionType
+                                enum:
+                                  - Array
+                                  - Object
+                                  - String
+                                  - Number
+                                  - Boolean
+                                  - DateTime
+                                  - File
+                                  - MultiPart
+                                type: string
+                              displayName:
+                                minLength: 1
+                                type: string
+                              description:
+                                minLength: 1
+                                type: string
+                              properties:
+                                type: object
+                                additionalProperties:
+                                  title: Push Option Property
+                                  required:
+                                    - description
+                                    - displayName
+                                    - required
+                                    - type
+                                  type: object
+                                  properties:
+                                    type:
+                                      title: OptionType
+                                      enum:
+                                        - Array
+                                        - Object
+                                        - String
+                                        - Number
+                                        - Boolean
+                                        - DateTime
+                                        - File
+                                        - MultiPart
+                                      type: string
+                                    displayName:
+                                      minLength: 1
+                                      type: string
+                                    description:
+                                      minLength: 1
+                                      type: string
+                                    properties:
+                                      type: object
+                                      additionalProperties:
+                                        title: Push Option Property
+                                        required:
+                                          - description
+                                          - displayName
+                                          - required
+                                          - type
+                                        type: object
+                                        properties:
+                                          type:
+                                            title: OptionType
+                                            enum:
+                                              - Array
+                                              - Object
+                                              - String
+                                              - Number
+                                              - Boolean
+                                              - DateTime
+                                              - File
+                                              - MultiPart
+                                            type: string
+                                          displayName:
+                                            minLength: 1
+                                            type: string
+                                          description:
+                                            minLength: 1
+                                            type: string
+                                          options:
+                                            type: array
+                                            items:
+                                              title: Push Option Choice
+                                              type: object
+                                              properties:
+                                                value:
+                                                  type: string
+                                                  minLength: 1
+                                                  description: Allowed value for field.
+                                                type:
+                                                  title: OptionType
+                                                  enum:
+                                                    - Array
+                                                    - Object
+                                                    - String
+                                                    - Number
+                                                    - Boolean
+                                                    - DateTime
+                                                    - File
+                                                    - MultiPart
+                                                  type: string
+                                                displayName:
+                                                  type: string
+                                                description:
+                                                  type: string
+                                                required:
+                                                  type: boolean
+                                            nullable: true
+                                          required:
+                                            type: boolean
+                                          validation:
+                                            title: PushValidationInfo
+                                            type: object
+                                            properties:
+                                              warnings:
+                                                type: array
+                                                items:
+                                                  title: PushFieldValidation
+                                                  required:
+                                                    - details
+                                                  type: object
+                                                  properties:
+                                                    field:
+                                                      type: string
+                                                    details:
+                                                      minLength: 1
+                                                      type: string
+                                                    ref:
+                                                      type: string
+                                                      format: uri
+                                                      nullable: true
+                                                  additionalProperties: false
+                                                nullable: true
+                                              information:
+                                                type: array
+                                                items:
+                                                  title: PushFieldValidation
+                                                  required:
+                                                    - details
+                                                  type: object
+                                                  properties:
+                                                    field:
+                                                      type: string
+                                                    details:
+                                                      minLength: 1
+                                                      type: string
+                                                    ref:
+                                                      type: string
+                                                      format: uri
+                                                      nullable: true
+                                                  additionalProperties: false
+                                                nullable: true
+                                            additionalProperties: false
+                                      nullable: true
+                                    options:
+                                      type: array
+                                      items:
+                                        title: Push Option Choice
+                                        type: object
+                                        properties:
+                                          value:
+                                            type: string
+                                            minLength: 1
+                                            description: Allowed value for field.
+                                          type:
+                                            title: OptionType
+                                            enum:
+                                              - Array
+                                              - Object
+                                              - String
+                                              - Number
+                                              - Boolean
+                                              - DateTime
+                                              - File
+                                              - MultiPart
+                                            type: string
+                                          displayName:
+                                            type: string
+                                          description:
+                                            type: string
+                                          required:
+                                            type: boolean
+                                      nullable: true
+                                    required:
+                                      type: boolean
+                                    validation:
+                                      title: PushValidationInfo
+                                      type: object
+                                      properties:
+                                        warnings:
+                                          type: array
+                                          items:
+                                            title: PushFieldValidation
+                                            required:
+                                              - details
+                                            type: object
+                                            properties:
+                                              field:
+                                                type: string
+                                              details:
+                                                minLength: 1
+                                                type: string
+                                              ref:
+                                                type: string
+                                                format: uri
+                                                nullable: true
+                                            additionalProperties: false
+                                          nullable: true
+                                        information:
+                                          type: array
+                                          items:
+                                            title: PushFieldValidation
+                                            required:
+                                              - details
+                                            type: object
+                                            properties:
+                                              field:
+                                                type: string
+                                              details:
+                                                minLength: 1
+                                                type: string
+                                              ref:
+                                                type: string
+                                                format: uri
+                                                nullable: true
+                                            additionalProperties: false
+                                          nullable: true
+                                      additionalProperties: false
+                                nullable: true
+                              options:
+                                type: array
+                                items:
+                                  title: Push Option Choice
+                                  type: object
+                                  properties:
+                                    value:
+                                      type: string
+                                      minLength: 1
+                                      description: Allowed value for field.
+                                    type:
+                                      title: OptionType
+                                      enum:
+                                        - Array
+                                        - Object
+                                        - String
+                                        - Number
+                                        - Boolean
+                                        - DateTime
+                                        - File
+                                        - MultiPart
+                                      type: string
+                                    displayName:
+                                      type: string
+                                    description:
+                                      type: string
+                                    required:
+                                      type: boolean
+                                nullable: true
+                              required:
+                                type: boolean
+                              validation:
+                                title: PushValidationInfo
+                                type: object
+                                properties:
+                                  warnings:
+                                    type: array
+                                    items:
+                                      title: PushFieldValidation
+                                      required:
+                                        - details
+                                      type: object
+                                      properties:
+                                        field:
+                                          type: string
+                                        details:
+                                          minLength: 1
+                                          type: string
+                                        ref:
+                                          type: string
+                                          format: uri
+                                          nullable: true
+                                      additionalProperties: false
+                                    nullable: true
+                                  information:
+                                    type: array
+                                    items:
+                                      title: PushFieldValidation
+                                      required:
+                                        - details
+                                      type: object
+                                      properties:
+                                        field:
+                                          type: string
+                                        details:
+                                          minLength: 1
+                                          type: string
+                                        ref:
+                                          type: string
+                                          format: uri
+                                          nullable: true
+                                      additionalProperties: false
+                                    nullable: true
+                                additionalProperties: false
+                          nullable: true
+                        options:
+                          type: array
+                          items:
+                            title: Push Option Choice
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                minLength: 1
+                                description: Allowed value for field.
+                              type:
+                                title: OptionType
+                                enum:
+                                  - Array
+                                  - Object
+                                  - String
+                                  - Number
+                                  - Boolean
+                                  - DateTime
+                                  - File
+                                  - MultiPart
+                                type: string
+                              displayName:
+                                type: string
+                              description:
+                                type: string
+                              required:
+                                type: boolean
+                          nullable: true
+                        required:
+                          type: boolean
+                        validation:
+                          title: PushValidationInfo
+                          type: object
+                          properties:
+                            warnings:
+                              type: array
+                              items:
+                                title: PushFieldValidation
+                                required:
+                                  - details
+                                type: object
+                                properties:
+                                  field:
+                                    type: string
+                                  details:
+                                    minLength: 1
+                                    type: string
+                                  ref:
+                                    type: string
+                                    format: uri
+                                    nullable: true
+                                additionalProperties: false
+                              nullable: true
+                            information:
+                              type: array
+                              items:
+                                title: PushFieldValidation
+                                required:
+                                  - details
+                                type: object
+                                properties:
+                                  field:
+                                    type: string
+                                  details:
+                                    minLength: 1
+                                    type: string
+                                  ref:
+                                    type: string
+                                    format: uri
+                                    nullable: true
+                                additionalProperties: false
+                              nullable: true
+                          additionalProperties: false
+                    nullable: true
+                  required:
+                    type: boolean
+      operationId: get-companies-companyId-connections-connectionId-push
+      description: |-
+        This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
+
+        Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
+
+        Codat tries not to limit users to pushing to a very limited number of standard categories, so we have implemented "options" endpoints, which allow us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.
+
+
+        > **Supported Integrations**
+        > 
+        > Check out our [Knowledge UI](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods).
+  '/companies/{companyId}/push':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+    get:
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+            default: 1
+          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: 1318joqblpp4e
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 100
+            example: 100
+            minimum: 1
+            maximum: 5000
+          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+          x-stoplight:
+            id: s2ika6rltk5y6
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+          x-stoplight:
+            id: gupdb9kt30hfq
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '-modifiedDate'
+          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+          x-stoplight:
+            id: 4je9lwo02netu
+      summary: List push operations
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            changes:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                      - Unknown
+                                      - Created
+                                      - Modified
+                                      - Deleted
+                                      - AttachmentUploaded
+                                  recordRef:
+                                    title: PushOperationRecordRef
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      dataType:
+                                        type: string
+                                        nullable: true
+                                    additionalProperties: false
+                                  attachmentId:
+                                    type: string
+                                    nullable: true
+                            dataType:
+                              type: string
+                              nullable: true
+                              description: 'The type of data being pushed, eg invoices, customers.'
+                            companyId:
+                              type: string
+                              format: uuid
+                              example: 8a210b68-6988-11ed-a1eb-0242ac120002
+                              description: Unique identifier for your SMB in Codat.
+                            pushOperationKey:
+                              type: string
+                              format: uuid
+                              description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
+                            dataConnectionKey:
+                              type: string
+                              format: uuid
+                              example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                              description: Unique identifier for a company's data connection.
+                            requestedOnUtc:
+                              description: The datetime when the push was requested.
+                              type: string
+                              example: '2022-10-23T00:00:00Z'
+                              title: DateTime
+                            completedOnUtc:
+                              description: 'The datetime when the push was completed, null if Pending.'
+                              type: string
+                              example: '2022-10-23T00:00:00Z'
+                              title: DateTime
+                            timeoutInMinutes:
+                              type: integer
+                              format: int32
+                              nullable: true
+                            timeoutInSeconds:
+                              type: integer
+                              format: int32
+                              nullable: true
+                              deprecated: true
+                            status:
+                              minLength: 1
+                              type: string
+                              enum:
+                                - Pending
+                                - Failed
+                                - Success
+                                - TimedOut
+                              description: The status of the push operation.
+                            errorMessage:
+                              type: string
+                              nullable: true
+                            validation:
+                              type: object
+                              description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
+                              properties:
+                                errors:
+                                  type: array
+                                  nullable: true
+                                  items:
+                                    title: ValidationItem
+                                    type: object
+                                    properties:
+                                      itemId:
+                                        type: string
+                                        nullable: true
+                                      message:
+                                        type: string
+                                        nullable: true
+                                      validatorName:
+                                        type: string
+                                        nullable: true
+                                    additionalProperties: false
+                                warnings:
+                                  type: array
+                                  nullable: true
+                                  items:
+                                    title: ValidationItem
+                                    type: object
+                                    properties:
+                                      itemId:
+                                        type: string
+                                        nullable: true
+                                      message:
+                                        type: string
+                                        nullable: true
+                                      validatorName:
+                                        type: string
+                                        nullable: true
+                                    additionalProperties: false
+                            statusCode:
+                              type: integer
+                              format: int32
+                          required:
+                            - companyId
+                            - pushOperationKey
+                            - dataConnectionKey
+                            - requestedOnUtc
+                            - status
+                            - statusCode
+                  - type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
+                        type: object
+                        required:
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                        examples:
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+      operationId: get-companies-companyId-push
+      description: List push operation records.
+  '/companies/{companyId}/push/{pushOperationKey}':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
+      - schema:
+          type: string
+          format: uuid
+        name: pushOperationKey
+        in: path
+        required: true
+        description: Push operation key.
+    get:
+      summary: Get push operation
+      tags:
+        - Push data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        description: Object submitted in push operation.
+                  - type: object
+                    properties:
+                      changes:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - Unknown
+                                - Created
+                                - Modified
+                                - Deleted
+                                - AttachmentUploaded
+                            recordRef:
+                              title: PushOperationRecordRef
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                dataType:
+                                  type: string
+                                  nullable: true
+                              additionalProperties: false
+                            attachmentId:
+                              type: string
+                              nullable: true
+                      dataType:
+                        type: string
+                        nullable: true
+                        description: 'The type of data being pushed, eg invoices, customers.'
+                      companyId:
+                        type: string
+                        format: uuid
+                        example: 8a210b68-6988-11ed-a1eb-0242ac120002
+                        description: Unique identifier for your SMB in Codat.
+                      pushOperationKey:
+                        type: string
+                        format: uuid
+                        description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
+                      dataConnectionKey:
+                        type: string
+                        format: uuid
+                        example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+                        description: Unique identifier for a company's data connection.
+                      requestedOnUtc:
+                        description: The datetime when the push was requested.
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
+                      completedOnUtc:
+                        description: 'The datetime when the push was completed, null if Pending.'
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        title: DateTime
+                      timeoutInMinutes:
+                        type: integer
+                        format: int32
+                        nullable: true
+                      timeoutInSeconds:
+                        type: integer
+                        format: int32
+                        nullable: true
+                        deprecated: true
+                      status:
+                        minLength: 1
+                        type: string
+                        enum:
+                          - Pending
+                          - Failed
+                          - Success
+                          - TimedOut
+                        description: The status of the push operation.
+                      errorMessage:
+                        type: string
+                        nullable: true
+                      validation:
+                        type: object
+                        description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
+                        properties:
+                          errors:
+                            type: array
+                            nullable: true
+                            items:
+                              title: ValidationItem
+                              type: object
+                              properties:
+                                itemId:
+                                  type: string
+                                  nullable: true
+                                message:
+                                  type: string
+                                  nullable: true
+                                validatorName:
+                                  type: string
+                                  nullable: true
+                              additionalProperties: false
+                          warnings:
+                            type: array
+                            nullable: true
+                            items:
+                              title: ValidationItem
+                              type: object
+                              properties:
+                                itemId:
+                                  type: string
+                                  nullable: true
+                                message:
+                                  type: string
+                                  nullable: true
+                                validatorName:
+                                  type: string
+                                  nullable: true
+                              additionalProperties: false
+                      statusCode:
+                        type: integer
+                        format: int32
+                    required:
+                      - companyId
+                      - pushOperationKey
+                      - dataConnectionKey
+                      - requestedOnUtc
+                      - status
+                      - statusCode
+      operationId: get-companies-companyId-push-pushOperationKey
+      description: Retrieve push operation.
 webhooks:
   Company data connection status changed:
     post:
