@@ -43,8 +43,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -229,8 +227,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -334,8 +330,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -518,8 +512,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -530,9 +522,7 @@ paths:
             description: Unique identifier for a company's data connection.
           x-stoplight:
             id: odjhmld3g3nmi
-        - x-stoplight:
-            id: lhx5lknu24s8f
-          name: accountId
+        - name: accountId
           in: path
           required: true
           schema:
@@ -695,18 +685,7 @@ paths:
                             * Amount of the transaction.
                             * Current account balance.
                             * Transaction type, for example, credit, debit, or transfer.
-                  - title: _Links
-                    description: Codat's Paging Model
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    type: object
+                  - type: object
                     properties:
                       pageNumber:
                         type: integer
@@ -715,7 +694,6 @@ paths:
                       totalResults:
                         type: integer
                       _links:
-                        title: Links
                         type: object
                         required:
                           - self
@@ -759,6 +737,15 @@ paths:
                       - pageSize
                       - totalResults
                       - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
     get:
       x-stoplight:
@@ -778,8 +765,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -790,9 +775,7 @@ paths:
             description: Unique identifier for a company's data connection.
           x-stoplight:
             id: odjhmld3g3nmi
-        - x-stoplight:
-            id: lhx5lknu24s8f
-          name: accountId
+        - name: accountId
           in: path
           required: true
           schema:
@@ -1310,8 +1293,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -1322,9 +1303,7 @@ paths:
             description: Unique identifier for a company's data connection.
           x-stoplight:
             id: odjhmld3g3nmi
-        - x-stoplight:
-            id: lhx5lknu24s8f
-          name: accountId
+        - name: accountId
           in: path
           required: true
           schema:

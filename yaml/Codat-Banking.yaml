@@ -46,8 +46,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -167,18 +165,7 @@ paths:
                           id: 3293652f3df8e
                         title: Account Balance
                         description: The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
-                  - title: _Links
-                    description: Codat's Paging Model
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    type: object
+                  - type: object
                     properties:
                       pageNumber:
                         type: integer
@@ -187,7 +174,6 @@ paths:
                       totalResults:
                         type: integer
                       _links:
-                        title: Links
                         type: object
                         required:
                           - self
@@ -231,6 +217,15 @@ paths:
                       - pageSize
                       - totalResults
                       - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
@@ -247,8 +242,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -463,18 +456,7 @@ paths:
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
                                     title: DateTime
-                  - title: _Links
-                    description: Codat's Paging Model
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    type: object
+                  - type: object
                     properties:
                       pageNumber:
                         type: integer
@@ -483,7 +465,6 @@ paths:
                       totalResults:
                         type: integer
                       _links:
-                        title: Links
                         type: object
                         required:
                           - self
@@ -527,6 +508,15 @@ paths:
                       - pageSize
                       - totalResults
                       - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
@@ -545,8 +535,6 @@ paths:
             format: uuid
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
             description: Unique identifier for your SMB in Codat.
-          x-stoplight:
-            id: l1juboychi4p9
         - name: connectionId
           in: path
           required: true
@@ -557,9 +545,7 @@ paths:
             description: Unique identifier for a company's data connection.
           x-stoplight:
             id: odjhmld3g3nmi
-        - x-stoplight:
-            id: lhx5lknu24s8f
-          name: accountId
+        - name: accountId
           in: path
           required: true
           schema:
@@ -834,18 +820,7 @@ paths:
                                     title: DateTime
                         title: Transaction Category
                         description: The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
-                  - title: _Links
-                    description: Codat's Paging Model
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    type: object
+                  - type: object
                     properties:
                       pageNumber:
                         type: integer
@@ -854,7 +829,6 @@ paths:
                       totalResults:
                         type: integer
                       _links:
-                        title: Links
                         type: object
                         required:
                           - self
@@ -898,6 +872,15 @@ paths:
                       - pageSize
                       - totalResults
                       - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
       description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
       operationId: list-bank-transaction-categories
     parameters:
@@ -909,8 +892,6 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
-        x-stoplight:
-          id: l1juboychi4p9
       - name: connectionId
         in: path
         required: true
@@ -996,8 +977,6 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
-        x-stoplight:
-          id: l1juboychi4p9
       - name: connectionId
         in: path
         required: true
@@ -1181,8 +1160,6 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
-        x-stoplight:
-          id: l1juboychi4p9
       - name: connectionId
         in: path
         required: true
@@ -1360,8 +1337,6 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
-        x-stoplight:
-          id: l1juboychi4p9
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     get:
       tags:
@@ -1485,8 +1460,6 @@ paths:
           format: uuid
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
-        x-stoplight:
-          id: l1juboychi4p9
       - schema:
           type: string
         name: transactionId
