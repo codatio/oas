@@ -473,6 +473,7 @@
                     },
                     "sourceType": {
                       "title": "Source Type",
+                      "x-internal": true,
                       "description": "The type of platform of the connection.",
                       "type": "string",
                       "enum": [
@@ -494,6 +495,7 @@
                     },
                     "status": {
                       "title": "Data connection status",
+                      "x-internal": true,
                       "description": "The current authorization status of the data connection.",
                       "type": "string",
                       "enum": [
@@ -507,18 +509,19 @@
                       "type": "string",
                       "example": "2022-10-23T00:00:00Z",
                       "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-                      "title": "DateTime"
+                      "title": "Date Time"
                     },
                     "created": {
                       "type": "string",
                       "example": "2022-10-23T00:00:00Z",
                       "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-                      "title": "DateTime"
+                      "title": "Date Time"
                     },
                     "dataConnectionErrors": {
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "x-internal": true,
                         "properties": {
                           "statusCode": {
                             "type": "string"
@@ -533,23 +536,15 @@
                             "type": "string",
                             "example": "2022-10-23T00:00:00Z",
                             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-                            "title": "DateTime"
+                            "title": "Date Time"
                           }
                         }
                       }
                     },
                     "connectionInfo": {
                       "type": "object",
-                      "properties": {
-                        "additionalProp1": {
-                          "type": "string"
-                        },
-                        "additionalProp2": {
-                          "type": "string"
-                        },
-                        "additionalProp3": {
-                          "type": "string"
-                        }
+                      "additionalProperties": {
+                        "type": "string"
                       }
                     }
                   },
@@ -728,7 +723,7 @@
                             "nullable": true,
                             "type": "string",
                             "example": "2022-10-23T00:00:00Z",
-                            "title": "DateTime"
+                            "title": "Date Time"
                           },
                           "name": {
                             "type": "string",
@@ -1424,7 +1419,7 @@
                       "nullable": true,
                       "type": "string",
                       "example": "2022-10-23T00:00:00Z",
-                      "title": "DateTime"
+                      "title": "Date Time"
                     },
                     "dataPushed": {
                       "type": "boolean",
@@ -1542,7 +1537,7 @@
                       "nullable": true,
                       "type": "string",
                       "example": "2022-10-23T00:00:00Z",
-                      "title": "DateTime"
+                      "title": "Date Time"
                     },
                     "dataPushed": {
                       "type": "boolean",
@@ -1662,7 +1657,7 @@
                         "nullable": true,
                         "type": "string",
                         "example": "2022-10-23T00:00:00Z",
-                        "title": "DateTime"
+                        "title": "Date Time"
                       },
                       "dataPushed": {
                         "type": "boolean",
@@ -1792,7 +1787,7 @@
                       "nullable": true,
                       "type": "string",
                       "example": "2022-10-23T00:00:00Z",
-                      "title": "DateTime"
+                      "title": "Date Time"
                     },
                     "dataPushed": {
                       "type": "boolean",
@@ -2325,7 +2320,7 @@
                           "description": "Date of the transaction was recorded.",
                           "type": "string",
                           "example": "2022-10-23T00:00:00Z",
-                          "title": "DateTime"
+                          "title": "Date Time"
                         },
                         "currency": {
                           "type": "string",
@@ -2647,6 +2642,7 @@
           },
           "sourceType": {
             "title": "Source Type",
+            "x-internal": true,
             "description": "The type of platform of the connection.",
             "type": "string",
             "enum": [
@@ -2668,6 +2664,7 @@
           },
           "status": {
             "title": "Data connection status",
+            "x-internal": true,
             "description": "The current authorization status of the data connection.",
             "type": "string",
             "enum": [
@@ -2681,18 +2678,19 @@
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-            "title": "DateTime"
+            "title": "Date Time"
           },
           "created": {
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-            "title": "DateTime"
+            "title": "Date Time"
           },
           "dataConnectionErrors": {
             "type": "array",
             "items": {
               "type": "object",
+              "x-internal": true,
               "properties": {
                 "statusCode": {
                   "type": "string"
@@ -2707,23 +2705,15 @@
                   "type": "string",
                   "example": "2022-10-23T00:00:00Z",
                   "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> 📘 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.",
-                  "title": "DateTime"
+                  "title": "Date Time"
                 }
               }
             }
           },
           "connectionInfo": {
             "type": "object",
-            "properties": {
-              "additionalProp1": {
-                "type": "string"
-              },
-              "additionalProp2": {
-                "type": "string"
-              },
-              "additionalProp3": {
-                "type": "string"
-              }
+            "additionalProperties": {
+              "type": "string"
             }
           }
         },
@@ -2888,7 +2878,7 @@
             "nullable": true,
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
-            "title": "DateTime"
+            "title": "Date Time"
           },
           "dataPushed": {
             "type": "boolean",
@@ -3018,7 +3008,7 @@
                   "nullable": true,
                   "type": "string",
                   "example": "2022-10-23T00:00:00Z",
-                  "title": "DateTime"
+                  "title": "Date Time"
                 },
                 "name": {
                   "type": "string",
@@ -3212,7 +3202,7 @@
             "nullable": true,
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
-            "title": "DateTime"
+            "title": "Date Time"
           },
           "name": {
             "type": "string",
@@ -3476,7 +3466,7 @@
             "description": "Date of the transaction was recorded.",
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
-            "title": "DateTime"
+            "title": "Date Time"
           },
           "currency": {
             "type": "string",

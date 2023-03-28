@@ -204,7 +204,7 @@ paths:
                                   description: The date the entity was created.
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -215,7 +215,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -225,8 +225,9 @@ paths:
                                       description: The date on which this record was last modified in the originating system
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -236,6 +237,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -243,6 +245,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -250,6 +253,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -257,6 +261,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -264,6 +269,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -434,9 +440,8 @@ paths:
                                         id: ydj5jokox9hvp
                                       type: object
                                       allOf:
-                                        - title: recordRef
-                                          x-stoplight:
-                                            id: 4b2a84ad58afb
+                                        - title: Record Ref
+                                          x-internal: true
                                           type: object
                                           properties:
                                             id:
@@ -505,7 +510,7 @@ paths:
                                   description: Date when the next action in the dispute resolution is due
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                               allOf:
                                 - type: object
                                   x-stoplight:
@@ -515,7 +520,7 @@ paths:
                                       description: The date the entity was created.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -526,7 +531,7 @@ paths:
                                           description: The date on which this record was last modified in Codat.
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -536,10 +541,11 @@ paths:
                                           description: The date on which this record was last modified in the originating system
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                               required:
                                 - currency
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -549,6 +555,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -556,6 +563,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -563,6 +571,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -570,6 +579,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -577,6 +587,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -896,7 +907,7 @@ paths:
                         description: The date the entity was created.
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -907,7 +918,7 @@ paths:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -917,7 +928,7 @@ paths:
                             description: The date on which this record was last modified in the originating system
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
       operationId: get-commerce-info
       description: |-
         Retrieve information about the company, as seen in the commerce platform.
@@ -1053,7 +1064,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -1063,8 +1074,9 @@ paths:
                                       description: The date on which this record was last modified in the originating system
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -1074,6 +1086,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -1081,6 +1094,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1088,6 +1102,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1095,6 +1110,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1102,6 +1118,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1274,7 +1291,7 @@ paths:
                                   description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                                 totalAmount:
                                   description: 'Total amount of the order, including tax, net of any discounts and refunds.'
                                   type: number
@@ -1515,7 +1532,7 @@ paths:
                                             description: Date by which payment must be made
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: DateTime
+                                            title: Date Time
                                       - type: object
                                         x-stoplight:
                                           id: yptfg1r7vj69j
@@ -1524,7 +1541,7 @@ paths:
                                             description: The date the entity was created.
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: DateTime
+                                            title: Date Time
                                       - allOf:
                                           - title: ModifiedDate
                                             x-stoplight:
@@ -1535,7 +1552,7 @@ paths:
                                                 description: The date on which this record was last modified in Codat.
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: DateTime
+                                                title: Date Time
                                           - title: SourceModifiedDate
                                             x-stoplight:
                                               id: s0oihleme8suj
@@ -1545,7 +1562,7 @@ paths:
                                                 description: The date on which this record was last modified in the originating system
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: DateTime
+                                                title: Date Time
                                 serviceCharges:
                                   type: array
                                   items:
@@ -1681,7 +1698,7 @@ paths:
                                   description: The date the entity was created.
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -1692,7 +1709,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -1702,7 +1719,7 @@ paths:
                                       description: The date on which this record was last modified in the originating system
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                           definitions:
                             lineItem:
                               allOf:
@@ -1920,7 +1937,7 @@ paths:
                                       description: Date by which payment must be made
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - type: object
                                   x-stoplight:
                                     id: yptfg1r7vj69j
@@ -1929,7 +1946,7 @@ paths:
                                       description: The date the entity was created.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -1940,7 +1957,7 @@ paths:
                                           description: The date on which this record was last modified in Codat.
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -1950,7 +1967,7 @@ paths:
                                           description: The date on which this record was last modified in the originating system
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                             serviceCharge:
                               type: object
                               properties:
@@ -2095,6 +2112,7 @@ paths:
                               modifiedDate: '2022-02-02T11:02:45Z'
                               sourceModifiedDate: '2021-03-28T03:00:14'
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -2104,6 +2122,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -2111,6 +2130,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2118,6 +2138,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2125,6 +2146,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2132,6 +2154,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2329,7 +2352,7 @@ paths:
                                   description: Date by which payment must be made
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                             - type: object
                               x-stoplight:
                                 id: yptfg1r7vj69j
@@ -2338,7 +2361,7 @@ paths:
                                   description: The date the entity was created.
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -2349,7 +2372,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -2359,8 +2382,9 @@ paths:
                                       description: The date on which this record was last modified in the originating system
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -2370,6 +2394,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -2377,6 +2402,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2384,6 +2410,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2391,6 +2418,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2398,6 +2426,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2555,7 +2584,7 @@ paths:
                                           description: The date on which this record was last modified in Codat.
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -2565,8 +2594,9 @@ paths:
                                           description: The date on which this record was last modified in the originating system
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -2576,6 +2606,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -2583,6 +2614,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2590,6 +2622,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2597,6 +2630,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2604,6 +2638,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2913,7 +2948,7 @@ paths:
                                             description: The date the entity was created.
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: DateTime
+                                            title: Date Time
                                       - allOf:
                                           - title: ModifiedDate
                                             x-stoplight:
@@ -2924,7 +2959,7 @@ paths:
                                                 description: The date on which this record was last modified in Codat.
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: DateTime
+                                                title: Date Time
                                           - title: SourceModifiedDate
                                             x-stoplight:
                                               id: s0oihleme8suj
@@ -2934,8 +2969,9 @@ paths:
                                                 description: The date on which this record was last modified in the originating system
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: DateTime
+                                                title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -2945,6 +2981,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -2952,6 +2989,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2959,6 +2997,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2966,6 +3005,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -2973,6 +3013,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3158,9 +3199,8 @@ paths:
                                         id: ydj5jokox9hvp
                                       type: object
                                       allOf:
-                                        - title: recordRef
-                                          x-stoplight:
-                                            id: 4b2a84ad58afb
+                                        - title: Record Ref
+                                          x-internal: true
                                           type: object
                                           properties:
                                             id:
@@ -3199,7 +3239,7 @@ paths:
                                           description: The date the entity was created.
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                     - type: object
                                       x-stoplight:
                                         id: gdyjg7bg783br
@@ -3208,7 +3248,7 @@ paths:
                                           description: The date on which this record was created in the originating system
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -3219,7 +3259,7 @@ paths:
                                           description: The date on which this record was last modified in Codat.
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -3229,10 +3269,11 @@ paths:
                                           description: The date on which this record was last modified in the originating system
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: DateTime
+                                          title: Date Time
                               x-stoplight:
                                 id: 9e815c1766554
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -3242,6 +3283,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -3249,6 +3291,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3256,6 +3299,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3263,6 +3307,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3270,6 +3315,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3392,9 +3438,8 @@ paths:
                             ancestorRefs:
                               type: array
                               items:
-                                title: recordRef
-                                x-stoplight:
-                                  id: 4b2a84ad58afb
+                                title: Record Ref
+                                x-internal: true
                                 type: object
                                 properties:
                                   id:
@@ -3424,7 +3469,7 @@ paths:
                                   description: The date on which this record was last modified in Codat.
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                             sourceModifiedDate:
                               title: SourceModifiedDate
                               x-stoplight:
@@ -3435,10 +3480,11 @@ paths:
                                   description: The date on which this record was last modified in the originating system
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                           title: Product Category
                           description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -3448,6 +3494,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -3455,6 +3502,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3462,6 +3510,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3469,6 +3518,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3476,6 +3526,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -3637,7 +3688,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -3647,7 +3698,7 @@ paths:
                                       description: The date on which this record was last modified in the originating system
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                           required:
                             - name
                       definitions:
@@ -3904,7 +3955,7 @@ components:
               description: The date the entity was created.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -3915,7 +3966,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -3925,7 +3976,7 @@ components:
                   description: The date on which this record was last modified in the originating system
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
     Customer:
       $id: 'https://schemas.codat.io/datamodel/commerce/customer.json'
       title: Customer
@@ -4053,7 +4104,7 @@ components:
               description: The date the entity was created.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -4064,7 +4115,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4074,7 +4125,7 @@ components:
                   description: The date on which this record was last modified in the originating system
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
     Dispute:
       title: Dispute
       x-stoplight:
@@ -4115,9 +4166,8 @@ components:
                     id: ydj5jokox9hvp
                   type: object
                   allOf:
-                    - title: recordRef
-                      x-stoplight:
-                        id: 4b2a84ad58afb
+                    - title: Record Ref
+                      x-internal: true
                       type: object
                       properties:
                         id:
@@ -4186,7 +4236,7 @@ components:
               description: Date when the next action in the dispute resolution is due
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
           allOf:
             - type: object
               x-stoplight:
@@ -4196,7 +4246,7 @@ components:
                   description: The date the entity was created.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -4207,7 +4257,7 @@ components:
                       description: The date on which this record was last modified in Codat.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -4217,7 +4267,7 @@ components:
                       description: The date on which this record was last modified in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
           required:
             - currency
     Locations:
@@ -4315,7 +4365,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4325,7 +4375,7 @@ components:
                   description: The date on which this record was last modified in the originating system
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
     Order:
       title: Orders
       x-stoplight:
@@ -4407,7 +4457,7 @@ components:
               description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
             totalAmount:
               description: 'Total amount of the order, including tax, net of any discounts and refunds.'
               type: number
@@ -4648,7 +4698,7 @@ components:
                         description: Date by which payment must be made
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   - type: object
                     x-stoplight:
                       id: yptfg1r7vj69j
@@ -4657,7 +4707,7 @@ components:
                         description: The date the entity was created.
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -4668,7 +4718,7 @@ components:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -4678,7 +4728,7 @@ components:
                             description: The date on which this record was last modified in the originating system
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
             serviceCharges:
               type: array
               items:
@@ -4814,7 +4864,7 @@ components:
               description: The date the entity was created.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -4825,7 +4875,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4835,7 +4885,7 @@ components:
                   description: The date on which this record was last modified in the originating system
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
       definitions:
         lineItem:
           allOf:
@@ -5053,7 +5103,7 @@ components:
                   description: Date by which payment must be made
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - type: object
               x-stoplight:
                 id: yptfg1r7vj69j
@@ -5062,7 +5112,7 @@ components:
                   description: The date the entity was created.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -5073,7 +5123,7 @@ components:
                       description: The date on which this record was last modified in Codat.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5083,7 +5133,7 @@ components:
                       description: The date on which this record was last modified in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
         serviceCharge:
           type: object
           properties:
@@ -5322,7 +5372,7 @@ components:
               description: Date by which payment must be made
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         - type: object
           x-stoplight:
             id: yptfg1r7vj69j
@@ -5331,7 +5381,7 @@ components:
               description: The date the entity was created.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -5342,7 +5392,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -5352,7 +5402,7 @@ components:
                   description: The date on which this record was last modified in the originating system
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
     PaymentMethod:
       title: Payment Method
       x-stoplight:
@@ -5408,7 +5458,7 @@ components:
                       description: The date on which this record was last modified in Codat.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5418,7 +5468,7 @@ components:
                       description: The date on which this record was last modified in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
     Product:
       $id: 'https://schemas.codat.io/datamodel/commerce/product.json'
       title: Product
@@ -5626,7 +5676,7 @@ components:
                         description: The date the entity was created.
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -5637,7 +5687,7 @@ components:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -5647,7 +5697,7 @@ components:
                             description: The date on which this record was last modified in the originating system
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
     ProductCategory:
       type: object
       x-examples:
@@ -5668,9 +5718,8 @@ components:
         ancestorRefs:
           type: array
           items:
-            title: recordRef
-            x-stoplight:
-              id: 4b2a84ad58afb
+            title: Record Ref
+            x-internal: true
             type: object
             properties:
               id:
@@ -5700,7 +5749,7 @@ components:
               description: The date on which this record was last modified in Codat.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         sourceModifiedDate:
           title: SourceModifiedDate
           x-stoplight:
@@ -5711,7 +5760,7 @@ components:
               description: The date on which this record was last modified in the originating system
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
       title: Product Category
       description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
     TaxComponent:
@@ -5774,7 +5823,7 @@ components:
                       description: The date on which this record was last modified in Codat.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5784,7 +5833,7 @@ components:
                       description: The date on which this record was last modified in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
           required:
             - name
       definitions:
@@ -5909,9 +5958,8 @@ components:
                     id: ydj5jokox9hvp
                   type: object
                   allOf:
-                    - title: recordRef
-                      x-stoplight:
-                        id: 4b2a84ad58afb
+                    - title: Record Ref
+                      x-internal: true
                       type: object
                       properties:
                         id:
@@ -5950,7 +5998,7 @@ components:
                       description: The date the entity was created.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - type: object
                   x-stoplight:
                     id: gdyjg7bg783br
@@ -5959,7 +6007,7 @@ components:
                       description: The date on which this record was created in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -5970,7 +6018,7 @@ components:
                       description: The date on which this record was last modified in Codat.
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5980,7 +6028,7 @@ components:
                       description: The date on which this record was last modified in the originating system
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: DateTime
+                      title: Date Time
           x-stoplight:
             id: 9e815c1766554
   securitySchemes:

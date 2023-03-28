@@ -197,7 +197,7 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                             confirmed:
                               allOf:
                                 - title: ChartOfAccountCategory
@@ -230,8 +230,9 @@ paths:
                                       description: The date on which this record was last modified in Codat.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -241,6 +242,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -248,6 +250,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -255,6 +258,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -262,6 +266,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -269,6 +274,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -434,7 +440,7 @@ paths:
                               description: The date on which this record was last modified in Codat.
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: DateTime
+                              title: Date Time
                     confirmed:
                       allOf:
                         - title: ChartOfAccountCategory
@@ -467,7 +473,7 @@ paths:
                               description: The date on which this record was last modified in Codat.
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: DateTime
+                              title: Date Time
       description: Comfirms the categories for all or a batch of accounts for a specific connection.
       requestBody:
         content:
@@ -601,7 +607,7 @@ paths:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                   confirmed:
                     allOf:
                       - title: ChartOfAccountCategory
@@ -634,7 +640,7 @@ paths:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
       operationId: get-account-category
       description: Get category for specific nominal account.
     patch:
@@ -708,7 +714,7 @@ paths:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                   confirmed:
                     allOf:
                       - title: ChartOfAccountCategory
@@ -741,7 +747,7 @@ paths:
                             description: The date on which this record was last modified in Codat.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
       requestBody:
         content:
           application/json:
@@ -829,7 +835,7 @@ paths:
                                   description: The date the matching algorithm last ran against the company’s data type specified.
                                   readOnly: true
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                                 currentStatus:
                                   type: string
                                   enum:
@@ -891,25 +897,25 @@ paths:
                                   readOnly: true
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                                 maxDate:
                                   description: Latest date of transaction set.
                                   readOnly: true
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                                 minOverlappingDate:
                                   description: Earliest date where transactions exist in both accounting and banking platforms.
                                   readOnly: true
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                                 maxOverlappingDate:
                                   description: Latest date where transactions exist in both account and banking platforms.
                                   readOnly: true
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                       examples:
                         - type: string
                           statusInfo:
@@ -1099,7 +1105,7 @@ paths:
                               description: The date of the transaction.
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: DateTime
+                              title: Date Time
                             description:
                               type: string
                               description: The transaction description.
@@ -1153,6 +1159,7 @@ paths:
                                       - USD
                                       - EUR
                   - type: object
+                    x-internal: true
                     properties:
                       pageNumber:
                         type: integer
@@ -1162,6 +1169,7 @@ paths:
                         type: integer
                       _links:
                         type: object
+                        x-internal: true
                         required:
                           - self
                           - current
@@ -1169,6 +1177,7 @@ paths:
                           self:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1176,6 +1185,7 @@ paths:
                           current:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1183,6 +1193,7 @@ paths:
                           next:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -1190,6 +1201,7 @@ paths:
                           previous:
                             title: Hypertext reference
                             type: object
+                            x-internal: true
                             properties:
                               href:
                                 type: string
@@ -6047,7 +6059,7 @@ paths:
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                    title: DateTime
+                    title: Date Time
                   inProgress:
                     type: boolean
                   queued:
@@ -6101,7 +6113,7 @@ paths:
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                    title: DateTime
+                    title: Date Time
                   inProgress:
                     type: boolean
                   queued:
@@ -6282,7 +6294,7 @@ paths:
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                                title: DateTime
+                                title: Date Time
                               description:
                                 type: string
                               amount:
@@ -6532,7 +6544,7 @@ paths:
                         description: The date the report was generated.
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   reportItems:
                     type: array
                     description: An array of report items.
@@ -6543,7 +6555,7 @@ paths:
                           type: string
                           example: '2022-10-23T00:00:00Z'
                           description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                          title: DateTime
+                          title: Date Time
                         balance:
                           type: number
                         accountName:
@@ -6938,7 +6950,7 @@ paths:
                         description: The date the report was generated.
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: DateTime
+                        title: Date Time
                   reportItems:
                     type: array
                     description: An array of report items.
@@ -6949,7 +6961,7 @@ paths:
                           type: string
                           example: '2022-10-23T00:00:00Z'
                           description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                          title: DateTime
+                          title: Date Time
                         balance:
                           type: number
                         accountName:
@@ -7314,14 +7326,14 @@ paths:
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                                title: DateTime
+                                title: Date Time
                               dueDate:
                                 x-stoplight:
                                   id: o1k0l8u66dgme
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                                title: DateTime
+                                title: Date Time
                               status:
                                 enum:
                                   - Unknown
@@ -7371,7 +7383,7 @@ paths:
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                                title: DateTime
+                                title: Date Time
                               payments:
                                 x-stoplight:
                                   id: vmilncwvle4pc
@@ -7468,7 +7480,7 @@ paths:
                                       description: Date the payment was recorded in the accounting software.
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: DateTime
+                                      title: Date Time
                                     note:
                                       type: string
                                       nullable: true
@@ -7550,7 +7562,7 @@ paths:
                                             description: The date the payment was allocated.
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: DateTime
+                                            title: Date Time
                                         required:
                                           - amount
                                     reference:
@@ -7589,7 +7601,7 @@ paths:
                                               description: The date on which this record was last modified in Codat.
                                               type: string
                                               example: '2022-10-23T00:00:00Z'
-                                              title: DateTime
+                                              title: Date Time
                                         - title: SourceModifiedDate
                                           x-stoplight:
                                             id: s0oihleme8suj
@@ -7599,7 +7611,7 @@ paths:
                                               description: The date on which this record was last modified in the originating system
                                               type: string
                                               example: '2022-10-23T00:00:00Z'
-                                              title: DateTime
+                                              title: Date Time
                 description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
               example:
                 reportInfo:
@@ -8898,7 +8910,7 @@ components:
               description: The date the report was generated.
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: DateTime
+              title: Date Time
         reportItems:
           type: array
           description: An array of report items.
@@ -8909,7 +8921,7 @@ components:
                 type: string
                 example: '2022-10-23T00:00:00Z'
                 description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                title: DateTime
+                title: Date Time
               balance:
                 type: number
               accountName:
@@ -8993,7 +9005,7 @@ components:
           type: string
           example: '2022-10-23T00:00:00Z'
           description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-          title: DateTime
+          title: Date Time
         inProgress:
           type: boolean
         queued:
@@ -9116,7 +9128,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
         confirmed:
           allOf:
             - title: ChartOfAccountCategory
@@ -9149,7 +9161,7 @@ components:
                   description: The date on which this record was last modified in Codat.
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
     AccountCategory:
       title: ChartOfAccountCategory
       x-stoplight:
@@ -9192,7 +9204,7 @@ components:
                   description: The date the matching algorithm last ran against the company’s data type specified.
                   readOnly: true
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
                 currentStatus:
                   type: string
                   enum:
@@ -9254,25 +9266,25 @@ components:
                   readOnly: true
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
                 maxDate:
                   description: Latest date of transaction set.
                   readOnly: true
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
                 minOverlappingDate:
                   description: Earliest date where transactions exist in both accounting and banking platforms.
                   readOnly: true
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
                 maxOverlappingDate:
                   description: Latest date where transactions exist in both account and banking platforms.
                   readOnly: true
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: DateTime
+                  title: Date Time
       examples:
         - type: string
           statusInfo:
@@ -9376,7 +9388,7 @@ components:
           description: The date of the transaction.
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: DateTime
+          title: Date Time
         description:
           type: string
           description: The transaction description.
@@ -9510,7 +9522,7 @@ components:
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                      title: DateTime
+                      title: Date Time
                     description:
                       type: string
                     amount:
@@ -9812,14 +9824,14 @@ components:
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                      title: DateTime
+                      title: Date Time
                     dueDate:
                       x-stoplight:
                         id: o1k0l8u66dgme
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                      title: DateTime
+                      title: Date Time
                     status:
                       enum:
                         - Unknown
@@ -9869,7 +9881,7 @@ components:
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> \U0001F4D8 Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-                      title: DateTime
+                      title: Date Time
                     payments:
                       x-stoplight:
                         id: vmilncwvle4pc
@@ -9966,7 +9978,7 @@ components:
                             description: Date the payment was recorded in the accounting software.
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: DateTime
+                            title: Date Time
                           note:
                             type: string
                             nullable: true
@@ -10048,7 +10060,7 @@ components:
                                   description: The date the payment was allocated.
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: DateTime
+                                  title: Date Time
                               required:
                                 - amount
                           reference:
@@ -10087,7 +10099,7 @@ components:
                                     description: The date on which this record was last modified in Codat.
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: DateTime
+                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -10097,7 +10109,7 @@ components:
                                     description: The date on which this record was last modified in the originating system
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: DateTime
+                                    title: Date Time
       description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
   parameters:
     dataIntegritydataType:
