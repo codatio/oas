@@ -112,7 +112,7 @@
                           "items": {
                             "$id": "https://schemas.codat.io/datamodel/commerce/customer.json",
                             "title": "Customer",
-                            "description": "Represents a customer who has placed an order in the commerce system\"",
+                            "description": "When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.",
                             "x-stoplight": {
                               "id": "avuh8zncanxa4"
                             },
@@ -190,7 +190,7 @@
                                           "id": "8ljuulqyuc5l4"
                                         },
                                         "type": "string",
-                                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                                         "format": "ISO4217",
                                         "examples": [
                                           "GBP",
@@ -313,6 +313,96 @@
                                         "title": "Date Time"
                                       }
                                     }
+                                  }
+                                ]
+                              }
+                            ],
+                            "examples": [
+                              {
+                                "customers": [
+                                  {
+                                    "id": "15",
+                                    "customerName": "Daffy Duck",
+                                    "emailAddress": "d.duck@warnerbros.com",
+                                    "defaultCurrency": "GBP",
+                                    "phone": "(877) 492-8687",
+                                    "addresses": [
+                                      {
+                                        "type": "billing",
+                                        "line1": "301 Duck Pond",
+                                        "line2": "28 Green Street",
+                                        "city": "London",
+                                        "region": "England",
+                                        "country": "United Kingdom",
+                                        "postalCode": "WX1X 0BE"
+                                      },
+                                      {
+                                        "type": "delivery",
+                                        "line1": "Bread Street",
+                                        "line2": "Bird Avenue",
+                                        "city": "Paris",
+                                        "region": "France",
+                                        "country": "France",
+                                        "postalCode": "WDF 123"
+                                      }
+                                    ],
+                                    "note": "Regular customer",
+                                    "createdDate": "0001-01-01T00:00:00",
+                                    "modifiedDate": null,
+                                    "sourceModifiedDate": "2020-09-15T23:52:28"
+                                  },
+                                  {
+                                    "id": "18",
+                                    "customerName": "Tasmanian Devil",
+                                    "emailAddress": "t.devil@warnerbros.com",
+                                    "defaultCurrency": "GBP",
+                                    "phone": "+1-202-555-0181",
+                                    "addresses": [
+                                      {
+                                        "type": "billing",
+                                        "line1": "101 Fire Rooms",
+                                        "line2": "Engine Street",
+                                        "city": "London",
+                                        "region": "England",
+                                        "country": "United Kingdom",
+                                        "postalCode": "WC1X 0BE"
+                                      }
+                                    ],
+                                    "note": "Handle with care",
+                                    "createdDate": "0001-01-01T00:00:00",
+                                    "modifiedDate": null,
+                                    "sourceModifiedDate": "2020-04-16T02:41:52"
+                                  },
+                                  {
+                                    "id": "a99f5e0c-a4db-452f-8d2c-8fd15482b384",
+                                    "customerName": "Bugs Bunny",
+                                    "emailAddress": "b.bunny@warnerbros.com",
+                                    "defaultCurrency": "GBP",
+                                    "phone": "",
+                                    "addresses": [
+                                      {
+                                        "type": "billing",
+                                        "line1": "301 Carrot Street",
+                                        "line2": "Orange Town",
+                                        "city": "Yorkshire",
+                                        "region": "England",
+                                        "country": "United Kingdom",
+                                        "postalCode": "WF1X 0BE"
+                                      },
+                                      {
+                                        "type": "delivery",
+                                        "line1": "424 Field Street",
+                                        "line2": "The Meadow",
+                                        "city": "Paris",
+                                        "region": "France",
+                                        "country": "France",
+                                        "postalCode": "WDF 123"
+                                      }
+                                    ],
+                                    "note": "Regular customer",
+                                    "createdDate": "0001-01-01T00:00:00",
+                                    "modifiedDate": null,
+                                    "sourceModifiedDate": "2020-08-12T14:37:37"
                                   }
                                 ]
                               }
@@ -782,6 +872,26 @@
                                   "currency"
                                 ]
                               }
+                            ],
+                            "description": "A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  \n- They didn't receive an order.  \n- The product they received was different to the commerce store's description.  \n- They've been the victim of online fraud.  \n\nYou can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
+                            "examples": [
+                              {
+                                "id": "03e608e3-bd1c-454f-8c2b-fb0133e43b95",
+                                "disputedTransactions": [
+                                  {
+                                    "id": "e63ad857-7e12-4e64-9185-cdfd7c45d09d",
+                                    "type": "Order"
+                                  }
+                                ],
+                                "totalAmount": -47.66,
+                                "currency": "GBP",
+                                "status": "InquiryEvidenceRequired",
+                                "reason": "Unhappy with product",
+                                "dueDate": "2021-03-29T14:39:55",
+                                "createdDate": "2021-03-22T14:39:55",
+                                "modifiedDate": "2022-02-02T11:02:45Z",
+                                "sourceModifiedDate": "2021-03-22T14:39:55"
+                              }
                             ]
                           }
                         }
@@ -1036,7 +1146,7 @@
               "application/json": {
                 "schema": {
                   "title": "Company Info",
-                  "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n",
+                  "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.\n",
                   "x-stoplight": {
                     "id": "d7on55ll1hvqj"
                   },
@@ -1203,7 +1313,7 @@
                         "id": "8ljuulqyuc5l4"
                       },
                       "type": "string",
-                      "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                      "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                       "format": "ISO4217",
                       "examples": [
                         "GBP",
@@ -1241,7 +1351,7 @@
                                   "id": "8ljuulqyuc5l4"
                                 },
                                 "type": "string",
-                                "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                                 "format": "ISO4217",
                                 "examples": [
                                   "GBP",
@@ -1385,7 +1495,7 @@
                               "plural": "locations",
                               "fetchMode": "multiple"
                             },
-                            "description": "The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.\n\nLocations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.\n\nFrom the Locations endpoints you can retrieve:\n\nA list of all the Locations of a commerce company: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations`.\nThe details of an individual location: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}`.\n",
+                            "description": "The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.\n\nLocations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.",
                             "allOf": [
                               {
                                 "type": "object",
@@ -1515,6 +1625,23 @@
                                     }
                                   }
                                 ]
+                              }
+                            ],
+                            "examples": [
+                              {
+                                "id": "15",
+                                "name": "London Warehouse",
+                                "address": {
+                                  "type": "Inventory",
+                                  "line1": "Warner House",
+                                  "line2": "98 Theobald's Road",
+                                  "city": "London",
+                                  "region": "",
+                                  "country": "United Kingdom",
+                                  "postalCode": "WC1X 8WB"
+                                },
+                                "modifiedDate": null,
+                                "sourceModifiedDate": "2020-08-12T14:37:37"
                               }
                             ]
                           }
@@ -1731,7 +1858,7 @@
                               "plural": "orders",
                               "fetchMode": "multiple"
                             },
-                            "description": "Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order.\n\nFrom the Orders endpoints you can retrieve:\n\nA list of all the orders for a commerce company:\n`GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders`.\nThe details of an individual order:\n`GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}`.\nNote that for refunds `quantity` is a negative value and `unitPrice` is a positive value.\n",
+                            "description": "Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.\n",
                             "allOf": [
                               {
                                 "type": "object",
@@ -1783,7 +1910,7 @@
                                           "id": "8ljuulqyuc5l4"
                                         },
                                         "type": "string",
-                                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                        "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                                         "format": "ISO4217",
                                         "examples": [
                                           "GBP",
@@ -3190,7 +3317,7 @@
                           "type": "array",
                           "items": {
                             "title": "Payment",
-                            "description": "A payment made in a commerce platform",
+                            "description": "Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.\n\nRefunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.\n\nYou can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.",
                             "x-stoplight": {
                               "id": "wcffh3qwn0c3z"
                             },
@@ -3682,7 +3809,8 @@
                                   }
                                 ]
                               }
-                            ]
+                            ],
+                            "description": "A Payment Method represents the payment method(s) used to make payments.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type."
                           }
                         }
                       }
@@ -3904,7 +4032,7 @@
                           "items": {
                             "$id": "https://schemas.codat.io/datamodel/commerce/product.json",
                             "title": "Product",
-                            "description": "A Product is an item in the company's inventory, and includes information\nabout the price and quantity of all products, and variants thereof, available for sale\n",
+                            "description": "A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.\n",
                             "x-stoplight": {
                               "id": "egcimxah1hg79"
                             },
@@ -3983,13 +4111,13 @@
                                     "type": "array",
                                     "items": {
                                       "title": "Product Variant",
-                                      "description": "Represents a variation of a product available for sale, for example an item of clothing\nmay be available for sale in multiple sizes and colors\n",
+                                      "description": "Represents a variation of a product available for sale, for example an item of clothing that may be available for sale in multiple sizes and colors.\n",
                                       "x-stoplight": {
                                         "id": "z8pyy073x77y2"
                                       },
-                                      "type": "object",
                                       "allOf": [
                                         {
+                                          "description": "Identifier of the product variant, unique to the company.",
                                           "type": "object",
                                           "x-stoplight": {
                                             "id": "516bf0ecc4907"
@@ -4023,7 +4151,8 @@
                                                 "Red Coat",
                                                 "Black Coat",
                                                 "Large Brown Hat"
-                                              ]
+                                              ],
+                                              "description": "Name of the product recorded in the commerce or point of sale platform."
                                             },
                                             "quantity": {
                                               "type": "number",
@@ -4035,7 +4164,8 @@
                                               ]
                                             },
                                             "isTaxEnabled": {
-                                              "type": "boolean"
+                                              "type": "boolean",
+                                              "description": "Whether sales taxes are enabled for this product variant."
                                             },
                                             "sku": {
                                               "type": "string",
@@ -4044,14 +4174,16 @@
                                                 "Coat-Black-Md",
                                                 "LargeBrownHat",
                                                 "A725BA2"
-                                              ]
+                                              ],
+                                              "description": "SKU (stock keeping unit) of the variant, as defined by the merchant."
                                             },
                                             "barcode": {
                                               "type": "string",
                                               "examples": [
                                                 "564158468416486458646886484",
                                                 "CSE370"
-                                              ]
+                                              ],
+                                              "description": "Unique product number of the variant. This might be a barcode, UPC, ISBN, etc."
                                             },
                                             "unitOfMeasure": {
                                               "type": "string",
@@ -4059,7 +4191,8 @@
                                                 "kg",
                                                 "m",
                                                 "meters"
-                                              ]
+                                              ],
+                                              "description": "Unit of measure for the variant, such as `kg` or `meters`."
                                             },
                                             "vatPercentage": {
                                               "type": "number",
@@ -4068,86 +4201,22 @@
                                                 12.5,
                                                 0,
                                                 20
-                                              ]
+                                              ],
+                                              "description": "VAT rate for the product variant if sales taxes are enabled."
                                             },
                                             "prices": {
                                               "type": "array",
-                                              "items": {
-                                                "properties": {
-                                                  "unitPrice": {
-                                                    "type": "number",
-                                                    "format": "decimal"
-                                                  },
-                                                  "currency": {
-                                                    "title": "Currency",
-                                                    "x-stoplight": {
-                                                      "id": "8ljuulqyuc5l4"
-                                                    },
-                                                    "type": "string",
-                                                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
-                                                    "format": "ISO4217",
-                                                    "examples": [
-                                                      "GBP",
-                                                      "USD",
-                                                      "EUR"
-                                                    ]
-                                                  }
-                                                }
-                                              }
+                                              "description": "Prices for the product variants in different currencies.",
+                                              "items": {}
                                             },
                                             "inventory": {
                                               "type": "array",
-                                              "items": {
-                                                "properties": {
-                                                  "totalQuantity": {
-                                                    "type": "number",
-                                                    "format": "decimal",
-                                                    "example": 1
-                                                  },
-                                                  "locations": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "properties": {
-                                                        "quantity": {
-                                                          "type": "number",
-                                                          "format": "decimal",
-                                                          "example": 1
-                                                        },
-                                                        "locationRef": {
-                                                          "title": "nameRef",
-                                                          "x-stoplight": {
-                                                            "id": "34dd919grzbls"
-                                                          },
-                                                          "type": "object",
-                                                          "properties": {
-                                                            "id": {
-                                                              "description": "The unique identitifer of the record being referenced",
-                                                              "type": "string",
-                                                              "examples": [
-                                                                "13d946f0-c5d5-42bc-b092-97ece17923ab",
-                                                                "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
-                                                                7110701885,
-                                                                "EILBDVJVNUAGVKRQ"
-                                                              ]
-                                                            },
-                                                            "name": {
-                                                              "description": "Name of the record being referenced.",
-                                                              "type": "string"
-                                                            }
-                                                          },
-                                                          "required": [
-                                                            "id",
-                                                            "name"
-                                                          ]
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
+                                              "description": "Information about the total inventory as well as the locations inventory is in.",
+                                              "items": {}
                                             },
                                             "shippingRequired": {
-                                              "type": "boolean"
+                                              "type": "boolean",
+                                              "description": "Indicates whether or not the product requires physical delivery."
                                             },
                                             "status": {
                                               "type": "string",
@@ -4207,7 +4276,8 @@
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "type": "object"
                                     }
                                   }
                                 }
@@ -4433,7 +4503,7 @@
                           "type": "array",
                           "items": {
                             "title": "Transaction",
-                            "description": "A financial transaction recorded in the commerce or point of sale system",
+                            "description": "Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.\n\nYou can use data from the Transactions endpoints to calculate key metrics, such as:  \n- Transaction volumes  \n- Average transaction volume  \n- Average transaction value  \n- Returns  \n- Payouts\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.",
                             "x-stoplight": {
                               "id": "z40cc0atpg1x9"
                             },
@@ -4491,7 +4561,7 @@
                                       "id": "8ljuulqyuc5l4"
                                     },
                                     "type": "string",
-                                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                                     "format": "ISO4217",
                                     "examples": [
                                       "GBP",
@@ -4500,7 +4570,7 @@
                                     ]
                                   },
                                   "type": {
-                                    "description": "The type of the platform transaction",
+                                    "description": "The type of the platform transaction:  \n- `Unknown`  \n- `FailedPayout` — Failed transfer of funds from the seller's merchant account to their bank account.  \n- `Payment` — Credit and debit card payments.  \n- `PaymentFee` — Payment provider's fee on each card payment.  \n- `PaymentFeeRefund` — Payment provider's fee that has been refunded to the seller.  \n- `Payout` — Transfer of funds from the seller's merchant account to their bank account.  \n- `Refund` — Refunds to a customer's credit or debit card.  \n- `Transfer` — Secure transfer of funds to the seller's bank account.  ",
                                     "type": "string",
                                     "enum": [
                                       "Payment",
@@ -4653,7 +4723,8 @@
                                   "id": "9e815c1766554"
                                 }
                               }
-                            ]
+                            ],
+                            "examples": []
                           }
                         }
                       }
@@ -4884,17 +4955,22 @@
                                 "sourceModifiedDate": "2021-10-01T12:53:21Z"
                               }
                             },
+                            "title": "Product Category",
+                            "description": "Product categories are used to classify a group of products together, either by type (e.g. \"Furniture\"), or sometimes by tax profile.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.",
                             "properties": {
                               "id": {
                                 "type": "string",
-                                "example": "\"102\""
+                                "example": "\"102\"",
+                                "description": "The unique identifier of the product category"
                               },
                               "name": {
                                 "type": "string",
-                                "example": "Entertainment"
+                                "example": "Entertainment",
+                                "description": "The name of the product category"
                               },
                               "ancestorRefs": {
                                 "type": "array",
+                                "description": "A collection of parent product categories implicitly ordered with the immediate parent last in the list.",
                                 "items": {
                                   "title": "Record Ref",
                                   "x-internal": true,
@@ -4923,9 +4999,11 @@
                                 }
                               },
                               "hasChildren": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "A boolean indicating whether there are other product categories beneath this one in the hierarchy."
                               },
                               "modifiedDate": {
+                                "description": "The date the record was last updated in Codat's cache.",
                                 "title": "ModifiedDate",
                                 "x-stoplight": {
                                   "id": "z5gfpfg4fsp6v"
@@ -4941,6 +5019,7 @@
                                 }
                               },
                               "sourceModifiedDate": {
+                                "description": "Date the product was last changed in the commerce or point of sale platform.",
                                 "title": "SourceModifiedDate",
                                 "x-stoplight": {
                                   "id": "s0oihleme8suj"
@@ -4956,8 +5035,50 @@
                                 }
                               }
                             },
-                            "title": "Product Category",
-                            "description": "Product categories are used to classify a group of products together, either by type (eg \"Furniture\"), or sometimes by tax profile."
+                            "examples": [
+                              {
+                                "productCategories": [
+                                  {
+                                    "id": "100",
+                                    "name": "Entertainment",
+                                    "ancestorRefs": [],
+                                    "hasChildren": true,
+                                    "modifiedDate": "2022-01-01T12:00:00Z",
+                                    "sourceModifiedDate": "2021-10-01T12:53:21Z"
+                                  },
+                                  {
+                                    "id": "101",
+                                    "name": "Cinema",
+                                    "ancestorRefs": [
+                                      {
+                                        "id": "100",
+                                        "name": "Entertainment"
+                                      }
+                                    ],
+                                    "hasChildren": true,
+                                    "modifiedDate": "2022-01-01T12:00:00Z",
+                                    "sourceModifiedDate": "2021-10-01T12:55:02Z"
+                                  },
+                                  {
+                                    "id": "102",
+                                    "name": "Movie",
+                                    "ancestorRefs": [
+                                      {
+                                        "id": "100",
+                                        "name": "Entertainment"
+                                      },
+                                      {
+                                        "id": "101",
+                                        "name": "Cinema"
+                                      }
+                                    ],
+                                    "hasChildren": false,
+                                    "modifiedDate": "2022-01-01T12:00:00Z",
+                                    "sourceModifiedDate": "2021-12-25T12:00:00Z"
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         }
                       }
@@ -5328,7 +5449,7 @@
                             }
                           }
                         },
-                        "description": "",
+                        "description": "The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
                         "examples": [
                           {
                             "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
@@ -5380,7 +5501,7 @@
     "schemas": {
       "CompanyInfo": {
         "title": "Company Info",
-        "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n",
+        "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.\n",
         "x-stoplight": {
           "id": "d7on55ll1hvqj"
         },
@@ -5547,7 +5668,7 @@
               "id": "8ljuulqyuc5l4"
             },
             "type": "string",
-            "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+            "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
             "format": "ISO4217",
             "examples": [
               "GBP",
@@ -5585,7 +5706,7 @@
                         "id": "8ljuulqyuc5l4"
                       },
                       "type": "string",
-                      "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                      "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                       "format": "ISO4217",
                       "examples": [
                         "GBP",
@@ -5664,7 +5785,7 @@
       "Customer": {
         "$id": "https://schemas.codat.io/datamodel/commerce/customer.json",
         "title": "Customer",
-        "description": "Represents a customer who has placed an order in the commerce system\"",
+        "description": "When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.",
         "x-stoplight": {
           "id": "avuh8zncanxa4"
         },
@@ -5742,7 +5863,7 @@
                       "id": "8ljuulqyuc5l4"
                     },
                     "type": "string",
-                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                     "format": "ISO4217",
                     "examples": [
                       "GBP",
@@ -5865,6 +5986,96 @@
                     "title": "Date Time"
                   }
                 }
+              }
+            ]
+          }
+        ],
+        "examples": [
+          {
+            "customers": [
+              {
+                "id": "15",
+                "customerName": "Daffy Duck",
+                "emailAddress": "d.duck@warnerbros.com",
+                "defaultCurrency": "GBP",
+                "phone": "(877) 492-8687",
+                "addresses": [
+                  {
+                    "type": "billing",
+                    "line1": "301 Duck Pond",
+                    "line2": "28 Green Street",
+                    "city": "London",
+                    "region": "England",
+                    "country": "United Kingdom",
+                    "postalCode": "WX1X 0BE"
+                  },
+                  {
+                    "type": "delivery",
+                    "line1": "Bread Street",
+                    "line2": "Bird Avenue",
+                    "city": "Paris",
+                    "region": "France",
+                    "country": "France",
+                    "postalCode": "WDF 123"
+                  }
+                ],
+                "note": "Regular customer",
+                "createdDate": "0001-01-01T00:00:00",
+                "modifiedDate": null,
+                "sourceModifiedDate": "2020-09-15T23:52:28"
+              },
+              {
+                "id": "18",
+                "customerName": "Tasmanian Devil",
+                "emailAddress": "t.devil@warnerbros.com",
+                "defaultCurrency": "GBP",
+                "phone": "+1-202-555-0181",
+                "addresses": [
+                  {
+                    "type": "billing",
+                    "line1": "101 Fire Rooms",
+                    "line2": "Engine Street",
+                    "city": "London",
+                    "region": "England",
+                    "country": "United Kingdom",
+                    "postalCode": "WC1X 0BE"
+                  }
+                ],
+                "note": "Handle with care",
+                "createdDate": "0001-01-01T00:00:00",
+                "modifiedDate": null,
+                "sourceModifiedDate": "2020-04-16T02:41:52"
+              },
+              {
+                "id": "a99f5e0c-a4db-452f-8d2c-8fd15482b384",
+                "customerName": "Bugs Bunny",
+                "emailAddress": "b.bunny@warnerbros.com",
+                "defaultCurrency": "GBP",
+                "phone": "",
+                "addresses": [
+                  {
+                    "type": "billing",
+                    "line1": "301 Carrot Street",
+                    "line2": "Orange Town",
+                    "city": "Yorkshire",
+                    "region": "England",
+                    "country": "United Kingdom",
+                    "postalCode": "WF1X 0BE"
+                  },
+                  {
+                    "type": "delivery",
+                    "line1": "424 Field Street",
+                    "line2": "The Meadow",
+                    "city": "Paris",
+                    "region": "France",
+                    "country": "France",
+                    "postalCode": "WDF 123"
+                  }
+                ],
+                "note": "Regular customer",
+                "createdDate": "0001-01-01T00:00:00",
+                "modifiedDate": null,
+                "sourceModifiedDate": "2020-08-12T14:37:37"
               }
             ]
           }
@@ -6077,6 +6288,26 @@
               "currency"
             ]
           }
+        ],
+        "description": "A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  \n- They didn't receive an order.  \n- The product they received was different to the commerce store's description.  \n- They've been the victim of online fraud.  \n\nYou can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
+        "examples": [
+          {
+            "id": "03e608e3-bd1c-454f-8c2b-fb0133e43b95",
+            "disputedTransactions": [
+              {
+                "id": "e63ad857-7e12-4e64-9185-cdfd7c45d09d",
+                "type": "Order"
+              }
+            ],
+            "totalAmount": -47.66,
+            "currency": "GBP",
+            "status": "InquiryEvidenceRequired",
+            "reason": "Unhappy with product",
+            "dueDate": "2021-03-29T14:39:55",
+            "createdDate": "2021-03-22T14:39:55",
+            "modifiedDate": "2022-02-02T11:02:45Z",
+            "sourceModifiedDate": "2021-03-22T14:39:55"
+          }
         ]
       },
       "Locations": {
@@ -6094,7 +6325,7 @@
           "plural": "locations",
           "fetchMode": "multiple"
         },
-        "description": "The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.\n\nLocations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.\n\nFrom the Locations endpoints you can retrieve:\n\nA list of all the Locations of a commerce company: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations`.\nThe details of an individual location: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}`.\n",
+        "description": "The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.\n\nLocations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.",
         "allOf": [
           {
             "type": "object",
@@ -6225,6 +6456,23 @@
               }
             ]
           }
+        ],
+        "examples": [
+          {
+            "id": "15",
+            "name": "London Warehouse",
+            "address": {
+              "type": "Inventory",
+              "line1": "Warner House",
+              "line2": "98 Theobald's Road",
+              "city": "London",
+              "region": "",
+              "country": "United Kingdom",
+              "postalCode": "WC1X 8WB"
+            },
+            "modifiedDate": null,
+            "sourceModifiedDate": "2020-08-12T14:37:37"
+          }
         ]
       },
       "Order": {
@@ -6242,7 +6490,7 @@
           "plural": "orders",
           "fetchMode": "multiple"
         },
-        "description": "Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order.\n\nFrom the Orders endpoints you can retrieve:\n\nA list of all the orders for a commerce company:\n`GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders`.\nThe details of an individual order:\n`GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}`.\nNote that for refunds `quantity` is a negative value and `unitPrice` is a positive value.\n",
+        "description": "Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.\n",
         "allOf": [
           {
             "type": "object",
@@ -6294,7 +6542,7 @@
                       "id": "8ljuulqyuc5l4"
                     },
                     "type": "string",
-                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                    "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                     "format": "ISO4217",
                     "examples": [
                       "GBP",
@@ -7484,7 +7732,7 @@
       },
       "Payment": {
         "title": "Payment",
-        "description": "A payment made in a commerce platform",
+        "description": "Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.\n\nRefunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.\n\nYou can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.",
         "x-stoplight": {
           "id": "wcffh3qwn0c3z"
         },
@@ -7759,12 +8007,13 @@
               }
             ]
           }
-        ]
+        ],
+        "description": "A Payment Method represents the payment method(s) used to make payments.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type."
       },
       "Product": {
         "$id": "https://schemas.codat.io/datamodel/commerce/product.json",
         "title": "Product",
-        "description": "A Product is an item in the company's inventory, and includes information\nabout the price and quantity of all products, and variants thereof, available for sale\n",
+        "description": "A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.\n",
         "x-stoplight": {
           "id": "egcimxah1hg79"
         },
@@ -7843,13 +8092,13 @@
                 "type": "array",
                 "items": {
                   "title": "Product Variant",
-                  "description": "Represents a variation of a product available for sale, for example an item of clothing\nmay be available for sale in multiple sizes and colors\n",
+                  "description": "Represents a variation of a product available for sale, for example an item of clothing that may be available for sale in multiple sizes and colors.\n",
                   "x-stoplight": {
                     "id": "z8pyy073x77y2"
                   },
-                  "type": "object",
                   "allOf": [
                     {
+                      "description": "Identifier of the product variant, unique to the company.",
                       "type": "object",
                       "x-stoplight": {
                         "id": "516bf0ecc4907"
@@ -7883,7 +8132,8 @@
                             "Red Coat",
                             "Black Coat",
                             "Large Brown Hat"
-                          ]
+                          ],
+                          "description": "Name of the product recorded in the commerce or point of sale platform."
                         },
                         "quantity": {
                           "type": "number",
@@ -7895,7 +8145,8 @@
                           ]
                         },
                         "isTaxEnabled": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Whether sales taxes are enabled for this product variant."
                         },
                         "sku": {
                           "type": "string",
@@ -7904,14 +8155,16 @@
                             "Coat-Black-Md",
                             "LargeBrownHat",
                             "A725BA2"
-                          ]
+                          ],
+                          "description": "SKU (stock keeping unit) of the variant, as defined by the merchant."
                         },
                         "barcode": {
                           "type": "string",
                           "examples": [
                             "564158468416486458646886484",
                             "CSE370"
-                          ]
+                          ],
+                          "description": "Unique product number of the variant. This might be a barcode, UPC, ISBN, etc."
                         },
                         "unitOfMeasure": {
                           "type": "string",
@@ -7919,7 +8172,8 @@
                             "kg",
                             "m",
                             "meters"
-                          ]
+                          ],
+                          "description": "Unit of measure for the variant, such as `kg` or `meters`."
                         },
                         "vatPercentage": {
                           "type": "number",
@@ -7928,86 +8182,22 @@
                             12.5,
                             0,
                             20
-                          ]
+                          ],
+                          "description": "VAT rate for the product variant if sales taxes are enabled."
                         },
                         "prices": {
                           "type": "array",
-                          "items": {
-                            "properties": {
-                              "unitPrice": {
-                                "type": "number",
-                                "format": "decimal"
-                              },
-                              "currency": {
-                                "title": "Currency",
-                                "x-stoplight": {
-                                  "id": "8ljuulqyuc5l4"
-                                },
-                                "type": "string",
-                                "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
-                                "format": "ISO4217",
-                                "examples": [
-                                  "GBP",
-                                  "USD",
-                                  "EUR"
-                                ]
-                              }
-                            }
-                          }
+                          "description": "Prices for the product variants in different currencies.",
+                          "items": {}
                         },
                         "inventory": {
                           "type": "array",
-                          "items": {
-                            "properties": {
-                              "totalQuantity": {
-                                "type": "number",
-                                "format": "decimal",
-                                "example": 1
-                              },
-                              "locations": {
-                                "type": "array",
-                                "items": {
-                                  "properties": {
-                                    "quantity": {
-                                      "type": "number",
-                                      "format": "decimal",
-                                      "example": 1
-                                    },
-                                    "locationRef": {
-                                      "title": "nameRef",
-                                      "x-stoplight": {
-                                        "id": "34dd919grzbls"
-                                      },
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "description": "The unique identitifer of the record being referenced",
-                                          "type": "string",
-                                          "examples": [
-                                            "13d946f0-c5d5-42bc-b092-97ece17923ab",
-                                            "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
-                                            7110701885,
-                                            "EILBDVJVNUAGVKRQ"
-                                          ]
-                                        },
-                                        "name": {
-                                          "description": "Name of the record being referenced.",
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "name"
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
+                          "description": "Information about the total inventory as well as the locations inventory is in.",
+                          "items": {}
                         },
                         "shippingRequired": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Indicates whether or not the product requires physical delivery."
                         },
                         "status": {
                           "type": "string",
@@ -8067,7 +8257,8 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "type": "object"
                 }
               }
             }
@@ -8086,17 +8277,22 @@
             "sourceModifiedDate": "2021-10-01T12:53:21Z"
           }
         },
+        "title": "Product Category",
+        "description": "Product categories are used to classify a group of products together, either by type (e.g. \"Furniture\"), or sometimes by tax profile.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.",
         "properties": {
           "id": {
             "type": "string",
-            "example": "\"102\""
+            "example": "\"102\"",
+            "description": "The unique identifier of the product category"
           },
           "name": {
             "type": "string",
-            "example": "Entertainment"
+            "example": "Entertainment",
+            "description": "The name of the product category"
           },
           "ancestorRefs": {
             "type": "array",
+            "description": "A collection of parent product categories implicitly ordered with the immediate parent last in the list.",
             "items": {
               "title": "Record Ref",
               "x-internal": true,
@@ -8125,9 +8321,11 @@
             }
           },
           "hasChildren": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "A boolean indicating whether there are other product categories beneath this one in the hierarchy."
           },
           "modifiedDate": {
+            "description": "The date the record was last updated in Codat's cache.",
             "title": "ModifiedDate",
             "x-stoplight": {
               "id": "z5gfpfg4fsp6v"
@@ -8143,6 +8341,7 @@
             }
           },
           "sourceModifiedDate": {
+            "description": "Date the product was last changed in the commerce or point of sale platform.",
             "title": "SourceModifiedDate",
             "x-stoplight": {
               "id": "s0oihleme8suj"
@@ -8158,8 +8357,50 @@
             }
           }
         },
-        "title": "Product Category",
-        "description": "Product categories are used to classify a group of products together, either by type (eg \"Furniture\"), or sometimes by tax profile."
+        "examples": [
+          {
+            "productCategories": [
+              {
+                "id": "100",
+                "name": "Entertainment",
+                "ancestorRefs": [],
+                "hasChildren": true,
+                "modifiedDate": "2022-01-01T12:00:00Z",
+                "sourceModifiedDate": "2021-10-01T12:53:21Z"
+              },
+              {
+                "id": "101",
+                "name": "Cinema",
+                "ancestorRefs": [
+                  {
+                    "id": "100",
+                    "name": "Entertainment"
+                  }
+                ],
+                "hasChildren": true,
+                "modifiedDate": "2022-01-01T12:00:00Z",
+                "sourceModifiedDate": "2021-10-01T12:55:02Z"
+              },
+              {
+                "id": "102",
+                "name": "Movie",
+                "ancestorRefs": [
+                  {
+                    "id": "100",
+                    "name": "Entertainment"
+                  },
+                  {
+                    "id": "101",
+                    "name": "Cinema"
+                  }
+                ],
+                "hasChildren": false,
+                "modifiedDate": "2022-01-01T12:00:00Z",
+                "sourceModifiedDate": "2021-12-25T12:00:00Z"
+              }
+            ]
+          }
+        ]
       },
       "TaxComponent": {
         "title": "Tax Component",
@@ -8315,7 +8556,7 @@
             }
           }
         },
-        "description": "",
+        "description": "The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
         "examples": [
           {
             "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
@@ -8329,7 +8570,7 @@
       },
       "Transaction": {
         "title": "Transaction",
-        "description": "A financial transaction recorded in the commerce or point of sale system",
+        "description": "Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.\n\nYou can use data from the Transactions endpoints to calculate key metrics, such as:  \n- Transaction volumes  \n- Average transaction volume  \n- Average transaction value  \n- Returns  \n- Payouts\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.",
         "x-stoplight": {
           "id": "z40cc0atpg1x9"
         },
@@ -8387,7 +8628,7 @@
                   "id": "8ljuulqyuc5l4"
                 },
                 "type": "string",
-                "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
+                "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                 "format": "ISO4217",
                 "examples": [
                   "GBP",
@@ -8396,7 +8637,7 @@
                 ]
               },
               "type": {
-                "description": "The type of the platform transaction",
+                "description": "The type of the platform transaction:  \n- `Unknown`  \n- `FailedPayout` — Failed transfer of funds from the seller's merchant account to their bank account.  \n- `Payment` — Credit and debit card payments.  \n- `PaymentFee` — Payment provider's fee on each card payment.  \n- `PaymentFeeRefund` — Payment provider's fee that has been refunded to the seller.  \n- `Payout` — Transfer of funds from the seller's merchant account to their bank account.  \n- `Refund` — Refunds to a customer's credit or debit card.  \n- `Transfer` — Secure transfer of funds to the seller's bank account.  ",
                 "type": "string",
                 "enum": [
                   "Payment",
@@ -8549,7 +8790,8 @@
               "id": "9e815c1766554"
             }
           }
-        ]
+        ],
+        "examples": []
       }
     },
     "securitySchemes": {

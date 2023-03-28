@@ -226,7 +226,49 @@
                             "id": "3293652f3df8e"
                           },
                           "title": "Account Balance",
-                          "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction."
+                          "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\n> **How often should I pull Account Balances?**\n>\n> Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.\n> \n> Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.",
+                          "examples": [
+                            {
+                              "accountBalances": [
+                                {
+                                  "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                                  "balance": {
+                                    "available": 714374.48,
+                                    "current": 714374.57,
+                                    "limit": 5000
+                                  },
+                                  "date": "2021-03-18T00:00:00"
+                                },
+                                {
+                                  "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                                  "balance": {
+                                    "available": 714374.48,
+                                    "current": 714374.57,
+                                    "limit": 5000
+                                  },
+                                  "date": "2021-03-19T00:00:00"
+                                },
+                                {
+                                  "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                                  "balance": {
+                                    "available": 714195.66,
+                                    "current": 714204.39,
+                                    "limit": 5000
+                                  },
+                                  "date": "2021-03-22T00:00:00"
+                                },
+                                {
+                                  "accountId": "2f593774-1075-4805-a552-84eecc7eb264",
+                                  "balance": {
+                                    "available": -644945.42,
+                                    "current": -644925.84,
+                                    "limit": 0
+                                  },
+                                  "date": "2022-03-09T00:00:00"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     },
@@ -445,7 +487,7 @@
                           "x-stoplight": {
                             "id": "1ic677fzr6az4"
                           },
-                          "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).",
+                          "description": "This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request. ",
                           "type": "object",
                           "properties": {
                             "id": {
@@ -498,7 +540,7 @@
                                 "limit": {
                                   "type": "number",
                                   "nullable": true,
-                                  "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00"
+                                  "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`."
                                 }
                               }
                             },
@@ -625,6 +667,40 @@
                                       "title": "Date Time"
                                     }
                                   }
+                                }
+                              ]
+                            }
+                          ],
+                          "examples": [
+                            {
+                              "results": [
+                                {
+                                  "id": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                                  "name": "Business Current Account",
+                                  "informalName": "Codat",
+                                  "holder": "Codat Ltd",
+                                  "type": "Debit",
+                                  "balance": {
+                                    "available": -459987.97,
+                                    "current": -459964.9,
+                                    "limit": 5000
+                                  },
+                                  "identifiers": {
+                                    "type": "Depository",
+                                    "subtype": "checking",
+                                    "number": "46762629",
+                                    "bankCode": "009911",
+                                    "iban": "GB29 LOYD 4773 2346 7626 29",
+                                    "bic": "LOYDGB21006",
+                                    "maskedAccountNumber": "LOYDGB21006"
+                                  },
+                                  "currency": "GBP",
+                                  "institution": {
+                                    "id": "lloyds-bank",
+                                    "name": "Lloyds Bank"
+                                  },
+                                  "modifiedDate": "2022-05-23T16:32:50Z",
+                                  "sourceModifiedDate": "2021-08-14T05:04:12"
                                 }
                               ]
                             }
@@ -798,7 +874,7 @@
                   "x-stoplight": {
                     "id": "1ic677fzr6az4"
                   },
-                  "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).",
+                  "description": "This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request. ",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -851,7 +927,7 @@
                         "limit": {
                           "type": "number",
                           "nullable": true,
-                          "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00"
+                          "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`."
                         }
                       }
                     },
@@ -978,6 +1054,40 @@
                               "title": "Date Time"
                             }
                           }
+                        }
+                      ]
+                    }
+                  ],
+                  "examples": [
+                    {
+                      "results": [
+                        {
+                          "id": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                          "name": "Business Current Account",
+                          "informalName": "Codat",
+                          "holder": "Codat Ltd",
+                          "type": "Debit",
+                          "balance": {
+                            "available": -459987.97,
+                            "current": -459964.9,
+                            "limit": 5000
+                          },
+                          "identifiers": {
+                            "type": "Depository",
+                            "subtype": "checking",
+                            "number": "46762629",
+                            "bankCode": "009911",
+                            "iban": "GB29 LOYD 4773 2346 7626 29",
+                            "bic": "LOYDGB21006",
+                            "maskedAccountNumber": "LOYDGB21006"
+                          },
+                          "currency": "GBP",
+                          "institution": {
+                            "id": "lloyds-bank",
+                            "name": "Lloyds Bank"
+                          },
+                          "modifiedDate": "2022-05-23T16:32:50Z",
+                          "sourceModifiedDate": "2021-08-14T05:04:12"
                         }
                       ]
                     }
@@ -1137,7 +1247,17 @@
                             }
                           ],
                           "title": "Transaction Category",
-                          "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
+                          "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
+                          "examples": [
+                            {
+                              "id": "auto-and-transport",
+                              "name": "Auto & Transport",
+                              "hasChildren": true,
+                              "status": "Active",
+                              "modifiedDate": "2022-05-23T16:32:50",
+                              "sourceModifiedDate": "2021-04-24T07:59:10"
+                            }
+                          ]
                         }
                       }
                     },
@@ -1362,7 +1482,17 @@
                     }
                   ],
                   "title": "Transaction Category",
-                  "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
+                  "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
+                  "examples": [
+                    {
+                      "id": "auto-and-transport",
+                      "name": "Auto & Transport",
+                      "hasChildren": true,
+                      "status": "Active",
+                      "modifiedDate": "2022-05-23T16:32:50",
+                      "sourceModifiedDate": "2021-04-24T07:59:10"
+                    }
+                  ]
                 }
               }
             }
@@ -1612,7 +1742,24 @@
                             }
                           ],
                           "title": "Transaction",
-                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
+                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
+                          "examples": [
+                            {
+                              "id": "0130b5bb-1419-40f6-8a27-7362d0381229",
+                              "accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                              "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6",
+                              "amount": 5062.39,
+                              "currency": "GBP",
+                              "postedDate": "2021-07-06T00:00:00",
+                              "authorizedDate": "2021-07-06T00:00:00",
+                              "merchantName": "New Look",
+                              "transactionCategoryRef": {
+                                "id": "health-and-fitness-sports"
+                              },
+                              "modifiedDate": "2022-05-23T16:32:50Z",
+                              "sourceModifiedDate": "2021-06-28T10:48:12"
+                            }
+                          ]
                         }
                       }
                     }
@@ -1855,7 +2002,24 @@
                             }
                           ],
                           "title": "Transaction",
-                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
+                          "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
+                          "examples": [
+                            {
+                              "id": "0130b5bb-1419-40f6-8a27-7362d0381229",
+                              "accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                              "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6",
+                              "amount": 5062.39,
+                              "currency": "GBP",
+                              "postedDate": "2021-07-06T00:00:00",
+                              "authorizedDate": "2021-07-06T00:00:00",
+                              "merchantName": "New Look",
+                              "transactionCategoryRef": {
+                                "id": "health-and-fitness-sports"
+                              },
+                              "modifiedDate": "2022-05-23T16:32:50Z",
+                              "sourceModifiedDate": "2021-06-28T10:48:12"
+                            }
+                          ]
                         }
                       }
                     }
@@ -2020,7 +2184,24 @@
                     }
                   ],
                   "title": "Transaction",
-                  "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
+                  "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
+                  "examples": [
+                    {
+                      "id": "0130b5bb-1419-40f6-8a27-7362d0381229",
+                      "accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                      "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6",
+                      "amount": 5062.39,
+                      "currency": "GBP",
+                      "postedDate": "2021-07-06T00:00:00",
+                      "authorizedDate": "2021-07-06T00:00:00",
+                      "merchantName": "New Look",
+                      "transactionCategoryRef": {
+                        "id": "health-and-fitness-sports"
+                      },
+                      "modifiedDate": "2022-05-23T16:32:50Z",
+                      "sourceModifiedDate": "2021-06-28T10:48:12"
+                    }
+                  ]
                 }
               }
             }
@@ -2154,14 +2335,56 @@
           "id": "3293652f3df8e"
         },
         "title": "Account Balance",
-        "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction."
+        "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\n> **How often should I pull Account Balances?**\n>\n> Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.\n> \n> Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.",
+        "examples": [
+          {
+            "accountBalances": [
+              {
+                "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                "balance": {
+                  "available": 714374.48,
+                  "current": 714374.57,
+                  "limit": 5000
+                },
+                "date": "2021-03-18T00:00:00"
+              },
+              {
+                "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                "balance": {
+                  "available": 714374.48,
+                  "current": 714374.57,
+                  "limit": 5000
+                },
+                "date": "2021-03-19T00:00:00"
+              },
+              {
+                "accountId": "cce404db-27f7-4286-95db-622b53596cf4",
+                "balance": {
+                  "available": 714195.66,
+                  "current": 714204.39,
+                  "limit": 5000
+                },
+                "date": "2021-03-22T00:00:00"
+              },
+              {
+                "accountId": "2f593774-1075-4805-a552-84eecc7eb264",
+                "balance": {
+                  "available": -644945.42,
+                  "current": -644925.84,
+                  "limit": 0
+                },
+                "date": "2022-03-09T00:00:00"
+              }
+            ]
+          }
+        ]
       },
       "Account": {
         "title": "Account",
         "x-stoplight": {
           "id": "1ic677fzr6az4"
         },
-        "description": "An account where payments are made or received, and bank transactions are recorded.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).",
+        "description": "This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request. ",
         "type": "object",
         "properties": {
           "id": {
@@ -2214,7 +2437,7 @@
               "limit": {
                 "type": "number",
                 "nullable": true,
-                "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of -100.00"
+                "description": "The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`."
               }
             }
           },
@@ -2341,6 +2564,40 @@
                     "title": "Date Time"
                   }
                 }
+              }
+            ]
+          }
+        ],
+        "examples": [
+          {
+            "results": [
+              {
+                "id": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+                "name": "Business Current Account",
+                "informalName": "Codat",
+                "holder": "Codat Ltd",
+                "type": "Debit",
+                "balance": {
+                  "available": -459987.97,
+                  "current": -459964.9,
+                  "limit": 5000
+                },
+                "identifiers": {
+                  "type": "Depository",
+                  "subtype": "checking",
+                  "number": "46762629",
+                  "bankCode": "009911",
+                  "iban": "GB29 LOYD 4773 2346 7626 29",
+                  "bic": "LOYDGB21006",
+                  "maskedAccountNumber": "LOYDGB21006"
+                },
+                "currency": "GBP",
+                "institution": {
+                  "id": "lloyds-bank",
+                  "name": "Lloyds Bank"
+                },
+                "modifiedDate": "2022-05-23T16:32:50Z",
+                "sourceModifiedDate": "2021-08-14T05:04:12"
               }
             ]
           }
@@ -2473,7 +2730,24 @@
           }
         ],
         "title": "Transaction",
-        "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions)."
+        "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
+        "examples": [
+          {
+            "id": "0130b5bb-1419-40f6-8a27-7362d0381229",
+            "accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216",
+            "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6",
+            "amount": 5062.39,
+            "currency": "GBP",
+            "postedDate": "2021-07-06T00:00:00",
+            "authorizedDate": "2021-07-06T00:00:00",
+            "merchantName": "New Look",
+            "transactionCategoryRef": {
+              "id": "health-and-fitness-sports"
+            },
+            "modifiedDate": "2022-05-23T16:32:50Z",
+            "sourceModifiedDate": "2021-06-28T10:48:12"
+          }
+        ]
       },
       "TransactionCategory": {
         "type": "object",
@@ -2548,7 +2822,17 @@
           }
         ],
         "title": "Transaction Category",
-        "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity."
+        "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
+        "examples": [
+          {
+            "id": "auto-and-transport",
+            "name": "Auto & Transport",
+            "hasChildren": true,
+            "status": "Active",
+            "modifiedDate": "2022-05-23T16:32:50",
+            "sourceModifiedDate": "2021-04-24T07:59:10"
+          }
+        ]
       }
     },
     "securitySchemes": {

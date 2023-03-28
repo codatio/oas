@@ -80,7 +80,10 @@ paths:
                         items:
                           $id: 'https://schemas.codat.io/datamodel/commerce/customer.json'
                           title: Customer
-                          description: Represents a customer who has placed an order in the commerce system"
+                          description: |-
+                            When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.
                           x-stoplight:
                             id: avuh8zncanxa4
                           type: object
@@ -139,7 +142,7 @@ paths:
                                         id: 8ljuulqyuc5l4
                                       type: string
                                       description: |-
-                                        The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                                        The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                                         ## Unknown currencies
 
@@ -226,6 +229,73 @@ paths:
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
                                       title: Date Time
+                          examples:
+                            - customers:
+                                - id: '15'
+                                  customerName: Daffy Duck
+                                  emailAddress: d.duck@warnerbros.com
+                                  defaultCurrency: GBP
+                                  phone: (877) 492-8687
+                                  addresses:
+                                    - type: billing
+                                      line1: 301 Duck Pond
+                                      line2: 28 Green Street
+                                      city: London
+                                      region: England
+                                      country: United Kingdom
+                                      postalCode: WX1X 0BE
+                                    - type: delivery
+                                      line1: Bread Street
+                                      line2: Bird Avenue
+                                      city: Paris
+                                      region: France
+                                      country: France
+                                      postalCode: WDF 123
+                                  note: Regular customer
+                                  createdDate: '0001-01-01T00:00:00'
+                                  modifiedDate: null
+                                  sourceModifiedDate: '2020-09-15T23:52:28'
+                                - id: '18'
+                                  customerName: Tasmanian Devil
+                                  emailAddress: t.devil@warnerbros.com
+                                  defaultCurrency: GBP
+                                  phone: +1-202-555-0181
+                                  addresses:
+                                    - type: billing
+                                      line1: 101 Fire Rooms
+                                      line2: Engine Street
+                                      city: London
+                                      region: England
+                                      country: United Kingdom
+                                      postalCode: WC1X 0BE
+                                  note: Handle with care
+                                  createdDate: '0001-01-01T00:00:00'
+                                  modifiedDate: null
+                                  sourceModifiedDate: '2020-04-16T02:41:52'
+                                - id: a99f5e0c-a4db-452f-8d2c-8fd15482b384
+                                  customerName: Bugs Bunny
+                                  emailAddress: b.bunny@warnerbros.com
+                                  defaultCurrency: GBP
+                                  phone: ''
+                                  addresses:
+                                    - type: billing
+                                      line1: 301 Carrot Street
+                                      line2: Orange Town
+                                      city: Yorkshire
+                                      region: England
+                                      country: United Kingdom
+                                      postalCode: WF1X 0BE
+                                    - type: delivery
+                                      line1: 424 Field Street
+                                      line2: The Meadow
+                                      city: Paris
+                                      region: France
+                                      country: France
+                                      postalCode: WDF 123
+                                  note: Regular customer
+                                  createdDate: '0001-01-01T00:00:00'
+                                  modifiedDate: null
+                                  sourceModifiedDate: '2020-08-12T14:37:37'
                   - type: object
                     x-internal: true
                     properties:
@@ -544,6 +614,28 @@ paths:
                                           title: Date Time
                               required:
                                 - currency
+                          description: |-
+                            A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
+                            - They didn't receive an order.  
+                            - The product they received was different to the commerce store's description.  
+                            - They've been the victim of online fraud.  
+
+                            You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+                          examples:
+                            - id: 03e608e3-bd1c-454f-8c2b-fb0133e43b95
+                              disputedTransactions:
+                                - id: e63ad857-7e12-4e64-9185-cdfd7c45d09d
+                                  type: Order
+                              totalAmount: -47.66
+                              currency: GBP
+                              status: InquiryEvidenceRequired
+                              reason: Unhappy with product
+                              dueDate: '2021-03-29T14:39:55'
+                              createdDate: '2021-03-22T14:39:55'
+                              modifiedDate: '2022-02-02T11:02:45Z'
+                              sourceModifiedDate: '2021-03-22T14:39:55'
                   - type: object
                     x-internal: true
                     properties:
@@ -717,6 +809,8 @@ paths:
                 description: |
                   In the Codat system, company information includes standard commercial details about 
                   a linked company, such as their address, phone number, and company registration.
+
+                  Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
                 x-stoplight:
                   id: d7on55ll1hvqj
                 type: object
@@ -840,7 +934,7 @@ paths:
                       id: 8ljuulqyuc5l4
                     type: string
                     description: |-
-                      The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                      The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                       ## Unknown currencies
 
@@ -878,7 +972,7 @@ paths:
                                 id: 8ljuulqyuc5l4
                               type: string
                               description: |-
-                                The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                                The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                                 ## Unknown currencies
 
@@ -982,15 +1076,12 @@ paths:
                             singluar: location
                             plural: locations
                             fetchMode: multiple
-                          description: |
+                          description: |-
                             The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.
 
                             Locations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
 
-                            From the Locations endpoints you can retrieve:
-
-                            A list of all the Locations of a commerce company: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations`.
-                            The details of an individual location: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}`.
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.
                           allOf:
                             - type: object
                               x-stoplight:
@@ -1075,6 +1166,19 @@ paths:
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
                                       title: Date Time
+                          examples:
+                            - id: '15'
+                              name: London Warehouse
+                              address:
+                                type: Inventory
+                                line1: Warner House
+                                line2: 98 Theobald's Road
+                                city: London
+                                region: ''
+                                country: United Kingdom
+                                postalCode: WC1X 8WB
+                              modifiedDate: null
+                              sourceModifiedDate: '2020-08-12T14:37:37'
                   - type: object
                     x-internal: true
                     properties:
@@ -1224,15 +1328,9 @@ paths:
                             plural: orders
                             fetchMode: multiple
                           description: |
-                            Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order.
+                            Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
-                            From the Orders endpoints you can retrieve:
-
-                            A list of all the orders for a commerce company:
-                            `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders`.
-                            The details of an individual order:
-                            `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}`.
-                            Note that for refunds `quantity` is a negative value and `unitPrice` is a positive value.
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.
                           allOf:
                             - type: object
                               x-stoplight:
@@ -1274,7 +1372,7 @@ paths:
                                         id: 8ljuulqyuc5l4
                                       type: string
                                       description: |-
-                                        The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                                        The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                                         ## Unknown currencies
 
@@ -2259,7 +2357,14 @@ paths:
                         type: array
                         items:
                           title: Payment
-                          description: A payment made in a commerce platform
+                          description: |-
+                            Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.
+
+                            Refunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.
+
+                            You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.
                           x-stoplight:
                             id: wcffh3qwn0c3z
                           x-datatype:
@@ -2595,6 +2700,10 @@ paths:
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
                                           title: Date Time
+                          description: |-
+                            A Payment Method represents the payment method(s) used to make payments.
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
                   - type: object
                     x-internal: true
                     properties:
@@ -2745,8 +2854,9 @@ paths:
                           $id: 'https://schemas.codat.io/datamodel/commerce/product.json'
                           title: Product
                           description: |
-                            A Product is an item in the company's inventory, and includes information
-                            about the price and quantity of all products, and variants thereof, available for sale
+                            A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.
                           x-stoplight:
                             id: egcimxah1hg79
                           type: object
@@ -2808,13 +2918,12 @@ paths:
                                   items:
                                     title: Product Variant
                                     description: |
-                                      Represents a variation of a product available for sale, for example an item of clothing
-                                      may be available for sale in multiple sizes and colors
+                                      Represents a variation of a product available for sale, for example an item of clothing that may be available for sale in multiple sizes and colors.
                                     x-stoplight:
                                       id: z8pyy073x77y2
-                                    type: object
                                     allOf:
-                                      - type: object
+                                      - description: 'Identifier of the product variant, unique to the company.'
+                                        type: object
                                         x-stoplight:
                                           id: 516bf0ecc4907
                                         required:
@@ -2837,6 +2946,7 @@ paths:
                                               - Red Coat
                                               - Black Coat
                                               - Large Brown Hat
+                                            description: Name of the product recorded in the commerce or point of sale platform.
                                           quantity:
                                             type: number
                                             format: decimal
@@ -2846,6 +2956,7 @@ paths:
                                               - 100.54
                                           isTaxEnabled:
                                             type: boolean
+                                            description: Whether sales taxes are enabled for this product variant.
                                           sku:
                                             type: string
                                             examples:
@@ -2853,17 +2964,20 @@ paths:
                                               - Coat-Black-Md
                                               - LargeBrownHat
                                               - A725BA2
+                                            description: 'SKU (stock keeping unit) of the variant, as defined by the merchant.'
                                           barcode:
                                             type: string
                                             examples:
                                               - '564158468416486458646886484'
                                               - CSE370
+                                            description: 'Unique product number of the variant. This might be a barcode, UPC, ISBN, etc.'
                                           unitOfMeasure:
                                             type: string
                                             examples:
                                               - kg
                                               - m
                                               - meters
+                                            description: 'Unit of measure for the variant, such as `kg` or `meters`.'
                                           vatPercentage:
                                             type: number
                                             format: decimal
@@ -2871,69 +2985,18 @@ paths:
                                               - 12.5
                                               - 0
                                               - 20
+                                            description: VAT rate for the product variant if sales taxes are enabled.
                                           prices:
                                             type: array
-                                            items:
-                                              properties:
-                                                unitPrice:
-                                                  type: number
-                                                  format: decimal
-                                                currency:
-                                                  title: Currency
-                                                  x-stoplight:
-                                                    id: 8ljuulqyuc5l4
-                                                  type: string
-                                                  description: |-
-                                                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
-
-                                                    ## Unknown currencies
-
-                                                    In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
-
-                                                    There are only a very small number of edge cases where this currency code is returned by the Codat system.
-                                                  format: ISO4217
-                                                  examples:
-                                                    - GBP
-                                                    - USD
-                                                    - EUR
+                                            description: Prices for the product variants in different currencies.
+                                            items: {}
                                           inventory:
                                             type: array
-                                            items:
-                                              properties:
-                                                totalQuantity:
-                                                  type: number
-                                                  format: decimal
-                                                  example: 1
-                                                locations:
-                                                  type: array
-                                                  items:
-                                                    properties:
-                                                      quantity:
-                                                        type: number
-                                                        format: decimal
-                                                        example: 1
-                                                      locationRef:
-                                                        title: nameRef
-                                                        x-stoplight:
-                                                          id: 34dd919grzbls
-                                                        type: object
-                                                        properties:
-                                                          id:
-                                                            description: The unique identitifer of the record being referenced
-                                                            type: string
-                                                            examples:
-                                                              - 13d946f0-c5d5-42bc-b092-97ece17923ab
-                                                              - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-                                                              - 7110701885
-                                                              - EILBDVJVNUAGVKRQ
-                                                          name:
-                                                            description: Name of the record being referenced.
-                                                            type: string
-                                                        required:
-                                                          - id
-                                                          - name
+                                            description: Information about the total inventory as well as the locations inventory is in.
+                                            items: {}
                                           shippingRequired:
                                             type: boolean
+                                            description: Indicates whether or not the product requires physical delivery.
                                           status:
                                             type: string
                                             enum:
@@ -2970,6 +3033,7 @@ paths:
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
                                                 title: Date Time
+                                    type: object
                   - type: object
                     x-internal: true
                     properties:
@@ -3118,7 +3182,17 @@ paths:
                         type: array
                         items:
                           title: Transaction
-                          description: A financial transaction recorded in the commerce or point of sale system
+                          description: |-
+                            Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.
+
+                            You can use data from the Transactions endpoints to calculate key metrics, such as:  
+                            - Transaction volumes  
+                            - Average transaction volume  
+                            - Average transaction value  
+                            - Returns  
+                            - Payouts
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.
                           x-stoplight:
                             id: z40cc0atpg1x9
                           x-datatype:
@@ -3161,7 +3235,7 @@ paths:
                                     id: 8ljuulqyuc5l4
                                   type: string
                                   description: |-
-                                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                                     ## Unknown currencies
 
@@ -3174,7 +3248,16 @@ paths:
                                     - USD
                                     - EUR
                                 type:
-                                  description: The type of the platform transaction
+                                  description: |-
+                                    The type of the platform transaction:  
+                                    - `Unknown`  
+                                    - `FailedPayout` — Failed transfer of funds from the seller's merchant account to their bank account.  
+                                    - `Payment` — Credit and debit card payments.  
+                                    - `PaymentFee` — Payment provider's fee on each card payment.  
+                                    - `PaymentFeeRefund` — Payment provider's fee that has been refunded to the seller.  
+                                    - `Payout` — Transfer of funds from the seller's merchant account to their bank account.  
+                                    - `Refund` — Refunds to a customer's credit or debit card.  
+                                    - `Transfer` — Secure transfer of funds to the seller's bank account.  
                                   type: string
                                   enum:
                                     - Payment
@@ -3272,6 +3355,7 @@ paths:
                                           title: Date Time
                               x-stoplight:
                                 id: 9e815c1766554
+                          examples: []
                   - type: object
                     x-internal: true
                     properties:
@@ -3428,15 +3512,23 @@ paths:
                               hasChildren: true
                               modifiedDate: '2022-01-01T12:00:00Z'
                               sourceModifiedDate: '2021-10-01T12:53:21Z'
+                          title: Product Category
+                          description: |-
+                            Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
+
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.
                           properties:
                             id:
                               type: string
                               example: '"102"'
+                              description: The unique identifier of the product category
                             name:
                               type: string
                               example: Entertainment
+                              description: The name of the product category
                             ancestorRefs:
                               type: array
+                              description: A collection of parent product categories implicitly ordered with the immediate parent last in the list.
                               items:
                                 title: Record Ref
                                 x-internal: true
@@ -3459,7 +3551,9 @@ paths:
                                 description: ''
                             hasChildren:
                               type: boolean
+                              description: A boolean indicating whether there are other product categories beneath this one in the hierarchy.
                             modifiedDate:
+                              description: The date the record was last updated in Codat's cache.
                               title: ModifiedDate
                               x-stoplight:
                                 id: z5gfpfg4fsp6v
@@ -3471,6 +3565,7 @@ paths:
                                   example: '2022-10-23T00:00:00Z'
                                   title: Date Time
                             sourceModifiedDate:
+                              description: Date the product was last changed in the commerce or point of sale platform.
                               title: SourceModifiedDate
                               x-stoplight:
                                 id: s0oihleme8suj
@@ -3481,8 +3576,32 @@ paths:
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
                                   title: Date Time
-                          title: Product Category
-                          description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+                          examples:
+                            - productCategories:
+                                - id: '100'
+                                  name: Entertainment
+                                  ancestorRefs: []
+                                  hasChildren: true
+                                  modifiedDate: '2022-01-01T12:00:00Z'
+                                  sourceModifiedDate: '2021-10-01T12:53:21Z'
+                                - id: '101'
+                                  name: Cinema
+                                  ancestorRefs:
+                                    - id: '100'
+                                      name: Entertainment
+                                  hasChildren: true
+                                  modifiedDate: '2022-01-01T12:00:00Z'
+                                  sourceModifiedDate: '2021-10-01T12:55:02Z'
+                                - id: '102'
+                                  name: Movie
+                                  ancestorRefs:
+                                    - id: '100'
+                                      name: Entertainment
+                                    - id: '101'
+                                      name: Cinema
+                                  hasChildren: false
+                                  modifiedDate: '2022-01-01T12:00:00Z'
+                                  sourceModifiedDate: '2021-12-25T12:00:00Z'
                   - type: object
                     x-internal: true
                     properties:
@@ -3732,7 +3851,10 @@ paths:
                               type: number
                               format: decimal
                               nullable: true
-                      description: ''
+                      description: |-
+                        The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
+
+                        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
                       examples:
                         - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
                           name: Sales Tax (15%)
@@ -3765,6 +3887,8 @@ components:
       description: |
         In the Codat system, company information includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
       x-stoplight:
         id: d7on55ll1hvqj
       type: object
@@ -3888,7 +4012,7 @@ components:
             id: 8ljuulqyuc5l4
           type: string
           description: |-
-            The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+            The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
             ## Unknown currencies
 
@@ -3926,7 +4050,7 @@ components:
                       id: 8ljuulqyuc5l4
                     type: string
                     description: |-
-                      The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                      The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                       ## Unknown currencies
 
@@ -3980,7 +4104,10 @@ components:
     Customer:
       $id: 'https://schemas.codat.io/datamodel/commerce/customer.json'
       title: Customer
-      description: Represents a customer who has placed an order in the commerce system"
+      description: |-
+        When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.
       x-stoplight:
         id: avuh8zncanxa4
       type: object
@@ -4039,7 +4166,7 @@ components:
                     id: 8ljuulqyuc5l4
                   type: string
                   description: |-
-                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                     ## Unknown currencies
 
@@ -4126,6 +4253,73 @@ components:
                   type: string
                   example: '2022-10-23T00:00:00Z'
                   title: Date Time
+      examples:
+        - customers:
+            - id: '15'
+              customerName: Daffy Duck
+              emailAddress: d.duck@warnerbros.com
+              defaultCurrency: GBP
+              phone: (877) 492-8687
+              addresses:
+                - type: billing
+                  line1: 301 Duck Pond
+                  line2: 28 Green Street
+                  city: London
+                  region: England
+                  country: United Kingdom
+                  postalCode: WX1X 0BE
+                - type: delivery
+                  line1: Bread Street
+                  line2: Bird Avenue
+                  city: Paris
+                  region: France
+                  country: France
+                  postalCode: WDF 123
+              note: Regular customer
+              createdDate: '0001-01-01T00:00:00'
+              modifiedDate: null
+              sourceModifiedDate: '2020-09-15T23:52:28'
+            - id: '18'
+              customerName: Tasmanian Devil
+              emailAddress: t.devil@warnerbros.com
+              defaultCurrency: GBP
+              phone: +1-202-555-0181
+              addresses:
+                - type: billing
+                  line1: 101 Fire Rooms
+                  line2: Engine Street
+                  city: London
+                  region: England
+                  country: United Kingdom
+                  postalCode: WC1X 0BE
+              note: Handle with care
+              createdDate: '0001-01-01T00:00:00'
+              modifiedDate: null
+              sourceModifiedDate: '2020-04-16T02:41:52'
+            - id: a99f5e0c-a4db-452f-8d2c-8fd15482b384
+              customerName: Bugs Bunny
+              emailAddress: b.bunny@warnerbros.com
+              defaultCurrency: GBP
+              phone: ''
+              addresses:
+                - type: billing
+                  line1: 301 Carrot Street
+                  line2: Orange Town
+                  city: Yorkshire
+                  region: England
+                  country: United Kingdom
+                  postalCode: WF1X 0BE
+                - type: delivery
+                  line1: 424 Field Street
+                  line2: The Meadow
+                  city: Paris
+                  region: France
+                  country: France
+                  postalCode: WDF 123
+              note: Regular customer
+              createdDate: '0001-01-01T00:00:00'
+              modifiedDate: null
+              sourceModifiedDate: '2020-08-12T14:37:37'
     Dispute:
       title: Dispute
       x-stoplight:
@@ -4270,6 +4464,28 @@ components:
                       title: Date Time
           required:
             - currency
+      description: |-
+        A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
+        - They didn't receive an order.  
+        - The product they received was different to the commerce store's description.  
+        - They've been the victim of online fraud.  
+
+        You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+      examples:
+        - id: 03e608e3-bd1c-454f-8c2b-fb0133e43b95
+          disputedTransactions:
+            - id: e63ad857-7e12-4e64-9185-cdfd7c45d09d
+              type: Order
+          totalAmount: -47.66
+          currency: GBP
+          status: InquiryEvidenceRequired
+          reason: Unhappy with product
+          dueDate: '2021-03-29T14:39:55'
+          createdDate: '2021-03-22T14:39:55'
+          modifiedDate: '2022-02-02T11:02:45Z'
+          sourceModifiedDate: '2021-03-22T14:39:55'
     Locations:
       title: Locations
       x-stoplight:
@@ -4283,15 +4499,12 @@ components:
         singluar: location
         plural: locations
         fetchMode: multiple
-      description: |
+      description: |-
         The Locations datatype holds information on geographic locations at which stocks of products may be held, as referenced in the Products data type.
 
         Locations also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
 
-        From the Locations endpoints you can retrieve:
-
-        A list of all the Locations of a commerce company: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations`.
-        The details of an individual location: `GET /companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}`.
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.
       allOf:
         - type: object
           x-stoplight:
@@ -4376,6 +4589,19 @@ components:
                   type: string
                   example: '2022-10-23T00:00:00Z'
                   title: Date Time
+      examples:
+        - id: '15'
+          name: London Warehouse
+          address:
+            type: Inventory
+            line1: Warner House
+            line2: 98 Theobald's Road
+            city: London
+            region: ''
+            country: United Kingdom
+            postalCode: WC1X 8WB
+          modifiedDate: null
+          sourceModifiedDate: '2020-08-12T14:37:37'
     Order:
       title: Orders
       x-stoplight:
@@ -4390,15 +4616,9 @@ components:
         plural: orders
         fetchMode: multiple
       description: |
-        Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order.
+        Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
-        From the Orders endpoints you can retrieve:
-
-        A list of all the orders for a commerce company:
-        `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders`.
-        The details of an individual order:
-        `GET /companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}`.
-        Note that for refunds `quantity` is a negative value and `unitPrice` is a positive value.
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.
       allOf:
         - type: object
           x-stoplight:
@@ -4440,7 +4660,7 @@ components:
                     id: 8ljuulqyuc5l4
                   type: string
                   description: |-
-                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                    The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                     ## Unknown currencies
 
@@ -5279,7 +5499,14 @@ components:
           sourceModifiedDate: '2021-03-28T03:00:14'
     Payment:
       title: Payment
-      description: A payment made in a commerce platform
+      description: |-
+        Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.
+
+        Refunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.
+
+        You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.
       x-stoplight:
         id: wcffh3qwn0c3z
       x-datatype:
@@ -5469,12 +5696,17 @@ components:
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       title: Date Time
+      description: |-
+        A Payment Method represents the payment method(s) used to make payments.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
     Product:
       $id: 'https://schemas.codat.io/datamodel/commerce/product.json'
       title: Product
       description: |
-        A Product is an item in the company's inventory, and includes information
-        about the price and quantity of all products, and variants thereof, available for sale
+        A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.
       x-stoplight:
         id: egcimxah1hg79
       type: object
@@ -5536,13 +5768,12 @@ components:
               items:
                 title: Product Variant
                 description: |
-                  Represents a variation of a product available for sale, for example an item of clothing
-                  may be available for sale in multiple sizes and colors
+                  Represents a variation of a product available for sale, for example an item of clothing that may be available for sale in multiple sizes and colors.
                 x-stoplight:
                   id: z8pyy073x77y2
-                type: object
                 allOf:
-                  - type: object
+                  - description: 'Identifier of the product variant, unique to the company.'
+                    type: object
                     x-stoplight:
                       id: 516bf0ecc4907
                     required:
@@ -5565,6 +5796,7 @@ components:
                           - Red Coat
                           - Black Coat
                           - Large Brown Hat
+                        description: Name of the product recorded in the commerce or point of sale platform.
                       quantity:
                         type: number
                         format: decimal
@@ -5574,6 +5806,7 @@ components:
                           - 100.54
                       isTaxEnabled:
                         type: boolean
+                        description: Whether sales taxes are enabled for this product variant.
                       sku:
                         type: string
                         examples:
@@ -5581,17 +5814,20 @@ components:
                           - Coat-Black-Md
                           - LargeBrownHat
                           - A725BA2
+                        description: 'SKU (stock keeping unit) of the variant, as defined by the merchant.'
                       barcode:
                         type: string
                         examples:
                           - '564158468416486458646886484'
                           - CSE370
+                        description: 'Unique product number of the variant. This might be a barcode, UPC, ISBN, etc.'
                       unitOfMeasure:
                         type: string
                         examples:
                           - kg
                           - m
                           - meters
+                        description: 'Unit of measure for the variant, such as `kg` or `meters`.'
                       vatPercentage:
                         type: number
                         format: decimal
@@ -5599,69 +5835,18 @@ components:
                           - 12.5
                           - 0
                           - 20
+                        description: VAT rate for the product variant if sales taxes are enabled.
                       prices:
                         type: array
-                        items:
-                          properties:
-                            unitPrice:
-                              type: number
-                              format: decimal
-                            currency:
-                              title: Currency
-                              x-stoplight:
-                                id: 8ljuulqyuc5l4
-                              type: string
-                              description: |-
-                                The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
-
-                                ## Unknown currencies
-
-                                In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
-
-                                There are only a very small number of edge cases where this currency code is returned by the Codat system.
-                              format: ISO4217
-                              examples:
-                                - GBP
-                                - USD
-                                - EUR
+                        description: Prices for the product variants in different currencies.
+                        items: {}
                       inventory:
                         type: array
-                        items:
-                          properties:
-                            totalQuantity:
-                              type: number
-                              format: decimal
-                              example: 1
-                            locations:
-                              type: array
-                              items:
-                                properties:
-                                  quantity:
-                                    type: number
-                                    format: decimal
-                                    example: 1
-                                  locationRef:
-                                    title: nameRef
-                                    x-stoplight:
-                                      id: 34dd919grzbls
-                                    type: object
-                                    properties:
-                                      id:
-                                        description: The unique identitifer of the record being referenced
-                                        type: string
-                                        examples:
-                                          - 13d946f0-c5d5-42bc-b092-97ece17923ab
-                                          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-                                          - 7110701885
-                                          - EILBDVJVNUAGVKRQ
-                                      name:
-                                        description: Name of the record being referenced.
-                                        type: string
-                                    required:
-                                      - id
-                                      - name
+                        description: Information about the total inventory as well as the locations inventory is in.
+                        items: {}
                       shippingRequired:
                         type: boolean
+                        description: Indicates whether or not the product requires physical delivery.
                       status:
                         type: string
                         enum:
@@ -5698,6 +5883,7 @@ components:
                             type: string
                             example: '2022-10-23T00:00:00Z'
                             title: Date Time
+                type: object
     ProductCategory:
       type: object
       x-examples:
@@ -5708,15 +5894,23 @@ components:
           hasChildren: true
           modifiedDate: '2022-01-01T12:00:00Z'
           sourceModifiedDate: '2021-10-01T12:53:21Z'
+      title: Product Category
+      description: |-
+        Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.
       properties:
         id:
           type: string
           example: '"102"'
+          description: The unique identifier of the product category
         name:
           type: string
           example: Entertainment
+          description: The name of the product category
         ancestorRefs:
           type: array
+          description: A collection of parent product categories implicitly ordered with the immediate parent last in the list.
           items:
             title: Record Ref
             x-internal: true
@@ -5739,7 +5933,9 @@ components:
             description: ''
         hasChildren:
           type: boolean
+          description: A boolean indicating whether there are other product categories beneath this one in the hierarchy.
         modifiedDate:
+          description: The date the record was last updated in Codat's cache.
           title: ModifiedDate
           x-stoplight:
             id: z5gfpfg4fsp6v
@@ -5751,6 +5947,7 @@ components:
               example: '2022-10-23T00:00:00Z'
               title: Date Time
         sourceModifiedDate:
+          description: Date the product was last changed in the commerce or point of sale platform.
           title: SourceModifiedDate
           x-stoplight:
             id: s0oihleme8suj
@@ -5761,8 +5958,32 @@ components:
               type: string
               example: '2022-10-23T00:00:00Z'
               title: Date Time
-      title: Product Category
-      description: 'Product categories are used to classify a group of products together, either by type (eg "Furniture"), or sometimes by tax profile.'
+      examples:
+        - productCategories:
+            - id: '100'
+              name: Entertainment
+              ancestorRefs: []
+              hasChildren: true
+              modifiedDate: '2022-01-01T12:00:00Z'
+              sourceModifiedDate: '2021-10-01T12:53:21Z'
+            - id: '101'
+              name: Cinema
+              ancestorRefs:
+                - id: '100'
+                  name: Entertainment
+              hasChildren: true
+              modifiedDate: '2022-01-01T12:00:00Z'
+              sourceModifiedDate: '2021-10-01T12:55:02Z'
+            - id: '102'
+              name: Movie
+              ancestorRefs:
+                - id: '100'
+                  name: Entertainment
+                - id: '101'
+                  name: Cinema
+              hasChildren: false
+              modifiedDate: '2022-01-01T12:00:00Z'
+              sourceModifiedDate: '2021-12-25T12:00:00Z'
     TaxComponent:
       title: Tax Component
       x-stoplight:
@@ -5867,7 +6088,10 @@ components:
               type: number
               format: decimal
               nullable: true
-      description: ''
+      description: |-
+        The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       examples:
         - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
           name: Sales Tax (15%)
@@ -5877,7 +6101,17 @@ components:
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     Transaction:
       title: Transaction
-      description: A financial transaction recorded in the commerce or point of sale system
+      description: |-
+        Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.
+
+        You can use data from the Transactions endpoints to calculate key metrics, such as:  
+        - Transaction volumes  
+        - Average transaction volume  
+        - Average transaction value  
+        - Returns  
+        - Payouts
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.
       x-stoplight:
         id: z40cc0atpg1x9
       x-datatype:
@@ -5920,7 +6154,7 @@ components:
                 id: 8ljuulqyuc5l4
               type: string
               description: |-
-                The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code. e.g. _GBP_.
+                The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
 
                 ## Unknown currencies
 
@@ -5933,7 +6167,16 @@ components:
                 - USD
                 - EUR
             type:
-              description: The type of the platform transaction
+              description: |-
+                The type of the platform transaction:  
+                - `Unknown`  
+                - `FailedPayout` — Failed transfer of funds from the seller's merchant account to their bank account.  
+                - `Payment` — Credit and debit card payments.  
+                - `PaymentFee` — Payment provider's fee on each card payment.  
+                - `PaymentFeeRefund` — Payment provider's fee that has been refunded to the seller.  
+                - `Payout` — Transfer of funds from the seller's merchant account to their bank account.  
+                - `Refund` — Refunds to a customer's credit or debit card.  
+                - `Transfer` — Secure transfer of funds to the seller's bank account.  
               type: string
               enum:
                 - Payment
@@ -6031,6 +6274,7 @@ components:
                       title: Date Time
           x-stoplight:
             id: 9e815c1766554
+      examples: []
   securitySchemes:
     auth_header:
       name: Authorization
