@@ -6020,8 +6020,7 @@ paths:
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
     post:
-      deprecated: true
-      summary: Request an Excel report for download
+      summary: Generate an Excel report
       tags:
         - Excel reports
       responses:
@@ -6064,7 +6063,7 @@ paths:
                   fileSize:
                     type: integer
       operationId: request-excel-report-for-download
-      description: Request an Excel report for download.
+      description: Generate an Excel report which can subsequently be downloaded.
       parameters:
         - name: reportType
           in: query
@@ -6075,7 +6074,7 @@ paths:
               - audit
           description: The type of report you want to generate and download.
     get:
-      summary: Request an Excel report for download
+      summary: Get status of Excel report
       tags:
         - Excel reports
       responses:
@@ -6139,6 +6138,29 @@ paths:
           example: 8a210b68-6988-11ed-a1eb-0242ac120002
           description: Unique identifier for your SMB in Codat.
     post:
+      deprecated: true
+      summary: Download generated excel report
+      tags:
+        - Excel reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: object
+      operationId: get-excel-report-post
+      description: Download the previously generated Excel report to a local drive.
+      parameters:
+        - name: reportType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - audit
+          description: The type of report you want to generate and download.
+    get:
       summary: Download generated excel report
       tags:
         - Excel reports
@@ -6150,7 +6172,7 @@ paths:
               schema:
                 type: object
       operationId: get-excel-report
-      description: Download the Excel report to a local drive.
+      description: Download the previously generated Excel report to a local drive.
       parameters:
         - name: reportType
           in: query
