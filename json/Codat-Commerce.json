@@ -656,6 +656,7 @@
       "CompanyInfo": {
         "title": "Company Info",
         "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.\n",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -794,6 +795,7 @@
       "Customer": {
         "title": "Customer",
         "description": "When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Order/allOf/0"
@@ -844,6 +846,32 @@
             "$ref": "#/components/schemas/ModifiedDates"
           }
         ],
+        "definitions": {
+          "customerRef": {
+            "type": "object",
+            "description": "Reference to the customer that placed the order.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the customer being referenced",
+                "type": "string",
+                "examples": [
+                  "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                  "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                  7110701885,
+                  "EILBDVJVNUAGVKRQ"
+                ]
+              },
+              "name": {
+                "description": "Name of the customer being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
         "examples": [
           {
             "customers": [
@@ -936,6 +964,7 @@
         ]
       },
       "Customers": {
+        "x-internal": true,
         "allOf": [
           {
             "type": "object",
@@ -955,6 +984,8 @@
       },
       "Dispute": {
         "title": "Dispute",
+        "description": "A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  \n- They didn't receive an order.  \n- The product they received was different to the commerce store's description.  \n- They've been the victim of online fraud.  \n\nYou can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Order/allOf/0"
@@ -1026,7 +1057,6 @@
             "example": "EvidenceRequired"
           }
         },
-        "description": "A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  \n- They didn't receive an order.  \n- The product they received was different to the commerce store's description.  \n- They've been the victim of online fraud.  \n\nYou can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
         "examples": [
           {
             "id": "03e608e3-bd1c-454f-8c2b-fb0133e43b95",
@@ -1091,6 +1121,32 @@
             "$ref": "#/components/schemas/ModifiedDates"
           }
         ],
+        "definitions": {
+          "locationRef": {
+            "type": "object",
+            "description": "Reference to the geographic location where the order was placed.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the location being referenced.",
+                "type": "string",
+                "examples": [
+                  "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                  "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                  7110701885,
+                  "EILBDVJVNUAGVKRQ"
+                ]
+              },
+              "name": {
+                "description": "Name of the location being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
         "examples": [
           {
             "id": "15",
@@ -1110,6 +1166,7 @@
         ]
       },
       "LocationsResponse": {
+        "x-internal": true,
         "allOf": [
           {
             "type": "object",
@@ -1128,8 +1185,9 @@
         ]
       },
       "Order": {
-        "title": "Orders",
+        "title": "Order",
         "description": "Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.\n",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -1227,24 +1285,10 @@
                 }
               },
               "locationRef": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/NameRef"
-                  },
-                  {
-                    "description": "Reference to the geographic location where the order was placed."
-                  }
-                ]
+                "$ref": "#/components/schemas/Locations/definitions/locationRef"
               },
               "customerRef": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/NameRef"
-                  },
-                  {
-                    "description": "Reference to the customer that placed the order."
-                  }
-                ]
+                "$ref": "#/components/schemas/Customer/definitions/customerRef"
               }
             }
           },
@@ -1257,7 +1301,6 @@
         ],
         "definitions": {
           "orderLineItem": {
-            "x-internal": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/Order/allOf/0"
@@ -1298,24 +1341,10 @@
                     "description": "Taxes breakdown as applied to order lines."
                   },
                   "productRef": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/NameRef"
-                      },
-                      {
-                        "description": "Reference that links the line item to the correct product details."
-                      }
-                    ]
+                    "$ref": "#/components/schemas/Product/definitions/productRef"
                   },
                   "productVariantRef": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/NameRef"
-                      },
-                      {
-                        "description": "Reference that links the line item to the specific version of product that has been ordered."
-                      }
-                    ]
+                    "$ref": "#/components/schemas/Product/definitions/productVariantRef"
                   },
                   "discountAllocations": {
                     "type": "array",
@@ -1525,6 +1554,7 @@
       "Payment": {
         "title": "Payment",
         "description": "Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.\n\nRefunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.\n\nYou can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Order/allOf/0"
@@ -1546,12 +1576,7 @@
                 "description": "Currency in which the payment was made"
               },
               "paymentMethodRef": {
-                "$ref": "#/components/schemas/NameRef",
-                "description": "The payment method the payment is linked to in the commerce platform.",
-                "example": {
-                  "id": "EILBDVJVNUAGVKRQ",
-                  "name": "AliPay"
-                }
+                "$ref": "#/components/schemas/PaymentMethod/definitions/paymentMethodRef"
               },
               "status": {
                 "$ref": "#/components/schemas/Payment/definitions/paymentStatus"
@@ -1688,6 +1713,8 @@
       },
       "PaymentMethod": {
         "title": "Payment Method",
+        "description": "A Payment Method represents the payment method(s) used to make payments.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Order/allOf/0"
@@ -1709,8 +1736,29 @@
             "$ref": "#/components/schemas/ModifiedDates"
           }
         ],
-        "description": "A Payment Method represents the payment method(s) used to make payments.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.",
         "definitions": {
+          "paymentMethodRef": {
+            "type": "object",
+            "description": "The payment method the payment is linked to in the commerce platform.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the location being referenced.",
+                "type": "string"
+              },
+              "name": {
+                "description": "Name of the location being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "example": {
+              "id": "EILBDVJVNUAGVKRQ",
+              "name": "AliPay"
+            }
+          },
           "paymentMethodStatus": {
             "type": "string",
             "enum": [
@@ -1794,6 +1842,30 @@
           }
         ],
         "definitions": {
+          "productRef": {
+            "type": "object",
+            "description": "Reference that links the line item to the correct product details.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the product being referenced.",
+                "type": "string",
+                "examples": [
+                  "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                  "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                  7110701885,
+                  "EILBDVJVNUAGVKRQ"
+                ]
+              },
+              "name": {
+                "description": "Name of the product being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
           "productVariant": {
             "title": "Product Variant",
             "x-internal": true,
@@ -1893,6 +1965,31 @@
               }
             ]
           },
+          "productVariantRef": {
+            "title": "Product Variant Ref",
+            "type": "object",
+            "description": "Reference that links the line item to the specific version of product that has been ordered.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the product variant being referenced.",
+                "type": "string",
+                "examples": [
+                  "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                  "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                  7110701885,
+                  "EILBDVJVNUAGVKRQ"
+                ]
+              },
+              "name": {
+                "description": "Name of the product variant being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
           "productPrice": {
             "title": "Product Price Variant",
             "x-internal": true,
@@ -1933,14 +2030,7 @@
                 "type": "number"
               },
               "locationRef": {
-                "allOf": [
-                  {
-                    "description": "Reference type to locations"
-                  },
-                  {
-                    "$ref": "#/components/schemas/NameRef"
-                  }
-                ]
+                "$ref": "#/components/schemas/Locations/definitions/locationRef"
               }
             }
           },
@@ -1977,6 +2067,7 @@
       "ProductCategory": {
         "title": "Product Category",
         "description": "Product categories are used to classify a group of products together, either by type (e.g. \"Furniture\"), or sometimes by tax profile.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -2074,6 +2165,7 @@
       },
       "TaxComponent": {
         "title": "Tax Component",
+        "description": "The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
         "type": "object",
         "allOf": [
           {
@@ -2116,16 +2208,10 @@
         "definitions": {
           "taxComponentAllocation": {
             "title": "Tax Component Allocation",
-            "x-internal": true,
             "type": "object",
             "properties": {
               "taxComponentRef": {
-                "description": "Taxes rates reference object depending on the rates being available on source commerce package.",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/NameRef"
-                  }
-                ]
+                "$ref": "#/components/schemas/TaxComponent/definitions/taxComponentRef"
               },
               "rate": {
                 "description": "Tax amount on order line sale as available from source commerce platform.",
@@ -2133,9 +2219,32 @@
                 "nullable": true
               }
             }
+          },
+          "taxComponentRef": {
+            "type": "object",
+            "description": "Taxes rates reference object depending on the rates being available on source commerce package.",
+            "properties": {
+              "id": {
+                "description": "The unique identitifer of the tax component being referenced.",
+                "type": "string",
+                "examples": [
+                  "13d946f0-c5d5-42bc-b092-97ece17923ab",
+                  "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
+                  7110701885,
+                  "EILBDVJVNUAGVKRQ"
+                ]
+              },
+              "name": {
+                "description": "Name of the tax component being referenced.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
           }
         },
-        "description": "The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.",
         "examples": [
           {
             "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
@@ -2148,6 +2257,7 @@
         ]
       },
       "TaxComponents": {
+        "x-iternal": true,
         "type": "object",
         "properties": {
           "taxComponents": {
@@ -2161,6 +2271,7 @@
       "Transaction": {
         "title": "Transaction",
         "description": "Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.\n\nYou can use data from the Transactions endpoints to calculate key metrics, such as:  \n- Transaction volumes  \n- Average transaction volume  \n- Average transaction value  \n- Returns  \n- Payouts\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Order/allOf/0"
@@ -2314,6 +2425,7 @@
       },
       "Address": {
         "title": "Address",
+        "x-internal": true,
         "type": "object",
         "properties": {
           "type": {
@@ -2403,6 +2515,7 @@
         "properties": {
           "number": {
             "title": "Phone Number",
+            "x-internal": true,
             "type": "string",
             "description": "A phone number",
             "examples": [
@@ -2433,33 +2546,6 @@
             ]
           }
         }
-      },
-      "NameRef": {
-        "title": "nameRef",
-        "x-stoplight": {
-          "id": "34dd919grzbls"
-        },
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "The unique identitifer of the record being referenced",
-            "type": "string",
-            "examples": [
-              "13d946f0-c5d5-42bc-b092-97ece17923ab",
-              "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2",
-              7110701885,
-              "EILBDVJVNUAGVKRQ"
-            ]
-          },
-          "name": {
-            "description": "Name of the record being referenced.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
       },
       "RecordRef": {
         "title": "Record Ref",
@@ -2538,9 +2624,7 @@
       },
       "CreatedDate": {
         "type": "object",
-        "x-stoplight": {
-          "id": "yptfg1r7vj69j"
-        },
+        "x-internal": true,
         "properties": {
           "createdDate": {
             "$ref": "#/components/schemas/DateTime",

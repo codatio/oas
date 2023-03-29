@@ -242,6 +242,17 @@ components:
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     AccountBalance:
       title: Account Balance
+      description: |-
+        The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
+
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+        > **How often should I pull Account Balances?**
+        >
+        > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
+        > 
+        > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
+      type: object
       allOf:
         - type: object
           properties:
@@ -259,16 +270,6 @@ components:
         - accountId
         - balance
         - date
-      description: |-
-        The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
-
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-        > **How often should I pull Account Balances?**
-        >
-        > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
-        > 
-        > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
       definitions:
         accountBalanceAmounts:
           title: Account Balance Amounts
@@ -326,6 +327,13 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     Account:
       title: Account
+      description: |-
+        This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
+
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+      type: object
       allOf:
         - type: object
           properties:
@@ -367,12 +375,6 @@ components:
         - identifiers
         - currency
         - institution
-      description: |-
-        This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
-
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
       definitions:
         accountIdentifiers:
           title: Account Identifiers
@@ -477,6 +479,13 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     Transaction:
       title: Transaction
+      description: |-
+        The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+      type: object
       allOf:
         - type: object
           properties:
@@ -518,12 +527,6 @@ components:
         - id
         - accountId
         - currency
-      description: |-
-        The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
-
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
       definitions:
         transactionCode:
           type: string
@@ -570,6 +573,11 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     TransactionCategory:
       title: Transaction Category
+      description: |-
+        The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
+
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+      type: object
       allOf:
         - type: object
           description: Status of the bank transaction category.
@@ -595,10 +603,6 @@ components:
       required:
         - id
         - name
-      description: |-
-        The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
-
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
       definitions:
         transactionCategoryRef:
           type: object

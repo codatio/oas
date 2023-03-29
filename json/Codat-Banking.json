@@ -390,6 +390,8 @@
       },
       "AccountBalance": {
         "title": "Account Balance",
+        "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\n> **How often should I pull Account Balances?**\n>\n> Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.\n> \n> Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -417,7 +419,6 @@
           "balance",
           "date"
         ],
-        "description": "The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\n> **How often should I pull Account Balances?**\n>\n> Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.\n> \n> Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.",
         "definitions": {
           "accountBalanceAmounts": {
             "title": "Account Balance Amounts",
@@ -507,6 +508,8 @@
       },
       "Account": {
         "title": "Account",
+        "description": "This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -564,7 +567,6 @@
           "currency",
           "institution"
         ],
-        "description": "This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
         "definitions": {
           "accountIdentifiers": {
             "title": "Account Identifiers",
@@ -699,6 +701,8 @@
       },
       "Transaction": {
         "title": "Transaction",
+        "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -757,7 +761,6 @@
           "accountId",
           "currency"
         ],
-        "description": "The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.\n\nView the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).",
         "definitions": {
           "transactionCode": {
             "type": "string",
@@ -821,6 +824,8 @@
       },
       "TransactionCategory": {
         "title": "Transaction Category",
+        "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
+        "type": "object",
         "allOf": [
           {
             "type": "object",
@@ -858,7 +863,6 @@
           "id",
           "name"
         ],
-        "description": "The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.\n\nResponses are paged, so you should provide `page` and `pageSize` query parameters in your request.",
         "definitions": {
           "transactionCategoryRef": {
             "type": "object",

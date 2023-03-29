@@ -384,6 +384,7 @@ components:
         a linked company, such as their address, phone number, and company registration.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
+      type: object
       allOf:
         - type: object
           properties:
@@ -483,6 +484,7 @@ components:
         When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.
+      type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -513,6 +515,25 @@ components:
               description: Any additional information about the customer
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
+      definitions:
+        customerRef:
+          type: object
+          description: Reference to the customer that placed the order.
+          properties:
+            id:
+              description: The unique identitifer of the customer being referenced
+              type: string
+              examples:
+                - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                - 7110701885
+                - EILBDVJVNUAGVKRQ
+            name:
+              description: Name of the customer being referenced.
+              type: string
+          required:
+            - id
+            - name
       examples:
         - customers:
             - id: '15'
@@ -581,6 +602,7 @@ components:
               modifiedDate: null
               sourceModifiedDate: '2020-08-12T14:37:37'
     Customers:
+      x-internal: true
       allOf:
         - type: object
           properties:
@@ -591,6 +613,16 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     Dispute:
       title: Dispute
+      description: |-
+        A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
+        - They didn't receive an order.  
+        - The product they received was different to the commerce store's description.  
+        - They've been the victim of online fraud.  
+
+        You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+      type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -640,15 +672,6 @@ components:
             - WaitingThirdParty
             - Unknown
           example: EvidenceRequired
-      description: |-
-        A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
-        - They didn't receive an order.  
-        - The product they received was different to the commerce store's description.  
-        - They've been the victim of online fraud.  
-
-        You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       examples:
         - id: 03e608e3-bd1c-454f-8c2b-fb0133e43b95
           disputedTransactions:
@@ -692,6 +715,25 @@ components:
               description: Address associated with the location
               $ref: '#/components/schemas/Address'
         - $ref: '#/components/schemas/ModifiedDates'
+      definitions:
+        locationRef:
+          type: object
+          description: Reference to the geographic location where the order was placed.
+          properties:
+            id:
+              description: The unique identitifer of the location being referenced.
+              type: string
+              examples:
+                - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                - 7110701885
+                - EILBDVJVNUAGVKRQ
+            name:
+              description: Name of the location being referenced.
+              type: string
+          required:
+            - id
+            - name
       examples:
         - id: '15'
           name: London Warehouse
@@ -706,6 +748,7 @@ components:
           modifiedDate: '2020-08-12T14:37:37'
           sourceModifiedDate: '2020-08-12T14:37:37'
     LocationsResponse:
+      x-internal: true
       allOf:
         - type: object
           properties:
@@ -715,11 +758,12 @@ components:
                 $ref: '#/components/schemas/Locations'
         - $ref: '#/components/schemas/PagingInfo'
     Order:
-      title: Orders
+      title: Order
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.
+      type: object
       allOf:
         - type: object
           x-stoplight:
@@ -790,18 +834,13 @@ components:
               items:
                 $ref: '#/components/schemas/Order/definitions/serviceCharge'
             locationRef:
-              allOf:
-                - $ref: '#/components/schemas/NameRef'
-                - description: Reference to the geographic location where the order was placed.
+              $ref: '#/components/schemas/Locations/definitions/locationRef'
             customerRef:
-              allOf:
-                - $ref: '#/components/schemas/NameRef'
-                - description: Reference to the customer that placed the order.
+              $ref: '#/components/schemas/Customer/definitions/customerRef'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
         orderLineItem:
-          x-internal: true
           allOf:
             - $ref: '#/components/schemas/Order/allOf/0'
             - type: object
@@ -833,13 +872,9 @@ components:
                     $ref: '#/components/schemas/TaxComponent/definitions/taxComponentAllocation'
                   description: Taxes breakdown as applied to order lines.
                 productRef:
-                  allOf:
-                    - $ref: '#/components/schemas/NameRef'
-                    - description: Reference that links the line item to the correct product details.
+                  $ref: '#/components/schemas/Product/definitions/productRef'
                 productVariantRef:
-                  allOf:
-                    - $ref: '#/components/schemas/NameRef'
-                    - description: Reference that links the line item to the specific version of product that has been ordered.
+                  $ref: '#/components/schemas/Product/definitions/productVariantRef'
                 discountAllocations:
                   type: array
                   items:
@@ -991,6 +1026,7 @@ components:
         You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.
+      type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -1006,11 +1042,7 @@ components:
               $ref: '#/components/schemas/Transaction/allOf/1/properties/currency'
               description: Currency in which the payment was made
             paymentMethodRef:
-              $ref: '#/components/schemas/NameRef'
-              description: The payment method the payment is linked to in the commerce platform.
-              example:
-                id: EILBDVJVNUAGVKRQ
-                name: AliPay
+              $ref: '#/components/schemas/PaymentMethod/definitions/paymentMethodRef'
             status:
               $ref: '#/components/schemas/Payment/definitions/paymentStatus'
             paymentProvider:
@@ -1101,6 +1133,11 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     PaymentMethod:
       title: Payment Method
+      description: |-
+        A Payment Method represents the payment method(s) used to make payments.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
+      type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -1112,11 +1149,23 @@ components:
             status:
               $ref: '#/components/schemas/PaymentMethod/definitions/paymentMethodStatus'
         - $ref: '#/components/schemas/ModifiedDates'
-      description: |-
-        A Payment Method represents the payment method(s) used to make payments.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
       definitions:
+        paymentMethodRef:
+          type: object
+          description: The payment method the payment is linked to in the commerce platform.
+          properties:
+            id:
+              description: The unique identitifer of the location being referenced.
+              type: string
+            name:
+              description: Name of the location being referenced.
+              type: string
+          required:
+            - id
+            - name
+          example:
+            id: EILBDVJVNUAGVKRQ
+            name: AliPay
         paymentMethodStatus:
           type: string
           enum:
@@ -1177,6 +1226,24 @@ components:
               items:
                 $ref: '#/components/schemas/Product/definitions/productVariant'
       definitions:
+        productRef:
+          type: object
+          description: Reference that links the line item to the correct product details.
+          properties:
+            id:
+              description: The unique identitifer of the product being referenced.
+              type: string
+              examples:
+                - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                - 7110701885
+                - EILBDVJVNUAGVKRQ
+            name:
+              description: Name of the product being referenced.
+              type: string
+          required:
+            - id
+            - name
         productVariant:
           title: Product Variant
           x-internal: true
@@ -1247,6 +1314,25 @@ components:
                   $ref: '#/components/schemas/Product/definitions/productVariantStatus'
             - $ref: '#/components/schemas/CreatedDate'
             - $ref: '#/components/schemas/ModifiedDates'
+        productVariantRef:
+          title: Product Variant Ref
+          type: object
+          description: Reference that links the line item to the specific version of product that has been ordered.
+          properties:
+            id:
+              description: The unique identitifer of the product variant being referenced.
+              type: string
+              examples:
+                - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                - 7110701885
+                - EILBDVJVNUAGVKRQ
+            name:
+              description: Name of the product variant being referenced.
+              type: string
+          required:
+            - id
+            - name
         productPrice:
           title: Product Price Variant
           x-internal: true
@@ -1277,9 +1363,7 @@ components:
             quantity:
               type: number
             locationRef:
-              allOf:
-                - description: Reference type to locations
-                - $ref: '#/components/schemas/NameRef'
+              $ref: '#/components/schemas/Locations/definitions/locationRef'
         productVariantStatus:
           x-internal: true
           type: string
@@ -1303,6 +1387,7 @@ components:
         Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.
+      type: object
       allOf:
         - type: object
           properties:
@@ -1361,6 +1446,10 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     TaxComponent:
       title: Tax Component
+      description: |-
+        The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
+
+        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -1389,21 +1478,32 @@ components:
       definitions:
         taxComponentAllocation:
           title: Tax Component Allocation
-          x-internal: true
           type: object
           properties:
             taxComponentRef:
-              description: Taxes rates reference object depending on the rates being available on source commerce package.
-              allOf:
-                - $ref: '#/components/schemas/NameRef'
+              $ref: '#/components/schemas/TaxComponent/definitions/taxComponentRef'
             rate:
               description: Tax amount on order line sale as available from source commerce platform.
               type: number
               nullable: true
-      description: |-
-        The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+        taxComponentRef:
+          type: object
+          description: Taxes rates reference object depending on the rates being available on source commerce package.
+          properties:
+            id:
+              description: The unique identitifer of the tax component being referenced.
+              type: string
+              examples:
+                - 13d946f0-c5d5-42bc-b092-97ece17923ab
+                - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+                - 7110701885
+                - EILBDVJVNUAGVKRQ
+            name:
+              description: Name of the tax component being referenced.
+              type: string
+          required:
+            - id
+            - name
       examples:
         - id: 13d946f0-c5d5-42bc-b092-97ece17923ab
           name: Sales Tax (15%)
@@ -1412,6 +1512,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TaxComponents:
+      x-iternal: true
       type: object
       properties:
         taxComponents:
@@ -1431,6 +1532,7 @@ components:
         - Payouts
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.
+      type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -1542,6 +1644,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     Address:
       title: Address
+      x-internal: true
       type: object
       properties:
         type:
@@ -1606,6 +1709,7 @@ components:
       properties:
         number:
           title: Phone Number
+          x-internal: true
           type: string
           description: A phone number
           examples:
@@ -1628,26 +1732,6 @@ components:
             - Mobile
             - Fax
             - Unknown
-    NameRef:
-      title: nameRef
-      x-stoplight:
-        id: 34dd919grzbls
-      type: object
-      properties:
-        id:
-          description: The unique identitifer of the record being referenced
-          type: string
-          examples:
-            - 13d946f0-c5d5-42bc-b092-97ece17923ab
-            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
-            - 7110701885
-            - EILBDVJVNUAGVKRQ
-        name:
-          description: Name of the record being referenced.
-          type: string
-      required:
-        - id
-        - name
     RecordRef:
       title: Record Ref
       x-internal: true
@@ -1722,8 +1806,7 @@ components:
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     CreatedDate:
       type: object
-      x-stoplight:
-        id: yptfg1r7vj69j
+      x-internal: true
       properties:
         createdDate:
           $ref: '#/components/schemas/DateTime'
