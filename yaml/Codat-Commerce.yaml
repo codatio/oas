@@ -60,8 +60,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List customers
       tags:
@@ -205,9 +203,9 @@ paths:
                               properties:
                                 createdDate:
                                   description: The date the entity was created.
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -216,9 +214,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -226,9 +224,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                           examples:
                             - customers:
                                 - id: '15'
@@ -453,8 +451,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List disputes
       tags:
@@ -578,9 +574,9 @@ paths:
                                     - Unhappy with product
                                 dueDate:
                                   description: Date when the next action in the dispute resolution is due
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                               allOf:
                                 - type: object
                                   x-stoplight:
@@ -588,9 +584,9 @@ paths:
                                   properties:
                                     createdDate:
                                       description: The date the entity was created.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -599,9 +595,9 @@ paths:
                                       properties:
                                         modifiedDate:
                                           description: The date on which this record was last modified in Codat.
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -609,9 +605,9 @@ paths:
                                       properties:
                                         sourceModifiedDate:
                                           description: The date on which this record was last modified in the originating system
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                               required:
                                 - currency
                           description: |-
@@ -793,8 +789,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get company info
       tags:
@@ -999,9 +993,9 @@ paths:
                     properties:
                       createdDate:
                         description: The date the entity was created.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -1010,9 +1004,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -1020,9 +1014,9 @@ paths:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
       operationId: get-commerce-info
       description: |-
         Retrieve information about the company, as seen in the commerce platform.
@@ -1046,8 +1040,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List locations
       tags:
@@ -1153,9 +1145,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -1163,9 +1155,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                           examples:
                             - id: '15'
                               name: London Warehouse
@@ -1297,8 +1289,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List orders
       tags:
@@ -1387,9 +1377,9 @@ paths:
                                     - description: Currency in which the order was placed.
                                 closedDate:
                                   description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                                 totalAmount:
                                   description: 'Total amount of the order, including tax, net of any discounts and refunds.'
                                   type: number
@@ -1628,18 +1618,18 @@ paths:
                                               - SagePay
                                           dueDate:
                                             description: Date by which payment must be made
+                                            title: Date Time
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: Date Time
                                       - type: object
                                         x-stoplight:
                                           id: yptfg1r7vj69j
                                         properties:
                                           createdDate:
                                             description: The date the entity was created.
+                                            title: Date Time
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: Date Time
                                       - allOf:
                                           - title: ModifiedDate
                                             x-stoplight:
@@ -1648,9 +1638,9 @@ paths:
                                             properties:
                                               modifiedDate:
                                                 description: The date on which this record was last modified in Codat.
+                                                title: Date Time
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: Date Time
                                           - title: SourceModifiedDate
                                             x-stoplight:
                                               id: s0oihleme8suj
@@ -1658,9 +1648,9 @@ paths:
                                             properties:
                                               sourceModifiedDate:
                                                 description: The date on which this record was last modified in the originating system
+                                                title: Date Time
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: Date Time
                                 serviceCharges:
                                   type: array
                                   items:
@@ -1794,9 +1784,9 @@ paths:
                               properties:
                                 createdDate:
                                   description: The date the entity was created.
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -1805,9 +1795,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -1815,9 +1805,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                           definitions:
                             lineItem:
                               allOf:
@@ -2033,18 +2023,18 @@ paths:
                                         - SagePay
                                     dueDate:
                                       description: Date by which payment must be made
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - type: object
                                   x-stoplight:
                                     id: yptfg1r7vj69j
                                   properties:
                                     createdDate:
                                       description: The date the entity was created.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -2053,9 +2043,9 @@ paths:
                                       properties:
                                         modifiedDate:
                                           description: The date on which this record was last modified in Codat.
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -2063,9 +2053,9 @@ paths:
                                       properties:
                                         sourceModifiedDate:
                                           description: The date on which this record was last modified in the originating system
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                             serviceCharge:
                               type: object
                               properties:
@@ -2338,8 +2328,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List payments
       tags:
@@ -2455,18 +2443,18 @@ paths:
                                     - SagePay
                                 dueDate:
                                   description: Date by which payment must be made
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                             - type: object
                               x-stoplight:
                                 id: yptfg1r7vj69j
                               properties:
                                 createdDate:
                                   description: The date the entity was created.
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                             - allOf:
                                 - title: ModifiedDate
                                   x-stoplight:
@@ -2475,9 +2463,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -2485,9 +2473,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                   - type: object
                     x-internal: true
                     properties:
@@ -2617,8 +2605,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List payment methods
       tags:
@@ -2687,9 +2673,9 @@ paths:
                                       properties:
                                         modifiedDate:
                                           description: The date on which this record was last modified in Codat.
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -2697,9 +2683,9 @@ paths:
                                       properties:
                                         sourceModifiedDate:
                                           description: The date on which this record was last modified in the originating system
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                           description: |-
                             A Payment Method represents the payment method(s) used to make payments.
 
@@ -2833,8 +2819,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List products
       tags:
@@ -3009,9 +2993,9 @@ paths:
                                         properties:
                                           createdDate:
                                             description: The date the entity was created.
+                                            title: Date Time
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: Date Time
                                       - allOf:
                                           - title: ModifiedDate
                                             x-stoplight:
@@ -3020,9 +3004,9 @@ paths:
                                             properties:
                                               modifiedDate:
                                                 description: The date on which this record was last modified in Codat.
+                                                title: Date Time
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: Date Time
                                           - title: SourceModifiedDate
                                             x-stoplight:
                                               id: s0oihleme8suj
@@ -3030,9 +3014,9 @@ paths:
                                             properties:
                                               sourceModifiedDate:
                                                 description: The date on which this record was last modified in the originating system
+                                                title: Date Time
                                                 type: string
                                                 example: '2022-10-23T00:00:00Z'
-                                                title: Date Time
                                     type: object
                   - type: object
                     x-internal: true
@@ -3163,8 +3147,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List transactions
       tags:
@@ -3320,18 +3302,18 @@ paths:
                                       properties:
                                         createdDate:
                                           description: The date the entity was created.
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                     - type: object
                                       x-stoplight:
                                         id: gdyjg7bg783br
                                       properties:
                                         sourceCreatedDate:
                                           description: The date on which this record was created in the originating system
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                 - allOf:
                                     - title: ModifiedDate
                                       x-stoplight:
@@ -3340,9 +3322,9 @@ paths:
                                       properties:
                                         modifiedDate:
                                           description: The date on which this record was last modified in Codat.
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                                     - title: SourceModifiedDate
                                       x-stoplight:
                                         id: s0oihleme8suj
@@ -3350,9 +3332,9 @@ paths:
                                       properties:
                                         sourceModifiedDate:
                                           description: The date on which this record was last modified in the originating system
+                                          title: Date Time
                                           type: string
                                           example: '2022-10-23T00:00:00Z'
-                                          title: Date Time
                               x-stoplight:
                                 id: 9e815c1766554
                           examples: []
@@ -3485,8 +3467,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List product categories
       tags:
@@ -3561,9 +3541,9 @@ paths:
                               properties:
                                 modifiedDate:
                                   description: The date on which this record was last modified in Codat.
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                             sourceModifiedDate:
                               description: Date the product was last changed in the commerce or point of sale platform.
                               title: SourceModifiedDate
@@ -3573,9 +3553,9 @@ paths:
                               properties:
                                 sourceModifiedDate:
                                   description: The date on which this record was last modified in the originating system
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                           examples:
                             - productCategories:
                                 - id: '100'
@@ -3731,8 +3711,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List tax components
       tags:
@@ -3805,9 +3783,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 - title: SourceModifiedDate
                                   x-stoplight:
                                     id: s0oihleme8suj
@@ -3815,9 +3793,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                           required:
                             - name
                       definitions:
@@ -4077,9 +4055,9 @@ components:
           properties:
             createdDate:
               description: The date the entity was created.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -4088,9 +4066,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4098,9 +4076,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
     Customer:
       $id: 'https://schemas.codat.io/datamodel/commerce/customer.json'
       title: Customer
@@ -4229,9 +4207,9 @@ components:
           properties:
             createdDate:
               description: The date the entity was created.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -4240,9 +4218,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4250,9 +4228,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       examples:
         - customers:
             - id: '15'
@@ -4428,9 +4406,9 @@ components:
                 - Unhappy with product
             dueDate:
               description: Date when the next action in the dispute resolution is due
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
           allOf:
             - type: object
               x-stoplight:
@@ -4438,9 +4416,9 @@ components:
               properties:
                 createdDate:
                   description: The date the entity was created.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -4449,9 +4427,9 @@ components:
                   properties:
                     modifiedDate:
                       description: The date on which this record was last modified in Codat.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -4459,9 +4437,9 @@ components:
                   properties:
                     sourceModifiedDate:
                       description: The date on which this record was last modified in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
           required:
             - currency
       description: |-
@@ -4576,9 +4554,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -4586,9 +4564,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       examples:
         - id: '15'
           name: London Warehouse
@@ -4675,9 +4653,9 @@ components:
                 - description: Currency in which the order was placed.
             closedDate:
               description: 'Date on which order was closed after the product was shipped, paid for, and any refund period had elapsed.'
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
             totalAmount:
               description: 'Total amount of the order, including tax, net of any discounts and refunds.'
               type: number
@@ -4916,18 +4894,18 @@ components:
                           - SagePay
                       dueDate:
                         description: Date by which payment must be made
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   - type: object
                     x-stoplight:
                       id: yptfg1r7vj69j
                     properties:
                       createdDate:
                         description: The date the entity was created.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -4936,9 +4914,9 @@ components:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -4946,9 +4924,9 @@ components:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
             serviceCharges:
               type: array
               items:
@@ -5082,9 +5060,9 @@ components:
           properties:
             createdDate:
               description: The date the entity was created.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -5093,9 +5071,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -5103,9 +5081,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       definitions:
         lineItem:
           allOf:
@@ -5321,18 +5299,18 @@ components:
                     - SagePay
                 dueDate:
                   description: Date by which payment must be made
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - type: object
               x-stoplight:
                 id: yptfg1r7vj69j
               properties:
                 createdDate:
                   description: The date the entity was created.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -5341,9 +5319,9 @@ components:
                   properties:
                     modifiedDate:
                       description: The date on which this record was last modified in Codat.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5351,9 +5329,9 @@ components:
                   properties:
                     sourceModifiedDate:
                       description: The date on which this record was last modified in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
         serviceCharge:
           type: object
           properties:
@@ -5597,18 +5575,18 @@ components:
                 - SagePay
             dueDate:
               description: Date by which payment must be made
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         - type: object
           x-stoplight:
             id: yptfg1r7vj69j
           properties:
             createdDate:
               description: The date the entity was created.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -5617,9 +5595,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -5627,9 +5605,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
     PaymentMethod:
       title: Payment Method
       x-stoplight:
@@ -5683,9 +5661,9 @@ components:
                   properties:
                     modifiedDate:
                       description: The date on which this record was last modified in Codat.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -5693,9 +5671,9 @@ components:
                   properties:
                     sourceModifiedDate:
                       description: The date on which this record was last modified in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
       description: |-
         A Payment Method represents the payment method(s) used to make payments.
 
@@ -5859,9 +5837,9 @@ components:
                     properties:
                       createdDate:
                         description: The date the entity was created.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -5870,9 +5848,9 @@ components:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -5880,9 +5858,9 @@ components:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                 type: object
     ProductCategory:
       type: object
@@ -5943,9 +5921,9 @@ components:
           properties:
             modifiedDate:
               description: The date on which this record was last modified in Codat.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         sourceModifiedDate:
           description: Date the product was last changed in the commerce or point of sale platform.
           title: SourceModifiedDate
@@ -5955,9 +5933,9 @@ components:
           properties:
             sourceModifiedDate:
               description: The date on which this record was last modified in the originating system
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
       examples:
         - productCategories:
             - id: '100'
@@ -6042,9 +6020,9 @@ components:
                   properties:
                     modifiedDate:
                       description: The date on which this record was last modified in Codat.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -6052,9 +6030,9 @@ components:
                   properties:
                     sourceModifiedDate:
                       description: The date on which this record was last modified in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
           required:
             - name
       definitions:
@@ -6239,18 +6217,18 @@ components:
                   properties:
                     createdDate:
                       description: The date the entity was created.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - type: object
                   x-stoplight:
                     id: gdyjg7bg783br
                   properties:
                     sourceCreatedDate:
                       description: The date on which this record was created in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
             - allOf:
                 - title: ModifiedDate
                   x-stoplight:
@@ -6259,9 +6237,9 @@ components:
                   properties:
                     modifiedDate:
                       description: The date on which this record was last modified in Codat.
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                 - title: SourceModifiedDate
                   x-stoplight:
                     id: s0oihleme8suj
@@ -6269,9 +6247,9 @@ components:
                   properties:
                     sourceModifiedDate:
                       description: The date on which this record was last modified in the originating system
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
           x-stoplight:
             id: 9e815c1766554
       examples: []

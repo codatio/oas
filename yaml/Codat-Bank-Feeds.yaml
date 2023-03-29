@@ -51,8 +51,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: bankAccountId
           in: path
           required: true
@@ -101,14 +99,15 @@ paths:
                 modifiedDate:
                   nullable: true
                   description: The last date the bank account was modified
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
                 status:
                   type: string
                   nullable: true
                 feedStartDate:
                   nullable: true
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
                   description: |-
@@ -131,7 +130,6 @@ paths:
                     > 
                     > Not all dates from Codat will contain information about time zones.  
                     > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  title: Date Time
               required:
                 - id
               description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -196,14 +194,15 @@ paths:
                   modifiedDate:
                     nullable: true
                     description: The last date the bank account was modified
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
                   status:
                     type: string
                     nullable: true
                   feedStartDate:
                     nullable: true
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: |-
@@ -226,7 +225,6 @@ paths:
                       > 
                       > Not all dates from Codat will contain information about time zones.  
                       > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                    title: Date Time
                 required:
                   - id
                 description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -273,8 +271,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
       responses:
         '200':
           description: Success
@@ -319,14 +315,15 @@ paths:
                     modifiedDate:
                       nullable: true
                       description: The last date the bank account was modified
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                     status:
                       type: string
                       nullable: true
                     feedStartDate:
                       nullable: true
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -349,7 +346,6 @@ paths:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                   required:
                     - id
                   description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -395,8 +391,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
       requestBody:
         content:
           application/json:
@@ -439,14 +433,15 @@ paths:
                   modifiedDate:
                     nullable: true
                     description: The last date the bank account was modified
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
                   status:
                     type: string
                     nullable: true
                   feedStartDate:
                     nullable: true
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: |-
@@ -469,7 +464,6 @@ paths:
                       > 
                       > Not all dates from Codat will contain information about time zones.  
                       > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                    title: Date Time
                 required:
                   - id
                 description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -536,14 +530,15 @@ paths:
                     modifiedDate:
                       nullable: true
                       description: The last date the bank account was modified
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
-                      title: Date Time
                     status:
                       type: string
                       nullable: true
                     feedStartDate:
                       nullable: true
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -566,7 +561,6 @@ paths:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                   required:
                     - id
                   description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -615,8 +609,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: accountId
           in: path
           required: true
@@ -697,6 +689,7 @@ paths:
                                   id:
                                     type: string
                                   date:
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
                                     description: |-
@@ -719,7 +712,6 @@ paths:
                                       > 
                                       > Not all dates from Codat will contain information about time zones.  
                                       > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                    title: Date Time
                                   description:
                                     type: string
                                     nullable: true
@@ -766,9 +758,9 @@ paths:
                                     properties:
                                       modifiedDate:
                                         description: The date on which this record was last modified in Codat.
+                                        title: Date Time
                                         type: string
                                         example: '2022-10-23T00:00:00Z'
-                                        title: Date Time
                                   sourceModifiedDate:
                                     title: SourceModifiedDate
                                     x-stoplight:
@@ -777,9 +769,9 @@ paths:
                                     properties:
                                       sourceModifiedDate:
                                         description: The date on which this record was last modified in the originating system
+                                        title: Date Time
                                         type: string
                                         example: '2022-10-23T00:00:00Z'
-                                        title: Date Time
                               nullable: true
                             contractVersion:
                               type: string
@@ -895,8 +887,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: accountId
           in: path
           required: true
@@ -1528,8 +1518,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: accountId
           in: path
           required: true
@@ -1575,6 +1563,7 @@ paths:
                       id:
                         type: string
                       date:
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
                         description: |-
@@ -1597,7 +1586,6 @@ paths:
                           > 
                           > Not all dates from Codat will contain information about time zones.  
                           > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                        title: Date Time
                       description:
                         type: string
                         nullable: true
@@ -1644,9 +1632,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       sourceModifiedDate:
                         title: SourceModifiedDate
                         x-stoplight:
@@ -1655,9 +1643,9 @@ paths:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                   nullable: true
                 contractVersion:
                   type: string
@@ -1708,6 +1696,7 @@ paths:
                                 id:
                                   type: string
                                 date:
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
                                   description: |-
@@ -1730,7 +1719,6 @@ paths:
                                     > 
                                     > Not all dates from Codat will contain information about time zones.  
                                     > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                  title: Date Time
                                 description:
                                   type: string
                                   nullable: true
@@ -1777,9 +1765,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                 sourceModifiedDate:
                                   title: SourceModifiedDate
                                   x-stoplight:
@@ -1788,9 +1776,9 @@ paths:
                                   properties:
                                     sourceModifiedDate:
                                       description: The date on which this record was last modified in the originating system
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                             nullable: true
                           contractVersion:
                             type: string
@@ -1907,14 +1895,14 @@ paths:
                         description: Unique identifier for a company's data connection.
                       requestedOnUtc:
                         description: The datetime when the push was requested.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                       completedOnUtc:
                         description: 'The datetime when the push was completed, null if Pending.'
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                       timeoutInMinutes:
                         type: integer
                         format: int32
@@ -2025,14 +2013,15 @@ components:
         modifiedDate:
           nullable: true
           description: The last date the bank account was modified
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: Date Time
         status:
           type: string
           nullable: true
         feedStartDate:
           nullable: true
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
           description: |-
@@ -2055,7 +2044,6 @@ components:
             > 
             > Not all dates from Codat will contain information about time zones.  
             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-          title: Date Time
       required:
         - id
       description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -2098,6 +2086,7 @@ components:
               id:
                 type: string
               date:
+                title: Date Time
                 type: string
                 example: '2022-10-23T00:00:00Z'
                 description: |-
@@ -2120,7 +2109,6 @@ components:
                   > 
                   > Not all dates from Codat will contain information about time zones.  
                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                title: Date Time
               description:
                 type: string
                 nullable: true
@@ -2167,9 +2155,9 @@ components:
                 properties:
                   modifiedDate:
                     description: The date on which this record was last modified in Codat.
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
               sourceModifiedDate:
                 title: SourceModifiedDate
                 x-stoplight:
@@ -2178,9 +2166,9 @@ components:
                 properties:
                   sourceModifiedDate:
                     description: The date on which this record was last modified in the originating system
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
           nullable: true
         contractVersion:
           type: string

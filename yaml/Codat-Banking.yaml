@@ -54,8 +54,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: page
           in: query
           required: true
@@ -132,9 +130,9 @@ paths:
                                 description: The credit limit or overdraft limit of the bank account.
                           date:
                             description: Date of the balance.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                         required:
                           - accountId
                           - balance
@@ -148,9 +146,9 @@ paths:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -158,9 +156,9 @@ paths:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                         x-stoplight:
                           id: 3293652f3df8e
                         title: Account Balance
@@ -291,8 +289,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: page
           in: query
           required: true
@@ -486,9 +482,9 @@ paths:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -496,9 +492,9 @@ paths:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                         examples:
                           - results:
                               - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -617,8 +613,6 @@ paths:
             format: uuid
             example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
             description: Unique identifier for a company's data connection.
-          x-stoplight:
-            id: odjhmld3g3nmi
         - name: accountId
           in: path
           required: true
@@ -775,9 +769,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -785,9 +779,9 @@ paths:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                 examples:
                   - results:
                       - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -906,9 +900,9 @@ paths:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -916,9 +910,9 @@ paths:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                         title: Transaction Category
                         description: |-
                           The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
@@ -1017,8 +1011,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}':
     get:
       tags:
@@ -1066,9 +1058,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -1076,9 +1068,9 @@ paths:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                 title: Transaction Category
                 description: |-
                   The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
@@ -1112,8 +1104,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
       - schema:
           type: string
         name: transactionCategoryId
@@ -1200,14 +1190,14 @@ paths:
                             description: The currency of the bank transaction.
                           postedDate:
                             description: The date the bank transaction was cleared.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                           authorizedDate:
                             description: The date the bank transaction was authorized.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                           code:
                             type: string
                             description: Code to identify the underlying transaction.
@@ -1258,9 +1248,9 @@ paths:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -1268,9 +1258,9 @@ paths:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                         title: Transaction
                         description: |-
                           The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
@@ -1310,8 +1300,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
   '/companies/{companyId}/data/banking-transactions':
     get:
       tags:
@@ -1392,14 +1380,14 @@ paths:
                             description: The currency of the bank transaction.
                           postedDate:
                             description: The date the bank transaction was cleared.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                           authorizedDate:
                             description: The date the bank transaction was authorized.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                           code:
                             type: string
                             description: Code to identify the underlying transaction.
@@ -1450,9 +1438,9 @@ paths:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -1460,9 +1448,9 @@ paths:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                         title: Transaction
                         description: |-
                           The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
@@ -1528,14 +1516,14 @@ paths:
                     description: The currency of the bank transaction.
                   postedDate:
                     description: The date the bank transaction was cleared.
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
                   authorizedDate:
                     description: The date the bank transaction was authorized.
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
-                    title: Date Time
                   code:
                     type: string
                     description: Code to identify the underlying transaction.
@@ -1586,9 +1574,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                       - title: SourceModifiedDate
                         x-stoplight:
                           id: s0oihleme8suj
@@ -1596,9 +1584,9 @@ paths:
                         properties:
                           sourceModifiedDate:
                             description: The date on which this record was last modified in the originating system
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                 title: Transaction
                 description: |-
                   The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
@@ -1646,8 +1634,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
 components:
   schemas:
     AccountBalance:
@@ -1676,9 +1662,9 @@ components:
               description: The credit limit or overdraft limit of the bank account.
         date:
           description: Date of the balance.
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: Date Time
       required:
         - accountId
         - balance
@@ -1692,9 +1678,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -1702,9 +1688,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       x-stoplight:
         id: 3293652f3df8e
       title: Account Balance
@@ -1887,9 +1873,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -1897,9 +1883,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       examples:
         - results:
             - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -1949,14 +1935,14 @@ components:
           description: The currency of the bank transaction.
         postedDate:
           description: The date the bank transaction was cleared.
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: Date Time
         authorizedDate:
           description: The date the bank transaction was authorized.
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: Date Time
         code:
           type: string
           description: Code to identify the underlying transaction.
@@ -2007,9 +1993,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -2017,9 +2003,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       title: Transaction
       description: |-
         The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
@@ -2077,9 +2063,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
             - title: SourceModifiedDate
               x-stoplight:
                 id: s0oihleme8suj
@@ -2087,9 +2073,9 @@ components:
               properties:
                 sourceModifiedDate:
                   description: The date on which this record was last modified in the originating system
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       title: Transaction Category
       description: |-
         The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.

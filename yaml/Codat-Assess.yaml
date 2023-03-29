@@ -118,8 +118,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List suggested and confirmed account categories
       tags:
@@ -195,9 +193,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                             confirmed:
                               allOf:
                                 - title: ChartOfAccountCategory
@@ -228,9 +226,9 @@ paths:
                                   properties:
                                     modifiedDate:
                                       description: The date on which this record was last modified in Codat.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                   - type: object
                     x-internal: true
                     properties:
@@ -438,9 +436,9 @@ paths:
                           properties:
                             modifiedDate:
                               description: The date on which this record was last modified in Codat.
+                              title: Date Time
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: Date Time
                     confirmed:
                       allOf:
                         - title: ChartOfAccountCategory
@@ -471,9 +469,9 @@ paths:
                           properties:
                             modifiedDate:
                               description: The date on which this record was last modified in Codat.
+                              title: Date Time
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: Date Time
       description: Comfirms the categories for all or a batch of accounts for a specific connection.
       requestBody:
         content:
@@ -529,8 +527,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
       - schema:
           type: string
         name: accountId
@@ -605,9 +601,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                   confirmed:
                     allOf:
                       - title: ChartOfAccountCategory
@@ -638,9 +634,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
       operationId: get-account-category
       description: Get category for specific nominal account.
     patch:
@@ -712,9 +708,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                   confirmed:
                     allOf:
                       - title: ChartOfAccountCategory
@@ -745,9 +741,9 @@ paths:
                         properties:
                           modifiedDate:
                             description: The date on which this record was last modified in Codat.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
       requestBody:
         content:
           application/json:
@@ -834,8 +830,8 @@ paths:
                                   type: string
                                   description: The date the matching algorithm last ran against the company’s data type specified.
                                   readOnly: true
-                                  example: '2022-10-23T00:00:00Z'
                                   title: Date Time
+                                  example: '2022-10-23T00:00:00Z'
                                 currentStatus:
                                   type: string
                                   enum:
@@ -895,27 +891,27 @@ paths:
                                 minDate:
                                   description: Earliest date of transaction set.
                                   readOnly: true
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                                 maxDate:
                                   description: Latest date of transaction set.
                                   readOnly: true
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                                 minOverlappingDate:
                                   description: Earliest date where transactions exist in both accounting and banking platforms.
                                   readOnly: true
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                                 maxOverlappingDate:
                                   description: Latest date where transactions exist in both account and banking platforms.
                                   readOnly: true
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                       examples:
                         - type: string
                           statusInfo:
@@ -1103,9 +1099,9 @@ paths:
                               readOnly: true
                             date:
                               description: The date of the transaction.
+                              title: Date Time
                               type: string
                               example: '2022-10-23T00:00:00Z'
-                              title: Date Time
                             description:
                               type: string
                               description: The transaction description.
@@ -1287,8 +1283,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: List finanicial metrics
       tags:
@@ -1567,8 +1561,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Enhanced Profit and Loss
       tags:
@@ -2553,8 +2545,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Enhanced Balance Sheet
       tags:
@@ -3448,8 +3438,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Commerce Revenue Metrics
       tags:
@@ -3872,8 +3860,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get order information for a specific company
       tags:
@@ -4305,8 +4291,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get the refunds information for a specific company
       tags:
@@ -4742,8 +4726,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get the customer retention metrics for a specific company.
       tags:
@@ -5194,8 +5176,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get the lifetime value metric for a specific company.
       tags:
@@ -5604,8 +5584,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get the marketing metrics from an accounting source for a given company.
       tags:
@@ -6056,6 +6034,7 @@ paths:
                     fileSize: 0
                 properties:
                   lastGenerated:
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: |-
@@ -6078,7 +6057,6 @@ paths:
                       > 
                       > Not all dates from Codat will contain information about time zones.  
                       > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                    title: Date Time
                   inProgress:
                     type: boolean
                   queued:
@@ -6129,6 +6107,7 @@ paths:
                     fileSize: 0
                 properties:
                   lastGenerated:
+                    title: Date Time
                     type: string
                     example: '2022-10-23T00:00:00Z'
                     description: |-
@@ -6151,7 +6130,6 @@ paths:
                       > 
                       > Not all dates from Codat will contain information about time zones.  
                       > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                    title: Date Time
                   inProgress:
                     type: boolean
                   queued:
@@ -6329,6 +6307,7 @@ paths:
                               id:
                                 type: string
                               date:
+                                title: Date Time
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: |-
@@ -6351,7 +6330,6 @@ paths:
                                   > 
                                   > Not all dates from Codat will contain information about time zones.  
                                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                title: Date Time
                               description:
                                 type: string
                               amount:
@@ -6599,9 +6577,9 @@ paths:
                         description: Company name the report was generated for.
                       generatedDate:
                         description: The date the report was generated.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   reportItems:
                     type: array
                     description: An array of report items.
@@ -6609,6 +6587,7 @@ paths:
                       type: object
                       properties:
                         date:
+                          title: Date Time
                           type: string
                           example: '2022-10-23T00:00:00Z'
                           description: |-
@@ -6631,7 +6610,6 @@ paths:
                             > 
                             > Not all dates from Codat will contain information about time zones.  
                             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                          title: Date Time
                         balance:
                           type: number
                         accountName:
@@ -7024,9 +7002,9 @@ paths:
                         description: Company name the report was generated for.
                       generatedDate:
                         description: The date the report was generated.
+                        title: Date Time
                         type: string
                         example: '2022-10-23T00:00:00Z'
-                        title: Date Time
                   reportItems:
                     type: array
                     description: An array of report items.
@@ -7034,6 +7012,7 @@ paths:
                       type: object
                       properties:
                         date:
+                          title: Date Time
                           type: string
                           example: '2022-10-23T00:00:00Z'
                           description: |-
@@ -7056,7 +7035,6 @@ paths:
                             > 
                             > Not all dates from Codat will contain information about time zones.  
                             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                          title: Date Time
                         balance:
                           type: number
                         accountName:
@@ -7420,6 +7398,7 @@ paths:
                               issueDate:
                                 x-stoplight:
                                   id: a5zsk2bj98z2y
+                                title: Date Time
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: |-
@@ -7442,10 +7421,10 @@ paths:
                                   > 
                                   > Not all dates from Codat will contain information about time zones.  
                                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                title: Date Time
                               dueDate:
                                 x-stoplight:
                                   id: o1k0l8u66dgme
+                                title: Date Time
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: |-
@@ -7468,7 +7447,6 @@ paths:
                                   > 
                                   > Not all dates from Codat will contain information about time zones.  
                                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                title: Date Time
                               status:
                                 enum:
                                   - Unknown
@@ -7515,6 +7493,7 @@ paths:
                               paidOnDate:
                                 x-stoplight:
                                   id: r27u1e2a96lii
+                                title: Date Time
                                 type: string
                                 example: '2022-10-23T00:00:00Z'
                                 description: |-
@@ -7537,7 +7516,6 @@ paths:
                                   > 
                                   > Not all dates from Codat will contain information about time zones.  
                                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                title: Date Time
                               payments:
                                 x-stoplight:
                                   id: vmilncwvle4pc
@@ -8313,9 +8291,9 @@ paths:
                                         | **RUB**          | ₽20            | 0.015         | $0.30                      |
                                     date:
                                       description: Date the payment was recorded in the accounting software.
+                                      title: Date Time
                                       type: string
                                       example: '2022-10-23T00:00:00Z'
-                                      title: Date Time
                                     note:
                                       type: string
                                       nullable: true
@@ -8409,9 +8387,9 @@ paths:
                                                 - type
                                           allocatedOnDate:
                                             description: The date the payment was allocated.
+                                            title: Date Time
                                             type: string
                                             example: '2022-10-23T00:00:00Z'
-                                            title: Date Time
                                         required:
                                           - amount
                                     reference:
@@ -8448,9 +8426,9 @@ paths:
                                           properties:
                                             modifiedDate:
                                               description: The date on which this record was last modified in Codat.
+                                              title: Date Time
                                               type: string
                                               example: '2022-10-23T00:00:00Z'
-                                              title: Date Time
                                         - title: SourceModifiedDate
                                           x-stoplight:
                                             id: s0oihleme8suj
@@ -8458,9 +8436,9 @@ paths:
                                           properties:
                                             sourceModifiedDate:
                                               description: The date on which this record was last modified in the originating system
+                                              title: Date Time
                                               type: string
                                               example: '2022-10-23T00:00:00Z'
-                                              title: Date Time
                 description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
               example:
                 reportInfo:
@@ -8702,8 +8680,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Get key metrics for subscription revenue
       tags:
@@ -9036,8 +9012,6 @@ paths:
           format: uuid
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
-        x-stoplight:
-          id: odjhmld3g3nmi
     get:
       summary: Request production of key subscription revenue metrics
       tags:
@@ -9757,9 +9731,9 @@ components:
               description: Company name the report was generated for.
             generatedDate:
               description: The date the report was generated.
+              title: Date Time
               type: string
               example: '2022-10-23T00:00:00Z'
-              title: Date Time
         reportItems:
           type: array
           description: An array of report items.
@@ -9767,6 +9741,7 @@ components:
             type: object
             properties:
               date:
+                title: Date Time
                 type: string
                 example: '2022-10-23T00:00:00Z'
                 description: |-
@@ -9789,7 +9764,6 @@ components:
                   > 
                   > Not all dates from Codat will contain information about time zones.  
                   > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                title: Date Time
               balance:
                 type: number
               accountName:
@@ -9870,6 +9844,7 @@ components:
           fileSize: 0
       properties:
         lastGenerated:
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
           description: |-
@@ -9892,7 +9867,6 @@ components:
             > 
             > Not all dates from Codat will contain information about time zones.  
             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-          title: Date Time
         inProgress:
           type: boolean
         queued:
@@ -10013,9 +9987,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
         confirmed:
           allOf:
             - title: ChartOfAccountCategory
@@ -10046,9 +10020,9 @@ components:
               properties:
                 modifiedDate:
                   description: The date on which this record was last modified in Codat.
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
     AccountCategory:
       title: ChartOfAccountCategory
       x-stoplight:
@@ -10090,8 +10064,8 @@ components:
                   type: string
                   description: The date the matching algorithm last ran against the company’s data type specified.
                   readOnly: true
-                  example: '2022-10-23T00:00:00Z'
                   title: Date Time
+                  example: '2022-10-23T00:00:00Z'
                 currentStatus:
                   type: string
                   enum:
@@ -10151,27 +10125,27 @@ components:
                 minDate:
                   description: Earliest date of transaction set.
                   readOnly: true
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
                 maxDate:
                   description: Latest date of transaction set.
                   readOnly: true
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
                 minOverlappingDate:
                   description: Earliest date where transactions exist in both accounting and banking platforms.
                   readOnly: true
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
                 maxOverlappingDate:
                   description: Latest date where transactions exist in both account and banking platforms.
                   readOnly: true
+                  title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-                  title: Date Time
       examples:
         - type: string
           statusInfo:
@@ -10273,9 +10247,9 @@ components:
           readOnly: true
         date:
           description: The date of the transaction.
+          title: Date Time
           type: string
           example: '2022-10-23T00:00:00Z'
-          title: Date Time
         description:
           type: string
           description: The transaction description.
@@ -10406,6 +10380,7 @@ components:
                     id:
                       type: string
                     date:
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -10428,7 +10403,6 @@ components:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                     description:
                       type: string
                     amount:
@@ -10729,6 +10703,7 @@ components:
                     issueDate:
                       x-stoplight:
                         id: a5zsk2bj98z2y
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -10751,10 +10726,10 @@ components:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                     dueDate:
                       x-stoplight:
                         id: o1k0l8u66dgme
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -10777,7 +10752,6 @@ components:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                     status:
                       enum:
                         - Unknown
@@ -10824,6 +10798,7 @@ components:
                     paidOnDate:
                       x-stoplight:
                         id: r27u1e2a96lii
+                      title: Date Time
                       type: string
                       example: '2022-10-23T00:00:00Z'
                       description: |-
@@ -10846,7 +10821,6 @@ components:
                         > 
                         > Not all dates from Codat will contain information about time zones.  
                         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      title: Date Time
                     payments:
                       x-stoplight:
                         id: vmilncwvle4pc
@@ -11622,9 +11596,9 @@ components:
                               | **RUB**          | ₽20            | 0.015         | $0.30                      |
                           date:
                             description: Date the payment was recorded in the accounting software.
+                            title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                            title: Date Time
                           note:
                             type: string
                             nullable: true
@@ -11718,9 +11692,9 @@ components:
                                       - type
                                 allocatedOnDate:
                                   description: The date the payment was allocated.
+                                  title: Date Time
                                   type: string
                                   example: '2022-10-23T00:00:00Z'
-                                  title: Date Time
                               required:
                                 - amount
                           reference:
@@ -11757,9 +11731,9 @@ components:
                                 properties:
                                   modifiedDate:
                                     description: The date on which this record was last modified in Codat.
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
                               - title: SourceModifiedDate
                                 x-stoplight:
                                   id: s0oihleme8suj
@@ -11767,9 +11741,9 @@ components:
                                 properties:
                                   sourceModifiedDate:
                                     description: The date on which this record was last modified in the originating system
+                                    title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
-                                    title: Date Time
       description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
   parameters:
     dataIntegritydataType:
