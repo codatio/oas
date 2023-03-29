@@ -9,6 +9,7 @@ info:
   version: '1.0'
   contact:
     email: support@codat.io
+    url: 'https://www.codat.io/contact/'
     name: Codat
   summary: Codat's financial insights API
   description: |-
@@ -6068,12 +6069,13 @@ paths:
       parameters:
         - name: reportType
           in: query
-          required: true
           schema:
             type: string
             enum:
               - audit
+              - enhancedFinancials
           description: The type of report you want to generate and download.
+          required: true
     get:
       summary: Get status of Excel report
       tags:
@@ -6141,12 +6143,13 @@ paths:
       parameters:
         - name: reportType
           in: query
-          required: true
           schema:
             type: string
             enum:
               - audit
+              - enhancedFinancials
           description: The type of report you want to generate and download.
+          required: true
   '/data/companies/{companyId}/assess/excel/download':
     parameters:
       - name: companyId
@@ -6174,12 +6177,13 @@ paths:
       parameters:
         - name: reportType
           in: query
-          required: true
           schema:
             type: string
             enum:
               - audit
+              - enhancedFinancials
           description: The type of report you want to generate and download.
+          required: true
     get:
       summary: Download generated excel report
       tags:
@@ -6196,12 +6200,13 @@ paths:
       parameters:
         - name: reportType
           in: query
-          required: true
           schema:
             type: string
             enum:
               - audit
+              - enhancedFinancials
           description: The type of report you want to generate and download.
+          required: true
   '/companies/{companyId}/reports/enhancedCashFlow/transactions':
     parameters:
       - name: companyId
@@ -11790,12 +11795,13 @@ components:
     excelReportType:
       name: reportType
       in: query
-      required: true
       schema:
         type: string
         enum:
           - audit
+          - enhancedFinancials
       description: The type of report you want to generate and download.
+      required: true
   securitySchemes:
     auth_header:
       name: Authorization
