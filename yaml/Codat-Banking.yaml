@@ -35,7 +35,7 @@ paths:
       tags:
         - Account balances
       summary: List account balances
-      operationId: list-banking-account-balances
+      operationId: list-account-balances
       description: Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
       parameters:
         - name: companyId
@@ -101,103 +101,123 @@ paths:
           content:
             application/json:
               schema:
+                x-internal: true
                 allOf:
                   - type: object
                     properties:
                       results:
-                        type: object
-                        properties:
-                          accountId:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the account.
-                          balance:
-                            type: object
-                            required:
-                              - current
-                            description: An object containing bank balance data.
-                            properties:
-                              available:
-                                type: number
-                                nullable: true
-                                description: The funds available to withdraw from the bank account.
-                              current:
-                                type: number
-                                description: The funds in or owed by the bank account.
-                              limit:
-                                type: number
-                                nullable: true
-                                description: The credit limit or overdraft limit of the bank account.
-                          date:
-                            description: Date of the balance.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                        required:
-                          - accountId
-                          - balance
-                          - date
-                        allOf:
-                          - allOf:
-                              - title: ModifiedDate
-                                x-stoplight:
-                                  id: z5gfpfg4fsp6v
-                                type: object
-                                properties:
-                                  modifiedDate:
-                                    description: The date on which this record was last modified in Codat.
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                              - title: SourceModifiedDate
-                                x-stoplight:
-                                  id: s0oihleme8suj
-                                type: object
-                                properties:
-                                  sourceModifiedDate:
-                                    description: The date on which this record was last modified in the originating system
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                        x-stoplight:
-                          id: 3293652f3df8e
-                        title: Account Balance
-                        description: |-
-                          The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
+                        type: array
+                        items:
+                          title: Account Balance
+                          allOf:
+                            - type: object
+                              properties:
+                                accountId:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the account.
+                                balance:
+                                  title: Account Balance Amounts
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    available:
+                                      type: number
+                                      nullable: true
+                                      description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                                    current:
+                                      type: number
+                                      description: The balance of the account only including cleared transactions.
+                                    limit:
+                                      type: number
+                                      nullable: true
+                                      description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                                  additionalProperties: false
+                                  description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
+                                date:
+                                  description: Date of the balance.
+                                  title: Date Time
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                            - allOf:
+                                - title: ModifiedDate
+                                  x-stoplight:
+                                    id: z5gfpfg4fsp6v
+                                  type: object
+                                  properties:
+                                    modifiedDate:
+                                      description: The date on which this record was last modified in Codat.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                - title: Source Modified Date
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    sourceModifiedDate:
+                                      description: The date on which this record was last modified in the originating system
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                          required:
+                            - accountId
+                            - balance
+                            - date
+                          description: |-
+                            The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
 
-                          Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                            Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
 
-                          > **How often should I pull Account Balances?**
-                          >
-                          > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
-                          > 
-                          > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
-                        examples:
-                          - accountBalances:
-                              - accountId: cce404db-27f7-4286-95db-622b53596cf4
-                                balance:
-                                  available: 714374.48
-                                  current: 714374.57
-                                  limit: 5000
-                                date: '2021-03-18T00:00:00'
-                              - accountId: cce404db-27f7-4286-95db-622b53596cf4
-                                balance:
-                                  available: 714374.48
-                                  current: 714374.57
-                                  limit: 5000
-                                date: '2021-03-19T00:00:00'
-                              - accountId: cce404db-27f7-4286-95db-622b53596cf4
-                                balance:
-                                  available: 714195.66
-                                  current: 714204.39
-                                  limit: 5000
-                                date: '2021-03-22T00:00:00'
-                              - accountId: 2f593774-1075-4805-a552-84eecc7eb264
-                                balance:
-                                  available: -644945.42
-                                  current: -644925.84
-                                  limit: 0
-                                date: '2022-03-09T00:00:00'
+                            > **How often should I pull Account Balances?**
+                            >
+                            > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
+                            > 
+                            > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
+                          definitions:
+                            accountBalanceAmounts:
+                              title: Account Balance Amounts
+                              x-internal: true
+                              type: object
+                              properties:
+                                available:
+                                  type: number
+                                  nullable: true
+                                  description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                                current:
+                                  type: number
+                                  description: The balance of the account only including cleared transactions.
+                                limit:
+                                  type: number
+                                  nullable: true
+                                  description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                              additionalProperties: false
+                              description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
+                          examples:
+                            - accountBalances:
+                                - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                                  balance:
+                                    available: 714374.48
+                                    current: 714374.57
+                                    limit: 5000
+                                  date: '2021-03-18T00:00:00'
+                                - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                                  balance:
+                                    available: 714374.48
+                                    current: 714374.57
+                                    limit: 5000
+                                  date: '2021-03-19T00:00:00'
+                                - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                                  balance:
+                                    available: 714195.66
+                                    current: 714204.39
+                                    limit: 5000
+                                  date: '2021-03-22T00:00:00'
+                                - accountId: 2f593774-1075-4805-a552-84eecc7eb264
+                                  balance:
+                                    available: -644945.42
+                                    current: -644925.84
+                                    limit: 0
+                                  date: '2022-03-09T00:00:00'
                   - type: object
                     x-internal: true
                     properties:
@@ -270,7 +290,7 @@ paths:
       tags:
         - Accounts
       summary: List accounts
-      operationId: list-banking-accounts
+      operationId: list-accounts
       description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
       parameters:
         - name: companyId
@@ -336,190 +356,267 @@ paths:
           content:
             application/json:
               schema:
+                x-internal: true
                 allOf:
                   - type: object
                     properties:
                       results:
-                        title: Account
-                        x-stoplight:
-                          id: 1ic677fzr6az4
-                        description: |-
-                          This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
+                        type: array
+                        items:
+                          title: Account
+                          description: |-
+                            This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
-                          Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
+                            Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
 
-                          Responses are paged, so you should provide `page` and `pageSize` query parameters in your request. 
-                        type: object
-                        properties:
-                          id:
-                            minLength: 1
-                            type: string
-                            description: The ID of the account from the provider.
-                          name:
-                            minLength: 1
-                            type: string
-                            description: The name of the account according to the provider.
-                          informalName:
-                            type: string
-                            nullable: true
-                            description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
-                          holder:
-                            type: string
-                            nullable: true
-                            description: The name of the person or company who holds the account.
-                          type:
-                            type: string
-                            enum:
-                              - Unknown
-                              - Credit
-                              - Debit
-                            description: |-
-                              The type of transactions and balances on the account.
-                              For Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.
-                              For Debit accounts, positive balances are assets and positive transactions increase assets.
-                          balance:
-                            description: An object containing bank balance data.
-                            title: Account Balance Amounts
-                            x-stoplight:
-                              id: jmyqs1xu3c11z
-                            type: object
-                            additionalProperties: false
-                            properties:
-                              available:
-                                type: number
-                                nullable: true
-                                description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
-                              current:
-                                type: number
-                                description: The balance of the account only including cleared transactions.
-                              limit:
-                                type: number
-                                nullable: true
-                                description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
-                          identifiers:
-                            description: An object containing bank account identification information.
-                            title: Account Identifiers
-                            x-stoplight:
-                              id: ldkvbe2lb7nab
-                            type: object
-                            additionalProperties: false
-                            properties:
-                              type:
-                                type: string
-                                description: Type of account
-                                enum:
-                                  - Account
-                                  - Card
-                                  - Credit
-                                  - Depository
-                                  - Investment
-                                  - Loan
-                                  - Other
-                              subtype:
-                                type: string
-                                nullable: true
-                                description: Detailed account category
-                              number:
-                                type: string
-                                nullable: true
-                                description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
-                              bankCode:
-                                type: string
-                                nullable: true
-                                description: |-
-                                  The local (usually national) routing number for the account.
-
-                                  This is known by different names in different countries:
-                                  * BSB code (Australia)
-                                  * routing number (Canada, USA)
-                                  * sort code (UK)
-                              iban:
-                                type: string
-                                nullable: true
-                                description: 'The international bank account number (IBAN) for the account, if known.'
-                              bic:
-                                type: string
-                                nullable: true
-                                description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
-                              maskedAccountNumber:
-                                type: string
-                                nullable: true
-                                description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
-                            required:
-                              - type
-                          currency:
-                            minLength: 1
-                            type: string
-                            description: The currency code for the account.
-                          institution:
-                            description: The bank or other financial institution providing the account.
-                            title: Account Institution
-                            x-stoplight:
-                              id: 5y3yc3euy8v6a
-                            type: object
-                            additionalProperties: false
-                            properties:
-                              id:
-                                type: string
-                                description: 'The institution''s ID, according to the provider.'
-                              name:
-                                type: string
-                                description: 'The institution''s name, according to the underlying provider.'
-                        allOf:
-                          - required:
-                              - id
-                              - name
-                              - type
-                              - balance
-                              - identifiers
-                              - currency
-                              - institution
-                            allOf:
-                              - title: ModifiedDate
-                                x-stoplight:
-                                  id: z5gfpfg4fsp6v
-                                type: object
-                                properties:
-                                  modifiedDate:
-                                    description: The date on which this record was last modified in Codat.
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                              - title: SourceModifiedDate
-                                x-stoplight:
-                                  id: s0oihleme8suj
-                                type: object
-                                properties:
-                                  sourceModifiedDate:
-                                    description: The date on which this record was last modified in the originating system
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                        examples:
-                          - results:
-                              - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
-                                name: Business Current Account
-                                informalName: Codat
-                                holder: Codat Ltd
-                                type: Debit
+                            Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  minLength: 1
+                                  type: string
+                                  description: The ID of the account from the provider.
+                                name:
+                                  minLength: 1
+                                  type: string
+                                  description: The name of the account according to the provider.
+                                informalName:
+                                  type: string
+                                  nullable: true
+                                  description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
+                                holder:
+                                  type: string
+                                  nullable: true
+                                  description: The name of the person or company who holds the account.
+                                type:
+                                  title: Bank Account Type
+                                  x-internal: true
+                                  enum:
+                                    - Unknown
+                                    - Credit
+                                    - Debit
+                                  type: string
+                                  description: |-
+                                    The type of transactions and balances on the account.  
+                                    For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+                                    For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
                                 balance:
-                                  available: -459987.97
-                                  current: -459964.9
-                                  limit: 5000
+                                  description: An object containing bank balance data.
+                                  title: Account Balance Amounts
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    available:
+                                      type: number
+                                      nullable: true
+                                      description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                                    current:
+                                      type: number
+                                      description: The balance of the account only including cleared transactions.
+                                    limit:
+                                      type: number
+                                      nullable: true
+                                      description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                                  additionalProperties: false
                                 identifiers:
-                                  type: Depository
-                                  subtype: checking
-                                  number: '46762629'
-                                  bankCode: 009911
-                                  iban: GB29 LOYD 4773 2346 7626 29
-                                  bic: LOYDGB21006
-                                  maskedAccountNumber: LOYDGB21006
-                                currency: GBP
+                                  title: Account Identifiers
+                                  description: An object containing bank account identification information.
+                                  type: object
+                                  x-internal: true
+                                  additionalProperties: false
+                                  properties:
+                                    type:
+                                      type: string
+                                      x-internal: true
+                                      description: Type of account
+                                      enum:
+                                        - Account
+                                        - Card
+                                        - Credit
+                                        - Depository
+                                        - Investment
+                                        - Loan
+                                        - Other
+                                    subtype:
+                                      type: string
+                                      nullable: true
+                                      description: Detailed account category
+                                    number:
+                                      type: string
+                                      nullable: true
+                                      description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                                    bankCode:
+                                      type: string
+                                      nullable: true
+                                      description: |-
+                                        The local (usually national) routing number for the account.
+
+                                        This is known by different names in different countries:
+                                        * BSB code (Australia)
+                                        * routing number (Canada, USA)
+                                        * sort code (UK)
+                                    iban:
+                                      type: string
+                                      nullable: true
+                                      description: 'The international bank account number (IBAN) for the account, if known.'
+                                    bic:
+                                      type: string
+                                      nullable: true
+                                      description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                                    maskedAccountNumber:
+                                      type: string
+                                      nullable: true
+                                      description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+                                  required:
+                                    - type
+                                currency:
+                                  minLength: 1
+                                  type: string
+                                  description: The currency code for the account.
                                 institution:
-                                  id: lloyds-bank
-                                  name: Lloyds Bank
-                                modifiedDate: '2022-05-23T16:32:50Z'
-                                sourceModifiedDate: '2021-08-14T05:04:12'
+                                  title: Account Institution
+                                  description: The bank or other financial institution providing the account.
+                                  x-internal: true
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    id:
+                                      type: string
+                                      description: 'The institution''s ID, according to the provider.'
+                                    name:
+                                      type: string
+                                      description: 'The institution''s name, according to the underlying provider.'
+                            - allOf:
+                                - title: ModifiedDate
+                                  x-stoplight:
+                                    id: z5gfpfg4fsp6v
+                                  type: object
+                                  properties:
+                                    modifiedDate:
+                                      description: The date on which this record was last modified in Codat.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                - title: Source Modified Date
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    sourceModifiedDate:
+                                      description: The date on which this record was last modified in the originating system
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                          required:
+                            - id
+                            - name
+                            - type
+                            - balance
+                            - identifiers
+                            - currency
+                            - institution
+                          definitions:
+                            accountIdentifiers:
+                              title: Account Identifiers
+                              description: An object containing bank account identification information.
+                              type: object
+                              x-internal: true
+                              additionalProperties: false
+                              properties:
+                                type:
+                                  type: string
+                                  x-internal: true
+                                  description: Type of account
+                                  enum:
+                                    - Account
+                                    - Card
+                                    - Credit
+                                    - Depository
+                                    - Investment
+                                    - Loan
+                                    - Other
+                                subtype:
+                                  type: string
+                                  nullable: true
+                                  description: Detailed account category
+                                number:
+                                  type: string
+                                  nullable: true
+                                  description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                                bankCode:
+                                  type: string
+                                  nullable: true
+                                  description: |-
+                                    The local (usually national) routing number for the account.
+
+                                    This is known by different names in different countries:
+                                    * BSB code (Australia)
+                                    * routing number (Canada, USA)
+                                    * sort code (UK)
+                                iban:
+                                  type: string
+                                  nullable: true
+                                  description: 'The international bank account number (IBAN) for the account, if known.'
+                                bic:
+                                  type: string
+                                  nullable: true
+                                  description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                                maskedAccountNumber:
+                                  type: string
+                                  nullable: true
+                                  description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+                              required:
+                                - type
+                            accountIdentifierType:
+                              type: string
+                              x-internal: true
+                              description: Type of account
+                              enum:
+                                - Account
+                                - Card
+                                - Credit
+                                - Depository
+                                - Investment
+                                - Loan
+                                - Other
+                            accountInstitution:
+                              title: Account Institution
+                              description: The bank or other financial institution providing the account.
+                              x-internal: true
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                id:
+                                  type: string
+                                  description: 'The institution''s ID, according to the provider.'
+                                name:
+                                  type: string
+                                  description: 'The institution''s name, according to the underlying provider.'
+                          examples:
+                            - results:
+                                - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
+                                  name: Business Current Account
+                                  informalName: Codat
+                                  holder: Codat Ltd
+                                  type: Debit
+                                  balance:
+                                    available: -459987.97
+                                    current: -459964.9
+                                    limit: 5000
+                                  identifiers:
+                                    type: Depository
+                                    subtype: checking
+                                    number: '46762629'
+                                    bankCode: 009911
+                                    iban: GB29 LOYD 4773 2346 7626 29
+                                    bic: LOYDGB21006
+                                    maskedAccountNumber: LOYDGB21006
+                                  currency: GBP
+                                  institution:
+                                    id: lloyds-bank
+                                    name: Lloyds Bank
+                                  modifiedDate: '2022-05-23T16:32:50Z'
+                                  sourceModifiedDate: '2021-08-14T05:04:12'
                   - type: object
                     x-internal: true
                     properties:
@@ -592,7 +689,7 @@ paths:
       tags:
         - Accounts
       summary: Get account
-      operationId: get-banking-account
+      operationId: get-account
       deprecated: true
       description: Gets a specified bank account for a given company
       x-internal: true
@@ -628,71 +725,168 @@ paths:
             application/json:
               schema:
                 title: Account
-                x-stoplight:
-                  id: 1ic677fzr6az4
                 description: |-
                   This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
                   Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
 
-                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request. 
-                type: object
-                properties:
-                  id:
-                    minLength: 1
-                    type: string
-                    description: The ID of the account from the provider.
-                  name:
-                    minLength: 1
-                    type: string
-                    description: The name of the account according to the provider.
-                  informalName:
-                    type: string
-                    nullable: true
-                    description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
-                  holder:
-                    type: string
-                    nullable: true
-                    description: The name of the person or company who holds the account.
-                  type:
-                    type: string
-                    enum:
-                      - Unknown
-                      - Credit
-                      - Debit
-                    description: |-
-                      The type of transactions and balances on the account.
-                      For Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.
-                      For Debit accounts, positive balances are assets and positive transactions increase assets.
-                  balance:
-                    description: An object containing bank balance data.
-                    title: Account Balance Amounts
-                    x-stoplight:
-                      id: jmyqs1xu3c11z
-                    type: object
-                    additionalProperties: false
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                allOf:
+                  - type: object
                     properties:
-                      available:
-                        type: number
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The ID of the account from the provider.
+                      name:
+                        minLength: 1
+                        type: string
+                        description: The name of the account according to the provider.
+                      informalName:
+                        type: string
                         nullable: true
-                        description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
-                      current:
-                        type: number
-                        description: The balance of the account only including cleared transactions.
-                      limit:
-                        type: number
+                        description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
+                      holder:
+                        type: string
                         nullable: true
-                        description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
-                  identifiers:
-                    description: An object containing bank account identification information.
+                        description: The name of the person or company who holds the account.
+                      type:
+                        title: Bank Account Type
+                        x-internal: true
+                        enum:
+                          - Unknown
+                          - Credit
+                          - Debit
+                        type: string
+                        description: |-
+                          The type of transactions and balances on the account.  
+                          For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+                          For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+                      balance:
+                        description: An object containing bank balance data.
+                        title: Account Balance Amounts
+                        x-internal: true
+                        type: object
+                        properties:
+                          available:
+                            type: number
+                            nullable: true
+                            description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                          current:
+                            type: number
+                            description: The balance of the account only including cleared transactions.
+                          limit:
+                            type: number
+                            nullable: true
+                            description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                        additionalProperties: false
+                      identifiers:
+                        title: Account Identifiers
+                        description: An object containing bank account identification information.
+                        type: object
+                        x-internal: true
+                        additionalProperties: false
+                        properties:
+                          type:
+                            type: string
+                            x-internal: true
+                            description: Type of account
+                            enum:
+                              - Account
+                              - Card
+                              - Credit
+                              - Depository
+                              - Investment
+                              - Loan
+                              - Other
+                          subtype:
+                            type: string
+                            nullable: true
+                            description: Detailed account category
+                          number:
+                            type: string
+                            nullable: true
+                            description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                          bankCode:
+                            type: string
+                            nullable: true
+                            description: |-
+                              The local (usually national) routing number for the account.
+
+                              This is known by different names in different countries:
+                              * BSB code (Australia)
+                              * routing number (Canada, USA)
+                              * sort code (UK)
+                          iban:
+                            type: string
+                            nullable: true
+                            description: 'The international bank account number (IBAN) for the account, if known.'
+                          bic:
+                            type: string
+                            nullable: true
+                            description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                          maskedAccountNumber:
+                            type: string
+                            nullable: true
+                            description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+                        required:
+                          - type
+                      currency:
+                        minLength: 1
+                        type: string
+                        description: The currency code for the account.
+                      institution:
+                        title: Account Institution
+                        description: The bank or other financial institution providing the account.
+                        x-internal: true
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          id:
+                            type: string
+                            description: 'The institution''s ID, according to the provider.'
+                          name:
+                            type: string
+                            description: 'The institution''s name, according to the underlying provider.'
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - id
+                  - name
+                  - type
+                  - balance
+                  - identifiers
+                  - currency
+                  - institution
+                definitions:
+                  accountIdentifiers:
                     title: Account Identifiers
-                    x-stoplight:
-                      id: ldkvbe2lb7nab
+                    description: An object containing bank account identification information.
                     type: object
+                    x-internal: true
                     additionalProperties: false
                     properties:
                       type:
                         type: string
+                        x-internal: true
                         description: Type of account
                         enum:
                           - Account
@@ -734,15 +928,22 @@ paths:
                         description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
                     required:
                       - type
-                  currency:
-                    minLength: 1
+                  accountIdentifierType:
                     type: string
-                    description: The currency code for the account.
-                  institution:
-                    description: The bank or other financial institution providing the account.
+                    x-internal: true
+                    description: Type of account
+                    enum:
+                      - Account
+                      - Card
+                      - Credit
+                      - Depository
+                      - Investment
+                      - Loan
+                      - Other
+                  accountInstitution:
                     title: Account Institution
-                    x-stoplight:
-                      id: 5y3yc3euy8v6a
+                    description: The bank or other financial institution providing the account.
+                    x-internal: true
                     type: object
                     additionalProperties: false
                     properties:
@@ -752,36 +953,6 @@ paths:
                       name:
                         type: string
                         description: 'The institution''s name, according to the underlying provider.'
-                allOf:
-                  - required:
-                      - id
-                      - name
-                      - type
-                      - balance
-                      - identifiers
-                      - currency
-                      - institution
-                    allOf:
-                      - title: ModifiedDate
-                        x-stoplight:
-                          id: z5gfpfg4fsp6v
-                        type: object
-                        properties:
-                          modifiedDate:
-                            description: The date on which this record was last modified in Codat.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                      - title: SourceModifiedDate
-                        x-stoplight:
-                          id: s0oihleme8suj
-                        type: object
-                        properties:
-                          sourceModifiedDate:
-                            description: The date on which this record was last modified in the originating system
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
                 examples:
                   - results:
                       - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -860,71 +1031,97 @@ paths:
           content:
             application/json:
               schema:
+                x-internal: true
                 allOf:
                   - type: object
                     properties:
                       results:
-                        type: object
-                        properties:
-                          id:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the bank transaction category.
-                          name:
-                            minLength: 1
-                            type: string
-                            description: The name of the bank transaction category.
-                          parentId:
-                            type: string
-                            nullable: true
-                            description: The unique identifier of the parent bank transaction category.
-                          hasChildren:
-                            type: boolean
-                            description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
-                          status:
-                            type: string
-                            enum:
-                              - Unknown
-                              - Active
-                              - Archived
-                            description: Status of the bank transaction category.
-                        required:
-                          - id
-                          - name
-                        allOf:
-                          - allOf:
-                              - title: ModifiedDate
-                                x-stoplight:
-                                  id: z5gfpfg4fsp6v
-                                type: object
-                                properties:
-                                  modifiedDate:
-                                    description: The date on which this record was last modified in Codat.
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                              - title: SourceModifiedDate
-                                x-stoplight:
-                                  id: s0oihleme8suj
-                                type: object
-                                properties:
-                                  sourceModifiedDate:
-                                    description: The date on which this record was last modified in the originating system
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                        title: Transaction Category
-                        description: |-
-                          The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
+                        type: array
+                        items:
+                          title: Transaction Category
+                          allOf:
+                            - type: object
+                              description: Status of the bank transaction category.
+                              properties:
+                                id:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the bank transaction category.
+                                name:
+                                  minLength: 1
+                                  type: string
+                                  description: The name of the bank transaction category.
+                                parentId:
+                                  type: string
+                                  nullable: true
+                                  description: The unique identifier of the parent bank transaction category.
+                                hasChildren:
+                                  type: boolean
+                                  description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
+                                status:
+                                  type: string
+                                  x-internal: true
+                                  enum:
+                                    - Unknown
+                                    - Active
+                                    - Archived
+                            - allOf:
+                                - title: ModifiedDate
+                                  x-stoplight:
+                                    id: z5gfpfg4fsp6v
+                                  type: object
+                                  properties:
+                                    modifiedDate:
+                                      description: The date on which this record was last modified in Codat.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                - title: Source Modified Date
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    sourceModifiedDate:
+                                      description: The date on which this record was last modified in the originating system
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                          required:
+                            - id
+                            - name
+                          description: |-
+                            The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
 
-                          Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-                        examples:
-                          - id: auto-and-transport
-                            name: Auto & Transport
-                            hasChildren: true
-                            status: Active
-                            modifiedDate: '2022-05-23T16:32:50'
-                            sourceModifiedDate: '2021-04-24T07:59:10'
+                            Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                          definitions:
+                            transactionCategoryRef:
+                              type: object
+                              x-internal: true
+                              description: An object of bank transaction category reference data.
+                              properties:
+                                id:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique category reference id for the bank transaction.
+                                name:
+                                  type: string
+                                  nullable: true
+                                  description: The category name reference for the bank transaction.
+                              required:
+                                - id
+                            transactionCategoryStatus:
+                              type: string
+                              x-internal: true
+                              enum:
+                                - Unknown
+                                - Active
+                                - Archived
+                          examples:
+                            - id: auto-and-transport
+                              name: Auto & Transport
+                              hasChildren: true
+                              status: Active
+                              modifiedDate: '2022-05-23T16:32:50'
+                              sourceModifiedDate: '2021-04-24T07:59:10'
                   - type: object
                     x-internal: true
                     properties:
@@ -993,7 +1190,7 @@ paths:
                           current:
                             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
       description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
-      operationId: list-bank-transaction-categories
+      operationId: list-transaction-categories
     parameters:
       - name: companyId
         in: path
@@ -1022,34 +1219,33 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    minLength: 1
-                    type: string
-                    description: The unique identifier of the bank transaction category.
-                  name:
-                    minLength: 1
-                    type: string
-                    description: The name of the bank transaction category.
-                  parentId:
-                    type: string
-                    nullable: true
-                    description: The unique identifier of the parent bank transaction category.
-                  hasChildren:
-                    type: boolean
-                    description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
-                  status:
-                    type: string
-                    enum:
-                      - Unknown
-                      - Active
-                      - Archived
-                    description: Status of the bank transaction category.
-                required:
-                  - id
-                  - name
+                title: Transaction Category
                 allOf:
+                  - type: object
+                    description: Status of the bank transaction category.
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank transaction category.
+                      name:
+                        minLength: 1
+                        type: string
+                        description: The name of the bank transaction category.
+                      parentId:
+                        type: string
+                        nullable: true
+                        description: The unique identifier of the parent bank transaction category.
+                      hasChildren:
+                        type: boolean
+                        description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
+                      status:
+                        type: string
+                        x-internal: true
+                        enum:
+                          - Unknown
+                          - Active
+                          - Archived
                   - allOf:
                       - title: ModifiedDate
                         x-stoplight:
@@ -1061,9 +1257,8 @@ paths:
                             title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                      - title: SourceModifiedDate
-                        x-stoplight:
-                          id: s0oihleme8suj
+                      - title: Source Modified Date
+                        x-internal: true
                         type: object
                         properties:
                           sourceModifiedDate:
@@ -1071,11 +1266,36 @@ paths:
                             title: Date Time
                             type: string
                             example: '2022-10-23T00:00:00Z'
-                title: Transaction Category
+                required:
+                  - id
+                  - name
                 description: |-
                   The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
 
                   Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                definitions:
+                  transactionCategoryRef:
+                    type: object
+                    x-internal: true
+                    description: An object of bank transaction category reference data.
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique category reference id for the bank transaction.
+                      name:
+                        type: string
+                        nullable: true
+                        description: The category name reference for the bank transaction.
+                    required:
+                      - id
+                  transactionCategoryStatus:
+                    type: string
+                    x-internal: true
+                    enum:
+                      - Unknown
+                      - Active
+                      - Archived
                 examples:
                   - id: auto-and-transport
                     name: Auto & Transport
@@ -1084,7 +1304,7 @@ paths:
                     modifiedDate: '2022-05-23T16:32:50'
                     sourceModifiedDate: '2021-04-24T07:59:10'
       deprecated: true
-      operationId: get-bank-transaction-category
+      operationId: get-transaction-category
       description: Gets a specified bank transaction category for a given company
       x-internal: true
     parameters:
@@ -1114,7 +1334,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: List bank account transactions
+      summary: List transactions
       parameters:
         - name: page
           in: query
@@ -1163,126 +1383,218 @@ paths:
           content:
             application/json:
               schema:
+                x-internal: true
                 allOf:
                   - type: object
                     properties:
                       results:
+                        type: array
+                        items:
+                          title: Transaction
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the bank transaction.
+                                accountId:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the bank account.
+                                description:
+                                  type: string
+                                  nullable: true
+                                  description: The description of the bank transaction.
+                                amount:
+                                  type: number
+                                  description: The amount of the bank transaction.
+                                currency:
+                                  minLength: 1
+                                  type: string
+                                  description: The currency of the bank transaction.
+                                postedDate:
+                                  description: The date the bank transaction was cleared.
+                                  title: Date Time
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                authorizedDate:
+                                  description: The date the bank transaction was authorized.
+                                  title: Date Time
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                code:
+                                  type: string
+                                  x-internal: true
+                                  description: Code to identify the underlying transaction.
+                                  enum:
+                                    - Unknown
+                                    - Fee
+                                    - Payment
+                                    - Cash
+                                    - Transfer
+                                    - Interest
+                                    - Cashback
+                                    - Cheque
+                                    - DirectDebit
+                                    - Purchase
+                                    - StandingOrder
+                                    - Adjustment
+                                    - Credit
+                                    - Other
+                                    - NotSupported
+                                merchantName:
+                                  type: string
+                                  nullable: true
+                                  description: The name of the merchant.
+                                transactionCategoryRef:
+                                  type: object
+                                  x-internal: true
+                                  description: An object of bank transaction category reference data.
+                                  properties:
+                                    id:
+                                      minLength: 1
+                                      type: string
+                                      description: The unique category reference id for the bank transaction.
+                                    name:
+                                      type: string
+                                      nullable: true
+                                      description: The category name reference for the bank transaction.
+                                  required:
+                                    - id
+                            - allOf:
+                                - title: ModifiedDate
+                                  x-stoplight:
+                                    id: z5gfpfg4fsp6v
+                                  type: object
+                                  properties:
+                                    modifiedDate:
+                                      description: The date on which this record was last modified in Codat.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                - title: Source Modified Date
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    sourceModifiedDate:
+                                      description: The date on which this record was last modified in the originating system
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                          required:
+                            - id
+                            - accountId
+                            - currency
+                          description: |-
+                            The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+                            Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+                            View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                          definitions:
+                            transactionCode:
+                              type: string
+                              x-internal: true
+                              description: Code to identify the underlying transaction.
+                              enum:
+                                - Unknown
+                                - Fee
+                                - Payment
+                                - Cash
+                                - Transfer
+                                - Interest
+                                - Cashback
+                                - Cheque
+                                - DirectDebit
+                                - Purchase
+                                - StandingOrder
+                                - Adjustment
+                                - Credit
+                                - Other
+                                - NotSupported
+                          examples:
+                            - id: 0130b5bb-1419-40f6-8a27-7362d0381229
+                              accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
+                              description: Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6
+                              amount: 5062.39
+                              currency: GBP
+                              postedDate: '2021-07-06T00:00:00'
+                              authorizedDate: '2021-07-06T00:00:00'
+                              merchantName: New Look
+                              transactionCategoryRef:
+                                id: health-and-fitness-sports
+                              modifiedDate: '2022-05-23T16:32:50Z'
+                              sourceModifiedDate: '2021-06-28T10:48:12'
+                  - type: object
+                    x-internal: true
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
                         type: object
-                        properties:
-                          id:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the bank transaction.
-                          accountId:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the bank account.
-                          description:
-                            type: string
-                            nullable: true
-                            description: The description of the bank transaction.
-                          amount:
-                            type: number
-                            description: The amount of the bank transaction.
-                          currency:
-                            minLength: 1
-                            type: string
-                            description: The currency of the bank transaction.
-                          postedDate:
-                            description: The date the bank transaction was cleared.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                          authorizedDate:
-                            description: The date the bank transaction was authorized.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                          code:
-                            type: string
-                            description: Code to identify the underlying transaction.
-                            enum:
-                              - Unknown
-                              - Fee
-                              - Payment
-                              - Cash
-                              - Transfer
-                              - Interest
-                              - Cashback
-                              - Cheque
-                              - DirectDebit
-                              - Purchase
-                              - StandingOrder
-                              - Adjustment
-                              - Credit
-                              - Other
-                              - NotSupported
-                          merchantName:
-                            type: string
-                            nullable: true
-                            description: The name of the merchant.
-                          transactionCategoryRef:
-                            type: object
-                            description: An object of bank transaction category reference data.
-                            properties:
-                              id:
-                                minLength: 1
-                                type: string
-                                description: The unique category reference id for the bank transaction.
-                              name:
-                                type: string
-                                nullable: true
-                                description: The category name reference for the bank transaction.
-                            required:
-                              - id
+                        x-internal: true
                         required:
-                          - id
-                          - accountId
-                          - currency
-                        allOf:
-                          - allOf:
-                              - title: ModifiedDate
-                                x-stoplight:
-                                  id: z5gfpfg4fsp6v
-                                type: object
-                                properties:
-                                  modifiedDate:
-                                    description: The date on which this record was last modified in Codat.
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                              - title: SourceModifiedDate
-                                x-stoplight:
-                                  id: s0oihleme8suj
-                                type: object
-                                properties:
-                                  sourceModifiedDate:
-                                    description: The date on which this record was last modified in the originating system
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                        title: Transaction
-                        description: |-
-                          The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
-
-                          Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-                          View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
                         examples:
-                          - id: 0130b5bb-1419-40f6-8a27-7362d0381229
-                            accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
-                            description: Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6
-                            amount: 5062.39
-                            currency: GBP
-                            postedDate: '2021-07-06T00:00:00'
-                            authorizedDate: '2021-07-06T00:00:00'
-                            merchantName: New Look
-                            transactionCategoryRef:
-                              id: health-and-fitness-sports
-                            modifiedDate: '2022-05-23T16:32:50Z'
-                            sourceModifiedDate: '2021-06-28T10:48:12'
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
       description: Gets a list of transactions incurred by a bank account.
-      operationId: list-banking-transactions
+      operationId: list-transactions
     parameters:
       - name: companyId
         in: path
@@ -1301,6 +1613,15 @@ paths:
           example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
           description: Unique identifier for a company's data connection.
   '/companies/{companyId}/data/banking-transactions':
+    parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+          description: Unique identifier for your SMB in Codat.
     get:
       tags:
         - Transactions
@@ -1353,135 +1674,218 @@ paths:
           content:
             application/json:
               schema:
+                x-internal: true
                 allOf:
                   - type: object
                     properties:
                       results:
+                        type: array
+                        items:
+                          title: Transaction
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the bank transaction.
+                                accountId:
+                                  minLength: 1
+                                  type: string
+                                  description: The unique identifier of the bank account.
+                                description:
+                                  type: string
+                                  nullable: true
+                                  description: The description of the bank transaction.
+                                amount:
+                                  type: number
+                                  description: The amount of the bank transaction.
+                                currency:
+                                  minLength: 1
+                                  type: string
+                                  description: The currency of the bank transaction.
+                                postedDate:
+                                  description: The date the bank transaction was cleared.
+                                  title: Date Time
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                authorizedDate:
+                                  description: The date the bank transaction was authorized.
+                                  title: Date Time
+                                  type: string
+                                  example: '2022-10-23T00:00:00Z'
+                                code:
+                                  type: string
+                                  x-internal: true
+                                  description: Code to identify the underlying transaction.
+                                  enum:
+                                    - Unknown
+                                    - Fee
+                                    - Payment
+                                    - Cash
+                                    - Transfer
+                                    - Interest
+                                    - Cashback
+                                    - Cheque
+                                    - DirectDebit
+                                    - Purchase
+                                    - StandingOrder
+                                    - Adjustment
+                                    - Credit
+                                    - Other
+                                    - NotSupported
+                                merchantName:
+                                  type: string
+                                  nullable: true
+                                  description: The name of the merchant.
+                                transactionCategoryRef:
+                                  type: object
+                                  x-internal: true
+                                  description: An object of bank transaction category reference data.
+                                  properties:
+                                    id:
+                                      minLength: 1
+                                      type: string
+                                      description: The unique category reference id for the bank transaction.
+                                    name:
+                                      type: string
+                                      nullable: true
+                                      description: The category name reference for the bank transaction.
+                                  required:
+                                    - id
+                            - allOf:
+                                - title: ModifiedDate
+                                  x-stoplight:
+                                    id: z5gfpfg4fsp6v
+                                  type: object
+                                  properties:
+                                    modifiedDate:
+                                      description: The date on which this record was last modified in Codat.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                - title: Source Modified Date
+                                  x-internal: true
+                                  type: object
+                                  properties:
+                                    sourceModifiedDate:
+                                      description: The date on which this record was last modified in the originating system
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                          required:
+                            - id
+                            - accountId
+                            - currency
+                          description: |-
+                            The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+                            Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+                            View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                          definitions:
+                            transactionCode:
+                              type: string
+                              x-internal: true
+                              description: Code to identify the underlying transaction.
+                              enum:
+                                - Unknown
+                                - Fee
+                                - Payment
+                                - Cash
+                                - Transfer
+                                - Interest
+                                - Cashback
+                                - Cheque
+                                - DirectDebit
+                                - Purchase
+                                - StandingOrder
+                                - Adjustment
+                                - Credit
+                                - Other
+                                - NotSupported
+                          examples:
+                            - id: 0130b5bb-1419-40f6-8a27-7362d0381229
+                              accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
+                              description: Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6
+                              amount: 5062.39
+                              currency: GBP
+                              postedDate: '2021-07-06T00:00:00'
+                              authorizedDate: '2021-07-06T00:00:00'
+                              merchantName: New Look
+                              transactionCategoryRef:
+                                id: health-and-fitness-sports
+                              modifiedDate: '2022-05-23T16:32:50Z'
+                              sourceModifiedDate: '2021-06-28T10:48:12'
+                  - type: object
+                    x-internal: true
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      totalResults:
+                        type: integer
+                      _links:
                         type: object
-                        properties:
-                          id:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the bank transaction.
-                          accountId:
-                            minLength: 1
-                            type: string
-                            description: The unique identifier of the bank account.
-                          description:
-                            type: string
-                            nullable: true
-                            description: The description of the bank transaction.
-                          amount:
-                            type: number
-                            description: The amount of the bank transaction.
-                          currency:
-                            minLength: 1
-                            type: string
-                            description: The currency of the bank transaction.
-                          postedDate:
-                            description: The date the bank transaction was cleared.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                          authorizedDate:
-                            description: The date the bank transaction was authorized.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                          code:
-                            type: string
-                            description: Code to identify the underlying transaction.
-                            enum:
-                              - Unknown
-                              - Fee
-                              - Payment
-                              - Cash
-                              - Transfer
-                              - Interest
-                              - Cashback
-                              - Cheque
-                              - DirectDebit
-                              - Purchase
-                              - StandingOrder
-                              - Adjustment
-                              - Credit
-                              - Other
-                              - NotSupported
-                          merchantName:
-                            type: string
-                            nullable: true
-                            description: The name of the merchant.
-                          transactionCategoryRef:
-                            type: object
-                            description: An object of bank transaction category reference data.
-                            properties:
-                              id:
-                                minLength: 1
-                                type: string
-                                description: The unique category reference id for the bank transaction.
-                              name:
-                                type: string
-                                nullable: true
-                                description: The category name reference for the bank transaction.
-                            required:
-                              - id
+                        x-internal: true
                         required:
-                          - id
-                          - accountId
-                          - currency
-                        allOf:
-                          - allOf:
-                              - title: ModifiedDate
-                                x-stoplight:
-                                  id: z5gfpfg4fsp6v
-                                type: object
-                                properties:
-                                  modifiedDate:
-                                    description: The date on which this record was last modified in Codat.
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                              - title: SourceModifiedDate
-                                x-stoplight:
-                                  id: s0oihleme8suj
-                                type: object
-                                properties:
-                                  sourceModifiedDate:
-                                    description: The date on which this record was last modified in the originating system
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                        title: Transaction
-                        description: |-
-                          The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
-
-                          Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-                          View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                          - self
+                          - current
+                        properties:
+                          self:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          current:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          next:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
+                          previous:
+                            title: Hypertext reference
+                            type: object
+                            x-internal: true
+                            properties:
+                              href:
+                                type: string
+                                format: uri-reference
                         examples:
-                          - id: 0130b5bb-1419-40f6-8a27-7362d0381229
-                            accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
-                            description: Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6
-                            amount: 5062.39
-                            currency: GBP
-                            postedDate: '2021-07-06T00:00:00'
-                            authorizedDate: '2021-07-06T00:00:00'
-                            merchantName: New Look
-                            transactionCategoryRef:
-                              id: health-and-fitness-sports
-                            modifiedDate: '2022-05-23T16:32:50Z'
-                            sourceModifiedDate: '2021-06-28T10:48:12'
+                          - self:
+                              href: '/companies/{id}/data/{dataType}'
+                            current:
+                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                    required:
+                      - pageNumber
+                      - pageSize
+                      - totalResults
+                      - _links
+                    examples:
+                      - _links:
+                          pageNumber: 1
+                          pageSize: 10
+                          totalResults: 1
+                          self:
+                            href: '/companies/{id}/data/{dataType}'
+                          current:
+                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
       description: Gets a list of transactions incurred by a company across all bank accounts.
-      operationId: list-all-banking-transactions
-    parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      operationId: list-bank-transactions
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     get:
       tags:
@@ -1493,39 +1897,112 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    minLength: 1
+                title: Transaction
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank transaction.
+                      accountId:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank account.
+                      description:
+                        type: string
+                        nullable: true
+                        description: The description of the bank transaction.
+                      amount:
+                        type: number
+                        description: The amount of the bank transaction.
+                      currency:
+                        minLength: 1
+                        type: string
+                        description: The currency of the bank transaction.
+                      postedDate:
+                        description: The date the bank transaction was cleared.
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                      authorizedDate:
+                        description: The date the bank transaction was authorized.
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                      code:
+                        type: string
+                        x-internal: true
+                        description: Code to identify the underlying transaction.
+                        enum:
+                          - Unknown
+                          - Fee
+                          - Payment
+                          - Cash
+                          - Transfer
+                          - Interest
+                          - Cashback
+                          - Cheque
+                          - DirectDebit
+                          - Purchase
+                          - StandingOrder
+                          - Adjustment
+                          - Credit
+                          - Other
+                          - NotSupported
+                      merchantName:
+                        type: string
+                        nullable: true
+                        description: The name of the merchant.
+                      transactionCategoryRef:
+                        type: object
+                        x-internal: true
+                        description: An object of bank transaction category reference data.
+                        properties:
+                          id:
+                            minLength: 1
+                            type: string
+                            description: The unique category reference id for the bank transaction.
+                          name:
+                            type: string
+                            nullable: true
+                            description: The category name reference for the bank transaction.
+                        required:
+                          - id
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - id
+                  - accountId
+                  - currency
+                description: |-
+                  The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+                  View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                definitions:
+                  transactionCode:
                     type: string
-                    description: The unique identifier of the bank transaction.
-                  accountId:
-                    minLength: 1
-                    type: string
-                    description: The unique identifier of the bank account.
-                  description:
-                    type: string
-                    nullable: true
-                    description: The description of the bank transaction.
-                  amount:
-                    type: number
-                    description: The amount of the bank transaction.
-                  currency:
-                    minLength: 1
-                    type: string
-                    description: The currency of the bank transaction.
-                  postedDate:
-                    description: The date the bank transaction was cleared.
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  authorizedDate:
-                    description: The date the bank transaction was authorized.
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  code:
-                    type: string
+                    x-internal: true
                     description: Code to identify the underlying transaction.
                     enum:
                       - Unknown
@@ -1543,57 +2020,6 @@ paths:
                       - Credit
                       - Other
                       - NotSupported
-                  merchantName:
-                    type: string
-                    nullable: true
-                    description: The name of the merchant.
-                  transactionCategoryRef:
-                    type: object
-                    description: An object of bank transaction category reference data.
-                    properties:
-                      id:
-                        minLength: 1
-                        type: string
-                        description: The unique category reference id for the bank transaction.
-                      name:
-                        type: string
-                        nullable: true
-                        description: The category name reference for the bank transaction.
-                    required:
-                      - id
-                required:
-                  - id
-                  - accountId
-                  - currency
-                allOf:
-                  - allOf:
-                      - title: ModifiedDate
-                        x-stoplight:
-                          id: z5gfpfg4fsp6v
-                        type: object
-                        properties:
-                          modifiedDate:
-                            description: The date on which this record was last modified in Codat.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                      - title: SourceModifiedDate
-                        x-stoplight:
-                          id: s0oihleme8suj
-                        type: object
-                        properties:
-                          sourceModifiedDate:
-                            description: The date on which this record was last modified in the originating system
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                title: Transaction
-                description: |-
-                  The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
-
-                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-                  View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
                 examples:
                   - id: 0130b5bb-1419-40f6-8a27-7362d0381229
                     accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -1608,7 +2034,7 @@ paths:
                     modifiedDate: '2022-05-23T16:32:50Z'
                     sourceModifiedDate: '2021-06-28T10:48:12'
       description: Gets a specified bank transaction for a given company
-      operationId: get-banking-transaction
+      operationId: get-transaction
       deprecated: true
       x-internal: true
     parameters:
@@ -1636,40 +2062,62 @@ paths:
           description: Unique identifier for a company's data connection.
 components:
   schemas:
+    DateTime:
+      title: Date Time
+      type: string
+      example: '2022-10-23T00:00:00Z'
+      description: |-
+        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+        ```
+        2020-10-08T22:40:50Z
+        2021-01-01T00:00:00
+        ```
+
+
+
+        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+        - Unqualified local time: `2021-11-15T01:00:00`
+        - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+        > Time zones
+        > 
+        > Not all dates from Codat will contain information about time zones.  
+        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     AccountBalance:
-      type: object
-      properties:
-        accountId:
-          minLength: 1
-          type: string
-          description: The unique identifier of the account.
-        balance:
-          type: object
-          required:
-            - current
-          description: An object containing bank balance data.
-          properties:
-            available:
-              type: number
-              nullable: true
-              description: The funds available to withdraw from the bank account.
-            current:
-              type: number
-              description: The funds in or owed by the bank account.
-            limit:
-              type: number
-              nullable: true
-              description: The credit limit or overdraft limit of the bank account.
-        date:
-          description: Date of the balance.
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
-      required:
-        - accountId
-        - balance
-        - date
+      title: Account Balance
       allOf:
+        - type: object
+          properties:
+            accountId:
+              minLength: 1
+              type: string
+              description: The unique identifier of the account.
+            balance:
+              title: Account Balance Amounts
+              x-internal: true
+              type: object
+              properties:
+                available:
+                  type: number
+                  nullable: true
+                  description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                current:
+                  type: number
+                  description: The balance of the account only including cleared transactions.
+                limit:
+                  type: number
+                  nullable: true
+                  description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+              additionalProperties: false
+              description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
+            date:
+              description: Date of the balance.
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -1681,9 +2129,8 @@ components:
                   title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-            - title: SourceModifiedDate
-              x-stoplight:
-                id: s0oihleme8suj
+            - title: Source Modified Date
+              x-internal: true
               type: object
               properties:
                 sourceModifiedDate:
@@ -1691,9 +2138,10 @@ components:
                   title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-      x-stoplight:
-        id: 3293652f3df8e
-      title: Account Balance
+      required:
+        - accountId
+        - balance
+        - date
       description: |-
         The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
 
@@ -1704,6 +2152,25 @@ components:
         > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
         > 
         > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
+      definitions:
+        accountBalanceAmounts:
+          title: Account Balance Amounts
+          x-internal: true
+          type: object
+          properties:
+            available:
+              type: number
+              nullable: true
+              description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+            current:
+              type: number
+              description: The balance of the account only including cleared transactions.
+            limit:
+              type: number
+              nullable: true
+              description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+          additionalProperties: false
+          description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
       examples:
         - accountBalances:
             - accountId: cce404db-27f7-4286-95db-622b53596cf4
@@ -1730,73 +2197,355 @@ components:
                 current: -644925.84
                 limit: 0
               date: '2022-03-09T00:00:00'
+    AccountBalances:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                title: Account Balance
+                allOf:
+                  - type: object
+                    properties:
+                      accountId:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the account.
+                      balance:
+                        title: Account Balance Amounts
+                        x-internal: true
+                        type: object
+                        properties:
+                          available:
+                            type: number
+                            nullable: true
+                            description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                          current:
+                            type: number
+                            description: The balance of the account only including cleared transactions.
+                          limit:
+                            type: number
+                            nullable: true
+                            description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                        additionalProperties: false
+                        description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
+                      date:
+                        description: Date of the balance.
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - accountId
+                  - balance
+                  - date
+                description: |-
+                  The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
+
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+                  > **How often should I pull Account Balances?**
+                  >
+                  > Because these balances are closing balances, we recommend you pull Account Balance no more frequently than daily. If you require a live intraday balance, this can be found for each account on the [Account](https://docs.codat.io/banking-api#/schemas/Account) data type.
+                  > 
+                  > Whilst you can choose to sync hourly, this may incur usage charges from Plaid or TrueLayer.
+                definitions:
+                  accountBalanceAmounts:
+                    title: Account Balance Amounts
+                    x-internal: true
+                    type: object
+                    properties:
+                      available:
+                        type: number
+                        nullable: true
+                        description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                      current:
+                        type: number
+                        description: The balance of the account only including cleared transactions.
+                      limit:
+                        type: number
+                        nullable: true
+                        description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                    additionalProperties: false
+                    description: 'Depending on the data provided by the underlying bank, not all balances are always available.'
+                examples:
+                  - accountBalances:
+                      - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                        balance:
+                          available: 714374.48
+                          current: 714374.57
+                          limit: 5000
+                        date: '2021-03-18T00:00:00'
+                      - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                        balance:
+                          available: 714374.48
+                          current: 714374.57
+                          limit: 5000
+                        date: '2021-03-19T00:00:00'
+                      - accountId: cce404db-27f7-4286-95db-622b53596cf4
+                        balance:
+                          available: 714195.66
+                          current: 714204.39
+                          limit: 5000
+                        date: '2021-03-22T00:00:00'
+                      - accountId: 2f593774-1075-4805-a552-84eecc7eb264
+                        balance:
+                          available: -644945.42
+                          current: -644925.84
+                          limit: 0
+                        date: '2022-03-09T00:00:00'
+        - type: object
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              type: object
+              x-internal: true
+              required:
+                - self
+                - current
+              properties:
+                self:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                current:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                next:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                previous:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Account:
       title: Account
-      x-stoplight:
-        id: 1ic677fzr6az4
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
 
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request. 
-      type: object
-      properties:
-        id:
-          minLength: 1
-          type: string
-          description: The ID of the account from the provider.
-        name:
-          minLength: 1
-          type: string
-          description: The name of the account according to the provider.
-        informalName:
-          type: string
-          nullable: true
-          description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
-        holder:
-          type: string
-          nullable: true
-          description: The name of the person or company who holds the account.
-        type:
-          type: string
-          enum:
-            - Unknown
-            - Credit
-            - Debit
-          description: |-
-            The type of transactions and balances on the account.
-            For Credit accounts, positive balances are liabilities and positive transactions reduce liabilities.
-            For Debit accounts, positive balances are assets and positive transactions increase assets.
-        balance:
-          description: An object containing bank balance data.
-          title: Account Balance Amounts
-          x-stoplight:
-            id: jmyqs1xu3c11z
-          type: object
-          additionalProperties: false
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+      allOf:
+        - type: object
           properties:
-            available:
-              type: number
+            id:
+              minLength: 1
+              type: string
+              description: The ID of the account from the provider.
+            name:
+              minLength: 1
+              type: string
+              description: The name of the account according to the provider.
+            informalName:
+              type: string
               nullable: true
-              description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
-            current:
-              type: number
-              description: The balance of the account only including cleared transactions.
-            limit:
-              type: number
+              description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
+            holder:
+              type: string
               nullable: true
-              description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
-        identifiers:
-          description: An object containing bank account identification information.
+              description: The name of the person or company who holds the account.
+            type:
+              title: Bank Account Type
+              x-internal: true
+              enum:
+                - Unknown
+                - Credit
+                - Debit
+              type: string
+              description: |-
+                The type of transactions and balances on the account.  
+                For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+                For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+            balance:
+              description: An object containing bank balance data.
+              title: Account Balance Amounts
+              x-internal: true
+              type: object
+              properties:
+                available:
+                  type: number
+                  nullable: true
+                  description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                current:
+                  type: number
+                  description: The balance of the account only including cleared transactions.
+                limit:
+                  type: number
+                  nullable: true
+                  description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+              additionalProperties: false
+            identifiers:
+              title: Account Identifiers
+              description: An object containing bank account identification information.
+              type: object
+              x-internal: true
+              additionalProperties: false
+              properties:
+                type:
+                  type: string
+                  x-internal: true
+                  description: Type of account
+                  enum:
+                    - Account
+                    - Card
+                    - Credit
+                    - Depository
+                    - Investment
+                    - Loan
+                    - Other
+                subtype:
+                  type: string
+                  nullable: true
+                  description: Detailed account category
+                number:
+                  type: string
+                  nullable: true
+                  description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                bankCode:
+                  type: string
+                  nullable: true
+                  description: |-
+                    The local (usually national) routing number for the account.
+
+                    This is known by different names in different countries:
+                    * BSB code (Australia)
+                    * routing number (Canada, USA)
+                    * sort code (UK)
+                iban:
+                  type: string
+                  nullable: true
+                  description: 'The international bank account number (IBAN) for the account, if known.'
+                bic:
+                  type: string
+                  nullable: true
+                  description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                maskedAccountNumber:
+                  type: string
+                  nullable: true
+                  description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+              required:
+                - type
+            currency:
+              minLength: 1
+              type: string
+              description: The currency code for the account.
+            institution:
+              title: Account Institution
+              description: The bank or other financial institution providing the account.
+              x-internal: true
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  description: 'The institution''s ID, according to the provider.'
+                name:
+                  type: string
+                  description: 'The institution''s name, according to the underlying provider.'
+        - allOf:
+            - title: ModifiedDate
+              x-stoplight:
+                id: z5gfpfg4fsp6v
+              type: object
+              properties:
+                modifiedDate:
+                  description: The date on which this record was last modified in Codat.
+                  title: Date Time
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+            - title: Source Modified Date
+              x-internal: true
+              type: object
+              properties:
+                sourceModifiedDate:
+                  description: The date on which this record was last modified in the originating system
+                  title: Date Time
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+      required:
+        - id
+        - name
+        - type
+        - balance
+        - identifiers
+        - currency
+        - institution
+      definitions:
+        accountIdentifiers:
           title: Account Identifiers
-          x-stoplight:
-            id: ldkvbe2lb7nab
+          description: An object containing bank account identification information.
           type: object
+          x-internal: true
           additionalProperties: false
           properties:
             type:
               type: string
+              x-internal: true
               description: Type of account
               enum:
                 - Account
@@ -1838,15 +2587,22 @@ components:
               description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
           required:
             - type
-        currency:
-          minLength: 1
+        accountIdentifierType:
           type: string
-          description: The currency code for the account.
-        institution:
-          description: The bank or other financial institution providing the account.
+          x-internal: true
+          description: Type of account
+          enum:
+            - Account
+            - Card
+            - Credit
+            - Depository
+            - Investment
+            - Loan
+            - Other
+        accountInstitution:
           title: Account Institution
-          x-stoplight:
-            id: 5y3yc3euy8v6a
+          description: The bank or other financial institution providing the account.
+          x-internal: true
           type: object
           additionalProperties: false
           properties:
@@ -1856,36 +2612,6 @@ components:
             name:
               type: string
               description: 'The institution''s name, according to the underlying provider.'
-      allOf:
-        - required:
-            - id
-            - name
-            - type
-            - balance
-            - identifiers
-            - currency
-            - institution
-          allOf:
-            - title: ModifiedDate
-              x-stoplight:
-                id: z5gfpfg4fsp6v
-              type: object
-              properties:
-                modifiedDate:
-                  description: The date on which this record was last modified in Codat.
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
-            - title: SourceModifiedDate
-              x-stoplight:
-                id: s0oihleme8suj
-              type: object
-              properties:
-                sourceModifiedDate:
-                  description: The date on which this record was last modified in the originating system
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
       examples:
         - results:
             - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -1911,40 +2637,442 @@ components:
                 name: Lloyds Bank
               modifiedDate: '2022-05-23T16:32:50Z'
               sourceModifiedDate: '2021-08-14T05:04:12'
+    Accounts:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                title: Account
+                description: |-
+                  This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
+
+                  Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
+
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The ID of the account from the provider.
+                      name:
+                        minLength: 1
+                        type: string
+                        description: The name of the account according to the provider.
+                      informalName:
+                        type: string
+                        nullable: true
+                        description: 'The friendly name of the account, chosen by the holder. This may not have been set by the account holder and therefore is not always available.'
+                      holder:
+                        type: string
+                        nullable: true
+                        description: The name of the person or company who holds the account.
+                      type:
+                        title: Bank Account Type
+                        x-internal: true
+                        enum:
+                          - Unknown
+                          - Credit
+                          - Debit
+                        type: string
+                        description: |-
+                          The type of transactions and balances on the account.  
+                          For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+                          For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+                      balance:
+                        description: An object containing bank balance data.
+                        title: Account Balance Amounts
+                        x-internal: true
+                        type: object
+                        properties:
+                          available:
+                            type: number
+                            nullable: true
+                            description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
+                          current:
+                            type: number
+                            description: The balance of the account only including cleared transactions.
+                          limit:
+                            type: number
+                            nullable: true
+                            description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
+                        additionalProperties: false
+                      identifiers:
+                        title: Account Identifiers
+                        description: An object containing bank account identification information.
+                        type: object
+                        x-internal: true
+                        additionalProperties: false
+                        properties:
+                          type:
+                            type: string
+                            x-internal: true
+                            description: Type of account
+                            enum:
+                              - Account
+                              - Card
+                              - Credit
+                              - Depository
+                              - Investment
+                              - Loan
+                              - Other
+                          subtype:
+                            type: string
+                            nullable: true
+                            description: Detailed account category
+                          number:
+                            type: string
+                            nullable: true
+                            description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                          bankCode:
+                            type: string
+                            nullable: true
+                            description: |-
+                              The local (usually national) routing number for the account.
+
+                              This is known by different names in different countries:
+                              * BSB code (Australia)
+                              * routing number (Canada, USA)
+                              * sort code (UK)
+                          iban:
+                            type: string
+                            nullable: true
+                            description: 'The international bank account number (IBAN) for the account, if known.'
+                          bic:
+                            type: string
+                            nullable: true
+                            description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                          maskedAccountNumber:
+                            type: string
+                            nullable: true
+                            description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+                        required:
+                          - type
+                      currency:
+                        minLength: 1
+                        type: string
+                        description: The currency code for the account.
+                      institution:
+                        title: Account Institution
+                        description: The bank or other financial institution providing the account.
+                        x-internal: true
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          id:
+                            type: string
+                            description: 'The institution''s ID, according to the provider.'
+                          name:
+                            type: string
+                            description: 'The institution''s name, according to the underlying provider.'
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - id
+                  - name
+                  - type
+                  - balance
+                  - identifiers
+                  - currency
+                  - institution
+                definitions:
+                  accountIdentifiers:
+                    title: Account Identifiers
+                    description: An object containing bank account identification information.
+                    type: object
+                    x-internal: true
+                    additionalProperties: false
+                    properties:
+                      type:
+                        type: string
+                        x-internal: true
+                        description: Type of account
+                        enum:
+                          - Account
+                          - Card
+                          - Credit
+                          - Depository
+                          - Investment
+                          - Loan
+                          - Other
+                      subtype:
+                        type: string
+                        nullable: true
+                        description: Detailed account category
+                      number:
+                        type: string
+                        nullable: true
+                        description: 'The account number for the account. When combined with the`bankCode`, this is usually enough to uniquely identify an account within a jurisdiction.'
+                      bankCode:
+                        type: string
+                        nullable: true
+                        description: |-
+                          The local (usually national) routing number for the account.
+
+                          This is known by different names in different countries:
+                          * BSB code (Australia)
+                          * routing number (Canada, USA)
+                          * sort code (UK)
+                      iban:
+                        type: string
+                        nullable: true
+                        description: 'The international bank account number (IBAN) for the account, if known.'
+                      bic:
+                        type: string
+                        nullable: true
+                        description: 'The ISO 9362 code (commonly called SWIFT code, SWIFT-BIC or BIC) for the account.'
+                      maskedAccountNumber:
+                        type: string
+                        nullable: true
+                        description: A portion of the actual account `number` to help account identification where number is tokenised (Plaid only)
+                    required:
+                      - type
+                  accountIdentifierType:
+                    type: string
+                    x-internal: true
+                    description: Type of account
+                    enum:
+                      - Account
+                      - Card
+                      - Credit
+                      - Depository
+                      - Investment
+                      - Loan
+                      - Other
+                  accountInstitution:
+                    title: Account Institution
+                    description: The bank or other financial institution providing the account.
+                    x-internal: true
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        type: string
+                        description: 'The institution''s ID, according to the provider.'
+                      name:
+                        type: string
+                        description: 'The institution''s name, according to the underlying provider.'
+                examples:
+                  - results:
+                      - id: 1703194f-7805-4da8-bac0-2ba5da4a4216
+                        name: Business Current Account
+                        informalName: Codat
+                        holder: Codat Ltd
+                        type: Debit
+                        balance:
+                          available: -459987.97
+                          current: -459964.9
+                          limit: 5000
+                        identifiers:
+                          type: Depository
+                          subtype: checking
+                          number: '46762629'
+                          bankCode: 009911
+                          iban: GB29 LOYD 4773 2346 7626 29
+                          bic: LOYDGB21006
+                          maskedAccountNumber: LOYDGB21006
+                        currency: GBP
+                        institution:
+                          id: lloyds-bank
+                          name: Lloyds Bank
+                        modifiedDate: '2022-05-23T16:32:50Z'
+                        sourceModifiedDate: '2021-08-14T05:04:12'
+        - type: object
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              type: object
+              x-internal: true
+              required:
+                - self
+                - current
+              properties:
+                self:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                current:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                next:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                previous:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Transaction:
-      type: object
-      properties:
-        id:
-          minLength: 1
+      title: Transaction
+      allOf:
+        - type: object
+          properties:
+            id:
+              minLength: 1
+              type: string
+              description: The unique identifier of the bank transaction.
+            accountId:
+              minLength: 1
+              type: string
+              description: The unique identifier of the bank account.
+            description:
+              type: string
+              nullable: true
+              description: The description of the bank transaction.
+            amount:
+              type: number
+              description: The amount of the bank transaction.
+            currency:
+              minLength: 1
+              type: string
+              description: The currency of the bank transaction.
+            postedDate:
+              description: The date the bank transaction was cleared.
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
+            authorizedDate:
+              description: The date the bank transaction was authorized.
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
+            code:
+              type: string
+              x-internal: true
+              description: Code to identify the underlying transaction.
+              enum:
+                - Unknown
+                - Fee
+                - Payment
+                - Cash
+                - Transfer
+                - Interest
+                - Cashback
+                - Cheque
+                - DirectDebit
+                - Purchase
+                - StandingOrder
+                - Adjustment
+                - Credit
+                - Other
+                - NotSupported
+            merchantName:
+              type: string
+              nullable: true
+              description: The name of the merchant.
+            transactionCategoryRef:
+              type: object
+              x-internal: true
+              description: An object of bank transaction category reference data.
+              properties:
+                id:
+                  minLength: 1
+                  type: string
+                  description: The unique category reference id for the bank transaction.
+                name:
+                  type: string
+                  nullable: true
+                  description: The category name reference for the bank transaction.
+              required:
+                - id
+        - allOf:
+            - title: ModifiedDate
+              x-stoplight:
+                id: z5gfpfg4fsp6v
+              type: object
+              properties:
+                modifiedDate:
+                  description: The date on which this record was last modified in Codat.
+                  title: Date Time
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+            - title: Source Modified Date
+              x-internal: true
+              type: object
+              properties:
+                sourceModifiedDate:
+                  description: The date on which this record was last modified in the originating system
+                  title: Date Time
+                  type: string
+                  example: '2022-10-23T00:00:00Z'
+      required:
+        - id
+        - accountId
+        - currency
+      description: |-
+        The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+      definitions:
+        transactionCode:
           type: string
-          description: The unique identifier of the bank transaction.
-        accountId:
-          minLength: 1
-          type: string
-          description: The unique identifier of the bank account.
-        description:
-          type: string
-          nullable: true
-          description: The description of the bank transaction.
-        amount:
-          type: number
-          description: The amount of the bank transaction.
-        currency:
-          minLength: 1
-          type: string
-          description: The currency of the bank transaction.
-        postedDate:
-          description: The date the bank transaction was cleared.
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
-        authorizedDate:
-          description: The date the bank transaction was authorized.
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
-        code:
-          type: string
+          x-internal: true
           description: Code to identify the underlying transaction.
           enum:
             - Unknown
@@ -1962,57 +3090,6 @@ components:
             - Credit
             - Other
             - NotSupported
-        merchantName:
-          type: string
-          nullable: true
-          description: The name of the merchant.
-        transactionCategoryRef:
-          type: object
-          description: An object of bank transaction category reference data.
-          properties:
-            id:
-              minLength: 1
-              type: string
-              description: The unique category reference id for the bank transaction.
-            name:
-              type: string
-              nullable: true
-              description: The category name reference for the bank transaction.
-          required:
-            - id
-      required:
-        - id
-        - accountId
-        - currency
-      allOf:
-        - allOf:
-            - title: ModifiedDate
-              x-stoplight:
-                id: z5gfpfg4fsp6v
-              type: object
-              properties:
-                modifiedDate:
-                  description: The date on which this record was last modified in Codat.
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
-            - title: SourceModifiedDate
-              x-stoplight:
-                id: s0oihleme8suj
-              type: object
-              properties:
-                sourceModifiedDate:
-                  description: The date on which this record was last modified in the originating system
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
-      title: Transaction
-      description: |-
-        The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
-
-        Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
       examples:
         - id: 0130b5bb-1419-40f6-8a27-7362d0381229
           accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
@@ -2026,35 +3103,245 @@ components:
             id: health-and-fitness-sports
           modifiedDate: '2022-05-23T16:32:50Z'
           sourceModifiedDate: '2021-06-28T10:48:12'
-    TransactionCategory:
-      type: object
-      properties:
-        id:
-          minLength: 1
-          type: string
-          description: The unique identifier of the bank transaction category.
-        name:
-          minLength: 1
-          type: string
-          description: The name of the bank transaction category.
-        parentId:
-          type: string
-          nullable: true
-          description: The unique identifier of the parent bank transaction category.
-        hasChildren:
-          type: boolean
-          description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
-        status:
-          type: string
-          enum:
-            - Unknown
-            - Active
-            - Archived
-          description: Status of the bank transaction category.
-      required:
-        - id
-        - name
+    Transactions:
+      x-internal: true
       allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                title: Transaction
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank transaction.
+                      accountId:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank account.
+                      description:
+                        type: string
+                        nullable: true
+                        description: The description of the bank transaction.
+                      amount:
+                        type: number
+                        description: The amount of the bank transaction.
+                      currency:
+                        minLength: 1
+                        type: string
+                        description: The currency of the bank transaction.
+                      postedDate:
+                        description: The date the bank transaction was cleared.
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                      authorizedDate:
+                        description: The date the bank transaction was authorized.
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                      code:
+                        type: string
+                        x-internal: true
+                        description: Code to identify the underlying transaction.
+                        enum:
+                          - Unknown
+                          - Fee
+                          - Payment
+                          - Cash
+                          - Transfer
+                          - Interest
+                          - Cashback
+                          - Cheque
+                          - DirectDebit
+                          - Purchase
+                          - StandingOrder
+                          - Adjustment
+                          - Credit
+                          - Other
+                          - NotSupported
+                      merchantName:
+                        type: string
+                        nullable: true
+                        description: The name of the merchant.
+                      transactionCategoryRef:
+                        type: object
+                        x-internal: true
+                        description: An object of bank transaction category reference data.
+                        properties:
+                          id:
+                            minLength: 1
+                            type: string
+                            description: The unique category reference id for the bank transaction.
+                          name:
+                            type: string
+                            nullable: true
+                            description: The category name reference for the bank transaction.
+                        required:
+                          - id
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - id
+                  - accountId
+                  - currency
+                description: |-
+                  The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
+
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+
+                  View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
+                definitions:
+                  transactionCode:
+                    type: string
+                    x-internal: true
+                    description: Code to identify the underlying transaction.
+                    enum:
+                      - Unknown
+                      - Fee
+                      - Payment
+                      - Cash
+                      - Transfer
+                      - Interest
+                      - Cashback
+                      - Cheque
+                      - DirectDebit
+                      - Purchase
+                      - StandingOrder
+                      - Adjustment
+                      - Credit
+                      - Other
+                      - NotSupported
+                examples:
+                  - id: 0130b5bb-1419-40f6-8a27-7362d0381229
+                    accountId: 1703194f-7805-4da8-bac0-2ba5da4a4216
+                    description: Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6
+                    amount: 5062.39
+                    currency: GBP
+                    postedDate: '2021-07-06T00:00:00'
+                    authorizedDate: '2021-07-06T00:00:00'
+                    merchantName: New Look
+                    transactionCategoryRef:
+                      id: health-and-fitness-sports
+                    modifiedDate: '2022-05-23T16:32:50Z'
+                    sourceModifiedDate: '2021-06-28T10:48:12'
+        - type: object
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              type: object
+              x-internal: true
+              required:
+                - self
+                - current
+              properties:
+                self:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                current:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                next:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                previous:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    TransactionCategory:
+      title: Transaction Category
+      allOf:
+        - type: object
+          description: Status of the bank transaction category.
+          properties:
+            id:
+              minLength: 1
+              type: string
+              description: The unique identifier of the bank transaction category.
+            name:
+              minLength: 1
+              type: string
+              description: The name of the bank transaction category.
+            parentId:
+              type: string
+              nullable: true
+              description: The unique identifier of the parent bank transaction category.
+            hasChildren:
+              type: boolean
+              description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
+            status:
+              type: string
+              x-internal: true
+              enum:
+                - Unknown
+                - Active
+                - Archived
         - allOf:
             - title: ModifiedDate
               x-stoplight:
@@ -2066,9 +3353,8 @@ components:
                   title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-            - title: SourceModifiedDate
-              x-stoplight:
-                id: s0oihleme8suj
+            - title: Source Modified Date
+              x-internal: true
               type: object
               properties:
                 sourceModifiedDate:
@@ -2076,11 +3362,36 @@ components:
                   title: Date Time
                   type: string
                   example: '2022-10-23T00:00:00Z'
-      title: Transaction Category
+      required:
+        - id
+        - name
       description: |-
         The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
 
         Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+      definitions:
+        transactionCategoryRef:
+          type: object
+          x-internal: true
+          description: An object of bank transaction category reference data.
+          properties:
+            id:
+              minLength: 1
+              type: string
+              description: The unique category reference id for the bank transaction.
+            name:
+              type: string
+              nullable: true
+              description: The category name reference for the bank transaction.
+          required:
+            - id
+        transactionCategoryStatus:
+          type: string
+          x-internal: true
+          enum:
+            - Unknown
+            - Active
+            - Archived
       examples:
         - id: auto-and-transport
           name: Auto & Transport
@@ -2088,6 +3399,403 @@ components:
           status: Active
           modifiedDate: '2022-05-23T16:32:50'
           sourceModifiedDate: '2021-04-24T07:59:10'
+    TransactionCategories:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                title: Transaction Category
+                allOf:
+                  - type: object
+                    description: Status of the bank transaction category.
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique identifier of the bank transaction category.
+                      name:
+                        minLength: 1
+                        type: string
+                        description: The name of the bank transaction category.
+                      parentId:
+                        type: string
+                        nullable: true
+                        description: The unique identifier of the parent bank transaction category.
+                      hasChildren:
+                        type: boolean
+                        description: A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy.
+                      status:
+                        type: string
+                        x-internal: true
+                        enum:
+                          - Unknown
+                          - Active
+                          - Archived
+                  - allOf:
+                      - title: ModifiedDate
+                        x-stoplight:
+                          id: z5gfpfg4fsp6v
+                        type: object
+                        properties:
+                          modifiedDate:
+                            description: The date on which this record was last modified in Codat.
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                      - title: Source Modified Date
+                        x-internal: true
+                        type: object
+                        properties:
+                          sourceModifiedDate:
+                            description: The date on which this record was last modified in the originating system
+                            title: Date Time
+                            type: string
+                            example: '2022-10-23T00:00:00Z'
+                required:
+                  - id
+                  - name
+                description: |-
+                  The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
+
+                  Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
+                definitions:
+                  transactionCategoryRef:
+                    type: object
+                    x-internal: true
+                    description: An object of bank transaction category reference data.
+                    properties:
+                      id:
+                        minLength: 1
+                        type: string
+                        description: The unique category reference id for the bank transaction.
+                      name:
+                        type: string
+                        nullable: true
+                        description: The category name reference for the bank transaction.
+                    required:
+                      - id
+                  transactionCategoryStatus:
+                    type: string
+                    x-internal: true
+                    enum:
+                      - Unknown
+                      - Active
+                      - Archived
+                examples:
+                  - id: auto-and-transport
+                    name: Auto & Transport
+                    hasChildren: true
+                    status: Active
+                    modifiedDate: '2022-05-23T16:32:50'
+                    sourceModifiedDate: '2021-04-24T07:59:10'
+        - type: object
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              type: object
+              x-internal: true
+              required:
+                - self
+                - current
+              properties:
+                self:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                current:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                next:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+                previous:
+                  title: Hypertext reference
+                  type: object
+                  x-internal: true
+                  properties:
+                    href:
+                      type: string
+                      format: uri-reference
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    ModifiedDates:
+      allOf:
+        - title: ModifiedDate
+          x-stoplight:
+            id: z5gfpfg4fsp6v
+          type: object
+          properties:
+            modifiedDate:
+              description: The date on which this record was last modified in Codat.
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
+        - title: Source Modified Date
+          x-internal: true
+          type: object
+          properties:
+            sourceModifiedDate:
+              description: The date on which this record was last modified in the originating system
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
+    ModifiedDate:
+      title: ModifiedDate
+      x-stoplight:
+        id: z5gfpfg4fsp6v
+      type: object
+      properties:
+        modifiedDate:
+          description: The date on which this record was last modified in Codat.
+          title: Date Time
+          type: string
+          example: '2022-10-23T00:00:00Z'
+    SourceModifiedDate:
+      title: Source Modified Date
+      x-internal: true
+      type: object
+      properties:
+        sourceModifiedDate:
+          description: The date on which this record was last modified in the originating system
+          title: Date Time
+          type: string
+          example: '2022-10-23T00:00:00Z'
+    Links:
+      type: object
+      x-internal: true
+      required:
+        - self
+        - current
+      properties:
+        self:
+          title: Hypertext reference
+          type: object
+          x-internal: true
+          properties:
+            href:
+              type: string
+              format: uri-reference
+        current:
+          title: Hypertext reference
+          type: object
+          x-internal: true
+          properties:
+            href:
+              type: string
+              format: uri-reference
+        next:
+          title: Hypertext reference
+          type: object
+          x-internal: true
+          properties:
+            href:
+              type: string
+              format: uri-reference
+        previous:
+          title: Hypertext reference
+          type: object
+          x-internal: true
+          properties:
+            href:
+              type: string
+              format: uri-reference
+      examples:
+        - self:
+            href: '/companies/{id}/data/{dataType}'
+          current:
+            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    HRef:
+      title: Hypertext reference
+      type: object
+      x-internal: true
+      properties:
+        href:
+          type: string
+          format: uri-reference
+    PagingInfo:
+      type: object
+      x-internal: true
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        totalResults:
+          type: integer
+        _links:
+          type: object
+          x-internal: true
+          required:
+            - self
+            - current
+          properties:
+            self:
+              title: Hypertext reference
+              type: object
+              x-internal: true
+              properties:
+                href:
+                  type: string
+                  format: uri-reference
+            current:
+              title: Hypertext reference
+              type: object
+              x-internal: true
+              properties:
+                href:
+                  type: string
+                  format: uri-reference
+            next:
+              title: Hypertext reference
+              type: object
+              x-internal: true
+              properties:
+                href:
+                  type: string
+                  format: uri-reference
+            previous:
+              title: Hypertext reference
+              type: object
+              x-internal: true
+              properties:
+                href:
+                  type: string
+                  format: uri-reference
+          examples:
+            - self:
+                href: '/companies/{id}/data/{dataType}'
+              current:
+                href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+      required:
+        - pageNumber
+        - pageSize
+        - totalResults
+        - _links
+      examples:
+        - _links:
+            pageNumber: 1
+            pageSize: 10
+            totalResults: 1
+            self:
+              href: '/companies/{id}/data/{dataType}'
+            current:
+              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    AccountType:
+      title: Bank Account Type
+      x-internal: true
+      enum:
+        - Unknown
+        - Credit
+        - Debit
+      type: string
+      description: |-
+        The type of transactions and balances on the account.  
+        For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+        For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+  parameters:
+    companyId:
+      name: companyId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 8a210b68-6988-11ed-a1eb-0242ac120002
+        description: Unique identifier for your SMB in Codat.
+    connectionId:
+      name: connectionId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+        description: Unique identifier for a company's data connection.
+    page:
+      name: page
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        example: 1
+        default: 1
+      description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+      x-stoplight:
+        id: 1318joqblpp4e
+    pageSize:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        format: int32
+        default: 100
+        example: 100
+        minimum: 1
+        maximum: 5000
+      description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+      x-stoplight:
+        id: s2ika6rltk5y6
+    query:
+      name: query
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+      x-stoplight:
+        id: gupdb9kt30hfq
+    orderBy:
+      name: orderBy
+      in: query
+      required: false
+      schema:
+        type: string
+        example: '-modifiedDate'
+      description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+      x-stoplight:
+        id: 4je9lwo02netu
   securitySchemes:
     auth_header:
       name: Authorization
