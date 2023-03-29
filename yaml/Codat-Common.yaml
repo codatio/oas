@@ -1132,7 +1132,7 @@ components:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/PushOptionType'
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
         displayName:
           minLength: 1
           type: string
@@ -1141,113 +1141,109 @@ components:
         properties:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/PushOptionProperty'
+            $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
           nullable: true
         required:
           type: boolean
         options:
           type: array
           items:
-            $ref: '#/components/schemas/PushOptionChoice'
+            $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
           nullable: true
         validation:
-          $ref: '#/components/schemas/PushValidationInfo'
+          $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
           nullable: true
-    PushOptionProperty:
-      title: Push Option Property
-      x-internal: true
-      required:
-        - description
-        - displayName
-        - required
-        - type
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/PushOptionType'
-        displayName:
-          minLength: 1
-          type: string
-        description:
-          minLength: 1
-          type: string
-        properties:
+      definitions:
+        pushOptionProperty:
+          title: Push Option Property
+          required:
+            - description
+            - displayName
+            - required
+            - type
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PushOptionProperty'
-          nullable: true
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/PushOptionChoice'
-          nullable: true
-        required:
-          type: boolean
-        validation:
-          $ref: '#/components/schemas/PushValidationInfo'
-    PushValidationInfo:
-      title: PushValidationInfo
-      x-internal: true
-      type: object
-      properties:
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/PushFieldValidation'
-          nullable: true
-        information:
-          type: array
-          items:
-            $ref: '#/components/schemas/PushFieldValidation'
-          nullable: true
-      additionalProperties: false
-    PushFieldValidation:
-      title: PushFieldValidation
-      x-internal: true
-      required:
-        - details
-      type: object
-      properties:
-        field:
+          properties:
+            type:
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
+            displayName:
+              minLength: 1
+              type: string
+            description:
+              minLength: 1
+              type: string
+            properties:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
+              nullable: true
+            options:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
+              nullable: true
+            required:
+              type: boolean
+            validation:
+              $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
+        pushValidationInfo:
+          title: Push validation info
+          type: object
+          properties:
+            warnings:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushFieldValidation'
+              nullable: true
+            information:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushFieldValidation'
+              nullable: true
+          additionalProperties: false
+        pushFieldValidation:
+          title: Push field validation
+          required:
+            - details
+          type: object
+          properties:
+            field:
+              type: string
+            details:
+              minLength: 1
+              type: string
+            ref:
+              type: string
+              format: uri
+              nullable: true
+          additionalProperties: false
+        pushOptionType:
+          title: Option Type
+          enum:
+            - Array
+            - Object
+            - String
+            - Number
+            - Boolean
+            - DateTime
+            - File
+            - MultiPart
           type: string
-        details:
-          minLength: 1
-          type: string
-        ref:
-          type: string
-          format: uri
-          nullable: true
-      additionalProperties: false
-    PushOptionType:
-      title: OptionType
-      x-internal: true
-      enum:
-        - Array
-        - Object
-        - String
-        - Number
-        - Boolean
-        - DateTime
-        - File
-        - MultiPart
-      type: string
-    PushOptionChoice:
-      title: Push Option Choice
-      x-internal: true
-      type: object
-      properties:
-        value:
-          type: string
-          minLength: 1
-          description: Allowed value for field.
-        type:
-          $ref: '#/components/schemas/PushOptionType'
-        displayName:
-          type: string
-        description:
-          type: string
-        required:
-          type: boolean
+        pushOptionChoice:
+          title: Push Option Choice
+          type: object
+          properties:
+            value:
+              type: string
+              minLength: 1
+              description: Allowed value for field.
+            type:
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
+            displayName:
+              type: string
+            description:
+              type: string
+            required:
+              type: boolean
     Company:
       title: Company
       description: 'A company in Codat represent a small or medium sized business, whose data you wish to share'
@@ -2165,21 +2161,7 @@ components:
           type: array
           nullable: true
           items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                  - Unknown
-                  - Created
-                  - Modified
-                  - Deleted
-                  - AttachmentUploaded
-              recordRef:
-                $ref: '#/components/schemas/PushOperationRecordRef'
-              attachmentId:
-                type: string
-                nullable: true
+            $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationChange'
         dataType:
           $ref: '#/components/schemas/SyncSetting/properties/dataType'
           nullable: true
@@ -2208,14 +2190,7 @@ components:
           nullable: true
           deprecated: true
         status:
-          minLength: 1
-          type: string
-          enum:
-            - Pending
-            - Failed
-            - Success
-            - TimedOut
-          description: The status of the push operation.
+          $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationStatus'
         errorMessage:
           type: string
           nullable: true
@@ -2227,15 +2202,14 @@ components:
               type: array
               nullable: true
               items:
-                $ref: '#/components/schemas/ValidationItem'
+                $ref: '#/components/schemas/PushOperationSummary/definitions/validationItem'
             warnings:
               type: array
               nullable: true
               items:
-                $ref: '#/components/schemas/ValidationItem'
+                $ref: '#/components/schemas/PushOperationSummary/definitions/validationItem'
         statusCode:
           type: integer
-          format: int32
       required:
         - companyId
         - pushOperationKey
@@ -2243,6 +2217,60 @@ components:
         - requestedOnUtc
         - status
         - statusCode
+      definitions:
+        validationItem:
+          title: Validation item
+          type: object
+          properties:
+            itemId:
+              type: string
+              nullable: true
+            message:
+              type: string
+              nullable: true
+            validatorName:
+              type: string
+              nullable: true
+          additionalProperties: false
+        pushChangeType:
+          title: Push change type
+          type: string
+          enum:
+            - Unknown
+            - Created
+            - Modified
+            - Deleted
+            - AttachmentUploaded
+        pushOperationRef:
+          title: Push operation reference
+          x-internal: true
+          type: object
+          properties:
+            id:
+              type: string
+            dataType:
+              $ref: '#/components/schemas/SyncSetting/properties/dataType'
+              nullable: true
+          additionalProperties: false
+        pushOperationStatus:
+          title: Push operation status
+          type: string
+          enum:
+            - Pending
+            - Failed
+            - Success
+            - TimedOut
+          description: The status of the push operation.
+        pushOperationChange:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/PushOperationSummary/definitions/pushChangeType'
+            recordRef:
+              $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationRef'
+            attachmentId:
+              type: string
+              nullable: true
     PushOperationRecordRef:
       title: PushOperationRecordRef
       x-internal: true

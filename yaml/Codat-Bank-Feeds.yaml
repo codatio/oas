@@ -27,7 +27,7 @@ tags:
   - name: Bank account transactions
     description: Bank feed bank accounts
 paths:
-  '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts/{bankAccountId}':
+  '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts/{accountId}':
     patch:
       tags:
         - Bank feed accounts
@@ -35,218 +35,21 @@ paths:
       description: Update a single BankFeed BankAccount for a single data source connected to a single company.
       operationId: update-bank-feed
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
-        - name: bankAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for an account
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+        - $ref: '#/components/parameters/accountId'
       requestBody:
         content:
           application/json:
             schema:
-              title: BankFeedBankAccount
-              x-stoplight:
-                id: bi83u58u7g3vr
-              type: object
-              additionalProperties: false
-              properties:
-                id:
-                  type: string
-                  description: Unique ID for the BankFeedBankAccount
-                accountName:
-                  type: string
-                  nullable: true
-                  description: The bank account name
-                accountType:
-                  type: string
-                  nullable: true
-                  description: The type of bank account e.g. Credit
-                accountNumber:
-                  type: string
-                  nullable: true
-                  description: The account number
-                sortCode:
-                  type: string
-                  nullable: true
-                  description: The sort code
-                currency:
-                  type: string
-                  nullable: true
-                  description: The currency e.g. USD
-                balance:
-                  type: number
-                  nullable: true
-                  description: The latest balance for the bank account
-                modifiedDate:
-                  nullable: true
-                  description: The last date the bank account was modified
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
-                status:
-                  type: string
-                  nullable: true
-                feedStartDate:
-                  nullable: true
-                  title: Date Time
-                  type: string
-                  example: '2022-10-23T00:00:00Z'
-                  description: |-
-                    In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                    ```
-                    2020-10-08T22:40:50Z
-                    2021-01-01T00:00:00
-                    ```
-
-
-
-                    When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                    - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                    - Unqualified local time: `2021-11-15T01:00:00`
-                    - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                    > Time zones
-                    > 
-                    > Not all dates from Codat will contain information about time zones.  
-                    > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-              required:
-                - id
-              description: The target bank account in a supported accounting package for ingestion into a bank feed.
-              examples:
-                - id: acc-002
-                  accountName: account-081
-                  sortCode: '123456'
-                  accountType: Credit
-                  accountNumber: '12345670'
-                  currency: GBP
-                  balance: 99.99
-                  modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                  status: pending
-                - id: acc-003
-                  accountName: account-095
-                  sortCode: '123456'
-                  accountType: Credit
-                  accountNumber: '12345671'
-                  currency: USD
-                  balance: 0
-                  modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                  status: pending
+              $ref: '#/components/schemas/BankFeedAccount'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                title: BankFeedBankAccount
-                x-stoplight:
-                  id: bi83u58u7g3vr
-                type: object
-                additionalProperties: false
-                properties:
-                  id:
-                    type: string
-                    description: Unique ID for the BankFeedBankAccount
-                  accountName:
-                    type: string
-                    nullable: true
-                    description: The bank account name
-                  accountType:
-                    type: string
-                    nullable: true
-                    description: The type of bank account e.g. Credit
-                  accountNumber:
-                    type: string
-                    nullable: true
-                    description: The account number
-                  sortCode:
-                    type: string
-                    nullable: true
-                    description: The sort code
-                  currency:
-                    type: string
-                    nullable: true
-                    description: The currency e.g. USD
-                  balance:
-                    type: number
-                    nullable: true
-                    description: The latest balance for the bank account
-                  modifiedDate:
-                    nullable: true
-                    description: The last date the bank account was modified
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  status:
-                    type: string
-                    nullable: true
-                  feedStartDate:
-                    nullable: true
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                    description: |-
-                      In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                      ```
-                      2020-10-08T22:40:50Z
-                      2021-01-01T00:00:00
-                      ```
-
-
-
-                      When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                      - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                      - Unqualified local time: `2021-11-15T01:00:00`
-                      - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                      > Time zones
-                      > 
-                      > Not all dates from Codat will contain information about time zones.  
-                      > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                required:
-                  - id
-                description: The target bank account in a supported accounting package for ingestion into a bank feed.
-                examples:
-                  - id: acc-002
-                    accountName: account-081
-                    sortCode: '123456'
-                    accountType: Credit
-                    accountNumber: '12345670'
-                    currency: GBP
-                    balance: 99.99
-                    modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                    status: pending
-                  - id: acc-003
-                    accountName: account-095
-                    sortCode: '123456'
-                    accountType: Credit
-                    accountNumber: '12345671'
-                    currency: USD
-                    balance: 0
-                    modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                    status: pending
+                $ref: '#/components/schemas/BankFeedAccount'
   '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts':
     get:
       tags:
@@ -255,119 +58,15 @@ paths:
       description: Get BankFeed BankAccounts for a single data source connected to a single company.
       operationId: get-bank-feeds
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  title: BankFeedBankAccount
-                  x-stoplight:
-                    id: bi83u58u7g3vr
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    id:
-                      type: string
-                      description: Unique ID for the BankFeedBankAccount
-                    accountName:
-                      type: string
-                      nullable: true
-                      description: The bank account name
-                    accountType:
-                      type: string
-                      nullable: true
-                      description: The type of bank account e.g. Credit
-                    accountNumber:
-                      type: string
-                      nullable: true
-                      description: The account number
-                    sortCode:
-                      type: string
-                      nullable: true
-                      description: The sort code
-                    currency:
-                      type: string
-                      nullable: true
-                      description: The currency e.g. USD
-                    balance:
-                      type: number
-                      nullable: true
-                      description: The latest balance for the bank account
-                    modifiedDate:
-                      nullable: true
-                      description: The last date the bank account was modified
-                      title: Date Time
-                      type: string
-                      example: '2022-10-23T00:00:00Z'
-                    status:
-                      type: string
-                      nullable: true
-                    feedStartDate:
-                      nullable: true
-                      title: Date Time
-                      type: string
-                      example: '2022-10-23T00:00:00Z'
-                      description: |-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                        ```
-                        2020-10-08T22:40:50Z
-                        2021-01-01T00:00:00
-                        ```
-
-
-
-                        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                        - Unqualified local time: `2021-11-15T01:00:00`
-                        - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                        > Time zones
-                        > 
-                        > Not all dates from Codat will contain information about time zones.  
-                        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  required:
-                    - id
-                  description: The target bank account in a supported accounting package for ingestion into a bank feed.
-                  examples:
-                    - id: acc-002
-                      accountName: account-081
-                      sortCode: '123456'
-                      accountType: Credit
-                      accountNumber: '12345670'
-                      currency: GBP
-                      balance: 99.99
-                      modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                      status: pending
-                    - id: acc-003
-                      accountName: account-095
-                      sortCode: '123456'
-                      accountType: Credit
-                      accountNumber: '12345671'
-                      currency: USD
-                      balance: 0
-                      modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                      status: pending
+                $ref: '#/components/schemas/BankFeedAccounts'
     put:
       tags:
         - Bank feed accounts
@@ -375,214 +74,20 @@ paths:
       description: Put BankFeed BankAccounts for a single data source connected to a single company.
       operationId: create-bank-feed
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
       requestBody:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                title: BankFeedBankAccount
-                x-stoplight:
-                  id: bi83u58u7g3vr
-                type: object
-                additionalProperties: false
-                properties:
-                  id:
-                    type: string
-                    description: Unique ID for the BankFeedBankAccount
-                  accountName:
-                    type: string
-                    nullable: true
-                    description: The bank account name
-                  accountType:
-                    type: string
-                    nullable: true
-                    description: The type of bank account e.g. Credit
-                  accountNumber:
-                    type: string
-                    nullable: true
-                    description: The account number
-                  sortCode:
-                    type: string
-                    nullable: true
-                    description: The sort code
-                  currency:
-                    type: string
-                    nullable: true
-                    description: The currency e.g. USD
-                  balance:
-                    type: number
-                    nullable: true
-                    description: The latest balance for the bank account
-                  modifiedDate:
-                    nullable: true
-                    description: The last date the bank account was modified
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  status:
-                    type: string
-                    nullable: true
-                  feedStartDate:
-                    nullable: true
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                    description: |-
-                      In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                      ```
-                      2020-10-08T22:40:50Z
-                      2021-01-01T00:00:00
-                      ```
-
-
-
-                      When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                      - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                      - Unqualified local time: `2021-11-15T01:00:00`
-                      - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                      > Time zones
-                      > 
-                      > Not all dates from Codat will contain information about time zones.  
-                      > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                required:
-                  - id
-                description: The target bank account in a supported accounting package for ingestion into a bank feed.
-                examples:
-                  - id: acc-002
-                    accountName: account-081
-                    sortCode: '123456'
-                    accountType: Credit
-                    accountNumber: '12345670'
-                    currency: GBP
-                    balance: 99.99
-                    modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                    status: pending
-                  - id: acc-003
-                    accountName: account-095
-                    sortCode: '123456'
-                    accountType: Credit
-                    accountNumber: '12345671'
-                    currency: USD
-                    balance: 0
-                    modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                    status: pending
+              $ref: '#/components/schemas/BankFeedAccounts'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  title: BankFeedBankAccount
-                  x-stoplight:
-                    id: bi83u58u7g3vr
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    id:
-                      type: string
-                      description: Unique ID for the BankFeedBankAccount
-                    accountName:
-                      type: string
-                      nullable: true
-                      description: The bank account name
-                    accountType:
-                      type: string
-                      nullable: true
-                      description: The type of bank account e.g. Credit
-                    accountNumber:
-                      type: string
-                      nullable: true
-                      description: The account number
-                    sortCode:
-                      type: string
-                      nullable: true
-                      description: The sort code
-                    currency:
-                      type: string
-                      nullable: true
-                      description: The currency e.g. USD
-                    balance:
-                      type: number
-                      nullable: true
-                      description: The latest balance for the bank account
-                    modifiedDate:
-                      nullable: true
-                      description: The last date the bank account was modified
-                      title: Date Time
-                      type: string
-                      example: '2022-10-23T00:00:00Z'
-                    status:
-                      type: string
-                      nullable: true
-                    feedStartDate:
-                      nullable: true
-                      title: Date Time
-                      type: string
-                      example: '2022-10-23T00:00:00Z'
-                      description: |-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                        ```
-                        2020-10-08T22:40:50Z
-                        2021-01-01T00:00:00
-                        ```
-
-
-
-                        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                        - Unqualified local time: `2021-11-15T01:00:00`
-                        - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                        > Time zones
-                        > 
-                        > Not all dates from Codat will contain information about time zones.  
-                        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  required:
-                    - id
-                  description: The target bank account in a supported accounting package for ingestion into a bank feed.
-                  examples:
-                    - id: acc-002
-                      accountName: account-081
-                      sortCode: '123456'
-                      accountType: Credit
-                      accountNumber: '12345670'
-                      currency: GBP
-                      balance: 99.99
-                      modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                      status: pending
-                    - id: acc-003
-                      accountName: account-095
-                      sortCode: '123456'
-                      accountType: Credit
-                      accountNumber: '12345671'
-                      currency: USD
-                      balance: 0
-                      modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                      status: pending
+                $ref: '#/components/schemas/BankFeedAccounts'
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
       x-stoplight:
@@ -593,275 +98,22 @@ paths:
       description: Gets bank transactions for a given bank account ID
       operationId: list-bank-account-transactions
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
-        - name: accountId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for an account
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            example: 1
-            default: 1
-          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: 1318joqblpp4e
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-            default: 100
-            example: 100
-            minimum: 1
-            maximum: 5000
-          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: s2ika6rltk5y6
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
-          x-stoplight:
-            id: gupdb9kt30hfq
-        - name: orderBy
-          in: query
-          required: false
-          schema:
-            type: string
-            example: '-modifiedDate'
-          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-          x-stoplight:
-            id: 4je9lwo02netu
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+        - $ref: '#/components/parameters/accountId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/orderBy'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      results:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            accountId:
-                              type: string
-                              nullable: true
-                            transactions:
-                              type: array
-                              items:
-                                required:
-                                  - amount
-                                  - balance
-                                  - date
-                                  - reconciled
-                                  - transactionType
-                                type: object
-                                properties:
-                                  id:
-                                    type: string
-                                  date:
-                                    title: Date Time
-                                    type: string
-                                    example: '2022-10-23T00:00:00Z'
-                                    description: |-
-                                      In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                                      ```
-                                      2020-10-08T22:40:50Z
-                                      2021-01-01T00:00:00
-                                      ```
-
-
-
-                                      When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                                      - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                                      - Unqualified local time: `2021-11-15T01:00:00`
-                                      - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                                      > Time zones
-                                      > 
-                                      > Not all dates from Codat will contain information about time zones.  
-                                      > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                  description:
-                                    type: string
-                                    nullable: true
-                                  counterparty:
-                                    type: string
-                                    nullable: true
-                                  reference:
-                                    type: string
-                                    nullable: true
-                                  reconciled:
-                                    type: boolean
-                                  amount:
-                                    type: number
-                                  balance:
-                                    type: number
-                                  transactionType:
-                                    title: TransactionType
-                                    enum:
-                                      - Unknown
-                                      - Credit
-                                      - Debit
-                                      - Int
-                                      - Div
-                                      - Fee
-                                      - SerChg
-                                      - Dep
-                                      - Atm
-                                      - Pos
-                                      - Xfer
-                                      - Check
-                                      - Payment
-                                      - Cash
-                                      - DirectDep
-                                      - DirectDebit
-                                      - RepeatPmt
-                                      - Other
-                                    type: string
-                                    description: Type of transaction for the bank statement line
-                                  modifiedDate:
-                                    title: ModifiedDate
-                                    x-internal: true
-                                    type: object
-                                    properties:
-                                      modifiedDate:
-                                        description: The date on which this record was last modified in Codat.
-                                        title: Date Time
-                                        type: string
-                                        example: '2022-10-23T00:00:00Z'
-                                  sourceModifiedDate:
-                                    title: Source Modified Date
-                                    x-internal: true
-                                    type: object
-                                    properties:
-                                      sourceModifiedDate:
-                                        description: The date on which this record was last modified in the originating system
-                                        title: Date Time
-                                        type: string
-                                        example: '2022-10-23T00:00:00Z'
-                              nullable: true
-                            contractVersion:
-                              type: string
-                              nullable: true
-                          description: |-
-                            > **Accessing Bank Accounts through Banking API**
-                            > 
-                            > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
-                            >
-                            > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)
-
-                            > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
-
-                            ## Overview
-
-                            Transactional banking data for a specific company and account.
-
-                            Bank transactions include the:
-                            * Amount of the transaction.
-                            * Current account balance.
-                            * Transaction type, for example, credit, debit, or transfer.
-                  - type: object
-                    x-internal: true
-                    properties:
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
-                      _links:
-                        type: object
-                        x-internal: true
-                        required:
-                          - self
-                          - current
-                        properties:
-                          self:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          current:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          next:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          previous:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                        examples:
-                          - self:
-                              href: '/companies/{id}/data/{dataType}'
-                            current:
-                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    required:
-                      - pageNumber
-                      - pageSize
-                      - totalResults
-                      - _links
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                $ref: '#/components/schemas/BankTransactionsResponse'
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
     get:
-      x-stoplight:
-        id: z3w4v8rzz9wqi
       tags:
         - Bank account transactions
       summary: List push options for bank account bank transactions
@@ -869,625 +121,17 @@ paths:
       operationId: get-bank-account-push-options
       x-extension-1: null
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
-        - name: accountId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for an account
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            example: 1
-            default: 1
-          description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: 1318joqblpp4e
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-            default: 100
-            example: 100
-            minimum: 1
-            maximum: 5000
-          description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
-          x-stoplight:
-            id: s2ika6rltk5y6
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
-          x-stoplight:
-            id: gupdb9kt30hfq
-        - name: orderBy
-          in: query
-          required: false
-          schema:
-            type: string
-            example: '-modifiedDate'
-          description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-          x-stoplight:
-            id: 4je9lwo02netu
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+        - $ref: '#/components/parameters/accountId'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                title: Push Option
-                x-internal: true
-                required:
-                  - displayName
-                  - required
-                  - type
-                type: object
-                properties:
-                  type:
-                    title: OptionType
-                    x-internal: true
-                    enum:
-                      - Array
-                      - Object
-                      - String
-                      - Number
-                      - Boolean
-                      - DateTime
-                      - File
-                      - MultiPart
-                    type: string
-                  displayName:
-                    minLength: 1
-                    type: string
-                  description:
-                    type: string
-                  properties:
-                    type: object
-                    additionalProperties:
-                      title: Push Option Property
-                      x-internal: true
-                      required:
-                        - description
-                        - displayName
-                        - required
-                        - type
-                      type: object
-                      properties:
-                        type:
-                          title: OptionType
-                          x-internal: true
-                          enum:
-                            - Array
-                            - Object
-                            - String
-                            - Number
-                            - Boolean
-                            - DateTime
-                            - File
-                            - MultiPart
-                          type: string
-                        displayName:
-                          minLength: 1
-                          type: string
-                        description:
-                          minLength: 1
-                          type: string
-                        properties:
-                          type: object
-                          additionalProperties:
-                            title: Push Option Property
-                            required:
-                              - description
-                              - displayName
-                              - required
-                              - type
-                            type: object
-                            properties:
-                              type:
-                                title: OptionType
-                                x-internal: true
-                                enum:
-                                  - Array
-                                  - Object
-                                  - String
-                                  - Number
-                                  - Boolean
-                                  - DateTime
-                                  - File
-                                  - MultiPart
-                                type: string
-                              displayName:
-                                minLength: 1
-                                type: string
-                              description:
-                                minLength: 1
-                                type: string
-                              properties:
-                                type: object
-                                additionalProperties:
-                                  title: Push Option Property
-                                  required:
-                                    - description
-                                    - displayName
-                                    - required
-                                    - type
-                                  type: object
-                                  properties:
-                                    type:
-                                      title: OptionType
-                                      x-internal: true
-                                      enum:
-                                        - Array
-                                        - Object
-                                        - String
-                                        - Number
-                                        - Boolean
-                                        - DateTime
-                                        - File
-                                        - MultiPart
-                                      type: string
-                                    displayName:
-                                      minLength: 1
-                                      type: string
-                                    description:
-                                      minLength: 1
-                                      type: string
-                                    properties:
-                                      type: object
-                                      additionalProperties:
-                                        title: Push Option Property
-                                        required:
-                                          - description
-                                          - displayName
-                                          - required
-                                          - type
-                                        type: object
-                                        properties:
-                                          type:
-                                            title: OptionType
-                                            x-internal: true
-                                            enum:
-                                              - Array
-                                              - Object
-                                              - String
-                                              - Number
-                                              - Boolean
-                                              - DateTime
-                                              - File
-                                              - MultiPart
-                                            type: string
-                                          displayName:
-                                            minLength: 1
-                                            type: string
-                                          description:
-                                            minLength: 1
-                                            type: string
-                                          options:
-                                            type: array
-                                            items:
-                                              title: Push Option Choice
-                                              x-internal: true
-                                              type: object
-                                              properties:
-                                                value:
-                                                  type: string
-                                                  minLength: 1
-                                                  description: Allowed value for field.
-                                                type:
-                                                  title: OptionType
-                                                  x-internal: true
-                                                  enum:
-                                                    - Array
-                                                    - Object
-                                                    - String
-                                                    - Number
-                                                    - Boolean
-                                                    - DateTime
-                                                    - File
-                                                    - MultiPart
-                                                  type: string
-                                                displayName:
-                                                  type: string
-                                                description:
-                                                  type: string
-                                                required:
-                                                  type: boolean
-                                            nullable: true
-                                          required:
-                                            type: boolean
-                                          validation:
-                                            title: PushValidationInfo
-                                            x-internal: true
-                                            type: object
-                                            properties:
-                                              warnings:
-                                                type: array
-                                                items:
-                                                  title: PushFieldValidation
-                                                  x-internal: true
-                                                  required:
-                                                    - details
-                                                  type: object
-                                                  properties:
-                                                    field:
-                                                      type: string
-                                                    details:
-                                                      minLength: 1
-                                                      type: string
-                                                    ref:
-                                                      type: string
-                                                      format: uri
-                                                      nullable: true
-                                                  additionalProperties: false
-                                                nullable: true
-                                              information:
-                                                type: array
-                                                items:
-                                                  title: PushFieldValidation
-                                                  x-internal: true
-                                                  required:
-                                                    - details
-                                                  type: object
-                                                  properties:
-                                                    field:
-                                                      type: string
-                                                    details:
-                                                      minLength: 1
-                                                      type: string
-                                                    ref:
-                                                      type: string
-                                                      format: uri
-                                                      nullable: true
-                                                  additionalProperties: false
-                                                nullable: true
-                                            additionalProperties: false
-                                      nullable: true
-                                    options:
-                                      type: array
-                                      items:
-                                        title: Push Option Choice
-                                        x-internal: true
-                                        type: object
-                                        properties:
-                                          value:
-                                            type: string
-                                            minLength: 1
-                                            description: Allowed value for field.
-                                          type:
-                                            title: OptionType
-                                            x-internal: true
-                                            enum:
-                                              - Array
-                                              - Object
-                                              - String
-                                              - Number
-                                              - Boolean
-                                              - DateTime
-                                              - File
-                                              - MultiPart
-                                            type: string
-                                          displayName:
-                                            type: string
-                                          description:
-                                            type: string
-                                          required:
-                                            type: boolean
-                                      nullable: true
-                                    required:
-                                      type: boolean
-                                    validation:
-                                      title: PushValidationInfo
-                                      x-internal: true
-                                      type: object
-                                      properties:
-                                        warnings:
-                                          type: array
-                                          items:
-                                            title: PushFieldValidation
-                                            x-internal: true
-                                            required:
-                                              - details
-                                            type: object
-                                            properties:
-                                              field:
-                                                type: string
-                                              details:
-                                                minLength: 1
-                                                type: string
-                                              ref:
-                                                type: string
-                                                format: uri
-                                                nullable: true
-                                            additionalProperties: false
-                                          nullable: true
-                                        information:
-                                          type: array
-                                          items:
-                                            title: PushFieldValidation
-                                            x-internal: true
-                                            required:
-                                              - details
-                                            type: object
-                                            properties:
-                                              field:
-                                                type: string
-                                              details:
-                                                minLength: 1
-                                                type: string
-                                              ref:
-                                                type: string
-                                                format: uri
-                                                nullable: true
-                                            additionalProperties: false
-                                          nullable: true
-                                      additionalProperties: false
-                                nullable: true
-                              options:
-                                type: array
-                                items:
-                                  title: Push Option Choice
-                                  x-internal: true
-                                  type: object
-                                  properties:
-                                    value:
-                                      type: string
-                                      minLength: 1
-                                      description: Allowed value for field.
-                                    type:
-                                      title: OptionType
-                                      x-internal: true
-                                      enum:
-                                        - Array
-                                        - Object
-                                        - String
-                                        - Number
-                                        - Boolean
-                                        - DateTime
-                                        - File
-                                        - MultiPart
-                                      type: string
-                                    displayName:
-                                      type: string
-                                    description:
-                                      type: string
-                                    required:
-                                      type: boolean
-                                nullable: true
-                              required:
-                                type: boolean
-                              validation:
-                                title: PushValidationInfo
-                                x-internal: true
-                                type: object
-                                properties:
-                                  warnings:
-                                    type: array
-                                    items:
-                                      title: PushFieldValidation
-                                      x-internal: true
-                                      required:
-                                        - details
-                                      type: object
-                                      properties:
-                                        field:
-                                          type: string
-                                        details:
-                                          minLength: 1
-                                          type: string
-                                        ref:
-                                          type: string
-                                          format: uri
-                                          nullable: true
-                                      additionalProperties: false
-                                    nullable: true
-                                  information:
-                                    type: array
-                                    items:
-                                      title: PushFieldValidation
-                                      x-internal: true
-                                      required:
-                                        - details
-                                      type: object
-                                      properties:
-                                        field:
-                                          type: string
-                                        details:
-                                          minLength: 1
-                                          type: string
-                                        ref:
-                                          type: string
-                                          format: uri
-                                          nullable: true
-                                      additionalProperties: false
-                                    nullable: true
-                                additionalProperties: false
-                          nullable: true
-                        options:
-                          type: array
-                          items:
-                            title: Push Option Choice
-                            x-internal: true
-                            type: object
-                            properties:
-                              value:
-                                type: string
-                                minLength: 1
-                                description: Allowed value for field.
-                              type:
-                                title: OptionType
-                                x-internal: true
-                                enum:
-                                  - Array
-                                  - Object
-                                  - String
-                                  - Number
-                                  - Boolean
-                                  - DateTime
-                                  - File
-                                  - MultiPart
-                                type: string
-                              displayName:
-                                type: string
-                              description:
-                                type: string
-                              required:
-                                type: boolean
-                          nullable: true
-                        required:
-                          type: boolean
-                        validation:
-                          title: PushValidationInfo
-                          x-internal: true
-                          type: object
-                          properties:
-                            warnings:
-                              type: array
-                              items:
-                                title: PushFieldValidation
-                                x-internal: true
-                                required:
-                                  - details
-                                type: object
-                                properties:
-                                  field:
-                                    type: string
-                                  details:
-                                    minLength: 1
-                                    type: string
-                                  ref:
-                                    type: string
-                                    format: uri
-                                    nullable: true
-                                additionalProperties: false
-                              nullable: true
-                            information:
-                              type: array
-                              items:
-                                title: PushFieldValidation
-                                x-internal: true
-                                required:
-                                  - details
-                                type: object
-                                properties:
-                                  field:
-                                    type: string
-                                  details:
-                                    minLength: 1
-                                    type: string
-                                  ref:
-                                    type: string
-                                    format: uri
-                                    nullable: true
-                                additionalProperties: false
-                              nullable: true
-                          additionalProperties: false
-                    nullable: true
-                  required:
-                    type: boolean
-                  options:
-                    type: array
-                    items:
-                      title: Push Option Choice
-                      x-internal: true
-                      type: object
-                      properties:
-                        value:
-                          type: string
-                          minLength: 1
-                          description: Allowed value for field.
-                        type:
-                          title: OptionType
-                          x-internal: true
-                          enum:
-                            - Array
-                            - Object
-                            - String
-                            - Number
-                            - Boolean
-                            - DateTime
-                            - File
-                            - MultiPart
-                          type: string
-                        displayName:
-                          type: string
-                        description:
-                          type: string
-                        required:
-                          type: boolean
-                    nullable: true
-                  validation:
-                    nullable: true
-                    title: PushValidationInfo
-                    x-internal: true
-                    type: object
-                    properties:
-                      warnings:
-                        type: array
-                        items:
-                          title: PushFieldValidation
-                          x-internal: true
-                          required:
-                            - details
-                          type: object
-                          properties:
-                            field:
-                              type: string
-                            details:
-                              minLength: 1
-                              type: string
-                            ref:
-                              type: string
-                              format: uri
-                              nullable: true
-                          additionalProperties: false
-                        nullable: true
-                      information:
-                        type: array
-                        items:
-                          title: PushFieldValidation
-                          x-internal: true
-                          required:
-                            - details
-                          type: object
-                          properties:
-                            field:
-                              type: string
-                            details:
-                              minLength: 1
-                              type: string
-                            ref:
-                              type: string
-                              format: uri
-                              nullable: true
-                          additionalProperties: false
-                        nullable: true
-                    additionalProperties: false
-  '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}}/bankTransactions':
+                $ref: '#/components/schemas/PushOption'
+  '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions':
     post:
       tags:
         - Bank account transactions
@@ -1500,30 +144,9 @@ paths:
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
       operationId: post-bank-transactions
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: connectionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            description: Unique identifier for a company's data connection.
-        - name: accountId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for an account
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+        - $ref: '#/components/parameters/accountId'
         - x-stoplight:
             id: kc8ehjqr6p02q
           name: allowSyncOnPushComplete
@@ -1542,444 +165,24 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                accountId:
-                  type: string
-                  nullable: true
-                transactions:
-                  type: array
-                  items:
-                    required:
-                      - amount
-                      - balance
-                      - date
-                      - reconciled
-                      - transactionType
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      date:
-                        title: Date Time
-                        type: string
-                        example: '2022-10-23T00:00:00Z'
-                        description: |-
-                          In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                          ```
-                          2020-10-08T22:40:50Z
-                          2021-01-01T00:00:00
-                          ```
-
-
-
-                          When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                          - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                          - Unqualified local time: `2021-11-15T01:00:00`
-                          - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                          > Time zones
-                          > 
-                          > Not all dates from Codat will contain information about time zones.  
-                          > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                      description:
-                        type: string
-                        nullable: true
-                      counterparty:
-                        type: string
-                        nullable: true
-                      reference:
-                        type: string
-                        nullable: true
-                      reconciled:
-                        type: boolean
-                      amount:
-                        type: number
-                      balance:
-                        type: number
-                      transactionType:
-                        title: TransactionType
-                        enum:
-                          - Unknown
-                          - Credit
-                          - Debit
-                          - Int
-                          - Div
-                          - Fee
-                          - SerChg
-                          - Dep
-                          - Atm
-                          - Pos
-                          - Xfer
-                          - Check
-                          - Payment
-                          - Cash
-                          - DirectDep
-                          - DirectDebit
-                          - RepeatPmt
-                          - Other
-                        type: string
-                        description: Type of transaction for the bank statement line
-                      modifiedDate:
-                        title: ModifiedDate
-                        x-internal: true
-                        type: object
-                        properties:
-                          modifiedDate:
-                            description: The date on which this record was last modified in Codat.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                      sourceModifiedDate:
-                        title: Source Modified Date
-                        x-internal: true
-                        type: object
-                        properties:
-                          sourceModifiedDate:
-                            description: The date on which this record was last modified in the originating system
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                  nullable: true
-                contractVersion:
-                  type: string
-                  nullable: true
-              description: |-
-                > **Accessing Bank Accounts through Banking API**
-                > 
-                > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
-                >
-                > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)
-
-                > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
-
-                ## Overview
-
-                Transactional banking data for a specific company and account.
-
-                Bank transactions include the:
-                * Amount of the transaction.
-                * Current account balance.
-                * Transaction type, for example, credit, debit, or transfer.
+              $ref: '#/components/schemas/BankTransactions'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        type: object
-                        properties:
-                          accountId:
-                            type: string
-                            nullable: true
-                          transactions:
-                            type: array
-                            items:
-                              required:
-                                - amount
-                                - balance
-                                - date
-                                - reconciled
-                                - transactionType
-                              type: object
-                              properties:
-                                id:
-                                  type: string
-                                date:
-                                  title: Date Time
-                                  type: string
-                                  example: '2022-10-23T00:00:00Z'
-                                  description: |-
-                                    In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                                    ```
-                                    2020-10-08T22:40:50Z
-                                    2021-01-01T00:00:00
-                                    ```
-
-
-
-                                    When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                                    - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                                    - Unqualified local time: `2021-11-15T01:00:00`
-                                    - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                                    > Time zones
-                                    > 
-                                    > Not all dates from Codat will contain information about time zones.  
-                                    > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                                description:
-                                  type: string
-                                  nullable: true
-                                counterparty:
-                                  type: string
-                                  nullable: true
-                                reference:
-                                  type: string
-                                  nullable: true
-                                reconciled:
-                                  type: boolean
-                                amount:
-                                  type: number
-                                balance:
-                                  type: number
-                                transactionType:
-                                  title: TransactionType
-                                  enum:
-                                    - Unknown
-                                    - Credit
-                                    - Debit
-                                    - Int
-                                    - Div
-                                    - Fee
-                                    - SerChg
-                                    - Dep
-                                    - Atm
-                                    - Pos
-                                    - Xfer
-                                    - Check
-                                    - Payment
-                                    - Cash
-                                    - DirectDep
-                                    - DirectDebit
-                                    - RepeatPmt
-                                    - Other
-                                  type: string
-                                  description: Type of transaction for the bank statement line
-                                modifiedDate:
-                                  title: ModifiedDate
-                                  x-internal: true
-                                  type: object
-                                  properties:
-                                    modifiedDate:
-                                      description: The date on which this record was last modified in Codat.
-                                      title: Date Time
-                                      type: string
-                                      example: '2022-10-23T00:00:00Z'
-                                sourceModifiedDate:
-                                  title: Source Modified Date
-                                  x-internal: true
-                                  type: object
-                                  properties:
-                                    sourceModifiedDate:
-                                      description: The date on which this record was last modified in the originating system
-                                      title: Date Time
-                                      type: string
-                                      example: '2022-10-23T00:00:00Z'
-                            nullable: true
-                          contractVersion:
-                            type: string
-                            nullable: true
-                        description: |-
-                          > **Accessing Bank Accounts through Banking API**
-                          > 
-                          > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
-                          >
-                          > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)
-
-                          > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
-
-                          ## Overview
-
-                          Transactional banking data for a specific company and account.
-
-                          Bank transactions include the:
-                          * Amount of the transaction.
-                          * Current account balance.
-                          * Transaction type, for example, credit, debit, or transfer.
-                  - type: object
-                    x-internal: true
-                    properties:
-                      changes:
-                        type: array
-                        nullable: true
-                        items:
-                          type: object
-                          properties:
-                            type:
-                              type: string
-                              enum:
-                                - Unknown
-                                - Created
-                                - Modified
-                                - Deleted
-                                - AttachmentUploaded
-                            recordRef:
-                              title: PushOperationRecordRef
-                              x-internal: true
-                              type: object
-                              properties:
-                                id:
-                                  type: string
-                                dataType:
-                                  type: string
-                                  nullable: true
-                              additionalProperties: false
-                            attachmentId:
-                              type: string
-                              nullable: true
-                      dataType:
-                        nullable: true
-                        description: 'The type of data being pushed, eg invoices, customers.'
-                        type: string
-                        enum:
-                          - accountTransactions
-                          - balanceSheet
-                          - bankAccounts
-                          - bankTransactions
-                          - billCreditNotes
-                          - billPayments
-                          - bills
-                          - cashFlowStatement
-                          - chartOfAccounts
-                          - company
-                          - creditNotes
-                          - customers
-                          - directCosts
-                          - directIncomes
-                          - invoices
-                          - items
-                          - journalEntries
-                          - journals
-                          - paymentMethods
-                          - payments
-                          - profitAndLoss
-                          - purchaseOrders
-                          - salesOrders
-                          - suppliers
-                          - taxRates
-                          - trackingCategories
-                          - transfers
-                          - banking-accountBalances
-                          - banking-accounts
-                          - banking-transactionCategories
-                          - banking-transactions
-                          - commerce-companyInfo
-                          - commerce-customers
-                          - commerce-disputes
-                          - commerce-locations
-                          - commerce-orders
-                          - commerce-paymentMethods
-                          - commerce-payments
-                          - commerce-productCategories
-                          - commerce-products
-                          - commerce-taxComponents
-                          - commerce-transactions
-                        example: invoices
-                      companyId:
-                        type: string
-                        format: uuid
-                        example: 8a210b68-6988-11ed-a1eb-0242ac120002
-                        description: Unique identifier for your SMB in Codat.
-                      pushOperationKey:
-                        type: string
-                        format: uuid
-                        description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
-                      dataConnectionKey:
-                        type: string
-                        format: uuid
-                        example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-                        description: Unique identifier for a company's data connection.
-                      requestedOnUtc:
-                        description: The datetime when the push was requested.
-                        title: Date Time
-                        type: string
-                        example: '2022-10-23T00:00:00Z'
-                      completedOnUtc:
-                        description: 'The datetime when the push was completed, null if Pending.'
-                        title: Date Time
-                        type: string
-                        example: '2022-10-23T00:00:00Z'
-                      timeoutInMinutes:
-                        type: integer
-                        format: int32
-                        nullable: true
-                      timeoutInSeconds:
-                        type: integer
-                        format: int32
-                        nullable: true
-                        deprecated: true
-                      status:
-                        minLength: 1
-                        type: string
-                        enum:
-                          - Pending
-                          - Failed
-                          - Success
-                          - TimedOut
-                        description: The status of the push operation.
-                      errorMessage:
-                        type: string
-                        nullable: true
-                      validation:
-                        type: object
-                        description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
-                        properties:
-                          errors:
-                            type: array
-                            nullable: true
-                            items:
-                              title: ValidationItem
-                              x-internal: true
-                              type: object
-                              properties:
-                                itemId:
-                                  type: string
-                                  nullable: true
-                                message:
-                                  type: string
-                                  nullable: true
-                                validatorName:
-                                  type: string
-                                  nullable: true
-                              additionalProperties: false
-                          warnings:
-                            type: array
-                            nullable: true
-                            items:
-                              title: ValidationItem
-                              x-internal: true
-                              type: object
-                              properties:
-                                itemId:
-                                  type: string
-                                  nullable: true
-                                message:
-                                  type: string
-                                  nullable: true
-                                validatorName:
-                                  type: string
-                                  nullable: true
-                              additionalProperties: false
-                      statusCode:
-                        type: integer
-                        format: int32
-                    required:
-                      - companyId
-                      - pushOperationKey
-                      - dataConnectionKey
-                      - requestedOnUtc
-                      - status
-                      - statusCode
+                $ref: '#/components/schemas/CreateBankTransactionsResponse'
 components:
   schemas:
-    BankFeedBankAccount:
-      title: BankFeedBankAccount
-      x-stoplight:
-        id: bi83u58u7g3vr
+    BankFeedAccount:
+      title: Bank Feed Account
       type: object
       additionalProperties: false
       properties:
         id:
           type: string
-          description: Unique ID for the BankFeedBankAccount
+          description: Unique ID for the bank feed account
         accountName:
           type: string
           nullable: true
@@ -2005,39 +208,15 @@ components:
           nullable: true
           description: The latest balance for the bank account
         modifiedDate:
+          $ref: '#/components/schemas/DateTime'
           nullable: true
           description: The last date the bank account was modified
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
         status:
           type: string
           nullable: true
         feedStartDate:
+          $ref: '#/components/schemas/DateTime'
           nullable: true
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
-          description: |-
-            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-            ```
-            2020-10-08T22:40:50Z
-            2021-01-01T00:00:00
-            ```
-
-
-
-            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-            - Unqualified local time: `2021-11-15T01:00:00`
-            - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-            > Time zones
-            > 
-            > Not all dates from Codat will contain information about time zones.  
-            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
       required:
         - id
       description: The target bank account in a supported accounting package for ingestion into a bank feed.
@@ -2060,6 +239,11 @@ components:
           balance: 0
           modifiedDate: '2023-01-09T14:14:14.1057478Z'
           status: pending
+    BankFeedAccounts:
+      x-internal: true
+      type: array
+      items:
+        $ref: '#/components/schemas/BankFeedAccount'
     BankTransactions:
       type: object
       properties:
@@ -2076,94 +260,67 @@ components:
               - reconciled
               - transactionType
             type: object
-            properties:
-              id:
-                type: string
-              date:
-                title: Date Time
-                type: string
-                example: '2022-10-23T00:00:00Z'
-                description: |-
-                  In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                  ```
-                  2020-10-08T22:40:50Z
-                  2021-01-01T00:00:00
-                  ```
-
-
-
-                  When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                  - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                  - Unqualified local time: `2021-11-15T01:00:00`
-                  - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                  > Time zones
-                  > 
-                  > Not all dates from Codat will contain information about time zones.  
-                  > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-              description:
-                type: string
-                nullable: true
-              counterparty:
-                type: string
-                nullable: true
-              reference:
-                type: string
-                nullable: true
-              reconciled:
-                type: boolean
-              amount:
-                type: number
-              balance:
-                type: number
-              transactionType:
-                title: TransactionType
-                enum:
-                  - Unknown
-                  - Credit
-                  - Debit
-                  - Int
-                  - Div
-                  - Fee
-                  - SerChg
-                  - Dep
-                  - Atm
-                  - Pos
-                  - Xfer
-                  - Check
-                  - Payment
-                  - Cash
-                  - DirectDep
-                  - DirectDebit
-                  - RepeatPmt
-                  - Other
-                type: string
-                description: Type of transaction for the bank statement line
-              modifiedDate:
-                title: ModifiedDate
-                x-internal: true
-                type: object
+            allOf:
+              - type: object
                 properties:
-                  modifiedDate:
-                    description: The date on which this record was last modified in Codat.
-                    title: Date Time
+                  id:
                     type: string
-                    example: '2022-10-23T00:00:00Z'
-              sourceModifiedDate:
-                title: Source Modified Date
-                x-internal: true
-                type: object
-                properties:
-                  sourceModifiedDate:
-                    description: The date on which this record was last modified in the originating system
-                    title: Date Time
+                  date:
+                    $ref: '#/components/schemas/DateTime'
+                  description:
                     type: string
-                    example: '2022-10-23T00:00:00Z'
-          nullable: true
-        contractVersion:
-          type: string
+                    nullable: true
+                  counterparty:
+                    type: string
+                    nullable: true
+                  reference:
+                    type: string
+                    nullable: true
+                  reconciled:
+                    type: boolean
+                  amount:
+                    type: number
+                  balance:
+                    type: number
+                  transactionType:
+                    title: TransactionType
+                    enum:
+                      - Unknown
+                      - Credit
+                      - Debit
+                      - Int
+                      - Div
+                      - Fee
+                      - SerChg
+                      - Dep
+                      - Atm
+                      - Pos
+                      - Xfer
+                      - Check
+                      - Payment
+                      - Cash
+                      - DirectDep
+                      - DirectDebit
+                      - RepeatPmt
+                      - Other
+                    type: string
+                    description: Type of transaction for the bank statement line
+              - x-internal: true
+                allOf:
+                  - title: ModifiedDate
+                    x-internal: true
+                    type: object
+                    properties:
+                      modifiedDate:
+                        $ref: '#/components/schemas/DateTime'
+                        description: The date on which this record was last modified in Codat.
+                  - title: Source Modified Date
+                    x-internal: true
+                    type: object
+                    properties:
+                      sourceModifiedDate:
+                        $ref: '#/components/schemas/DateTime'
+                        description: The date on which this record was last modified in the originating system
           nullable: true
       description: |-
         > **Accessing Bank Accounts through Banking API**
@@ -2182,6 +339,460 @@ components:
         * Amount of the transaction.
         * Current account balance.
         * Transaction type, for example, credit, debit, or transfer.
+    BankTransactionsResponse:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/BankTransactions'
+        - type: object
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              $ref: '#/components/schemas/Links'
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    CreateBankTransactionsResponse:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BankTransactions'
+        - $ref: '#/components/schemas/PushOperation'
+    PushOption:
+      title: Push Option
+      x-internal: true
+      required:
+        - displayName
+        - required
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
+        displayName:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
+          nullable: true
+        required:
+          type: boolean
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
+          nullable: true
+      definitions:
+        pushOptionProperty:
+          title: Push Option Property
+          required:
+            - description
+            - displayName
+            - required
+            - type
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
+            displayName:
+              minLength: 1
+              type: string
+            description:
+              minLength: 1
+              type: string
+            properties:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
+              nullable: true
+            options:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
+              nullable: true
+            required:
+              type: boolean
+            validation:
+              $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
+        pushValidationInfo:
+          title: Push validation info
+          type: object
+          properties:
+            warnings:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushFieldValidation'
+              nullable: true
+            information:
+              type: array
+              items:
+                $ref: '#/components/schemas/PushOption/definitions/pushFieldValidation'
+              nullable: true
+          additionalProperties: false
+        pushFieldValidation:
+          title: Push field validation
+          required:
+            - details
+          type: object
+          properties:
+            field:
+              type: string
+            details:
+              minLength: 1
+              type: string
+            ref:
+              type: string
+              format: uri
+              nullable: true
+          additionalProperties: false
+        pushOptionType:
+          title: Option Type
+          enum:
+            - Array
+            - Object
+            - String
+            - Number
+            - Boolean
+            - DateTime
+            - File
+            - MultiPart
+          type: string
+        pushOptionChoice:
+          title: Push Option Choice
+          type: object
+          properties:
+            value:
+              type: string
+              minLength: 1
+              description: Allowed value for field.
+            type:
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
+            displayName:
+              type: string
+            description:
+              type: string
+            required:
+              type: boolean
+    PushOperation:
+      type: object
+      x-internal: true
+      properties:
+        changes:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
+        dataType:
+          $ref: '#/components/schemas/DataType'
+          nullable: true
+          description: 'The type of data being pushed, eg invoices, customers.'
+        companyId:
+          $ref: '#/components/parameters/companyId/schema'
+        pushOperationKey:
+          type: string
+          format: uuid
+          description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
+        dataConnectionKey:
+          $ref: '#/components/parameters/connectionId/schema'
+        requestedOnUtc:
+          $ref: '#/components/schemas/DateTime'
+          description: The datetime when the push was requested.
+        completedOnUtc:
+          $ref: '#/components/schemas/DateTime'
+          description: 'The datetime when the push was completed, null if Pending.'
+        timeoutInMinutes:
+          type: integer
+          format: int32
+          nullable: true
+        timeoutInSeconds:
+          type: integer
+          format: int32
+          nullable: true
+          deprecated: true
+        status:
+          $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
+        errorMessage:
+          type: string
+          nullable: true
+        validation:
+          type: object
+          description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
+          properties:
+            errors:
+              type: array
+              nullable: true
+              items:
+                $ref: '#/components/schemas/PushOperation/definitions/validationItem'
+            warnings:
+              type: array
+              nullable: true
+              items:
+                $ref: '#/components/schemas/PushOperation/definitions/validationItem'
+        statusCode:
+          type: integer
+      required:
+        - companyId
+        - pushOperationKey
+        - dataConnectionKey
+        - requestedOnUtc
+        - status
+        - statusCode
+      definitions:
+        validationItem:
+          title: Validation item
+          type: object
+          properties:
+            itemId:
+              type: string
+              nullable: true
+            message:
+              type: string
+              nullable: true
+            validatorName:
+              type: string
+              nullable: true
+          additionalProperties: false
+        pushChangeType:
+          title: Push change type
+          type: string
+          enum:
+            - Unknown
+            - Created
+            - Modified
+            - Deleted
+            - AttachmentUploaded
+        pushOperationRef:
+          title: Push operation reference
+          x-internal: true
+          type: object
+          properties:
+            id:
+              type: string
+            dataType:
+              $ref: '#/components/schemas/DataType'
+              nullable: true
+          additionalProperties: false
+        pushOperationStatus:
+          title: Push operation status
+          type: string
+          enum:
+            - Pending
+            - Failed
+            - Success
+            - TimedOut
+          description: The status of the push operation.
+        pushOperationChange:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/PushOperation/definitions/pushChangeType'
+            recordRef:
+              $ref: '#/components/schemas/PushOperation/definitions/pushOperationRef'
+            attachmentId:
+              type: string
+              nullable: true
+    DateTime:
+      title: Date Time
+      type: string
+      example: '2022-10-23T00:00:00Z'
+      description: |-
+        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+        ```
+        2020-10-08T22:40:50Z
+        2021-01-01T00:00:00
+        ```
+
+
+
+        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+        - Unqualified local time: `2021-11-15T01:00:00`
+        - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+        > Time zones
+        > 
+        > Not all dates from Codat will contain information about time zones.  
+        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+    Links:
+      type: object
+      x-internal: true
+      required:
+        - self
+        - current
+      properties:
+        self:
+          $ref: '#/components/schemas/HRef'
+        current:
+          $ref: '#/components/schemas/HRef'
+        next:
+          $ref: '#/components/schemas/HRef'
+        previous:
+          $ref: '#/components/schemas/HRef'
+      examples:
+        - self:
+            href: '/companies/{id}/data/{dataType}'
+          current:
+            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+    HRef:
+      title: Hypertext reference
+      type: object
+      x-internal: true
+      properties:
+        href:
+          type: string
+          format: uri-reference
+    DataType:
+      type: string
+      description: Available Data types
+      enum:
+        - accountTransactions
+        - balanceSheet
+        - bankAccounts
+        - bankTransactions
+        - billCreditNotes
+        - billPayments
+        - bills
+        - cashFlowStatement
+        - chartOfAccounts
+        - company
+        - creditNotes
+        - customers
+        - directCosts
+        - directIncomes
+        - invoices
+        - items
+        - journalEntries
+        - journals
+        - paymentMethods
+        - payments
+        - profitAndLoss
+        - purchaseOrders
+        - salesOrders
+        - suppliers
+        - taxRates
+        - trackingCategories
+        - transfers
+        - banking-accountBalances
+        - banking-accounts
+        - banking-transactionCategories
+        - banking-transactions
+        - commerce-companyInfo
+        - commerce-customers
+        - commerce-disputes
+        - commerce-locations
+        - commerce-orders
+        - commerce-paymentMethods
+        - commerce-payments
+        - commerce-productCategories
+        - commerce-products
+        - commerce-taxComponents
+        - commerce-transactions
+      example: invoices
+  parameters:
+    companyId:
+      name: companyId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 8a210b68-6988-11ed-a1eb-0242ac120002
+        description: Unique identifier for your SMB in Codat.
+    connectionId:
+      name: connectionId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
+        description: Unique identifier for a company's data connection.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 8a210b68-6988-11ed-a1eb-0242ac120002
+      description: Unique identifier for an account
+    page:
+      name: page
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        example: 1
+        default: 1
+      description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
+      x-stoplight:
+        id: 1318joqblpp4e
+    pageSize:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        format: int32
+        default: 100
+        example: 100
+        minimum: 1
+        maximum: 5000
+      description: 'Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).'
+      x-stoplight:
+        id: s2ika6rltk5y6
+    query:
+      name: query
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).'
+      x-stoplight:
+        id: gupdb9kt30hfq
+    orderBy:
+      name: orderBy
+      in: query
+      required: false
+      schema:
+        type: string
+        example: '-modifiedDate'
+      description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
+      x-stoplight:
+        id: 4je9lwo02netu
   securitySchemes:
     auth_header:
       name: Authorization
