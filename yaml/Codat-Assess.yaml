@@ -156,6 +156,7 @@ paths:
                           properties:
                             accountRef:
                               description: An object containing account reference data.
+                              title: Account reference
                               type: object
                               properties:
                                 id:
@@ -397,6 +398,7 @@ paths:
                   properties:
                     accountRef:
                       description: An object containing account reference data.
+                      title: Account reference
                       type: object
                       properties:
                         id:
@@ -560,6 +562,7 @@ paths:
                 properties:
                   accountRef:
                     description: An object containing account reference data.
+                    title: Account reference
                     type: object
                     properties:
                       id:
@@ -665,6 +668,7 @@ paths:
                 properties:
                   accountRef:
                     description: An object containing account reference data.
+                    title: Account reference
                     type: object
                     properties:
                       id:
@@ -8201,220 +8205,218 @@ paths:
                                     }
                                     ```
                                   type: object
-                                  properties:
-                                    id:
-                                      type: string
-                                      description: 'Identifier for the payment, unique to the company in the accounting platform.'
-                                    customerRef:
-                                      description: Customer the payment is recorded against in the accounting platform.
-                                      type: object
-                                      properties:
-                                        id:
-                                          minLength: 1
-                                          type: string
-                                          description: '`id` from the Customers data type'
-                                        companyName:
-                                          type: string
-                                          nullable: true
-                                          description: '`customerName` from the Customer data type'
-                                      required:
-                                        - id
-                                    accountRef:
-                                      description: Account the payment is recorded against in the accounting platform.
-                                      type: object
-                                      properties:
-                                        id:
-                                          type: string
-                                          description: '''id'' from the Accounts data type.'
-                                        name:
-                                          type: string
-                                          description: '''name'' from the Accounts data type.'
-                                    paymentMethodRef:
-                                      description: The Payment Method to which the payment is linked in the accounting platform.
-                                      type: object
-                                      properties:
-                                        id:
-                                          type: string
-                                          x-stoplight:
-                                            id: jyny3ci6k7qbr
-                                          description: '`id` from the Payment Methods data type'
-                                        name:
-                                          type: string
-                                          nullable: true
-                                          description: '`name` from the Payment Methods data type'
-                                    totalAmount:
-                                      type: number
-                                      description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
-                                    currency:
-                                      description: ISO currency code recorded for the payment in the accounting platform.
-                                      title: Currency
-                                      x-stoplight:
-                                        id: 8ljuulqyuc5l4
-                                      type: string
-                                      format: ISO4217
-                                      examples:
-                                        - GBP
-                                        - USD
-                                        - EUR
-                                    currencyRate:
-                                      title: CurrencyRate
-                                      x-stoplight:
-                                        id: l2tsi4qzx7tt3
-                                      type: number
-                                      nullable: true
-                                      description: |-
-                                        Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                                        Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                                        Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                                        For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                                        ## Examples with base currency of GBP
-
-                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                                        | :--------------- | :------------- | :------------ | :------------------------- |
-                                        | **USD**          | $20            | 0.781         | £15.62                     |
-                                        | **EUR**          | €20            | 0.885         | £17.70                     |
-                                        | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                                        ## Examples with base currency of USD
-
-                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                                        | :--------------- | :------------- | :------------ | :------------------------- |
-                                        | **GBP**          | £20            | 1.277         | $25.54                     |
-                                        | **EUR**          | €20            | 1.134         | $22.68                     |
-                                        | **RUB**          | ₽20            | 0.015         | $0.30                      |
-                                    date:
-                                      description: Date the payment was recorded in the accounting software.
-                                      title: Date Time
-                                      type: string
-                                      example: '2022-10-23T00:00:00Z'
-                                    note:
-                                      type: string
-                                      nullable: true
-                                      description: Any additional information associated with the payment.
-                                    lines:
-                                      type: array
-                                      nullable: true
-                                      description: An array of payment lines.
-                                      items:
-                                        title: Payment Line
-                                        type: object
-                                        properties:
-                                          amount:
-                                            type: number
-                                            description: "\t\nAmount in the payment currency."
-                                          links:
-                                            type: array
-                                            nullable: true
-                                            items:
-                                              title: Payment Line Link
-                                              type: object
-                                              additionalProperties: false
-                                              properties:
-                                                type:
-                                                  title: Payment Link Type
-                                                  enum:
-                                                    - Unknown
-                                                    - Unlinked
-                                                    - Invoice
-                                                    - CreditNote
-                                                    - Other
-                                                    - Refund
-                                                    - Payment
-                                                    - PaymentOnAccount
-                                                    - ManualJournal
-                                                    - Discount
-                                                  type: string
-                                                  description: |-
-                                                    Types of payment line links, either:  
-                                                    `Unknown`  
-                                                    `Unlinked` - Not used  
-                                                    `Invoice` - ID refers to the invoice  
-                                                    `CreditNote` - ID refers to the credit note  
-                                                    `Refund` - ID refers to the sibling payment  
-                                                    `Payment` - ID refers to the sibling payment  
-                                                    `PaymentOnAccount` - ID refers to the customer  
-                                                    `Other` - ID refers to the customer  
-                                                    `Manual Journal`  
-                                                    `Discount` - ID refers to the payment
-                                                id:
-                                                  type: string
-                                                  description: Unique identifier of the transaction represented by the link.
-                                                amount:
-                                                  type: number
-                                                  nullable: true
-                                                  description: |-
-                                                    Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
-                                                    A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
-                                                    A positive link amount _increases_ the outstanding amount on the accounts receivable account.
-                                                currencyRate:
-                                                  title: CurrencyRate
-                                                  x-stoplight:
-                                                    id: l2tsi4qzx7tt3
-                                                  type: number
-                                                  nullable: true
-                                                  description: |-
-                                                    Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                                                    Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                                                    Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                                                    For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                                                    ## Examples with base currency of GBP
-
-                                                    | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                                                    | :--------------- | :------------- | :------------ | :------------------------- |
-                                                    | **USD**          | $20            | 0.781         | £15.62                     |
-                                                    | **EUR**          | €20            | 0.885         | £17.70                     |
-                                                    | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                                                    ## Examples with base currency of USD
-
-                                                    | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                                                    | :--------------- | :------------- | :------------ | :------------------------- |
-                                                    | **GBP**          | £20            | 1.277         | $25.54                     |
-                                                    | **EUR**          | €20            | 1.134         | $22.68                     |
-                                                    | **RUB**          | ₽20            | 0.015         | $0.30                      |
-                                              required:
-                                                - type
-                                          allocatedOnDate:
-                                            description: The date the payment was allocated.
-                                            title: Date Time
-                                            type: string
-                                            example: '2022-10-23T00:00:00Z'
-                                        required:
-                                          - amount
-                                    reference:
-                                      type: string
-                                      nullable: true
-                                      description: Friendly reference for the payment.
-                                    metadata:
-                                      type: object
-                                      x-stoplight:
-                                        id: 91706c48a98b5
-                                      properties:
-                                        isDeleted:
-                                          type: boolean
-                                          description: Indicates whether the record has been deleted in the third-party system this record originated from.
-                                          nullable: true
-                                    supplementalData:
-                                      type: object
-                                      description: 'Reference to a configured dynamic key value pair that is unique to the accounting platform. This feature is in private beta, contact us if you would like to learn more.'
-                                      properties:
-                                        content:
-                                          type: object
-                                          additionalProperties:
-                                            type: object
-                                            additionalProperties: {}
-                                          nullable: true
-                                  required:
-                                    - date
                                   allOf:
+                                    - type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                          description: 'Identifier for the payment, unique to the company in the accounting platform.'
+                                        customerRef:
+                                          description: Customer the payment is recorded against in the accounting platform.
+                                          type: object
+                                          properties:
+                                            id:
+                                              minLength: 1
+                                              type: string
+                                              description: '`id` from the Customers data type'
+                                            companyName:
+                                              type: string
+                                              nullable: true
+                                              description: '`customerName` from the Customer data type'
+                                          required:
+                                            - id
+                                        accountRef:
+                                          description: Account the payment is recorded against in the accounting platform.
+                                          title: Account reference
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                              description: '''id'' from the Accounts data type.'
+                                            name:
+                                              type: string
+                                              description: '''name'' from the Accounts data type.'
+                                        paymentMethodRef:
+                                          description: The Payment Method to which the payment is linked in the accounting platform.
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                              description: '`id` from the Payment Methods data type'
+                                            name:
+                                              type: string
+                                              nullable: true
+                                              description: '`name` from the Payment Methods data type'
+                                        totalAmount:
+                                          type: number
+                                          description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
+                                        currency:
+                                          description: ISO currency code recorded for the payment in the accounting platform.
+                                          title: Currency
+                                          x-stoplight:
+                                            id: 8ljuulqyuc5l4
+                                          type: string
+                                          format: ISO4217
+                                          examples:
+                                            - GBP
+                                            - USD
+                                            - EUR
+                                        currencyRate:
+                                          title: CurrencyRate
+                                          x-stoplight:
+                                            id: l2tsi4qzx7tt3
+                                          type: number
+                                          nullable: true
+                                          description: |-
+                                            Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                            Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                            Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                            For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                            ## Examples with base currency of GBP
+
+                                            | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                            | :--------------- | :------------- | :------------ | :------------------------- |
+                                            | **USD**          | $20            | 0.781         | £15.62                     |
+                                            | **EUR**          | €20            | 0.885         | £17.70                     |
+                                            | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                            ## Examples with base currency of USD
+
+                                            | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                            | :--------------- | :------------- | :------------ | :------------------------- |
+                                            | **GBP**          | £20            | 1.277         | $25.54                     |
+                                            | **EUR**          | €20            | 1.134         | $22.68                     |
+                                            | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                        date:
+                                          description: Date the payment was recorded in the accounting software.
+                                          title: Date Time
+                                          type: string
+                                          example: '2022-10-23T00:00:00Z'
+                                        note:
+                                          type: string
+                                          nullable: true
+                                          description: Any additional information associated with the payment.
+                                        lines:
+                                          type: array
+                                          nullable: true
+                                          description: An array of payment lines.
+                                          items:
+                                            title: Payment Line
+                                            type: object
+                                            properties:
+                                              amount:
+                                                type: number
+                                                description: Amount in the payment currency.
+                                              links:
+                                                type: array
+                                                nullable: true
+                                                items:
+                                                  title: Payment Line Link
+                                                  type: object
+                                                  additionalProperties: false
+                                                  properties:
+                                                    type:
+                                                      title: Payment Link Type
+                                                      type: string
+                                                      enum:
+                                                        - Unknown
+                                                        - Unlinked
+                                                        - Invoice
+                                                        - CreditNote
+                                                        - Other
+                                                        - Refund
+                                                        - Payment
+                                                        - PaymentOnAccount
+                                                        - ManualJournal
+                                                        - Discount
+                                                      description: |-
+                                                        Types of payment line links, either:  
+                                                        `Unknown`  
+                                                        `Unlinked` - Not used  
+                                                        `Invoice` - ID refers to the invoice  
+                                                        `CreditNote` - ID refers to the credit note  
+                                                        `Refund` - ID refers to the sibling payment  
+                                                        `Payment` - ID refers to the sibling payment  
+                                                        `PaymentOnAccount` - ID refers to the customer  
+                                                        `Other` - ID refers to the customer  
+                                                        `Manual Journal`  
+                                                        `Discount` - ID refers to the payment
+                                                    id:
+                                                      type: string
+                                                      description: Unique identifier of the transaction represented by the link.
+                                                    amount:
+                                                      type: number
+                                                      nullable: true
+                                                      description: |-
+                                                        Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                                        A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                                        A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                                                    currencyRate:
+                                                      title: CurrencyRate
+                                                      x-stoplight:
+                                                        id: l2tsi4qzx7tt3
+                                                      type: number
+                                                      nullable: true
+                                                      description: |-
+                                                        Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                                        Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                                        Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                                        For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                                        ## Examples with base currency of GBP
+
+                                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                                        | :--------------- | :------------- | :------------ | :------------------------- |
+                                                        | **USD**          | $20            | 0.781         | £15.62                     |
+                                                        | **EUR**          | €20            | 0.885         | £17.70                     |
+                                                        | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                                        ## Examples with base currency of USD
+
+                                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                                        | :--------------- | :------------- | :------------ | :------------------------- |
+                                                        | **GBP**          | £20            | 1.277         | $25.54                     |
+                                                        | **EUR**          | €20            | 1.134         | $22.68                     |
+                                                        | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                                  required:
+                                                    - type
+                                              allocatedOnDate:
+                                                description: The date the payment was allocated.
+                                                title: Date Time
+                                                type: string
+                                                example: '2022-10-23T00:00:00Z'
+                                            required:
+                                              - amount
+                                        reference:
+                                          type: string
+                                          nullable: true
+                                          description: Friendly reference for the payment.
+                                        metadata:
+                                          type: object
+                                          x-stoplight:
+                                            id: 91706c48a98b5
+                                          properties:
+                                            isDeleted:
+                                              type: boolean
+                                              description: Indicates whether the record has been deleted in the third-party system this record originated from.
+                                              nullable: true
+                                        supplementalData:
+                                          type: object
+                                          description: 'Reference to a configured dynamic key value pair that is unique to the accounting platform. This feature is in private beta, contact us if you would like to learn more.'
+                                          properties:
+                                            content:
+                                              type: object
+                                              additionalProperties:
+                                                type: object
+                                                additionalProperties: {}
+                                              nullable: true
                                     - x-internal: true
                                       allOf:
                                         - title: ModifiedDate
@@ -8435,6 +8437,198 @@ paths:
                                               title: Date Time
                                               type: string
                                               example: '2022-10-23T00:00:00Z'
+                                  required:
+                                    - date
+                                  definitions:
+                                    paymentLine:
+                                      title: Payment Line
+                                      type: object
+                                      properties:
+                                        amount:
+                                          type: number
+                                          description: Amount in the payment currency.
+                                        links:
+                                          type: array
+                                          nullable: true
+                                          items:
+                                            title: Payment Line Link
+                                            type: object
+                                            additionalProperties: false
+                                            properties:
+                                              type:
+                                                title: Payment Link Type
+                                                type: string
+                                                enum:
+                                                  - Unknown
+                                                  - Unlinked
+                                                  - Invoice
+                                                  - CreditNote
+                                                  - Other
+                                                  - Refund
+                                                  - Payment
+                                                  - PaymentOnAccount
+                                                  - ManualJournal
+                                                  - Discount
+                                                description: |-
+                                                  Types of payment line links, either:  
+                                                  `Unknown`  
+                                                  `Unlinked` - Not used  
+                                                  `Invoice` - ID refers to the invoice  
+                                                  `CreditNote` - ID refers to the credit note  
+                                                  `Refund` - ID refers to the sibling payment  
+                                                  `Payment` - ID refers to the sibling payment  
+                                                  `PaymentOnAccount` - ID refers to the customer  
+                                                  `Other` - ID refers to the customer  
+                                                  `Manual Journal`  
+                                                  `Discount` - ID refers to the payment
+                                              id:
+                                                type: string
+                                                description: Unique identifier of the transaction represented by the link.
+                                              amount:
+                                                type: number
+                                                nullable: true
+                                                description: |-
+                                                  Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                                  A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                                  A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                                              currencyRate:
+                                                title: CurrencyRate
+                                                x-stoplight:
+                                                  id: l2tsi4qzx7tt3
+                                                type: number
+                                                nullable: true
+                                                description: |-
+                                                  Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                                  Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                                  Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                                  For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                                  ## Examples with base currency of GBP
+
+                                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                                  | **USD**          | $20            | 0.781         | £15.62                     |
+                                                  | **EUR**          | €20            | 0.885         | £17.70                     |
+                                                  | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                                  ## Examples with base currency of USD
+
+                                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                                  | **GBP**          | £20            | 1.277         | $25.54                     |
+                                                  | **EUR**          | €20            | 1.134         | $22.68                     |
+                                                  | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                            required:
+                                              - type
+                                        allocatedOnDate:
+                                          description: The date the payment was allocated.
+                                          title: Date Time
+                                          type: string
+                                          example: '2022-10-23T00:00:00Z'
+                                      required:
+                                        - amount
+                                    paymentLineLink:
+                                      title: Payment Line Link
+                                      type: object
+                                      additionalProperties: false
+                                      properties:
+                                        type:
+                                          title: Payment Link Type
+                                          type: string
+                                          enum:
+                                            - Unknown
+                                            - Unlinked
+                                            - Invoice
+                                            - CreditNote
+                                            - Other
+                                            - Refund
+                                            - Payment
+                                            - PaymentOnAccount
+                                            - ManualJournal
+                                            - Discount
+                                          description: |-
+                                            Types of payment line links, either:  
+                                            `Unknown`  
+                                            `Unlinked` - Not used  
+                                            `Invoice` - ID refers to the invoice  
+                                            `CreditNote` - ID refers to the credit note  
+                                            `Refund` - ID refers to the sibling payment  
+                                            `Payment` - ID refers to the sibling payment  
+                                            `PaymentOnAccount` - ID refers to the customer  
+                                            `Other` - ID refers to the customer  
+                                            `Manual Journal`  
+                                            `Discount` - ID refers to the payment
+                                        id:
+                                          type: string
+                                          description: Unique identifier of the transaction represented by the link.
+                                        amount:
+                                          type: number
+                                          nullable: true
+                                          description: |-
+                                            Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                            A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                            A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                                        currencyRate:
+                                          title: CurrencyRate
+                                          x-stoplight:
+                                            id: l2tsi4qzx7tt3
+                                          type: number
+                                          nullable: true
+                                          description: |-
+                                            Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                            Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                            Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                            For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                            ## Examples with base currency of GBP
+
+                                            | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                            | :--------------- | :------------- | :------------ | :------------------------- |
+                                            | **USD**          | $20            | 0.781         | £15.62                     |
+                                            | **EUR**          | €20            | 0.885         | £17.70                     |
+                                            | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                            ## Examples with base currency of USD
+
+                                            | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                            | :--------------- | :------------- | :------------ | :------------------------- |
+                                            | **GBP**          | £20            | 1.277         | $25.54                     |
+                                            | **EUR**          | €20            | 1.134         | $22.68                     |
+                                            | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                      required:
+                                        - type
+                                    paymentLinkType:
+                                      title: Payment Link Type
+                                      type: string
+                                      enum:
+                                        - Unknown
+                                        - Unlinked
+                                        - Invoice
+                                        - CreditNote
+                                        - Other
+                                        - Refund
+                                        - Payment
+                                        - PaymentOnAccount
+                                        - ManualJournal
+                                        - Discount
+                                      description: |-
+                                        Types of payment line links, either:  
+                                        `Unknown`  
+                                        `Unlinked` - Not used  
+                                        `Invoice` - ID refers to the invoice  
+                                        `CreditNote` - ID refers to the credit note  
+                                        `Refund` - ID refers to the sibling payment  
+                                        `Payment` - ID refers to the sibling payment  
+                                        `PaymentOnAccount` - ID refers to the customer  
+                                        `Other` - ID refers to the customer  
+                                        `Manual Journal`  
+                                        `Discount` - ID refers to the payment
                 description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
               example:
                 reportInfo:
@@ -9945,6 +10139,7 @@ components:
       properties:
         accountRef:
           description: An object containing account reference data.
+          title: Account reference
           type: object
           properties:
             id:
@@ -11503,220 +11698,218 @@ components:
                           }
                           ```
                         type: object
-                        properties:
-                          id:
-                            type: string
-                            description: 'Identifier for the payment, unique to the company in the accounting platform.'
-                          customerRef:
-                            description: Customer the payment is recorded against in the accounting platform.
-                            type: object
-                            properties:
-                              id:
-                                minLength: 1
-                                type: string
-                                description: '`id` from the Customers data type'
-                              companyName:
-                                type: string
-                                nullable: true
-                                description: '`customerName` from the Customer data type'
-                            required:
-                              - id
-                          accountRef:
-                            description: Account the payment is recorded against in the accounting platform.
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                                description: '''id'' from the Accounts data type.'
-                              name:
-                                type: string
-                                description: '''name'' from the Accounts data type.'
-                          paymentMethodRef:
-                            description: The Payment Method to which the payment is linked in the accounting platform.
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                                x-stoplight:
-                                  id: jyny3ci6k7qbr
-                                description: '`id` from the Payment Methods data type'
-                              name:
-                                type: string
-                                nullable: true
-                                description: '`name` from the Payment Methods data type'
-                          totalAmount:
-                            type: number
-                            description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
-                          currency:
-                            description: ISO currency code recorded for the payment in the accounting platform.
-                            title: Currency
-                            x-stoplight:
-                              id: 8ljuulqyuc5l4
-                            type: string
-                            format: ISO4217
-                            examples:
-                              - GBP
-                              - USD
-                              - EUR
-                          currencyRate:
-                            title: CurrencyRate
-                            x-stoplight:
-                              id: l2tsi4qzx7tt3
-                            type: number
-                            nullable: true
-                            description: |-
-                              Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                              Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                              Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                              For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                              ## Examples with base currency of GBP
-
-                              | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                              | :--------------- | :------------- | :------------ | :------------------------- |
-                              | **USD**          | $20            | 0.781         | £15.62                     |
-                              | **EUR**          | €20            | 0.885         | £17.70                     |
-                              | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                              ## Examples with base currency of USD
-
-                              | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                              | :--------------- | :------------- | :------------ | :------------------------- |
-                              | **GBP**          | £20            | 1.277         | $25.54                     |
-                              | **EUR**          | €20            | 1.134         | $22.68                     |
-                              | **RUB**          | ₽20            | 0.015         | $0.30                      |
-                          date:
-                            description: Date the payment was recorded in the accounting software.
-                            title: Date Time
-                            type: string
-                            example: '2022-10-23T00:00:00Z'
-                          note:
-                            type: string
-                            nullable: true
-                            description: Any additional information associated with the payment.
-                          lines:
-                            type: array
-                            nullable: true
-                            description: An array of payment lines.
-                            items:
-                              title: Payment Line
-                              type: object
-                              properties:
-                                amount:
-                                  type: number
-                                  description: "\t\nAmount in the payment currency."
-                                links:
-                                  type: array
-                                  nullable: true
-                                  items:
-                                    title: Payment Line Link
-                                    type: object
-                                    additionalProperties: false
-                                    properties:
-                                      type:
-                                        title: Payment Link Type
-                                        enum:
-                                          - Unknown
-                                          - Unlinked
-                                          - Invoice
-                                          - CreditNote
-                                          - Other
-                                          - Refund
-                                          - Payment
-                                          - PaymentOnAccount
-                                          - ManualJournal
-                                          - Discount
-                                        type: string
-                                        description: |-
-                                          Types of payment line links, either:  
-                                          `Unknown`  
-                                          `Unlinked` - Not used  
-                                          `Invoice` - ID refers to the invoice  
-                                          `CreditNote` - ID refers to the credit note  
-                                          `Refund` - ID refers to the sibling payment  
-                                          `Payment` - ID refers to the sibling payment  
-                                          `PaymentOnAccount` - ID refers to the customer  
-                                          `Other` - ID refers to the customer  
-                                          `Manual Journal`  
-                                          `Discount` - ID refers to the payment
-                                      id:
-                                        type: string
-                                        description: Unique identifier of the transaction represented by the link.
-                                      amount:
-                                        type: number
-                                        nullable: true
-                                        description: |-
-                                          Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
-                                          A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
-                                          A positive link amount _increases_ the outstanding amount on the accounts receivable account.
-                                      currencyRate:
-                                        title: CurrencyRate
-                                        x-stoplight:
-                                          id: l2tsi4qzx7tt3
-                                        type: number
-                                        nullable: true
-                                        description: |-
-                                          Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                                          Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                                          Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                                          For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                                          ## Examples with base currency of GBP
-
-                                          | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                                          | :--------------- | :------------- | :------------ | :------------------------- |
-                                          | **USD**          | $20            | 0.781         | £15.62                     |
-                                          | **EUR**          | €20            | 0.885         | £17.70                     |
-                                          | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                                          ## Examples with base currency of USD
-
-                                          | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                                          | :--------------- | :------------- | :------------ | :------------------------- |
-                                          | **GBP**          | £20            | 1.277         | $25.54                     |
-                                          | **EUR**          | €20            | 1.134         | $22.68                     |
-                                          | **RUB**          | ₽20            | 0.015         | $0.30                      |
-                                    required:
-                                      - type
-                                allocatedOnDate:
-                                  description: The date the payment was allocated.
-                                  title: Date Time
-                                  type: string
-                                  example: '2022-10-23T00:00:00Z'
-                              required:
-                                - amount
-                          reference:
-                            type: string
-                            nullable: true
-                            description: Friendly reference for the payment.
-                          metadata:
-                            type: object
-                            x-stoplight:
-                              id: 91706c48a98b5
-                            properties:
-                              isDeleted:
-                                type: boolean
-                                description: Indicates whether the record has been deleted in the third-party system this record originated from.
-                                nullable: true
-                          supplementalData:
-                            type: object
-                            description: 'Reference to a configured dynamic key value pair that is unique to the accounting platform. This feature is in private beta, contact us if you would like to learn more.'
-                            properties:
-                              content:
-                                type: object
-                                additionalProperties:
-                                  type: object
-                                  additionalProperties: {}
-                                nullable: true
-                        required:
-                          - date
                         allOf:
+                          - type: object
+                            properties:
+                              id:
+                                type: string
+                                description: 'Identifier for the payment, unique to the company in the accounting platform.'
+                              customerRef:
+                                description: Customer the payment is recorded against in the accounting platform.
+                                type: object
+                                properties:
+                                  id:
+                                    minLength: 1
+                                    type: string
+                                    description: '`id` from the Customers data type'
+                                  companyName:
+                                    type: string
+                                    nullable: true
+                                    description: '`customerName` from the Customer data type'
+                                required:
+                                  - id
+                              accountRef:
+                                description: Account the payment is recorded against in the accounting platform.
+                                title: Account reference
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: '''id'' from the Accounts data type.'
+                                  name:
+                                    type: string
+                                    description: '''name'' from the Accounts data type.'
+                              paymentMethodRef:
+                                description: The Payment Method to which the payment is linked in the accounting platform.
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: '`id` from the Payment Methods data type'
+                                  name:
+                                    type: string
+                                    nullable: true
+                                    description: '`name` from the Payment Methods data type'
+                              totalAmount:
+                                type: number
+                                description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
+                              currency:
+                                description: ISO currency code recorded for the payment in the accounting platform.
+                                title: Currency
+                                x-stoplight:
+                                  id: 8ljuulqyuc5l4
+                                type: string
+                                format: ISO4217
+                                examples:
+                                  - GBP
+                                  - USD
+                                  - EUR
+                              currencyRate:
+                                title: CurrencyRate
+                                x-stoplight:
+                                  id: l2tsi4qzx7tt3
+                                type: number
+                                nullable: true
+                                description: |-
+                                  Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                  Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                  Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                  For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                  ## Examples with base currency of GBP
+
+                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                  | **USD**          | $20            | 0.781         | £15.62                     |
+                                  | **EUR**          | €20            | 0.885         | £17.70                     |
+                                  | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                  ## Examples with base currency of USD
+
+                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                  | **GBP**          | £20            | 1.277         | $25.54                     |
+                                  | **EUR**          | €20            | 1.134         | $22.68                     |
+                                  | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                              date:
+                                description: Date the payment was recorded in the accounting software.
+                                title: Date Time
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                              note:
+                                type: string
+                                nullable: true
+                                description: Any additional information associated with the payment.
+                              lines:
+                                type: array
+                                nullable: true
+                                description: An array of payment lines.
+                                items:
+                                  title: Payment Line
+                                  type: object
+                                  properties:
+                                    amount:
+                                      type: number
+                                      description: Amount in the payment currency.
+                                    links:
+                                      type: array
+                                      nullable: true
+                                      items:
+                                        title: Payment Line Link
+                                        type: object
+                                        additionalProperties: false
+                                        properties:
+                                          type:
+                                            title: Payment Link Type
+                                            type: string
+                                            enum:
+                                              - Unknown
+                                              - Unlinked
+                                              - Invoice
+                                              - CreditNote
+                                              - Other
+                                              - Refund
+                                              - Payment
+                                              - PaymentOnAccount
+                                              - ManualJournal
+                                              - Discount
+                                            description: |-
+                                              Types of payment line links, either:  
+                                              `Unknown`  
+                                              `Unlinked` - Not used  
+                                              `Invoice` - ID refers to the invoice  
+                                              `CreditNote` - ID refers to the credit note  
+                                              `Refund` - ID refers to the sibling payment  
+                                              `Payment` - ID refers to the sibling payment  
+                                              `PaymentOnAccount` - ID refers to the customer  
+                                              `Other` - ID refers to the customer  
+                                              `Manual Journal`  
+                                              `Discount` - ID refers to the payment
+                                          id:
+                                            type: string
+                                            description: Unique identifier of the transaction represented by the link.
+                                          amount:
+                                            type: number
+                                            nullable: true
+                                            description: |-
+                                              Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                              A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                              A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                                          currencyRate:
+                                            title: CurrencyRate
+                                            x-stoplight:
+                                              id: l2tsi4qzx7tt3
+                                            type: number
+                                            nullable: true
+                                            description: |-
+                                              Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                              Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                              Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                              For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                              ## Examples with base currency of GBP
+
+                                              | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                              | :--------------- | :------------- | :------------ | :------------------------- |
+                                              | **USD**          | $20            | 0.781         | £15.62                     |
+                                              | **EUR**          | €20            | 0.885         | £17.70                     |
+                                              | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                              ## Examples with base currency of USD
+
+                                              | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                              | :--------------- | :------------- | :------------ | :------------------------- |
+                                              | **GBP**          | £20            | 1.277         | $25.54                     |
+                                              | **EUR**          | €20            | 1.134         | $22.68                     |
+                                              | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                        required:
+                                          - type
+                                    allocatedOnDate:
+                                      description: The date the payment was allocated.
+                                      title: Date Time
+                                      type: string
+                                      example: '2022-10-23T00:00:00Z'
+                                  required:
+                                    - amount
+                              reference:
+                                type: string
+                                nullable: true
+                                description: Friendly reference for the payment.
+                              metadata:
+                                type: object
+                                x-stoplight:
+                                  id: 91706c48a98b5
+                                properties:
+                                  isDeleted:
+                                    type: boolean
+                                    description: Indicates whether the record has been deleted in the third-party system this record originated from.
+                                    nullable: true
+                              supplementalData:
+                                type: object
+                                description: 'Reference to a configured dynamic key value pair that is unique to the accounting platform. This feature is in private beta, contact us if you would like to learn more.'
+                                properties:
+                                  content:
+                                    type: object
+                                    additionalProperties:
+                                      type: object
+                                      additionalProperties: {}
+                                    nullable: true
                           - x-internal: true
                             allOf:
                               - title: ModifiedDate
@@ -11737,6 +11930,198 @@ components:
                                     title: Date Time
                                     type: string
                                     example: '2022-10-23T00:00:00Z'
+                        required:
+                          - date
+                        definitions:
+                          paymentLine:
+                            title: Payment Line
+                            type: object
+                            properties:
+                              amount:
+                                type: number
+                                description: Amount in the payment currency.
+                              links:
+                                type: array
+                                nullable: true
+                                items:
+                                  title: Payment Line Link
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    type:
+                                      title: Payment Link Type
+                                      type: string
+                                      enum:
+                                        - Unknown
+                                        - Unlinked
+                                        - Invoice
+                                        - CreditNote
+                                        - Other
+                                        - Refund
+                                        - Payment
+                                        - PaymentOnAccount
+                                        - ManualJournal
+                                        - Discount
+                                      description: |-
+                                        Types of payment line links, either:  
+                                        `Unknown`  
+                                        `Unlinked` - Not used  
+                                        `Invoice` - ID refers to the invoice  
+                                        `CreditNote` - ID refers to the credit note  
+                                        `Refund` - ID refers to the sibling payment  
+                                        `Payment` - ID refers to the sibling payment  
+                                        `PaymentOnAccount` - ID refers to the customer  
+                                        `Other` - ID refers to the customer  
+                                        `Manual Journal`  
+                                        `Discount` - ID refers to the payment
+                                    id:
+                                      type: string
+                                      description: Unique identifier of the transaction represented by the link.
+                                    amount:
+                                      type: number
+                                      nullable: true
+                                      description: |-
+                                        Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                        A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                        A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                                    currencyRate:
+                                      title: CurrencyRate
+                                      x-stoplight:
+                                        id: l2tsi4qzx7tt3
+                                      type: number
+                                      nullable: true
+                                      description: |-
+                                        Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                        Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                        Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                        For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                        ## Examples with base currency of GBP
+
+                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                        | :--------------- | :------------- | :------------ | :------------------------- |
+                                        | **USD**          | $20            | 0.781         | £15.62                     |
+                                        | **EUR**          | €20            | 0.885         | £17.70                     |
+                                        | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                        ## Examples with base currency of USD
+
+                                        | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                        | :--------------- | :------------- | :------------ | :------------------------- |
+                                        | **GBP**          | £20            | 1.277         | $25.54                     |
+                                        | **EUR**          | €20            | 1.134         | $22.68                     |
+                                        | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                                  required:
+                                    - type
+                              allocatedOnDate:
+                                description: The date the payment was allocated.
+                                title: Date Time
+                                type: string
+                                example: '2022-10-23T00:00:00Z'
+                            required:
+                              - amount
+                          paymentLineLink:
+                            title: Payment Line Link
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              type:
+                                title: Payment Link Type
+                                type: string
+                                enum:
+                                  - Unknown
+                                  - Unlinked
+                                  - Invoice
+                                  - CreditNote
+                                  - Other
+                                  - Refund
+                                  - Payment
+                                  - PaymentOnAccount
+                                  - ManualJournal
+                                  - Discount
+                                description: |-
+                                  Types of payment line links, either:  
+                                  `Unknown`  
+                                  `Unlinked` - Not used  
+                                  `Invoice` - ID refers to the invoice  
+                                  `CreditNote` - ID refers to the credit note  
+                                  `Refund` - ID refers to the sibling payment  
+                                  `Payment` - ID refers to the sibling payment  
+                                  `PaymentOnAccount` - ID refers to the customer  
+                                  `Other` - ID refers to the customer  
+                                  `Manual Journal`  
+                                  `Discount` - ID refers to the payment
+                              id:
+                                type: string
+                                description: Unique identifier of the transaction represented by the link.
+                              amount:
+                                type: number
+                                nullable: true
+                                description: |-
+                                  Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
+                                  A negative link amount _reduces_ the outstanding amount on the accounts receivable account.  
+                                  A positive link amount _increases_ the outstanding amount on the accounts receivable account.
+                              currencyRate:
+                                title: CurrencyRate
+                                x-stoplight:
+                                  id: l2tsi4qzx7tt3
+                                type: number
+                                nullable: true
+                                description: |-
+                                  Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+
+                                  Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+
+                                  Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+
+                                  For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+
+                                  ## Examples with base currency of GBP
+
+                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                  | **USD**          | $20            | 0.781         | £15.62                     |
+                                  | **EUR**          | €20            | 0.885         | £17.70                     |
+                                  | **RUB**          | ₽20            | 0.011         | £0.22                      |
+
+                                  ## Examples with base currency of USD
+
+                                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+                                  | :--------------- | :------------- | :------------ | :------------------------- |
+                                  | **GBP**          | £20            | 1.277         | $25.54                     |
+                                  | **EUR**          | €20            | 1.134         | $22.68                     |
+                                  | **RUB**          | ₽20            | 0.015         | $0.30                      |
+                            required:
+                              - type
+                          paymentLinkType:
+                            title: Payment Link Type
+                            type: string
+                            enum:
+                              - Unknown
+                              - Unlinked
+                              - Invoice
+                              - CreditNote
+                              - Other
+                              - Refund
+                              - Payment
+                              - PaymentOnAccount
+                              - ManualJournal
+                              - Discount
+                            description: |-
+                              Types of payment line links, either:  
+                              `Unknown`  
+                              `Unlinked` - Not used  
+                              `Invoice` - ID refers to the invoice  
+                              `CreditNote` - ID refers to the credit note  
+                              `Refund` - ID refers to the sibling payment  
+                              `Payment` - ID refers to the sibling payment  
+                              `PaymentOnAccount` - ID refers to the customer  
+                              `Other` - ID refers to the customer  
+                              `Manual Journal`  
+                              `Discount` - ID refers to the payment
       description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement
   parameters:
     dataIntegritydataType:

@@ -3132,26 +3132,6 @@
           }
         ]
       },
-      "ValidationItem": {
-        "title": "ValidationItem",
-        "x-internal": true,
-        "type": "object",
-        "properties": {
-          "itemId": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "validatorName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "PushOperationSummary": {
         "type": "object",
         "x-internal": true,
@@ -3206,7 +3186,24 @@
             "nullable": true
           },
           "validation": {
+            "$ref": "#/components/schemas/PushOperationSummary/definitions/validation"
+          },
+          "statusCode": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "companyId",
+          "pushOperationKey",
+          "dataConnectionKey",
+          "requestedOnUtc",
+          "status",
+          "statusCode"
+        ],
+        "definitions": {
+          "validation": {
             "type": "object",
+            "title": "Validation",
             "description": "A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.",
             "properties": {
               "errors": {
@@ -3225,19 +3222,6 @@
               }
             }
           },
-          "statusCode": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "companyId",
-          "pushOperationKey",
-          "dataConnectionKey",
-          "requestedOnUtc",
-          "status",
-          "statusCode"
-        ],
-        "definitions": {
           "validationItem": {
             "title": "Validation item",
             "type": "object",
@@ -3310,21 +3294,6 @@
             }
           }
         }
-      },
-      "PushOperationRecordRef": {
-        "title": "PushOperationRecordRef",
-        "x-internal": true,
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "dataType": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "PushHistoryResponse": {
         "x-internal": true,

@@ -90,8 +90,6 @@ paths:
                 $ref: '#/components/schemas/BankFeedAccounts'
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
-      x-stoplight:
-        id: lldq1gg877yb1
       tags:
         - Bank account transactions
       summary: List bank transactions for bank account
@@ -118,7 +116,7 @@ paths:
         - Bank account transactions
       summary: List push options for bank account bank transactions
       description: Gets the options of pushing bank account transactions.
-      operationId: get-bank-account-push-options
+      operationId: get-create-bank-account-model
       x-extension-1: null
       parameters:
         - $ref: '#/components/parameters/companyId'
@@ -142,7 +140,7 @@ paths:
         > **Supported Integrations**
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.
-      operationId: post-bank-transactions
+      operationId: create-bank-transactions
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
@@ -245,83 +243,7 @@ components:
       items:
         $ref: '#/components/schemas/BankFeedAccount'
     BankTransactions:
-      type: object
-      properties:
-        accountId:
-          type: string
-          nullable: true
-        transactions:
-          type: array
-          items:
-            required:
-              - amount
-              - balance
-              - date
-              - reconciled
-              - transactionType
-            type: object
-            allOf:
-              - type: object
-                properties:
-                  id:
-                    type: string
-                  date:
-                    $ref: '#/components/schemas/DateTime'
-                  description:
-                    type: string
-                    nullable: true
-                  counterparty:
-                    type: string
-                    nullable: true
-                  reference:
-                    type: string
-                    nullable: true
-                  reconciled:
-                    type: boolean
-                  amount:
-                    type: number
-                  balance:
-                    type: number
-                  transactionType:
-                    title: TransactionType
-                    enum:
-                      - Unknown
-                      - Credit
-                      - Debit
-                      - Int
-                      - Div
-                      - Fee
-                      - SerChg
-                      - Dep
-                      - Atm
-                      - Pos
-                      - Xfer
-                      - Check
-                      - Payment
-                      - Cash
-                      - DirectDep
-                      - DirectDebit
-                      - RepeatPmt
-                      - Other
-                    type: string
-                    description: Type of transaction for the bank statement line
-              - x-internal: true
-                allOf:
-                  - title: ModifiedDate
-                    x-internal: true
-                    type: object
-                    properties:
-                      modifiedDate:
-                        $ref: '#/components/schemas/DateTime'
-                        description: The date on which this record was last modified in Codat.
-                  - title: Source Modified Date
-                    x-internal: true
-                    type: object
-                    properties:
-                      sourceModifiedDate:
-                        $ref: '#/components/schemas/DateTime'
-                        description: The date on which this record was last modified in the originating system
-          nullable: true
+      title: Bank account transactions
       description: |-
         > **Accessing Bank Accounts through Banking API**
         > 
@@ -339,6 +261,88 @@ components:
         * Amount of the transaction.
         * Current account balance.
         * Transaction type, for example, credit, debit, or transfer.
+      type: object
+      properties:
+        accountId:
+          type: string
+          nullable: true
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionLine'
+          nullable: true
+      definitions:
+        bankTransactionLine:
+          type: object
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                date:
+                  $ref: '#/components/schemas/DateTime'
+                description:
+                  type: string
+                  nullable: true
+                counterparty:
+                  type: string
+                  nullable: true
+                reference:
+                  type: string
+                  nullable: true
+                reconciled:
+                  type: boolean
+                amount:
+                  type: number
+                balance:
+                  type: number
+                transactionType:
+                  $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionType'
+            - x-internal: true
+              allOf:
+                - title: ModifiedDate
+                  x-internal: true
+                  type: object
+                  properties:
+                    modifiedDate:
+                      $ref: '#/components/schemas/DateTime'
+                      description: The date on which this record was last modified in Codat.
+                - title: Source Modified Date
+                  x-internal: true
+                  type: object
+                  properties:
+                    sourceModifiedDate:
+                      $ref: '#/components/schemas/DateTime'
+                      description: The date on which this record was last modified in the originating system
+          required:
+            - amount
+            - balance
+            - date
+            - reconciled
+            - transactionType
+        bankTransactionType:
+          title: Bank transaction type
+          description: Type of transaction for the bank statement line
+          type: string
+          enum:
+            - Unknown
+            - Credit
+            - Debit
+            - Int
+            - Div
+            - Fee
+            - SerChg
+            - Dep
+            - Atm
+            - Pos
+            - Xfer
+            - Check
+            - Payment
+            - Cash
+            - DirectDep
+            - DirectDebit
+            - RepeatPmt
+            - Other
     BankTransactionsResponse:
       x-internal: true
       allOf:
@@ -545,7 +549,20 @@ components:
           type: string
           nullable: true
         validation:
+          $ref: '#/components/schemas/PushOperation/definitions/validation'
+        statusCode:
+          type: integer
+      required:
+        - companyId
+        - pushOperationKey
+        - dataConnectionKey
+        - requestedOnUtc
+        - status
+        - statusCode
+      definitions:
+        validation:
           type: object
+          title: Validation
           description: 'A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.'
           properties:
             errors:
@@ -558,16 +575,6 @@ components:
               nullable: true
               items:
                 $ref: '#/components/schemas/PushOperation/definitions/validationItem'
-        statusCode:
-          type: integer
-      required:
-        - companyId
-        - pushOperationKey
-        - dataConnectionKey
-        - requestedOnUtc
-        - status
-        - statusCode
-      definitions:
         validationItem:
           title: Validation item
           type: object

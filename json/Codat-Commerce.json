@@ -693,7 +693,29 @@
                 "description": "Weblinks associated with the company",
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CompanyInfo/definitions/webLink"
+                  "title": "Weblink",
+                  "description": "Weblink associated with the company.",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "description": "The type of the weblink.",
+                      "type": "string",
+                      "enum": [
+                        "Website",
+                        "Social",
+                        "Unknown"
+                      ]
+                    },
+                    "url": {
+                      "description": "The full URL for the weblink.",
+                      "type": "string",
+                      "format": "url"
+                    }
+                  },
+                  "example": {
+                    "type": "Website",
+                    "url": "https://codat.io"
+                  }
                 }
               },
               "registrationNumber": {
@@ -762,32 +784,6 @@
                   }
                 ]
               }
-            }
-          },
-          "webLink": {
-            "title": "Weblink",
-            "description": "Weblink associated with the company",
-            "x-internal": true,
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "The type of the weblink",
-                "type": "string",
-                "enum": [
-                  "Website",
-                  "Social",
-                  "Unknown"
-                ]
-              },
-              "url": {
-                "description": "The full URL for the weblink",
-                "type": "string",
-                "format": "url"
-              }
-            },
-            "example": {
-              "type": "Website",
-              "url": "https://codat.io"
             }
           }
         }
@@ -2459,7 +2455,6 @@
         "definitions": {
           "addressType": {
             "description": "The type of the address",
-            "x-internal": true,
             "type": "string",
             "enum": [
               "Billing",
@@ -2512,18 +2507,16 @@
       },
       "PhoneNumber": {
         "type": "object",
-        "x-internal": true,
         "properties": {
           "number": {
-            "title": "Phone Number",
-            "x-internal": true,
             "type": "string",
-            "description": "A phone number",
+            "nullable": true,
             "examples": [
               "+44 25691 154789",
               "(877) 492-8687",
               "01224 658 999"
-            ]
+            ],
+            "description": "A phone number."
           },
           "type": {
             "$ref": "#/components/schemas/PhoneNumber/definitions/phoneNumberType"

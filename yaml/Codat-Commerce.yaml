@@ -413,7 +413,24 @@ components:
               description: Weblinks associated with the company
               type: array
               items:
-                $ref: '#/components/schemas/CompanyInfo/definitions/webLink'
+                title: Weblink
+                description: Weblink associated with the company.
+                type: object
+                properties:
+                  type:
+                    description: The type of the weblink.
+                    type: string
+                    enum:
+                      - Website
+                      - Social
+                      - Unknown
+                  url:
+                    description: The full URL for the weblink.
+                    type: string
+                    format: url
+                example:
+                  type: Website
+                  url: 'https://codat.io'
             registrationNumber:
               description: The registration number of the company
               type: string
@@ -458,26 +475,6 @@ components:
               description: The currency of the account
               allOf:
                 - $ref: '#/components/schemas/Transaction/allOf/1/properties/currency'
-        webLink:
-          title: Weblink
-          description: Weblink associated with the company
-          x-internal: true
-          type: object
-          properties:
-            type:
-              description: The type of the weblink
-              type: string
-              enum:
-                - Website
-                - Social
-                - Unknown
-            url:
-              description: The full URL for the weblink
-              type: string
-              format: url
-          example:
-            type: Website
-            url: 'https://codat.io'
     Customer:
       title: Customer
       description: |-
@@ -1670,7 +1667,6 @@ components:
       definitions:
         addressType:
           description: The type of the address
-          x-internal: true
           type: string
           enum:
             - Billing
@@ -1706,17 +1702,15 @@ components:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     PhoneNumber:
       type: object
-      x-internal: true
       properties:
         number:
-          title: Phone Number
-          x-internal: true
           type: string
-          description: A phone number
+          nullable: true
           examples:
             - +44 25691 154789
             - (877) 492-8687
             - 01224 658 999
+          description: A phone number.
         type:
           $ref: '#/components/schemas/PhoneNumber/definitions/phoneNumberType'
       required:

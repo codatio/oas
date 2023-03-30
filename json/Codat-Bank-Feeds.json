@@ -146,9 +146,6 @@
     },
     "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions": {
       "get": {
-        "x-stoplight": {
-          "id": "lldq1gg877yb1"
-        },
         "tags": [
           "Bank account transactions"
         ],
@@ -199,7 +196,7 @@
         ],
         "summary": "List push options for bank account bank transactions",
         "description": "Gets the options of pushing bank account transactions.",
-        "operationId": "get-bank-account-push-options",
+        "operationId": "get-create-bank-account-model",
         "x-extension-1": null,
         "parameters": [
           {
@@ -233,7 +230,7 @@
         ],
         "summary": "Create bank transactions",
         "description": "Posts bank transactions to the accounting package for a given company.\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support POST methods.",
-        "operationId": "post-bank-transactions",
+        "operationId": "create-bank-transactions",
         "parameters": [
           {
             "$ref": "#/components/parameters/companyId"
@@ -383,6 +380,8 @@
         }
       },
       "BankTransactions": {
+        "title": "Bank account transactions",
+        "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer.",
         "type": "object",
         "properties": {
           "accountId": {
@@ -392,105 +391,112 @@
           "transactions": {
             "type": "array",
             "items": {
-              "required": [
-                "amount",
-                "balance",
-                "date",
-                "reconciled",
-                "transactionType"
-              ],
-              "type": "object",
-              "allOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "date": {
-                      "$ref": "#/components/schemas/DateTime"
-                    },
-                    "description": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "counterparty": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "reference": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "reconciled": {
-                      "type": "boolean"
-                    },
-                    "amount": {
-                      "type": "number"
-                    },
-                    "balance": {
-                      "type": "number"
-                    },
-                    "transactionType": {
-                      "title": "TransactionType",
-                      "enum": [
-                        "Unknown",
-                        "Credit",
-                        "Debit",
-                        "Int",
-                        "Div",
-                        "Fee",
-                        "SerChg",
-                        "Dep",
-                        "Atm",
-                        "Pos",
-                        "Xfer",
-                        "Check",
-                        "Payment",
-                        "Cash",
-                        "DirectDep",
-                        "DirectDebit",
-                        "RepeatPmt",
-                        "Other"
-                      ],
-                      "type": "string",
-                      "description": "Type of transaction for the bank statement line"
-                    }
-                  }
-                },
-                {
-                  "x-internal": true,
-                  "allOf": [
-                    {
-                      "title": "ModifiedDate",
-                      "x-internal": true,
-                      "type": "object",
-                      "properties": {
-                        "modifiedDate": {
-                          "$ref": "#/components/schemas/DateTime",
-                          "description": "The date on which this record was last modified in Codat."
-                        }
-                      }
-                    },
-                    {
-                      "title": "Source Modified Date",
-                      "x-internal": true,
-                      "type": "object",
-                      "properties": {
-                        "sourceModifiedDate": {
-                          "$ref": "#/components/schemas/DateTime",
-                          "description": "The date on which this record was last modified in the originating system"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+              "$ref": "#/components/schemas/BankTransactions/definitions/bankTransactionLine"
             },
             "nullable": true
           }
         },
-        "description": "> **Accessing Bank Accounts through Banking API**\n> \n> This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. \n>\n> To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)\n\n> View the coverage for bank transactions in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nTransactional banking data for a specific company and account.\n\nBank transactions include the:\n* Amount of the transaction.\n* Current account balance.\n* Transaction type, for example, credit, debit, or transfer."
+        "definitions": {
+          "bankTransactionLine": {
+            "type": "object",
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "$ref": "#/components/schemas/DateTime"
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "counterparty": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "reference": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "reconciled": {
+                    "type": "boolean"
+                  },
+                  "amount": {
+                    "type": "number"
+                  },
+                  "balance": {
+                    "type": "number"
+                  },
+                  "transactionType": {
+                    "$ref": "#/components/schemas/BankTransactions/definitions/bankTransactionType"
+                  }
+                }
+              },
+              {
+                "x-internal": true,
+                "allOf": [
+                  {
+                    "title": "ModifiedDate",
+                    "x-internal": true,
+                    "type": "object",
+                    "properties": {
+                      "modifiedDate": {
+                        "$ref": "#/components/schemas/DateTime",
+                        "description": "The date on which this record was last modified in Codat."
+                      }
+                    }
+                  },
+                  {
+                    "title": "Source Modified Date",
+                    "x-internal": true,
+                    "type": "object",
+                    "properties": {
+                      "sourceModifiedDate": {
+                        "$ref": "#/components/schemas/DateTime",
+                        "description": "The date on which this record was last modified in the originating system"
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "required": [
+              "amount",
+              "balance",
+              "date",
+              "reconciled",
+              "transactionType"
+            ]
+          },
+          "bankTransactionType": {
+            "title": "Bank transaction type",
+            "description": "Type of transaction for the bank statement line",
+            "type": "string",
+            "enum": [
+              "Unknown",
+              "Credit",
+              "Debit",
+              "Int",
+              "Div",
+              "Fee",
+              "SerChg",
+              "Dep",
+              "Atm",
+              "Pos",
+              "Xfer",
+              "Check",
+              "Payment",
+              "Cash",
+              "DirectDep",
+              "DirectDebit",
+              "RepeatPmt",
+              "Other"
+            ]
+          }
+        }
       },
       "BankTransactionsResponse": {
         "x-internal": true,
@@ -785,7 +791,24 @@
             "nullable": true
           },
           "validation": {
+            "$ref": "#/components/schemas/PushOperation/definitions/validation"
+          },
+          "statusCode": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "companyId",
+          "pushOperationKey",
+          "dataConnectionKey",
+          "requestedOnUtc",
+          "status",
+          "statusCode"
+        ],
+        "definitions": {
+          "validation": {
             "type": "object",
+            "title": "Validation",
             "description": "A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.",
             "properties": {
               "errors": {
@@ -804,19 +827,6 @@
               }
             }
           },
-          "statusCode": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "companyId",
-          "pushOperationKey",
-          "dataConnectionKey",
-          "requestedOnUtc",
-          "status",
-          "statusCode"
-        ],
-        "definitions": {
           "validationItem": {
             "title": "Validation item",
             "type": "object",
