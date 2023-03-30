@@ -2039,7 +2039,7 @@
             "example": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start"
           },
           "status": {
-            "$ref": "#/components/schemas/ConnectionStatus"
+            "$ref": "#/components/schemas/Connection/definitions/dataConnectionStatus"
           },
           "lastSync": {
             "$ref": "#/components/schemas/DateTime"
@@ -2050,7 +2050,7 @@
           "dataConnectionErrors": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataConnectionError"
+              "$ref": "#/components/schemas/Connection/definitions/dataConnectionError"
             }
           },
           "connectionInfo": {
@@ -2058,7 +2058,8 @@
             "additionalProperties": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "required": [
           "id",
@@ -2071,6 +2072,50 @@
           "created",
           "sourceType"
         ],
+        "definitions": {
+          "dataConnectionStatus": {
+            "title": "Data connection status",
+            "description": "The current authorization status of the data connection.",
+            "type": "string",
+            "enum": [
+              "PendingAuth",
+              "Linked",
+              "Unlinked",
+              "Deauthorized"
+            ]
+          },
+          "dataConnectionError": {
+            "title": "Data connection error",
+            "type": "object",
+            "properties": {
+              "statusCode": {
+                "type": "string"
+              },
+              "statusText": {
+                "type": "string"
+              },
+              "errorMessage": {
+                "type": "string"
+              },
+              "erroredOnUtc": {
+                "$ref": "#/components/schemas/DateTime"
+              }
+            }
+          },
+          "dataConnectionSourceType": {
+            "title": "Source Type",
+            "description": "The type of platform of the connection.",
+            "type": "string",
+            "enum": [
+              "Accounting",
+              "Banking",
+              "Commerce",
+              "Other",
+              "Unknown"
+            ],
+            "example": "Accounting"
+          }
+        },
         "example": {
           "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd",
           "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c",

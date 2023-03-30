@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 x-stoplight:
   id: 1pm6xajcwr4a0
 info:
@@ -340,7 +340,6 @@ paths:
                     example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
                   status:
                     title: Data connection status
-                    x-internal: true
                     description: The current authorization status of the data connection.
                     type: string
                     enum:
@@ -399,8 +398,8 @@ paths:
                   dataConnectionErrors:
                     type: array
                     items:
+                      title: Data connection error
                       type: object
-                      x-internal: true
                       properties:
                         statusCode:
                           type: string
@@ -436,6 +435,7 @@ paths:
                     type: object
                     additionalProperties:
                       type: string
+                  additionalProperties: false
                 required:
                   - id
                   - integrationId
@@ -446,6 +446,61 @@ paths:
                   - status
                   - created
                   - sourceType
+                definitions:
+                  dataConnectionStatus:
+                    title: Data connection status
+                    description: The current authorization status of the data connection.
+                    type: string
+                    enum:
+                      - PendingAuth
+                      - Linked
+                      - Unlinked
+                      - Deauthorized
+                  dataConnectionError:
+                    title: Data connection error
+                    type: object
+                    properties:
+                      statusCode:
+                        type: string
+                      statusText:
+                        type: string
+                      errorMessage:
+                        type: string
+                      erroredOnUtc:
+                        title: Date Time
+                        type: string
+                        example: '2022-10-23T00:00:00Z'
+                        description: |-
+                          In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+                          ```
+                          2020-10-08T22:40:50Z
+                          2021-01-01T00:00:00
+                          ```
+
+
+
+                          When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+                          - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+                          - Unqualified local time: `2021-11-15T01:00:00`
+                          - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+                          > Time zones
+                          > 
+                          > Not all dates from Codat will contain information about time zones.  
+                          > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+                  dataConnectionSourceType:
+                    title: Source Type
+                    description: The type of platform of the connection.
+                    type: string
+                    enum:
+                      - Accounting
+                      - Banking
+                      - Commerce
+                      - Other
+                      - Unknown
+                    example: Accounting
                 example:
                   id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
                   integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
@@ -1987,7 +2042,6 @@ components:
           example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
         status:
           title: Data connection status
-          x-internal: true
           description: The current authorization status of the data connection.
           type: string
           enum:
@@ -2046,8 +2100,8 @@ components:
         dataConnectionErrors:
           type: array
           items:
+            title: Data connection error
             type: object
-            x-internal: true
             properties:
               statusCode:
                 type: string
@@ -2083,6 +2137,7 @@ components:
           type: object
           additionalProperties:
             type: string
+        additionalProperties: false
       required:
         - id
         - integrationId
@@ -2093,6 +2148,61 @@ components:
         - status
         - created
         - sourceType
+      definitions:
+        dataConnectionStatus:
+          title: Data connection status
+          description: The current authorization status of the data connection.
+          type: string
+          enum:
+            - PendingAuth
+            - Linked
+            - Unlinked
+            - Deauthorized
+        dataConnectionError:
+          title: Data connection error
+          type: object
+          properties:
+            statusCode:
+              type: string
+            statusText:
+              type: string
+            errorMessage:
+              type: string
+            erroredOnUtc:
+              title: Date Time
+              type: string
+              example: '2022-10-23T00:00:00Z'
+              description: |-
+                In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+                ```
+                2020-10-08T22:40:50Z
+                2021-01-01T00:00:00
+                ```
+
+
+
+                When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+                - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+                - Unqualified local time: `2021-11-15T01:00:00`
+                - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+                > Time zones
+                > 
+                > Not all dates from Codat will contain information about time zones.  
+                > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+        dataConnectionSourceType:
+          title: Source Type
+          description: The type of platform of the connection.
+          type: string
+          enum:
+            - Accounting
+            - Banking
+            - Commerce
+            - Other
+            - Unknown
+          example: Accounting
       example:
         id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
         integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
