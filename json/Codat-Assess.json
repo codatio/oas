@@ -2511,58 +2511,6 @@
                 },
                 "example": [
                   {
-                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1commerceMetrics~1orders/get/responses/200/content/application~1json/example/0"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-revenue-metrics",
-        "description": "Get the revenue and revenue growth for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get order information for a specific company",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
                     "reportInfo": {
                       "name": "revenue",
                       "displayName": "Revenue"
@@ -2641,6 +2589,157 @@
                                 "index": 1,
                                 "measureDisplayName": "Percentage change vs. previous period",
                                 "value": 276.65
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-revenue-metrics",
+        "description": "Get the revenue and revenue growth for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get order information for a specific company",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "orders",
+                      "displayName": "Orders"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Order metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Number of orders"
+                          },
+                          {
+                            "index": 1,
+                            "value": "Total value"
+                          },
+                          {
+                            "index": 2,
+                            "value": "Average order value"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Count",
+                        "index": 0,
+                        "type": "int"
+                      },
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 1,
+                        "type": "currency"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 0,
+                            "itemDisplayName": "Number of orders",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 94
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 1,
+                            "itemDisplayName": "Total value",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Value",
+                                "value": 3315.18
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 2,
+                            "itemDisplayName": "Average order value",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Value",
+                                "value": 35.27
                               }
                             ]
                           }
@@ -2855,58 +2954,6 @@
                 },
                 "example": [
                   {
-                    "$ref": "#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1commerceMetrics~1lifetimeValue/get/responses/200/content/application~1json/example/0"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-customer-retention-metrics",
-        "description": "Gets the customer retention metrics for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get the lifetime value metric for a specific company.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
                     "reportInfo": {
                       "name": "customer_retention",
                       "displayName": "Customer Retention"
@@ -3034,6 +3081,118 @@
                                 "index": 1,
                                 "measureDisplayName": "Percentage",
                                 "value": 21.67
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-customer-retention-metrics",
+        "description": "Gets the customer retention metrics for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get the lifetime value metric for a specific company.",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "lifetime_value",
+                      "displayName": "Lifetime Value"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Lifetime value metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Lifetime value"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 0,
+                        "type": "currency"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Lifetime value metrics",
+                            "item": 0,
+                            "itemDisplayName": "Lifetime value",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Value",
+                                "value": 3782.07
                               }
                             ]
                           }
@@ -5013,9 +5172,6 @@
           },
           "reportComponent": {
             "title": "Report component",
-            "x-stoplight": {
-              "id": "sqj9ewqwpab8e"
-            },
             "type": "object",
             "properties": {
               "dimension": {
@@ -5284,7 +5440,7 @@
         "title": "Excel status",
         "properties": {
           "lastGenerated": {
-            "title": "Date Time",
+            "title": "Date time",
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
@@ -6408,9 +6564,6 @@
                   },
                   "metadata": {
                     "type": "object",
-                    "x-stoplight": {
-                      "id": "91706c48a98b5"
-                    },
                     "properties": {
                       "isDeleted": {
                         "type": "boolean",

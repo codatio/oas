@@ -276,7 +276,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connections'
               examples:
-                example-1:
+                Connections:
                   value:
                     results:
                       - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
@@ -327,7 +327,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connection'
               examples:
-                example-1:
+                Connection:
                   value:
                     id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
                     integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
@@ -357,7 +357,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connection'
               examples:
-                example-1:
+                Connection:
                   value:
                     id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
                     integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
@@ -1403,18 +1403,6 @@ components:
         - Linked
         - Unlinked
         - Deauthorized
-    DataConnectionError:
-      type: object
-      x-internal: true
-      properties:
-        statusCode:
-          type: string
-        statusText:
-          type: string
-        errorMessage:
-          type: string
-        erroredOnUtc:
-          $ref: '#/components/schemas/DateTime'
     SourceType:
       title: Source Type
       x-internal: true
@@ -1474,12 +1462,68 @@ components:
         datatypeFeatures:
           type: array
           items:
-            $ref: '#/components/schemas/DataTypeFeature'
+            $ref: '#/components/schemas/Integration/definitions/dataTypeFeature'
       required:
         - key
         - logoUrl
         - name
         - enabled
+      definitions:
+        dataTypeFeature:
+          title: Data type feature
+          description: Describes support for a given datatype and associated operations
+          type: object
+          properties:
+            dataType:
+              $ref: '#/components/schemas/SyncSetting/properties/dataType'
+            supportedFeatures:
+              type: array
+              items:
+                $ref: '#/components/schemas/Integration/definitions/supportedFeature'
+          required:
+            - datatype
+            - supportedFeatures
+          examples:
+            - datatype: invoices
+              supportedFeatures:
+                - featureType: Get
+                  featureState: Release
+        supportedFeature:
+          type: object
+          x-internal: true
+          properties:
+            featureType:
+              $ref: '#/components/schemas/Integration/definitions/featureType'
+            featureState:
+              $ref: '#/components/schemas/Integration/definitions/featureState'
+          required:
+            - featureType
+            - featureState
+        featureState:
+          title: Feature state
+          type: string
+          example: Release
+          enum:
+            - Release
+            - Beta
+            - Deprecated
+            - NotSupported
+            - NotImplemented
+        featureType:
+          type: string
+          x-internal: true
+          enum:
+            - Get
+            - Post
+            - Categorization
+            - Delete
+            - Put
+            - GetAsPdf
+            - DownloadAttachment
+            - GetAttachment
+            - GetAttachments
+            - UploadAttachment
+          example: Get
     Integrations:
       x-internal: true
       allOf:
@@ -1490,62 +1534,6 @@ components:
               items:
                 $ref: '#/components/schemas/Integration'
         - $ref: '#/components/schemas/PagingInfo'
-    DataTypeFeature:
-      title: DatatypeFeature
-      x-internal: true
-      description: Describes support for a given datatype and associated operations
-      type: object
-      properties:
-        dataType:
-          $ref: '#/components/schemas/DataType'
-        supportedFeatures:
-          type: array
-          items:
-            $ref: '#/components/schemas/SupportedFeature'
-      required:
-        - datatype
-        - supportedFeatures
-      examples:
-        - datatype: invoices
-          supportedFeatures:
-            - featureType: get
-              featureState: release
-    SupportedFeature:
-      type: object
-      x-internal: true
-      properties:
-        featureType:
-          $ref: '#/components/schemas/FeatureType'
-        featureState:
-          $ref: '#/components/schemas/FeatureState'
-      required:
-        - featureType
-        - featureState
-    FeatureState:
-      type: string
-      x-internal: true
-      example: Release
-      enum:
-        - Release
-        - Beta
-        - Deprecated
-        - NotSupported
-        - NotImplemented
-    FeatureType:
-      type: string
-      x-internal: true
-      enum:
-        - Get
-        - Post
-        - Categorization
-        - Delete
-        - Put
-        - GetAsPdf
-        - DownloadAttachment
-        - GetAttachment
-        - GetAttachments
-        - UploadAttachment
-      example: Get
     SyncSettings:
       x-internal: true
       type: object
@@ -1575,6 +1563,7 @@ components:
       type: object
       properties:
         dataType:
+          x-internal: true
           type: string
           description: Available Data types
           enum:
@@ -1922,7 +1911,7 @@ components:
           type: string
           description: Alternative text when image is not available.
     DateTime:
-      title: Date Time
+      title: Date time
       type: string
       example: '2022-10-23T00:00:00Z'
       description: |-
@@ -2347,7 +2336,7 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
           examples:
-            example-1:
+            Unauthorized:
               value:
                 statusCode: 401
                 service: PublicApi
@@ -2362,7 +2351,7 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
           examples:
-            example-1:
+            Malformed query:
               value:
                 statusCode: 400
                 service: ClientsApi

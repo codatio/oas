@@ -1501,31 +1501,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Report'
               example:
-                - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1commerceMetrics~1orders/get/responses/200/content/application~1json/example/0'
-      operationId: get-commerce-revenue-metrics
-      description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
-      parameters:
-        - $ref: '#/components/parameters/reportDate'
-        - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
-        - $ref: '#/components/parameters/periodUnit'
-        - $ref: '#/components/parameters/includeDisplayNames'
-  '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
-    get:
-      summary: Get order information for a specific company
-      tags:
-        - Reports
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Report'
-              example:
                 - reportInfo:
                     name: revenue
                     displayName: Revenue
@@ -1577,6 +1552,90 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs. previous period
                               value: 276.65
+      operationId: get-commerce-revenue-metrics
+      description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
+      parameters:
+        - $ref: '#/components/parameters/reportDate'
+        - $ref: '#/components/parameters/periodLength'
+        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/periodUnit'
+        - $ref: '#/components/parameters/includeDisplayNames'
+  '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    get:
+      summary: Get order information for a specific company
+      tags:
+        - Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+              example:
+                - reportInfo:
+                    name: orders
+                    displayName: Orders
+                  dimensions:
+                    - index: 0
+                      displayName: Period
+                      type: datespan
+                      items:
+                        - index: 0
+                          displayName: Period 0
+                          start: '2022-01-01'
+                          end: '2022-12-31'
+                    - index: 1
+                      displayName: Order metrics
+                      type: string
+                      items:
+                        - index: 0
+                          value: Number of orders
+                        - index: 1
+                          value: Total value
+                        - index: 2
+                          value: Average order value
+                  measures:
+                    - displayName: Count
+                      index: 0
+                      type: int
+                    - displayName: Value
+                      units: GBP
+                      index: 1
+                      type: currency
+                  reportData:
+                    - dimension: 0
+                      dimensionDisplayName: Period
+                      item: 0
+                      itemDisplayName: Period 0
+                      components:
+                        - dimension: 1
+                          dimensionDisplayName: Order metrics
+                          item: 0
+                          itemDisplayName: Number of orders
+                          measures:
+                            - index: 0
+                              measureDisplayName: Count
+                              value: 94
+                        - dimension: 1
+                          dimensionDisplayName: Order metrics
+                          item: 1
+                          itemDisplayName: Total value
+                          measures:
+                            - index: 1
+                              measureDisplayName: Value
+                              value: 3315.18
+                        - dimension: 1
+                          dimensionDisplayName: Order metrics
+                          item: 2
+                          itemDisplayName: Average order value
+                          measures:
+                            - index: 1
+                              measureDisplayName: Value
+                              value: 35.27
       operationId: get-commerce-orders-metrics
       description: 'Gets the order information for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1689,31 +1748,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Report'
               example:
-                - $ref: '#/paths/~1data~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1assess~1commerceMetrics~1lifetimeValue/get/responses/200/content/application~1json/example/0'
-      operationId: get-commerce-customer-retention-metrics
-      description: 'Gets the customer retention metrics for a specific company connection, over one or more periods of time.'
-      parameters:
-        - $ref: '#/components/parameters/reportDate'
-        - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
-        - $ref: '#/components/parameters/periodUnit'
-        - $ref: '#/components/parameters/includeDisplayNames'
-  '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
-    get:
-      summary: Get the lifetime value metric for a specific company.
-      tags:
-        - Reports
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Report'
-              example:
                 - reportInfo:
                     name: customer_retention
                     displayName: Customer Retention
@@ -1793,6 +1827,67 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage
                               value: 21.67
+      operationId: get-commerce-customer-retention-metrics
+      description: 'Gets the customer retention metrics for a specific company connection, over one or more periods of time.'
+      parameters:
+        - $ref: '#/components/parameters/reportDate'
+        - $ref: '#/components/parameters/periodLength'
+        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/periodUnit'
+        - $ref: '#/components/parameters/includeDisplayNames'
+  '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    get:
+      summary: Get the lifetime value metric for a specific company.
+      tags:
+        - Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+              example:
+                - reportInfo:
+                    name: lifetime_value
+                    displayName: Lifetime Value
+                  dimensions:
+                    - index: 0
+                      displayName: Period
+                      type: datespan
+                      items:
+                        - index: 0
+                          displayName: Period 0
+                          start: '2022-01-01'
+                          end: '2022-12-31'
+                    - index: 1
+                      displayName: Lifetime value metrics
+                      type: string
+                      items:
+                        - index: 0
+                          value: Lifetime value
+                  measures:
+                    - displayName: Value
+                      units: GBP
+                      index: 0
+                      type: currency
+                  reportData:
+                    - dimension: 0
+                      dimensionDisplayName: Period
+                      item: 0
+                      itemDisplayName: Period 0
+                      components:
+                        - dimension: 1
+                          dimensionDisplayName: Lifetime value metrics
+                          item: 0
+                          itemDisplayName: Lifetime value
+                          measures:
+                            - index: 0
+                              measureDisplayName: Value
+                              value: 3782.07
       operationId: get-commerce-lifetime-value-metrics
       description: 'Gets the lifetime value metric for a specific company connection, over one or more periods of time.'
       parameters:
@@ -2946,8 +3041,6 @@ components:
                     type: integer
         reportComponent:
           title: Report component
-          x-stoplight:
-            id: sqj9ewqwpab8e
           type: object
           properties:
             dimension:
@@ -3115,7 +3208,7 @@ components:
       title: Excel status
       properties:
         lastGenerated:
-          title: Date Time
+          title: Date time
           type: string
           example: '2022-10-23T00:00:00Z'
           description: |-
@@ -4592,8 +4685,6 @@ components:
                   description: Friendly reference for the payment.
                 metadata:
                   type: object
-                  x-stoplight:
-                    id: 91706c48a98b5
                   properties:
                     isDeleted:
                       type: boolean

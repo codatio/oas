@@ -1116,7 +1116,7 @@
             "$ref": "#/components/schemas/Company/properties/created"
           },
           "created": {
-            "title": "Date Time",
+            "title": "Date time",
             "type": "string",
             "example": "2022-10-23T00:00:00Z",
             "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
@@ -1271,119 +1271,7 @@
           "datatypeFeatures": {
             "type": "array",
             "items": {
-              "title": "DatatypeFeature",
-              "x-internal": true,
-              "description": "Describes support for a given datatype and associated operations",
-              "type": "object",
-              "properties": {
-                "dataType": {
-                  "x-internal": true,
-                  "type": "string",
-                  "description": "Available Data types",
-                  "enum": [
-                    "accountTransactions",
-                    "balanceSheet",
-                    "bankAccounts",
-                    "bankTransactions",
-                    "billCreditNotes",
-                    "billPayments",
-                    "bills",
-                    "cashFlowStatement",
-                    "chartOfAccounts",
-                    "company",
-                    "creditNotes",
-                    "customers",
-                    "directCosts",
-                    "directIncomes",
-                    "invoices",
-                    "items",
-                    "journalEntries",
-                    "journals",
-                    "paymentMethods",
-                    "payments",
-                    "profitAndLoss",
-                    "purchaseOrders",
-                    "salesOrders",
-                    "suppliers",
-                    "taxRates",
-                    "trackingCategories",
-                    "transfers",
-                    "banking-accountBalances",
-                    "banking-accounts",
-                    "banking-transactionCategories",
-                    "banking-transactions",
-                    "commerce-companyInfo",
-                    "commerce-customers",
-                    "commerce-disputes",
-                    "commerce-locations",
-                    "commerce-orders",
-                    "commerce-paymentMethods",
-                    "commerce-payments",
-                    "commerce-productCategories",
-                    "commerce-products",
-                    "commerce-taxComponents",
-                    "commerce-transactions"
-                  ],
-                  "example": "invoices"
-                },
-                "supportedFeatures": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "x-internal": true,
-                    "properties": {
-                      "featureType": {
-                        "type": "string",
-                        "x-internal": true,
-                        "enum": [
-                          "Get",
-                          "Post",
-                          "Categorization",
-                          "Delete",
-                          "Put",
-                          "GetAsPdf",
-                          "DownloadAttachment",
-                          "GetAttachment",
-                          "GetAttachments",
-                          "UploadAttachment"
-                        ],
-                        "example": "Get"
-                      },
-                      "featureState": {
-                        "type": "string",
-                        "x-internal": true,
-                        "example": "Release",
-                        "enum": [
-                          "Release",
-                          "Beta",
-                          "Deprecated",
-                          "NotSupported",
-                          "NotImplemented"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "featureType",
-                      "featureState"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "datatype",
-                "supportedFeatures"
-              ],
-              "examples": [
-                {
-                  "datatype": "invoices",
-                  "supportedFeatures": [
-                    {
-                      "featureType": "get",
-                      "featureState": "release"
-                    }
-                  ]
-                }
-              ]
+              "$ref": "#/components/schemas/Integration/definitions/dataTypeFeature"
             }
           }
         },
@@ -1392,7 +1280,132 @@
           "logoUrl",
           "name",
           "enabled"
-        ]
+        ],
+        "definitions": {
+          "dataTypeFeature": {
+            "title": "Data type feature",
+            "description": "Describes support for a given datatype and associated operations",
+            "type": "object",
+            "properties": {
+              "dataType": {
+                "x-internal": true,
+                "type": "string",
+                "description": "Available Data types",
+                "enum": [
+                  "accountTransactions",
+                  "balanceSheet",
+                  "bankAccounts",
+                  "bankTransactions",
+                  "billCreditNotes",
+                  "billPayments",
+                  "bills",
+                  "cashFlowStatement",
+                  "chartOfAccounts",
+                  "company",
+                  "creditNotes",
+                  "customers",
+                  "directCosts",
+                  "directIncomes",
+                  "invoices",
+                  "items",
+                  "journalEntries",
+                  "journals",
+                  "paymentMethods",
+                  "payments",
+                  "profitAndLoss",
+                  "purchaseOrders",
+                  "salesOrders",
+                  "suppliers",
+                  "taxRates",
+                  "trackingCategories",
+                  "transfers",
+                  "banking-accountBalances",
+                  "banking-accounts",
+                  "banking-transactionCategories",
+                  "banking-transactions",
+                  "commerce-companyInfo",
+                  "commerce-customers",
+                  "commerce-disputes",
+                  "commerce-locations",
+                  "commerce-orders",
+                  "commerce-paymentMethods",
+                  "commerce-payments",
+                  "commerce-productCategories",
+                  "commerce-products",
+                  "commerce-taxComponents",
+                  "commerce-transactions"
+                ],
+                "example": "invoices"
+              },
+              "supportedFeatures": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Integration/definitions/supportedFeature"
+                }
+              }
+            },
+            "required": [
+              "datatype",
+              "supportedFeatures"
+            ],
+            "examples": [
+              {
+                "datatype": "invoices",
+                "supportedFeatures": [
+                  {
+                    "featureType": "Get",
+                    "featureState": "Release"
+                  }
+                ]
+              }
+            ]
+          },
+          "supportedFeature": {
+            "type": "object",
+            "x-internal": true,
+            "properties": {
+              "featureType": {
+                "$ref": "#/components/schemas/Integration/definitions/featureType"
+              },
+              "featureState": {
+                "$ref": "#/components/schemas/Integration/definitions/featureState"
+              }
+            },
+            "required": [
+              "featureType",
+              "featureState"
+            ]
+          },
+          "featureState": {
+            "title": "Feature state",
+            "type": "string",
+            "example": "Release",
+            "enum": [
+              "Release",
+              "Beta",
+              "Deprecated",
+              "NotSupported",
+              "NotImplemented"
+            ]
+          },
+          "featureType": {
+            "type": "string",
+            "x-internal": true,
+            "enum": [
+              "Get",
+              "Post",
+              "Categorization",
+              "Delete",
+              "Put",
+              "GetAsPdf",
+              "DownloadAttachment",
+              "GetAttachment",
+              "GetAttachments",
+              "UploadAttachment"
+            ],
+            "example": "Get"
+          }
+        }
       },
       "UpdateConnection": {
         "x-internal": true,

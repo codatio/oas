@@ -23709,7 +23709,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BalanceSheetResponse'
+                $ref: '#/components/schemas/BalanceSheet'
       description: Gets the latest balance sheet for a company.
       operationId: get-balance-sheet
   '/companies/{companyId}/data/financials/profitAndLoss':
@@ -23729,7 +23729,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProfitAndLossResponse'
+                $ref: '#/components/schemas/ProfitAndLossReport'
       description: Gets the latest profit and loss for a company.
       operationId: get-profit-and-loss
   '/companies/{companyId}/data/financials/cashFlowStatement':
@@ -23749,7 +23749,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CashFlowStatementResponse'
+                $ref: '#/components/schemas/CashFlowStatement'
       description: Gets the latest cash flow statement for a company.
       operationId: get-cash-flow-statement
   '/companies/{companyId}/data/info':
@@ -23778,7 +23778,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataSet'
+                $ref: '#/components/schemas/Dataset'
       description: Initiates the process of synchronising basic info for a company
       operationId: post-sync-info
   '/companies/{companyId}/data/invoices':
@@ -39029,7 +39029,7 @@ components:
           type: string
           format: uri-reference
     DateTime:
-      title: Date Time
+      title: Date time
       type: string
       example: '2022-10-23T00:00:00Z'
       description: |-
@@ -39070,6 +39070,7 @@ components:
               $ref: '#/components/schemas/DateTime'
               description: The date on which this record was last modified in the originating system
     DataType:
+      x-internal: true
       type: string
       description: Available Data types
       enum:
@@ -39432,60 +39433,7 @@ components:
               nullable: true
               description: '''The validDatatypeLinks can be used to determine whether an account can be correctly mapped to another object; for example, accounts with a `type` of `income` might only support being used on an Invoice and Direct Income. For more information, see Valid Data Type Links.'''
               items:
-                title: Valid data type links
-                description: |-
-                  When querying Codat's data model, some data types return `validDatatypeLinks` metadata in the JSON response. This indicates where that object can be used as a reference—a _valid link_—when creating or updating other data.
-
-                  For example, `validDatatypeLinks` might indicate the following references:
-
-                  - Which tax rates are valid to use on the line item of a bill.
-                  - Which items can be used when creating an invoice. 
-
-                  You can use `validDatatypeLinks` to present your SMB customers with only valid choices when selecting objects from a list, for example.
-
-                  ## `validDatatypeLinks` example
-
-                  The following example uses the `Accounting.Accounts` data type. It shows that, on the linked integration, this account is valid as the account on a payment or bill payment; and as the account referenced on the line item of a direct income or direct cost. Because there is no valid link to Invoices or Bills, using this account on those data types will result in an error.
-
-                  ```json validDatatypeLinks for an account
-                  {
-                              "id": "bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4",
-                              "nominalCode": "090",
-                              "name": "Business Bank Account",
-                              #...
-                              "validDatatypeLinks": [
-                                  {
-                                      "property": "Id",
-                                      "links": [
-                                          "Payment.AccountRef.Id",
-                                          "BillPayment.AccountRef.Id",
-                                          "DirectIncome.LineItems.AccountRef.Id",
-                                          "DirectCost.LineItems.AccountRef.Id"
-                                      ]
-                                  }
-                              ]
-                          }
-                  ```
-
-
-
-                  ## Support for `validDatatypeLinks`
-
-                  Codat currently supports `validDatatypeLinks` for some data types on our Xero, QuickBooks Online, QuickBooks Desktop, Exact (NL), and Sage Business Cloud integrations. 
-
-                  If you'd like us to extend support to more data types or integrations, suggest or vote for this on our <a href="https://portal.productboard.com/codat/5-product-roadmap">Product Roadmap</a>.
-                type: object
-                properties:
-                  property:
-                    type: string
-                    nullable: true
-                    description: The property from the account that can be linked.
-                  links:
-                    type: array
-                    nullable: true
-                    description: Supported `dataTypes` that the record can be linked to.
-                    items:
-                      type: string
+                $ref: '#/components/schemas/ValidDataTypeLinks'
             metadata:
               $ref: '#/components/schemas/Metadata'
         - $ref: '#/components/schemas/ModifiedDates'
@@ -39675,6 +39623,7 @@ components:
         - $ref: '#/components/schemas/ModifiedDates'
       examples: []
     ReportLine:
+      x-internal: true
       type: object
       title: Report Line
       properties:
@@ -39719,24 +39668,48 @@ components:
         **Want to pull this in a standardised structure?**
         Our [Enhanced Financials](https://docs.codat.io/assess/reports/enhanced-financials/financials) endpoints provide the same report under standardized headings, allowing you to pull it in the same format for all of your business customers.
       type: object
+      additionalProperties: false
       properties:
-        date:
+        currency:
+          $ref: '#/components/schemas/Transfer/definitions/transferAccount/properties/currency'
+          description: Currency of the balance sheet.
+        reports:
+          type: array
+          description: An array of balance sheet reports.
+          items:
+            $ref: '#/components/schemas/BalanceSheet/definitions/balanceSheet'
+        mostRecentAvailableMonth:
           $ref: '#/components/schemas/DateTime'
-          description: Point in time when a snapshot of a company's financial position is taken.
-        assets:
-          $ref: '#/components/schemas/ReportLine'
-          description: 'ReportLines for assets. For example, fixed and current assets.'
-        liabilities:
-          $ref: '#/components/schemas/ReportLine'
-          description: 'ReportLines for liabilities. For example, current liabilities.'
-        netAssets:
-          type: number
-          description: Value of net assets for a company in their base currency.
-        equity:
-          $ref: '#/components/schemas/ReportLine'
-          description: 'ReportLines for equities. For example, retained and current year earnings. See below.'
+          nullable: true
+          description: Most recent available monthly report data.
+        earliestAvailableMonth:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: Earliest available monthly report data.
       required:
-        - netAssets
+        - currency
+        - reports
+      definitions:
+        balanceSheet:
+          type: object
+          properties:
+            date:
+              $ref: '#/components/schemas/DateTime'
+              description: Point in time when a snapshot of a company's financial position is taken.
+            assets:
+              $ref: '#/components/schemas/ReportLine'
+              description: 'ReportLines for assets. For example, fixed and current assets.'
+            liabilities:
+              $ref: '#/components/schemas/ReportLine'
+              description: 'ReportLines for liabilities. For example, current liabilities.'
+            netAssets:
+              type: number
+              description: Value of net assets for a company in their base currency.
+            equity:
+              $ref: '#/components/schemas/ReportLine'
+              description: 'ReportLines for equities. For example, retained and current year earnings. See below.'
+          required:
+            - netAssets
     BankAccount:
       title: Bank account
       description: |-
@@ -39910,13 +39883,14 @@ components:
           nullable: true
       definitions:
         bankTransactionLine:
+          title: Bank transaction line
           type: object
           allOf:
             - type: object
               properties:
                 id:
                   type: string
-                date:
+                clearedOnDate:
                   $ref: '#/components/schemas/DateTime'
                 description:
                   type: string
@@ -39985,6 +39959,7 @@ components:
         - $ref: '#/components/schemas/PushOperationSummary'
     BankStatementAccount:
       type: object
+      title: Bank statement account
       properties:
         id:
           type: string
@@ -41038,36 +41013,6 @@ components:
             data:
               $ref: '#/components/schemas/BillPayment'
         - $ref: '#/components/schemas/PushOperationSummary'
-    CashFlowStatement:
-      title: Cash flow statement
-      description: |-
-        > View the coverage for cash flow statement in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
-
-        > **Operating activities only**  
-        > 
-        > Currently, the cash flow statement shows cash that flows into and out of the company from operating activities *only*. Operating activities generate cash from the sale of goods or services.
-
-        ## Overview
-
-        A cash flow statement is a financial report that records all cash that is received or spent by a company during a given period. It gives you a clearer picture of the company’s performance, and their ability to pay creditors and finance growth.
-
-        > **Cash flow statement or balance sheet?**
-        > 
-        > Look at the cash flow statement to understand a company's ability to pay its bills. Although the balance sheet may show healthy earnings at a specific point in time, the cash flow statement allows you to see whether the company is meeting its financial commitments, such as paying creditors or its employees.
-      type: object
-      properties:
-        fromDate:
-          $ref: '#/components/schemas/DateTime'
-          description: Start date for the reporting period.
-        toDate:
-          $ref: '#/components/schemas/DateTime'
-          description: End date for the reporting period.
-        cashReceipts:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLines for cash receipts from the sale of goods.
-        cashPayments:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLines for cash payments to suppliers for the purchase of goods or services.
     CompanyDataset:
       title: Company information
       description: |-
@@ -43445,46 +43390,78 @@ components:
         **Want to pull this in a standardised structure?**  
         Our [Enhanced Financials](https://docs.codat.io/assess/reports/enhanced-financials/financials) endpoints provide the same report under standardized headings, allowing you to pull it in the same format for all of your business customers.
       type: object
-      additionalProperties: false
       properties:
-        fromDate:
+        reports:
+          type: array
+          description: An array of profit and loss reports.
+          items:
+            $ref: '#/components/schemas/ProfitAndLossReport/definitions/profitAndLossReport'
+        reportBasis:
+          $ref: '#/components/schemas/ProfitAndLossReport/definitions/reportBasis'
+        currency:
+          minLength: 1
+          type: string
+          description: Base currency of the company in which the profit and loss report is presented.
+        mostRecentAvailableMonth:
           $ref: '#/components/schemas/DateTime'
-          description: Date from which the report data begins.
-        toDate:
+          description: Most recent available monthly report data.
+        earliestAvailableMonth:
           $ref: '#/components/schemas/DateTime'
-          description: Date on which the report data ends.
-        income:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLine items for income in the given date range.
-        costOfSales:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLine items for cost of sales in the given date range.
-        grossProfit:
-          type: number
-          description: Gross profit of the company in the given date range.
-        expenses:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLine items for expenses in the given date range.
-        netOperatingProfit:
-          type: number
-          description: Net operating profit of the company in the given date range.
-        otherExpenses:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLine items for other expenses in the given date range.
-        otherIncome:
-          $ref: '#/components/schemas/ReportLine'
-          description: ReportLine items for other income in the given date range.
-        netOtherIncome:
-          type: number
-          description: Net other income of the company in the given date range.
-        netProfit:
-          type: number
-          description: Net profit of the company in the given date range.
+          description: Earliest available monthly report data.
       required:
-        - grossProfit
-        - netOperatingProfit
-        - netOtherIncome
-        - netProfit
+        - reports
+        - reportBasis
+        - currency
+      definitions:
+        reportBasis:
+          enum:
+            - Unknown
+            - Accrual
+            - Cash
+          type: string
+          description: The basis of a report.
+        profitAndLossReport:
+          type: object
+          additionalProperties: false
+          properties:
+            fromDate:
+              $ref: '#/components/schemas/DateTime'
+              description: Date from which the report data begins.
+            toDate:
+              $ref: '#/components/schemas/DateTime'
+              description: Date on which the report data ends.
+            income:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLine items for income in the given date range.
+            costOfSales:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLine items for cost of sales in the given date range.
+            grossProfit:
+              type: number
+              description: Gross profit of the company in the given date range.
+            expenses:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLine items for expenses in the given date range.
+            netOperatingProfit:
+              type: number
+              description: Net operating profit of the company in the given date range.
+            otherExpenses:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLine items for other expenses in the given date range.
+            otherIncome:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLine items for other income in the given date range.
+            netOtherIncome:
+              type: number
+              description: Net other income of the company in the given date range.
+            netProfit:
+              type: number
+              description: Net profit of the company in the given date range.
+          required:
+            - grossProfit
+            - netOperatingProfit
+            - netOtherIncome
+            - netProfit
     PurchaseOrder:
       title: Purchase order
       description: |-
@@ -44116,7 +44093,7 @@ components:
               type: array
               nullable: true
               items:
-                $ref: '#/components/schemas/Account/allOf/0/properties/validDatatypeLinks/items'
+                $ref: '#/components/schemas/ValidDataTypeLinks'
             metadata:
               $ref: '#/components/schemas/Metadata'
         - $ref: '#/components/schemas/ModifiedDates'
@@ -44412,14 +44389,13 @@ components:
         - $ref: '#/components/schemas/PushOperationSummary'
     Metadata:
       type: object
-      x-stoplight:
-        id: 91706c48a98b5
       properties:
         isDeleted:
           type: boolean
           description: Indicates whether the record has been deleted in the third-party system this record originated from.
           nullable: true
     AttachmentsDataset:
+      x-internal: true
       type: object
       properties:
         attachments:
@@ -44428,7 +44404,8 @@ components:
             $ref: '#/components/schemas/Attachment'
           nullable: true
       title: Attachments
-    DataSet:
+    Dataset:
+      x-internal: true
       required:
         - companyId
         - connectionId
@@ -44498,17 +44475,33 @@ components:
           type: string
           nullable: true
       title: ''
-    CashFlowStatementResponse:
+    CashFlowStatement:
+      title: Cash flow statement
+      description: |-
+        > View the coverage for cash flow statement in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
+
+        > **Operating activities only**  
+        > 
+        > Currently, the cash flow statement shows cash that flows into and out of the company from operating activities *only*. Operating activities generate cash from the sale of goods or services.
+
+        ## Overview
+
+        A cash flow statement is a financial report that records all cash that is received or spent by a company during a given period. It gives you a clearer picture of the company’s performance, and their ability to pay creditors and finance growth.
+
+        > **Cash flow statement or balance sheet?**
+        > 
+        > Look at the cash flow statement to understand a company's ability to pay its bills. Although the balance sheet may show healthy earnings at a specific point in time, the cash flow statement allows you to see whether the company is meeting its financial commitments, such as paying creditors or its employees.
       type: object
       properties:
         reports:
+          description: Array of cash flow statements.
           type: array
           items:
-            $ref: '#/components/schemas/CashFlowStatement'
+            $ref: '#/components/schemas/CashFlowStatement/definitions/cashFlowStatement'
         reportBasis:
-          $ref: '#/components/schemas/CashFlowStatementResponse/definitions/reportBasis'
+          $ref: '#/components/schemas/CashFlowStatement/definitions/reportBasis'
         reportInput:
-          $ref: '#/components/schemas/CashFlowStatementResponse/definitions/reportInput'
+          $ref: '#/components/schemas/CashFlowStatement/definitions/reportInput'
         currency:
           $ref: '#/components/schemas/Transfer/definitions/transferAccount/properties/currency'
           description: Currency of all values in the cash flow statement.
@@ -44525,7 +44518,8 @@ components:
         - currency
       definitions:
         reportBasis:
-          description: 'Accounting method used when aggregating the report data. In this case, Cash.'
+          title: Report basis
+          description: 'Accounting method used when aggregating the report data. In this case, `Cash`.'
           type: string
           enum:
             - Unknown
@@ -44538,61 +44532,22 @@ components:
             - Unknown
             - Indirect
             - Direct
-    BalanceSheetResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        currency:
-          $ref: '#/components/schemas/Transfer/definitions/transferAccount/properties/currency'
-          description: Currency of the balance sheet.
-        reports:
-          type: array
-          description: An array of balance sheet reports.
-          items:
-            $ref: '#/components/schemas/BalanceSheet'
-        mostRecentAvailableMonth:
-          $ref: '#/components/schemas/DateTime'
-          nullable: true
-          description: Most recent available monthly report data.
-        earliestAvailableMonth:
-          $ref: '#/components/schemas/DateTime'
-          nullable: true
-          description: Earliest available monthly report data.
-      required:
-        - currency
-        - reports
-    ProfitAndLossResponse:
-      type: object
-      properties:
-        reports:
-          type: array
-          description: An array of profit and loss reports.
-          items:
-            $ref: '#/components/schemas/ProfitAndLossReport'
-        reportBasis:
-          $ref: '#/components/schemas/ProfitAndLossResponse/definitions/reportBasis'
-        currency:
-          minLength: 1
-          type: string
-          description: Base currency of the company in which the profit and loss report is presented.
-        mostRecentAvailableMonth:
-          $ref: '#/components/schemas/DateTime'
-          description: Most recent available monthly report data.
-        earliestAvailableMonth:
-          $ref: '#/components/schemas/DateTime'
-          description: Earliest available monthly report data.
-      required:
-        - reports
-        - reportBasis
-        - currency
-      definitions:
-        reportBasis:
-          enum:
-            - Unknown
-            - Accrual
-            - Cash
-          type: string
-          description: The basis of a report.
+        cashFlowStatement:
+          title: Cash flow statement
+          type: object
+          properties:
+            fromDate:
+              $ref: '#/components/schemas/DateTime'
+              description: Start date for the reporting period.
+            toDate:
+              $ref: '#/components/schemas/DateTime'
+              description: End date for the reporting period.
+            cashReceipts:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLines for cash receipts from the sale of goods.
+            cashPayments:
+              $ref: '#/components/schemas/ReportLine'
+              description: ReportLines for cash payments to suppliers for the purchase of goods or services.
     AgedDebtorReport:
       type: object
       title: Aged debtors report
@@ -44789,6 +44744,7 @@ components:
                                 type: number
                                 description: The amount outstanding.
     ProjectRef:
+      x-internal: true
       required:
         - id
       type: object
@@ -44799,6 +44755,61 @@ components:
         name:
           type: string
           nullable: true
+    ValidDataTypeLinks:
+      title: Valid data type links
+      description: |-
+        When querying Codat's data model, some data types return `validDatatypeLinks` metadata in the JSON response. This indicates where that object can be used as a reference—a _valid link_—when creating or updating other data.
+
+        For example, `validDatatypeLinks` might indicate the following references:
+
+        - Which tax rates are valid to use on the line item of a bill.
+        - Which items can be used when creating an invoice. 
+
+        You can use `validDatatypeLinks` to present your SMB customers with only valid choices when selecting objects from a list, for example.
+
+        ## `validDatatypeLinks` example
+
+        The following example uses the `Accounting.Accounts` data type. It shows that, on the linked integration, this account is valid as the account on a payment or bill payment; and as the account referenced on the line item of a direct income or direct cost. Because there is no valid link to Invoices or Bills, using this account on those data types will result in an error.
+
+        ```json validDatatypeLinks for an account
+        {
+                    "id": "bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4",
+                    "nominalCode": "090",
+                    "name": "Business Bank Account",
+                    #...
+                    "validDatatypeLinks": [
+                        {
+                            "property": "Id",
+                            "links": [
+                                "Payment.AccountRef.Id",
+                                "BillPayment.AccountRef.Id",
+                                "DirectIncome.LineItems.AccountRef.Id",
+                                "DirectCost.LineItems.AccountRef.Id"
+                            ]
+                        }
+                    ]
+                }
+        ```
+
+
+
+        ## Support for `validDatatypeLinks`
+
+        Codat currently supports `validDatatypeLinks` for some data types on our Xero, QuickBooks Online, QuickBooks Desktop, Exact (NL), and Sage Business Cloud integrations. 
+
+        If you'd like us to extend support to more data types or integrations, suggest or vote for this on our <a href="https://portal.productboard.com/codat/5-product-roadmap">Product Roadmap</a>.
+      type: object
+      properties:
+        property:
+          type: string
+          nullable: true
+          description: The property from the account that can be linked.
+        links:
+          type: array
+          nullable: true
+          description: Supported `dataTypes` that the record can be linked to.
+          items:
+            type: string
   parameters:
     companyId:
       name: companyId

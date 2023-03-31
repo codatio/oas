@@ -41,54 +41,14 @@ paths:
       tags:
         - Configuration
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Config Example:
-                    bankAccount:
-                      id: '89'
-                    supplier:
-                      id: '124'
-                    customer:
-                      id: '140'
-                properties:
-                  bankAccount:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: The id of the account from which purchases are made
-                        example: '32'
-                  supplier:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: id of the supplier for all purchases to be associated to
-                        example: '124'
-                  customer:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: id of the customer for all income related activities to be associated to.
-                        example: '142'
+                $ref: '#/components/schemas/CompanyConfiguration'
       summary: Get company configuration
       description: Gets a companies expense sync configuration
       operationId: get-company-configuration
@@ -96,195 +56,30 @@ paths:
       tags:
         - Configuration
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              x-examples:
-                Config Example:
-                  bankAccount:
-                    id: '89'
-                  supplier:
-                    id: '124'
-                  customer:
-                    id: '140'
-              properties:
-                bankAccount:
-                  x-internal: true
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: The id of the account from which purchases are made
-                      example: '32'
-                supplier:
-                  x-internal: true
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: id of the supplier for all purchases to be associated to
-                      example: '124'
-                customer:
-                  x-internal: true
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: id of the customer for all income related activities to be associated to.
-                      example: '142'
+              $ref: '#/components/schemas/CompanyConfiguration'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Config Example:
-                    bankAccount:
-                      id: '89'
-                    supplier:
-                      id: '124'
-                    customer:
-                      id: '140'
-                properties:
-                  bankAccount:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: The id of the account from which purchases are made
-                        example: '32'
-                  supplier:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: id of the supplier for all purchases to be associated to
-                        example: '124'
-                  customer:
-                    x-internal: true
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: id of the customer for all income related activities to be associated to.
-                        example: '142'
+                $ref: '#/components/schemas/CompanyConfiguration'
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  service:
-                    type: string
-                  error:
-                    type: string
-                  correlationId:
-                    type: string
-                  validation:
-                    type: object
-                    properties:
-                      hasErrors:
-                        type: boolean
-                      hasWarnings:
-                        type: boolean
-                      hasInternals:
-                        type: boolean
-                      errors:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      warnings:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      internals:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                  inner:
-                    type: string
-                  canBeRetried:
-                    type: string
-                  detailedErrorCode:
-                    type: integer
-                x-examples:
-                  Not Found:
-                    statusCode: 404
-                    service: ExpenseSyncApi
-                    error: NotFound
-                    correlationId: ''
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
-                  Invalid Dataset:
-                    statusCode: 400
-                    service: ExpenseSyncApi
-                    error: 'There are problems with the request, see the Validation property for more detail.'
-                    correlationId: 2201579598a29055025d2e0f829fa89a
-                    validation:
-                      errors:
-                        - itemId: 'Items[0].Lines[0].NetAmount'
-                          message: The field NetAmount must be between 0 and 5000000.
-                        - itemId: 'Items[0].Lines[0].TaxAmount'
-                          message: The field TaxAmount must be between 0 and 5000000.
-                      warnings: []
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+                $ref: '#/components/schemas/CodatErrorMessage'
       summary: Set company configuration
       description: Sets a companies expense sync configuration
       operationId: save-company-configuration
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
   '/companies/{companyId}/sync/expenses/connections/partnerExpense':
     post:
       tags:
@@ -293,754 +88,70 @@ paths:
       summary: Create Partner Expense connection
       operationId: create-partner-expense-connection
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                title: Connection
-                description: A connection represents the link between a `company` and a source of data.
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-                    description: Unique identifier for a company's data connection.
-                  integrationId:
-                    type: string
-                    format: uuid
-                    example: fd321cb6-7963-4506-b873-e99593a45e30
-                    description: A Codat ID representing the integration.
-                  integrationKey:
-                    type: string
-                    description: A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
-                  sourceId:
-                    type: string
-                    format: uuid
-                    example: 35b92968-9851-4095-ad60-395c95cbcba4
-                    description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
-                  sourceType:
-                    title: Source Type
-                    x-internal: true
-                    description: The type of platform of the connection.
-                    type: string
-                    enum:
-                      - Accounting
-                      - Banking
-                      - Commerce
-                      - Other
-                      - Unknown
-                    example: Accounting
-                  platformName:
-                    type: string
-                  linkUrl:
-                    type: string
-                    format: uri
-                    example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
-                  status:
-                    title: Data connection status
-                    description: The current authorization status of the data connection.
-                    type: string
-                    enum:
-                      - PendingAuth
-                      - Linked
-                      - Unlinked
-                      - Deauthorized
-                  lastSync:
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                    description: |-
-                      In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                      ```
-                      2020-10-08T22:40:50Z
-                      2021-01-01T00:00:00
-                      ```
-
-
-
-                      When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                      - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                      - Unqualified local time: `2021-11-15T01:00:00`
-                      - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                      > Time zones
-                      > 
-                      > Not all dates from Codat will contain information about time zones.  
-                      > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  created:
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                    description: |-
-                      In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                      ```
-                      2020-10-08T22:40:50Z
-                      2021-01-01T00:00:00
-                      ```
-
-
-
-                      When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                      - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                      - Unqualified local time: `2021-11-15T01:00:00`
-                      - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                      > Time zones
-                      > 
-                      > Not all dates from Codat will contain information about time zones.  
-                      > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  dataConnectionErrors:
-                    type: array
-                    items:
-                      title: Data connection error
-                      type: object
-                      properties:
-                        statusCode:
-                          type: string
-                        statusText:
-                          type: string
-                        errorMessage:
-                          type: string
-                        erroredOnUtc:
-                          title: Date Time
-                          type: string
-                          example: '2022-10-23T00:00:00Z'
-                          description: |-
-                            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                            ```
-                            2020-10-08T22:40:50Z
-                            2021-01-01T00:00:00
-                            ```
-
-
-
-                            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                            - Unqualified local time: `2021-11-15T01:00:00`
-                            - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                            > Time zones
-                            > 
-                            > Not all dates from Codat will contain information about time zones.  
-                            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  connectionInfo:
-                    type: object
-                    additionalProperties:
-                      type: string
-                  additionalProperties: false
-                required:
-                  - id
-                  - integrationId
-                  - integrationKey
-                  - sourceId
-                  - platformName
-                  - linkUrl
-                  - status
-                  - created
-                  - sourceType
-                definitions:
-                  dataConnectionStatus:
-                    title: Data connection status
-                    description: The current authorization status of the data connection.
-                    type: string
-                    enum:
-                      - PendingAuth
-                      - Linked
-                      - Unlinked
-                      - Deauthorized
-                  dataConnectionError:
-                    title: Data connection error
-                    type: object
-                    properties:
-                      statusCode:
-                        type: string
-                      statusText:
-                        type: string
-                      errorMessage:
-                        type: string
-                      erroredOnUtc:
-                        title: Date Time
-                        type: string
-                        example: '2022-10-23T00:00:00Z'
-                        description: |-
-                          In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                          ```
-                          2020-10-08T22:40:50Z
-                          2021-01-01T00:00:00
-                          ```
-
-
-
-                          When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                          - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                          - Unqualified local time: `2021-11-15T01:00:00`
-                          - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                          > Time zones
-                          > 
-                          > Not all dates from Codat will contain information about time zones.  
-                          > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-                  dataConnectionSourceType:
-                    title: Source Type
-                    description: The type of platform of the connection.
-                    type: string
-                    enum:
-                      - Accounting
-                      - Banking
-                      - Commerce
-                      - Other
-                      - Unknown
-                    example: Accounting
-                example:
-                  id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
-                  integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
-                  integrationKey: dfxm
-                  sourceId: bdd831ce-eebd-4896-89a7-20e5ee8989ee
-                  platformName: Basiq
-                  linkUrl: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
-                  status: Linked
-                  lastSync: '2022-10-27T10:22:43.6464237Z'
-                  created: '2022-10-27T09:53:29Z'
-                  sourceType: Banking
+                $ref: '#/components/schemas/DataConnection'
   '/companies/{companyId}/sync/expenses/mappingOptions':
     get:
       tags:
         - Mapping options
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                x-examples: {}
-                properties:
-                  expenseProvider:
-                    type: string
-                    description: Name of the expense integration.
-                    example: Partner Expense
-                    nullable: true
-                  accounts:
-                    type: array
-                    description: Array of available accounts for mapping.
-                    nullable: true
-                    items:
-                      type: object
-                      additionalProperties: false
-                      x-examples:
-                        Example AccountInfo:
-                          id: 313a4dbe-b3a4-42f0-a5f5-43e382e62db9
-                          name: Travel
-                          currency: GBP
-                          accountType: Expense
-                          validTransactionTypes:
-                            - Payment
-                            - Refund
-                      properties:
-                        id:
-                          type: string
-                          description: Unique identifier of account.
-                          example: '6'
-                          nullable: true
-                        name:
-                          type: string
-                          description: Name of the account as it appears in the companies accounting software.
-                          example: Purchases
-                          nullable: true
-                        currency:
-                          type: string
-                          description: Currency of the account.
-                          example: GBP
-                          nullable: true
-                        accountType:
-                          type: string
-                          description: Type of the account.
-                          example: Expense
-                          enum:
-                            - Asset
-                            - Liability
-                            - Income
-                            - Expense
-                            - Equity
-                          nullable: true
-                        validTransactionTypes:
-                          type: array
-                          description: Supported transaction types for the account.
-                          minItems: 0
-                          maxItems: 8
-                          nullable: true
-                          items:
-                            type: string
-                            enum:
-                              - Payment
-                              - Refund
-                              - Reward
-                              - Chargeback
-                              - TransferIn
-                              - TransferOut
-                              - AdjustmentIn
-                              - AdjustmentOut
-                            example: Payment
-                            minLength: 1
-                            maxLength: 8
-                  trackingCategories:
-                    type: array
-                    description: Array of available tracking categories for mapping.
-                    nullable: true
-                    items:
-                      type: object
-                      additionalProperties: false
-                      x-examples:
-                        Tracking Category with parentId:
-                          id: DEPARTMENT_1
-                          modifiedDate: '2023-02-09T11:42:41Z'
-                          name: TestLocation
-                          hasChildren: false
-                          parentId: DEPARTMENTS
-                        Parent Tracking Category:
-                          id: DEPARTMENTS
-                          modifiedDate: '2023-02-09T11:42:41Z'
-                          name: Departments
-                          hasChildren: true
-                      properties:
-                        id:
-                          type: string
-                          description: Unique identifier of the tracking category.
-                          example: DEPARTMENT_2
-                          nullable: true
-                        modifiedDate:
-                          description: Datetime when the tracking category was last modified.
-                          nullable: true
-                          title: Date Time
-                          type: string
-                          example: '2022-10-23T00:00:00Z'
-                        name:
-                          type: string
-                          description: Name of the tracking category as it appears in the accounting software.
-                          example: New York
-                          nullable: true
-                        hasChildren:
-                          type: boolean
-                          description: Boolean of whether the tracking category has child categories.
-                        parentId:
-                          type: string
-                          description: ID of the parent tracking category
-                          example: DEPARTMENTS
-                          nullable: true
-                  taxRates:
-                    type: array
-                    description: Array of available tax rates for mapping.
-                    nullable: true
-                    items:
-                      type: object
-                      additionalProperties: false
-                      x-examples:
-                        UK Tax Rate:
-                          id: 59_Bills
-                          name: UK Standard Rate (Bills) Bills
-                          code: UK Standard Rate (Bills)
-                          effectiveTaxRate: 20
-                          totalTaxRate: 20
-                          validTransactionTypes:
-                            - Payment
-                            - Reward
-                      properties:
-                        id:
-                          type: string
-                          description: Unique identifier of tax rate.
-                          example: 59_Bills
-                          nullable: true
-                        name:
-                          type: string
-                          description: Name of the tax rate in the accounting platform.
-                          example: UK Standard Rate (Bills) Bills
-                          nullable: true
-                        code:
-                          type: string
-                          description: Code for the tax rate from the accounting platform.
-                          example: UK Standard Rate (Bills)
-                          nullable: true
-                        effectiveTaxRate:
-                          type: number
-                          description: Effective tax rate.
-                          example: 20
-                        totalTaxRate:
-                          type: number
-                          description: Total (not compounded) sum of the components of a tax rate.
-                          example: 20
-                        validTransactionTypes:
-                          type: array
-                          description: Supported transaction types for the account.
-                          minItems: 0
-                          maxItems: 8
-                          nullable: true
-                          items:
-                            type: string
-                            enum:
-                              - Payment
-                              - Refund
-                              - Reward
-                              - Chargeback
-                              - TransferIn
-                              - TransferOut
-                              - AdjustmentIn
-                              - AdjustmentOut
-                            example: Payment
+                $ref: '#/components/schemas/MappingOptions'
       description: Gets the expense mapping options for a companies accounting software
       summary: Mapping options
       operationId: get-mapping-options
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
   '/companies/{companyId}/sync/expenses/syncs':
     post:
       tags:
         - Sync
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       summary: Initiate sync
       description: Initiate sync of pending transactions.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                datasetIds:
-                  minItems: 1
-                  type: array
-                  items:
-                    type: string
-                    format: uuid
-                  nullable: true
-              additionalProperties: false
+              $ref: '#/components/schemas/PostSync'
       responses:
         '202':
           description: Returns the newly created SyncId
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  syncId:
-                    type: string
-                    format: uuid
-                additionalProperties: false
+                $ref: '#/components/schemas/SyncInitiated'
         '400':
           description: If model is incorrect
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  service:
-                    type: string
-                  error:
-                    type: string
-                  correlationId:
-                    type: string
-                  validation:
-                    type: object
-                    properties:
-                      hasErrors:
-                        type: boolean
-                      hasWarnings:
-                        type: boolean
-                      hasInternals:
-                        type: boolean
-                      errors:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      warnings:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      internals:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                  inner:
-                    type: string
-                  canBeRetried:
-                    type: string
-                  detailedErrorCode:
-                    type: integer
-                x-examples:
-                  Not Found:
-                    statusCode: 404
-                    service: ExpenseSyncApi
-                    error: NotFound
-                    correlationId: ''
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
-                  Invalid Dataset:
-                    statusCode: 400
-                    service: ExpenseSyncApi
-                    error: 'There are problems with the request, see the Validation property for more detail.'
-                    correlationId: 2201579598a29055025d2e0f829fa89a
-                    validation:
-                      errors:
-                        - itemId: 'Items[0].Lines[0].NetAmount'
-                          message: The field NetAmount must be between 0 and 5000000.
-                        - itemId: 'Items[0].Lines[0].TaxAmount'
-                          message: The field TaxAmount must be between 0 and 5000000.
-                      warnings: []
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+                $ref: '#/components/schemas/CodatErrorMessage'
         '404':
           description: If company not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  service:
-                    type: string
-                  error:
-                    type: string
-                  correlationId:
-                    type: string
-                  validation:
-                    type: object
-                    properties:
-                      hasErrors:
-                        type: boolean
-                      hasWarnings:
-                        type: boolean
-                      hasInternals:
-                        type: boolean
-                      errors:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      warnings:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      internals:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                  inner:
-                    type: string
-                  canBeRetried:
-                    type: string
-                  detailedErrorCode:
-                    type: integer
-                x-examples:
-                  Not Found:
-                    statusCode: 404
-                    service: ExpenseSyncApi
-                    error: NotFound
-                    correlationId: ''
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
-                  Invalid Dataset:
-                    statusCode: 400
-                    service: ExpenseSyncApi
-                    error: 'There are problems with the request, see the Validation property for more detail.'
-                    correlationId: 2201579598a29055025d2e0f829fa89a
-                    validation:
-                      errors:
-                        - itemId: 'Items[0].Lines[0].NetAmount'
-                          message: The field NetAmount must be between 0 and 5000000.
-                        - itemId: 'Items[0].Lines[0].TaxAmount'
-                          message: The field TaxAmount must be between 0 and 5000000.
-                      warnings: []
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+                $ref: '#/components/schemas/CodatErrorMessage'
         '422':
           description: If the specified company does not have a valid set of DataConnections setup
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  service:
-                    type: string
-                  error:
-                    type: string
-                  correlationId:
-                    type: string
-                  validation:
-                    type: object
-                    properties:
-                      hasErrors:
-                        type: boolean
-                      hasWarnings:
-                        type: boolean
-                      hasInternals:
-                        type: boolean
-                      errors:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      warnings:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                      internals:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                            message:
-                              type: string
-                            validatorName:
-                              type: string
-                            ruleId:
-                              type: string
-                  inner:
-                    type: string
-                  canBeRetried:
-                    type: string
-                  detailedErrorCode:
-                    type: integer
-                x-examples:
-                  Not Found:
-                    statusCode: 404
-                    service: ExpenseSyncApi
-                    error: NotFound
-                    correlationId: ''
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
-                  Invalid Dataset:
-                    statusCode: 400
-                    service: ExpenseSyncApi
-                    error: 'There are problems with the request, see the Validation property for more detail.'
-                    correlationId: 2201579598a29055025d2e0f829fa89a
-                    validation:
-                      errors:
-                        - itemId: 'Items[0].Lines[0].NetAmount'
-                          message: The field NetAmount must be between 0 and 5000000.
-                        - itemId: 'Items[0].Lines[0].TaxAmount'
-                          message: The field TaxAmount must be between 0 and 5000000.
-                      warnings: []
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+                $ref: '#/components/schemas/CodatErrorMessage'
       operationId: intiate-sync
     parameters:
       - name: companyId
@@ -1056,194 +167,43 @@ paths:
       tags:
         - Sync status
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                x-examples:
-                  Success Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2000
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: true
-                  Success No Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2040
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: false
-                properties:
-                  companyId:
-                    type: string
-                    description: Unique identifier for your SMB in Codat.
-                    example: d4d73051-ed31-42b6-99f6-d288cd940992
-                    nullable: true
-                  syncId:
-                    type: string
-                    description: Unique identifier of the sync.
-                    example: a6a22aff-a43a-411d-a910-2dae73217cce
-                    nullable: true
-                  syncStatusCode:
-                    type: integer
-                    format: int32
-                    description: Status code of the sync.
-                    example: 2000
-                  syncStatus:
-                    type: string
-                    description: Text status of the sync.
-                    example: Completed
-                    nullable: true
-                  errorMessage:
-                    type: string
-                    description: Error message of the sync.
-                    nullable: true
-                  syncExceptionMessage:
-                    type: string
-                    description: Exception message of the sync.
-                    nullable: true
-                  syncUtc:
-                    description: Datetime of the sync.
-                    nullable: true
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  dataPushed:
-                    type: boolean
-                    description: Boolean of whether the sync resulted in data being pushed.
+                $ref: '#/components/schemas/CompanySyncStatus'
       description: Gets the status of the last successfull sync
       summary: Last successful sync
       operationId: get-last-successful-sync
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
   '/companies/{companyId}/sync/expenses/syncs/latest/status':
     get:
       tags:
         - Sync status
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                x-examples:
-                  Success Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2000
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: true
-                  Success No Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2040
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: false
-                properties:
-                  companyId:
-                    type: string
-                    description: Unique identifier for your SMB in Codat.
-                    example: d4d73051-ed31-42b6-99f6-d288cd940992
-                    nullable: true
-                  syncId:
-                    type: string
-                    description: Unique identifier of the sync.
-                    example: a6a22aff-a43a-411d-a910-2dae73217cce
-                    nullable: true
-                  syncStatusCode:
-                    type: integer
-                    format: int32
-                    description: Status code of the sync.
-                    example: 2000
-                  syncStatus:
-                    type: string
-                    description: Text status of the sync.
-                    example: Completed
-                    nullable: true
-                  errorMessage:
-                    type: string
-                    description: Error message of the sync.
-                    nullable: true
-                  syncExceptionMessage:
-                    type: string
-                    description: Exception message of the sync.
-                    nullable: true
-                  syncUtc:
-                    description: Datetime of the sync.
-                    nullable: true
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  dataPushed:
-                    type: boolean
-                    description: Boolean of whether the sync resulted in data being pushed.
+                $ref: '#/components/schemas/CompanySyncStatus'
       description: Gets the latest sync status
       summary: Latest sync status
       operationId: get-latest-sync
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
   '/companies/{companyId}/sync/expenses/syncs/list/status':
     get:
       tags:
         - Sync status
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
       responses:
         '200':
           description: Success
@@ -1252,202 +212,37 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  additionalProperties: false
-                  x-examples:
-                    Success Data Pushed:
-                      companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                      syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                      syncStatusCode: 2000
-                      syncStatus: Complete
-                      errorMessage: ''
-                      syncExceptionMessage: ''
-                      syncUtc: '2023-01-24T14:15:22Z'
-                      dataPushed: true
-                    Success No Data Pushed:
-                      companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                      syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                      syncStatusCode: 2040
-                      syncStatus: Complete
-                      errorMessage: ''
-                      syncExceptionMessage: ''
-                      syncUtc: '2023-01-24T14:15:22Z'
-                      dataPushed: false
-                  properties:
-                    companyId:
-                      type: string
-                      description: Unique identifier for your SMB in Codat.
-                      example: d4d73051-ed31-42b6-99f6-d288cd940992
-                      nullable: true
-                    syncId:
-                      type: string
-                      description: Unique identifier of the sync.
-                      example: a6a22aff-a43a-411d-a910-2dae73217cce
-                      nullable: true
-                    syncStatusCode:
-                      type: integer
-                      format: int32
-                      description: Status code of the sync.
-                      example: 2000
-                    syncStatus:
-                      type: string
-                      description: Text status of the sync.
-                      example: Completed
-                      nullable: true
-                    errorMessage:
-                      type: string
-                      description: Error message of the sync.
-                      nullable: true
-                    syncExceptionMessage:
-                      type: string
-                      description: Exception message of the sync.
-                      nullable: true
-                    syncUtc:
-                      description: Datetime of the sync.
-                      nullable: true
-                      title: Date Time
-                      type: string
-                      example: '2022-10-23T00:00:00Z'
-                    dataPushed:
-                      type: boolean
-                      description: Boolean of whether the sync resulted in data being pushed.
+                  $ref: '#/components/schemas/CompanySyncStatus'
       summary: List sync statuses
       description: Gets a list of sync statuses
       operationId: list-syncs
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/status':
     get:
       tags:
         - Sync status
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: syncId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-          description: Unique identifier for a sync.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+        - $ref: '#/components/parameters/syncId'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                x-examples:
-                  Success Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2000
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: true
-                  Success No Data Pushed:
-                    companyId: 20803807-4e9a-4cb7-b67b-9f889a3916e1
-                    syncId: aa4c9dfd-e945-4424-9628-9e724f14c267
-                    syncStatusCode: 2040
-                    syncStatus: Complete
-                    errorMessage: ''
-                    syncExceptionMessage: ''
-                    syncUtc: '2023-01-24T14:15:22Z'
-                    dataPushed: false
-                properties:
-                  companyId:
-                    type: string
-                    description: Unique identifier for your SMB in Codat.
-                    example: d4d73051-ed31-42b6-99f6-d288cd940992
-                    nullable: true
-                  syncId:
-                    type: string
-                    description: Unique identifier of the sync.
-                    example: a6a22aff-a43a-411d-a910-2dae73217cce
-                    nullable: true
-                  syncStatusCode:
-                    type: integer
-                    format: int32
-                    description: Status code of the sync.
-                    example: 2000
-                  syncStatus:
-                    type: string
-                    description: Text status of the sync.
-                    example: Completed
-                    nullable: true
-                  errorMessage:
-                    type: string
-                    description: Error message of the sync.
-                    nullable: true
-                  syncExceptionMessage:
-                    type: string
-                    description: Exception message of the sync.
-                    nullable: true
-                  syncUtc:
-                    description: Datetime of the sync.
-                    nullable: true
-                    title: Date Time
-                    type: string
-                    example: '2022-10-23T00:00:00Z'
-                  dataPushed:
-                    type: boolean
-                    description: Boolean of whether the sync resulted in data being pushed.
+                $ref: '#/components/schemas/CompanySyncStatus'
       summary: Get Sync status
       description: Get the sync status for a specified sync
       operationId: get-sync-by-id
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
-      - name: syncId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-        description: Unique identifier for a sync.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+      - $ref: '#/components/parameters/syncId'
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions':
     get:
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: syncId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-          description: Unique identifier for a sync.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+        - $ref: '#/components/parameters/syncId'
         - name: page
           in: query
           required: true
@@ -1478,191 +273,21 @@ paths:
           content:
             application/json:
               schema:
-                x-internal: true
-                additionalProperties: false
-                allOf:
-                  - type: object
-                    properties:
-                      results:
-                        type: array
-                        items:
-                          type: object
-                          additionalProperties: false
-                          x-examples:
-                            Successful Transaction:
-                              transactionId: 8fdba4ed-e327-4925-be1a-b7a2b04627f7
-                              status: Completed
-                              integrationType: expense
-                            Unsuccessful Transaction:
-                              transactionId: 3d694cd1-4cd9-4136-91db-32408195c6fc
-                              status: ValidationError
-                              message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
-                              integrationType: string
-                          properties:
-                            transactionId:
-                              type: string
-                              description: Your unique idenfier of the transaction.
-                              example: aa02271d-ed5f-47f5-be76-778d5905225a
-                              nullable: true
-                            status:
-                              x-internal: true
-                              type: string
-                              description: Status of the transaction.
-                              enum:
-                                - Unknown
-                                - Pending
-                                - ValidationError
-                                - Completed
-                                - PushError
-                              example: Completed
-                              nullable: true
-                            message:
-                              type: string
-                              description: Metadata such as validation errors or the resulting record created in the accounting software.
-                              nullable: true
-                            integrationType:
-                              x-internal: true
-                              type: string
-                              description: Type of transaction that has been processed e.g. Expense or Bank Feed.
-                              enum:
-                                - expenses
-                                - bankfeeds
-                              default: expenses
-                              example: expenses
-                              nullable: true
-                  - type: object
-                    x-internal: true
-                    properties:
-                      pageNumber:
-                        type: integer
-                      pageSize:
-                        type: integer
-                      totalResults:
-                        type: integer
-                      _links:
-                        type: object
-                        x-internal: true
-                        required:
-                          - self
-                          - current
-                        properties:
-                          self:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          current:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          next:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                          previous:
-                            title: Hypertext reference
-                            type: object
-                            x-internal: true
-                            properties:
-                              href:
-                                type: string
-                                format: uri-reference
-                        examples:
-                          - self:
-                              href: '/companies/{id}/data/{dataType}'
-                            current:
-                              href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                    required:
-                      - pageNumber
-                      - pageSize
-                      - totalResults
-                      - _links
-                    examples:
-                      - _links:
-                          pageNumber: 1
-                          pageSize: 10
-                          totalResults: 1
-                          self:
-                            href: '/companies/{id}/data/{dataType}'
-                          current:
-                            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-                x-examples:
-                  Example 1:
-                    results:
-                      - transactionId: aa02271d-ed5f-47f5-be76-778d5905225a
-                        status: Completed
-                        integrationType: expenses
-                      - transactionId: 730177a2-8505-410a-9ebc-c2dd52e4bea9
-                        status: Completed
-                        integrationType: expenses
-                    pageNumber: 1
-                    pageSize: 100
-                    totalResults: 2
-                    links:
-                      self:
-                        href: string
-                      current:
-                        href: string
+                $ref: '#/components/schemas/TransactionMetadataList'
       tags:
         - Transaction status
       summary: Get Sync transactions
       description: Get's the transactions and status for a sync
       operationId: list-sync-transactions
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
-      - name: syncId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-        description: Unique identifier for a sync.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+      - $ref: '#/components/parameters/syncId'
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}':
     get:
       parameters:
-        - name: companyId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 8a210b68-6988-11ed-a1eb-0242ac120002
-            description: Unique identifier for your SMB in Codat.
-        - name: syncId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-          description: Unique identifier for a sync.
-        - name: transactionId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
-          description: The unique identifier for your SMB's transaction.
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+        - $ref: '#/components/parameters/syncId'
+        - $ref: '#/components/parameters/transactionId'
       responses:
         '200':
           description: Success
@@ -1671,90 +296,19 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  additionalProperties: false
-                  x-examples:
-                    Successful Transaction:
-                      transactionId: 8fdba4ed-e327-4925-be1a-b7a2b04627f7
-                      status: Completed
-                      integrationType: expense
-                    Unsuccessful Transaction:
-                      transactionId: 3d694cd1-4cd9-4136-91db-32408195c6fc
-                      status: ValidationError
-                      message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
-                      integrationType: string
-                  properties:
-                    transactionId:
-                      type: string
-                      description: Your unique idenfier of the transaction.
-                      example: aa02271d-ed5f-47f5-be76-778d5905225a
-                      nullable: true
-                    status:
-                      x-internal: true
-                      type: string
-                      description: Status of the transaction.
-                      enum:
-                        - Unknown
-                        - Pending
-                        - ValidationError
-                        - Completed
-                        - PushError
-                      example: Completed
-                      nullable: true
-                    message:
-                      type: string
-                      description: Metadata such as validation errors or the resulting record created in the accounting software.
-                      nullable: true
-                    integrationType:
-                      x-internal: true
-                      type: string
-                      description: Type of transaction that has been processed e.g. Expense or Bank Feed.
-                      enum:
-                        - expenses
-                        - bankfeeds
-                      default: expenses
-                      example: expenses
-                      nullable: true
+                  $ref: '#/components/schemas/TransactionMetadata'
       tags:
         - Transaction status
       summary: Get Sync Transaction
       description: Gets the status of a transaction for a sync
       operationId: get-sync-transaction
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
-      - name: syncId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-        description: Unique identifier for a sync.
-      - name: transactionId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
-        description: The unique identifier for your SMB's transaction.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+      - $ref: '#/components/parameters/syncId'
+      - $ref: '#/components/parameters/transactionId'
   '/companies/{companyId}/sync/expenses/data/expense-transactions':
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
     post:
       summary: Create expense-transactions
       operationId: create-expense-dataset
@@ -1767,14 +321,7 @@ paths:
           content:
             application/json:
               schema:
-                x-internal: true
-                type: object
-                properties:
-                  datasetId:
-                    type: string
-                    example: cd937d46-8e41-43a9-9477-a79158ffd98a
-                    format: uuid
-                    description: Unique id of dataset created
+                $ref: '#/components/schemas/CreateExpenseResponse'
               examples:
                 Example 1:
                   value:
@@ -1783,162 +330,7 @@ paths:
         content:
           application/json:
             schema:
-              x-internal: true
-              type: object
-              properties:
-                items:
-                  type: array
-                  minItems: 1
-                  maxItems: 50
-                  items:
-                    type: object
-                    x-examples:
-                      Payment:
-                        id: a44135b0-6882-489a-83fe-a0c57a4afb19
-                        type: Payment
-                        issueDate: '2021-05-21T00:00:00+00:00'
-                        currency: GBP
-                        currencyRate: 1.18
-                        merchantName: Amazon UK
-                        lines:
-                          - netAmount: 110.42
-                            taxAmount: 14.43
-                            taxRateRef:
-                              id: 7e2ccb60-de1a-4c2b-9bd9-2f98a1c6be3f
-                            accountRef:
-                              id: a505cb47-0f7d-4e8b-90aa-9f9c2308b7bc
-                            trackingRefs:
-                              - id: 31a7e93c-4bb2-474c-b26d-10b2b75f7a25
-                        notes: amazon purchase
-                    properties:
-                      id:
-                        type: string
-                        example: 4d7c6929-7770-412b-91bb-44d3bc71d111
-                        format: uuid
-                        description: Your unique idenfier for the transaction.
-                      type:
-                        type: string
-                        example: Payment
-                        description: The type of transaction.
-                        enum:
-                          - Payment
-                          - Refund
-                          - Reward
-                          - Chargeback
-                          - TransferIn
-                          - TransferOut
-                          - AdjustmentIn
-                          - AdjustmentOut
-                      issueDate:
-                        description: Date of the transaction was recorded.
-                        title: Date Time
-                        type: string
-                        example: '2022-10-23T00:00:00Z'
-                      currency:
-                        type: string
-                        example: GBP
-                        description: Currency the transaction was recorded in.
-                      currencyRate:
-                        title: CurrencyRate
-                        x-stoplight:
-                          id: l2tsi4qzx7tt3
-                        type: number
-                        nullable: true
-                        description: |-
-                          Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                          Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                          Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                          For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                          ## Examples with base currency of GBP
-
-                          | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                          | :--------------- | :------------- | :------------ | :------------------------- |
-                          | **USD**          | $20            | 0.781         | £15.62                     |
-                          | **EUR**          | €20            | 0.885         | £17.70                     |
-                          | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                          ## Examples with base currency of USD
-
-                          | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                          | :--------------- | :------------- | :------------ | :------------------------- |
-                          | **GBP**          | £20            | 1.277         | $25.54                     |
-                          | **EUR**          | €20            | 1.134         | $22.68                     |
-                          | **RUB**          | ₽20            | 0.015         | $0.30                      |
-                      merchantName:
-                        type: string
-                        example: Amazon UK
-                        description: Name of the merchant where the purchase took place
-                      lines:
-                        type: array
-                        description: Array of transaction lines.
-                        minItems: 1
-                        maxItems: 100
-                        items:
-                          type: object
-                          x-examples:
-                            ExpenseTransactionLines:
-                              netAmount: 110.42
-                              taxAmount: 14.43
-                              taxRateRef:
-                                id: 08d37c46-8d5d-441b-8bad-76286c43047e
-                              accountRef:
-                                id: 16989b16-96d4-401a-9054-f5c620c655a6
-                              trackingRefs:
-                                - id: e9a1b63d-9ff0-40e7-8038-016354b987e6
-                          properties:
-                            netAmount:
-                              type: number
-                              example: 110.42
-                              description: 'Amount of the line, exclusive of tax.'
-                            taxAmount:
-                              type: number
-                              example: 14.43
-                              description: Amount of tax for the line.
-                            taxRateRef:
-                              type: object
-                              title: RecordRef
-                              properties:
-                                id:
-                                  type: string
-                                  example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                                  description: identifier of linked reference from mapping options.
-                            accountRef:
-                              type: object
-                              title: RecordRef
-                              properties:
-                                id:
-                                  type: string
-                                  example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                                  description: identifier of linked reference from mapping options.
-                            trackingRefs:
-                              type: array
-                              minItems: 1
-                              maxItems: 10
-                              items:
-                                type: object
-                                title: RecordRef
-                                properties:
-                                  id:
-                                    type: string
-                                    example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                                    description: identifier of linked reference from mapping options.
-                          required:
-                            - netAmount
-                            - taxAmount
-                            - accountRef
-                      notes:
-                        type: string
-                        description: 'Any private, company notes about the transaction.'
-                        example: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
-                    required:
-                      - id
-                      - type
-                      - issueDate
-                      - currency
+              $ref: '#/components/schemas/CreateExpenseRequest'
             examples:
               Payment:
                 value:
@@ -1993,30 +385,9 @@ paths:
         description: ''
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}/attachments':
     parameters:
-      - name: companyId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 8a210b68-6988-11ed-a1eb-0242ac120002
-          description: Unique identifier for your SMB in Codat.
-      - name: transactionId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
-        description: The unique identifier for your SMB's transaction.
-      - name: syncId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 6fb40d5e-b13e-11ed-afa1-0242ac120002
-        description: Unique identifier for a sync.
+      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
+      - $ref: '#/components/parameters/transactionId'
+      - $ref: '#/components/parameters/syncId'
     post:
       summary: Upload attachment
       operationId: upload-attachment
@@ -2026,23 +397,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Attachment Example:
-                    companyId: bf1e0242-5b7a-418b-a307-9e09dbf9f39a
-                    id: '1400000000122699154'
-                    transactionId: f8f00edd-ddb0-4ca5-b36b-8f932e6b5160
-                properties:
-                  companyId:
-                    type: string
-                    format: uuid
-                    description: Unique ID of company in Codat
-                  id:
-                    type: string
-                    description: Unique identifier of attachment
-                  transactionId:
-                    type: string
-                    description: Unique identifier of transaction
+                $ref: '#/components/schemas/attachment'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
       tags:
         - Expenses
       description: Creates an attachment in the accounting software against the given transactionId
@@ -2090,40 +451,11 @@ components:
           format: uri
           example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
         status:
-          title: Data connection status
-          description: The current authorization status of the data connection.
-          type: string
-          enum:
-            - PendingAuth
-            - Linked
-            - Unlinked
-            - Deauthorized
+          $ref: '#/components/schemas/DataConnection/definitions/dataConnectionStatus'
         lastSync:
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
-          description: |-
-            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-            ```
-            2020-10-08T22:40:50Z
-            2021-01-01T00:00:00
-            ```
-
-
-
-            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-            - Unqualified local time: `2021-11-15T01:00:00`
-            - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-            > Time zones
-            > 
-            > Not all dates from Codat will contain information about time zones.  
-            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+          $ref: '#/components/schemas/DataConnection/properties/created'
         created:
-          title: Date Time
+          title: Date time
           type: string
           example: '2022-10-23T00:00:00Z'
           description: |-
@@ -2149,39 +481,7 @@ components:
         dataConnectionErrors:
           type: array
           items:
-            title: Data connection error
-            type: object
-            properties:
-              statusCode:
-                type: string
-              statusText:
-                type: string
-              errorMessage:
-                type: string
-              erroredOnUtc:
-                title: Date Time
-                type: string
-                example: '2022-10-23T00:00:00Z'
-                description: |-
-                  In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                  ```
-                  2020-10-08T22:40:50Z
-                  2021-01-01T00:00:00
-                  ```
-
-
-
-                  When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                  - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                  - Unqualified local time: `2021-11-15T01:00:00`
-                  - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                  > Time zones
-                  > 
-                  > Not all dates from Codat will contain information about time zones.  
-                  > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+            $ref: '#/components/schemas/DataConnection/definitions/dataConnectionError'
         connectionInfo:
           type: object
           additionalProperties:
@@ -2218,29 +518,7 @@ components:
             errorMessage:
               type: string
             erroredOnUtc:
-              title: Date Time
-              type: string
-              example: '2022-10-23T00:00:00Z'
-              description: |-
-                In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                ```
-                2020-10-08T22:40:50Z
-                2021-01-01T00:00:00
-                ```
-
-
-
-                When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                - Unqualified local time: `2021-11-15T01:00:00`
-                - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                > Time zones
-                > 
-                > Not all dates from Codat will contain information about time zones.  
-                > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+              $ref: '#/components/schemas/DataConnection/properties/created'
         dataConnectionSourceType:
           title: Source Type
           description: The type of platform of the connection.
@@ -2374,11 +652,9 @@ components:
           description: Exception message of the sync.
           nullable: true
         syncUtc:
+          $ref: '#/components/schemas/DataConnection/properties/created'
           description: Datetime of the sync.
           nullable: true
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
         dataPushed:
           type: boolean
           description: Boolean of whether the sync resulted in data being pushed.
@@ -2397,167 +673,19 @@ components:
           description: Array of available accounts for mapping.
           nullable: true
           items:
-            type: object
-            additionalProperties: false
-            x-examples:
-              Example AccountInfo:
-                id: 313a4dbe-b3a4-42f0-a5f5-43e382e62db9
-                name: Travel
-                currency: GBP
-                accountType: Expense
-                validTransactionTypes:
-                  - Payment
-                  - Refund
-            properties:
-              id:
-                type: string
-                description: Unique identifier of account.
-                example: '6'
-                nullable: true
-              name:
-                type: string
-                description: Name of the account as it appears in the companies accounting software.
-                example: Purchases
-                nullable: true
-              currency:
-                type: string
-                description: Currency of the account.
-                example: GBP
-                nullable: true
-              accountType:
-                type: string
-                description: Type of the account.
-                example: Expense
-                enum:
-                  - Asset
-                  - Liability
-                  - Income
-                  - Expense
-                  - Equity
-                nullable: true
-              validTransactionTypes:
-                type: array
-                description: Supported transaction types for the account.
-                minItems: 0
-                maxItems: 8
-                nullable: true
-                items:
-                  type: string
-                  enum:
-                    - Payment
-                    - Refund
-                    - Reward
-                    - Chargeback
-                    - TransferIn
-                    - TransferOut
-                    - AdjustmentIn
-                    - AdjustmentOut
-                  example: Payment
-                  minLength: 1
-                  maxLength: 8
+            $ref: '#/components/schemas/AccountMappingInfo'
         trackingCategories:
           type: array
           description: Array of available tracking categories for mapping.
           nullable: true
           items:
-            type: object
-            additionalProperties: false
-            x-examples:
-              Tracking Category with parentId:
-                id: DEPARTMENT_1
-                modifiedDate: '2023-02-09T11:42:41Z'
-                name: TestLocation
-                hasChildren: false
-                parentId: DEPARTMENTS
-              Parent Tracking Category:
-                id: DEPARTMENTS
-                modifiedDate: '2023-02-09T11:42:41Z'
-                name: Departments
-                hasChildren: true
-            properties:
-              id:
-                type: string
-                description: Unique identifier of the tracking category.
-                example: DEPARTMENT_2
-                nullable: true
-              modifiedDate:
-                description: Datetime when the tracking category was last modified.
-                nullable: true
-                title: Date Time
-                type: string
-                example: '2022-10-23T00:00:00Z'
-              name:
-                type: string
-                description: Name of the tracking category as it appears in the accounting software.
-                example: New York
-                nullable: true
-              hasChildren:
-                type: boolean
-                description: Boolean of whether the tracking category has child categories.
-              parentId:
-                type: string
-                description: ID of the parent tracking category
-                example: DEPARTMENTS
-                nullable: true
+            $ref: '#/components/schemas/TrackingCategoryMappingInfo'
         taxRates:
           type: array
           description: Array of available tax rates for mapping.
           nullable: true
           items:
-            type: object
-            additionalProperties: false
-            x-examples:
-              UK Tax Rate:
-                id: 59_Bills
-                name: UK Standard Rate (Bills) Bills
-                code: UK Standard Rate (Bills)
-                effectiveTaxRate: 20
-                totalTaxRate: 20
-                validTransactionTypes:
-                  - Payment
-                  - Reward
-            properties:
-              id:
-                type: string
-                description: Unique identifier of tax rate.
-                example: 59_Bills
-                nullable: true
-              name:
-                type: string
-                description: Name of the tax rate in the accounting platform.
-                example: UK Standard Rate (Bills) Bills
-                nullable: true
-              code:
-                type: string
-                description: Code for the tax rate from the accounting platform.
-                example: UK Standard Rate (Bills)
-                nullable: true
-              effectiveTaxRate:
-                type: number
-                description: Effective tax rate.
-                example: 20
-              totalTaxRate:
-                type: number
-                description: Total (not compounded) sum of the components of a tax rate.
-                example: 20
-              validTransactionTypes:
-                type: array
-                description: Supported transaction types for the account.
-                minItems: 0
-                maxItems: 8
-                nullable: true
-                items:
-                  type: string
-                  enum:
-                    - Payment
-                    - Refund
-                    - Reward
-                    - Chargeback
-                    - TransferIn
-                    - TransferOut
-                    - AdjustmentIn
-                    - AdjustmentOut
-                  example: Payment
+            $ref: '#/components/schemas/TaxRateMappingInfo'
     TaxRateMappingInfo:
       type: object
       additionalProperties: false
@@ -2635,11 +763,9 @@ components:
           example: DEPARTMENT_2
           nullable: true
         modifiedDate:
+          $ref: '#/components/schemas/DataConnection/properties/created'
           description: Datetime when the tracking category was last modified.
           nullable: true
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
         name:
           type: string
           description: Name of the tracking category as it appears in the accounting software.
@@ -2673,31 +799,13 @@ components:
           example: aa02271d-ed5f-47f5-be76-778d5905225a
           nullable: true
         status:
-          x-internal: true
-          type: string
-          description: Status of the transaction.
-          enum:
-            - Unknown
-            - Pending
-            - ValidationError
-            - Completed
-            - PushError
-          example: Completed
-          nullable: true
+          $ref: '#/components/schemas/TransactionStatus'
         message:
           type: string
           description: Metadata such as validation errors or the resulting record created in the accounting software.
           nullable: true
         integrationType:
-          x-internal: true
-          type: string
-          description: Type of transaction that has been processed e.g. Expense or Bank Feed.
-          enum:
-            - expenses
-            - bankfeeds
-          default: expenses
-          example: expenses
-          nullable: true
+          $ref: '#/components/schemas/IntegrationType'
     TransactionStatus:
       x-internal: true
       type: string
@@ -2729,117 +837,8 @@ components:
             results:
               type: array
               items:
-                type: object
-                additionalProperties: false
-                x-examples:
-                  Successful Transaction:
-                    transactionId: 8fdba4ed-e327-4925-be1a-b7a2b04627f7
-                    status: Completed
-                    integrationType: expense
-                  Unsuccessful Transaction:
-                    transactionId: 3d694cd1-4cd9-4136-91db-32408195c6fc
-                    status: ValidationError
-                    message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
-                    integrationType: string
-                properties:
-                  transactionId:
-                    type: string
-                    description: Your unique idenfier of the transaction.
-                    example: aa02271d-ed5f-47f5-be76-778d5905225a
-                    nullable: true
-                  status:
-                    x-internal: true
-                    type: string
-                    description: Status of the transaction.
-                    enum:
-                      - Unknown
-                      - Pending
-                      - ValidationError
-                      - Completed
-                      - PushError
-                    example: Completed
-                    nullable: true
-                  message:
-                    type: string
-                    description: Metadata such as validation errors or the resulting record created in the accounting software.
-                    nullable: true
-                  integrationType:
-                    x-internal: true
-                    type: string
-                    description: Type of transaction that has been processed e.g. Expense or Bank Feed.
-                    enum:
-                      - expenses
-                      - bankfeeds
-                    default: expenses
-                    example: expenses
-                    nullable: true
-        - type: object
-          x-internal: true
-          properties:
-            pageNumber:
-              type: integer
-            pageSize:
-              type: integer
-            totalResults:
-              type: integer
-            _links:
-              type: object
-              x-internal: true
-              required:
-                - self
-                - current
-              properties:
-                self:
-                  title: Hypertext reference
-                  type: object
-                  x-internal: true
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                current:
-                  title: Hypertext reference
-                  type: object
-                  x-internal: true
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                next:
-                  title: Hypertext reference
-                  type: object
-                  x-internal: true
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-                previous:
-                  title: Hypertext reference
-                  type: object
-                  x-internal: true
-                  properties:
-                    href:
-                      type: string
-                      format: uri-reference
-              examples:
-                - self:
-                    href: '/companies/{id}/data/{dataType}'
-                  current:
-                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-          required:
-            - pageNumber
-            - pageSize
-            - totalResults
-            - _links
-          examples:
-            - _links:
-                pageNumber: 1
-                pageSize: 10
-                totalResults: 1
-                self:
-                  href: '/companies/{id}/data/{dataType}'
-                current:
-                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+                $ref: '#/components/schemas/TransactionMetadata'
+        - $ref: '#/components/schemas/PagingInfo'
       x-examples:
         Example 1:
           results:
@@ -2866,154 +865,7 @@ components:
           minItems: 1
           maxItems: 50
           items:
-            type: object
-            x-examples:
-              Payment:
-                id: a44135b0-6882-489a-83fe-a0c57a4afb19
-                type: Payment
-                issueDate: '2021-05-21T00:00:00+00:00'
-                currency: GBP
-                currencyRate: 1.18
-                merchantName: Amazon UK
-                lines:
-                  - netAmount: 110.42
-                    taxAmount: 14.43
-                    taxRateRef:
-                      id: 7e2ccb60-de1a-4c2b-9bd9-2f98a1c6be3f
-                    accountRef:
-                      id: a505cb47-0f7d-4e8b-90aa-9f9c2308b7bc
-                    trackingRefs:
-                      - id: 31a7e93c-4bb2-474c-b26d-10b2b75f7a25
-                notes: amazon purchase
-            properties:
-              id:
-                type: string
-                example: 4d7c6929-7770-412b-91bb-44d3bc71d111
-                format: uuid
-                description: Your unique idenfier for the transaction.
-              type:
-                type: string
-                example: Payment
-                description: The type of transaction.
-                enum:
-                  - Payment
-                  - Refund
-                  - Reward
-                  - Chargeback
-                  - TransferIn
-                  - TransferOut
-                  - AdjustmentIn
-                  - AdjustmentOut
-              issueDate:
-                description: Date of the transaction was recorded.
-                title: Date Time
-                type: string
-                example: '2022-10-23T00:00:00Z'
-              currency:
-                type: string
-                example: GBP
-                description: Currency the transaction was recorded in.
-              currencyRate:
-                title: CurrencyRate
-                x-stoplight:
-                  id: l2tsi4qzx7tt3
-                type: number
-                nullable: true
-                description: |-
-                  Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
-
-                  Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
-
-                  Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
-
-                  For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
-
-                  ## Examples with base currency of GBP
-
-                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
-                  | :--------------- | :------------- | :------------ | :------------------------- |
-                  | **USD**          | $20            | 0.781         | £15.62                     |
-                  | **EUR**          | €20            | 0.885         | £17.70                     |
-                  | **RUB**          | ₽20            | 0.011         | £0.22                      |
-
-                  ## Examples with base currency of USD
-
-                  | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
-                  | :--------------- | :------------- | :------------ | :------------------------- |
-                  | **GBP**          | £20            | 1.277         | $25.54                     |
-                  | **EUR**          | €20            | 1.134         | $22.68                     |
-                  | **RUB**          | ₽20            | 0.015         | $0.30                      |
-              merchantName:
-                type: string
-                example: Amazon UK
-                description: Name of the merchant where the purchase took place
-              lines:
-                type: array
-                description: Array of transaction lines.
-                minItems: 1
-                maxItems: 100
-                items:
-                  type: object
-                  x-examples:
-                    ExpenseTransactionLines:
-                      netAmount: 110.42
-                      taxAmount: 14.43
-                      taxRateRef:
-                        id: 08d37c46-8d5d-441b-8bad-76286c43047e
-                      accountRef:
-                        id: 16989b16-96d4-401a-9054-f5c620c655a6
-                      trackingRefs:
-                        - id: e9a1b63d-9ff0-40e7-8038-016354b987e6
-                  properties:
-                    netAmount:
-                      type: number
-                      example: 110.42
-                      description: 'Amount of the line, exclusive of tax.'
-                    taxAmount:
-                      type: number
-                      example: 14.43
-                      description: Amount of tax for the line.
-                    taxRateRef:
-                      type: object
-                      title: RecordRef
-                      properties:
-                        id:
-                          type: string
-                          example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                          description: identifier of linked reference from mapping options.
-                    accountRef:
-                      type: object
-                      title: RecordRef
-                      properties:
-                        id:
-                          type: string
-                          example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                          description: identifier of linked reference from mapping options.
-                    trackingRefs:
-                      type: array
-                      minItems: 1
-                      maxItems: 10
-                      items:
-                        type: object
-                        title: RecordRef
-                        properties:
-                          id:
-                            type: string
-                            example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                            description: identifier of linked reference from mapping options.
-                  required:
-                    - netAmount
-                    - taxAmount
-                    - accountRef
-              notes:
-                type: string
-                description: 'Any private, company notes about the transaction.'
-                example: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
-            required:
-              - id
-              - type
-              - issueDate
-              - currency
+            $ref: '#/components/schemas/ExpenseTransaction'
     CreateExpenseResponse:
       x-internal: true
       type: object
@@ -3063,10 +915,8 @@ components:
             - AdjustmentIn
             - AdjustmentOut
         issueDate:
+          $ref: '#/components/schemas/DataConnection/properties/created'
           description: Date of the transaction was recorded.
-          title: Date Time
-          type: string
-          example: '2022-10-23T00:00:00Z'
         currency:
           type: string
           example: GBP
@@ -3111,58 +961,7 @@ components:
           minItems: 1
           maxItems: 100
           items:
-            type: object
-            x-examples:
-              ExpenseTransactionLines:
-                netAmount: 110.42
-                taxAmount: 14.43
-                taxRateRef:
-                  id: 08d37c46-8d5d-441b-8bad-76286c43047e
-                accountRef:
-                  id: 16989b16-96d4-401a-9054-f5c620c655a6
-                trackingRefs:
-                  - id: e9a1b63d-9ff0-40e7-8038-016354b987e6
-            properties:
-              netAmount:
-                type: number
-                example: 110.42
-                description: 'Amount of the line, exclusive of tax.'
-              taxAmount:
-                type: number
-                example: 14.43
-                description: Amount of tax for the line.
-              taxRateRef:
-                type: object
-                title: RecordRef
-                properties:
-                  id:
-                    type: string
-                    example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                    description: identifier of linked reference from mapping options.
-              accountRef:
-                type: object
-                title: RecordRef
-                properties:
-                  id:
-                    type: string
-                    example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                    description: identifier of linked reference from mapping options.
-              trackingRefs:
-                type: array
-                minItems: 1
-                maxItems: 10
-                items:
-                  type: object
-                  title: RecordRef
-                  properties:
-                    id:
-                      type: string
-                      example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                      description: identifier of linked reference from mapping options.
-            required:
-              - netAmount
-              - taxAmount
-              - accountRef
+            $ref: '#/components/schemas/ExpenseTransactionLines'
         notes:
           type: string
           description: 'Any private, company notes about the transaction.'
@@ -3202,33 +1001,15 @@ components:
           example: 14.43
           description: Amount of tax for the line.
         taxRateRef:
-          type: object
-          title: RecordRef
-          properties:
-            id:
-              type: string
-              example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-              description: identifier of linked reference from mapping options.
+          $ref: '#/components/schemas/RecordRef'
         accountRef:
-          type: object
-          title: RecordRef
-          properties:
-            id:
-              type: string
-              example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-              description: identifier of linked reference from mapping options.
+          $ref: '#/components/schemas/RecordRef'
         trackingRefs:
           type: array
           minItems: 1
           maxItems: 10
           items:
-            type: object
-            title: RecordRef
-            properties:
-              id:
-                type: string
-                example: 40e3e57c-2322-4898-966c-ca41adfd23fd
-                description: identifier of linked reference from mapping options.
+            $ref: '#/components/schemas/RecordRef'
       required:
         - netAmount
         - taxAmount
@@ -3263,29 +1044,11 @@ components:
             id: '140'
       properties:
         bankAccount:
-          x-internal: true
-          type: object
-          properties:
-            id:
-              type: string
-              description: The id of the account from which purchases are made
-              example: '32'
+          $ref: '#/components/schemas/BankAccount'
         supplier:
-          x-internal: true
-          type: object
-          properties:
-            id:
-              type: string
-              description: id of the supplier for all purchases to be associated to
-              example: '124'
+          $ref: '#/components/schemas/Supplier'
         customer:
-          x-internal: true
-          type: object
-          properties:
-            id:
-              type: string
-              description: id of the customer for all income related activities to be associated to.
-              example: '142'
+          $ref: '#/components/schemas/Customer'
     BankAccount:
       x-internal: true
       type: object
@@ -3433,37 +1196,13 @@ components:
             - current
           properties:
             self:
-              title: Hypertext reference
-              type: object
-              x-internal: true
-              properties:
-                href:
-                  type: string
-                  format: uri-reference
+              $ref: '#/components/schemas/HalLink'
             current:
-              title: Hypertext reference
-              type: object
-              x-internal: true
-              properties:
-                href:
-                  type: string
-                  format: uri-reference
+              $ref: '#/components/schemas/HalLink'
             next:
-              title: Hypertext reference
-              type: object
-              x-internal: true
-              properties:
-                href:
-                  type: string
-                  format: uri-reference
+              $ref: '#/components/schemas/HalLink'
             previous:
-              title: Hypertext reference
-              type: object
-              x-internal: true
-              properties:
-                href:
-                  type: string
-                  format: uri-reference
+              $ref: '#/components/schemas/HalLink'
           examples:
             - self:
                 href: '/companies/{id}/data/{dataType}'

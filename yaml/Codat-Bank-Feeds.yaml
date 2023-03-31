@@ -273,13 +273,14 @@ components:
           nullable: true
       definitions:
         bankTransactionLine:
+          title: Bank transaction line
           type: object
           allOf:
             - type: object
               properties:
                 id:
                   type: string
-                date:
+                clearedOnDate:
                   $ref: '#/components/schemas/DateTime'
                 description:
                   type: string
@@ -629,7 +630,7 @@ components:
               type: string
               nullable: true
     DateTime:
-      title: Date Time
+      title: Date time
       type: string
       example: '2022-10-23T00:00:00Z'
       description: |-
@@ -681,6 +682,7 @@ components:
           type: string
           format: uri-reference
     DataType:
+      x-internal: true
       type: string
       description: Available Data types
       enum:
