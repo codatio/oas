@@ -380,7 +380,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Branding"
+                }
+              }
+            }
           }
         }
       },
@@ -739,6 +746,7 @@
     "schemas": {
       "SyncToLatestArgs": {
         "title": "Sync To Latest Args",
+        "x-internal": true,
         "type": "object",
         "properties": {
           "syncTo": {
@@ -812,6 +820,8 @@
         "additionalProperties": false
       },
       "DateRange": {
+        "x-internal": true,
+        "title": "Data range",
         "type": "object",
         "properties": {
           "start": {
@@ -826,6 +836,7 @@
         "additionalProperties": false
       },
       "CreateCompany": {
+        "x-internal": true,
         "required": [
           "name"
         ],
@@ -862,10 +873,7 @@
             "description": "A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future."
           },
           "sourceId": {
-            "type": "string",
-            "format": "uuid",
-            "example": "35b92968-9851-4095-ad60-395c95cbcba4",
-            "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
+            "$ref": "#/components/schemas/Branding/properties/sourceId"
           },
           "sourceType": {
             "title": "Source Type",
@@ -1162,6 +1170,98 @@
           }
         ]
       },
+      "Branding": {
+        "title": "Branding",
+        "type": "object",
+        "properties": {
+          "logo": {
+            "description": "Logo branding references.",
+            "x-internal": true,
+            "type": "object",
+            "properties": {
+              "full": {
+                "title": "Branding Image",
+                "x-internal": true,
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "object",
+                    "x-internal": true,
+                    "description": "Image reference.",
+                    "properties": {
+                      "src": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Source URL for image."
+                      },
+                      "alt": {
+                        "type": "string",
+                        "description": "Alternative text when image is not available."
+                      }
+                    }
+                  }
+                },
+                "examples": []
+              },
+              "square": {
+                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
+              }
+            }
+          },
+          "button": {
+            "type": "object",
+            "x-internal": true,
+            "description": "Button branding references.",
+            "properties": {
+              "default": {
+                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
+              },
+              "hover": {
+                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
+              }
+            }
+          },
+          "sourceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "35b92968-9851-4095-ad60-395c95cbcba4",
+            "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
+          }
+        },
+        "examples": [
+          {
+            "logo": {
+              "full": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png",
+                  "alt": "xero full icon"
+                }
+              },
+              "square": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Square/8A156A5A-39CB-4F9D-856E-76EF9B2W3607.png",
+                  "alt": "xero square icon"
+                }
+              }
+            },
+            "button": {
+              "default": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialButtons/Full/8A156A5A-39CB-4F9D-856E-76EF9Q7A9607.png",
+                  "alt": "xero default button icon"
+                }
+              },
+              "hover": {
+                "image": {
+                  "src": "https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png",
+                  "alt": "xero hover button icon"
+                }
+              }
+            },
+            "sourceId": "35b92968-9851-4095-ad60-395c95cbcba4"
+          }
+        ]
+      },
       "Connections": {
         "x-internal": true,
         "allOf": [
@@ -1251,7 +1351,7 @@
             "description": "Whether this integration is enabled for your customers to use"
           },
           "sourceId": {
-            "$ref": "#/components/schemas/Connection/properties/sourceId"
+            "$ref": "#/components/schemas/Branding/properties/sourceId"
           },
           "sourceType": {
             "$ref": "#/components/schemas/Connection/properties/sourceType"
@@ -1421,6 +1521,8 @@
         "additionalProperties": false
       },
       "AccountOption": {
+        "x-internal": true,
+        "title": "Account option",
         "type": "object",
         "properties": {
           "name": {
@@ -1447,6 +1549,8 @@
         "additionalProperties": false
       },
       "ConfigAccount": {
+        "x-internal": true,
+        "title": "Account configuration",
         "type": "object",
         "description": "G/L account object for configuration.",
         "properties": {
@@ -1499,6 +1603,7 @@
         "additionalProperties": false
       },
       "Fees": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "feesSupplier": {
@@ -1519,6 +1624,8 @@
         "additionalProperties": false
       },
       "FeesSupplier": {
+        "x-internal": true,
+        "title": "Supplier fees",
         "type": "object",
         "properties": {
           "selectedSupplierId": {
@@ -1538,6 +1645,7 @@
         "additionalProperties": false
       },
       "Grouping": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "groupingPeriod": {
@@ -1550,6 +1658,8 @@
         "additionalProperties": false
       },
       "GroupingLevels": {
+        "x-internal": true,
+        "title": "Grouping levels",
         "type": "object",
         "properties": {
           "invoiceLevel": {
@@ -1562,6 +1672,8 @@
         "additionalProperties": false
       },
       "GroupingPeriod": {
+        "x-internal": true,
+        "title": "Grouping period",
         "type": "object",
         "properties": {
           "selectedGroupingPeriod": {
@@ -1581,6 +1693,8 @@
         "additionalProperties": false
       },
       "InvoiceLevelSelection": {
+        "x-internal": true,
+        "title": "Invoice level selection",
         "type": "object",
         "properties": {
           "selectedGroupByOptions": {
@@ -1603,6 +1717,8 @@
         "additionalProperties": false
       },
       "InvoiceLineLevelSelection": {
+        "x-internal": true,
+        "title": "Invoice line level selection",
         "type": "object",
         "properties": {
           "selectedGroupByOptions": {
@@ -1625,6 +1741,8 @@
         "additionalProperties": false
       },
       "InvoiceStatus": {
+        "x-internal": true,
+        "title": "Invoice status",
         "type": "object",
         "properties": {
           "selectedInvoiceStatus": {
@@ -1645,6 +1763,8 @@
         "additionalProperties": false
       },
       "NewPayments": {
+        "x-internal": true,
+        "title": "New payments",
         "type": "object",
         "properties": {
           "syncPayments": {
@@ -1662,6 +1782,8 @@
         "additionalProperties": false
       },
       "NewTaxRates": {
+        "x-internal": true,
+        "title": "New tax rates",
         "type": "object",
         "properties": {
           "accountingTaxRateOptions": {
@@ -1705,6 +1827,7 @@
         "additionalProperties": false
       },
       "Option": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "name": {
@@ -1720,6 +1843,7 @@
         "additionalProperties": false
       },
       "Payments": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "syncPayments": {
@@ -1737,6 +1861,7 @@
         "additionalProperties": false
       },
       "Sales": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "syncSales": {
@@ -1773,6 +1898,7 @@
         "additionalProperties": false
       },
       "Customer": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "selectedCustomerId": {
@@ -1792,6 +1918,8 @@
         "additionalProperties": false
       },
       "TaxRateAmount": {
+        "x-internal": true,
+        "title": "Tax rate amount",
         "type": "object",
         "properties": {
           "selectedTaxRateId": {
@@ -1811,6 +1939,8 @@
         "additionalProperties": false
       },
       "TaxRateMapping": {
+        "x-internal": true,
+        "title": "Tax rate mapping",
         "type": "object",
         "properties": {
           "selectedCommerceTaxRateIds": {
@@ -1830,6 +1960,7 @@
         "additionalProperties": false
       },
       "Localization": {
+        "x-internal": true,
         "type": "object",
         "properties": {
           "text": {
@@ -1843,12 +1974,14 @@
         }
       },
       "LocalizationInfo": {
+        "title": "Localization info.",
         "type": "object",
         "additionalProperties": {
           "$ref": "#/components/schemas/Localization"
         }
       },
       "VisibleAccounts": {
+        "title": "Visible accounts",
         "type": "object",
         "properties": {
           "visibleAccounts": {
@@ -1862,6 +1995,7 @@
         }
       },
       "SyncFlowUrl": {
+        "title": "Sync flow url",
         "type": "object",
         "properties": {
           "url": {

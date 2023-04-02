@@ -397,7 +397,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/attachment'
+                $ref: '#/components/schemas/Attachment'
       requestBody:
         content:
           multipart/form-data:
@@ -542,6 +542,7 @@ components:
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
     AccountMappingInfo:
+      title: Account mapping info.
       type: object
       additionalProperties: false
       x-examples:
@@ -601,6 +602,7 @@ components:
             minLength: 1
             maxLength: 8
     CompanySyncStatus:
+      title: Company sync status
       type: object
       additionalProperties: false
       x-examples:
@@ -659,6 +661,7 @@ components:
           type: boolean
           description: Boolean of whether the sync resulted in data being pushed.
     MappingOptions:
+      title: Mapping options
       type: object
       additionalProperties: false
       x-examples: {}
@@ -687,6 +690,7 @@ components:
           items:
             $ref: '#/components/schemas/TaxRateMappingInfo'
     TaxRateMappingInfo:
+      title: Tax rate mapping info.
       type: object
       additionalProperties: false
       x-examples:
@@ -742,6 +746,7 @@ components:
               - AdjustmentOut
             example: Payment
     TrackingCategoryMappingInfo:
+      title: Tracking category mapping info.
       type: object
       additionalProperties: false
       x-examples:
@@ -780,6 +785,7 @@ components:
           example: DEPARTMENTS
           nullable: true
     TransactionMetadata:
+      title: Transaction metadata
       type: object
       additionalProperties: false
       x-examples:
@@ -876,6 +882,7 @@ components:
           format: uuid
           description: Unique id of dataset created
     ExpenseTransaction:
+      title: Expense transaction
       type: object
       x-examples:
         Payment:
@@ -922,9 +929,7 @@ components:
           example: GBP
           description: Currency the transaction was recorded in.
         currencyRate:
-          title: CurrencyRate
-          x-stoplight:
-            id: l2tsi4qzx7tt3
+          title: Currency rate
           type: number
           nullable: true
           description: |-
@@ -961,7 +966,7 @@ components:
           minItems: 1
           maxItems: 100
           items:
-            $ref: '#/components/schemas/ExpenseTransactionLines'
+            $ref: '#/components/schemas/ExpenseTransactionLine'
         notes:
           type: string
           description: 'Any private, company notes about the transaction.'
@@ -972,17 +977,20 @@ components:
         - issueDate
         - currency
     RecordRef:
+      x-internal: true
       type: object
-      title: RecordRef
+      title: Record reference
       properties:
         id:
           type: string
           example: 40e3e57c-2322-4898-966c-ca41adfd23fd
           description: identifier of linked reference from mapping options.
-    ExpenseTransactionLines:
+    ExpenseTransactionLine:
+      x-internal: true
+      title: Expense transaction line
       type: object
       x-examples:
-        ExpenseTransactionLines:
+        ExpenseTransactionLine:
           netAmount: 110.42
           taxAmount: 14.43
           taxRateRef:
@@ -1014,7 +1022,8 @@ components:
         - netAmount
         - taxAmount
         - accountRef
-    attachment:
+    Attachment:
+      title: Attachment
       type: object
       x-examples:
         Attachment Example:
@@ -1033,6 +1042,7 @@ components:
           type: string
           description: Unique identifier of transaction
     CompanyConfiguration:
+      title: Company configuration
       type: object
       x-examples:
         Config Example:
@@ -1074,6 +1084,7 @@ components:
           description: id of the customer for all income related activities to be associated to.
           example: '142'
     SyncInitiated:
+      title: Sync initiated
       type: object
       properties:
         syncId:
@@ -1081,6 +1092,7 @@ components:
           format: uuid
       additionalProperties: false
     PostSync:
+      title: Post sync
       type: object
       properties:
         datasetIds:
@@ -1092,6 +1104,7 @@ components:
           nullable: true
       additionalProperties: false
     CodatErrorMessage:
+      title: Error message
       type: object
       properties:
         statusCode:

@@ -2245,7 +2245,7 @@
         ]
       },
       "TaxComponents": {
-        "x-iternal": true,
+        "x-internal": true,
         "type": "object",
         "properties": {
           "taxComponents": {
@@ -2278,9 +2278,7 @@
               },
               "currency": {
                 "title": "Currency",
-                "x-stoplight": {
-                  "id": "8ljuulqyuc5l4"
-                },
+                "x-internal": true,
                 "type": "string",
                 "description": "The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.\n\n## Unknown currencies\n\nIn line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. \n\nThere are only a very small number of edge cases where this currency code is returned by the Codat system.",
                 "format": "ISO4217",
@@ -2498,7 +2496,9 @@
         ]
       },
       "PhoneNumber": {
+        "title": "Phone",
         "type": "object",
+        "x-internal": true,
         "properties": {
           "number": {
             "type": "string",

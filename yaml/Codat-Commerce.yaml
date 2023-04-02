@@ -1503,7 +1503,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TaxComponents:
-      x-iternal: true
+      x-internal: true
       type: object
       properties:
         taxComponents:
@@ -1537,8 +1537,7 @@ components:
                 - 0
             currency:
               title: Currency
-              x-stoplight:
-                id: 8ljuulqyuc5l4
+              x-internal: true
               type: string
               description: |-
                 The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -1695,7 +1694,9 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     PhoneNumber:
+      title: Phone
       type: object
+      x-internal: true
       properties:
         number:
           type: string

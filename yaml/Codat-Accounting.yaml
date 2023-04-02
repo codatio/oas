@@ -39008,19 +39008,19 @@ components:
         - current
       properties:
         self:
-          $ref: '#/components/schemas/HRef'
+          $ref: '#/components/schemas/HalRef'
         current:
-          $ref: '#/components/schemas/HRef'
+          $ref: '#/components/schemas/HalRef'
         next:
-          $ref: '#/components/schemas/HRef'
+          $ref: '#/components/schemas/HalRef'
         previous:
-          $ref: '#/components/schemas/HRef'
+          $ref: '#/components/schemas/HalRef'
       examples:
         - self:
             href: '/companies/{id}/data/{dataType}'
           current:
             href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    HRef:
+    HalRef:
       title: Hypertext reference
       type: object
       x-internal: true
@@ -40780,9 +40780,7 @@ components:
                 - A negative link amount reduces the outstanding amount on the accounts payable account.
                 - A positive link amount increases the outstanding amount on the accounts payable account.
             currencyRate:
-              title: CurrencyRate
-              x-stoplight:
-                id: l2tsi4qzx7tt3
+              title: Currency rate
               type: number
               nullable: true
               description: |-
@@ -41085,7 +41083,9 @@ components:
           nullable: true
           description: An array of phone numbers.
           items:
+            title: Phone
             type: object
+            x-internal: true
             properties:
               number:
                 type: string
@@ -44350,8 +44350,7 @@ components:
               description: The account that the transfer is moving from or to.
             currency:
               title: Currency
-              x-stoplight:
-                id: 8ljuulqyuc5l4
+              x-internal: true
               type: string
               description: |-
                 The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -44389,6 +44388,7 @@ components:
         - $ref: '#/components/schemas/PushOperationSummary'
     Metadata:
       type: object
+      x-internal: true
       properties:
         isDeleted:
           type: boolean

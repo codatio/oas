@@ -35,6 +35,7 @@ paths:
     parameters: []
     get:
       summary: List account categories
+      deprecated: true
       tags:
         - Categories
       responses:
@@ -43,17 +44,8 @@ paths:
           content:
             application/json:
               schema:
-                x-examples:
-                  Example 1:
-                    - type: string
-                      subtype: string
-                      subtypeDisplayName: string
-                      detailType: string
-                      detailTypeDisplayName: string
-                      detailTypeDescription: string
-                type: array
-                items:
-                  $ref: '#/components/schemas/Categories'
+                $ref: '#/components/schemas/Categories'
+              examples: {}
       operationId: list-available-account-categories
       description: 'Lists available account categories Codat''s categorisation engine can provide. '
   '/data/companies/{companyId}/connections/{connectionId}/assess/accounts/categories':
@@ -61,6 +53,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      deprecated: true
       summary: List suggested and confirmed account categories
       tags:
         - Categories
@@ -104,6 +97,7 @@ paths:
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
     patch:
+      deprecated: true
       summary: Confirm categories for accounts
       tags:
         - Categories
@@ -136,6 +130,7 @@ paths:
         required: true
         description: Nominal account id
     get:
+      deprecated: true
       summary: Get suggested and/or confirmed category for a specific account
       tags:
         - Categories
@@ -149,6 +144,7 @@ paths:
       operationId: get-account-category
       description: Get category for specific nominal account.
     patch:
+      deprecated: true
       summary: Patch account categories
       tags:
         - Categories
@@ -229,6 +225,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      deprecated: true
       summary: List financial metrics
       tags:
         - Reports
@@ -287,6 +284,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      deprecated: true
       summary: Enhanced Profit and Loss
       tags:
         - Reports
@@ -934,6 +932,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      deprecated: true
       summary: Enhanced Balance Sheet
       tags:
         - Reports
@@ -2054,6 +2053,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Get enhanced cash flow report
+      description: The Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
       tags:
         - Reports
       responses:
@@ -2198,7 +2198,6 @@ paths:
                         transactionCategory:
                           levels: []
       operationId: get-enhanced-cash-flow-transactions
-      description: Gets a list of banking transactions and their categories.
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -2208,6 +2207,10 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Enhanced Profit and Loss Accounts
+      description: |-
+        The Enhanced Profit and Loss Accounts endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss. It also includes a balance per the financial statement date.
+
+        Codat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.
       tags:
         - Reports
       responses:
@@ -2481,12 +2484,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/numberOfPeriods'
-      description: 'Gets a list of accounts with account categories per statement period, specific to profit and loss'
   '/companies/{companyId}/reports/enhancedBalanceSheet/accounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Enhanced Balance Sheet Accounts
+      description: |-
+        The Enhanced Balance Sheet Accounts endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.
+
+        Codat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.
       tags:
         - Reports
       responses:
@@ -2692,7 +2698,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/numberOfPeriods'
-      description: 'Gets a list of accounts with account categories per statement period, specific to balance sheet'
   '/companies/{companyId}/reports/enhancedInvoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3115,14 +3120,18 @@ components:
           type: array
           description: An array of report items.
           items:
+            title: Report item
             type: object
             properties:
               date:
                 $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                description: Last date of the period.
               balance:
                 type: number
+                description: Balance of the account as reported on the profit and loss or Balance sheet.
               accountName:
                 type: string
+                description: Name of the account.
               accountId:
                 type: string
                 description: The unique account ID.
@@ -3130,36 +3139,43 @@ components:
                 $ref: '#/components/schemas/EnhancedReport/definitions/enhancedReportAccountCategory'
       definitions:
         enhancedReportAccountCategory:
+          title: Account category
+          descrciption: 'An object containing the suggested or confirmed account categories, up to five levels.'
           type: object
           properties:
             status:
               type: string
+              description: 'Returns a status of "Suggested" or "Confirmed". If an account has a confirmed category, it will replace any suggested category returned.'
             levels:
               type: array
               items:
                 $ref: '#/components/schemas/EnhancedReport/definitions/accountCategoryLevel'
         accountCategoryLevel:
           title: Account category level
+          description: An object containing an ordered list of account category levels.
           type: object
           properties:
             levelName:
               type: string
+              description: Account category name.
             confidence:
               type: number
+              description: Confidence level of the category. This will only be populated where `status` is `Suggested`.
         enhancedReportInfo:
           type: object
           properties:
             currency:
               $ref: '#/components/schemas/Currency'
+              description: Currency of the P&L/Balance sheet.
             reportName:
               type: string
               description: The name of the report.
             companyName:
               type: string
-              description: Company name the report was generated for.
+              description: Name of the company queried.
             generatedDate:
               $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-              description: The date the report was generated.
+              description: Returns the YYYY-MM-DD datetime of report generation.
       examples:
         - reportInfo:
             reportName: EnhancedProfitAndLossAccounts
@@ -3182,7 +3198,7 @@ components:
               accountName: Sales US
               accountId: 13931cbf-ea06-4d6e-9538-a8457fa66011
               accountCategory:
-                lastUpdated: datetime
+                lastUpdated: '2022-01-02'
                 status: Suggested
                 levels:
                   - levelName: Income
@@ -3194,7 +3210,7 @@ components:
               accountName: Amazon
               accountId: 13931cbf-ea06-4d6e-9538-a8457fa66011
               accountCategory:
-                lastUpdated: datetime
+                lastUpdated: '2022-01-02'
                 status: Suggested
                 levels:
                   - levelName: Income
@@ -3268,32 +3284,35 @@ components:
                 $ref: '#/components/schemas/CategorisedAccount'
         - $ref: '#/components/schemas/PagingInfo'
     Categories:
-      allOf:
-        - $ref: '#/components/schemas/AccountCategory'
-        - type: object
-          properties:
-            subtypeDisplayName:
-              type: string
-              description: Human readable subtype display name.
-            detailTypeDisplayName:
-              type: string
-              description: Human readable detailType display name.
-            detailTypeDescription:
-              type: string
-              description: A description of the fully categorized (to detail type) account.
-      examples:
-        - type: Asset
-          subtype: Current
-          subtypeDisplayName: Current assets
-          detailType: Cash
-          detailTypeDisplayName: Cash
-          detailTypeDescription: Use 'Cash' for cash in the bank or held on premise. This should include overdrawn accounts.
-        - type: Income
-          subtype: Operating
-          subtypeDisplayName: Operating
-          detailType: GeneralServices
-          detailTypeDisplayName: General services
-          detailTypeDescription: Use 'General services' for income generated from services the company performs or usage fees charged.
+      x-internal: true
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/AccountCategory'
+          - type: object
+            properties:
+              subtypeDisplayName:
+                type: string
+                description: Human readable subtype display name.
+              detailTypeDisplayName:
+                type: string
+                description: Human readable detailType display name.
+              detailTypeDescription:
+                type: string
+                description: A description of the fully categorized (to detail type) account.
+        examples:
+          - type: Asset
+            subtype: Current
+            subtypeDisplayName: Current assets
+            detailType: Cash
+            detailTypeDisplayName: Cash
+            detailTypeDescription: Use 'Cash' for cash in the bank or held on premise. This should include overdrawn accounts.
+          - type: Income
+            subtype: Operating
+            subtypeDisplayName: Operating
+            detailType: GeneralServices
+            detailTypeDisplayName: General services
+            detailTypeDescription: Use 'General services' for income generated from services the company performs or usage fees charged.
     CategorisedAccount:
       title: Categorised account
       type: object
@@ -3658,6 +3677,7 @@ components:
           type: object
           properties:
             accounts:
+              description: 'An array containing bank account data for each connected banking data source that have the following data types enabled: `banking-accounts`, `banking-transactions`.'
               type: array
               items:
                 $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/accounts'
@@ -3668,19 +3688,26 @@ components:
             sourceRef:
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/sourceRef'
             platformName:
+              description: 'Name of the banking data source, e.g. "Plaid".'
               type: string
             accountProvider:
+              description: The bank or other financial institution providing the account.
               type: string
             accountName:
+              description: The name of the account according to the provider.
               type: string
             accountType:
+              description: 'The type of banking account, e.g. credit or debit.'
               type: string
             currency:
-              type: string
+              $ref: '#/components/schemas/Currency'
+              description: The currency code for the bank account.
             currentBalance:
+              description: The balance of the bank account.
               type: number
         sourceRef:
           title: Report source reference
+          description: A source reference containing the `sourceType` object "Banking".
           type: object
           properties:
             sourceType:
@@ -3694,32 +3721,42 @@ components:
           type: object
           properties:
             transactions:
+              description: An array of transaction data.
               type: array
               items:
                 $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/enhancedCashFlowTransaction'
         enhancedCashFlowTransaction:
+          title: Cash flow transaction
           type: object
           properties:
             id:
+              description: The unique identifier of the bank transaction.
               type: string
             date:
+              description: The date the bank transaction was posted.
               $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
             description:
+              description: The description of the bank transaction.
               type: string
             amount:
+              description: The bank transaction amount.
               type: number
             currency:
               type: string
             transactionCategory:
+              description: Contains an array of category levels.
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/transactionCategory'
             sourceRef:
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/sourceRef'
         transactionCategory:
+          title: Transaction category
           type: object
           properties:
             confidence:
+              description: Returns the confidence of the suggested category for the transaction.
               type: number
             levels:
+              description: An array of category levels against an individual transaction.
               type: array
               items:
                 type: string
@@ -4685,6 +4722,7 @@ components:
                   description: Friendly reference for the payment.
                 metadata:
                   type: object
+                  x-internal: true
                   properties:
                     isDeleted:
                       type: boolean
@@ -4830,16 +4868,19 @@ components:
           properties:
             pageNumber:
               type: integer
+              description: The number of the page queried.
             pageSize:
               type: integer
+              description: The number of transactions returned per page.
             totalResults:
               type: integer
+              description: The total number of transactions available for a company for the period specified in the query string.
             reportName:
               type: string
               description: Name of the report
             companyName:
               type: string
-              description: Company name
+              description: The name of the company being queried.
             generatedDate:
               type: string
               description: Date the report was generated
@@ -4908,8 +4949,7 @@ components:
           format: uri-reference
     Currency:
       title: Currency
-      x-stoplight:
-        id: 8ljuulqyuc5l4
+      x-internal: true
       type: string
       description: |-
         The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -4925,9 +4965,7 @@ components:
         - USD
         - EUR
     CurrencyRate:
-      title: CurrencyRate
-      x-stoplight:
-        id: l2tsi4qzx7tt3
+      title: Currency rate
       type: number
       nullable: true
       description: |-
