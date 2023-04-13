@@ -11436,7 +11436,7 @@ paths:
 
         > **Supported Integrations**
         > 
-        > This functionality is currently only supported for our Oracle NetSuite integration. Check out our [public roadmap](https://portal.productboard.com/codat/7-public-product-roadmap/tabs/46-accounting-api) to see what we're building next, and to submit ideas for new features.
+        > This functionality is currently only supported for our Oracle NetSuite and QuickBooks Online integrations. Check out our [public roadmap](https://portal.productboard.com/codat/7-public-product-roadmap/tabs/46-accounting-api) to see what we're building next, and to submit ideas for new features.
       tags:
         - Bills
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments':
@@ -26741,6 +26741,29 @@ paths:
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support updating invoices.
       operationId: update-invoice
+    delete:
+      summary: Delete invoice
+      operationId: delete-invoice
+      parameters:
+        - $ref: '#/components/parameters/invoiceId'
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushOperationSummary'
+          headers: {}
+      description: |-
+        Deletes an invoice from the accounting package for a given company.
+
+        > **Supported Integrations**
+        > 
+        > This functionality is currently only supported for our QuickBooks Online integration. Check out our [public roadmap](https://portal.productboard.com/codat/7-public-product-roadmap/tabs/46-accounting-api) to see what we're building next, and to submit ideas for new features.
+      tags:
+        - Invoices
   '/companies/{companyId}/connections/{connectionId}/push/invoices/{invoiceId}/attachment':
     parameters:
       - $ref: '#/components/parameters/companyId'
