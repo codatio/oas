@@ -28516,6 +28516,30 @@ paths:
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journalEntries) for integrations that support creating journal entries.
       operationId: create-journal-entry
+  '/companies/{companyId}/connections/{connectionId}/push/journalEntries/{journalEntryId}':
+    parameters:
+      - $ref: '#/components/parameters/journalEntryId'
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    delete:
+      summary: Delete journal entry
+      operationId: delete-journal-entry
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushOperationSummary'
+          headers: {}
+      description: |-
+        Deletes a journal entry from the accounting package for a given company.
+
+        > **Supported Integrations**
+        > 
+        > This functionality is currently only supported for our QuickBooks Online integration. Check out our [public roadmap](https://portal.productboard.com/codat/7-public-product-roadmap/tabs/46-accounting-api) to see what we're building next, and to submit ideas for new features.
+      tags:
+        - Journal entries
   '/companies/{companyId}/data/journals':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -45009,6 +45033,15 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
       description: Unique identifier for a direct income
+    journalEntryId:
+      name: journalEntryId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 8a210b68-6988-11ed-a1eb-0242ac120002
+      description: Unique identifier for a journal entry
     reportDate:
       name: reportDate
       in: query
