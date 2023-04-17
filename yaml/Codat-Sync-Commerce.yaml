@@ -17,6 +17,18 @@ info:
   termsOfService: 'https://www.codat.io/legals/'
 security:
   - auth_header: []
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+    - 408
+    - 429
+    - 5XX
+  retryConnectionErrors: true
 tags:
   - name: Company management
     description: Create new and manage existing sync for commerce companies.

@@ -19,6 +19,18 @@ info:
   termsOfService: 'https://www.codat.io/legals/'
 security:
   - auth_header: []
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+    - 408
+    - 429
+    - 5XX
+  retryConnectionErrors: true
 tags:
   - name: Files
     description: Endpoints to manage uploaded files.
