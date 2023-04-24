@@ -90,6 +90,22 @@
       ],
       "get": {
         "summary": "List customers",
+        "operationId": "list-customers",
+        "description": "List all commerce customers for the given company and data connection",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/pageSize"
+          },
+          {
+            "$ref": "#/components/parameters/query"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          }
+        ],
         "tags": [
           "Customers"
         ],
@@ -102,6 +118,74 @@
                   "$ref": "#/components/schemas/Customers"
                 },
                 "examples": {
+                  "Example 1": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "10129f58-0a5b-4150-bf88-bd12ac758970",
+                          "customerName": "Aaron Langosh",
+                          "emailAddress": "Aaron.Langosh30@yahoo.com",
+                          "defaultCurrency": "GBP",
+                          "phone": "01769 05706",
+                          "addresses": [
+                            {
+                              "type": "Delivery",
+                              "line1": "Apt. 563",
+                              "line2": "994 Denesik Light",
+                              "city": "South Leoniestad",
+                              "region": "Scotland",
+                              "country": "United Kingdom",
+                              "postalCode": "KV92 7RQ"
+                            }
+                          ],
+                          "createdDate": "2021-07-22T03:51:48",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-07-22T03:51:48"
+                        },
+                        {
+                          "id": "12b1dcc8-b087-4991-ade7-c75cc098bc5a",
+                          "customerName": "Aaron Langosh",
+                          "emailAddress": "Aaron39@gmail.com",
+                          "defaultCurrency": "GBP",
+                          "phone": "0837 511 5797",
+                          "addresses": [
+                            {
+                              "type": "Billing",
+                              "line1": "Suite 668",
+                              "line2": "24555 Jaylon Villages",
+                              "city": "Lake Dalehaven",
+                              "region": "England",
+                              "country": "United Kingdom",
+                              "postalCode": "ZV7 5PF"
+                            },
+                            {
+                              "type": "Delivery",
+                              "line1": "Apt. 703",
+                              "line2": "248 O'Keefe Drives",
+                              "city": "Clementinaside",
+                              "region": "Northern Ireland",
+                              "country": "United Kingdom",
+                              "postalCode": "FN24 7GZ"
+                            }
+                          ],
+                          "createdDate": "2021-09-04T11:38:48",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-09-04T11:38:48"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
+                      "_links": {
+                        "current": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-customers?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-customers"
+                        }
+                      }
+                    }
+                  },
                   "Customers": {
                     "value": {
                       "results": [
@@ -144,23 +228,7 @@
               }
             }
           }
-        },
-        "operationId": "list-customers",
-        "description": "List all commerce customers for the given company and data connection",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/page"
-          },
-          {
-            "$ref": "#/components/parameters/pageSize"
-          },
-          {
-            "$ref": "#/components/parameters/query"
-          },
-          {
-            "$ref": "#/components/parameters/orderBy"
-          }
-        ]
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/commerce-disputes": {
@@ -190,38 +258,44 @@
                     "value": {
                       "results": [
                         {
-                          "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
-                          "disputedTransactions": {
-                            "id": "13d946f0-c5d5-42bc-b092-97ece17923ab",
-                            "type": "Fee"
-                          },
-                          "totalAmount": 194.12,
-                          "currency": "GBP",
-                          "status": "Won",
-                          "reason": "Unhappy with product",
-                          "dueDate": "2021-03-29T14:39:55",
-                          "createdDate": "2019-08-24T14:15:22Z",
-                          "modifiedDate": "2019-08-24T14:15:22Z",
-                          "sourceModifiedDate": "2019-08-24T14:15:22Z"
+                          "id": "020c8524-249f-461f-b279-13d2fb5488f8",
+                          "disputedTransactions": [],
+                          "totalAmount": 768.42,
+                          "currency": "AUD",
+                          "status": "InquiryProcessing",
+                          "reason": "Arrived late.",
+                          "dueDate": "2022-01-13T06:02:59",
+                          "createdDate": "2022-01-07T06:02:59",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2022-01-07T06:02:59"
+                        },
+                        {
+                          "id": "0226521c-ccd2-4bdf-b867-ce459e4b7b8f",
+                          "disputedTransactions": [],
+                          "totalAmount": 863.66,
+                          "currency": "VND",
+                          "status": "InquiryProcessing",
+                          "reason": "Arrived damaged.",
+                          "dueDate": "2021-06-06T11:27:23",
+                          "createdDate": "2021-06-05T11:27:23",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-06-05T11:27:23"
                         }
                       ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
                       "_links": {
-                        "self": {
-                          "href": "../dictionary"
-                        },
                         "current": {
-                          "href": "../dictionary"
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-disputes?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-disputes"
                         },
                         "next": {
-                          "href": "../dictionary"
-                        },
-                        "previous": {
-                          "href": "../dictionary"
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-disputes?page=2&pageSize=20"
                         }
-                      },
-                      "pageNumber": 0,
-                      "pageSize": 0,
-                      "totalResults": 0
+                      }
                     }
                   }
                 }
@@ -268,6 +342,72 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CompanyInfo"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "companyName": "Codat",
+                      "companyLegalName": "Codat Ltd",
+                      "addresses": [
+                        {
+                          "type": "Billing",
+                          "line1": "301 Ink Rooms",
+                          "line2": "28 Easton Street",
+                          "city": "London",
+                          "region": "England",
+                          "country": "United Kingdom",
+                          "postalCode": "WC1X 0BE"
+                        },
+                        {
+                          "type": "Delivery",
+                          "line1": "28 Easton Street",
+                          "city": "London",
+                          "country": "UK",
+                          "postalCode": "WC1X 0BE"
+                        }
+                      ],
+                      "phoneNumbers": [
+                        {
+                          "number": "02012 345678",
+                          "type": "Landline"
+                        },
+                        {
+                          "number": "07123 456789",
+                          "type": "Mobile"
+                        },
+                        {
+                          "number": "02012 345678",
+                          "type": "Fax"
+                        }
+                      ],
+                      "webLinks": [
+                        {
+                          "type": "Website",
+                          "url": "https://www.codat.io/"
+                        },
+                        {
+                          "type": "Social",
+                          "url": "https://www.linkedin.com/company/codat-limited/"
+                        }
+                      ],
+                      "registrationNumber": "5590111724",
+                      "baseCurrency": "GBP",
+                      "accountBalances": [
+                        {
+                          "available": 20053.23,
+                          "pending": 2034.23,
+                          "reserved": 517.23,
+                          "currency": "GBP"
+                        }
+                      ],
+                      "sourceUrls": {
+                        "Api": "https://api.codat.io"
+                      },
+                      "createdDate": "2019-03-07T16:50:49",
+                      "modifiedDate": "2022-03-10T15:42:13",
+                      "sourceModifiedDate": "2021-06-10T01:48:49"
+                    }
+                  }
                 }
               }
             }
@@ -369,6 +509,198 @@
                 "x-speakeasy-usage-example": true,
                 "schema": {
                   "$ref": "#/components/schemas/Orders"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "0082bf58-570a-49cc-b888-3a566a383992",
+                          "orderNumber": "50907236",
+                          "country": "JE ",
+                          "currency": "USD",
+                          "createdDate": "2021-12-02T03:13:08",
+                          "totalAmount": 0,
+                          "totalRefund": -18.38,
+                          "totalTaxAmount": 0,
+                          "totalDiscount": 0,
+                          "totalGratuity": 841.76,
+                          "orderLineItems": [
+                            {
+                              "id": "refund_e65542d0-541b-42dd-a4e9-d6e85da96963",
+                              "quantity": -1,
+                              "taxPercentage": 20,
+                              "totalAmount": -18.38,
+                              "totalTaxAmount": -3.68,
+                              "unitPrice": 18.38,
+                              "taxes": [],
+                              "productRef": {
+                                "id": "d0ec3e49-e126-4766-ad31-a6181da79860",
+                                "name": "Small Metal Pizza"
+                              },
+                              "productVariantRef": {
+                                "id": "b81825ba-fa9b-4e7e-a4d6-8ccf07e573dc",
+                                "name": "Unbranded Refined Wooden Chicken"
+                              },
+                              "discountAllocations": []
+                            },
+                            {
+                              "id": "e65542d0-541b-42dd-a4e9-d6e85da96963",
+                              "quantity": 1,
+                              "taxPercentage": 20,
+                              "totalAmount": 18.38,
+                              "totalTaxAmount": 3.68,
+                              "unitPrice": 18.38,
+                              "taxes": [],
+                              "productRef": {
+                                "id": "d0ec3e49-e126-4766-ad31-a6181da79860",
+                                "name": "Small Metal Pizza"
+                              },
+                              "productVariantRef": {
+                                "id": "b81825ba-fa9b-4e7e-a4d6-8ccf07e573dc",
+                                "name": "Unbranded Refined Wooden Chicken"
+                              },
+                              "discountAllocations": []
+                            }
+                          ],
+                          "payments": [
+                            {
+                              "id": "5d6bc2f5-f4f5-4b66-bbf5-c23ec3c82647",
+                              "amount": -18.38,
+                              "currency": "USD",
+                              "type": "Unknown",
+                              "status": "Unknown",
+                              "dueDate": "2021-12-09T03:13:08",
+                              "createdDate": "2021-12-02T03:13:08",
+                              "modifiedDate": "2022-03-10T15:42:13"
+                            },
+                            {
+                              "id": "98dbbfbc-f9b7-4fc3-90d6-11dc263b82f8",
+                              "amount": 18.38,
+                              "currency": "USD",
+                              "type": "Vipps",
+                              "status": "Failed",
+                              "dueDate": "2021-12-09T03:13:08",
+                              "createdDate": "2021-12-02T03:13:08",
+                              "modifiedDate": "2022-03-10T15:42:13"
+                            }
+                          ],
+                          "serviceCharges": [],
+                          "locationRef": {
+                            "id": "63fbc97d-1f8e-456a-8726-b9b9af2d2872"
+                          },
+                          "customerRef": {
+                            "id": "10129f58-0a5b-4150-bf88-bd12ac758970",
+                            "name": "Aaron Langosh"
+                          },
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-12-02T03:13:08"
+                        },
+                        {
+                          "id": "00ebed6b-fa80-47ef-92ce-4ff510d2b615",
+                          "orderNumber": "62402064",
+                          "country": "JE ",
+                          "currency": "CAD",
+                          "createdDate": "2021-04-25T06:07:59",
+                          "totalAmount": 129.38,
+                          "totalRefund": 0,
+                          "totalTaxAmount": 9.02,
+                          "totalDiscount": 28.99,
+                          "totalGratuity": 928.97,
+                          "orderLineItems": [
+                            {
+                              "id": "73ff4a0d-b5c9-42bd-a26d-b36b09e2d821",
+                              "quantity": 2,
+                              "taxPercentage": 0,
+                              "totalAmount": 82.84,
+                              "totalTaxAmount": 0,
+                              "unitPrice": 41.42,
+                              "taxes": [],
+                              "productRef": {
+                                "id": "cf991f05-54b7-48d6-9ce1-291e8517b2a2",
+                                "name": "Handcrafted Granite Chair"
+                              },
+                              "productVariantRef": {
+                                "id": "753861c0-b20a-462f-bc79-c635ea1d3897",
+                                "name": "Generic Unbranded Rubber Chips"
+                              },
+                              "discountAllocations": [
+                                {
+                                  "name": "Discount",
+                                  "totalAmount": 4.14
+                                },
+                                {
+                                  "name": "Discount",
+                                  "totalAmount": 24.85
+                                }
+                              ]
+                            },
+                            {
+                              "id": "a116fe81-757d-4810-82d7-eb552ff84541",
+                              "quantity": 1,
+                              "taxPercentage": 20,
+                              "totalAmount": 45.09,
+                              "totalTaxAmount": 9.02,
+                              "unitPrice": 45.09,
+                              "taxes": [],
+                              "productRef": {
+                                "id": "dd93c8e5-a02f-4e1c-a8a8-5a3af269fe56",
+                                "name": "Tasty Cotton Hat"
+                              },
+                              "productVariantRef": {
+                                "id": "ec5ea82e-683c-43ec-b364-0630cff0f2ed",
+                                "name": "Gorgeous Gorgeous Steel Pizza"
+                              },
+                              "discountAllocations": []
+                            }
+                          ],
+                          "payments": [
+                            {
+                              "id": "6e1ae9c3-b2e3-4285-b205-20dec6540893",
+                              "amount": 129.38,
+                              "currency": "CAD",
+                              "type": "Mobile",
+                              "status": "Cancelled",
+                              "dueDate": "2021-05-02T06:07:59",
+                              "createdDate": "2021-04-25T06:07:59",
+                              "modifiedDate": "2022-03-10T15:42:13"
+                            }
+                          ],
+                          "serviceCharges": [
+                            {
+                              "description": "Overpayment",
+                              "totalAmount": 1.45,
+                              "taxPercentage": 15,
+                              "taxAmount": 0.22,
+                              "taxes": [],
+                              "quantity": 2,
+                              "type": "Overpayment"
+                            }
+                          ],
+                          "locationRef": {
+                            "id": "63fbc97d-1f8e-456a-8726-b9b9af2d2872"
+                          },
+                          "customerRef": {
+                            "id": "ac27ab1e-7d4c-407f-a60a-a796fc07773e",
+                            "name": "Genesis Emard"
+                          },
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-04-25T06:07:59"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
+                      "_links": {
+                        "current": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-orders?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-orders"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -413,6 +745,47 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Payments"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "01696425-2fd1-4ec5-8c26-3466d332e76d",
+                          "amount": 806.75,
+                          "currency": "AUD",
+                          "type": "StoreCredit",
+                          "status": "Pending",
+                          "paymentProvider": "Shopify Payments",
+                          "dueDate": "2022-04-10T03:45:27",
+                          "createdDate": "2021-08-20T18:09:25",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-08-20T18:09:25"
+                        },
+                        {
+                          "id": "033de3c2-55b0-4b40-b125-e36843e48378",
+                          "amount": 45.23,
+                          "currency": "CAD",
+                          "type": "Prepaid",
+                          "status": "Paid",
+                          "dueDate": "2021-04-28T09:50:29",
+                          "createdDate": "2021-04-21T09:50:29",
+                          "modifiedDate": "2022-03-10T15:42:13Z"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
+                      "_links": {
+                        "current": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-payments?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-payments"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -501,6 +874,162 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Products"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "01677574-8468-48f4-82a1-17bbceacad92",
+                          "categorization": "Baby",
+                          "name": "Unbranded Concrete Shoes",
+                          "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+                          "productCategoryRefs": [],
+                          "isGiftCard": false,
+                          "variants": [
+                            {
+                              "id": "44478559-c721-4b4f-a0c7-99bf474e207f",
+                              "name": "Ergonomic Fantastic Concrete Sausages",
+                              "quantity": 0,
+                              "isTaxEnabled": true,
+                              "sku": "AS1CC0YZ77ODHB3NNVMY0RL1XJ055JT1D1DNA6YZ7IOLHIZ4CHAROS1SG9O2A24XNX9Q7QMQ6X0RDATOU52YJCMV9VGAR5YFO08U",
+                              "barcode": "JJ7W4TU11KPGPAIF9FOKKNQMKM9A8VCMC9FK8G4ZSU4ZF9URXTGILXJ62VLSUT3GHDEQ57G2LY20T1GL1RNOP4AO0ISM5LF81YSC4EWZMN7W4TMBOA0CGO0NCZ0WP479S485JEQW5YCB6NUG5Q85VD2N7EAEO9JSQ7EAUR2KTEGRMYQYFT085BOPBV7EEMI5OTV9JTWOYYMR6KAIYL84JKWOSY8",
+                              "unitOfMeasure": "Liters",
+                              "vatPercentage": 20,
+                              "prices": [
+                                {
+                                  "currency": "VND",
+                                  "unitPrice": 19.23
+                                }
+                              ],
+                              "inventory": {
+                                "totalQuantity": 895,
+                                "locations": [
+                                  {
+                                    "quantity": 446,
+                                    "locationRef": {
+                                      "id": "63fbc97d-1f8e-456a-8726-b9b9af2d2872"
+                                    }
+                                  },
+                                  {
+                                    "quantity": 449,
+                                    "locationRef": {
+                                      "id": "392233a8-41de-42c1-a4f1-858b2389240a"
+                                    }
+                                  }
+                                ]
+                              },
+                              "shippingRequired": false,
+                              "createdDate": "2021-08-19T03:09:47"
+                            },
+                            {
+                              "id": "c663cc32-3a05-414a-aa94-fd8dfdcd4bec",
+                              "name": "Practical Generic Rubber Keyboard",
+                              "quantity": 0,
+                              "isTaxEnabled": true,
+                              "sku": "5UFMOE8KX79EHPOISXOX14Y4P3G0PSK8144AP2LR7IGJZC2E79TNC03B6K6U8H5EWAMNVO3ZL7ZTXPEMBB3P876AA3DE51T0MBWY0PTSG4CEBJNRFUT6OQF",
+                              "barcode": "ZEMM2LY3TN9GW2QWWSLIE5181QW8LIWL656UNC0HR",
+                              "unitOfMeasure": "gallons",
+                              "vatPercentage": 20,
+                              "prices": [
+                                {
+                                  "currency": "EUR",
+                                  "unitPrice": 36.47
+                                },
+                                {
+                                  "currency": "USD",
+                                  "unitPrice": 26.92
+                                }
+                              ],
+                              "inventory": {
+                                "totalQuantity": 312,
+                                "locations": [
+                                  {
+                                    "quantity": 14,
+                                    "locationRef": {
+                                      "id": "63fbc97d-1f8e-456a-8726-b9b9af2d2872"
+                                    }
+                                  },
+                                  {
+                                    "quantity": 298,
+                                    "locationRef": {
+                                      "id": "392233a8-41de-42c1-a4f1-858b2389240a"
+                                    }
+                                  }
+                                ]
+                              },
+                              "shippingRequired": false,
+                              "createdDate": "2021-04-25T21:16:59"
+                            }
+                          ],
+                          "createdDate": "2021-04-16T23:48:23",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-04-16T23:48:23",
+                          "status": "Unpublished"
+                        },
+                        {
+                          "id": "06e0f5a0-1479-4732-b8f3-5d7d04a4398c",
+                          "categorization": "Gift Card",
+                          "name": "Gift Card",
+                          "description": "Gift Card",
+                          "productCategoryRefs": [],
+                          "isGiftCard": true,
+                          "variants": [
+                            {
+                              "id": "a5a7b334-37cc-496c-8f72-845c1c91f570",
+                              "name": "Gift Card",
+                              "quantity": 0,
+                              "isTaxEnabled": false,
+                              "sku": "U35SJDPGETNX6K1QYVTUDPRUXO7B2WFY4IOZF5PO03NVTJI55RGRQS0FLK44FOOSOZ3X5CL3FE3KB5BOGCFLPXHLRJN4B",
+                              "barcode": "UIMP4G3QU93FMLMZQDQJPXDJCC1RRGWYQ2U5R4GYH7WCLFCL5WBF7VV6FCM2PM8ONEZU0RHV71BSBB77APV5EQ15HX0OROJ58IYGQSUOOPHFUC5D",
+                              "unitOfMeasure": "Pairs",
+                              "vatPercentage": 20,
+                              "prices": [
+                                {
+                                  "currency": "JPY",
+                                  "unitPrice": 10
+                                }
+                              ],
+                              "inventory": {
+                                "totalQuantity": 782,
+                                "locations": [
+                                  {
+                                    "quantity": 306,
+                                    "locationRef": {
+                                      "id": "63fbc97d-1f8e-456a-8726-b9b9af2d2872"
+                                    }
+                                  },
+                                  {
+                                    "quantity": 476,
+                                    "locationRef": {
+                                      "id": "392233a8-41de-42c1-a4f1-858b2389240a"
+                                    }
+                                  }
+                                ]
+                              },
+                              "shippingRequired": true,
+                              "createdDate": "2021-07-06T16:25:40"
+                            }
+                          ],
+                          "createdDate": "2021-06-14T05:10:46",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-06-14T05:10:46",
+                          "status": "Unknown"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
+                      "_links": {
+                        "current": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-products?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-products"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -545,6 +1074,44 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Transactions"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "013406e8-00cd-4c8c-b621-16ac1d776153",
+                          "totalAmount": 987.48,
+                          "currency": "EUR",
+                          "type": "Unknown",
+                          "subType": "Unknown",
+                          "createdDate": "2021-04-10T22:32:19",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2021-06-12T21:57:57"
+                        },
+                        {
+                          "id": "02cf33e5-edae-4de4-97d9-0859b62acb96",
+                          "totalAmount": 138.73,
+                          "currency": "GBP",
+                          "type": "FailedPayout",
+                          "createdDate": "2021-09-13T12:40:06",
+                          "modifiedDate": "2022-03-10T15:42:13Z",
+                          "sourceModifiedDate": "2022-03-06T06:13:39"
+                        }
+                      ],
+                      "pageNumber": 1,
+                      "pageSize": 20,
+                      "totalResults": 2,
+                      "_links": {
+                        "current": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-transactions?page=1&pageSize=20"
+                        },
+                        "self": {
+                          "href": "/companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-transactions"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -1009,8 +1576,11 @@
             ],
             "properties": {
               "disputedTransactions": {
-                "description": "Link to the source event which triggered this transaction.",
-                "$ref": "#/components/schemas/Transaction/definitions/transactionSourceRef"
+                "description": "Link to the source event(s) which triggered this transaction.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction/definitions/transactionSourceRef"
+                }
               },
               "totalAmount": {
                 "description": "Total transaction amount that is under dispute.",
@@ -1154,8 +1724,7 @@
               }
             },
             "required": [
-              "id",
-              "name"
+              "id"
             ]
           }
         },
@@ -1946,11 +2515,7 @@
                     }
                   },
                   "inventory": {
-                    "type": "array",
-                    "description": "Information about the total inventory as well as the locations inventory is in.",
-                    "items": {
-                      "$ref": "#/components/schemas/Product/definitions/productInventory"
-                    }
+                    "$ref": "#/components/schemas/Product/definitions/productInventory"
                   },
                   "shippingRequired": {
                     "type": "boolean",
@@ -2010,6 +2575,7 @@
           },
           "productInventory": {
             "title": "Product Inventory",
+            "description": "Information about the total inventory as well as the locations inventory is in.",
             "x-internal": true,
             "type": "object",
             "properties": {
@@ -2389,7 +2955,7 @@
             ]
           },
           "transactionType": {
-            "x-iternal": true,
+            "x-internal": true,
             "description": "The type of the platform transaction:  \n- `Unknown`  \n- `FailedPayout` — Failed transfer of funds from the seller's merchant account to their bank account.  \n- `Payment` — Credit and debit card payments.  \n- `PaymentFee` — Payment provider's fee on each card payment.  \n- `PaymentFeeRefund` — Payment provider's fee that has been refunded to the seller.  \n- `Payout` — Transfer of funds from the seller's merchant account to their bank account.  \n- `Refund` — Refunds to a customer's credit or debit card.  \n- `Transfer` — Secure transfer of funds to the seller's bank account.  ",
             "type": "string",
             "enum": [

@@ -151,6 +151,50 @@ paths:
               x-speakeasy-usage-example: true
               schema:
                 $ref: '#/components/schemas/Accounts'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                        nominalCode: '610'
+                        name: Accounts Receivable
+                        description: Invoices the business has issued but has not yet collected payment on.
+                        fullyQualifiedCategory: Asset.Current
+                        fullyQualifiedName: Asset.Current.Accounts Receivable
+                        currency: GBP
+                        currentBalance: 0
+                        type: Asset
+                        status: Active
+                        isBankAccount: false
+                        modifiedDate: '2023-04-11T11:34:04Z'
+                        sourceModifiedDate: '2022-07-09T17:16:26'
+                        validDatatypeLinks: []
+                        metadata:
+                          isDeleted: false
+                      - id: 76d5f23b-9623-4e3b-89cd-da57228764d3
+                        nominalCode: '611'
+                        name: Accounts Receivable
+                        description: A provision anticipating that a portion of accounts receivable will never be collected.
+                        fullyQualifiedCategory: Asset.Current
+                        fullyQualifiedName: Asset.Current.Accounts Receivable
+                        currency: GBP
+                        currentBalance: 0
+                        type: Asset
+                        status: Active
+                        isBankAccount: false
+                        modifiedDate: '2023-04-11T11:34:04Z'
+                        sourceModifiedDate: '2022-06-29T21:12:26'
+                        validDatatypeLinks: []
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/accounts?page=1&pageSize=20&query=metadata.isDeleted!%3Dtrue
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/accounts
   '/companies/{companyId}/data/accounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3562,6 +3606,116 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillCreditNotes'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 1509398f-98e2-436d-8a5d-c042e0c74ffc
+                        billCreditNoteNumber: 91fe2a83-e161-4c21-929d-c5c10c4b07e5
+                        supplierRef:
+                          id: 9e462bca-09f7-48ff-8e73-6f5988ec6035
+                          supplierName: 'Bergstrom, Cassin and Swaniawski'
+                        withholdingTax: []
+                        totalAmount: 805.78
+                        totalDiscount: 0
+                        subTotal: 805.78
+                        totalTaxAmount: 0
+                        discountPercentage: 0
+                        remainingCredit: 0
+                        status: Paid
+                        issueDate: '2022-03-15T00:00:00'
+                        allocatedOnDate: '2022-09-15T16:35:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Underground - Trapped Road Gully 450mm x 450mm
+                            unitAmount: 402.89
+                            quantity: 2
+                            discountAmount: 0
+                            subTotal: 805.78
+                            taxAmount: 0
+                            totalAmount: 805.78
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            discountPercentage: 0
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 3abf0883-03f7-44c6-bc15-1372522d25e1
+                            trackingCategoryRefs: []
+                        paymentAllocations:
+                          - payment:
+                              id: b4adf78b-d707-4fbb-9bb3-d274ad7ce2fc
+                              note: Payment against bill credit note 1509398f-98e2-436d-8a5d-c042e0c74ffc
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-09-15T16:35:00'
+                              totalAmount: -805.78
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-09-20T09:03:00'
+                              totalAmount: 805.78
+                        modifiedDate: '2023-04-11T11:34:06Z'
+                        sourceModifiedDate: '2022-06-05T01:50:00'
+                        metadata:
+                          isDeleted: false
+                        note: 'Bill Credit Note with 1 line items, totaling 805.78'
+                      - id: 98d0728f-c189-4675-beea-a7fb28e33993
+                        billCreditNoteNumber: 5e41c80e-fbca-4dcf-936c-9b0715db971c
+                        supplierRef:
+                          id: Hmoym8PjOn
+                          supplierName: Willms - Feest
+                        withholdingTax: []
+                        totalAmount: 1251.89
+                        totalDiscount: 0
+                        subTotal: 1251.89
+                        totalTaxAmount: 0
+                        discountPercentage: 0
+                        remainingCredit: 1251.89
+                        status: Void
+                        issueDate: '2022-04-30T00:00:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Grease Trap
+                            unitAmount: 1251.89
+                            quantity: 1
+                            discountAmount: 0
+                            subTotal: 1251.89
+                            taxAmount: 0
+                            totalAmount: 1251.89
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            discountPercentage: 0
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 51077072-d5c3-463b-9cb4-7da2e11886f9
+                            trackingCategoryRefs: []
+                        paymentAllocations: []
+                        modifiedDate: '2023-04-11T11:34:06Z'
+                        sourceModifiedDate: '2022-08-01T00:22:00'
+                        metadata:
+                          isDeleted: false
+                        note: 'Bill Credit Note with 1 line items, totaling 1251.89'
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/billCreditNotes?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/billCreditNotes
       description: 'Gets a list of all bill credit notes for a company, with pagination'
       operationId: list-bill-credit-notes
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
@@ -6420,6 +6574,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillPayments'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 3d5a8e00-d108-4045-8823-7f342676cffa
+                        supplierRef:
+                          id: 9e462bca-09f7-48ff-8e73-6f5988ec6035
+                          supplierName: 'Bergstrom, Cassin and Swaniawski'
+                        accountRef:
+                          id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                          name: Business Current Account
+                        totalAmount: 1329.54
+                        currency: GBP
+                        currencyRate: 1
+                        date: '2022-03-19T03:02:00'
+                        note: Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44
+                        paymentMethodRef:
+                          id: 04a6f4f0-647c-4e99-b583-fdc9a504d7df
+                        lines:
+                          - amount: 1329.54
+                            links:
+                              - type: Bill
+                                id: c13e37b6-dfaa-4894-b3be-9fe97bda9f44
+                                amount: -1329.54
+                                currencyRate: 1
+                            allocatedOnDate: '2022-03-19T03:02:00'
+                        modifiedDate: '2023-04-11T11:34:06Z'
+                        sourceModifiedDate: '2022-03-19T03:02:00'
+                        metadata:
+                          isDeleted: false
+                      - id: 788eaa31-9848-4759-9a4b-7df51827f483
+                        supplierRef:
+                          id: 37bfed49-474c-4059-9416-4645cd357f2b
+                          supplierName: Hills and Sons
+                        accountRef:
+                          id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                          name: Business Current Account
+                        totalAmount: 10559.7
+                        currency: GBP
+                        currencyRate: 1
+                        date: '2022-03-29T00:00:00'
+                        note: Bill Payment against bill 10eb1dde-c86b-40fb-9131-40270163b8c8
+                        paymentMethodRef:
+                          id: 66e651ac-8a47-4dc7-977d-c18e73fd46cc
+                        lines:
+                          - amount: 10559.7
+                            links:
+                              - type: Bill
+                                id: 10eb1dde-c86b-40fb-9131-40270163b8c8
+                                amount: -10559.7
+                                currencyRate: 1
+                            allocatedOnDate: '2022-03-29T00:00:00'
+                        modifiedDate: '2023-04-11T11:34:06Z'
+                        sourceModifiedDate: '2022-03-29T00:00:00'
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/billPayments?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/billPayments
       description: 'Gets the latest billPayments for a company, with pagination'
       operationId: list-bill-payments
   '/companies/{companyId}/data/billPayments/{billPaymentId}':
@@ -8252,6 +8470,170 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Bills'
+              examples:
+                Multiple Bills:
+                  value:
+                    results:
+                      - id: 64172f3f-7063-4464-ab1b-f8510c689c8f
+                        reference: fe8527b8-f285-47e5-a335-fedbceac3258
+                        supplierRef:
+                          id: 2a9c7f51-9d94-4418-ba2e-1180db2830a9
+                          supplierName: 'Murray, Schowalter and Lesch'
+                        purchaseOrderRefs: []
+                        issueDate: '2022-03-13T00:00:00'
+                        dueDate: '2022-04-05T00:00:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Grease Trap
+                            unitAmount: 1251.89
+                            quantity: 2
+                            discountAmount: 0
+                            subTotal: 2503.78
+                            taxAmount: 250.38
+                            totalAmount: 2754.16
+                            discountPercentage: 0
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 51077072-d5c3-463b-9cb4-7da2e11886f9
+                            trackingCategoryRefs: []
+                            isDirectCost: false
+                          - description: Grease Trap
+                            unitAmount: 2781.94
+                            quantity: 5
+                            discountAmount: 0
+                            subTotal: 13909.7
+                            taxAmount: 1390.97
+                            totalAmount: 15300.67
+                            discountPercentage: 0
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 22aee6bd-4767-48c4-8a13-fdf85b91fc80
+                            trackingCategoryRefs: []
+                            isDirectCost: false
+                          - description: Grease Trap
+                            unitAmount: 1251.89
+                            quantity: 6
+                            discountAmount: 0
+                            subTotal: 7511.34
+                            taxAmount: 751.13
+                            totalAmount: 8262.47
+                            discountPercentage: 0
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 51077072-d5c3-463b-9cb4-7da2e11886f9
+                            trackingCategoryRefs: []
+                            isDirectCost: false
+                        withholdingTax: []
+                        status: Paid
+                        subTotal: 23924.82
+                        taxAmount: 2392.48
+                        totalAmount: 26317.3
+                        amountDue: 0
+                        modifiedDate: '2023-04-11T11:34:07Z'
+                        sourceModifiedDate: '2022-05-15T00:50:27'
+                        note: 'Bill with 3 line items, totaling 26317.30'
+                        paymentAllocations:
+                          - payment:
+                              id: b4b48b3b-19c2-4110-b9d6-4b7235e64c0d
+                              note: Bill Payment against bill 64172f3f-7063-4464-ab1b-f8510c689c8f
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-04-05T00:00:00'
+                              totalAmount: 26317.3
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-04-05T00:00:00'
+                              totalAmount: -26317.3
+                        metadata:
+                          isDeleted: false
+                      - id: c13e37b6-dfaa-4894-b3be-9fe97bda9f44
+                        reference: 0113ffda-a608-43b9-8c89-f13197566f8e
+                        supplierRef:
+                          id: 9e462bca-09f7-48ff-8e73-6f5988ec6035
+                          supplierName: 'Bergstrom, Cassin and Swaniawski'
+                        purchaseOrderRefs: []
+                        issueDate: '2022-03-14T00:00:00'
+                        dueDate: '2022-03-21T00:00:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Underground - Trapped Road Gully 450mm x 450mm
+                            unitAmount: 402.89
+                            quantity: 3
+                            discountAmount: 0
+                            subTotal: 1208.67
+                            taxAmount: 120.87
+                            totalAmount: 1329.54
+                            discountPercentage: 0
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 3abf0883-03f7-44c6-bc15-1372522d25e1
+                            trackingCategoryRefs: []
+                            isDirectCost: false
+                        withholdingTax: []
+                        status: Paid
+                        subTotal: 1208.67
+                        taxAmount: 120.87
+                        totalAmount: 1329.54
+                        amountDue: 0
+                        modifiedDate: '2023-04-11T11:34:07Z'
+                        sourceModifiedDate: '2022-05-10T07:31:27'
+                        note: 'Bill with 1 line items, totaling 1329.54'
+                        paymentAllocations:
+                          - payment:
+                              id: 3d5a8e00-d108-4045-8823-7f342676cffa
+                              note: Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-03-19T03:02:00'
+                              totalAmount: 1329.54
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-03-19T03:02:00'
+                              totalAmount: -1329.54
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/bills?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/bills
       description: 'Gets the latest bills for a company, with pagination'
       operationId: list-bills
   '/companies/{companyId}/data/bills/{billId}':
@@ -11550,6 +11932,163 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreditNotes'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 228130d3-ba9f-4d6c-b1d7-847f50703a93
+                        creditNoteNumber: 7e915897-2241-4a58-b529-3da8d88c0a03
+                        customerRef:
+                          id: 30a19ff7-9795-4c96-aad8-896ecd239497
+                          companyName: Zaria Luettgen
+                        withholdingTax:
+                          - name: Interest
+                            amount: 172.8
+                          - name: Resident Double taxation treaty
+                            amount: 202.53
+                          - name: Royalties
+                            amount: 187.98
+                        totalAmount: 2211.46
+                        totalDiscount: 4.03
+                        subTotal: 2010.42
+                        additionalTaxAmount: 0
+                        additionalTaxPercentage: 0
+                        totalTaxAmount: 201.04
+                        discountPercentage: 0.2
+                        remainingCredit: 1446.95
+                        status: PartiallyPaid
+                        issueDate: '2022-03-20T00:00:00'
+                        allocatedOnDate: '2022-03-31T23:49:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Heavy Duty Hinged Gully Grating x7.67
+                            unitAmount: 402.89
+                            quantity: 5
+                            discountAmount: 4.03
+                            subTotal: 2010.42
+                            taxAmount: 201.04
+                            totalAmount: 2211.46
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            discountPercentage: 0.2
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 3abf0883-03f7-44c6-bc15-1372522d25e1
+                            trackingCategoryRefs: []
+                            isDirectIncome: true
+                        paymentAllocations:
+                          - payment:
+                              id: ab74bc98-cb95-4b53-8129-eddef45cb137
+                              note: Payment against credit note 228130d3-ba9f-4d6c-b1d7-847f50703a93
+                              reference: 228130d3-ba9f-4d6c-b1d7-847f50703a93
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-03-31T00:00:00'
+                              totalAmount: -201.2
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-04-02T00:00:00'
+                              totalAmount: 201.2
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-08-28T11:06:27'
+                        note: 'Credit Note with 1 line items, totaling 2211.46'
+                        metadata:
+                          isDeleted: false
+                      - id: 23274fbb-1316-4895-95ac-fda90432a5a9
+                        creditNoteNumber: 794ceb2b-e129-4d8b-9a0d-273552f9fc95
+                        customerRef:
+                          id: 30a19ff7-9795-4c96-aad8-896ecd239497
+                          companyName: Zaria Luettgen
+                        withholdingTax: []
+                        totalAmount: 313.77
+                        totalDiscount: 0
+                        subTotal: 285.24
+                        additionalTaxAmount: 0
+                        additionalTaxPercentage: 0
+                        totalTaxAmount: 28.53
+                        discountPercentage: 0
+                        remainingCredit: 0
+                        status: Paid
+                        issueDate: '2022-04-14T00:00:00'
+                        allocatedOnDate: '2022-05-21T12:09:00'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Back Inlet Roddable Gully 90° Outlet Rectangular Grid x9.70
+                            unitAmount: 95.08
+                            quantity: 2
+                            discountAmount: 0
+                            subTotal: 190.16
+                            taxAmount: 19.02
+                            totalAmount: 209.18
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: '6'
+                            trackingCategoryRefs: []
+                            isDirectIncome: false
+                          - description: Back Inlet Roddable Gully 90° Outlet Rectangular Grid x2.58
+                            unitAmount: 95.08
+                            quantity: 1
+                            discountAmount: 0
+                            subTotal: 95.08
+                            taxAmount: 9.51
+                            totalAmount: 104.59
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: '6'
+                            trackingCategoryRefs: []
+                            isDirectIncome: false
+                        paymentAllocations:
+                          - payment:
+                              id: 4ab203dd-73f2-4d7c-8821-66b852527bee
+                              note: Payment against credit note 23274fbb-1316-4895-95ac-fda90432a5a9
+                              reference: 23274fbb-1316-4895-95ac-fda90432a5a9
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-05-21T00:00:00'
+                              totalAmount: -313.77
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-05-24T00:00:00'
+                              totalAmount: 313.77
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-07-06T22:41:27'
+                        note: 'Credit Note with 2 line items, totaling 313.77'
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/creditNotes?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/creditNotes
       description: 'Gets a list of all credit notes for a company, with pagination'
       operationId: list-credit-notes
   '/companies/{companyId}/data/creditNotes/{creditNoteId}':
@@ -14007,6 +14546,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customers'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: b90a0649-27df-445c-810c-bf5e6abbaa8e
+                        customerName: Arielle Grant
+                        contactName: Alia Okuneva
+                        emailAddress: Arielle.Grant@gmail.com
+                        defaultCurrency: GBP
+                        phone: 01374 565514
+                        addresses:
+                          - type: Delivery
+                            line1: Apt. 317
+                            line2: 054 Harber Motorway
+                            city: South Agustina
+                            region: England
+                            country: United Kingdom
+                            postalCode: LJ53 6IJ
+                          - type: Billing
+                            line1: Apt. 841
+                            line2: 827 McClure Springs
+                            city: Nakiaton
+                            region: England
+                            country: United Kingdom
+                            postalCode: HE9 3PM
+                          - type: Delivery
+                            line1: Apt. 452
+                            line2: 38355 Cremin Brooks
+                            city: Port Delaneyport
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: QK43 0EN
+                        contacts:
+                          - name: Alia Okuneva
+                            email: Alia_Okuneva@yahoo.com
+                            phone:
+                              - number: 0800 545952
+                                type: Landline
+                              - number: 0500 829789
+                                type: Mobile
+                            address:
+                              type: Delivery
+                              line1: Suite 328
+                              line2: 8379 Paul Crest
+                              city: Lake Corenemouth
+                              region: Northern Ireland
+                              country: United Kingdom
+                              postalCode: PN12 9DK
+                            status: Archived
+                          - name: Donny Emmerich
+                            email: Donny.Emmerich@yahoo.com
+                            phone:
+                              - number: 0872 032 6127
+                                type: Landline
+                            address:
+                              type: Delivery
+                              line1: Apt. 607
+                              line2: 66409 Virginie Ports
+                              city: New Candicestad
+                              region: Northern Ireland
+                              country: United Kingdom
+                              postalCode: GU1 7NU
+                            status: Active
+                        registrationNumber: C7CPBD3N
+                        taxNumber: '3192673996.411144'
+                        status: Active
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-03-24T19:45:27'
+                        metadata:
+                          isDeleted: false
+                      - id: b110de69-8489-4e32-9f5f-8ba5d3e93fa0
+                        customerName: Arthur Parisian
+                        contactName: Eula Wuckert
+                        emailAddress: Arthur.Parisian14@yahoo.com
+                        defaultCurrency: GBP
+                        phone: 01394 514598
+                        addresses:
+                          - type: Delivery
+                            line1: Suite 275
+                            line2: 481 Wiza Cape
+                            city: Camyllehaven
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: BN5 1NG
+                        contacts:
+                          - name: Eula Wuckert
+                            email: Eula.Wuckert88@yahoo.com
+                            phone:
+                              - number: 055 3744 4268
+                                type: Mobile
+                              - number: 0121 572 3748
+                                type: Landline
+                            address:
+                              type: Delivery
+                              line1: Apt. 905
+                              line2: 2071 Pfeffer Curve
+                              city: North Demarcus
+                              region: Northern Ireland
+                              country: United Kingdom
+                              postalCode: PX1 6FK
+                            status: Active
+                        registrationNumber: XENXUD1A
+                        taxNumber: '9489395098.35731'
+                        status: Active
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-11-01T23:26:26'
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/customers?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/customers
       description: 'Gets the latest customers for a company, with pagination'
       operationId: get-customers
   '/companies/{companyId}/data/customers/{customerId}':
@@ -23723,6 +24378,667 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BalanceSheet'
+              examples:
+                Example 1:
+                  value:
+                    currency: GBP
+                    reports:
+                      - date: '2023-02-28T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4513371.22
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 4160909.99
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2182819.44
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1978090.55
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 352461.23
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 29163.19
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 6098.18
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 87192.23
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 230007.63
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 230007.63
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 930289.87
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 291290.27
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 29106.12
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 7035.3
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 31755.76
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1142.53
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 1643.6
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 202465.21
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 18141.75
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 638999.6
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 638999.6
+                                  items: []
+                        netAssets: 3583081.35
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3583081.35
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 39629.53
+                              items: []
+                      - date: '2023-01-31T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4717296.42
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 4016320.48
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2128204.4
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1888116.08
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 700975.94
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 78092.74
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 18498.57
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 133426
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 470958.63
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 470958.63
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 1128471.79
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 486788.85
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 29200.44
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 7286.2
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 51716.67
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1759.89
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 1604.52
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 371260.73
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 23960.4
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 641682.94
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 641682.94
+                                  items: []
+                        netAssets: 3588824.63
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3588824.64
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 45372.82
+                              items: []
+                      - date: '2022-12-31T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4640415.93
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 4098843.14
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2180806.7
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1918036.44
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 541572.79
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 66629.62
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 21499.1
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 109605.63
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 343838.44
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 343838.44
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 1060960.73
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 416594.45
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 21438.77
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 8658.89
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 35991.11
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1314.02
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 1974.15
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 330633.29
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 16584.22
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 644366.28
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 644366.28
+                                  items: []
+                        netAssets: 3579455.2
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3579455.2
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 36003.38
+                              items: []
+                      - date: '2022-11-30T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4744403.41
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 3990576.47
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2022713.57
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1967862.9
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 753826.94
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 147504.86
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 42399.88
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 137727.57
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 426194.63
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 426194.63
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 1166930.27
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 519880.65
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 27424.85
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 8214.75
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 33314.37
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1657.78
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 1114.5
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 433126.9
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 15027.5
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 647049.62
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 647049.62
+                                  items: []
+                        netAssets: 3577473.14
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3577473.15
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 34021.33
+                              items: []
+                      - date: '2022-10-31T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4727788.47
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 4105545.06
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2362535.29
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1743009.77
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 622243.41
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 70651.36
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 19248.94
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 143065.67
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 389277.44
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 389277.44
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 1151542.16
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 501809.2
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 25329.68
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 5897.95
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 63231.46
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1811.81
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 2168.87
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 389209.13
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 14160.3
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 649732.96
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 649732.96
+                                  items: []
+                        netAssets: 3576246.31
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3576246.31
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 32794.49
+                              items: []
+                      - date: '2022-09-30T00:00:00'
+                        assets:
+                          accountId: ''
+                          name: Assets
+                          value: 4662757.75
+                          items:
+                            - accountId: ''
+                              name: Fixed Assets
+                              value: 4115127.96
+                              items:
+                                - accountId: 724ca578-8b5d-4bdb-ad45-e3820eee9de9
+                                  name: Office Equipment
+                                  value: 2198014.12
+                                  items: []
+                                - accountId: be3eb911-034b-42de-95db-0d58ac978b7f
+                                  name: Computer Equipment
+                                  value: 1917113.84
+                                  items: []
+                            - accountId: ''
+                              name: Current Assets
+                              value: 547629.79
+                              items:
+                                - accountId: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                                  name: Accounts Receivable
+                                  value: 91099.04
+                                  items: []
+                                - accountId: 22de1660-d745-4809-a363-16b134607e66
+                                  name: Prepayments
+                                  value: 30810.46
+                                  items: []
+                                - accountId: e5d7612c-1671-47b4-b733-5db48363fcd0
+                                  name: Inventory
+                                  value: 66732.42
+                                  items: []
+                                - accountId: ''
+                                  name: Bank
+                                  value: 358987.87
+                                  items:
+                                    - accountId: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                      name: Business Current Account
+                                      value: 358987.87
+                                      items: []
+                        liabilities:
+                          accountId: ''
+                          name: Liabilities
+                          value: 1080252.07
+                          items:
+                            - accountId: ''
+                              name: Current Liabilities
+                              value: 427835.77
+                              items:
+                                - accountId: 3a872b81-d1af-4d31-9bfa-a37280b8f68c
+                                  name: VAT
+                                  value: 24139.65
+                                  items: []
+                                - accountId: d19852a2-e292-4eb9-a909-9dadb95c0e76
+                                  name: Rounding
+                                  value: 0
+                                  items: []
+                                - accountId: 9be6382f-6b33-402d-b448-0db1dbf67a98
+                                  name: Historical Adjustment
+                                  value: 7842.34
+                                  items: []
+                                - accountId: 53bf27a7-7497-4c61-9887-dfaad5c6d80a
+                                  name: Accounts Payable
+                                  value: 57761.91
+                                  items: []
+                                - accountId: 8852a857-aa9d-4706-839f-638e9d6b5a66
+                                  name: Unpaid Expense Claims
+                                  value: 0
+                                  items: []
+                                - accountId: 3b58f7ff-fa16-453a-9931-f020816d76e7
+                                  name: Interest Payables
+                                  value: 1825.51
+                                  items: []
+                                - accountId: 8636effc-50fb-45ba-8b2b-18336fa29b6b
+                                  name: John Smith
+                                  value: 1248.94
+                                  items: []
+                                - accountId: e2530acd-91c8-48f8-a35f-935dbd7432e2
+                                  name: Accruals
+                                  value: 311962.83
+                                  items: []
+                                - accountId: 62060aae-e5a6-4db5-a3bb-6abec6d47959
+                                  name: Credit Card Control Account
+                                  value: 23054.59
+                                  items: []
+                            - accountId: ''
+                              name: Long Term Liability
+                              value: 652416.3
+                              items:
+                                - accountId: 55008233-40e7-41ac-84af-2255fa028c2e
+                                  name: Loan
+                                  value: 652416.3
+                                  items: []
+                        netAssets: 3582505.68
+                        equity:
+                          accountId: ''
+                          name: Equity
+                          value: 3582505.68
+                          items:
+                            - accountId: 39225d6f-3722-4508-ac3f-a2f6ec96ad31
+                              name: Retained Earnings
+                              value: 3543451.82
+                              items: []
+                            - accountId: 78828dd9-6008-4662-b43c-e9d87907fd2b
+                              name: Current Year Earnings
+                              value: 39053.86
+                              items: []
+                    mostRecentAvailableMonth: '2023-02-28T00:00:00'
+                    earliestAvailableMonth: '2018-03-01T00:00:00'
       description: Gets the latest balance sheet for a company.
       operationId: get-balance-sheet
   '/companies/{companyId}/data/financials/profitAndLoss':
@@ -23743,6 +25059,800 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfitAndLossReport'
+              examples:
+                Example 1:
+                  value:
+                    reports:
+                      - fromDate: '2023-02-01T00:00:00'
+                        toDate: '2023-02-28T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 117154.95
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 117154.95
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 25305.47
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 25305.47
+                              items: []
+                        grossProfit: 91849.48
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 52719.73
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 21087.89
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 1027
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 830.73
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 859.8
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 695.49
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 719.83
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 655.04
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 529.86
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 4063.04
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 504.53
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 459.12
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 371.38
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 341.67
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 353.63
+                              items: []
+                        netOperatingProfit: 39129.75
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 39629.53
+                      - fromDate: '2023-01-01T00:00:00'
+                        toDate: '2023-01-31T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 129131.06
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 129131.06
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 26149.04
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 26149.04
+                              items: []
+                        grossProfit: 102982.02
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 58108.98
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 23243.59
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 1318.02
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 1066.13
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 1103.45
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 892.57
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 923.81
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 840.66
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 680
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 625.6
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 575.55
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 595.7
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 5121.05
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 498.72
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 403.41
+                              items: []
+                        netOperatingProfit: 44873.04
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 45372.82
+                      - fromDate: '2022-12-01T00:00:00'
+                        toDate: '2022-12-31T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 118345.27
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 118345.27
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 23669.05
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 23669.05
+                              items: []
+                        grossProfit: 94676.22
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 59172.62
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 23669.05
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 1375.46
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 1112.59
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 1023.58
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 941.7
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 974.66
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 886.94
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 807.11
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 734.47
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 594.11
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 5351.59
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 559.56
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 452.62
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 468.46
+                              items: []
+                        netOperatingProfit: 35503.6
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 36003.38
+                      - fromDate: '2022-11-01T00:00:00'
+                        toDate: '2022-11-30T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 104509.87
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 104509.87
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 21346.14
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 21346.14
+                              items: []
+                        grossProfit: 83163.73
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 49642.18
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 19856.88
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 860.81
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 696.3
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 720.67
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 582.94
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 536.31
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 493.4
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 510.67
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 413.08
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 3443.24
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 349.63
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 361.87
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 292.71
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 302.95
+                              items: []
+                        netOperatingProfit: 33521.55
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 34021.33
+                      - fromDate: '2022-10-01T00:00:00'
+                        toDate: '2022-10-31T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 110503.68
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 110503.68
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 25719.73
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 25719.73
+                              items: []
+                        grossProfit: 84783.95
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 52489.24
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 20995.7
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 1014.55
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 923.24
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 840.15
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 764.54
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 4151.6
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 633.11
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 576.13
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 466.03
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 428.75
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 394.45
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 408.25
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 330.23
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 341.79
+                              items: []
+                        netOperatingProfit: 32294.71
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 32794.49
+                      - fromDate: '2022-09-01T00:00:00'
+                        toDate: '2022-09-30T00:00:00'
+                        income:
+                          accountId: ''
+                          name: Income
+                          value: 118445.68
+                          items:
+                            - accountId: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                              value: 118445.68
+                              items: []
+                        costOfSales:
+                          accountId: ''
+                          name: Cost of Sales
+                          value: 23629.91
+                          items:
+                            - accountId: 7403e960-5b72-42ff-abf4-c870ad8910bd
+                              name: Purchases
+                              value: 23629.91
+                              items: []
+                        grossProfit: 94815.77
+                        expenses:
+                          accountId: ''
+                          name: Expenses
+                          value: 56261.69
+                          items:
+                            - accountId: 868591ad-f9c2-4956-a5ec-c32c1d48c6f3
+                              name: Advertising & Marketing
+                              value: 22504.68
+                              items: []
+                            - accountId: 940c8a59-3348-4a0b-a1b1-781d9f29cc8b
+                              name: Depreciation Expense
+                              value: 1082.9
+                              items: []
+                            - accountId: e7ac3baa-cfbe-40c1-a172-83d22e84435b
+                              name: Entertainment-100% business
+                              value: 1120.81
+                              items: []
+                            - accountId: b5e801e8-8dbc-4390-ac99-3b0fff54a89f
+                              name: General Expenses
+                              value: 1019.93
+                              items: []
+                            - accountId: 5360066d-1474-49f6-a7a5-c66d5f6032ba
+                              name: 'Light, Power, Heating'
+                              value: 825.01
+                              items: []
+                            - accountId: 138a8eb3-5c08-4e59-a3bc-892119694447
+                              name: Motor Vehicle Expenses
+                              value: 759.01
+                              items: []
+                            - accountId: 1734ff00-2a17-45b4-8db6-2dc2e832c460
+                              name: 'Postage, Freight & Courier'
+                              value: 698.29
+                              items: []
+                            - accountId: 7aa7988a-ff61-4cb8-bef3-15395355d108
+                              name: Printing & Stationery
+                              value: 642.43
+                              items: []
+                            - accountId: 9cbe5fe4-ca60-4792-8bf1-de01fb7010aa
+                              name: Rent
+                              value: 8000
+                              items: []
+                            - accountId: 04f7111b-55d4-4efc-b329-1bd5c791933a
+                              name: Repairs & Maintenance
+                              value: 591.03
+                              items: []
+                            - accountId: 7d8d0322-f452-47de-a8e8-54b0130e6f38
+                              name: Subscriptions
+                              value: 40
+                              items: []
+                            - accountId: 043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03
+                              name: Telephone & Internet
+                              value: 45
+                              items: []
+                            - accountId: df62060b-41cc-4bf2-9de7-c7e537b5663a
+                              name: Travel - National
+                              value: 611.72
+                              items: []
+                            - accountId: eef78ed1-dfed-447c-bdba-3a49fb2c044b
+                              name: Audit & Accountancy fees
+                              value: 0
+                              items: []
+                            - accountId: f3aa84fe-5c31-4107-b207-7e0419f636d7
+                              name: Bank Fees
+                              value: 556.66
+                              items: []
+                            - accountId: c16f5c35-8283-47da-9d09-5fecb183b0cb
+                              name: Cleaning
+                              value: 130
+                              items: []
+                            - accountId: fb3210ef-edeb-48af-bb49-b85d40c1e6bb
+                              name: Corporation Tax
+                              value: 4833.12
+                              items: []
+                            - accountId: 7f6a0e92-65be-4333-9a0a-d981b03bedd1
+                              name: Wages
+                              value: 12000
+                              items: []
+                            - accountId: e8a0a24e-2dab-46b1-bfe1-6e92551c04e8
+                              name: Purchase Discounts
+                              value: 414.26
+                              items: []
+                            - accountId: 4378ddba-36b4-4b35-9970-bd972b20d137
+                              name: Amortization
+                              value: 5.72
+                              items: []
+                            - accountId: 78785fd7-f197-4c34-aa17-6e76b9255d34
+                              name: Interest Paid (operating)
+                              value: 381.12
+                              items: []
+                        netOperatingProfit: 38554.08
+                        otherExpenses:
+                          accountId: ''
+                          name: Other Expenses
+                          value: 350.44
+                          items:
+                            - accountId: cbf82e0d-87a7-464d-b567-9274ea94a1c0
+                              name: Charitable and Political Donations
+                              value: 350.44
+                              items: []
+                        otherIncome:
+                          accountId: ''
+                          name: Other Income
+                          value: 850.22
+                          items:
+                            - accountId: 68794a8f-b22d-4520-b97b-025b7cb10f94
+                              name: Other Revenue
+                              value: 850.22
+                              items: []
+                        netOtherIncome: 499.78
+                        netProfit: 39053.86
+                    reportBasis: Unknown
+                    currency: GBP
+                    mostRecentAvailableMonth: '2023-02-01T00:00:00'
+                    earliestAvailableMonth: '2018-03-01T00:00:00'
       description: Gets the latest profit and loss for a company.
       operationId: get-profit-and-loss
   '/companies/{companyId}/data/financials/cashFlowStatement':
@@ -23779,6 +25889,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanyDataset'
+              examples:
+                Example 1:
+                  value:
+                    companyName: Codat
+                    accountingPlatformRef: 1700060034_ETD
+                    companyLegalName: Codat Ltd
+                    addresses:
+                      - type: Billing
+                        line1: 301 Ink Rooms
+                        line2: 28 Easton Street
+                        city: London
+                        region: England
+                        country: United Kingdom
+                        postalCode: WC1X 0BE
+                      - type: Delivery
+                        line1: 28 Easton Street
+                        city: London
+                        country: UK
+                        postalCode: WC1X 0BE
+                    phoneNumbers:
+                      - number: 02012 345678
+                        type: Landline
+                      - number: 07123 456789
+                        type: Mobile
+                      - number: 02012 345678
+                        type: Fax
+                    webLinks:
+                      - type: Website
+                        url: 'https://www.codat.io/'
+                      - type: Social
+                        url: 'https://www.linkedin.com/company/codat-limited/'
+                    registrationNumber: '5590111724'
+                    taxNumber: '74111622555799035846'
+                    financialYearStartDate: '2023-04-01T00:00:00'
+                    baseCurrency: GBP
+                    sourceUrls:
+                      Api: 'https://api.codat.io'
+                    createdDate: '2020-03-09T15:19:26'
       description: Gets the latest basic info for a company.
       operationId: get-company-info
     post:
@@ -23801,6 +25949,8 @@ paths:
       tags:
         - Invoices
       summary: List invoices
+      description: 'Gets the latest invoices for a company, with pagination'
+      operationId: list-invoices
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -23813,8 +25963,141 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Invoices'
-      description: 'Gets the latest invoices for a company, with pagination'
-      operationId: list-invoices
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: a227e96b-e5b9-4d33-b362-d5302476a96f
+                        invoiceNumber: 14JCBVn4
+                        customerRef:
+                          id: 30a19ff7-9795-4c96-aad8-896ecd239497
+                          companyName: Zaria Luettgen
+                        salesOrderRefs: []
+                        issueDate: '2022-03-10T15:19:27'
+                        dueDate: '2022-03-10T15:19:27'
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2023-01-16T11:13:27'
+                        paidOnDate: '2022-03-10T15:19:27'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Heavy Duty Hinged Gully Grating x7.67
+                            unitAmount: 402.89
+                            quantity: 7.67
+                            discountAmount: 6.29
+                            subTotal: 3083.88
+                            taxAmount: 308.39
+                            totalAmount: 3392.27
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            discountPercentage: 0.2
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 3abf0883-03f7-44c6-bc15-1372522d25e1
+                            trackingCategoryRefs: []
+                            isDirectIncome: false
+                        paymentAllocations:
+                          - payment:
+                              id: 2e1ad4d7-1e1c-45df-9e8e-ed0bdffb9cd5
+                              note: Payment against invoice a227e96b-e5b9-4d33-b362-d5302476a96f
+                              reference: a227e96b-e5b9-4d33-b362-d5302476a96f
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-03-10T15:19:27'
+                              totalAmount: 3392.27
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-03-10T15:19:27'
+                              totalAmount: -3392.27
+                        withholdingTax: []
+                        totalDiscount: 6.29
+                        subTotal: 3083.88
+                        additionalTaxAmount: 0
+                        additionalTaxPercentage: 0
+                        totalTaxAmount: 308.39
+                        totalAmount: 3392.27
+                        amountDue: 0
+                        discountPercentage: 0.2
+                        status: Paid
+                        metadata:
+                          isDeleted: false
+                      - id: c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                        invoiceNumber: DVOAvWBs
+                        customerRef:
+                          id: 43255784-c676-4e83-90f1-fdf24306b34a
+                          companyName: Rasheed Cronin
+                        salesOrderRefs: []
+                        issueDate: '2022-03-10T15:19:27'
+                        dueDate: '2022-03-10T15:19:27'
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-11-03T05:52:27'
+                        paidOnDate: '2022-03-10T15:19:27'
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: 300 Litre Grease Trap x10.00
+                            unitAmount: 1371.39
+                            quantity: 10
+                            subTotal: 13713.9
+                            taxAmount: 1371.39
+                            totalAmount: 15085.29
+                            accountRef:
+                              id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                              name: Business Current Account
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            itemRef:
+                              id: 9409d23d-1011-432e-98a4-591fcd8d5404
+                            trackingCategoryRefs:
+                              - id: department_1
+                            isDirectIncome: true
+                        paymentAllocations:
+                          - payment:
+                              id: d15a9f6d-9eee-4925-8dde-41e863cd32ca
+                              note: Payment against invoice c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                              reference: c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                              accountRef:
+                                id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                                name: Business Current Account
+                              currency: GBP
+                              currencyRate: 1
+                              paidOnDate: '2022-03-10T15:19:27'
+                              totalAmount: 15085.29
+                            allocation:
+                              currency: GBP
+                              currencyRate: 1
+                              allocatedOnDate: '2022-03-10T15:19:27'
+                              totalAmount: -15085.29
+                        withholdingTax: []
+                        totalDiscount: 0
+                        subTotal: 13713.9
+                        additionalTaxAmount: 0
+                        additionalTaxPercentage: 0
+                        totalTaxAmount: 1371.39
+                        totalAmount: 15085.29
+                        amountDue: 0
+                        discountPercentage: 0
+                        status: Paid
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/invoices?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/invoices
   '/companies/{companyId}/data/invoices/{invoiceId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -28815,6 +31098,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payments'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 2e1ad4d7-1e1c-45df-9e8e-ed0bdffb9cd5
+                        customerRef:
+                          id: 30a19ff7-9795-4c96-aad8-896ecd239497
+                          companyName: Zaria Luettgen
+                        accountRef:
+                          id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                          name: Business Current Account
+                        paymentMethodRef:
+                          id: dee4860b-b9d0-430b-a44d-c4d19657057d
+                        totalAmount: 3392.27
+                        currency: GBP
+                        currencyRate: 1
+                        date: '2022-03-10T15:19:27'
+                        note: Payment against invoice a227e96b-e5b9-4d33-b362-d5302476a96f
+                        lines:
+                          - amount: 3392.27
+                            links:
+                              - type: Invoice
+                                id: a227e96b-e5b9-4d33-b362-d5302476a96f
+                                amount: -3392.27
+                                currencyRate: 1
+                            allocatedOnDate: '2022-03-10T15:19:27'
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-03-10T15:19:27'
+                        reference: a227e96b-e5b9-4d33-b362-d5302476a96f
+                        metadata:
+                          isDeleted: false
+                      - id: d15a9f6d-9eee-4925-8dde-41e863cd32ca
+                        customerRef:
+                          id: 43255784-c676-4e83-90f1-fdf24306b34a
+                          companyName: Rasheed Cronin
+                        accountRef:
+                          id: dbcaf288-2b39-4b95-8ab3-42202ab15918
+                          name: Business Current Account
+                        totalAmount: 15085.29
+                        currency: GBP
+                        currencyRate: 1
+                        date: '2022-03-10T15:19:27'
+                        note: Payment against invoice c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                        lines:
+                          - amount: 15085.29
+                            links:
+                              - type: Invoice
+                                id: c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                                amount: -15085.29
+                                currencyRate: 1
+                            allocatedOnDate: '2022-03-10T15:19:27'
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '2022-03-10T15:19:27'
+                        reference: c4d20dd4-c7b5-4743-8640-f91fd7ec2d03
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/payments?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/payments
       description: 'Gets the latest payments for a company, with pagination'
       operationId: list-payments
   '/companies/{companyId}/data/payments/{paymentId}':
@@ -31352,6 +33699,142 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseOrders'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: 9ff46a23-bd75-416e-be9c-0c59761cdb79
+                        purchaseOrderNumber: 5e05bccf-a671-45bf-b0bc-80cce4a275c0
+                        issueDate: '2022-03-15T00:00:00'
+                        paymentDueDate: '2023-02-26T00:00:00'
+                        expectedDeliveryDate: '2022-05-20T00:00:00'
+                        deliveryDate: '2022-04-16T00:00:00'
+                        note: 'Purchase Order with 2 line items, totaling 669.58'
+                        shipTo:
+                          contact:
+                            name: Marks - Gutmann
+                            email: contact@Marks-Gutmann.name
+                            phone: 056 4359 4570
+                          address:
+                            type: Delivery
+                            line1: Suite 076
+                            line2: 4745 Isabel Mountains
+                            city: Port Filomenaville
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: UJ3 9ZI
+                        supplierRef:
+                          id: mT8OroQg2K
+                          supplierName: Marks - Gutmann
+                        status: Open
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Underground - Drain Yard Gully
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            itemRef:
+                              id: 00491160-6ee5-4d76-9f34-998f00687481
+                            trackingCategoryRefs: []
+                            unitAmount: 171.21
+                            quantity: 3
+                            discountAmount: 0
+                            discountPercentage: 0
+                            subTotal: 513.63
+                            taxAmount: 51.36
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            totalAmount: 564.99
+                          - description: Underground - Drain Bottle Gullies 90 degree Rectangular
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            itemRef:
+                              id: '6'
+                            trackingCategoryRefs: []
+                            unitAmount: 95.08
+                            quantity: 1
+                            discountAmount: 0
+                            discountPercentage: 0
+                            subTotal: 95.08
+                            taxAmount: 9.51
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            totalAmount: 104.59
+                        totalDiscount: 0
+                        subTotal: 608.71
+                        totalTaxAmount: 60.87
+                        totalAmount: 669.58
+                        modifiedDate: '2023-04-11T11:34:07Z'
+                        sourceModifiedDate: '2022-07-14T07:43:27'
+                        metadata:
+                          isDeleted: false
+                      - id: 1bac5b23-c7e9-4bad-ba04-439e193f7c98
+                        purchaseOrderNumber: fd71d8ff-13d9-44ba-af1e-ad74b90398a6
+                        issueDate: '2022-03-23T00:00:00'
+                        paymentDueDate: '2022-11-26T00:00:00'
+                        expectedDeliveryDate: '2022-04-12T00:00:00'
+                        deliveryDate: '2022-06-15T00:00:00'
+                        note: 'Purchase Order with 1 line items, totaling 10559.70'
+                        shipTo:
+                          contact:
+                            name: Hills and Sons
+                            email: info@HillsandSons.info
+                            phone: 020 1669 3624
+                          address:
+                            type: Unknown
+                            line1: Suite 502
+                            line2: 331 America Fords
+                            city: New Isaacberg
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: IQ07 9KY
+                        supplierRef:
+                          id: 37bfed49-474c-4059-9416-4645cd357f2b
+                          supplierName: Hills and Sons
+                        status: Open
+                        currency: GBP
+                        currencyRate: 1
+                        lineItems:
+                          - description: Grease Trap
+                            accountRef:
+                              id: 72df89d2-512b-4455-af51-a6b563733842
+                              name: Sales
+                            itemRef:
+                              id: 9409d23d-1011-432e-98a4-591fcd8d5404
+                            trackingCategoryRefs: []
+                            unitAmount: 1371.39
+                            quantity: 7
+                            discountAmount: 0
+                            discountPercentage: 0
+                            subTotal: 9599.73
+                            taxAmount: 959.97
+                            taxRateRef:
+                              id: 6c88aff3-7cb9-4980-a3d3-443e72e02498
+                              name: Sales Tax (10%)
+                              effectiveTaxRate: 10
+                            totalAmount: 10559.7
+                        totalDiscount: 0
+                        subTotal: 9599.73
+                        totalTaxAmount: 959.97
+                        totalAmount: 10559.7
+                        modifiedDate: '2023-04-11T11:34:07Z'
+                        sourceModifiedDate: '2023-02-12T08:06:27'
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/purchaseOrders?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/purchaseOrders
       summary: List purchase orders
       description: Get purchase orders
       operationId: list-purchase-orders
@@ -32911,6 +35394,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Suppliers'
+              examples:
+                Example 1:
+                  value:
+                    results:
+                      - id: pcIBW4Ad3h
+                        supplierName: Arielle Grant
+                        contactName: Alia Okuneva
+                        emailAddress: Arielle.Grant@gmail.com
+                        phone: 0912 173 9869
+                        addresses:
+                          - type: Delivery
+                            line1: Apt. 317
+                            line2: 054 Harber Motorway
+                            city: South Agustina
+                            region: England
+                            country: United Kingdom
+                            postalCode: LJ53 6IJ
+                          - type: Billing
+                            line1: Apt. 841
+                            line2: 827 McClure Springs
+                            city: Nakiaton
+                            region: England
+                            country: United Kingdom
+                            postalCode: HE9 3PM
+                          - type: Delivery
+                            line1: Apt. 452
+                            line2: 38355 Cremin Brooks
+                            city: Port Delaneyport
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: QK43 0EN
+                        registrationNumber: C7CPBD3N
+                        taxNumber: '3192673996.411144'
+                        status: Active
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '0530-04-13T05:05:00'
+                        defaultCurrency: GBP
+                        metadata:
+                          isDeleted: false
+                      - id: JS8yiYrWMp
+                        supplierName: Arthur Parisian
+                        contactName: Eula Wuckert
+                        emailAddress: Arthur.Parisian14@yahoo.com
+                        phone: 0500 343166
+                        addresses:
+                          - type: Delivery
+                            line1: Suite 275
+                            line2: 481 Wiza Cape
+                            city: Camyllehaven
+                            region: Scotland
+                            country: United Kingdom
+                            postalCode: BN5 1NG
+                        registrationNumber: XENXUD1A
+                        taxNumber: '9489395098.35731'
+                        status: Active
+                        modifiedDate: '2023-04-11T11:34:05Z'
+                        sourceModifiedDate: '0450-01-25T11:52:00'
+                        defaultCurrency: GBP
+                        metadata:
+                          isDeleted: false
+                    pageNumber: 1
+                    pageSize: 20
+                    totalResults: 2
+                    _links:
+                      current:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/suppliers?page=1&pageSize=20
+                      self:
+                        href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/suppliers
       description: 'Gets the latest suppliers for a company, with pagination'
       operationId: list-suppliers
   '/companies/{companyId}/data/suppliers/{supplierId}':
@@ -39723,10 +42274,10 @@ components:
         This report will reflect the structure and line descriptions that the business has set in their own accounting platform.
 
         **History**
-        By default, Codat pulls (up to) 24 months of balance sheets for a company. You can adjust this to fetch more history, where available, by updating the `monthsToSync` value for `balanceSheet` on the [data type settings endpoint](https://docs.codat.io/codat-api#/operations/post-profile-syncSettings).
+        By default, Codat pulls (up to) 24 months of balance sheets for a company. You can adjust this to fetch more history, where available, by updating the `monthsToSync` value for `balanceSheet` on the [data type settings endpoint](https://docs.codat.io/codat-api#/operations/update-sync-settings).
 
         **Want to pull this in a standardised structure?**
-        Our [Enhanced Financials](https://docs.codat.io/assess/reports/enhanced-financials/financials) endpoints provide the same report under standardized headings, allowing you to pull it in the same format for all of your business customers.
+        Our [Enhanced Financials](https://docs.codat.io/assess/enhanced-financials/overview) endpoints provide the same report under standardized headings, allowing you to pull it in the same format for all of your business customers.
       type: object
       additionalProperties: false
       properties:
@@ -40108,9 +42659,7 @@ components:
                 - description: Date the supplier is due to be paid.
                 - $ref: '#/components/schemas/DateTime'
             currency:
-              allOf:
-                - $ref: '#/components/schemas/Transfer/definitions/transferAccount/properties/currency'
-                - nullable: true
+              $ref: '#/components/schemas/Transfer/definitions/transferAccount/properties/currency'
             currencyRate:
               $ref: '#/components/schemas/BillPayment/definitions/billPaymentLineLink/properties/currencyRate'
             lineItems:
@@ -40480,8 +43029,6 @@ components:
                 $ref: '#/components/schemas/TrackingCategory/definitions/trackingCategoryRef'
             tracking:
               title: Tracking
-              x-stoplight:
-                id: 2158cacd7b329
               type: object
               description: 'Categories, and a project and customer, against which the item is tracked.'
               properties:
@@ -44350,10 +46897,8 @@ components:
         > View the coverage for transfers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers" target="_blank">Data coverage explorer</a>.
 
         A transfer records the movement of money between two bank accounts, or between a bank account and a nominal account. It is a child data type of [account transactions](https://docs.codat.io/accounting-api#/schemas/AccountTransaction).
-      type: object
       allOf:
-        - type: object
-          properties:
+        - properties:
             id:
               type: string
               description: Unique identifier for the transfer.
@@ -44391,6 +46936,7 @@ components:
             depositedRecordRefs:
               type: array
               nullable: true
+              description: List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
               items:
                 type: string
             metadata:
@@ -44427,6 +46973,7 @@ components:
             amount:
               type: number
               description: The amount transferred between accounts.
+      type: object
     Transfers:
       x-internal: true
       allOf:
@@ -44947,6 +47494,7 @@ components:
       schema:
         type: boolean
         default: false
+      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
     allowSyncOnPushComplete:
       x-stoplight:
         id: kc8ehjqr6p02q

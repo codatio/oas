@@ -6527,15 +6527,12 @@
                 "type": "string",
                 "description": "`id` from the Customers data type"
               },
-              "companyName": {
+              "customerName": {
                 "type": "string",
                 "nullable": true,
                 "description": "`customerName` from the Customer data type"
               }
-            },
-            "required": [
-              "id"
-            ]
+            }
           },
           "payment": {
             "title": "Payment",
@@ -6550,8 +6547,23 @@
                     "description": "Identifier for the payment, unique to the company in the accounting platform."
                   },
                   "customerRef": {
-                    "$ref": "#/components/schemas/EnhancedInvoicesReport/definitions/customerRef",
-                    "description": "Customer the payment is recorded against in the accounting platform."
+                    "description": "Customer the payment is recorded against in the accounting platform.",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "`id` from the Customers data type"
+                      },
+                      "companyName": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "`customerName` from the Customer data type"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
                   },
                   "accountRef": {
                     "$ref": "#/components/schemas/CategorisedAccount/definitions/accountRef",
@@ -7080,8 +7092,8 @@
         "schema": {
           "type": "string",
           "enum": [
-            "audit",
-            "enhancedFinancials"
+            "assess",
+            "audit"
           ]
         },
         "description": "The type of report you want to generate and download.",
