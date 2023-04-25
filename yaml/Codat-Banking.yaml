@@ -32,6 +32,11 @@ x-speakeasy-retries:
     - 429
     - 5XX
   retryConnectionErrors: true
+x-speakeasy-name-override:
+  - operationId: ^list*
+    methodNameOverride: list
+  - operationId: ^get*
+    methodNameOverride: get
 tags:
   - name: Accounts
     description: 'Where payments are made or received, and bank transactions are recorded.'
