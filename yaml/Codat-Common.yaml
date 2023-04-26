@@ -1886,14 +1886,50 @@ components:
       type: object
       properties:
         logo:
-          $ref: '#/components/schemas/BrandingLogo'
+          $ref: '#/components/schemas/Branding/definitions/brandingLogo'
         button:
-          $ref: '#/components/schemas/BrandingButton'
+          $ref: '#/components/schemas/Branding/definitions/brandingButton'
         sourceId:
           type: string
           format: uuid
           example: 35b92968-9851-4095-ad60-395c95cbcba4
           description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
+      definitions:
+        brandingLogo:
+          description: Logo branding references.
+          type: object
+          properties:
+            full:
+              $ref: '#/components/schemas/Branding/definitions/brandingImage'
+            square:
+              $ref: '#/components/schemas/Branding/definitions/brandingImage'
+        brandingButton:
+          type: object
+          description: Button branding references.
+          properties:
+            default:
+              $ref: '#/components/schemas/Branding/definitions/brandingImage'
+            hover:
+              $ref: '#/components/schemas/Branding/definitions/brandingImage'
+        brandingImage:
+          title: Branding Image
+          type: object
+          properties:
+            image:
+              $ref: '#/components/schemas/Branding/definitions/imageReference'
+          examples: []
+        imageReference:
+          type: object
+          title: Image Reference
+          description: Image reference.
+          properties:
+            src:
+              type: string
+              format: uri
+              description: Source URL for image.
+            alt:
+              type: string
+              description: Alternative text when image is not available.
       examples:
         - logo:
             full:
@@ -1914,44 +1950,6 @@ components:
                 src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
                 alt: xero hover button icon
           sourceId: 35b92968-9851-4095-ad60-395c95cbcba4
-    BrandingLogo:
-      description: Logo branding references.
-      x-internal: true
-      type: object
-      properties:
-        full:
-          $ref: '#/components/schemas/BrandingImage'
-        square:
-          $ref: '#/components/schemas/BrandingImage'
-    BrandingButton:
-      type: object
-      x-internal: true
-      description: Button branding references.
-      properties:
-        default:
-          $ref: '#/components/schemas/BrandingImage'
-        hover:
-          $ref: '#/components/schemas/BrandingImage'
-    BrandingImage:
-      title: Branding Image
-      x-internal: true
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/ImageReference'
-      examples: []
-    ImageReference:
-      type: object
-      x-internal: true
-      description: Image reference.
-      properties:
-        src:
-          type: string
-          format: uri
-          description: Source URL for image.
-        alt:
-          type: string
-          description: Alternative text when image is not available.
     DateTime:
       title: Date time
       type: string

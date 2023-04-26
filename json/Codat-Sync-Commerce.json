@@ -73,61 +73,16 @@
         "operationId": "list-companies",
         "parameters": [
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 0,
-              "example": 1,
-              "default": 1
-            },
-            "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "1318joqblpp4e"
-            }
+            "$ref": "#/components/parameters/page"
           },
           {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100,
-              "example": 100,
-              "minimum": 1,
-              "maximum": 5000
-            },
-            "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
-            "x-stoplight": {
-              "id": "s2ika6rltk5y6"
-            }
+            "$ref": "#/components/parameters/pageSize"
           },
           {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
-            "x-stoplight": {
-              "id": "gupdb9kt30hfq"
-            }
+            "$ref": "#/components/parameters/query"
           },
           {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "-modifiedDate"
-            },
-            "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
-            "x-stoplight": {
-              "id": "4je9lwo02netu"
-            }
+            "$ref": "#/components/parameters/orderBy"
           }
         ],
         "responses": {
@@ -188,19 +143,19 @@
         "operationId": "list-connections",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/0"
+            "$ref": "#/components/parameters/page"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/1"
+            "$ref": "#/components/parameters/pageSize"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/2"
+            "$ref": "#/components/parameters/query"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/3"
+            "$ref": "#/components/parameters/orderBy"
           }
         ],
         "responses": {
@@ -225,7 +180,7 @@
         "operationId": "create-connection",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "requestBody": {
@@ -252,12 +207,7 @@
       },
       "parameters": [
         {
-          "name": "companyId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/Company/properties/id"
-          }
+          "$ref": "#/components/parameters/companyId"
         }
       ]
     },
@@ -271,7 +221,7 @@
         "operationId": "get-configuration",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "responses": {
@@ -296,7 +246,7 @@
         "operationId": "set-configuration",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "responses": {
@@ -323,7 +273,7 @@
         "operationId": "get-sync-status",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "responses": {
@@ -334,7 +284,7 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+          "$ref": "#/components/parameters/companyId"
         }
       ]
     },
@@ -348,16 +298,16 @@
         "operationId": "list-integrations",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/0"
+            "$ref": "#/components/parameters/page"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/1"
+            "$ref": "#/components/parameters/pageSize"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/2"
+            "$ref": "#/components/parameters/query"
           },
           {
-            "$ref": "#/paths/~1meta~1companies/get/parameters/3"
+            "$ref": "#/components/parameters/orderBy"
           }
         ],
         "responses": {
@@ -428,10 +378,10 @@
         "operationId": "update-connection",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           },
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D/parameters/1"
+            "$ref": "#/components/parameters/connectionId"
           }
         ],
         "requestBody": {
@@ -458,15 +408,10 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+          "$ref": "#/components/parameters/companyId"
         },
         {
-          "name": "connectionId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/Connection/properties/id"
-          }
+          "$ref": "#/components/parameters/connectionId"
         }
       ]
     },
@@ -687,7 +632,7 @@
         "operationId": "request-sync",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "requestBody": {
@@ -716,7 +661,7 @@
       },
       "parameters": [
         {
-          "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+          "$ref": "#/components/parameters/companyId"
         }
       ]
     },
@@ -730,7 +675,7 @@
         "operationId": "request-sync-for-date-range",
         "parameters": [
           {
-            "$ref": "#/paths/~1meta~1companies~1%7BcompanyId%7D~1connections/parameters/0"
+            "$ref": "#/components/parameters/companyId"
           }
         ],
         "requestBody": {
@@ -873,10 +818,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
-            "description": "Unique identifier for a company's data connection."
+            "$ref": "#/components/parameters/connectionId/schema"
           },
           "integrationId": {
             "type": "string",
@@ -1111,10 +1053,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
-            "description": "Unique identifier for your SMB in Codat."
+            "$ref": "#/components/parameters/companyId/schema"
           },
           "name": {
             "type": "string",
@@ -1194,57 +1133,68 @@
         "type": "object",
         "properties": {
           "logo": {
-            "description": "Logo branding references.",
-            "x-internal": true,
-            "type": "object",
-            "properties": {
-              "full": {
-                "title": "Branding Image",
-                "x-internal": true,
-                "type": "object",
-                "properties": {
-                  "image": {
-                    "type": "object",
-                    "x-internal": true,
-                    "description": "Image reference.",
-                    "properties": {
-                      "src": {
-                        "type": "string",
-                        "format": "uri",
-                        "description": "Source URL for image."
-                      },
-                      "alt": {
-                        "type": "string",
-                        "description": "Alternative text when image is not available."
-                      }
-                    }
-                  }
-                },
-                "examples": []
-              },
-              "square": {
-                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
-              }
-            }
+            "$ref": "#/components/schemas/Branding/definitions/brandingLogo"
           },
           "button": {
-            "type": "object",
-            "x-internal": true,
-            "description": "Button branding references.",
-            "properties": {
-              "default": {
-                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
-              },
-              "hover": {
-                "$ref": "#/paths/~1config~1integrations~1%7BplatformKey%7D~1branding/get/responses/200/content/application~1json/schema/properties/logo/properties/full"
-              }
-            }
+            "$ref": "#/components/schemas/Branding/definitions/brandingButton"
           },
           "sourceId": {
             "type": "string",
             "format": "uuid",
             "example": "35b92968-9851-4095-ad60-395c95cbcba4",
             "description": "A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`."
+          }
+        },
+        "definitions": {
+          "brandingLogo": {
+            "description": "Logo branding references.",
+            "type": "object",
+            "properties": {
+              "full": {
+                "$ref": "#/components/schemas/Branding/definitions/brandingImage"
+              },
+              "square": {
+                "$ref": "#/components/schemas/Branding/definitions/brandingImage"
+              }
+            }
+          },
+          "brandingButton": {
+            "type": "object",
+            "description": "Button branding references.",
+            "properties": {
+              "default": {
+                "$ref": "#/components/schemas/Branding/definitions/brandingImage"
+              },
+              "hover": {
+                "$ref": "#/components/schemas/Branding/definitions/brandingImage"
+              }
+            }
+          },
+          "brandingImage": {
+            "title": "Branding Image",
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "#/components/schemas/Branding/definitions/imageReference"
+              }
+            },
+            "examples": []
+          },
+          "imageReference": {
+            "type": "object",
+            "title": "Image Reference",
+            "description": "Image reference.",
+            "properties": {
+              "src": {
+                "type": "string",
+                "format": "uri",
+                "description": "Source URL for image."
+              },
+              "alt": {
+                "type": "string",
+                "description": "Alternative text when image is not available."
+              }
+            }
           }
         },
         "examples": [
@@ -2023,6 +1973,87 @@
             "description": "Sync flow URL.",
             "example": "https://sync-flow-integration.codat.io/57b6fad9-e3ca-447b-89db-e4ffa21e6ef3/aiwb/mqjo/start?otp=836415"
           }
+        }
+      }
+    },
+    "parameters": {
+      "companyId": {
+        "name": "companyId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "8a210b68-6988-11ed-a1eb-0242ac120002",
+          "description": "Unique identifier for your SMB in Codat."
+        }
+      },
+      "connectionId": {
+        "name": "connectionId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "2e9d2c44-f675-40ba-8049-353bfcb5e171",
+          "description": "Unique identifier for a company's data connection."
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "example": 1,
+          "default": 1
+        },
+        "description": "Page number. [Read more](https://docs.codat.io/using-the-api/paging).",
+        "x-stoplight": {
+          "id": "1318joqblpp4e"
+        }
+      },
+      "pageSize": {
+        "name": "pageSize",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 100,
+          "example": 100,
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "description": "Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).",
+        "x-stoplight": {
+          "id": "s2ika6rltk5y6"
+        }
+      },
+      "query": {
+        "name": "query",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).",
+        "x-stoplight": {
+          "id": "gupdb9kt30hfq"
+        }
+      },
+      "orderBy": {
+        "name": "orderBy",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "-modifiedDate"
+        },
+        "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
+        "x-stoplight": {
+          "id": "4je9lwo02netu"
         }
       }
     },
