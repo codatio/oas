@@ -39,6 +39,52 @@
     ],
     "retryConnectionErrors": true
   },
+  "x-speakeasy-name-override": [
+    {
+      "operationId": "^list-.*?-attachments",
+      "methodNameOverride": "list-attachments"
+    },
+    {
+      "operationId": "^list-.*?",
+      "methodNameOverride": "list"
+    },
+    {
+      "operationId": "^get-.*?-attachment",
+      "methodNameOverride": "get-attachment"
+    },
+    {
+      "operationId": "^get-create-update.*?-model",
+      "methodNameOverride": "get-create-update-model"
+    },
+    {
+      "operationId": "^get-create-.*?-model",
+      "methodNameOverride": "get-create-model"
+    },
+    {
+      "operationId": "^get-.*?",
+      "methodNameOverride": "get"
+    },
+    {
+      "operationId": "^update-.*?",
+      "methodNameOverride": "update"
+    },
+    {
+      "operationId": "^create-.*?",
+      "methodNameOverride": "create"
+    },
+    {
+      "operationId": "^delete-.*?",
+      "methodNameOverride": "delete"
+    },
+    {
+      "operationId": "^download-.*?-attachment",
+      "methodNameOverride": "download-attachment"
+    },
+    {
+      "operationId": "^upload-.*?-attachment",
+      "methodNameOverride": "upload-attachment"
+    }
+  ],
   "tags": [
     {
       "name": "Accounts",
@@ -17310,9 +17356,9 @@
             }
           }
         },
-        "operationId": "get-bill-attachments",
+        "operationId": "list-bill-attachments",
         "summary": "List bill attachments",
-        "description": "Get bill attachments"
+        "description": "List bill attachments"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}": {
@@ -17424,9 +17470,9 @@
             "description": "Success"
           }
         },
-        "summary": "Upload bill attachments",
-        "description": "Upload bill attachments",
-        "operationId": "upload-bill-attachments"
+        "summary": "Upload bill attachment",
+        "description": "Upload bill attachment",
+        "operationId": "upload-bill-attachment"
       }
     },
     "/companies/{companyId}/data/creditNotes": {
@@ -21352,7 +21398,7 @@
           }
         },
         "description": "Gets the latest customers for a company, with pagination",
-        "operationId": "get-customers"
+        "operationId": "list-customers"
       }
     },
     "/companies/{companyId}/data/customers/{customerId}": {
@@ -28425,8 +28471,8 @@
           }
         },
         "summary": "List customer attachments",
-        "description": "Get customer attachments",
-        "operationId": "get-customer-attachments"
+        "description": "List customer attachments",
+        "operationId": "list-customer-attachments"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}": {
@@ -28554,7 +28600,7 @@
           }
         },
         "description": "Gets the direct costs for the company.",
-        "operationId": "get-direct-costs"
+        "operationId": "list-direct-costs"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}": {
@@ -32733,7 +32779,7 @@
         "tags": [
           "Direct incomes"
         ],
-        "summary": "Get direct incomes",
+        "summary": "List direct incomes",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -32760,8 +32806,8 @@
             }
           }
         },
-        "description": "Gets the direct incomes for a given company.",
-        "operationId": "get-direct-incomes"
+        "description": "Lists the direct incomes for a given company.",
+        "operationId": "list-direct-incomes"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}": {
@@ -35397,6 +35443,9 @@
           "Financials"
         ],
         "summary": "Get balance sheet",
+        "description": "Gets the latest balance sheet for a company.",
+        "operationId": "get-balance-sheet",
+        "x-speakeasy-name-override": "get-balance-sheet",
         "parameters": [
           {
             "$ref": "#/components/parameters/periodLength"
@@ -36438,9 +36487,7 @@
               }
             }
           }
-        },
-        "description": "Gets the latest balance sheet for a company.",
-        "operationId": "get-balance-sheet"
+        }
       }
     },
     "/companies/{companyId}/data/financials/profitAndLoss": {
@@ -36454,6 +36501,9 @@
           "Financials"
         ],
         "summary": "Get profit and loss",
+        "description": "Gets the latest profit and loss for a company.",
+        "operationId": "get-profit-and-loss",
+        "x-speakeasy-name-override": "get-profit-and-loss",
         "parameters": [
           {
             "$ref": "#/components/parameters/periodLength"
@@ -37646,9 +37696,7 @@
               }
             }
           }
-        },
-        "description": "Gets the latest profit and loss for a company.",
-        "operationId": "get-profit-and-loss"
+        }
       }
     },
     "/companies/{companyId}/data/financials/cashFlowStatement": {
@@ -37662,6 +37710,9 @@
           "Financials"
         ],
         "summary": "Get cash flow statement",
+        "description": "Gets the latest cash flow statement for a company.",
+        "operationId": "get-cash-flow-statement",
+        "x-speakeasy-name-override": "get-cash-flow-statement",
         "parameters": [
           {
             "$ref": "#/components/parameters/periodLength"
@@ -37684,9 +37735,7 @@
               }
             }
           }
-        },
-        "description": "Gets the latest cash flow statement for a company.",
-        "operationId": "get-cash-flow-statement"
+        }
       }
     },
     "/companies/{companyId}/data/info": {
@@ -37792,7 +37841,8 @@
           }
         },
         "description": "Initiates the process of synchronising basic info for a company",
-        "operationId": "post-sync-info"
+        "operationId": "refresh-company-info",
+        "x-speakeasy-name-override": "refresh"
       }
     },
     "/companies/{companyId}/data/invoices": {
@@ -38077,7 +38127,8 @@
         },
         "summary": "Get invoice as PDF",
         "description": "Get invoice as PDF",
-        "operationId": "Download-invoice-pdf"
+        "operationId": "Download-invoice-pdf",
+        "x-speakeasy-name-override": "download-pdf"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments": {
@@ -38110,9 +38161,9 @@
             }
           }
         },
-        "summary": "Get invoice attachments",
-        "description": "Get invoice attachments",
-        "operationId": "get-invoice-attachments"
+        "summary": "List invoice attachments",
+        "description": "List invoice attachments",
+        "operationId": "list-invoice-attachments"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}": {
@@ -45134,26 +45185,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/Journal"
-                        }
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/PushOperationSummary"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/CreateJournalResponse"
                 }
               }
             }
           }
         },
         "description": "Posts a new journal to the accounting package for a given company.\n\nRequired data may vary by integration. To see what data to post, first call [Get create journal model](https://docs.codat.io/accounting-api#/operations/get-create-journals-model).\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journals) for integrations that support creating journals.",
-        "operationId": "push-journal"
+        "operationId": "create-journal"
       }
     },
     "/companies/{companyId}/data/paymentMethods": {
@@ -56665,7 +56704,7 @@
             }
           }
         },
-        "summary": "Create suppliers",
+        "summary": "Create supplier",
         "description": "Push suppliers\n\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating suppliers.",
         "operationId": "create-supplier"
       }
@@ -56709,27 +56748,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/Supplier"
-                        }
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/PushOperationSummary"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/UpdateSupplierResponse"
                 }
               }
             }
           }
         },
         "summary": "Update supplier",
-        "description": "Push supplier\n\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support updating suppliers.",
-        "operationId": "put-supplier"
+        "description": "Update supplier\n\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support updating suppliers.",
+        "operationId": "update-supplier"
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments": {
@@ -60243,6 +60270,7 @@
         "deprecated": true,
         "description": "Gets the bank account for given account ID.",
         "operationId": "get-all-bank-account",
+        "x-speakeasy-ignore": true,
         "x-internal": true
       }
     },
@@ -60260,6 +60288,9 @@
           "Bank account transactions"
         ],
         "summary": "List all bank transactions",
+        "description": "Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.",
+        "operationId": "list-bank-transactions",
+        "x-speakeasy-name-override": "list-transactions",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -60285,9 +60316,7 @@
               }
             }
           }
-        },
-        "description": "Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.",
-        "operationId": "list-bank-transactions"
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions": {
@@ -60476,6 +60505,7 @@
         "summary": "Aged debtors report",
         "description": "Returns aged debtors report for company that shows the total outstanding balance due from customers to the business over time.",
         "operationId": "get-aged-debtors-report",
+        "x-speakeasy-name-override": "get-aged-debtors-report",
         "responses": {
           "200": {
             "description": "OK",
@@ -60541,6 +60571,7 @@
         "summary": "Aged creditors report",
         "description": "Returns aged creditors report for company that shows the total balance owed by a business to its suppliers over time.",
         "operationId": "get-aged-creditors-report",
+        "x-speakeasy-name-override": "get-aged-creditors-report",
         "responses": {
           "200": {
             "description": "OK",
@@ -60639,15 +60670,6 @@
             "format": "uri-reference"
           }
         }
-      },
-      "DateTime": {
-        "title": "Date time",
-        "type": "string",
-        "examples": [
-          "2022-10-23T00:00:00.000Z",
-          "2022-10-23T00:00:00.000Z"
-        ],
-        "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
       },
       "ModifiedDates": {
         "x-internal": true,
@@ -64874,6 +64896,22 @@
           }
         ]
       },
+      "CreateJournalResponse": {
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Journal"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PushOperationSummary"
+          }
+        ]
+      },
       "JournalEntry": {
         "title": "Journal entry",
         "description": "> **Language tip:** For the top-level record of a company's financial transactions, refer to the [Journals](https://docs.codat.io/accounting-api#/schemas/Journal) data type\n\n> View the coverage for journal entries in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journalEntries\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nA journal entry report shows the entries made in a company's general ledger, or [accounts](https://docs.codat.io/accounting-api#/schemas/Account), when transactions are approved. The journal line items for each journal entry should balance.\n\nA journal entry line item is a single transaction line on the journal entry. For example: \n\n- When a journal entry is recording a receipt of cash, the credit to accounts receivable and the debit to cash are separate line items. \n- When a company needs to recognise revenue from an annual contract on a monthly basis, on receipt of cash for month one, they make a debit to deferred income and a credit to revenue.\n\nIn Codat a journal entry contains details of:\n\n- The date on which the entry was created and posted.\n- Itemised lines, including amounts and currency.\n- A reference to the associated accounts.\n- A reference to the underlying record. For example, the invoice, bill, or other data type that triggered the posting of the journal entry to the general ledger. \n\n> **Pushing journal entries**  \n> Codat only supports journal entries in the base currency of the company that are pushed into accounts denominated in the same base currency.",
@@ -66143,6 +66181,22 @@
           }
         ]
       },
+      "UpdateSupplierResponse": {
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PushOperationSummary"
+          }
+        ]
+      },
       "TaxRate": {
         "title": "Tax Rate",
         "description": "> View the coverage for tax rates in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=taxRates\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounting systems typically store a set of taxes and associated rates within the accounting package. This means that users don't have to look up or remember the rates for each type of tax. For example, applying the tax \"UK sales VAT\" to line items of an invoice adds the correct rate of 20%. \n\n### Tax components\n\nIn some cases, a tax is made up of multiple sub taxes, often called _components_ of the tax.  For example, you may have an item that is charged a tax rate called \"City import tax (8%)\" that has two components: \n\n- A city tax of 5%  \n- An import tax of 3%\n\n> **Effective tax rates**  \n> - Where there are multiple components of a tax, each component may be calculated on the original amount and added together. Alternatively, one tax may be calculated on the sub-total of the original amount plus another tax, which is referred to as _compounding_. When there is compounding, the effective tax rate is the rate that, if applied to the original amount, would result in the total amount of tax with compounding.  \n>\n> **Example:**  \n> A tax has two components. Both components have a rate of 10%, and one component is compound. In this case, there is a total tax rate of 20% but an effective tax rate of 21%.\n>\n> - For QuickBooks Online, Codat doesn't use compound rates. Instead, the calculated effective tax rate for each component is shown. This means that the effective and total rates are the same because the total tax rate is a sum of the component rates.",
@@ -66987,6 +67041,15 @@
             }
           }
         }
+      },
+      "DateTime": {
+        "title": "Date time",
+        "type": "string",
+        "examples": [
+          "2022-10-23T00:00:00.000Z",
+          "2022-10-23T00:00:00.000Z"
+        ],
+        "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
       }
     },
     "parameters": {

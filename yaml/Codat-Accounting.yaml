@@ -33,6 +33,29 @@ x-speakeasy-retries:
     - 429
     - 5XX
   retryConnectionErrors: true
+x-speakeasy-name-override:
+  - operationId: ^list-.*?-attachments
+    methodNameOverride: list-attachments
+  - operationId: ^list-.*?
+    methodNameOverride: list
+  - operationId: ^get-.*?-attachment
+    methodNameOverride: get-attachment
+  - operationId: ^get-create-update.*?-model
+    methodNameOverride: get-create-update-model
+  - operationId: ^get-create-.*?-model
+    methodNameOverride: get-create-model
+  - operationId: ^get-.*?
+    methodNameOverride: get
+  - operationId: ^update-.*?
+    methodNameOverride: update
+  - operationId: ^create-.*?
+    methodNameOverride: create
+  - operationId: ^delete-.*?
+    methodNameOverride: delete
+  - operationId: ^download-.*?-attachment
+    methodNameOverride: download-attachment
+  - operationId: ^upload-.*?-attachment
+    methodNameOverride: upload-attachment
 tags:
   - name: Accounts
     description: Accounts
@@ -11848,9 +11871,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AttachmentsDataset'
-      operationId: get-bill-attachments
+      operationId: list-bill-attachments
       summary: List bill attachments
-      description: Get bill attachments
+      description: List bill attachments
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/billId'
@@ -11910,9 +11933,9 @@ paths:
       responses:
         '200':
           description: Success
-      summary: Upload bill attachments
-      description: Upload bill attachments
-      operationId: upload-bill-attachments
+      summary: Upload bill attachment
+      description: Upload bill attachment
+      operationId: upload-bill-attachment
   '/companies/{companyId}/data/creditNotes':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -14663,7 +14686,7 @@ paths:
                       self:
                         href: /companies/0065d88a-3a1c-48c8-a50b-4d9b5c52f286/data/customers
       description: 'Gets the latest customers for a company, with pagination'
-      operationId: get-customers
+      operationId: list-customers
   '/companies/{companyId}/data/customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -19510,8 +19533,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AttachmentsDataset'
       summary: List customer attachments
-      description: Get customer attachments
-      operationId: get-customer-attachments
+      description: List customer attachments
+      operationId: list-customer-attachments
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -19581,7 +19604,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/DirectCosts'
       description: Gets the direct costs for the company.
-      operationId: get-direct-costs
+      operationId: list-direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -22506,7 +22529,7 @@ paths:
     get:
       tags:
         - Direct incomes
-      summary: Get direct incomes
+      summary: List direct incomes
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -22519,8 +22542,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DirectIncomes'
-      description: Gets the direct incomes for a given company.
-      operationId: get-direct-incomes
+      description: Lists the direct incomes for a given company.
+      operationId: list-direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -24367,6 +24390,9 @@ paths:
       tags:
         - Financials
       summary: Get balance sheet
+      description: Gets the latest balance sheet for a company.
+      operationId: get-balance-sheet
+      x-speakeasy-name-override: get-balance-sheet
       parameters:
         - $ref: '#/components/parameters/periodLength'
         - $ref: '#/components/parameters/periodsToCompare'
@@ -25039,8 +25065,6 @@ paths:
                               items: []
                     mostRecentAvailableMonth: '2023-02-28T00:00:00'
                     earliestAvailableMonth: '2018-03-01T00:00:00'
-      description: Gets the latest balance sheet for a company.
-      operationId: get-balance-sheet
   '/companies/{companyId}/data/financials/profitAndLoss':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -25048,6 +25072,9 @@ paths:
       tags:
         - Financials
       summary: Get profit and loss
+      description: Gets the latest profit and loss for a company.
+      operationId: get-profit-and-loss
+      x-speakeasy-name-override: get-profit-and-loss
       parameters:
         - $ref: '#/components/parameters/periodLength'
         - $ref: '#/components/parameters/periodsToCompare'
@@ -25853,8 +25880,6 @@ paths:
                     currency: GBP
                     mostRecentAvailableMonth: '2023-02-01T00:00:00'
                     earliestAvailableMonth: '2018-03-01T00:00:00'
-      description: Gets the latest profit and loss for a company.
-      operationId: get-profit-and-loss
   '/companies/{companyId}/data/financials/cashFlowStatement':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -25862,6 +25887,9 @@ paths:
       tags:
         - Financials
       summary: Get cash flow statement
+      description: Gets the latest cash flow statement for a company.
+      operationId: get-cash-flow-statement
+      x-speakeasy-name-override: get-cash-flow-statement
       parameters:
         - $ref: '#/components/parameters/periodLength'
         - $ref: '#/components/parameters/periodsToCompare'
@@ -25873,8 +25901,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CashFlowStatement'
-      description: Gets the latest cash flow statement for a company.
-      operationId: get-cash-flow-statement
   '/companies/{companyId}/data/info':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -25941,7 +25967,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Dataset'
       description: Initiates the process of synchronising basic info for a company
-      operationId: post-sync-info
+      operationId: refresh-company-info
+      x-speakeasy-name-override: refresh
   '/companies/{companyId}/data/invoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -26137,6 +26164,7 @@ paths:
       summary: Get invoice as PDF
       description: Get invoice as PDF
       operationId: Download-invoice-pdf
+      x-speakeasy-name-override: download-pdf
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -26153,9 +26181,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AttachmentsDataset'
-      summary: Get invoice attachments
-      description: Get invoice attachments
-      operationId: get-invoice-attachments
+      summary: List invoice attachments
+      description: List invoice attachments
+      operationId: list-invoice-attachments
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31018,12 +31046,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/Journal'
-                  - $ref: '#/components/schemas/PushOperationSummary'
+                $ref: '#/components/schemas/CreateJournalResponse'
       description: |-
         Posts a new journal to the accounting package for a given company.
 
@@ -31032,7 +31055,7 @@ paths:
         > **Supported Integrations**
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journals) for integrations that support creating journals.
-      operationId: push-journal
+      operationId: create-journal
   '/companies/{companyId}/data/paymentMethods':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -38959,7 +38982,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateSupplierResponse'
-      summary: Create suppliers
+      summary: Create supplier
       description: |-
         Push suppliers
 
@@ -38991,22 +39014,17 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/Supplier'
-                  - $ref: '#/components/schemas/PushOperationSummary'
+                $ref: '#/components/schemas/UpdateSupplierResponse'
       summary: Update supplier
       description: |-
-        Push supplier
+        Update supplier
 
         Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).
 
         > **Supported Integrations**
         > 
         > Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support updating suppliers.
-      operationId: put-supplier
+      operationId: update-supplier
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments':
     parameters:
       - $ref: '#/components/parameters/supplierId'
@@ -41410,6 +41428,7 @@ paths:
       deprecated: true
       description: Gets the bank account for given account ID.
       operationId: get-all-bank-account
+      x-speakeasy-ignore: true
       x-internal: true
   '/companies/{companyId}/data/bankAccounts/{accountId}/transactions':
     parameters:
@@ -41419,6 +41438,9 @@ paths:
       tags:
         - Bank account transactions
       summary: List all bank transactions
+      description: Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.
+      operationId: list-bank-transactions
+      x-speakeasy-name-override: list-transactions
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -41431,8 +41453,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankAccountTransactions'
-      description: Gets the latest bank transactions for given account ID and company. Doesn't require connection ID.
-      operationId: list-bank-transactions
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
       tags:
@@ -41540,6 +41560,7 @@ paths:
       summary: Aged debtors report
       description: Returns aged debtors report for company that shows the total outstanding balance due from customers to the business over time.
       operationId: get-aged-debtors-report
+      x-speakeasy-name-override: get-aged-debtors-report
       responses:
         '200':
           description: OK
@@ -41576,6 +41597,7 @@ paths:
       summary: Aged creditors report
       description: Returns aged creditors report for company that shows the total balance owed by a business to its suppliers over time.
       operationId: get-aged-creditors-report
+      x-speakeasy-name-override: get-aged-creditors-report
       responses:
         '200':
           description: OK
@@ -41639,32 +41661,6 @@ components:
         href:
           type: string
           format: uri-reference
-    DateTime:
-      title: Date time
-      type: string
-      examples:
-        - 2022-10-23T00:00:00.000Z
-        - 2022-10-23T00:00:00.000Z
-      description: |-
-        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-        ```
-        2020-10-08T22:40:50Z
-        2021-01-01T00:00:00
-        ```
-
-
-
-        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-        - Unqualified local time: `2021-11-15T01:00:00`
-        - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-        > Time zones
-        > 
-        > Not all dates from Codat will contain information about time zones.  
-        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     ModifiedDates:
       x-internal: true
       allOf:
@@ -45039,6 +45035,14 @@ components:
               items:
                 $ref: '#/components/schemas/Journal'
         - $ref: '#/components/schemas/PagingInfo'
+    CreateJournalResponse:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Journal'
+        - $ref: '#/components/schemas/PushOperationSummary'
     JournalEntry:
       title: Journal entry
       description: |-
@@ -46695,6 +46699,14 @@ components:
             data:
               $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PushOperationSummary'
+    UpdateSupplierResponse:
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Supplier'
+        - $ref: '#/components/schemas/PushOperationSummary'
     TaxRate:
       title: Tax Rate
       description: |-
@@ -47469,6 +47481,32 @@ components:
           description: Supported `dataTypes` that the record can be linked to.
           items:
             type: string
+    DateTime:
+      title: Date time
+      type: string
+      examples:
+        - 2022-10-23T00:00:00.000Z
+        - 2022-10-23T00:00:00.000Z
+      description: |-
+        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+        ```
+        2020-10-08T22:40:50Z
+        2021-01-01T00:00:00
+        ```
+
+
+
+        When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+        - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+        - Unqualified local time: `2021-11-15T01:00:00`
+        - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+        > Time zones
+        > 
+        > Not all dates from Codat will contain information about time zones.  
+        > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
   parameters:
     companyId:
       name: companyId
