@@ -198,6 +198,7 @@
         "tags": [
           "Transaction categories"
         ],
+        "operationId": "list-transaction-categories",
         "summary": "List all transaction categories",
         "parameters": [
           {
@@ -225,8 +226,7 @@
             }
           }
         },
-        "description": "Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.",
-        "operationId": "list-transaction-categories"
+        "description": "Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity."
       },
       "parameters": [
         {
@@ -242,6 +242,7 @@
         "tags": [
           "Transaction categories"
         ],
+        "operationId": "get-transaction-category",
         "summary": "Get transaction category",
         "responses": {
           "200": {
@@ -256,7 +257,6 @@
           }
         },
         "deprecated": true,
-        "operationId": "get-transaction-category",
         "description": "Gets a specified bank transaction category for a given company",
         "x-internal": true
       },
@@ -283,6 +283,7 @@
         "tags": [
           "Transactions"
         ],
+        "operationId": "list-transactions",
         "summary": "List transactions",
         "parameters": [
           {
@@ -311,8 +312,7 @@
             }
           }
         },
-        "description": "Gets a list of transactions incurred by a bank account.",
-        "operationId": "list-transactions"
+        "description": "Gets a list of transactions incurred by a bank account."
       },
       "parameters": [
         {
@@ -330,9 +330,12 @@
         }
       ],
       "get": {
+        "deprecated": true,
+        "x-speakeasy-ignore": true,
         "tags": [
           "Transactions"
         ],
+        "operationId": "list-bank-transactions",
         "summary": "List banking transactions",
         "parameters": [
           {
@@ -360,8 +363,7 @@
             }
           }
         },
-        "description": "Gets a list of transactions incurred by a company across all bank accounts.",
-        "operationId": "list-bank-transactions"
+        "description": "Gets a list of transactions incurred by a company across all bank accounts."
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}": {

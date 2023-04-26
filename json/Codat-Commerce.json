@@ -40,6 +40,16 @@
     ],
     "retryConnectionErrors": true
   },
+  "x-speakeasy-name-override": [
+    {
+      "operationId": "^list*",
+      "methodNameOverride": "list"
+    },
+    {
+      "operationId": "^get*",
+      "methodNameOverride": "get"
+    }
+  ],
   "tags": [
     {
       "name": "Customers",
@@ -89,6 +99,9 @@
         }
       ],
       "get": {
+        "tags": [
+          "Customers"
+        ],
         "summary": "List customers",
         "operationId": "list-customers",
         "description": "List all commerce customers for the given company and data connection",
@@ -106,9 +119,6 @@
             "$ref": "#/components/parameters/orderBy"
           }
         ],
-        "tags": [
-          "Customers"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -118,7 +128,7 @@
                   "$ref": "#/components/schemas/Customers"
                 },
                 "examples": {
-                  "Example 1": {
+                  "Multiple Customers": {
                     "value": {
                       "results": [
                         {
@@ -245,6 +255,7 @@
         "tags": [
           "Disputes"
         ],
+        "operationId": "list-disputes",
         "responses": {
           "200": {
             "description": "OK",
@@ -303,7 +314,6 @@
             }
           }
         },
-        "operationId": "list-disputes",
         "description": "List commerce disputes",
         "parameters": [
           {
@@ -335,6 +345,7 @@
         "tags": [
           "Company info"
         ],
+        "operationId": "get-company-info",
         "responses": {
           "200": {
             "description": "OK",
@@ -413,7 +424,6 @@
             }
           }
         },
-        "operationId": "get-company-info",
         "description": "Retrieve information about the company, as seen in the commerce platform.\n\nThis may include information like addresses, tax registration details and social media or website information."
       }
     },
@@ -431,6 +441,7 @@
         "tags": [
           "Locations"
         ],
+        "operationId": "list-locations",
         "responses": {
           "200": {
             "description": "OK",
@@ -483,7 +494,6 @@
             }
           }
         },
-        "operationId": "list-locations",
         "description": "Retrieve a list of locations as seen in the commerce platform.\n\nA `location` is a geographic place at which stocks of products may be held, or from where orders were placed."
       }
     },
@@ -501,6 +511,7 @@
         "tags": [
           "Orders"
         ],
+        "operationId": "list-orders",
         "responses": {
           "200": {
             "description": "OK",
@@ -706,7 +717,6 @@
             }
           }
         },
-        "operationId": "list-orders",
         "description": "Get a list of orders placed or held on the linked commerce platform",
         "parameters": [
           {
@@ -738,6 +748,7 @@
         "tags": [
           "Payments"
         ],
+        "operationId": "list-payments",
         "responses": {
           "200": {
             "description": "OK",
@@ -791,7 +802,6 @@
             }
           }
         },
-        "operationId": "list-payments",
         "description": "List commerce payments for the given company & data connection.",
         "parameters": [
           {
@@ -823,6 +833,8 @@
         "tags": [
           "Payments"
         ],
+        "operationId": "list-payment-methods",
+        "x-speakeasy-name-override": "list-methods",
         "responses": {
           "200": {
             "description": "OK",
@@ -835,7 +847,6 @@
             }
           }
         },
-        "operationId": "list-payment-methods",
         "description": "Retrieve a list of payment methods, such as card, cash or other online payment methods, as held in the linked commerce platform.",
         "parameters": [
           {
@@ -867,6 +878,7 @@
         "tags": [
           "Products"
         ],
+        "operationId": "list-products",
         "responses": {
           "200": {
             "description": "OK",
@@ -1035,7 +1047,6 @@
             }
           }
         },
-        "operationId": "list-products",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -1067,6 +1078,7 @@
         "tags": [
           "Transactions"
         ],
+        "operationId": "list-transactions",
         "responses": {
           "200": {
             "description": "OK",
@@ -1117,7 +1129,6 @@
             }
           }
         },
-        "operationId": "list-transactions",
         "description": "Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.",
         "parameters": [
           {
@@ -1149,6 +1160,8 @@
         "tags": [
           "Products"
         ],
+        "operationId": "list-product-categories",
+        "x-speakeasy-name-override": "list-categories",
         "responses": {
           "200": {
             "description": "OK",
@@ -1161,7 +1174,6 @@
             }
           }
         },
-        "operationId": "list-product-categories",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -1193,6 +1205,7 @@
         "tags": [
           "Tax components"
         ],
+        "operationId": "get-tax-components",
         "responses": {
           "200": {
             "description": "OK",
@@ -1229,7 +1242,6 @@
             }
           }
         },
-        "operationId": "get-tax-components",
         "description": "This endpoint returns a lits of tax rates from the commerce platform, including tax rate names and values. This supports the mapping of tax rates from the commerce platform to the accounting platform."
       }
     }

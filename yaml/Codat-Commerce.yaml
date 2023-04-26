@@ -34,6 +34,11 @@ x-speakeasy-retries:
     - 429
     - 5XX
   retryConnectionErrors: true
+x-speakeasy-name-override:
+  - operationId: ^list*
+    methodNameOverride: list
+  - operationId: ^get*
+    methodNameOverride: get
 tags:
   - name: Customers
     description: Retrieve standardized data from linked commerce platforms.
@@ -59,6 +64,8 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      tags:
+        - Customers
       summary: List customers
       operationId: list-customers
       description: List all commerce customers for the given company and data connection
@@ -67,8 +74,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      tags:
-        - Customers
       responses:
         '200':
           description: OK
@@ -77,7 +82,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Customers'
               examples:
-                Example 1:
+                Multiple Customers:
                   value:
                     results:
                       - id: 10129f58-0a5b-4150-bf88-bd12ac758970
@@ -162,6 +167,7 @@ paths:
       summary: List disputes
       tags:
         - Disputes
+      operationId: list-disputes
       responses:
         '200':
           description: OK
@@ -203,7 +209,6 @@ paths:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-disputes
                       next:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-disputes?page=2&pageSize=20
-      operationId: list-disputes
       description: List commerce disputes
       parameters:
         - $ref: '#/components/parameters/page'
@@ -218,6 +223,7 @@ paths:
       summary: Get company info
       tags:
         - Company info
+      operationId: get-company-info
       responses:
         '200':
           description: OK
@@ -267,7 +273,6 @@ paths:
                     createdDate: '2019-03-07T16:50:49'
                     modifiedDate: '2022-03-10T15:42:13'
                     sourceModifiedDate: '2021-06-10T01:48:49'
-      operationId: get-company-info
       description: |-
         Retrieve information about the company, as seen in the commerce platform.
 
@@ -280,6 +285,7 @@ paths:
       summary: List locations
       tags:
         - Locations
+      operationId: list-locations
       responses:
         '200':
           description: OK
@@ -315,7 +321,6 @@ paths:
                     pageNumber: 0
                     pageSize: 0
                     totalResults: 0
-      operationId: list-locations
       description: |-
         Retrieve a list of locations as seen in the commerce platform.
 
@@ -328,6 +333,7 @@ paths:
       summary: List orders
       tags:
         - Orders
+      operationId: list-orders
       responses:
         '200':
           description: OK
@@ -479,7 +485,6 @@ paths:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-orders?page=1&pageSize=20
                       self:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-orders
-      operationId: list-orders
       description: Get a list of orders placed or held on the linked commerce platform
       parameters:
         - $ref: '#/components/parameters/page'
@@ -494,6 +499,7 @@ paths:
       summary: List payments
       tags:
         - Payments
+      operationId: list-payments
       responses:
         '200':
           description: OK
@@ -531,7 +537,6 @@ paths:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-payments?page=1&pageSize=20
                       self:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-payments
-      operationId: list-payments
       description: List commerce payments for the given company & data connection.
       parameters:
         - $ref: '#/components/parameters/page'
@@ -546,6 +551,8 @@ paths:
       summary: List payment methods
       tags:
         - Payments
+      operationId: list-payment-methods
+      x-speakeasy-name-override: list-methods
       responses:
         '200':
           description: OK
@@ -553,7 +560,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaymentMethods'
-      operationId: list-payment-methods
       description: 'Retrieve a list of payment methods, such as card, cash or other online payment methods, as held in the linked commerce platform.'
       parameters:
         - $ref: '#/components/parameters/page'
@@ -568,6 +574,7 @@ paths:
       summary: List products
       tags:
         - Products
+      operationId: list-products
       responses:
         '200':
           description: OK
@@ -677,7 +684,6 @@ paths:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-products?page=1&pageSize=20
                       self:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-products
-      operationId: list-products
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -692,6 +698,7 @@ paths:
       summary: List transactions
       tags:
         - Transactions
+      operationId: list-transactions
       responses:
         '200':
           description: OK
@@ -726,7 +733,6 @@ paths:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-transactions?page=1&pageSize=20
                       self:
                         href: /companies/06843916-f828-427d-bf6f-b13f5bbee974/connections/35c6fcda-c2f5-44e7-bd25-823079352457/data/commerce-transactions
-      operationId: list-transactions
       description: 'Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.'
       parameters:
         - $ref: '#/components/parameters/page'
@@ -741,6 +747,8 @@ paths:
       summary: List product categories
       tags:
         - Products
+      operationId: list-product-categories
+      x-speakeasy-name-override: list-categories
       responses:
         '200':
           description: OK
@@ -748,7 +756,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductCategories'
-      operationId: list-product-categories
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -763,6 +770,7 @@ paths:
       summary: List tax components
       tags:
         - Tax components
+      operationId: get-tax-components
       responses:
         '200':
           description: OK
@@ -786,7 +794,6 @@ paths:
                         isCompound: false
                         modifiedDate: '2021-08-06T06:00:27'
                         sourceModifiedDate: '2022-04-25T02:45:27'
-      operationId: get-tax-components
       description: 'This endpoint returns a lits of tax rates from the commerce platform, including tax rate names and values. This supports the mapping of tax rates from the commerce platform to the accounting platform.'
 components:
   schemas:

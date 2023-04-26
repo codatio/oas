@@ -120,6 +120,7 @@ paths:
     get:
       tags:
         - Transaction categories
+      operationId: list-transaction-categories
       summary: List all transaction categories
       parameters:
         - $ref: '#/components/parameters/page'
@@ -134,7 +135,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/TransactionCategories'
       description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
-      operationId: list-transaction-categories
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -142,6 +142,7 @@ paths:
     get:
       tags:
         - Transaction categories
+      operationId: get-transaction-category
       summary: Get transaction category
       responses:
         '200':
@@ -151,7 +152,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/TransactionCategory'
       deprecated: true
-      operationId: get-transaction-category
       description: Gets a specified bank transaction category for a given company
       x-internal: true
     parameters:
@@ -167,6 +167,7 @@ paths:
     get:
       tags:
         - Transactions
+      operationId: list-transactions
       summary: List transactions
       parameters:
         - $ref: '#/components/parameters/page'
@@ -182,7 +183,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transactions'
       description: Gets a list of transactions incurred by a bank account.
-      operationId: list-transactions
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -190,8 +190,11 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
+      deprecated: true
+      x-speakeasy-ignore: true
       tags:
         - Transactions
+      operationId: list-bank-transactions
       summary: List banking transactions
       parameters:
         - $ref: '#/components/parameters/page'
@@ -206,7 +209,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transactions'
       description: Gets a list of transactions incurred by a company across all bank accounts.
-      operationId: list-bank-transactions
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     get:
       tags:
