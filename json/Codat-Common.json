@@ -40,6 +40,28 @@
     ],
     "retryConnectionErrors": true
   },
+  "x-speakeasy-name-override": [
+    {
+      "operationId": "^list-*",
+      "methodNameOverride": "list"
+    },
+    {
+      "operationId": "^create-*",
+      "methodNameOverride": "create"
+    },
+    {
+      "operationId": "^get-*",
+      "methodNameOverride": "get"
+    },
+    {
+      "operationId": "^delete-*",
+      "methodNameOverride": "delete"
+    },
+    {
+      "operationId": "^update-*",
+      "methodNameOverride": "update"
+    }
+  ],
   "tags": [
     {
       "name": "Companies",
@@ -604,7 +626,7 @@
       "patch": {
         "summary": "Unlink connection",
         "description": "This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.",
-        "operationId": "unlink-company-connection",
+        "operationId": "unlink-connection",
         "tags": [
           "Connections"
         ],
@@ -665,6 +687,7 @@
       "put": {
         "summary": "Update authorization",
         "operationId": "update-connection-authorization",
+        "x-speakeasy-name-override": "update-authorization",
         "description": "Update data connection's authorization.",
         "tags": [
           "Connections"
@@ -705,6 +728,7 @@
       "post": {
         "summary": "Queue pull operations",
         "operationId": "refresh-company-data",
+        "x-speakeasy-name-override": "all",
         "responses": {
           "204": {
             "description": "No Content"
@@ -734,6 +758,7 @@
       "post": {
         "summary": "Queue pull operation",
         "operationId": "create-pull-operation",
+        "x-speakeasy-name-override": "by-data-type",
         "description": "Queue a single pull operation for the given company and data type.\n\nThis will bring updated data into Codat from the linked integration for you to view.",
         "tags": [
           "Refresh data"
@@ -975,6 +1000,8 @@
         "tags": [
           "Data status"
         ],
+        "operationId": "list-pull-operations",
+        "x-speakeasy-name-override": "list-pull-operations",
         "responses": {
           "200": {
             "description": "OK",
@@ -1032,7 +1059,6 @@
             "$ref": "#/components/responses/Not-Found"
           }
         },
-        "operationId": "get-company-data-history",
         "description": "Gets the pull operation history (datasets) for a given company.",
         "parameters": [
           {
@@ -1061,6 +1087,8 @@
       ],
       "get": {
         "summary": "Get pull operation",
+        "operationId": "get-pull-operation",
+        "x-speakeasy-name-override": "get-pull-operation",
         "tags": [
           "Data status"
         ],
@@ -1082,16 +1110,17 @@
             "$ref": "#/components/responses/Not-Found"
           }
         },
-        "operationId": "get-pull-operation",
         "description": "Retrieve information about a single dataset or pull operation."
       }
     },
     "/integrations": {
       "get": {
         "summary": "List integrations",
+        "description": "List your available integrations",
         "tags": [
           "Integrations"
         ],
+        "operationId": "list-integrations",
         "responses": {
           "200": {
             "description": "OK",
@@ -1110,7 +1139,6 @@
             "$ref": "#/components/responses/Unauthorized"
           }
         },
-        "operationId": "list-integrations",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -1124,8 +1152,7 @@
           {
             "$ref": "#/components/parameters/orderBy"
           }
-        ],
-        "description": "List your available integrations"
+        ]
       }
     },
     "/integrations/{platformKey}": {
@@ -1139,6 +1166,8 @@
         "tags": [
           "Integrations"
         ],
+        "operationId": "get-integration",
+        "description": "Get single integration, by platformKey",
         "responses": {
           "200": {
             "description": "OK",
@@ -1156,9 +1185,7 @@
           "404": {
             "$ref": "#/components/responses/Not-Found"
           }
-        },
-        "operationId": "get-integration",
-        "description": "Get single integration, by platformKey"
+        }
       }
     },
     "/integrations/{platformKey}/branding": {
@@ -1172,6 +1199,9 @@
         "tags": [
           "Integrations"
         ],
+        "operationId": "get-integrations-branding",
+        "x-speakeasy-name-override": "get-branding",
+        "description": "Get branding for platform.",
         "responses": {
           "200": {
             "description": "OK",
@@ -1183,9 +1213,7 @@
               }
             }
           }
-        },
-        "operationId": "get-integrations-branding",
-        "description": "Get branding for platform."
+        }
       }
     },
     "/profile": {
@@ -1210,6 +1238,7 @@
           }
         },
         "operationId": "get-profile",
+        "x-speakeasy-name-override": "get-profile",
         "description": "Fetch your Codat profile.",
         "deprecated": true,
         "x-internal": true
@@ -1217,6 +1246,7 @@
       "put": {
         "summary": "Update profile",
         "operationId": "update-profile",
+        "x-speakeasy-name-override": "update-profile",
         "responses": {
           "200": {
             "description": "OK",
@@ -1254,6 +1284,11 @@
         "tags": [
           "Settings"
         ],
+        "x-speakeasy-ignore": true,
+        "operationId": "get-profile-syncSettings",
+        "description": "Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.",
+        "x-internal": true,
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "OK",
@@ -1288,15 +1323,16 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           }
-        },
-        "operationId": "get-profile-syncSettings",
-        "description": "Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.",
-        "x-internal": true,
-        "deprecated": true
+        }
       },
       "post": {
         "summary": "Update all sync settings",
+        "description": "Update sync settings for all data types.",
+        "tags": [
+          "Settings"
+        ],
         "operationId": "update-sync-settings",
+        "x-speakeasy-name-override": "get-sync-settings",
         "responses": {
           "204": {
             "description": "No Content"
@@ -1305,10 +1341,6 @@
             "$ref": "#/components/responses/Unauthorized"
           }
         },
-        "description": "Update sync settings for all data types.",
-        "tags": [
-          "Settings"
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1360,10 +1392,12 @@
         }
       ],
       "get": {
-        "summary": "List push options",
+        "summary": "Get push options",
         "tags": [
           "Push data"
         ],
+        "operationId": "get-create-update-model-options-by-data-type",
+        "x-speakeasy-name-override": "get-model-options",
         "responses": {
           "200": {
             "description": "OK",
@@ -1376,7 +1410,6 @@
             }
           }
         },
-        "operationId": "get-create-update-model-options-by-data-type",
         "description": "This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. \n\nBefore pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.\n\nCodat tries not to limit users to pushing to a very limited number of standard categories, so we have implemented \"options\" endpoints, which allow us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.\n\n\n> **Supported Integrations**\n> \n> Check out our [Knowledge UI](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods)."
       }
     },
@@ -1405,6 +1438,9 @@
         "tags": [
           "Push data"
         ],
+        "operationId": "get-company-push-history",
+        "x-speakeasy-name-override": "list-operations",
+        "description": "List push operation records.",
         "responses": {
           "200": {
             "description": "OK",
@@ -1416,9 +1452,7 @@
               }
             }
           }
-        },
-        "operationId": "get-company-push-history",
-        "description": "List push operation records."
+        }
       }
     },
     "/companies/{companyId}/push/{pushOperationKey}": {
@@ -1442,6 +1476,9 @@
         "tags": [
           "Push data"
         ],
+        "operationId": "get-push-operation",
+        "x-speakeasy-name-override": "get-operation",
+        "description": "Retrieve push operation.",
         "responses": {
           "200": {
             "description": "OK",
@@ -1453,9 +1490,7 @@
               }
             }
           }
-        },
-        "operationId": "get-push-operation",
-        "description": "Retrieve push operation."
+        }
       }
     }
   },

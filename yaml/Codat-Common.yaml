@@ -34,6 +34,17 @@ x-speakeasy-retries:
     - 429
     - 5XX
   retryConnectionErrors: true
+x-speakeasy-name-override:
+  - operationId: ^list-*
+    methodNameOverride: list
+  - operationId: ^create-*
+    methodNameOverride: create
+  - operationId: ^get-*
+    methodNameOverride: get
+  - operationId: ^delete-*
+    methodNameOverride: delete
+  - operationId: ^update-*
+    methodNameOverride: update
 tags:
   - name: Companies
     description: Create and manage your Codat companies.
@@ -406,7 +417,7 @@ paths:
     patch:
       summary: Unlink connection
       description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
-      operationId: unlink-company-connection
+      operationId: unlink-connection
       tags:
         - Connections
       responses:
@@ -442,6 +453,7 @@ paths:
     put:
       summary: Update authorization
       operationId: update-connection-authorization
+      x-speakeasy-name-override: update-authorization
       description: Update data connection's authorization.
       tags:
         - Connections
@@ -466,6 +478,7 @@ paths:
     post:
       summary: Queue pull operations
       operationId: refresh-company-data
+      x-speakeasy-name-override: all
       responses:
         '204':
           description: No Content
@@ -483,6 +496,7 @@ paths:
     post:
       summary: Queue pull operation
       operationId: create-pull-operation
+      x-speakeasy-name-override: by-data-type
       description: |-
         Queue a single pull operation for the given company and data type.
 
@@ -636,6 +650,8 @@ paths:
       summary: Get pull operations
       tags:
         - Data status
+      operationId: list-pull-operations
+      x-speakeasy-name-override: list-pull-operations
       responses:
         '200':
           description: OK
@@ -674,7 +690,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-company-data-history
       description: Gets the pull operation history (datasets) for a given company.
       parameters:
         - $ref: '#/components/parameters/page'
@@ -687,6 +702,8 @@ paths:
       - $ref: '#/components/parameters/datasetId'
     get:
       summary: Get pull operation
+      operationId: get-pull-operation
+      x-speakeasy-name-override: get-pull-operation
       tags:
         - Data status
       responses:
@@ -700,13 +717,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-pull-operation
       description: Retrieve information about a single dataset or pull operation.
   /integrations:
     get:
       summary: List integrations
+      description: List your available integrations
       tags:
         - Integrations
+      operationId: list-integrations
       responses:
         '200':
           description: OK
@@ -718,13 +736,11 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
-      operationId: list-integrations
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      description: List your available integrations
   '/integrations/{platformKey}':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -732,6 +748,8 @@ paths:
       summary: Get integration
       tags:
         - Integrations
+      operationId: get-integration
+      description: 'Get single integration, by platformKey'
       responses:
         '200':
           description: OK
@@ -743,8 +761,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-integration
-      description: 'Get single integration, by platformKey'
   '/integrations/{platformKey}/branding':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -752,6 +768,9 @@ paths:
       summary: Get branding
       tags:
         - Integrations
+      operationId: get-integrations-branding
+      x-speakeasy-name-override: get-branding
+      description: Get branding for platform.
       responses:
         '200':
           description: OK
@@ -759,8 +778,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Branding'
-      operationId: get-integrations-branding
-      description: Get branding for platform.
   /profile:
     get:
       summary: Get profile
@@ -776,12 +793,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
       operationId: get-profile
+      x-speakeasy-name-override: get-profile
       description: Fetch your Codat profile.
       deprecated: true
       x-internal: true
     put:
       summary: Update profile
       operationId: update-profile
+      x-speakeasy-name-override: update-profile
       responses:
         '200':
           description: OK
@@ -805,6 +824,11 @@ paths:
       summary: Get sync settings
       tags:
         - Settings
+      x-speakeasy-ignore: true
+      operationId: get-profile-syncSettings
+      description: 'Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.'
+      x-internal: true
+      deprecated: true
       responses:
         '200':
           description: OK
@@ -828,21 +852,18 @@ paths:
                     overridesDefaults: true
         '401':
           $ref: '#/components/responses/Unauthorized'
-      operationId: get-profile-syncSettings
-      description: 'Retrieve the sync settings for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.'
-      x-internal: true
-      deprecated: true
     post:
       summary: Update all sync settings
+      description: Update sync settings for all data types.
+      tags:
+        - Settings
       operationId: update-sync-settings
+      x-speakeasy-name-override: get-sync-settings
       responses:
         '204':
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
-      description: Update sync settings for all data types.
-      tags:
-        - Settings
       requestBody:
         content:
           application/json:
@@ -874,9 +895,11 @@ paths:
       - $ref: '#/components/parameters/connectionId'
       - $ref: '#/components/parameters/dataType'
     get:
-      summary: List push options
+      summary: Get push options
       tags:
         - Push data
+      operationId: get-create-update-model-options-by-data-type
+      x-speakeasy-name-override: get-model-options
       responses:
         '200':
           description: OK
@@ -884,7 +907,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushOption'
-      operationId: get-create-update-model-options-by-data-type
       description: |-
         This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
 
@@ -908,6 +930,9 @@ paths:
       summary: List push operations
       tags:
         - Push data
+      operationId: get-company-push-history
+      x-speakeasy-name-override: list-operations
+      description: List push operation records.
       responses:
         '200':
           description: OK
@@ -915,8 +940,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushHistoryResponse'
-      operationId: get-company-push-history
-      description: List push operation records.
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -931,6 +954,9 @@ paths:
       summary: Get push operation
       tags:
         - Push data
+      operationId: get-push-operation
+      x-speakeasy-name-override: get-operation
+      description: Retrieve push operation.
       responses:
         '200':
           description: OK
@@ -938,8 +964,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushOperation'
-      operationId: get-push-operation
-      description: Retrieve push operation.
 webhooks:
   Company data connection status changed:
     post:
