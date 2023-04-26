@@ -1815,13 +1815,12 @@ components:
       description: Describes your Codat client instance
       examples:
         - name: Bob's Burgers
-          logoUrl: string
-          iconUrl: string
-          redirectUrl: string
+          logoUrl: 'https://client-images.codat.io/logo/042399f5-d104-4f38-9ce8-cac3524f4e88_5806cb1f-7342-4c0e-a0a8-99bfbc47b0ff.png'
+          iconUrl: 'https://client-images.codat.io/icon/042399f5-d104-4f38-9ce8-cac3524f4e88_3f5623af-d992-4c22-bc08-e58c520a8526.ico'
+          redirectUrl: 'https://bobs-burgers.{countrySuffix}/{companyId}'
           whiteListUrls:
-            - 'https://bobs-burgers.com/redirect'
-          apiKey: string
-          alertAuthHeader: string
+            - 'https://bobs-burgers.com'
+            - 'https://bobs-burgers.co.uk'
           confirmCompanyName: true
       type: object
       properties:
@@ -1830,21 +1829,26 @@ components:
           example: Bob's Burgers
         logoUrl:
           type: string
+          example: 'https://client-images.codat.io/logo/042399f5-d104-4f38-9ce8-cac3524f4e88_5806cb1f-7342-4c0e-a0a8-99bfbc47b0ff.png'
         iconUrl:
           type: string
+          example: 'https://client-images.codat.io/icon/042399f5-d104-4f38-9ce8-cac3524f4e88_3f5623af-d992-4c22-bc08-e58c520a8526.ico'
         redirectUrl:
           type: string
+          example: 'https://bobs-burgers.{countrySuffix}/{companyId}'
         whiteListUrls:
           type: array
           items:
             type: string
             format: uri
-            example: 'https://bobs-burgers.com/redirect'
+            example: 'https://bobs-burgers.com'
         apiKey:
           type: string
           deprecated: true
+          example: sartANTjHAkLdbyDfaynoTQb7pkmj6hXHmnQKMrB
         alertAuthHeader:
           type: string
+          example: Bearer tXEiHiRK7XCtI8TNHbpGs1LI1pumdb4Cl1QIo7B2
         confirmCompanyName:
           type: boolean
           deprecated: true
