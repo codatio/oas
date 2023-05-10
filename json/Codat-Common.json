@@ -951,11 +951,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "DataStatusResponse",
-                  "type": "object",
-                  "additionalProperties": {
-                    "$ref": "#/components/schemas/DataStatus"
-                  }
+                  "$ref": "#/components/schemas/DataStatusResponse"
                 },
                 "examples": {
                   "Example": {
@@ -2678,6 +2674,14 @@
           }
         ]
       },
+      "DataStatusResponse": {
+        "x-internal": true,
+        "title": "Data status response",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/DataStatus"
+        }
+      },
       "DataStatus": {
         "title": "Data Status",
         "description": "Describes the state of data in the Codat cache for a company and data type",
@@ -3564,7 +3568,7 @@
         "schema": {
           "type": "integer",
           "format": "int32",
-          "minimum": 0,
+          "minimum": 1,
           "example": 1,
           "default": 1
         },

@@ -1,6 +1,4 @@
 openapi: 3.1.0
-x-stoplight:
-  id: tno0jr6q5xi1y
 servers:
   - description: Production
     url: 'https://api.codat.io'
@@ -238,6 +236,7 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       deprecated: true
+      x-internal: true
       summary: List financial metrics
       tags:
         - Reports
@@ -4271,7 +4270,7 @@ components:
       schema:
         type: integer
         format: int32
-        minimum: 0
+        minimum: 1
         example: 1
         default: 1
       description: 'Page number. [Read more](https://docs.codat.io/using-the-api/paging).'
