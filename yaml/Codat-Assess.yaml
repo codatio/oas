@@ -4083,36 +4083,53 @@ components:
         enhancedInvoiceReportItem:
           title: Enhanced invoice report item
           type: object
-          properties:
-            id:
-              type: string
-              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platdform'
-            invoiceNumber:
-              type: string
-            customerRef:
-              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/customerRef'
-            issueDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-            dueDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-            status:
-              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/invoiceStatus'
-            currency:
-              $ref: '#/components/schemas/Currency'
-            totalAmount:
-              type: number
-            amountDue:
-              type: number
-            paidOnDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-            modifiedDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-            sourceModifiedDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
-            payments:
-              type: array
-              items:
-                $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment'
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platdform'
+                invoiceNumber:
+                  type: string
+                customerRef:
+                  $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/customerRef'
+                issueDate:
+                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                dueDate:
+                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                status:
+                  $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/invoiceStatus'
+                currency:
+                  $ref: '#/components/schemas/Currency'
+                totalAmount:
+                  type: number
+                amountDue:
+                  type: number
+                payments:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment'
+                paidOnDate:
+                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+            - x-internal: true
+              allOf:
+                - $ref: '#/components/schemas/CategorisedAccount/definitions/accountCategoryDeprecated/allOf/1'
+                - title: Source Modified Date
+                  x-internal: true
+                  type: object
+                  nullable: true
+                  properties:
+                    sourceModifiedDate:
+                      allOf:
+                        - $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                        - description: |-
+                            The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+
+                            It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)):
+                             - When the source platform does not provide modification date information,
+                             - For attachments, balance sheets, company information, and profit & loss reports. 
+
+                            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
         reportInfo:
           title: Report information
           type: object
