@@ -443,34 +443,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transactions'
               examples:
-                $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1banking-transactions/get/responses/200/content/application~1json/examples'
-      description: Gets a list of transactions incurred by a bank account.
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
-  '/companies/{companyId}/data/banking-transactions':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      deprecated: true
-      x-speakeasy-ignore: true
-      tags:
-        - Transactions
-      operationId: list-bank-transactions
-      summary: List banking transactions
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transactions'
-              examples:
                 Basiq:
                   value:
                     results:
@@ -545,6 +517,32 @@ paths:
                         href: /companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactions
                       next:
                         href: /companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactions?page=2&pageSize=2
+      description: Gets a list of transactions incurred by a bank account.
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+  '/companies/{companyId}/data/banking-transactions':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      deprecated: true
+      tags:
+        - Transactions
+      operationId: list-bank-transactions
+      summary: List banking transactions
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/orderBy'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transactions'
+              examples: {}
       description: Gets a list of transactions incurred by a company across all bank accounts.
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     get:
