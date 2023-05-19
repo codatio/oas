@@ -360,9 +360,7 @@
         ],
         "summary": "Get account",
         "operationId": "get-account",
-        "deprecated": true,
         "description": "Gets a specified bank account for a given company",
-        "x-internal": true,
         "parameters": [
           {
             "$ref": "#/components/parameters/companyId"
@@ -584,6 +582,7 @@
         ],
         "operationId": "get-transaction-category",
         "summary": "Get transaction category",
+        "description": "Gets a specified bank transaction category for a given company",
         "responses": {
           "200": {
             "description": "Success",
@@ -615,10 +614,7 @@
               }
             }
           }
-        },
-        "deprecated": true,
-        "description": "Gets a specified bank transaction category for a given company",
-        "x-internal": true
+        }
       },
       "parameters": [
         {
@@ -645,6 +641,7 @@
         ],
         "operationId": "list-transactions",
         "summary": "List transactions",
+        "description": "Gets a list of transactions incurred by a bank account.",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -773,8 +770,7 @@
               }
             }
           }
-        },
-        "description": "Gets a list of transactions incurred by a bank account."
+        }
       },
       "parameters": [
         {
@@ -792,12 +788,12 @@
         }
       ],
       "get": {
-        "deprecated": true,
         "tags": [
           "Transactions"
         ],
         "operationId": "list-bank-transactions",
         "summary": "List banking transactions",
+        "description": "Gets a list of transactions incurred by a company across all bank accounts.",
         "parameters": [
           {
             "$ref": "#/components/parameters/page"
@@ -824,8 +820,7 @@
               }
             }
           }
-        },
-        "description": "Gets a list of transactions incurred by a company across all bank accounts."
+        }
       }
     },
     "/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}": {
@@ -883,9 +878,7 @@
           }
         },
         "description": "Gets a specified bank transaction for a given company",
-        "operationId": "get-transaction",
-        "deprecated": true,
-        "x-internal": true
+        "operationId": "get-transaction"
       },
       "parameters": [
         {
