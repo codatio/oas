@@ -240,7 +240,7 @@
       },
       "patch": {
         "deprecated": true,
-        "summary": "Patch account categories",
+        "summary": "Update account categories",
         "tags": [
           "Categories"
         ],
@@ -378,6 +378,1513 @@
         "description": "Gets record-by-record match results for a given company and datatype, optionally restricted by a Codat query string."
       }
     },
+    "/companies/{companyId}/reports/enhancedProfitAndLoss/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        }
+      ],
+      "get": {
+        "summary": "Get enhanced profit and loss accounts",
+        "description": "The Enhanced Profit and Loss Accounts endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss. It also includes a balance per the financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnhancedReport"
+                },
+                "example": {
+                  "reportInfo": {
+                    "currency": "GBP",
+                    "reportName": "EnhancedProfitAndLossAccounts",
+                    "companyName": "Biscuits",
+                    "generatedDate": "2023-03-24T16:40:59.0847354Z"
+                  },
+                  "reportItems": [
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 830.93,
+                      "accountId": "04f7111b-55d4-4efc-b329-1bd5c791933a",
+                      "accountName": "Repairs & Maintenance",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 12000,
+                      "accountId": "7f6a0e92-65be-4333-9a0a-d981b03bedd1",
+                      "accountName": "Wages",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "CostOfSales"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 28937.71,
+                      "accountId": "7403e960-5b72-42ff-abf4-c870ad8910bd",
+                      "accountName": "Purchases",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "CostOfSales"
+                          },
+                          {
+                            "levelName": "Inventory"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 582.4,
+                      "accountId": "e8a0a24e-2dab-46b1-bfe1-6e92551c04e8",
+                      "accountName": "Purchase Discounts",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "CostOfSales"
+                          },
+                          {
+                            "levelName": "Inventory"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 350.44,
+                      "accountId": "cbf82e0d-87a7-464d-b567-9274ea94a1c0",
+                      "accountName": "Charitable and Political Donations",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "NonOperating"
+                          },
+                          {
+                            "levelName": "Donations"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 535.81,
+                      "accountId": "78785fd7-f197-4c34-aa17-6e76b9255d34",
+                      "accountName": "Interest Paid (operating)",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "NonOperating"
+                          },
+                          {
+                            "levelName": "Interest"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 633.05,
+                      "accountId": "fb3210ef-edeb-48af-bb49-b85d40c1e6bb",
+                      "accountName": "Corporation Tax",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "NonOperating"
+                          },
+                          {
+                            "levelName": "Taxes"
+                          },
+                          {
+                            "levelName": "CorporationTaxes"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 782.61,
+                      "accountId": "f3aa84fe-5c31-4107-b207-7e0419f636d7",
+                      "accountName": "Bank Fees",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "BankCharges"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 8000,
+                      "accountId": "9cbe5fe4-ca60-4792-8bf1-de01fb7010aa",
+                      "accountName": "Rent",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Leases"
+                          },
+                          {
+                            "levelName": "BuildingRentLease"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1090.68,
+                      "accountId": "138a8eb3-5c08-4e59-a3bc-892119694447",
+                      "accountName": "Motor Vehicle Expenses",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Leases"
+                          },
+                          {
+                            "levelName": "EquipmentRentLease"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 26307.02,
+                      "accountId": "868591ad-f9c2-4956-a5ec-c32c1d48c6f3",
+                      "accountName": "Advertising & Marketing",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Marketing"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1128.85,
+                      "accountId": "1734ff00-2a17-45b4-8db6-2dc2e832c460",
+                      "accountName": "Postage, Freight & Courier",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Marketing"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 40,
+                      "accountId": "7d8d0322-f452-47de-a8e8-54b0130e6f38",
+                      "accountName": "Subscriptions",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Marketing"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 5.72,
+                      "accountId": "4378ddba-36b4-4b35-9970-bd972b20d137",
+                      "accountName": "Amortization",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "NonCash"
+                          },
+                          {
+                            "levelName": "Amortization"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1539.18,
+                      "accountId": "940c8a59-3348-4a0b-a1b1-781d9f29cc8b",
+                      "accountName": "Depreciation Expense",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "NonCash"
+                          },
+                          {
+                            "levelName": "Depreciation"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1416.05,
+                      "accountId": "e7ac3baa-cfbe-40c1-a172-83d22e84435b",
+                      "accountName": "Entertainment-100% business",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Personnel"
+                          },
+                          {
+                            "levelName": "EmployeeBenefits"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1465.61,
+                      "accountId": "b5e801e8-8dbc-4390-ac99-3b0fff54a89f",
+                      "accountName": "General Expenses",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 7347.35,
+                      "accountId": "5360066d-1474-49f6-a7a5-c66d5f6032ba",
+                      "accountName": "Light, Power, Heating",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1027.25,
+                      "accountId": "7aa7988a-ff61-4cb8-bef3-15395355d108",
+                      "accountName": "Printing & Stationery",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 45,
+                      "accountId": "043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03",
+                      "accountName": "Telephone & Internet",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 0,
+                      "accountId": "eef78ed1-dfed-447c-bdba-3a49fb2c044b",
+                      "accountName": "Audit & Accountancy fees",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 130,
+                      "accountId": "c16f5c35-8283-47da-9d09-5fecb183b0cb",
+                      "accountName": "Cleaning",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "SalesGeneralAdministrative"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 860.02,
+                      "accountId": "df62060b-41cc-4bf2-9de7-c7e537b5663a",
+                      "accountName": "Travel - National",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Expense"
+                          },
+                          {
+                            "levelName": "Operating"
+                          },
+                          {
+                            "levelName": "Travel"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 850.22,
+                      "accountId": "68794a8f-b22d-4520-b97b-025b7cb10f94",
+                      "accountName": "Other Revenue",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Income"
+                          },
+                          {
+                            "levelName": "Revenue"
+                          },
+                          {
+                            "levelName": "Online"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 138457.98,
+                      "accountId": "72df89d2-512b-4455-af51-a6b563733842",
+                      "accountName": "Sales",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Income"
+                          },
+                          {
+                            "levelName": "Revenue"
+                          },
+                          {
+                            "levelName": "Wholesale"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounts-for-enhanced-profit-and-loss",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          }
+        ]
+      }
+    },
+    "/companies/{companyId}/reports/enhancedBalanceSheet/accounts": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        }
+      ],
+      "get": {
+        "summary": "Get enhanced balance sheet accounts",
+        "description": "The Enhanced Balance Sheet Accounts endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnhancedReport"
+                },
+                "example": {
+                  "reportInfo": {
+                    "currency": "GBP",
+                    "reportName": "EnhancedBalanceSheetAccounts",
+                    "companyName": "Biscuits",
+                    "generatedDate": "2023-03-24T16:42:09.2973105Z"
+                  },
+                  "reportItems": [
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 12973.03,
+                      "accountId": "22de1660-d745-4809-a363-16b134607e66",
+                      "accountName": "Prepayments",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "AccruedDeferredAssets"
+                          },
+                          {
+                            "levelName": "PrepaidExpenses"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 316065.92,
+                      "accountId": "dbcaf288-2b39-4b95-8ab3-42202ab15918",
+                      "accountName": "Business Current Account",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Bank"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 65945.07,
+                      "accountId": "e5d7612c-1671-47b4-b733-5db48363fcd0",
+                      "accountName": "Inventory",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Inventory"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 71937.95,
+                      "accountId": "1b6266d1-1e44-46c5-8eb5-a8f98e03124e",
+                      "accountName": "Accounts Receivable",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Receivables"
+                          },
+                          {
+                            "levelName": "AccountsReceivables"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 2180148.56,
+                      "accountId": "724ca578-8b5d-4bdb-ad45-e3820eee9de9",
+                      "accountName": "Office Equipment",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "NonCurrent"
+                          },
+                          {
+                            "levelName": "AccumulatedDepreciationDepletionAmortization"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1804674.9,
+                      "accountId": "be3eb911-034b-42de-95db-0d58ac978b7f",
+                      "accountName": "Computer Equipment",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Asset"
+                          },
+                          {
+                            "levelName": "NonCurrent"
+                          },
+                          {
+                            "levelName": "AccumulatedDepreciationDepletionAmortization"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 3417424.16,
+                      "accountId": "39225d6f-3722-4508-ac3f-a2f6ec96ad31",
+                      "accountName": "Retained Earnings",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Equity"
+                          },
+                          {
+                            "levelName": "RetainedEarnings"
+                          },
+                          {
+                            "levelName": "CapitalIncomeReserve"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 44252.52,
+                      "accountId": "78828dd9-6008-4662-b43c-e9d87907fd2b",
+                      "accountName": "Current Year Earnings",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Equity"
+                          },
+                          {
+                            "levelName": "ShareCapital"
+                          },
+                          {
+                            "levelName": "CommonStock"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 75835.64,
+                      "accountId": "53bf27a7-7497-4c61-9887-dfaad5c6d80a",
+                      "accountName": "Accounts Payable",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "AccountsPayable"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 208264.65,
+                      "accountId": "e2530acd-91c8-48f8-a35f-935dbd7432e2",
+                      "accountName": "Accruals",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "AccruedLiabilities"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 0,
+                      "accountId": "d19852a2-e292-4eb9-a909-9dadb95c0e76",
+                      "accountName": "Rounding",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Bank"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 25184.57,
+                      "accountId": "62060aae-e5a6-4db5-a3bb-6abec6d47959",
+                      "accountName": "Credit Card Control Account",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Debt"
+                          },
+                          {
+                            "levelName": "CreditCards"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 9650.58,
+                      "accountId": "9be6382f-6b33-402d-b448-0db1dbf67a98",
+                      "accountName": "Historical Adjustment",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Debt"
+                          },
+                          {
+                            "levelName": "LoansPayable"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 2022.41,
+                      "accountId": "8636effc-50fb-45ba-8b2b-18336fa29b6b",
+                      "accountName": "John Smith",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Debt"
+                          },
+                          {
+                            "levelName": "LoansPayable"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 29034.75,
+                      "accountId": "3a872b81-d1af-4d31-9bfa-a37280b8f68c",
+                      "accountName": "VAT",
+                      "accountCategory": {
+                        "status": "Confirmed",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Personnel"
+                          },
+                          {
+                            "levelName": "PensionPayable"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 1076.55,
+                      "accountId": "3b58f7ff-fa16-453a-9931-f020816d76e7",
+                      "accountName": "Interest Payables",
+                      "accountCategory": {
+                        "status": "Confirmed",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "Current"
+                          },
+                          {
+                            "levelName": "Personnel"
+                          },
+                          {
+                            "levelName": "PensionPayable"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 0,
+                      "accountId": "8852a857-aa9d-4706-839f-638e9d6b5a66",
+                      "accountName": "Unpaid Expense Claims",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "NonCurrent"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "date": "2022-08-31T00:00:00",
+                      "balance": 638999.6,
+                      "accountId": "55008233-40e7-41ac-84af-2255fa028c2e",
+                      "accountName": "Loan",
+                      "accountCategory": {
+                        "status": "Suggested",
+                        "levels": [
+                          {
+                            "levelName": "Liability"
+                          },
+                          {
+                            "levelName": "NonCurrent"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounts-for-enhanced-balance-sheet",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          }
+        ]
+      }
+    },
+    "/companies/{companyId}/reports/enhancedCashFlow/transactions": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        }
+      ],
+      "get": {
+        "summary": "Get enhanced cash flow report",
+        "description": "> **Categorization engine**\n> \n> The categorization engine uses machine learning and has been fully trained against Plaid and TrueLayer banking data sources. It is not fully trained against the Basiq banking data source.\n\nThe Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnhancedCashFlowTransactions"
+                },
+                "example": {
+                  "reportInfo": {
+                    "pageNumber": 1,
+                    "pageSize": 10,
+                    "totalResults": 2194,
+                    "reportName": "Cash flow transactions report",
+                    "companyName": "test",
+                    "generatedDate": "2023-03-24T16:44:17.5302732Z"
+                  },
+                  "dataSources": [
+                    {
+                      "accounts": [
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "platformName": "Banking Sandbox",
+                          "accountProvider": "Lloyds Bank",
+                          "accountName": "Business Savings Account",
+                          "accountType": "Debit",
+                          "currency": "GBP",
+                          "currentBalance": 0
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "platformName": "Banking Sandbox",
+                          "accountProvider": "Lloyds Bank",
+                          "accountName": "Banking - Business Credit Card",
+                          "accountType": "Credit",
+                          "currency": "GBP",
+                          "currentBalance": 0
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "platformName": "Banking Sandbox",
+                          "accountProvider": "Lloyds Bank",
+                          "accountName": "Business Undeposited Funds",
+                          "accountType": "Debit",
+                          "currency": "GBP",
+                          "currentBalance": 0
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "platformName": "Banking Sandbox",
+                          "accountProvider": "Lloyds Bank",
+                          "accountName": "Business Current Account",
+                          "accountType": "Debit",
+                          "currency": "GBP",
+                          "currentBalance": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "reportItems": [
+                    {
+                      "transactions": [
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "ab5e07a0-5578-4d91-8421-2dc72713b74f",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment m86SDGpQr3",
+                          "amount": -6905.44,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "9846bbed-46d3-472c-a848-1ce8ebea7213",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
+                          "amount": 4332.84,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "94b213fb-d742-435e-90f1-bfe723a076d5",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
+                          "amount": 4034.3,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "cfceb7ff-eaa2-45b6-aca7-fa0e0b439161",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier 78792d13-90a0-4ea2-8e07-81c3c893997e",
+                          "amount": -313.76,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "ba814f14-0fe3-41d0-9308-57f40642ac75",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier 46d2e1fb-b4e9-469c-814a-21ff8105a26e",
+                          "amount": -614.4,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "e67cc30e-fd5c-4eea-8365-ec40dfdd3ef6",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
+                          "amount": 5199.62,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "e0f08a0b-3575-4dde-98c4-3c854028d2d2",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier 18ac18dc-945b-4083-9013-e8a100b999fa",
+                          "amount": -21420.94,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "4b70d379-8284-4f44-bb37-c7935df950cc",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier 630a3f16-5f01-4986-ae6b-82333ec49449",
+                          "amount": -30924.22,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "76b73373-9345-472e-8edf-5be849d797fe",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier bQATU4eSb9",
+                          "amount": -568.78,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        },
+                        {
+                          "sourceRef": {
+                            "sourceType": "Banking"
+                          },
+                          "id": "ee92fd6f-e0f7-4391-85fd-4b50921b973f",
+                          "date": "2022-11-08T00:00:00",
+                          "description": "Payment to supplier 9c37eb21-579a-4886-8296-3a853076b7bd",
+                          "amount": -13050.79,
+                          "currency": "GBP",
+                          "transactionCategory": {
+                            "levels": []
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-enhanced-cash-flow-transactions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/pageSize"
+          },
+          {
+            "$ref": "#/components/parameters/query"
+          }
+        ]
+      }
+    },
+    "/companies/{companyId}/reports/enhancedInvoices": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        }
+      ],
+      "get": {
+        "summary": "Get enhanced invoices report",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "x-speakeasy-usage-example": true,
+                "schema": {
+                  "$ref": "#/components/schemas/EnhancedInvoicesReport"
+                },
+                "example": {
+                  "reportInfo": {
+                    "pageNumber": 1,
+                    "pageSize": 10,
+                    "totalResults": 101,
+                    "reportName": "Invoices report",
+                    "companyName": "Small Sandbox",
+                    "generatedDate": "2023-05-10T10:50:23.9437977Z"
+                  },
+                  "reportItems": [
+                    {
+                      "id": "15221fa4-e91a-4f64-a2bb-caeab4db85a4",
+                      "invoiceNumber": "UDs5KlfE",
+                      "customerRef": {
+                        "id": "ee4d0eee-063d-4c9f-8226-2c9a6a816249",
+                        "customerName": "Serena Keeling"
+                      },
+                      "issueDate": "2021-04-06T09:44:00",
+                      "dueDate": "2021-04-06T09:44:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 7044.83,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-04-06T09:44:00",
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2022-02-27T18:28:00",
+                      "payments": []
+                    },
+                    {
+                      "id": "58aea1cb-5b31-4eed-ba16-489dfa67a831",
+                      "invoiceNumber": "1IU1PMoT",
+                      "customerRef": {
+                        "id": "81e9c0df-3e5e-4180-b20c-c8e58100cdf3",
+                        "customerName": "Quinton Kovacek"
+                      },
+                      "issueDate": "2021-04-06T09:44:00",
+                      "dueDate": "2021-04-06T09:44:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 3567.59,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-04-06T09:44:00",
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2021-06-23T22:47:00",
+                      "payments": []
+                    },
+                    {
+                      "id": "9ecd07bc-9cab-4516-bad0-a0cd565cdbaf",
+                      "invoiceNumber": "eEIWyPN4",
+                      "customerRef": {
+                        "id": "c7326084-cd56-48e6-bcfa-be8919e024e1",
+                        "customerName": "Antwon Dach"
+                      },
+                      "issueDate": "2021-04-08T01:27:00",
+                      "dueDate": "2021-04-18T01:27:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 153233.36,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-04-10T12:31:00",
+                      "modifiedDate": "2022-08-01T09:44:59Z",
+                      "sourceModifiedDate": "2021-11-11T12:10:00",
+                      "payments": [
+                        {
+                          "id": "0878e8be-6746-4347-80ba-5491328c8411",
+                          "date": "2021-04-10T12:31:00",
+                          "paymentType": "payments",
+                          "amount": 153233.36,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "7cea078a-5c9a-4788-ae72-9bb60c5cc184",
+                      "invoiceNumber": "BXb8mYQW",
+                      "customerRef": {
+                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
+                        "customerName": "Dolores Rath"
+                      },
+                      "issueDate": "2021-04-16T17:30:00",
+                      "dueDate": "2021-04-23T17:30:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 12657.69,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-04-23T17:30:00",
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2021-12-08T11:32:00",
+                      "payments": [
+                        {
+                          "id": "17b42934-13f6-4738-a506-2e253b1a606f",
+                          "date": "2021-04-23T17:30:00",
+                          "paymentType": "payments",
+                          "amount": 12657.69,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "aa4503d7-fe01-49fe-ba42-259b421ac640",
+                      "invoiceNumber": "wdjwiL5B",
+                      "customerRef": {
+                        "id": "5cbaf1af-4f02-4206-85ab-c525bd9b4f99",
+                        "customerName": "Bryana Douglas"
+                      },
+                      "issueDate": "2021-04-20T06:46:00",
+                      "dueDate": "2021-04-27T06:46:00",
+                      "status": "PartiallyPaid",
+                      "currency": "GBP",
+                      "totalAmount": 12935.39,
+                      "amountDue": 381.09,
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2022-03-11T20:03:00",
+                      "payments": [
+                        {
+                          "id": "1c03986b-9b6c-4220-bde6-4e3eba6cef9f",
+                          "date": "2021-04-23T14:59:00",
+                          "paymentType": "payments",
+                          "amount": 12554.3,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "d8a0e26e-4ec8-4fb5-887d-8b7531e3bedf",
+                      "invoiceNumber": "cTjJcu8x",
+                      "customerRef": {
+                        "id": "6f5290e5-70aa-4d0c-816e-9d2312cf217f",
+                        "customerName": "Brady Wilderman"
+                      },
+                      "issueDate": "2021-04-23T09:32:00",
+                      "dueDate": "2021-05-03T09:32:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 21526.72,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-05-03T09:32:00",
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2021-03-12T22:37:00",
+                      "payments": [
+                        {
+                          "id": "93c9c11b-3ec0-4314-85f6-0751763e752a",
+                          "date": "2021-05-03T09:32:00",
+                          "paymentType": "payments",
+                          "amount": 21506.72,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "06890e67-35fb-4276-9857-95db40cfd15d",
+                      "invoiceNumber": "htXJuUDb",
+                      "customerRef": {
+                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
+                        "customerName": "Dolores Rath"
+                      },
+                      "issueDate": "2021-05-01T23:23:00",
+                      "dueDate": "2021-05-11T23:23:00",
+                      "status": "PartiallyPaid",
+                      "currency": "GBP",
+                      "totalAmount": 7151.41,
+                      "amountDue": 1225.06,
+                      "modifiedDate": "2022-08-01T09:44:59Z",
+                      "sourceModifiedDate": "2022-02-24T23:02:00",
+                      "payments": [
+                        {
+                          "id": "82865077-0857-46db-b9a1-6d21da43b6aa",
+                          "date": "2021-05-04T17:57:00",
+                          "paymentType": "payments",
+                          "amount": 5926.35,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "160e8b51-1fa0-46b9-98fe-1ff5399ce99b",
+                      "invoiceNumber": "9wegEXpG",
+                      "customerRef": {
+                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
+                        "customerName": "Dolores Rath"
+                      },
+                      "issueDate": "2021-05-18T08:53:00",
+                      "dueDate": "2021-05-25T08:53:00",
+                      "status": "PartiallyPaid",
+                      "currency": "GBP",
+                      "totalAmount": 22522.34,
+                      "amountDue": 14408.54,
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2022-01-13T07:52:00",
+                      "payments": [
+                        {
+                          "id": "75bd7205-bc12-4517-9964-aae159fdfaee",
+                          "date": "2021-05-23T04:04:00",
+                          "paymentType": "payments",
+                          "amount": 8113.8,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "5a934955-561d-436a-a564-fd624a79f54c",
+                      "invoiceNumber": "l7YwGxG7",
+                      "customerRef": {
+                        "id": "cc96af36-e2f5-49f7-bf40-271503f45071",
+                        "customerName": "Ignacio Moore"
+                      },
+                      "issueDate": "2021-05-25T19:51:00",
+                      "dueDate": "2021-06-04T19:51:00",
+                      "status": "Paid",
+                      "currency": "GBP",
+                      "totalAmount": 11047.08,
+                      "amountDue": 0,
+                      "paidOnDate": "2021-05-28T07:31:00",
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2021-08-06T05:50:00",
+                      "payments": [
+                        {
+                          "id": "608fd022-f7d0-44a9-90c4-bebe0573f206",
+                          "date": "2021-05-28T07:31:00",
+                          "paymentType": "payments",
+                          "amount": 11047.08,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    },
+                    {
+                      "id": "17690788-2936-46b5-ba46-ba6a36a87483",
+                      "invoiceNumber": "ntH1cRYz",
+                      "customerRef": {
+                        "id": "e1ecc8f2-8a63-4fe9-97c9-c87fd90ca0a6",
+                        "customerName": "Freida Ebert"
+                      },
+                      "issueDate": "2021-05-27T19:07:00",
+                      "dueDate": "2021-06-03T19:07:00",
+                      "status": "PartiallyPaid",
+                      "currency": "GBP",
+                      "totalAmount": 7191.32,
+                      "amountDue": 5036.83,
+                      "modifiedDate": "2022-04-11T13:49:37Z",
+                      "sourceModifiedDate": "2021-03-27T08:54:00",
+                      "payments": [
+                        {
+                          "id": "a343b2a0-d327-41b0-993e-7b6b92fde425",
+                          "date": "2021-06-03T19:07:00",
+                          "paymentType": "payments",
+                          "amount": 2154.49,
+                          "currency": "GBP",
+                          "currencyRate": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-enhanced-invoices-report",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/pageSize"
+          },
+          {
+            "$ref": "#/components/parameters/query"
+          }
+        ],
+        "description": "Gets a list of invoices linked to the corresponding banking transaction"
+      }
+    },
     "/data/companies/{companyId}/connections/{connectionId}/assess/financialMetrics": {
       "parameters": [
         {
@@ -484,6 +1991,805 @@
         ]
       }
     },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/revenue": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Commerce revenue metrics",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "revenue",
+                      "displayName": "Revenue"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Revenue metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Revenue"
+                          },
+                          {
+                            "index": 1,
+                            "value": "Revenue growth"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 0,
+                        "type": "currency"
+                      },
+                      {
+                        "displayName": "Percentage change vs. previous period",
+                        "units": "%",
+                        "index": 1,
+                        "type": "percentage"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Revenue metrics",
+                            "item": 0,
+                            "itemDisplayName": "Revenue",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Value",
+                                "value": 2392.48
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Revenue metrics",
+                            "item": 1,
+                            "itemDisplayName": "Revenue growth",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Percentage change vs. previous period",
+                                "value": 276.65
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-revenue-metrics",
+        "description": "Get the revenue and revenue growth for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get orders report",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "orders",
+                      "displayName": "Orders"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Order metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Number of orders"
+                          },
+                          {
+                            "index": 1,
+                            "value": "Total value"
+                          },
+                          {
+                            "index": 2,
+                            "value": "Average order value"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Count",
+                        "index": 0,
+                        "type": "int"
+                      },
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 1,
+                        "type": "currency"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 0,
+                            "itemDisplayName": "Number of orders",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 94
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 1,
+                            "itemDisplayName": "Total value",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Value",
+                                "value": 3315.18
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Order metrics",
+                            "item": 2,
+                            "itemDisplayName": "Average order value",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Value",
+                                "value": 35.27
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-orders-metrics",
+        "description": "Gets the order information for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/refunds": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get refunds report",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "refunds",
+                      "displayName": "Refunds"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Refund metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Number of refunds"
+                          },
+                          {
+                            "index": 1,
+                            "value": "Value of refunds"
+                          },
+                          {
+                            "index": 2,
+                            "value": "Refund rate"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Count",
+                        "index": 0,
+                        "type": "int"
+                      },
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 1,
+                        "type": "currency"
+                      },
+                      {
+                        "displayName": "Percentage",
+                        "units": "%",
+                        "index": 2,
+                        "type": "percentage"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Refund metrics",
+                            "item": 0,
+                            "itemDisplayName": "Number of refunds",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 39
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Refund metrics",
+                            "item": 1,
+                            "itemDisplayName": "Value of refunds",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Value",
+                                "value": 642.82
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Refund metrics",
+                            "item": 2,
+                            "itemDisplayName": "Refund rate",
+                            "measures": [
+                              {
+                                "index": 2,
+                                "measureDisplayName": "Percentage",
+                                "value": 0.41
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-refunds-metrics",
+        "description": "Gets the refunds information for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/customerRetention": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get customer retention metrics",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "customer_retention",
+                      "displayName": "Customer Retention"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Customer retention metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Existing customers"
+                          },
+                          {
+                            "index": 1,
+                            "value": "New customers"
+                          },
+                          {
+                            "index": 2,
+                            "value": "Total customers"
+                          },
+                          {
+                            "index": 3,
+                            "value": "Retention rate"
+                          },
+                          {
+                            "index": 4,
+                            "value": "Repeat rate"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Count",
+                        "index": 0,
+                        "type": "int"
+                      },
+                      {
+                        "displayName": "Percentage",
+                        "index": 1,
+                        "type": "percentage"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Customer retention metrics",
+                            "item": 0,
+                            "itemDisplayName": "Existing customers",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 13
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Customer retention metrics",
+                            "item": 1,
+                            "itemDisplayName": "New customers",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 47
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Customer retention metrics",
+                            "item": 2,
+                            "itemDisplayName": "Total customers",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Count",
+                                "value": 60
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Customer retention metrics",
+                            "item": 3,
+                            "itemDisplayName": "Retention rate",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Percentage",
+                                "value": 0
+                              }
+                            ]
+                          },
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Customer retention metrics",
+                            "item": 4,
+                            "itemDisplayName": "Repeat rate",
+                            "measures": [
+                              {
+                                "index": 1,
+                                "measureDisplayName": "Percentage",
+                                "value": 21.67
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-customer-retention-metrics",
+        "description": "Gets the customer retention metrics for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get lifetime value metric",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                },
+                "example": [
+                  {
+                    "reportInfo": {
+                      "name": "lifetime_value",
+                      "displayName": "Lifetime Value"
+                    },
+                    "dimensions": [
+                      {
+                        "index": 0,
+                        "displayName": "Period",
+                        "type": "datespan",
+                        "items": [
+                          {
+                            "index": 0,
+                            "displayName": "Period 0",
+                            "start": "2022-01-01",
+                            "end": "2022-12-31"
+                          }
+                        ]
+                      },
+                      {
+                        "index": 1,
+                        "displayName": "Lifetime value metrics",
+                        "type": "string",
+                        "items": [
+                          {
+                            "index": 0,
+                            "value": "Lifetime value"
+                          }
+                        ]
+                      }
+                    ],
+                    "measures": [
+                      {
+                        "displayName": "Value",
+                        "units": "GBP",
+                        "index": 0,
+                        "type": "currency"
+                      }
+                    ],
+                    "reportData": [
+                      {
+                        "dimension": 0,
+                        "dimensionDisplayName": "Period",
+                        "item": 0,
+                        "itemDisplayName": "Period 0",
+                        "components": [
+                          {
+                            "dimension": 1,
+                            "dimensionDisplayName": "Lifetime value metrics",
+                            "item": 0,
+                            "itemDisplayName": "Lifetime value",
+                            "measures": [
+                              {
+                                "index": 0,
+                                "measureDisplayName": "Value",
+                                "value": 3782.07
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "get-commerce-lifetime-value-metrics",
+        "description": "Gets the lifetime value metric for a specific company connection, over one or more periods of time.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reportDate"
+          },
+          {
+            "$ref": "#/components/parameters/periodLength"
+          },
+          {
+            "$ref": "#/components/parameters/numberOfPeriods"
+          },
+          {
+            "$ref": "#/components/parameters/periodUnit"
+          },
+          {
+            "$ref": "#/components/parameters/includeDisplayNames"
+          }
+        ]
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Generate key subscription revenue metrics",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "request-recurring-revenue-metrics",
+        "description": "Requests production of key subscription revenue metrics."
+      }
+    },
+    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/mrr": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/companyId"
+        },
+        {
+          "$ref": "#/components/parameters/connectionId"
+        }
+      ],
+      "get": {
+        "summary": "Get key subscription revenue metrics",
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-recurring-revenue-metrics",
+        "description": "Gets key metrics for subscription revenue."
+      }
+    },
     "/data/companies/{companyId}/connections/{connectionId}/assess/enhancedProfitAndLoss": {
       "parameters": [
         {
@@ -495,7 +2801,7 @@
       ],
       "get": {
         "deprecated": true,
-        "summary": "Enhanced Profit and Loss",
+        "summary": "Get enhanced profit and loss report",
         "tags": [
           "Reports"
         ],
@@ -1572,7 +3878,7 @@
       ],
       "get": {
         "deprecated": true,
-        "summary": "Enhanced Balance Sheet",
+        "summary": "Get enhanced balance sheet report",
         "tags": [
           "Reports"
         ],
@@ -2494,745 +4800,6 @@
         }
       }
     },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/revenue": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Commerce Revenue Metrics",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
-                    "reportInfo": {
-                      "name": "revenue",
-                      "displayName": "Revenue"
-                    },
-                    "dimensions": [
-                      {
-                        "index": 0,
-                        "displayName": "Period",
-                        "type": "datespan",
-                        "items": [
-                          {
-                            "index": 0,
-                            "displayName": "Period 0",
-                            "start": "2022-01-01",
-                            "end": "2022-12-31"
-                          }
-                        ]
-                      },
-                      {
-                        "index": 1,
-                        "displayName": "Revenue metrics",
-                        "type": "string",
-                        "items": [
-                          {
-                            "index": 0,
-                            "value": "Revenue"
-                          },
-                          {
-                            "index": 1,
-                            "value": "Revenue growth"
-                          }
-                        ]
-                      }
-                    ],
-                    "measures": [
-                      {
-                        "displayName": "Value",
-                        "units": "GBP",
-                        "index": 0,
-                        "type": "currency"
-                      },
-                      {
-                        "displayName": "Percentage change vs. previous period",
-                        "units": "%",
-                        "index": 1,
-                        "type": "percentage"
-                      }
-                    ],
-                    "reportData": [
-                      {
-                        "dimension": 0,
-                        "dimensionDisplayName": "Period",
-                        "item": 0,
-                        "itemDisplayName": "Period 0",
-                        "components": [
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Revenue metrics",
-                            "item": 0,
-                            "itemDisplayName": "Revenue",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Value",
-                                "value": 2392.48
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Revenue metrics",
-                            "item": 1,
-                            "itemDisplayName": "Revenue growth",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Percentage change vs. previous period",
-                                "value": 276.65
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-revenue-metrics",
-        "description": "Get the revenue and revenue growth for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get order information for a specific company",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
-                    "reportInfo": {
-                      "name": "orders",
-                      "displayName": "Orders"
-                    },
-                    "dimensions": [
-                      {
-                        "index": 0,
-                        "displayName": "Period",
-                        "type": "datespan",
-                        "items": [
-                          {
-                            "index": 0,
-                            "displayName": "Period 0",
-                            "start": "2022-01-01",
-                            "end": "2022-12-31"
-                          }
-                        ]
-                      },
-                      {
-                        "index": 1,
-                        "displayName": "Order metrics",
-                        "type": "string",
-                        "items": [
-                          {
-                            "index": 0,
-                            "value": "Number of orders"
-                          },
-                          {
-                            "index": 1,
-                            "value": "Total value"
-                          },
-                          {
-                            "index": 2,
-                            "value": "Average order value"
-                          }
-                        ]
-                      }
-                    ],
-                    "measures": [
-                      {
-                        "displayName": "Count",
-                        "index": 0,
-                        "type": "int"
-                      },
-                      {
-                        "displayName": "Value",
-                        "units": "GBP",
-                        "index": 1,
-                        "type": "currency"
-                      }
-                    ],
-                    "reportData": [
-                      {
-                        "dimension": 0,
-                        "dimensionDisplayName": "Period",
-                        "item": 0,
-                        "itemDisplayName": "Period 0",
-                        "components": [
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Order metrics",
-                            "item": 0,
-                            "itemDisplayName": "Number of orders",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Count",
-                                "value": 94
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Order metrics",
-                            "item": 1,
-                            "itemDisplayName": "Total value",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Value",
-                                "value": 3315.18
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Order metrics",
-                            "item": 2,
-                            "itemDisplayName": "Average order value",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Value",
-                                "value": 35.27
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-orders-metrics",
-        "description": "Gets the order information for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/refunds": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get the refunds information for a specific company",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
-                    "reportInfo": {
-                      "name": "refunds",
-                      "displayName": "Refunds"
-                    },
-                    "dimensions": [
-                      {
-                        "index": 0,
-                        "displayName": "Period",
-                        "type": "datespan",
-                        "items": [
-                          {
-                            "index": 0,
-                            "displayName": "Period 0",
-                            "start": "2022-01-01",
-                            "end": "2022-12-31"
-                          }
-                        ]
-                      },
-                      {
-                        "index": 1,
-                        "displayName": "Refund metrics",
-                        "type": "string",
-                        "items": [
-                          {
-                            "index": 0,
-                            "value": "Number of refunds"
-                          },
-                          {
-                            "index": 1,
-                            "value": "Value of refunds"
-                          },
-                          {
-                            "index": 2,
-                            "value": "Refund rate"
-                          }
-                        ]
-                      }
-                    ],
-                    "measures": [
-                      {
-                        "displayName": "Count",
-                        "index": 0,
-                        "type": "int"
-                      },
-                      {
-                        "displayName": "Value",
-                        "units": "GBP",
-                        "index": 1,
-                        "type": "currency"
-                      },
-                      {
-                        "displayName": "Percentage",
-                        "units": "%",
-                        "index": 2,
-                        "type": "percentage"
-                      }
-                    ],
-                    "reportData": [
-                      {
-                        "dimension": 0,
-                        "dimensionDisplayName": "Period",
-                        "item": 0,
-                        "itemDisplayName": "Period 0",
-                        "components": [
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Refund metrics",
-                            "item": 0,
-                            "itemDisplayName": "Number of refunds",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Count",
-                                "value": 39
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Refund metrics",
-                            "item": 1,
-                            "itemDisplayName": "Value of refunds",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Value",
-                                "value": 642.82
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Refund metrics",
-                            "item": 2,
-                            "itemDisplayName": "Refund rate",
-                            "measures": [
-                              {
-                                "index": 2,
-                                "measureDisplayName": "Percentage",
-                                "value": 0.41
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-refunds-metrics",
-        "description": "Gets the refunds information for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/customerRetention": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get the customer retention metrics for a specific company.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
-                    "reportInfo": {
-                      "name": "customer_retention",
-                      "displayName": "Customer Retention"
-                    },
-                    "dimensions": [
-                      {
-                        "index": 0,
-                        "displayName": "Period",
-                        "type": "datespan",
-                        "items": [
-                          {
-                            "index": 0,
-                            "displayName": "Period 0",
-                            "start": "2022-01-01",
-                            "end": "2022-12-31"
-                          }
-                        ]
-                      },
-                      {
-                        "index": 1,
-                        "displayName": "Customer retention metrics",
-                        "type": "string",
-                        "items": [
-                          {
-                            "index": 0,
-                            "value": "Existing customers"
-                          },
-                          {
-                            "index": 1,
-                            "value": "New customers"
-                          },
-                          {
-                            "index": 2,
-                            "value": "Total customers"
-                          },
-                          {
-                            "index": 3,
-                            "value": "Retention rate"
-                          },
-                          {
-                            "index": 4,
-                            "value": "Repeat rate"
-                          }
-                        ]
-                      }
-                    ],
-                    "measures": [
-                      {
-                        "displayName": "Count",
-                        "index": 0,
-                        "type": "int"
-                      },
-                      {
-                        "displayName": "Percentage",
-                        "index": 1,
-                        "type": "percentage"
-                      }
-                    ],
-                    "reportData": [
-                      {
-                        "dimension": 0,
-                        "dimensionDisplayName": "Period",
-                        "item": 0,
-                        "itemDisplayName": "Period 0",
-                        "components": [
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Customer retention metrics",
-                            "item": 0,
-                            "itemDisplayName": "Existing customers",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Count",
-                                "value": 13
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Customer retention metrics",
-                            "item": 1,
-                            "itemDisplayName": "New customers",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Count",
-                                "value": 47
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Customer retention metrics",
-                            "item": 2,
-                            "itemDisplayName": "Total customers",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Count",
-                                "value": 60
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Customer retention metrics",
-                            "item": 3,
-                            "itemDisplayName": "Retention rate",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Percentage",
-                                "value": 0
-                              }
-                            ]
-                          },
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Customer retention metrics",
-                            "item": 4,
-                            "itemDisplayName": "Repeat rate",
-                            "measures": [
-                              {
-                                "index": 1,
-                                "measureDisplayName": "Percentage",
-                                "value": 21.67
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-customer-retention-metrics",
-        "description": "Gets the customer retention metrics for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get the lifetime value metric for a specific company.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                },
-                "example": [
-                  {
-                    "reportInfo": {
-                      "name": "lifetime_value",
-                      "displayName": "Lifetime Value"
-                    },
-                    "dimensions": [
-                      {
-                        "index": 0,
-                        "displayName": "Period",
-                        "type": "datespan",
-                        "items": [
-                          {
-                            "index": 0,
-                            "displayName": "Period 0",
-                            "start": "2022-01-01",
-                            "end": "2022-12-31"
-                          }
-                        ]
-                      },
-                      {
-                        "index": 1,
-                        "displayName": "Lifetime value metrics",
-                        "type": "string",
-                        "items": [
-                          {
-                            "index": 0,
-                            "value": "Lifetime value"
-                          }
-                        ]
-                      }
-                    ],
-                    "measures": [
-                      {
-                        "displayName": "Value",
-                        "units": "GBP",
-                        "index": 0,
-                        "type": "currency"
-                      }
-                    ],
-                    "reportData": [
-                      {
-                        "dimension": 0,
-                        "dimensionDisplayName": "Period",
-                        "item": 0,
-                        "itemDisplayName": "Period 0",
-                        "components": [
-                          {
-                            "dimension": 1,
-                            "dimensionDisplayName": "Lifetime value metrics",
-                            "item": 0,
-                            "itemDisplayName": "Lifetime value",
-                            "measures": [
-                              {
-                                "index": 0,
-                                "measureDisplayName": "Value",
-                                "value": 3782.07
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "operationId": "get-commerce-lifetime-value-metrics",
-        "description": "Gets the lifetime value metric for a specific company connection, over one or more periods of time.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/periodLength"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          },
-          {
-            "$ref": "#/components/parameters/periodUnit"
-          },
-          {
-            "$ref": "#/components/parameters/includeDisplayNames"
-          }
-        ]
-      }
-    },
     "/data/companies/{companyId}/connections/{connectionId}/assess/accountingMetrics/marketing": {
       "parameters": [
         {
@@ -3243,7 +4810,7 @@
         }
       ],
       "get": {
-        "summary": "Get the marketing metrics from an accounting source for a given company.",
+        "summary": "Get marketing metrics report",
         "tags": [
           "Excel reports"
         ],
@@ -3358,7 +4925,7 @@
           }
         },
         "operationId": "get-accounting-marketing-metrics",
-        "description": "Request an Excel report for download.",
+        "description": "Get the marketing metrics from an accounting source for a given company.\n\nRequest an Excel report for download.",
         "parameters": [
           {
             "$ref": "#/components/parameters/reportDate"
@@ -3393,7 +4960,7 @@
         }
       ],
       "post": {
-        "summary": "Generate an Excel report",
+        "summary": "Generate Excel report",
         "tags": [
           "Excel reports"
         ],
@@ -3418,7 +4985,7 @@
         ]
       },
       "get": {
-        "summary": "Get status of Excel report",
+        "summary": "Get Excel report status",
         "tags": [
           "Excel reports"
         ],
@@ -3449,34 +5016,8 @@
           "$ref": "#/components/parameters/companyId"
         }
       ],
-      "post": {
-        "deprecated": true,
-        "summary": "Download generated excel report",
-        "tags": [
-          "Excel reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "download-excel-report",
-        "description": "Download the previously generated Excel report to a local drive.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/excelReportType"
-          }
-        ]
-      },
       "get": {
-        "summary": "Download generated excel report",
+        "summary": "Download Excel report",
         "tags": [
           "Excel reports"
         ],
@@ -3499,1573 +5040,6 @@
             "$ref": "#/components/parameters/excelReportType"
           }
         ]
-      }
-    },
-    "/companies/{companyId}/reports/enhancedCashFlow/transactions": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        }
-      ],
-      "get": {
-        "summary": "Get enhanced cash flow report",
-        "description": "The Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnhancedCashFlowTransactions"
-                },
-                "example": {
-                  "reportInfo": {
-                    "pageNumber": 1,
-                    "pageSize": 10,
-                    "totalResults": 2194,
-                    "reportName": "Cash flow transactions report",
-                    "companyName": "test",
-                    "generatedDate": "2023-03-24T16:44:17.5302732Z"
-                  },
-                  "dataSources": [
-                    {
-                      "accounts": [
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "platformName": "Banking Sandbox",
-                          "accountProvider": "Lloyds Bank",
-                          "accountName": "Business Savings Account",
-                          "accountType": "Debit",
-                          "currency": "GBP",
-                          "currentBalance": 0
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "platformName": "Banking Sandbox",
-                          "accountProvider": "Lloyds Bank",
-                          "accountName": "Banking - Business Credit Card",
-                          "accountType": "Credit",
-                          "currency": "GBP",
-                          "currentBalance": 0
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "platformName": "Banking Sandbox",
-                          "accountProvider": "Lloyds Bank",
-                          "accountName": "Business Undeposited Funds",
-                          "accountType": "Debit",
-                          "currency": "GBP",
-                          "currentBalance": 0
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "platformName": "Banking Sandbox",
-                          "accountProvider": "Lloyds Bank",
-                          "accountName": "Business Current Account",
-                          "accountType": "Debit",
-                          "currency": "GBP",
-                          "currentBalance": 0
-                        }
-                      ]
-                    }
-                  ],
-                  "reportItems": [
-                    {
-                      "transactions": [
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "ab5e07a0-5578-4d91-8421-2dc72713b74f",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment m86SDGpQr3",
-                          "amount": -6905.44,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "9846bbed-46d3-472c-a848-1ce8ebea7213",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
-                          "amount": 4332.84,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "94b213fb-d742-435e-90f1-bfe723a076d5",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
-                          "amount": 4034.3,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "cfceb7ff-eaa2-45b6-aca7-fa0e0b439161",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier 78792d13-90a0-4ea2-8e07-81c3c893997e",
-                          "amount": -313.76,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "ba814f14-0fe3-41d0-9308-57f40642ac75",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier 46d2e1fb-b4e9-469c-814a-21ff8105a26e",
-                          "amount": -614.4,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "e67cc30e-fd5c-4eea-8365-ec40dfdd3ef6",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment from customer a5c68c7b-6825-46de-bf63-6ad23ef506a4",
-                          "amount": 5199.62,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "e0f08a0b-3575-4dde-98c4-3c854028d2d2",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier 18ac18dc-945b-4083-9013-e8a100b999fa",
-                          "amount": -21420.94,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "4b70d379-8284-4f44-bb37-c7935df950cc",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier 630a3f16-5f01-4986-ae6b-82333ec49449",
-                          "amount": -30924.22,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "76b73373-9345-472e-8edf-5be849d797fe",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier bQATU4eSb9",
-                          "amount": -568.78,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        },
-                        {
-                          "sourceRef": {
-                            "sourceType": "Banking"
-                          },
-                          "id": "ee92fd6f-e0f7-4391-85fd-4b50921b973f",
-                          "date": "2022-11-08T00:00:00",
-                          "description": "Payment to supplier 9c37eb21-579a-4886-8296-3a853076b7bd",
-                          "amount": -13050.79,
-                          "currency": "GBP",
-                          "transactionCategory": {
-                            "levels": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-enhanced-cash-flow-transactions",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/page"
-          },
-          {
-            "$ref": "#/components/parameters/pageSize"
-          },
-          {
-            "$ref": "#/components/parameters/query"
-          }
-        ]
-      }
-    },
-    "/companies/{companyId}/reports/enhancedProfitAndLoss/accounts": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        }
-      ],
-      "get": {
-        "summary": "Enhanced Profit and Loss Accounts",
-        "description": "The Enhanced Profit and Loss Accounts endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss. It also includes a balance per the financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnhancedReport"
-                },
-                "example": {
-                  "reportInfo": {
-                    "currency": "GBP",
-                    "reportName": "EnhancedProfitAndLossAccounts",
-                    "companyName": "Biscuits",
-                    "generatedDate": "2023-03-24T16:40:59.0847354Z"
-                  },
-                  "reportItems": [
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 830.93,
-                      "accountId": "04f7111b-55d4-4efc-b329-1bd5c791933a",
-                      "accountName": "Repairs & Maintenance",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 12000,
-                      "accountId": "7f6a0e92-65be-4333-9a0a-d981b03bedd1",
-                      "accountName": "Wages",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "CostOfSales"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 28937.71,
-                      "accountId": "7403e960-5b72-42ff-abf4-c870ad8910bd",
-                      "accountName": "Purchases",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "CostOfSales"
-                          },
-                          {
-                            "levelName": "Inventory"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 582.4,
-                      "accountId": "e8a0a24e-2dab-46b1-bfe1-6e92551c04e8",
-                      "accountName": "Purchase Discounts",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "CostOfSales"
-                          },
-                          {
-                            "levelName": "Inventory"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 350.44,
-                      "accountId": "cbf82e0d-87a7-464d-b567-9274ea94a1c0",
-                      "accountName": "Charitable and Political Donations",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "NonOperating"
-                          },
-                          {
-                            "levelName": "Donations"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 535.81,
-                      "accountId": "78785fd7-f197-4c34-aa17-6e76b9255d34",
-                      "accountName": "Interest Paid (operating)",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "NonOperating"
-                          },
-                          {
-                            "levelName": "Interest"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 633.05,
-                      "accountId": "fb3210ef-edeb-48af-bb49-b85d40c1e6bb",
-                      "accountName": "Corporation Tax",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "NonOperating"
-                          },
-                          {
-                            "levelName": "Taxes"
-                          },
-                          {
-                            "levelName": "CorporationTaxes"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 782.61,
-                      "accountId": "f3aa84fe-5c31-4107-b207-7e0419f636d7",
-                      "accountName": "Bank Fees",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "BankCharges"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 8000,
-                      "accountId": "9cbe5fe4-ca60-4792-8bf1-de01fb7010aa",
-                      "accountName": "Rent",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Leases"
-                          },
-                          {
-                            "levelName": "BuildingRentLease"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1090.68,
-                      "accountId": "138a8eb3-5c08-4e59-a3bc-892119694447",
-                      "accountName": "Motor Vehicle Expenses",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Leases"
-                          },
-                          {
-                            "levelName": "EquipmentRentLease"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 26307.02,
-                      "accountId": "868591ad-f9c2-4956-a5ec-c32c1d48c6f3",
-                      "accountName": "Advertising & Marketing",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Marketing"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1128.85,
-                      "accountId": "1734ff00-2a17-45b4-8db6-2dc2e832c460",
-                      "accountName": "Postage, Freight & Courier",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Marketing"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 40,
-                      "accountId": "7d8d0322-f452-47de-a8e8-54b0130e6f38",
-                      "accountName": "Subscriptions",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Marketing"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 5.72,
-                      "accountId": "4378ddba-36b4-4b35-9970-bd972b20d137",
-                      "accountName": "Amortization",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "NonCash"
-                          },
-                          {
-                            "levelName": "Amortization"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1539.18,
-                      "accountId": "940c8a59-3348-4a0b-a1b1-781d9f29cc8b",
-                      "accountName": "Depreciation Expense",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "NonCash"
-                          },
-                          {
-                            "levelName": "Depreciation"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1416.05,
-                      "accountId": "e7ac3baa-cfbe-40c1-a172-83d22e84435b",
-                      "accountName": "Entertainment-100% business",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Personnel"
-                          },
-                          {
-                            "levelName": "EmployeeBenefits"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1465.61,
-                      "accountId": "b5e801e8-8dbc-4390-ac99-3b0fff54a89f",
-                      "accountName": "General Expenses",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 7347.35,
-                      "accountId": "5360066d-1474-49f6-a7a5-c66d5f6032ba",
-                      "accountName": "Light, Power, Heating",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1027.25,
-                      "accountId": "7aa7988a-ff61-4cb8-bef3-15395355d108",
-                      "accountName": "Printing & Stationery",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 45,
-                      "accountId": "043b6bcb-dfe6-4c97-9b4c-f9b300fe3f03",
-                      "accountName": "Telephone & Internet",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 0,
-                      "accountId": "eef78ed1-dfed-447c-bdba-3a49fb2c044b",
-                      "accountName": "Audit & Accountancy fees",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 130,
-                      "accountId": "c16f5c35-8283-47da-9d09-5fecb183b0cb",
-                      "accountName": "Cleaning",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "SalesGeneralAdministrative"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 860.02,
-                      "accountId": "df62060b-41cc-4bf2-9de7-c7e537b5663a",
-                      "accountName": "Travel - National",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Expense"
-                          },
-                          {
-                            "levelName": "Operating"
-                          },
-                          {
-                            "levelName": "Travel"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 850.22,
-                      "accountId": "68794a8f-b22d-4520-b97b-025b7cb10f94",
-                      "accountName": "Other Revenue",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Income"
-                          },
-                          {
-                            "levelName": "Revenue"
-                          },
-                          {
-                            "levelName": "Online"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 138457.98,
-                      "accountId": "72df89d2-512b-4455-af51-a6b563733842",
-                      "accountName": "Sales",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Income"
-                          },
-                          {
-                            "levelName": "Revenue"
-                          },
-                          {
-                            "levelName": "Wholesale"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-accounts-for-enhanced-profit-and-loss",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          }
-        ]
-      }
-    },
-    "/companies/{companyId}/reports/enhancedBalanceSheet/accounts": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        }
-      ],
-      "get": {
-        "summary": "Enhanced Balance Sheet Accounts",
-        "description": "The Enhanced Balance Sheet Accounts endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](/docs/assess-categorizing-accounts-ecommerce-lending) to a more suitable one.",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnhancedReport"
-                },
-                "example": {
-                  "reportInfo": {
-                    "currency": "GBP",
-                    "reportName": "EnhancedBalanceSheetAccounts",
-                    "companyName": "Biscuits",
-                    "generatedDate": "2023-03-24T16:42:09.2973105Z"
-                  },
-                  "reportItems": [
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 12973.03,
-                      "accountId": "22de1660-d745-4809-a363-16b134607e66",
-                      "accountName": "Prepayments",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "AccruedDeferredAssets"
-                          },
-                          {
-                            "levelName": "PrepaidExpenses"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 316065.92,
-                      "accountId": "dbcaf288-2b39-4b95-8ab3-42202ab15918",
-                      "accountName": "Business Current Account",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Bank"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 65945.07,
-                      "accountId": "e5d7612c-1671-47b4-b733-5db48363fcd0",
-                      "accountName": "Inventory",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Inventory"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 71937.95,
-                      "accountId": "1b6266d1-1e44-46c5-8eb5-a8f98e03124e",
-                      "accountName": "Accounts Receivable",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Receivables"
-                          },
-                          {
-                            "levelName": "AccountsReceivables"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 2180148.56,
-                      "accountId": "724ca578-8b5d-4bdb-ad45-e3820eee9de9",
-                      "accountName": "Office Equipment",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "NonCurrent"
-                          },
-                          {
-                            "levelName": "AccumulatedDepreciationDepletionAmortization"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1804674.9,
-                      "accountId": "be3eb911-034b-42de-95db-0d58ac978b7f",
-                      "accountName": "Computer Equipment",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Asset"
-                          },
-                          {
-                            "levelName": "NonCurrent"
-                          },
-                          {
-                            "levelName": "AccumulatedDepreciationDepletionAmortization"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 3417424.16,
-                      "accountId": "39225d6f-3722-4508-ac3f-a2f6ec96ad31",
-                      "accountName": "Retained Earnings",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Equity"
-                          },
-                          {
-                            "levelName": "RetainedEarnings"
-                          },
-                          {
-                            "levelName": "CapitalIncomeReserve"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 44252.52,
-                      "accountId": "78828dd9-6008-4662-b43c-e9d87907fd2b",
-                      "accountName": "Current Year Earnings",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Equity"
-                          },
-                          {
-                            "levelName": "ShareCapital"
-                          },
-                          {
-                            "levelName": "CommonStock"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 75835.64,
-                      "accountId": "53bf27a7-7497-4c61-9887-dfaad5c6d80a",
-                      "accountName": "Accounts Payable",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "AccountsPayable"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 208264.65,
-                      "accountId": "e2530acd-91c8-48f8-a35f-935dbd7432e2",
-                      "accountName": "Accruals",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "AccruedLiabilities"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 0,
-                      "accountId": "d19852a2-e292-4eb9-a909-9dadb95c0e76",
-                      "accountName": "Rounding",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Bank"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 25184.57,
-                      "accountId": "62060aae-e5a6-4db5-a3bb-6abec6d47959",
-                      "accountName": "Credit Card Control Account",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Debt"
-                          },
-                          {
-                            "levelName": "CreditCards"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 9650.58,
-                      "accountId": "9be6382f-6b33-402d-b448-0db1dbf67a98",
-                      "accountName": "Historical Adjustment",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Debt"
-                          },
-                          {
-                            "levelName": "LoansPayable"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 2022.41,
-                      "accountId": "8636effc-50fb-45ba-8b2b-18336fa29b6b",
-                      "accountName": "John Smith",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Debt"
-                          },
-                          {
-                            "levelName": "LoansPayable"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 29034.75,
-                      "accountId": "3a872b81-d1af-4d31-9bfa-a37280b8f68c",
-                      "accountName": "VAT",
-                      "accountCategory": {
-                        "status": "Confirmed",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Personnel"
-                          },
-                          {
-                            "levelName": "PensionPayable"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 1076.55,
-                      "accountId": "3b58f7ff-fa16-453a-9931-f020816d76e7",
-                      "accountName": "Interest Payables",
-                      "accountCategory": {
-                        "status": "Confirmed",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "Current"
-                          },
-                          {
-                            "levelName": "Personnel"
-                          },
-                          {
-                            "levelName": "PensionPayable"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 0,
-                      "accountId": "8852a857-aa9d-4706-839f-638e9d6b5a66",
-                      "accountName": "Unpaid Expense Claims",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "NonCurrent"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "date": "2022-08-31T00:00:00",
-                      "balance": 638999.6,
-                      "accountId": "55008233-40e7-41ac-84af-2255fa028c2e",
-                      "accountName": "Loan",
-                      "accountCategory": {
-                        "status": "Suggested",
-                        "levels": [
-                          {
-                            "levelName": "Liability"
-                          },
-                          {
-                            "levelName": "NonCurrent"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-accounts-for-enhanced-balance-sheet",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/reportDate"
-          },
-          {
-            "$ref": "#/components/parameters/numberOfPeriods"
-          }
-        ]
-      }
-    },
-    "/companies/{companyId}/reports/enhancedInvoices": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        }
-      ],
-      "get": {
-        "summary": "Enhanced Invoices Report",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "x-speakeasy-usage-example": true,
-                "schema": {
-                  "$ref": "#/components/schemas/EnhancedInvoicesReport"
-                },
-                "example": {
-                  "reportInfo": {
-                    "pageNumber": 1,
-                    "pageSize": 10,
-                    "totalResults": 101,
-                    "reportName": "Invoices report",
-                    "companyName": "Small Sandbox",
-                    "generatedDate": "2023-05-10T10:50:23.9437977Z"
-                  },
-                  "reportItems": [
-                    {
-                      "id": "15221fa4-e91a-4f64-a2bb-caeab4db85a4",
-                      "invoiceNumber": "UDs5KlfE",
-                      "customerRef": {
-                        "id": "ee4d0eee-063d-4c9f-8226-2c9a6a816249",
-                        "customerName": "Serena Keeling"
-                      },
-                      "issueDate": "2021-04-06T09:44:00",
-                      "dueDate": "2021-04-06T09:44:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 7044.83,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-04-06T09:44:00",
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2022-02-27T18:28:00",
-                      "payments": []
-                    },
-                    {
-                      "id": "58aea1cb-5b31-4eed-ba16-489dfa67a831",
-                      "invoiceNumber": "1IU1PMoT",
-                      "customerRef": {
-                        "id": "81e9c0df-3e5e-4180-b20c-c8e58100cdf3",
-                        "customerName": "Quinton Kovacek"
-                      },
-                      "issueDate": "2021-04-06T09:44:00",
-                      "dueDate": "2021-04-06T09:44:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 3567.59,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-04-06T09:44:00",
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2021-06-23T22:47:00",
-                      "payments": []
-                    },
-                    {
-                      "id": "9ecd07bc-9cab-4516-bad0-a0cd565cdbaf",
-                      "invoiceNumber": "eEIWyPN4",
-                      "customerRef": {
-                        "id": "c7326084-cd56-48e6-bcfa-be8919e024e1",
-                        "customerName": "Antwon Dach"
-                      },
-                      "issueDate": "2021-04-08T01:27:00",
-                      "dueDate": "2021-04-18T01:27:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 153233.36,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-04-10T12:31:00",
-                      "modifiedDate": "2022-08-01T09:44:59Z",
-                      "sourceModifiedDate": "2021-11-11T12:10:00",
-                      "payments": [
-                        {
-                          "id": "0878e8be-6746-4347-80ba-5491328c8411",
-                          "date": "2021-04-10T12:31:00",
-                          "paymentType": "payments",
-                          "amount": 153233.36,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "7cea078a-5c9a-4788-ae72-9bb60c5cc184",
-                      "invoiceNumber": "BXb8mYQW",
-                      "customerRef": {
-                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
-                        "customerName": "Dolores Rath"
-                      },
-                      "issueDate": "2021-04-16T17:30:00",
-                      "dueDate": "2021-04-23T17:30:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 12657.69,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-04-23T17:30:00",
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2021-12-08T11:32:00",
-                      "payments": [
-                        {
-                          "id": "17b42934-13f6-4738-a506-2e253b1a606f",
-                          "date": "2021-04-23T17:30:00",
-                          "paymentType": "payments",
-                          "amount": 12657.69,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "aa4503d7-fe01-49fe-ba42-259b421ac640",
-                      "invoiceNumber": "wdjwiL5B",
-                      "customerRef": {
-                        "id": "5cbaf1af-4f02-4206-85ab-c525bd9b4f99",
-                        "customerName": "Bryana Douglas"
-                      },
-                      "issueDate": "2021-04-20T06:46:00",
-                      "dueDate": "2021-04-27T06:46:00",
-                      "status": "PartiallyPaid",
-                      "currency": "GBP",
-                      "totalAmount": 12935.39,
-                      "amountDue": 381.09,
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2022-03-11T20:03:00",
-                      "payments": [
-                        {
-                          "id": "1c03986b-9b6c-4220-bde6-4e3eba6cef9f",
-                          "date": "2021-04-23T14:59:00",
-                          "paymentType": "payments",
-                          "amount": 12554.3,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "d8a0e26e-4ec8-4fb5-887d-8b7531e3bedf",
-                      "invoiceNumber": "cTjJcu8x",
-                      "customerRef": {
-                        "id": "6f5290e5-70aa-4d0c-816e-9d2312cf217f",
-                        "customerName": "Brady Wilderman"
-                      },
-                      "issueDate": "2021-04-23T09:32:00",
-                      "dueDate": "2021-05-03T09:32:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 21526.72,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-05-03T09:32:00",
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2021-03-12T22:37:00",
-                      "payments": [
-                        {
-                          "id": "93c9c11b-3ec0-4314-85f6-0751763e752a",
-                          "date": "2021-05-03T09:32:00",
-                          "paymentType": "payments",
-                          "amount": 21506.72,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "06890e67-35fb-4276-9857-95db40cfd15d",
-                      "invoiceNumber": "htXJuUDb",
-                      "customerRef": {
-                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
-                        "customerName": "Dolores Rath"
-                      },
-                      "issueDate": "2021-05-01T23:23:00",
-                      "dueDate": "2021-05-11T23:23:00",
-                      "status": "PartiallyPaid",
-                      "currency": "GBP",
-                      "totalAmount": 7151.41,
-                      "amountDue": 1225.06,
-                      "modifiedDate": "2022-08-01T09:44:59Z",
-                      "sourceModifiedDate": "2022-02-24T23:02:00",
-                      "payments": [
-                        {
-                          "id": "82865077-0857-46db-b9a1-6d21da43b6aa",
-                          "date": "2021-05-04T17:57:00",
-                          "paymentType": "payments",
-                          "amount": 5926.35,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "160e8b51-1fa0-46b9-98fe-1ff5399ce99b",
-                      "invoiceNumber": "9wegEXpG",
-                      "customerRef": {
-                        "id": "44e8516d-bcb0-459f-9e5d-7beaa56d57d0",
-                        "customerName": "Dolores Rath"
-                      },
-                      "issueDate": "2021-05-18T08:53:00",
-                      "dueDate": "2021-05-25T08:53:00",
-                      "status": "PartiallyPaid",
-                      "currency": "GBP",
-                      "totalAmount": 22522.34,
-                      "amountDue": 14408.54,
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2022-01-13T07:52:00",
-                      "payments": [
-                        {
-                          "id": "75bd7205-bc12-4517-9964-aae159fdfaee",
-                          "date": "2021-05-23T04:04:00",
-                          "paymentType": "payments",
-                          "amount": 8113.8,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "5a934955-561d-436a-a564-fd624a79f54c",
-                      "invoiceNumber": "l7YwGxG7",
-                      "customerRef": {
-                        "id": "cc96af36-e2f5-49f7-bf40-271503f45071",
-                        "customerName": "Ignacio Moore"
-                      },
-                      "issueDate": "2021-05-25T19:51:00",
-                      "dueDate": "2021-06-04T19:51:00",
-                      "status": "Paid",
-                      "currency": "GBP",
-                      "totalAmount": 11047.08,
-                      "amountDue": 0,
-                      "paidOnDate": "2021-05-28T07:31:00",
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2021-08-06T05:50:00",
-                      "payments": [
-                        {
-                          "id": "608fd022-f7d0-44a9-90c4-bebe0573f206",
-                          "date": "2021-05-28T07:31:00",
-                          "paymentType": "payments",
-                          "amount": 11047.08,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    },
-                    {
-                      "id": "17690788-2936-46b5-ba46-ba6a36a87483",
-                      "invoiceNumber": "ntH1cRYz",
-                      "customerRef": {
-                        "id": "e1ecc8f2-8a63-4fe9-97c9-c87fd90ca0a6",
-                        "customerName": "Freida Ebert"
-                      },
-                      "issueDate": "2021-05-27T19:07:00",
-                      "dueDate": "2021-06-03T19:07:00",
-                      "status": "PartiallyPaid",
-                      "currency": "GBP",
-                      "totalAmount": 7191.32,
-                      "amountDue": 5036.83,
-                      "modifiedDate": "2022-04-11T13:49:37Z",
-                      "sourceModifiedDate": "2021-03-27T08:54:00",
-                      "payments": [
-                        {
-                          "id": "a343b2a0-d327-41b0-993e-7b6b92fde425",
-                          "date": "2021-06-03T19:07:00",
-                          "paymentType": "payments",
-                          "amount": 2154.49,
-                          "currency": "GBP",
-                          "currencyRate": 1
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-enhanced-invoices-report",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/page"
-          },
-          {
-            "$ref": "#/components/parameters/pageSize"
-          },
-          {
-            "$ref": "#/components/parameters/query"
-          }
-        ],
-        "description": "Gets a list of invoices linked to the corresponding banking transaction"
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/mrr": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Get key metrics for subscription revenue",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-recurring-revenue-metrics",
-        "description": "Gets key metrics for subscription revenue."
-      }
-    },
-    "/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/companyId"
-        },
-        {
-          "$ref": "#/components/parameters/connectionId"
-        }
-      ],
-      "get": {
-        "summary": "Request production of key subscription revenue metrics",
-        "tags": [
-          "Reports"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "request-recurring-revenue-metrics",
-        "description": "Request production of key subscription revenue metrics."
       }
     }
   },
