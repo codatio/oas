@@ -609,6 +609,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         }
       }
@@ -743,6 +755,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "List commerce disputes",
@@ -1003,6 +1027,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "Retrieve a list of locations as seen in the commerce platform.\n\nA `location` is a geographic place at which stocks of products may be held, or from where orders were placed."
@@ -2384,6 +2420,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "Get a list of orders placed or held on the linked commerce platform",
@@ -2819,6 +2867,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "List commerce payments for the given company & data connection.",
@@ -3119,6 +3179,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "Retrieve a list of payment methods, such as card, cash or other online payment methods, as held in the linked commerce platform.",
@@ -4330,6 +4402,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "parameters": [
@@ -4628,6 +4712,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "description": "Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.",
@@ -4709,6 +4805,18 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "parameters": [
@@ -6933,6 +7041,137 @@
         "description": "Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).",
         "x-stoplight": {
           "id": "4je9lwo02netu"
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Your API request was not properly authorized.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/responses/Conflict/content/application~1json/schema"
+            },
+            "examples": {
+              "Unauthorized": {
+                "value": {
+                  "statusCode": 401,
+                  "service": "PublicApi",
+                  "error": "Unauthorized",
+                  "correlationId": "7eb40d6b415d7bcd99ce658268284056",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "Malformed-Query": {
+        "description": "Your `query` parameter was not correctly formed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/responses/Conflict/content/application~1json/schema"
+            },
+            "examples": {
+              "Malformed query": {
+                "value": {
+                  "statusCode": 400,
+                  "service": "ClientsApi",
+                  "error": "Error parsing query - Malformed query.",
+                  "correlationId": "bc997528a9d7abb9161ef45f05d38599",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "Not-Found": {
+        "description": "One or more of the resources you referenced could not be found.\nThis might be because your company or data connection id is wrong, or was already deleted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/responses/Conflict/content/application~1json/schema"
+            },
+            "examples": {
+              "Data connection not found": {
+                "value": {
+                  "statusCode": 404,
+                  "service": "PublicApi",
+                  "error": "Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found",
+                  "correlationId": "8fa2b5f4794970a4ee73758f612e8df0",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              },
+              "Company not found": {
+                "value": {
+                  "statusCode": 404,
+                  "service": "ClientsApi",
+                  "error": "No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e",
+                  "correlationId": "0a40c2f31fc8f992fb88b0853e4166f3",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              },
+              "No data available": {
+                "value": {
+                  "statusCode": 404,
+                  "service": "PublicApi",
+                  "error": "No data available for accounts for ID e5889b459f544926ac5b8e6756df2s",
+                  "correlationId": "0a40c2f31fc8f992fb88b0853e4166f3",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "The data type's dataset has not been requested or is still syncing.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "x-internal": true,
+              "properties": {
+                "statusCode": {
+                  "type": "integer"
+                },
+                "service": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "correlationId": {
+                  "type": "string"
+                },
+                "canBeRetried": {
+                  "type": "string"
+                },
+                "detailedErrorCode": {
+                  "type": "integer"
+                }
+              }
+            },
+            "examples": {
+              "Conflict": {
+                "value": {
+                  "statusCode": 409,
+                  "service": "PublicApi",
+                  "error": "The data set has not been requested.",
+                  "correlationId": "bc997528a9d7abb9161ef45f05d38599",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
         }
       }
     },
