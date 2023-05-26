@@ -1348,7 +1348,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateBankAccountResponse'
-      description: "Posts a new bank account to the accounting package for a given company.\r\n\r\nRequired data may vary by integration. To see what data to post, first call []().\r\n\r\n> **Supported Integrations**\r\n> \r\n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support creating bank accounts.\r\n"
+      description: "Posts a new bank account to the accounting package for a given company.\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/accounting-api#/operations/get-create-update-bankAccounts-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) to see which integrations support this endpoint.\r\n"
       operationId: create-bank-account
   '/companies/{companyId}/data/accounts':
     get:
@@ -5513,7 +5513,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateAccountResponse'
-      description: "\uFEFFThe *Create accounts* endpoint creates a new [account](https://docs.codat.io/accounting-api#/schemas/Account) for a given company's connection.\n\n[Accounts](https://docs.codat.io/accounting-api#/schemas/Account) are the categories a business uses to record accounting transactions.\n\n**Integration-specific behaviour**\n\nRequired data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/accounting-api#/operations/get-create-chartOfAccounts-model).\n\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account."
+      description: |-
+        The *Create accounts* endpoint creates a new [account](https://docs.codat.io/accounting-api#/schemas/Account) for a given company's connection.
+
+        [Accounts](https://docs.codat.io/accounting-api#/schemas/Account) are the categories a business uses to record accounting transactions.
+
+        **Integration-specific behaviour**
+
+        Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/accounting-api#/operations/get-create-chartOfAccounts-model).
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account.
       operationId: create-account
   '/companies/{companyId}/data/suppliers':
     parameters:
@@ -9779,7 +9788,7 @@ paths:
                 $ref: '#/components/schemas/CreateSupplierResponse'
               examples: {}
       summary: Create supplier
-      description: "Push suppliers\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).\r\n\r\n> **Supported Integrations**\r\n> \r\n> Check out our [Knowledge UI](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating suppliers.\r\n"
+      description: "Push suppliers\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/accounting-api#/operations/get-create-update-suppliers-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) to see which integrations support this endpoint.\r\n"
       operationId: create-supplier
   '/companies/{companyId}/connections/{connectionId}/push/suppliers/{supplierId}':
     parameters:
@@ -16712,7 +16721,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateBillResponse'
-      description: "\uFEFFPosts a new bill to the accounting package for a given company.\n\nRequired data may vary by integration. To see what data to post, first call [Get create/update bill model](https://docs.codat.io/accounting-api#/operations/get-create-update-bills-model).\n\n> **Supported Integrations**\n> \n> Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support creating a bill."
+      description: |
+        Posts a new bill to the accounting package for a given company.
+
+        Required data may vary by integration. To see what data to post, first call [Get create/update bill model](https://docs.codat.io/accounting-api#/operations/get-create-update-bills-model).
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) to see which integrations support this endpoint.
       operationId: create-bill
   '/companies/{companyId}/connections/{connectionId}/push/bills/{billId}':
     parameters:
@@ -21918,7 +21932,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateBillCreditNoteResponse'
-      description: "\uFEFFPosts a new billCreditNote to the accounting package for a given company.\n\nRequired data may vary by integration. To see what data to post, first call [Get create/update bill credit note model](https://docs.codat.io/accounting-api#/operations/get-create-update-billCreditNotes-model).\n\n> **Supported Integrations**\n> \n> Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) for integrations that support creating bill credit notes."
+      description: |
+        Posts a new billCreditNote to the accounting package for a given company.
+
+        Required data may vary by integration. To see what data to post, first call [Get create/update bill credit note model](https://docs.codat.io/accounting-api#/operations/get-create-update-billCreditNotes-model).
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) to see which integrations support this endpoint.
       operationId: create-bill-credit-note
   '/companies/{companyId}/connections/{connectionId}/push/billCreditNotes/{billCreditNoteId}':
     parameters:
@@ -22992,7 +23011,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateBillPaymentResponse'
-      description: "\uFEFFPosts a new bill payment to the accounting package for a given company.\n\nRequired data may vary by integration. To see what data to post, first call [Get create bill payment model](https://docs.codat.io/accounting-api#/operations/get-create-billPayments-model).\n\n> **Supported Integrations**\n> \n> Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support creating bill payments."
+      description: |
+        Posts a new bill payment to the accounting package for a given company.
+
+        Required data may vary by integration. To see what data to post, first call [Get create bill payment model](https://docs.codat.io/accounting-api#/operations/get-create-billPayments-model).
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) to see which integrations support this endpoint.
       operationId: create-bill-payment
   '/companies/{companyId}/connections/{connectionId}/options/billPayments':
     parameters:
