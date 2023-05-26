@@ -187,6 +187,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Status'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-data-integrity-status
       description: Gets match status for a given company and datatype.
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/summaries':
@@ -204,6 +208,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Summaries'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-data-integrity-summaries
       description: 'Gets match summary for a given company and datatype, optionally restricted by a Codat query string.'
       parameters:
@@ -223,6 +231,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Details'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: list-data-type-data-integrity-details
       parameters:
         - $ref: '#/components/parameters/page'
@@ -508,6 +521,10 @@ paths:
                         - levelName: Income
                         - levelName: Revenue
                         - levelName: Wholesale
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-accounts-for-enhanced-profit-and-loss
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -722,6 +739,10 @@ paths:
                       levels:
                         - levelName: Liability
                         - levelName: NonCurrent
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-accounts-for-enhanced-balance-sheet
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -880,6 +901,10 @@ paths:
                         currency: GBP
                         transactionCategory:
                           levels: []
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-enhanced-cash-flow-transactions
       parameters:
         - $ref: '#/components/parameters/page'
@@ -1103,6 +1128,10 @@ paths:
                         amount: 2154.49
                         currency: GBP
                         currencyRate: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-enhanced-invoices-report
       parameters:
         - $ref: '#/components/parameters/page'
@@ -1236,6 +1265,10 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs. previous period
                               value: 276.65
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-revenue-metrics
       description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1320,6 +1353,10 @@ paths:
                             - index: 1
                               measureDisplayName: Value
                               value: 35.27
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-orders-metrics
       description: 'Gets the order information for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1408,6 +1445,10 @@ paths:
                             - index: 2
                               measureDisplayName: Percentage
                               value: 0.41
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-refunds-metrics
       description: 'Gets the refunds information for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1511,6 +1552,10 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage
                               value: 21.67
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-customer-retention-metrics
       description: 'Gets the customer retention metrics for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1572,6 +1617,10 @@ paths:
                             - index: 0
                               measureDisplayName: Value
                               value: 3782.07
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-lifetime-value-metrics
       description: 'Gets the lifetime value metric for a specific company connection, over one or more periods of time.'
       parameters:
@@ -1595,6 +1644,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Report'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: request-recurring-revenue-metrics
       description: Requests production of key subscription revenue metrics.
   '/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/mrr':
@@ -1612,6 +1665,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Report'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-recurring-revenue-metrics
       description: Gets key metrics for subscription revenue.
   '/data/companies/{companyId}/connections/{connectionId}/assess/enhancedProfitAndLoss':
@@ -2262,6 +2319,10 @@ paths:
                           - index: 0
                             measureDisplayName: Value
                             value: 442998.75
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
   '/data/companies/{companyId}/connections/{connectionId}/assess/enhancedBalanceSheet':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2819,6 +2880,10 @@ paths:
                           - index: 0
                             measureDisplayName: Value
                             value: 3645504.55
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
   '/data/companies/{companyId}/connections/{connectionId}/assess/accountingMetrics/marketing':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2892,6 +2957,10 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs previous period
                               value: 0.12
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-accounting-marketing-metrics
       description: |-
         Get the marketing metrics from an accounting source for a given company.
@@ -2922,6 +2991,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: generate-excel-report
       description: Generate an Excel report which can subsequently be downloaded.
       parameters:
@@ -2937,6 +3010,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-excel-report-generation-status
       description: Returns the status of the latest report requested.
       parameters:
@@ -2955,6 +3032,10 @@ paths:
             application/octet-stream:
               schema:
                 type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
       operationId: get-excel-report
       description: Download the previously generated Excel report to a local drive.
       parameters:
@@ -4377,6 +4458,114 @@ components:
           - enhancedCashFlow
       description: The type of report you want to generate and download.
       required: true
+  responses:
+    Unauthorized:
+      description: Your API request was not properly authorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Unauthorized:
+              value:
+                statusCode: 401
+                service: PublicApi
+                error: Unauthorized
+                correlationId: 7eb40d6b415d7bcd99ce658268284056
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Malformed-Query:
+      description: Your `query` parameter was not correctly formed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Malformed query:
+              value:
+                statusCode: 400
+                service: ClientsApi
+                error: Error parsing query - Malformed query.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Not-Found:
+      description: |-
+        One or more of the resources you referenced could not be found.
+        This might be because your company or data connection id is wrong, or was already deleted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Data connection not found:
+              value:
+                statusCode: 404
+                service: PublicApi
+                error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+            Company not found:
+              value:
+                statusCode: 404
+                service: ClientsApi
+                error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+            No data available:
+              value:
+                statusCode: 404
+                service: PublicApi
+                error: No data available for accounts for ID e5889b459f544926ac5b8e6756df2s
+                correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Conflict:
+      description: The data type's dataset has not been requested or is still syncing.
+      content:
+        application/json:
+          schema:
+            type: object
+            x-internal: true
+            properties:
+              statusCode:
+                type: integer
+              service:
+                type: string
+              error:
+                type: string
+              correlationId:
+                type: string
+              canBeRetried:
+                type: string
+              detailedErrorCode:
+                type: integer
+          examples:
+            Conflict:
+              value:
+                statusCode: 409
+                service: PublicApi
+                error: The data set has not been requested.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Too-Many-Requests:
+      description: Too many requests were made in a given amount of time. Wait a short period and then try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
   securitySchemes:
     auth_header:
       name: Authorization
