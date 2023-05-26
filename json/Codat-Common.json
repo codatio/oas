@@ -227,6 +227,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "operationId": "list-companies",
@@ -280,6 +283,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "description": "Create a new company",
@@ -347,6 +353,12 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -363,6 +375,12 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -386,6 +404,12 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "requestBody": {
@@ -492,6 +516,12 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -543,8 +573,14 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -595,6 +631,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "operationId": "get-company-connection",
@@ -616,6 +655,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -638,13 +680,16 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/Malformed-Query"
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "requestBody": {
@@ -734,6 +779,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "description": "Refreshes all data types with `fetch on first link` set to `true` for a given company.\n\nThis is an asynchronous operation, and will bring updated data into Codat from the linked integration for you to view.\n\n[Read more](https://docs.codat.io/core-concepts/data-type-settings) about data type settings and `fetch on first link`.",
@@ -786,6 +834,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -839,6 +890,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -911,6 +965,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "description": "Gets the pull operation history (datasets) for a given company.",
@@ -953,7 +1010,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PullOperation"
-                }
+                },
+                "examples": {}
               }
             }
           },
@@ -962,6 +1020,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "description": "Retrieve information about a single dataset or pull operation."
@@ -1033,6 +1094,12 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -1057,6 +1124,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "requestBody": {
@@ -1064,7 +1134,8 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Rule"
-              }
+              },
+              "examples": {}
             }
           },
           "description": "Create a webhook with the given configuration."
@@ -1092,7 +1163,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Rule"
-                }
+                },
+                "examples": {}
               }
             }
           },
@@ -1101,6 +1173,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -1129,6 +1204,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "parameters": [
@@ -1176,6 +1254,9 @@
           },
           "404": {
             "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -1204,6 +1285,15 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -1221,12 +1311,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Profile"
-                }
+                },
+                "examples": {}
               }
             }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "operationId": "get-profile",
@@ -1246,12 +1340,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Profile"
-                }
+                },
+                "examples": {}
               }
             }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "tags": [
@@ -1263,7 +1361,8 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Profile"
-              }
+              },
+              "examples": {}
             }
           },
           "description": "All fields should be included when updating your profile."
@@ -1314,6 +1413,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       },
@@ -1331,6 +1433,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "requestBody": {
@@ -1397,9 +1502,19 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PushOption"
-                }
+                },
+                "examples": {}
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         },
         "description": "This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. \n\nBefore pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.\n\nCodat tries not to limit users to pushing to a very limited number of standard categories, so we have implemented \"options\" endpoints, which allow us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.\n\n\n> **Supported Integrations**\n> \n> Check out our [coverage explorer](https://knowledge.codat.io/) for integrations that support push (POST/PUT methods)."
@@ -1440,9 +1555,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PushHistoryResponse"
-                }
+                },
+                "examples": {}
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Malformed-Query"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -1478,9 +1606,19 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PushOperation"
-                }
+                },
+                "examples": {}
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Not-Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/Too-Many-Requests"
           }
         }
       }
@@ -3457,6 +3595,28 @@
       }
     },
     "responses": {
+      "BadRequest": {
+        "description": "The request made is not valid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorMessage"
+            },
+            "examples": {
+              "Malformed query": {
+                "value": {
+                  "statusCode": 400,
+                  "service": "PublicApi",
+                  "error": "Error processing request - not valid.",
+                  "correlationId": "bc997528a9d7abb9161ef45f05d38599",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
+        }
+      },
       "Unauthorized": {
         "description": "Your API request was not properly authorized.",
         "content": {
@@ -3535,6 +3695,28 @@
                   "service": "PublicApi",
                   "error": "No data available for accounts for ID e5889b459f544926ac5b8e6756df2s",
                   "correlationId": "0a40c2f31fc8f992fb88b0853e4166f3",
+                  "canBeRetried": "Unknown",
+                  "detailedErrorCode": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "Too-Many-Requests": {
+        "description": "Too many requests were made in a given amount of time. Wait a short period and then try again.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorMessage"
+            },
+            "examples": {
+              "Conflict": {
+                "value": {
+                  "statusCode": 429,
+                  "service": "PublicApi",
+                  "error": "You have made too many requests in a given amount of time; please retry later.",
+                  "correlationId": "bc997528a9d7abb9161ef45f05d38599",
                   "canBeRetried": "Unknown",
                   "detailedErrorCode": 0
                 }

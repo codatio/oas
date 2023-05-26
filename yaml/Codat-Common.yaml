@@ -159,6 +159,8 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       operationId: list-companies
       description: List all companies that you have created in Codat.
       parameters:
@@ -192,6 +194,8 @@ paths:
                     createdByUserName: Dan Tzabar
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Create a new company
       requestBody:
         content:
@@ -235,6 +239,10 @@ paths:
                     createdByUserName: Dan Tzabar
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     delete:
       summary: Delete a company
       operationId: delete-company
@@ -248,6 +256,10 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     put:
       summary: Update company
       description: Updates the given company with a new name and description
@@ -263,6 +275,10 @@ paths:
                 $ref: '#/components/schemas/Company'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           application/json:
@@ -327,6 +343,10 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     post:
       summary: Create connection
       description: Create a data connection for a company
@@ -361,8 +381,12 @@ paths:
                     lastSync: '2022-10-27T10:22:43.6464237Z'
                     created: '2022-10-27T09:53:29Z'
                     sourceType: Banking
+        '401':
+          $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/connections/{connectionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -395,6 +419,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       operationId: get-company-connection
       description: Get a single connection for a company
     delete:
@@ -412,6 +438,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     patch:
       summary: Unlink connection
       description: 'This allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data.'
@@ -426,11 +454,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connection'
         '400':
-          $ref: '#/components/responses/Malformed-Query'
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           application/json:
@@ -484,6 +514,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: |-
         Refreshes all data types with `fetch on first link` set to `true` for a given company.
 
@@ -524,6 +556,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/dataStatus':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -559,6 +593,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/data/history':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -606,6 +642,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Gets the pull operation history (datasets) for a given company.
       parameters:
         - $ref: '#/components/parameters/page'
@@ -629,10 +667,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PullOperation'
+              examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Retrieve information about a single dataset or pull operation.
   /rules:
     get:
@@ -675,6 +716,10 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     post:
       summary: Create webhook
       description: Create a new webhook configuration
@@ -691,11 +736,14 @@ paths:
                 $ref: '#/components/schemas/Rule'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Rule'
+            examples: {}
         description: Create a webhook with the given configuration.
   '/rules/{ruleId}':
     parameters:
@@ -714,10 +762,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Rule'
+              examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   /integrations:
     get:
       summary: List integrations
@@ -736,6 +787,8 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -761,6 +814,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/integrations/{platformKey}/branding':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -778,6 +833,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Branding'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   /profile:
     get:
       summary: Get profile
@@ -790,8 +851,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       operationId: get-profile
       x-speakeasy-name-override: get-profile
       description: Fetch your Codat profile.
@@ -808,8 +872,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       tags:
         - Settings
       description: Update your Codat profile
@@ -818,6 +885,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Profile'
+            examples: {}
         description: All fields should be included when updating your profile.
   /profile/syncSettings:
     get:
@@ -852,6 +920,8 @@ paths:
                     overridesDefaults: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
     post:
       summary: Update all sync settings
       description: Update sync settings for all data types.
@@ -864,6 +934,8 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           application/json:
@@ -907,6 +979,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushOption'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: |-
         This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
 
@@ -940,6 +1019,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushHistoryResponse'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -964,6 +1052,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PushOperation'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
 webhooks:
   Company data connection status changed:
     post:
@@ -2379,6 +2474,21 @@ components:
             datasetStatus: ProcessingError
             datasetId: 6586f21b-ad4d-4d06-a309-712af47184a2
   responses:
+    BadRequest:
+      description: The request made is not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Malformed query:
+              value:
+                statusCode: 400
+                service: PublicApi
+                error: Error processing request - not valid.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
     Unauthorized:
       description: Your API request was not properly authorized.
       content:
@@ -2440,6 +2550,21 @@ components:
                 service: PublicApi
                 error: No data available for accounts for ID e5889b459f544926ac5b8e6756df2s
                 correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Too-Many-Requests:
+      description: Too many requests were made in a given amount of time. Wait a short period and then try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
   parameters:

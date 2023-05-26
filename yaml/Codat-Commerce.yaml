@@ -3363,7 +3363,12 @@ paths:
       summary: List tax components
       tags:
         - Tax components
-      operationId: get-tax-components
+      operationId: list-tax-components
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/orderBy'
       responses:
         '200':
           description: OK
@@ -3434,6 +3439,14 @@ paths:
                         href: /companies/b6611c58-270d-4061-8c88-d4887a52418e/connections/16f95935-aa5f-4184-bfd4-f9526e37658d/data/commerce-taxComponents?page=1&pageSize=2
                       self:
                         href: /companies/b6611c58-270d-4061-8c88-d4887a52418e/connections/16f95935-aa5f-4184-bfd4-f9526e37658d/data/commerce-taxComponents
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
       description: 'This endpoint returns a lists of tax rates from the commerce platform, including tax rate names and values. This supports the mapping of tax rates from the commerce platform to the accounting platform.'
 components:
   schemas:
