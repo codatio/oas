@@ -54,12 +54,10 @@ tags:
     description: Migrate existing connections into Codat.
   - name: Webhooks
     description: 'Manage webhooks, rules and alerts.'
-  - name: Data status
-    description: Understand the state of data within Codat.
   - name: Integrations
     description: View and manage your available integrations in Codat.
   - name: Refresh data
-    description: Queue pull operations to refresh data in Codat.
+    description: Asynchronously retrieve data from an integration to refresh data in Codat.
   - name: Settings
     description: Manage your Codat instance.
   - name: Push data
@@ -476,7 +474,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     post:
-      summary: Queue pull operations
+      summary: Refresh all data
       operationId: refresh-company-data
       x-speakeasy-name-override: all
       responses:
@@ -486,7 +484,12 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      description: Refreshes all data types marked Fetch on first link.
+      description: |-
+        Refreshes all data types with `fetch on first link` set to `true` for a given company.
+
+        This is an asynchronous operation, and will bring updated data into Codat from the linked integration for you to view.
+
+        [Read more](https://docs.codat.io/core-concepts/data-type-settings) about data type settings and `fetch on first link`.
       tags:
         - Refresh data
   '/companies/{companyId}/data/queue/{dataType}':
@@ -494,13 +497,13 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/dataType'
     post:
-      summary: Queue pull operation
-      operationId: create-pull-operation
+      summary: Refresh data type
+      operationId: refresh-data-type
       x-speakeasy-name-override: by-data-type
       description: |-
-        Queue a single pull operation for the given company and data type.
+        Refreshes a given data type for a given company.
 
-        This will bring updated data into Codat from the linked integration for you to view.
+        This is an asynchronous operation, and will bring updated data into Codat from the linked integration for you to view.
       tags:
         - Refresh data
       parameters:
@@ -521,6 +524,116 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
+  '/companies/{companyId}/dataStatus':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      summary: Get data status
+      operationId: get-company-data-status
+      description: Get the state of each data type for a company
+      tags:
+        - Refresh data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStatusResponse'
+              examples:
+                Example:
+                  value:
+                    invoices:
+                      dataType: invoices
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: success
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+                    bills:
+                      dataType: bills
+                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
+                      currentStatus: failure
+                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
+                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+  '/companies/{companyId}/data/history':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      summary: List pull operations
+      tags:
+        - Refresh data
+      operationId: list-pull-operations
+      x-speakeasy-name-override: list-pull-operations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataConnectionHistory'
+              examples:
+                Example:
+                  value:
+                    results:
+                      - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
+                        companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
+                        connectionId: 51baa045-4836-4317-a42e-3542e991e581
+                        dataType: invoices
+                        status: Initial
+                        requested: '2022-11-14T11:18:37.2798351Z'
+                        progress: 10
+                        isCompleted: false
+                        isErrored: false
+                    _links:
+                      self:
+                        href: ../dictionary
+                      current:
+                        href: ../dictionary
+                      next:
+                        href: ../dictionary
+                      previous:
+                        href: ../dictionary
+                    pageNumber: 0
+                    pageSize: 0
+                    totalResults: 0
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      description: Gets the pull operation history (datasets) for a given company.
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/orderBy'
+  '/companies/{companyId}/data/history/{datasetId}':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/datasetId'
+    get:
+      summary: Get pull operation
+      operationId: get-pull-operation
+      x-speakeasy-name-override: get-pull-operation
+      tags:
+        - Refresh data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PullOperation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+      description: Retrieve information about a single dataset or pull operation.
   /rules:
     get:
       summary: List webhooks
@@ -605,116 +718,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-  '/companies/{companyId}/dataStatus':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      summary: Get data status
-      operationId: get-company-data-status
-      description: Get the state of each data type for a company
-      tags:
-        - Data status
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DataStatusResponse'
-              examples:
-                Example:
-                  value:
-                    invoices:
-                      dataType: invoices
-                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
-                      currentStatus: success
-                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
-                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
-                    bills:
-                      dataType: bills
-                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
-                      currentStatus: failure
-                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
-                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-  '/companies/{companyId}/data/history':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      summary: Get pull operations
-      tags:
-        - Data status
-      operationId: list-pull-operations
-      x-speakeasy-name-override: list-pull-operations
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DataConnectionHistory'
-              examples:
-                Example:
-                  value:
-                    results:
-                      - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-                        companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-                        connectionId: 51baa045-4836-4317-a42e-3542e991e581
-                        dataType: invoices
-                        status: Initial
-                        requested: '2022-11-14T11:18:37.2798351Z'
-                        progress: 10
-                        isCompleted: false
-                        isErrored: false
-                    _links:
-                      self:
-                        href: ../dictionary
-                      current:
-                        href: ../dictionary
-                      next:
-                        href: ../dictionary
-                      previous:
-                        href: ../dictionary
-                    pageNumber: 0
-                    pageSize: 0
-                    totalResults: 0
-        '400':
-          $ref: '#/components/responses/Malformed-Query'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-      description: Gets the pull operation history (datasets) for a given company.
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
-  '/companies/{companyId}/data/history/{datasetId}':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/datasetId'
-    get:
-      summary: Get pull operation
-      operationId: get-pull-operation
-      x-speakeasy-name-override: get-pull-operation
-      tags:
-        - Data status
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PullOperation'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-      description: Retrieve information about a single dataset or pull operation.
   /integrations:
     get:
       summary: List integrations
