@@ -59,6 +59,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanyConfiguration'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       summary: Get company configuration
       description: Gets a companies expense sync configuration
       operationId: get-company-configuration
@@ -72,6 +79,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CompanyConfiguration'
+            examples: {}
       responses:
         '200':
           description: Success
@@ -80,11 +88,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/CompanyConfiguration'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CodatErrorMessage'
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       summary: Set company configuration
       description: Sets a companies expense sync configuration
       operationId: save-company-configuration
@@ -106,6 +116,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataConnection'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/sync/expenses/mappingOptions':
     get:
       tags:
@@ -119,6 +138,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MappingOptions'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Gets the expense mapping options for a companies accounting software
       summary: Mapping options
       operationId: get-mapping-options
@@ -137,6 +163,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostSync'
+            examples: {}
       responses:
         '202':
           description: Returns the newly created SyncId
@@ -144,6 +171,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncInitiated'
+              examples: {}
         '400':
           description: If model is incorrect
           content:
@@ -185,6 +213,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanySyncStatus'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Gets the status of the last successfull sync
       summary: Last successful sync
       operationId: get-last-successful-sync
@@ -203,6 +238,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanySyncStatus'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       description: Gets the latest sync status
       summary: Latest sync status
       operationId: get-latest-sync
@@ -223,6 +265,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CompanySyncStatus'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       summary: List sync statuses
       description: Gets a list of sync statuses
       operationId: list-syncs
@@ -242,6 +291,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanySyncStatus'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       summary: Get Sync status
       description: Get the sync status for a specified sync
       operationId: get-sync-by-id
@@ -279,6 +335,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionMetadataList'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       tags:
         - Transaction status
       summary: Get Sync transactions
@@ -302,6 +365,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TransactionMetadata'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       tags:
         - Transaction status
       summary: Get Sync Transaction
@@ -332,6 +402,14 @@ paths:
                 Example 1:
                   value:
                     datasetId: cd937d46-8e41-43a9-9477-a79158ffd98a
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           application/json:
@@ -404,6 +482,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attachment'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
       requestBody:
         content:
           multipart/form-data:
@@ -1274,6 +1361,129 @@ components:
         format: uuid
         example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
       description: The unique identifier for your SMB's transaction.
+  responses:
+    BadRequest:
+      description: The request made is not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Malformed query:
+              value:
+                statusCode: 400
+                service: PublicApi
+                error: Error processing request - not valid.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Malformed-Query:
+      description: Your `query` parameter was not correctly formed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Malformed query:
+              value:
+                statusCode: 400
+                service: ClientsApi
+                error: Error parsing query - Malformed query.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Unauthorized:
+      description: Your API request was not properly authorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Unauthorized:
+              value:
+                statusCode: 401
+                service: PublicApi
+                error: Unauthorized
+                correlationId: 7eb40d6b415d7bcd99ce658268284056
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Not-Found:
+      description: |-
+        One or more of the resources you referenced could not be found.
+        This might be because your company or data connection id is wrong, or was already deleted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Data connection not found:
+              value:
+                statusCode: 404
+                service: PublicApi
+                error: Data connection a22dd66b-564a-4832-9b37-7b3ce4aeb7de not found
+                correlationId: 8fa2b5f4794970a4ee73758f612e8df0
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+            Company not found:
+              value:
+                statusCode: 404
+                service: ClientsApi
+                error: No company was found with ID 846ed55c-974b-4392-a1f1-87b6fdbf3c5e
+                correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+            No data available:
+              value:
+                statusCode: 404
+                service: PublicApi
+                error: No data available for accounts for ID e5889b459f544926ac5b8e6756df2s
+                correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Conflict:
+      description: The data type's dataset has not been requested or is still syncing.
+      content:
+        application/json:
+          schema:
+            type: object
+            x-internal: true
+            properties:
+              statusCode:
+                type: integer
+              service:
+                type: string
+              error:
+                type: string
+              correlationId:
+                type: string
+              canBeRetried:
+                type: string
+              detailedErrorCode:
+                type: integer
+          examples:
+            Conflict:
+              value:
+                statusCode: 409
+                service: PublicApi
+                error: The data set has not been requested.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Too-Many-Requests:
+      description: Too many requests were made in a given amount of time. Wait a short period and then try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
   securitySchemes:
     auth_header:
       name: Authorization
