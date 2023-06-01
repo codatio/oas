@@ -4299,7 +4299,7 @@ paths:
                         modifiedDate: '2023-03-15T20:37:10Z'
                       - accountId: bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4
                         clearedOnDate: '2022-12-09T00:00:00'
-                        description: 0019
+                        description: AR-0019
                         counterparty: Bank West
                         reconciled: true
                         amount: 1500
@@ -4335,7 +4335,7 @@ paths:
                         modifiedDate: '2023-03-15T20:37:10Z'
                       - accountId: bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4
                         clearedOnDate: '2022-12-20T00:00:00'
-                        description: '0011'
+                        description: AR-0011
                         counterparty: Ridgeway University
                         reconciled: true
                         amount: 2500
@@ -4362,7 +4362,7 @@ paths:
                         modifiedDate: '2023-03-15T20:37:10Z'
                       - accountId: bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4
                         clearedOnDate: '2022-12-23T00:00:00'
-                        description: 0018
+                        description: AR-0018
                         counterparty: City Agency
                         reconciled: true
                         amount: 329.8
@@ -4416,7 +4416,7 @@ paths:
                         modifiedDate: '2023-03-15T20:37:10Z'
                       - accountId: bd9e85e0-0478-433d-ae9f-0b3c4f04bfe4
                         clearedOnDate: '2023-01-19T00:00:00'
-                        description: '0020'
+                        description: AR-0020
                         counterparty: Ridgeway University
                         reconciled: true
                         amount: 6187.5
@@ -5443,80 +5443,59 @@ components:
         * Current account balance.
         * Transaction type, for example, credit, debit, or transfer.
       type: object
-      properties:
-        accountId:
-          type: string
-          nullable: true
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionLine'
-          nullable: true
-      definitions:
-        bankTransactionLine:
-          title: Bank transaction line
-          type: object
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            accountId:
+              type: string
+              nullable: true
+            clearedOnDate:
+              $ref: '#/components/schemas/DateTime'
+            description:
+              type: string
+              nullable: true
+            reconciled:
+              type: boolean
+            amount:
+              type: number
+            balance:
+              type: number
+            transactionType:
+              $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionType'
+        - x-internal: true
           allOf:
-            - type: object
+            - title: ModifiedDate
+              x-internal: true
+              type: object
               properties:
-                id:
-                  type: string
-                clearedOnDate:
-                  $ref: '#/components/schemas/DateTime'
-                description:
-                  type: string
-                  nullable: true
-                counterparty:
-                  type: string
-                  nullable: true
-                reference:
-                  type: string
-                  nullable: true
-                reconciled:
-                  type: boolean
-                amount:
-                  type: number
-                balance:
-                  type: number
-                transactionType:
-                  $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionType'
-            - x-internal: true
-              allOf:
-                - title: ModifiedDate
-                  x-internal: true
-                  type: object
-                  properties:
-                    modifiedDate:
-                      allOf:
-                        - $ref: '#/components/schemas/DateTime'
-                        - description: |-
-                            The date when the record was last fetched from the data source and updated in Codat’s data cache. 
+                modifiedDate:
+                  allOf:
+                    - $ref: '#/components/schemas/DateTime'
+                    - description: |-
+                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
 
-                            It is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
+                        It is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
 
-                            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-                - title: Source Modified Date
-                  x-internal: true
-                  type: object
-                  nullable: true
-                  properties:
-                    sourceModifiedDate:
-                      allOf:
-                        - $ref: '#/components/schemas/DateTime'
-                        - description: |-
-                            The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+            - title: Source Modified Date
+              x-internal: true
+              type: object
+              nullable: true
+              properties:
+                sourceModifiedDate:
+                  allOf:
+                    - $ref: '#/components/schemas/DateTime'
+                    - description: |-
+                        The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
 
-                            It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)):
-                             - When the source platform does not provide modification date information,
-                             - For attachments, balance sheets, company information, and profit & loss reports. 
+                        It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)):
+                         - When the source platform does not provide modification date information,
+                         - For attachments, balance sheets, company information, and profit & loss reports. 
 
-                            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-          required:
-            - amount
-            - balance
-            - date
-            - reconciled
-            - transactionType
+                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+      definitions:
         bankTransactionType:
           title: Bank transaction type
           description: Type of transaction for the bank statement line
