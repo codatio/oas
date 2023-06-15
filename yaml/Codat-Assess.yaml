@@ -1144,7 +1144,6 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       deprecated: true
-      x-internal: true
       summary: List financial metrics
       tags:
         - Reports
@@ -1192,7 +1191,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - schema:
             type: boolean
           in: query
@@ -1274,7 +1273,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
   '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/orders':
@@ -1362,7 +1361,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
   '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/refunds':
@@ -1454,7 +1453,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
   '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/customerRetention':
@@ -1561,7 +1560,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
   '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/lifetimeValue':
@@ -1626,7 +1625,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
   '/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/process':
@@ -1685,7 +1684,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/includeDisplayNames'
       responses:
         '200':
@@ -2336,7 +2335,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/includeDisplayNames'
       description: 'Gets a fully categorized balance sheet statement for a given company, over one or more period(s).'
       responses:
@@ -2969,7 +2968,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
-        - $ref: '#/components/parameters/numberOfPeriods'
+        - $ref: '#/components/parameters/numberOfPeriodsRequired'
         - $ref: '#/components/parameters/periodUnit'
         - $ref: '#/components/parameters/includeDisplayNames'
         - schema:
@@ -4422,13 +4421,20 @@ components:
       schema:
         type: integer
       description: The number of months per period. E.g. 2 = 2 months per period.
-    numberOfPeriods:
+    numberOfPeriodsRequired:
       name: numberOfPeriods
       in: query
       required: true
       schema:
         type: integer
-      description: 'The number of periods to return.  There will be no pagination as a query parameter, however Codat will limit the number of periods to request to 12 periods.'
+      description: The number of periods to return. There will be no pagination as a query parameter.
+    numberOfPeriods:
+      name: numberOfPeriods
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: 'The number of periods to return. If not provided, 12 periods will be used as the default value.'
     periodUnit:
       name: periodUnit
       in: query
