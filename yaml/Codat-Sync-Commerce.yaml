@@ -376,7 +376,7 @@ paths:
     post:
       tags:
         - Sync
-      summary: Run a Commerce sync from the last successful sync
+      summary: Sync new
       description: "Run a Commerce sync from the last successful sync up to the date provided (optional), otherwise UtcNow is used.\r\nIf there was no previously successful sync, the start date in the config is used."
       operationId: request-sync
       parameters:
@@ -401,7 +401,7 @@ paths:
     post:
       tags:
         - Sync
-      summary: Run a Commerce sync from a given date range
+      summary: Sync range
       description: Run a Commerce sync from the specified start date to the specified finish date in the request payload.
       operationId: request-sync-for-date-range
       parameters:
@@ -411,7 +411,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DateRange'
+              $ref: '#/components/schemas/SyncRange'
       responses:
         '200':
           description: Success
@@ -492,6 +492,25 @@ components:
           $ref: '#/components/schemas/Company/properties/created'
           description: Finish date of the Sync.
       additionalProperties: false
+    SyncRange:
+      x-internal: true
+      title: Data range
+      type: object
+      required:
+        - dateRange
+      properties:
+        dateRange:
+          type: object
+          properties:
+            start:
+              $ref: '#/components/schemas/Company/properties/created'
+              description: Start date of the Sync.
+            finish:
+              $ref: '#/components/schemas/Company/properties/created'
+              description: Finish date of the Sync.
+          required:
+            - start
+            - finish
     CreateCompany:
       x-internal: true
       required:
