@@ -53,7 +53,13 @@ paths:
         - Account balances
       summary: List account balances
       operationId: list-account-balances
-      description: Gets a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
+      description: |-
+        The *List account balances* endpoint returns a list of [account balances](https://docs.codat.io/banking-api#/schemas/AccountBalance) for a given company's connection.
+
+        [Account balances](https://docs.codat.io/banking-api#/schemas/AccountBalance) are balances for a bank account, including end-of-day batch balance or running balances per transaction.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
@@ -129,7 +135,13 @@ paths:
         - Accounts
       summary: List accounts
       operationId: list-accounts
-      description: 'Gets a list of all bank accounts of the SMB, with rich data like balances, account numbers and institutions holdingthe accounts.'
+      description: |-
+        The *List accounts* endpoint returns a list of [accounts](https://docs.codat.io/banking-api#/schemas/Account) for a given company's connection.
+
+        [Accounts](https://docs.codat.io/banking-api#/schemas/Account) are financial accounts maintained by a bank or other financial institution.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
@@ -335,7 +347,7 @@ paths:
       tags:
         - Transaction categories
       operationId: list-transaction-categories
-      summary: List all transaction categories
+      summary: List transaction categories
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -404,7 +416,13 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
-      description: Gets a list of hierarchical categories associated with a transaction for greater contextual meaning to transactionactivity.
+      description: |-
+        The *List transaction categories* endpoint returns a list of [transaction categories](https://docs.codat.io/banking-api#/schemas/TransactionCategory) for a given company's connection.
+
+        [Transaction categories](https://docs.codat.io/banking-api#/schemas/TransactionCategory) are associated with a transaction to provide greater contextual meaning to transaction activity.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -452,7 +470,13 @@ paths:
         - Transactions
       operationId: list-transactions
       summary: List transactions
-      description: Gets a list of transactions incurred by a bank account.
+      description: |-
+        The *List transactions* endpoint returns a list of [transactions](https://docs.codat.io/banking-api#/schemas/Transaction) for a given company's connection.
+
+        [Transactions](https://docs.codat.io/banking-api#/schemas/Transaction) provide an immutable source of up-to-date information on income and expenditure.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -563,7 +587,13 @@ paths:
       deprecated: true
       x-speakeasy-deprecation-replacement: list-transactions
       summary: List banking transactions
-      description: Gets a list of transactions incurred by a company across all bank accounts.
+      description: |-
+        The *List transactions* endpoint returns a list of [transactions](https://docs.codat.io/banking-api#/schemas/Transaction) for a given company's connection.
+
+        [Transactions](https://docs.codat.io/banking-api#/schemas/Transaction) provide an immutable source of up-to-date information on income and expenditure.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
