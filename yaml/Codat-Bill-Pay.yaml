@@ -487,7 +487,13 @@ paths:
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/409'
         '429':
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/429'
-      description: Gets the list of bank accounts for a given connection
+      description: |-
+        The *List bank accounts* endpoint returns a list of [bank accounts](https://docs.codat.io/accounting-api#/schemas/BankAccount) for a given company's connection.
+
+        [Bank accounts](https://docs.codat.io/accounting-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       operationId: list-bank-accounts
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts':
     get:
@@ -5576,7 +5582,13 @@ paths:
         - Suppliers
       summary: List suppliers
       operationId: list-suppliers
-      description: 'Gets the latest suppliers for a company, with pagination'
+      description: |-
+        The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/accounting-api#/schemas/Supplier) for a given company's connection.
+
+        [Suppliers](https://docs.codat.io/accounting-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/page'
@@ -12353,7 +12365,13 @@ paths:
                     correlationId: bc997528a9d7abb9161ef45f05d38599
                     canBeRetried: Unknown
                     detailedErrorCode: 0
-      description: "\uFEFFGets the latest bills for a company, with pagination."
+      description: |-
+        The *List bills* endpoint returns a list of [bills](https://docs.codat.io/accounting-api#/schemas/Bill) for a given company's connection.
+
+        [Bills](https://docs.codat.io/accounting-api#/schemas/Bill) are itemized records of goods received or services provided to the SMB.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       operationId: list-bills
   '/companies/{companyId}/data/bills/{billId}':
     get:
@@ -18591,7 +18609,13 @@ paths:
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/409'
         '429':
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/429'
-      description: "\uFEFFGets a list of all bill credit notes for a company, with pagination."
+      description: |-
+        The *List bill credit notes* endpoint returns a list of [bill credit notes](https://docs.codat.io/accounting-api#/schemas/BillCreditNote) for a given company's connection.
+
+        [Bill credit notes](https://docs.codat.io/accounting-api#/schemas/BillCreditNote) are issued by a supplier for the purpose of recording credit.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
     get:
       tags:
@@ -23182,7 +23206,13 @@ paths:
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/409'
         '429':
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/429'
-      description: "\uFEFFGets the latest billPayments for a company, with pagination."
+      description: |-
+        The *List bill payments* endpoint returns a list of [bill payments](https://docs.codat.io/accounting-api#/schemas/BillPayment) for a given company's connection.
+
+        [Bill payments](https://docs.codat.io/accounting-api#/schemas/BillPayment) are an allocation of money within any customer accounts payable account.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
+            
       operationId: list-bill-payments
   '/companies/{companyId}/connections/{connectionId}/push/billPayments':
     post:
