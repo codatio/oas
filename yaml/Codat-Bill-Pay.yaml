@@ -13646,7 +13646,14 @@ paths:
         '429':
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/429'
       summary: Get bill
-      description: "\uFEFFGet a bill."
+      description: |
+        The *Get bill* endpoint returns a single bill for a given billId.
+
+        [Bills](https://docs.codat.io/accounting-api#/schemas/Bill) are itemized records of goods received or services provided to the SMB.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support getting a specific bill.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       operationId: get-bill
   '/companies/{companyId}/connections/{connectionId}/options/bills':
     get:
@@ -19324,7 +19331,14 @@ paths:
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/409'
         '429':
           $ref: '#/paths/~1companies~1%7BcompanyId%7D~1data~1bills/get/responses/429'
-      description: "\uFEFFGets a single billCreditNote corresponding to the given ID."
+      description: |
+        The *Get bill credit note* endpoint returns a single bill credit note for a given billCreditNoteId.
+
+        [Bill credit notes](https://docs.codat.io/accounting-api#/schemas/BillCreditNote) are issued by a supplier for the purpose of recording credit.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) for integrations that support getting a specific bill credit note.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       operationId: get-bill-credit-note
   '/companies/{companyId}/connections/{connectionId}/options/billCreditNotes':
     get:
