@@ -451,7 +451,14 @@ paths:
         - Customers
       summary: Get customer
       operationId: get-customer
-      description: Get a specific commerce customer for the given company and data connection.
+      description: |
+        The *Get customer* endpoint returns a single customer for a given customerId.
+
+        [Customers](https://docs.codat.io/commerce-api#/schemas/Customer) are people or organizations that place orders, make payments and receive goods and/or services from the SMB.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for integrations that support getting a specific customer.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       responses:
         '200':
           description: OK
@@ -771,7 +778,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: Get a specific commerce dispute.
+      description: |
+        The *Get dispute* endpoint returns a single dispute for a given disputeId.
+
+        [Disputes](https://docs.codat.io/commerce-api#/schemas/Dispute) are created when a customer is unsatisfied with their purchase or believe they have been charged incorrectly.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for integrations that support getting a specific dispute.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-info':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1037,10 +1051,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: |-
-        Retrieve a location as seen in the commerce platform.
+      description: |
+        The *Get location* endpoint returns a single location for a given locationId.
 
-        A `location` is a geographic place at which stocks of products may be held, or from where orders were placed.
+        [Locations](https://docs.codat.io/commerce-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/commerce-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/commerce-api#/schemas/Order) were placed.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for integrations that support getting a specific location.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2644,7 +2662,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: Get a specific order placed or held on the linked commerce platform.
+      description: |
+        The *Get order* endpoint returns a single order for a given orderId.
+
+        [Orders](https://docs.codat.io/commerce-api#/schemas/Order) contain the transaction details for all products sold by the company.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for integrations that support getting a specific order.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3105,7 +3130,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: Get a specific commerce payment for the given company & data connection.
+      description: |
+        The *Get payment* endpoint returns a single payment for a given paymentId.
+
+        [Payments](https://docs.codat.io/commerce-api#/schemas/Payment) contain details of all payments made by customers to the company.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for integrations that support getting a specific payment.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3394,7 +3426,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: 'Retrieve a specific payment method, such as card, cash or other online payment methods, as held in the linked commerce platform.'
+      description: |
+        The *Get payment method* endpoint returns a single payment method for a given paymentMethodId.
+
+        [Payment methods](https://docs.codat.io/commerce-api#/schemas/PaymentMethod) represent the payment method(s) used to make payments.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for integrations that support getting a specific payment method.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4691,7 +4730,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: 'The Products data type provides the company''s product inventory, and includes the price and quantity of all products, and product variants, available for sale.'
+      description: |
+        The *Get product* endpoint returns a single product for a given productId.
+
+        [Products](https://docs.codat.io/commerce-api#/schemas/Product) are items in the company's inventory that are available for sale.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for integrations that support getting a specific product.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5007,7 +5053,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: 'Details of single financial transaction recorded in the commerce or point of sale system. For example, payments, service charges, and fees.'
+      description: |
+        The *Get transaction* endpoint returns a single transaction for a given transactionId.
+
+        [Transactions](https://docs.codat.io/commerce-api#/schemas/Transaction) detail all financial affairs recorded in the commerce or point of sale system.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for integrations that support getting a specific transaction.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5105,7 +5158,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: 'Product categories are used to classify a group of products together, either by type (e.g. "Furniture") or sometimes by tax profile.'
+      description: |
+        The *Get product* endpoint returns a single product for a given productId.
+
+        [Product categories](https://docs.codat.io/commerce-api#/schemas/ProductCategory) are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for integrations that support getting a specific product.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-taxComponents':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5261,7 +5321,14 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: 'This endpoint returns a specific tax rate from the commerce platform, including tax rate names and values. This supports the mapping of tax rates from the commerce platform to the accounting platform.'
+      description: |
+        The *Get tax* endpoint returns a single tax for a given taxId.
+
+        [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce platform, including tax rate's name and value.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-taxComponents) for integrations that support getting a specific tax.
+
+        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
 components:
   schemas:
     CompanyInfo:
