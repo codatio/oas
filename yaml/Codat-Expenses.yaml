@@ -469,6 +469,81 @@ paths:
                             id: 40e3e57c-2322-4898-966c-ca41adfd23fd
                       notes: Credit Card Payment
         description: ''
+  '/companies/{companyId}/expense-transactions/{transactionId}':
+    parameters:
+      - schema:
+          type: string
+          example: 8a210b68-6988-11ed-a1eb-0242ac120002
+        name: companyId
+        in: path
+        required: true
+        description: Unique identifier for your SMB in Codat.
+      - schema:
+          type: string
+          example: 336694d8-2dca-4cb5-a28d-3ccb83e55eee
+        name: transactionId
+        in: path
+        required: true
+        description: The unique identifier for your SMB's transaction.
+    put:
+      summary: Update expense-transactions
+      tags:
+        - Expenses
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  syncId:
+                    type: string
+                x-examples:
+                  Example 1:
+                    syncId: 1ad0695c-4566-4715-918c-adbb03eac81e
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          description: The request made is not valid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  service:
+                    type: string
+                  error:
+                    type: string
+                  correlationId:
+                    type: string
+                  canBeRetried:
+                    type: string
+                  detailedErrorCode:
+                    type: integer
+                x-examples:
+                  Example 1:
+                    statusCode: 422
+                    service: ExpenseSyncApi
+                    error: Expense transaction updates are not supported for platforms other than Xero.
+                    correlationId: 7c8e23841d211c87f49f30b248f70c93
+                    canBeRetried: Unknown
+                    detailedErrorCode: 0
+        '429':
+          $ref: '#/components/responses/BadRequest'
+      operationId: update-expense-dataset
+      description: Update an expense transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExpenseRequest'
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}/attachments':
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
@@ -1346,6 +1421,55 @@ components:
         href:
           type: string
           format: uri-reference
+    UpdateExpenseRequest:
+      type: object
+      x-examples:
+        Example 1:
+          type: Payment
+          issueDate: '2023-05-22T00:00:00+00:00'
+          currency: GBP
+          notes: New notes
+          merchantName: My Merchant
+      examples: []
+      properties:
+        type:
+          type: string
+          example: Payment
+          enum:
+            - Payment
+            - Refund
+            - Reward
+            - Chargeback
+            - TransferIn
+            - TransferOut
+            - AdjustmentIn
+            - AdjustmentOut
+          description: The type of transaction.
+        issueDate:
+          type: string
+          description: Date the transaction was recorded.
+          example: '2022-06-28T00:00:00.000Z'
+        currency:
+          type: string
+          example: GBP
+          description: Currency the transaction was recorded in.
+        notes:
+          type: string
+          description: 'Any private, company notes about the transaction.'
+          example: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
+        merchantName:
+          type: string
+          description: Name of the merchant where the purchase took place
+          example: Amazon UK
+        lines:
+          type: array
+          description: Array of transaction lines.
+          items:
+            $ref: '#/components/schemas/ExpenseTransactionLine'
+      required:
+        - type
+        - issueDate
+      x-internal: true
   parameters:
     syncId:
       name: syncId
