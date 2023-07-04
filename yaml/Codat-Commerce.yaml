@@ -5405,6 +5405,8 @@ components:
               example:
                 url1: 'https://connect.sandbox.com/v2/customers'
                 url2: 'https://connect.sandbox.com/v2/disputes'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
@@ -5464,6 +5466,8 @@ components:
             note:
               type: string
               description: Any additional information about the customer
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
@@ -5604,6 +5608,8 @@ components:
             dueDate:
               description: Date when the next action in the dispute resolution is due
               $ref: '#/components/schemas/DateTime'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
@@ -5667,15 +5673,6 @@ components:
               description: Address associated with the location
               $ref: '#/components/schemas/Address'
         - $ref: '#/components/schemas/ModifiedDates'
-        - type: object
-          description: 'Reference to a configured dynamic key value pair that is unique to the accounting platform. This feature is in private beta, contact us if you would like to learn more.'
-          properties:
-            content:
-              type: object
-              additionalProperties:
-                type: object
-                additionalProperties: {}
-              nullable: true
       definitions:
         locationRef:
           type: object
@@ -5797,6 +5794,8 @@ components:
               $ref: '#/components/schemas/Location/definitions/locationRef'
             customerRef:
               $ref: '#/components/schemas/Customer/definitions/customerRef'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
@@ -6015,6 +6014,8 @@ components:
             dueDate:
               description: Date by which payment must be made
               $ref: '#/components/schemas/DateTime'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
@@ -6108,6 +6109,8 @@ components:
               example: Alipay
             status:
               $ref: '#/components/schemas/PaymentMethod/definitions/paymentMethodStatus'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
         paymentMethodRef:
@@ -6184,6 +6187,8 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Product/definitions/productVariant'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
       definitions:
         productRef:
           type: object
@@ -6355,6 +6360,8 @@ components:
             hasChildren:
               type: boolean
               description: A boolean indicating whether there are other product categories beneath this one in the hierarchy.
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/ModifiedDates'
       examples:
         - productCategories:
@@ -6420,6 +6427,8 @@ components:
               examples:
                 - true
                 - false
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - $ref: '#/components/schemas/ModifiedDates'
           required:
             - name
@@ -6523,6 +6532,8 @@ components:
               description: Link to the source event which triggered this transaction
               allOf:
                 - $ref: '#/components/schemas/Transaction/definitions/transactionSourceRef'
+            supplementalData:
+              $ref: '#/components/schemas/Address/properties/supplementalData'
         - allOf:
             - type: object
               x-stoplight:
@@ -6616,6 +6627,20 @@ components:
         postalCode:
           description: The postal (or zip) code for the address
           type: string
+        supplementalData:
+          type: object
+          description: |-
+            Supplemental data is additional data you can include in our standard data types. 
+
+            It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/additional-data) about supplemental data.
+          properties:
+            content:
+              type: object
+              additionalProperties:
+                type: object
+                additionalProperties: {}
+              nullable: true
+          title: Supplemental data
       definitions:
         addressType:
           description: The type of the address
