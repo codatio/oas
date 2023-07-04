@@ -1116,29 +1116,6 @@ paths:
             - commerce-taxComponents
             - commerce-transactions
           example: invoices
-    get:
-      summary: Get configuration
-      description: |-
-        The *Get configuration* endpoint returns supplemental data configuration previously created for each integration and data type combination.
-
-        [Supplemental data](https://docs.codat.io/using-the-api/additional-data) is additional data you can include in Codat's standard data types.
-      operationId: get-supplemental-data-configuration
-      x-speakeasy-name-override: get-configuration
-      tags:
-        - Supplemental data
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SupplementalDataConfiguration'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
     put:
       summary: Configure
       description: |-
@@ -1218,6 +1195,29 @@ paths:
                     pullData:
                       yourNameForSalesTermRef: SalesTermRef.value
         description: The configuration for the specified platform and data type.
+    get:
+      summary: Get configuration
+      description: |-
+        The *Get configuration* endpoint returns supplemental data configuration previously created for each integration and data type combination.
+
+        [Supplemental data](https://docs.codat.io/using-the-api/additional-data) is additional data you can include in Codat's standard data types.
+      operationId: get-supplemental-data-configuration
+      x-speakeasy-name-override: get-configuration
+      tags:
+        - Supplemental data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplementalDataConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
 webhooks:
   Company data connection status changed:
     post:
@@ -2242,6 +2242,7 @@ components:
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     CompanyDataConnectionStatusChangedWebhook:
       title: Company data connection status changed webhook
+      x-internal: true
       description: Webhook request body for a company's data connection status changed.
       type: object
       properties:
@@ -2279,6 +2280,7 @@ components:
             platformKey: gbol
     DataSyncCompletedWebhook:
       title: Data sync complete webhook
+      x-internal: true
       description: Webhook request body to notify the completion of a data sync.
       type: object
       properties:
@@ -2333,6 +2335,7 @@ components:
             datasetId: 6586f21b-ad4d-4d06-a309-712af47184a2
     DatasetDataChangedWebhook:
       title: Dataset data changed webhook
+      x-internal: true
       description: Webhook request body to notify that a data synchronization has completed.
       type: object
       properties:
@@ -2367,6 +2370,7 @@ components:
             datasetId: 6586f21b-ad4d-4d06-a309-712af47184a2
     NewCompanySynchronizedWebhook:
       title: New company synchronized webhook
+      x-internal: true
       description: Webhook request body to notify that a new company has successfully synchronized at least one dataType for the first time.
       type: object
       properties:
@@ -2388,6 +2392,7 @@ components:
           message: Company 8a210b68-6988-11ed-a1eb-0242ac120002 synced for the first time
     PushOperationStatusChangedWebhook:
       title: Push operation status changed webhook
+      x-internal: true
       description: Webhook request body for a push operation status change.
       type: object
       properties:
@@ -2426,6 +2431,7 @@ components:
             pushOperationKey: c2f8847d-3047-4619-a157-6d947d8e4a73
     PushOperationTimedOutWebhook:
       title: Push operation timed out webhook
+      x-internal: true
       description: Webhook request body notifying that a push push operation has timed out.
       type: object
       properties:
@@ -2600,6 +2606,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     DatasetStatusChangedErrorWebhook:
       title: Dataset data error webhook
+      x-internal: true
       description: Webhook request body to notify that a data synchronization has completed.
       type: object
       properties:
