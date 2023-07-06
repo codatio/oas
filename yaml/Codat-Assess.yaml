@@ -4371,6 +4371,7 @@ components:
                 - Investment
                 - Repayment
                 - Interest
+                - AccuredInterest
       examples:
         - reportInfo:
             pageNumber: 1
@@ -4483,15 +4484,15 @@ components:
               description: The date of the earliest loan transaction.
               x-stoplight:
                 id: v8jngp34fn5w4
-            totalInvestments:
+            totalDrawdowns:
               type: number
-              description: The total loan investments for that company.
+              description: The total loan drawdowns.
             totalRepayments:
               type: number
-              description: The total loan repayments for that company.
+              description: The total loan repayments which includes capital plus any interest.
             balance:
               type: number
-              description: The total loan investments minus the total loan repayments for that company.
+              description: The loan outstanding balance.  This may not equal totalDrawdowns - totalRepayments due to interest which has been accrued.
       examples:
         - reportInfo:
             reportName: LoanSummaryReport
@@ -4504,10 +4505,10 @@ components:
                 integrationType: Accounting
                 recordRefType: accounts
               description: string
-              startDate: '2015-01-07'
-              totalInvestments: 12320
-              totalRepayments: 8200
-              balance: 4120
+              startDate: '2021-01-01'
+              totalInvestments: 100000
+              totalRepayments: 83481.72
+              balance: 42513.18
     PagingInfo:
       type: object
       x-internal: true
