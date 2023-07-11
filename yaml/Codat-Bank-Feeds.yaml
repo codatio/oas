@@ -534,7 +534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BankFeedAccounts'
+                $ref: '#/components/schemas/BankFeedAccount'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -592,18 +592,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankFeedAccount'
-              examples:
-                Example 1:
-                  value:
-                    id: acc-002
-                    accountName: account-081
-                    sortCode: '123456'
-                    accountType: Credit
-                    accountNumber: '12345670'
-                    currency: GBP
-                    balance: 99.99
-                    modifiedDate: '2023-01-09T14:14:14.1057478Z'
-                    status: pending
+              examples: {}
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -628,7 +617,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BankFeedMappings'
+                $ref: '#/components/schemas/BankFeedMapping'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -5579,96 +5568,86 @@ components:
           targetAccountId: account-081
           Status: Failed
           Error: A feed connection already exists to this account
+    BankFeedMapping:
+      title: Bank feed mapping
+      type: object
+      additionalProperties: false
+      properties:
+        sourceAccountId:
+          type: string
+          description: Unique ID for the source account.
+        sourceAccountName:
+          type: string
+          description: Name for the source account.
+        sourceAccountNumber:
+          type: string
+          description: Account number for the source account.
+        sourceBalance:
+          type: string
+          description: Balance for the source account.
+        sourceCurrency:
+          $ref: '#/components/schemas/BankFeedAccount/properties/currency'
+        targetAccountId:
+          type: string
+          nullable: true
+          description: Unique ID for the target account in the accounting platform.
+        targetAccountName:
+          type: string
+          description: Name for the target account in the accounting platform.
+        status:
+          type: string
+        targetAccountOptions:
+          type: array
+          nullable: true
+          description: An array of potential target accounts.
+          items:
+            $ref: '#/components/schemas/BankFeedMapping/definitions/targetAccountOption'
+        feedStartDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: The date from which bank transactions can be provided to the platform.
+      description: 'A bank feed connection between a source account and a target account, including potential target accounts.'
+      definitions:
+        targetAccountOption:
+          title: Target Account Option
+          type: object
+          properties:
+            id:
+              type: string
+              description: Id of the target account.
+            name:
+              type: string
+              nullable: true
+              description: Name of the target account.
+      examples:
+        - sourceAccountId: acc-002
+          targetAccountId: account-081
+          sourceCurrency: USD
+          status: Success
+          feedStartDate: '2023-01-09T14:14:14.1057478Z'
+          sourceAccountName: ACME Bank
+          sourceAccountNumber: 1234-5678
+          sourceBalance: 500
+          targetAccountName: ACME Bank
+        - sourceAccountId: acc-003
+          sourceCurrency: GBP
+          status: Success
+          targetAccountOptions:
+            name: target-Account
+            id: account-085
+          sourceAccountName: Clerkenwell Bank
+          sourceAccountNumber: 5432-1457
+          sourceBalance: 150
+          targetAccountName: Clerkenwell Bank
+          feedStartDate: '2022-03-05T14:14:14.1057478Z'
     BankFeedAccounts:
       x-internal: true
       type: array
       items:
         $ref: '#/components/schemas/BankFeedAccount'
-    BankFeedMappings:
-      x-internal: true
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            title: Bank feed mapping
-            type: object
-            additionalProperties: false
-            properties:
-              sourceAccountId:
-                type: string
-                description: Unique ID for the source account.
-              sourceAccountName:
-                type: string
-                description: Name for the source account.
-              sourceAccountNumber:
-                type: string
-                description: Account number for the source account.
-              sourceBalance:
-                type: string
-                description: Balance for the source account.
-              sourceCurrency:
-                $ref: '#/components/schemas/BankFeedAccount/properties/currency'
-              targetAccountId:
-                type: string
-                nullable: true
-                description: Unique ID for the target account in the accounting platform.
-              targetAccountName:
-                type: string
-                description: Name for the target account in the accounting platform.
-              status:
-                type: string
-              targetAccountOptions:
-                type: array
-                nullable: true
-                description: An array of potential target accounts.
-                items:
-                  $ref: '#/components/schemas/BankFeedMappings/properties/results/items/definitions/targetAccountOption'
-              feedStartDate:
-                $ref: '#/components/schemas/DateTime'
-                nullable: true
-                description: The date from which bank transactions can be provided to the platform.
-            description: 'A bank feed connection between a source account and a target account, including potential target accounts.'
-            definitions:
-              targetAccountOption:
-                title: Target Account Option
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Id of the target account.
-                  name:
-                    type: string
-                    nullable: true
-                    description: Name of the target account.
-            examples:
-              - sourceAccountId: acc-002
-                targetAccountId: account-081
-                sourceCurrency: USD
-                status: Success
-                feedStartDate: '2023-01-09T14:14:14.1057478Z'
-                sourceAccountName: ACME Bank
-                sourceAccountNumber: 1234-5678
-                sourceBalance: 500
-                targetAccountName: ACME Bank
-              - sourceAccountId: acc-003
-                sourceCurrency: GBP
-                status: Success
-                targetAccountOptions:
-                  name: target-Account
-                  id: account-085
-                sourceAccountName: Clerkenwell Bank
-                sourceAccountNumber: 5432-1457
-                sourceBalance: 150
-                targetAccountName: Clerkenwell Bank
-                feedStartDate: '2022-03-05T14:14:14.1057478Z'
     BankTransactions:
       title: Bank account transactions
       description: |-
-        > **Accessing Bank Accounts through Banking API**
-        > 
-        > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
-        >
         > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)
 
         > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
