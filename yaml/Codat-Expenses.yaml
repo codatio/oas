@@ -217,7 +217,7 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: Gets the status of the last successfull sync
+      description: Gets the status of the last successful sync
       summary: Last successful sync
       operationId: get-last-successful-sync
     parameters:
@@ -421,6 +421,9 @@ paths:
                       issueDate: '2021-05-21T00:00:00+00:00'
                       currency: GBP
                       currencyRate: 1.18
+                      contactRef:
+                        id: f5244103-5223-4b0a-857f-50566ac86c11
+                        type: 1
                       merchantName: Amazon UK
                       lines:
                         - netAmount: 110.42
@@ -1122,6 +1125,9 @@ components:
             | **GBP**          | £20            | 1.277         | $25.54                     |
             | **EUR**          | €20            | 1.134         | $22.68                     |
             | **RUB**          | ₽20            | 0.015         | $0.30                      |
+        contactRef:
+          description: Supplier or customer for the purchase to be associated to.
+          $ref: '#/components/schemas/ContactRef'
         merchantName:
           type: string
           example: Amazon UK
@@ -1151,6 +1157,20 @@ components:
           type: string
           example: 40e3e57c-2322-4898-966c-ca41adfd23fd
           description: identifier of linked reference from mapping options.
+    ContactRef:
+      type: object
+      title: Supplier/Customer reference
+      properties:
+        id:
+          type: string
+          example: 40e3e57c-2322-4898-966c-ca41adfd23fd
+          description: Identifier of supplier or customer.
+        contactType:
+          description: The type of contact.
+          type: string
+          example: Supplier
+          enum:
+            - Supplier
     ExpenseTransactionLine:
       x-internal: true
       title: Expense transaction line
@@ -1422,7 +1442,11 @@ components:
             type: Payment
             issueDate: '2023-05-22T00:00:00+00:00'
             currency: GBP
+            currencyRate: 1.18
             notes: New notes
+            contactRef:
+              id: f5244103-5223-4b0a-857f-50566ac86c11
+              type: 1
             merchantName: My Merchant
       properties:
         type: '#/definitions/expenseType'
@@ -1434,10 +1458,11 @@ components:
           type: string
           example: GBP
           description: Currency the transaction was recorded in.
-        notes:
-          type: string
-          description: 'Any private, company notes about the transaction.'
-          example: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
+        currencyRate:
+          $ref: '#/components/schemas/ExpenseTransaction/properties/currencyRate'
+        contactRef:
+          description: Supplier or Customer for the purchase to be associated to.
+          $ref: '#/components/schemas/ContactRef'
         merchantName:
           type: string
           description: Name of the merchant where the purchase took place
@@ -1447,6 +1472,10 @@ components:
           description: Array of transaction lines.
           items:
             $ref: '#/components/schemas/ExpenseTransactionLine'
+        notes:
+          type: string
+          description: 'Any private, company notes about the transaction.'
+          example: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
       definitions:
         expenseType:
           description: The type of transaction.
