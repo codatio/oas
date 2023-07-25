@@ -531,24 +531,11 @@ paths:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
         - $ref: '#/components/parameters/accountId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BankFeedAccount'
-            examples: {}
       responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushOperation'
-              examples: {}
+        '204':
+          description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts':
