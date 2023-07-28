@@ -508,8 +508,8 @@ paths:
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}/attachments':
     parameters:
       - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1sync~1expenses~1syncs/parameters/0'
-      - $ref: '#/components/parameters/transactionId'
       - $ref: '#/components/parameters/syncId'
+      - $ref: '#/components/parameters/transactionId'
     post:
       summary: Upload attachment
       operationId: upload-attachment
@@ -1449,7 +1449,8 @@ components:
               type: Supplier
             merchantName: My Merchant
       properties:
-        type: '#/definitions/expenseType'
+        type:
+          $ref: '#/components/schemas/UpdateExpenseRequest/definitions/expenseType'
         issueDate:
           type: string
           description: Date the transaction was recorded.
