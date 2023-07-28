@@ -173,6 +173,22 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/File'
+    ErrorMessage:
+      type: object
+      x-internal: true
+      properties:
+        statusCode:
+          type: integer
+        service:
+          type: string
+        error:
+          type: string
+        correlationId:
+          type: string
+        canBeRetried:
+          type: string
+        detailedErrorCode:
+          type: integer
   parameters:
     companyId:
       name: companyId
@@ -198,7 +214,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Not-Found/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Malformed query:
               value:
@@ -213,7 +229,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Not-Found/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Unauthorized:
               value:
@@ -230,21 +246,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            x-internal: true
-            properties:
-              statusCode:
-                type: integer
-              service:
-                type: string
-              error:
-                type: string
-              correlationId:
-                type: string
-              canBeRetried:
-                type: string
-              detailedErrorCode:
-                type: integer
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Data connection not found:
               value:
@@ -275,7 +277,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Not-Found/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Conflict:
               value:

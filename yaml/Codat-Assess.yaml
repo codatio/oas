@@ -3021,6 +3021,22 @@ components:
         | **GBP**          | £20            | 1.277         | $25.54                     |
         | **EUR**          | €20            | 1.134         | $22.68                     |
         | **RUB**          | ₽20            | 0.015         | $0.30                      |
+    ErrorMessage:
+      type: object
+      x-internal: true
+      properties:
+        statusCode:
+          type: integer
+        service:
+          type: string
+        error:
+          type: string
+        correlationId:
+          type: string
+        canBeRetried:
+          type: string
+        detailedErrorCode:
+          type: integer
   parameters:
     companyId:
       name: companyId
@@ -3158,7 +3174,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Unauthorized:
               value:
@@ -3173,7 +3189,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Malformed query:
               value:
@@ -3190,7 +3206,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Data connection not found:
               value:
@@ -3221,21 +3237,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            x-internal: true
-            properties:
-              statusCode:
-                type: integer
-              service:
-                type: string
-              error:
-                type: string
-              correlationId:
-                type: string
-              canBeRetried:
-                type: string
-              detailedErrorCode:
-                type: integer
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Conflict:
               value:
@@ -3250,7 +3252,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/responses/Conflict/content/application~1json/schema'
+            $ref: '#/components/schemas/ErrorMessage'
           examples:
             Conflict:
               value:
