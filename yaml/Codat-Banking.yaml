@@ -13,7 +13,7 @@ info:
     [Read more...](https://docs.codat.io/banking-api/overview)
 
     [See our OpenAPI spec](https://github.com/codatio/oas) 
-  version: 2.1.0
+  version: 3.0.0
   contact:
     name: Codat
     email: support@codat.io
@@ -1190,7 +1190,35 @@ components:
         totalResults:
           type: integer
         _links:
-          $ref: '#/components/schemas/Links'
+          $ref: '#/components/schemas/PagingInfo/definitions/links'
+      definitions:
+        links:
+          title: Hal Links
+          type: object
+          required:
+            - self
+            - current
+          properties:
+            self:
+              $ref: '#/components/schemas/PagingInfo/definitions/halRef'
+            current:
+              $ref: '#/components/schemas/PagingInfo/definitions/halRef'
+            next:
+              $ref: '#/components/schemas/PagingInfo/definitions/halRef'
+            previous:
+              $ref: '#/components/schemas/PagingInfo/definitions/halRef'
+          examples:
+            - self:
+                href: '/companies/{id}/data/{dataType}'
+              current:
+                href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+        halRef:
+          title: Hypertext reference
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri-reference
       required:
         - pageNumber
         - pageSize
