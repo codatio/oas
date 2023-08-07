@@ -32,16 +32,16 @@ x-speakeasy-retries:
     - 5XX
   retryConnectionErrors: true
 tags:
-  - name: Data integrity
-    description: Data integrity is important
   - name: Reports
-    description: Data integrity is important
+    description: Enriched reports and analyses of financial data
   - name: Excel reports
     description: Downloadable reports
   - name: Categories
-    description: Categorisation
+    description: Manage Codat's automatic account categorization functionality
+  - name: Data integrity
+    description: Match mutable accounting data with immutable banking data to increase confidence in financial data
   - name: Loan transactions
-    description: Loan Transactions
+    description: Loan transactions
 paths:
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/status':
     parameters:
@@ -1781,20 +1781,39 @@ components:
     Report:
       title: Assess report
       description: |-
+        ## Structure
+
         Assess reports follow a consistent structure. Reports contain four sections of information:
 
-        1. Report definition information such as:
-          a. The report info (e.g. enhanced_profit_and_loss).
-          b. The display name of the report (e.g. Enhanced Profit and Loss).
-        2. Information about the dimension contained in the reports such as:
-          a. The type of dimension (e.g. datetime, recordRef).
-          b. The display name of the dimension (e.g. Period, Category type, Category sub type).
-          c. The details about each item within the dimension (e.g. displayName:"Jan 2022", start:"...", end:"...", id:"...", name:"...").
-        3. Information about the measures contained in the report such as:
-          a. The display name of the measure (e.g. value of account, percentage change).
-          b. The type of the measure (e.g. currency, percentage).
-          c. The unit of the measure (e.g. %, GBP).
-        4. The data for the report. When the *includeDisplayName* parameter is set to *true*, it shows the *dimensionDisplayName* and *itemDisplayName* to make the data human-readable. The default setting for *includeDisplayName* is *false*.
+        ### 1. Report definition
+
+        Information such as:
+
+          1. The report info (e.g. enhanced_profit_and_loss).
+          2. The display name of the report (e.g. Enhanced Profit and Loss).
+          
+        ### 2. Dimension info
+
+        Information about the dimension contained in the reports such as:
+
+          1. The type of dimension (e.g. datetime, recordRef).
+          2. The display name of the dimension (e.g. Period, Category type, Category sub type).
+          3. The details about each item within the dimension (e.g. displayName:"Jan 2022", start:"...", end:"...", id:"...", name:"...").
+
+        ### 3. Measure info
+
+        Information about the measures contained in the report such as:
+
+          1. The display name of the measure (e.g. value of account, percentage change).
+          2. The type of the measure (e.g. currency, percentage).
+          3. The unit of the measure (e.g. %, GBP).
+          
+        ### 4. The data for the report
+
+        When the *includeDisplayName* parameter is set to *true*, it shows the *dimensionDisplayName* and *itemDisplayName* to make the data human-readable. The default setting for *includeDisplayName* is *false*.
+
+
+        ## Displaying the report
 
         Reports can be rendered as follows (ordering is implicit rather than explicit):
 
@@ -2340,7 +2359,12 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     EnhancedCashFlowTransactions:
       title: Enhanced cash flow transactions
-      description: ''
+      description: |-
+        > **Categorization engine**
+        >
+        > The categorization engine uses machine learning and has been fully trained against Plaid and TrueLayer banking data sources. It is not fully trained against the Basiq banking data source.
+
+        The Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
       type: object
       properties:
         reportInfo:

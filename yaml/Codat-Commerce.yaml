@@ -5332,7 +5332,7 @@ paths:
 components:
   schemas:
     CompanyInfo:
-      title: Company Info
+      title: Commerce company info
       description: |
         In the Codat system, company information includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
@@ -5430,7 +5430,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Transaction/allOf/1/properties/currency'
     Customer:
-      title: Customer
+      title: Commerce customer
       description: |-
         When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
 
@@ -5562,7 +5562,7 @@ components:
                 $ref: '#/components/schemas/Customer'
         - $ref: '#/components/schemas/PagingInfo'
     Dispute:
-      title: Dispute
+      title: Commerce dispute
       description: |-
         A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
         - They didn't receive an order.  
@@ -5648,7 +5648,7 @@ components:
                 $ref: '#/components/schemas/Dispute'
         - $ref: '#/components/schemas/PagingInfo'
     Location:
-      title: Location
+      title: Commerce location
       type: object
       description: |-
         The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
@@ -5709,7 +5709,7 @@ components:
                 $ref: '#/components/schemas/Location'
         - $ref: '#/components/schemas/PagingInfo'
     Order:
-      title: Order
+      title: Commerce order
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
@@ -5982,7 +5982,7 @@ components:
                 $ref: '#/components/schemas/Order'
         - $ref: '#/components/schemas/PagingInfo'
     Payment:
-      title: Payment
+      title: Commerce payment
       description: |-
         Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.
 
@@ -6097,7 +6097,7 @@ components:
                 $ref: '#/components/schemas/Payment'
         - $ref: '#/components/schemas/PagingInfo'
     PaymentMethod:
-      title: Payment Method
+      title: Commerce payment method
       description: |-
         A Payment Method represents the payment method(s) used to make payments.
 
@@ -6149,7 +6149,7 @@ components:
                 $ref: '#/components/schemas/PaymentMethod'
         - $ref: '#/components/schemas/PagingInfo'
     Product:
-      title: Product
+      title: Commerce product
       description: |
         A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
 
@@ -6335,7 +6335,7 @@ components:
                 $ref: '#/components/schemas/Product'
         - $ref: '#/components/schemas/PagingInfo'
     ProductCategory:
-      title: Product Category
+      title: Commerce product category
       description: |-
         Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
 
@@ -6398,7 +6398,7 @@ components:
                 $ref: '#/components/schemas/ProductCategory'
         - $ref: '#/components/schemas/PagingInfo'
     TaxComponent:
-      title: Tax Component
+      title: Commerce tax component
       description: |-
         The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
 
@@ -6475,7 +6475,7 @@ components:
                 $ref: '#/components/schemas/TaxComponent'
         - $ref: '#/components/schemas/PagingInfo'
     Transaction:
-      title: Transaction
+      title: Commerce transaction
       description: |-
         Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.
 
