@@ -419,6 +419,8 @@ paths:
                       contactRef:
                         id: f5244103-5223-4b0a-857f-50566ac86c11
                         type: Supplier
+                      bankAccountRef:
+                        id: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
                       merchantName: Amazon UK
                       lines:
                         - netAmount: 110.42
@@ -437,6 +439,8 @@ paths:
                       type: Refund
                       issueDate: '2023-02-17T00:00:00+00:00'
                       currency: GBP
+                      bankAccountRef:
+                        id: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
                       merchantName: Amazon UK
                       lines:
                         - netAmount: 110.42
@@ -455,6 +459,9 @@ paths:
                       type: TransferIn
                       issueDate: '2021-05-21T00:00:00+00:00'
                       currency: GBP
+                      bankAccountRef:
+                        id: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
+                      merchantName: Amazon UK
                       lines:
                         - netAmount: 180.93
                           taxAmount: 0
@@ -4793,6 +4800,14 @@ components:
         contactRef:
           description: Supplier or customer for the purchase to be associated to.
           $ref: '#/components/schemas/ContactRef'
+        bankAccountRef:
+          type: object
+          title: Bank account reference
+          properties:
+            id:
+              type: string
+              example: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
+              description: Identifier of the bank account.
         merchantName:
           type: string
           example: Amazon UK
@@ -5122,6 +5137,8 @@ components:
             contactRef:
               id: f5244103-5223-4b0a-857f-50566ac86c11
               type: Supplier
+            bankAccountRef:
+              id: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
             merchantName: My Merchant
       properties:
         type: '#/definitions/expenseType'
@@ -5138,6 +5155,14 @@ components:
         contactRef:
           description: Supplier or Customer for the purchase to be associated to.
           $ref: '#/components/schemas/ContactRef'
+        bankAccountRef:
+          type: object
+          title: Bank account reference
+          properties:
+            id:
+              type: string
+              example: 787dfb37-5707-4dc0-8a86-8d74e4cc78ea
+              description: Identifier of the bank account.
         merchantName:
           type: string
           description: Name of the merchant where the purchase took place
