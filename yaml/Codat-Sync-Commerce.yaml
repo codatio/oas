@@ -205,6 +205,32 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
+  '/companies/{companyId}/connections/{connectionId}/authorization':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    put:
+      summary: Update authorization
+      operationId: update-connection-authorization
+      x-speakeasy-name-override: update-authorization
+      description: Update data connection's authorization.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+        description: ''
   '/config/companies/{companyId}/sync/commerce':
     get:
       tags:
@@ -343,15 +369,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisibleAccounts'
-  '/sync/commerce/config/ui/accounts/platform/{commerceKey}':
-    patch:
+  '/sync/commerce/config/ui/accounts/platform/{platformKey}':
+    post:
       tags:
         - Sync flow preferences
       summary: Update visible accounts
       description: Update which accounts are visible on sync flow.
       operationId: update-visible-accounts-sync-flow
       parameters:
-        - name: commerceKey
+        - name: platformKey
           in: path
           required: true
           schema:
@@ -370,6 +396,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisibleAccounts'
+      x-stoplight:
+        id: d96aeyckv9yk6
   '/companies/{companyId}/sync/commerce/latest':
     post:
       tags:
