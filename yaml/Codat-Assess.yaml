@@ -1575,9 +1575,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Report'
               example:
-                - reportInfo:
-                    name: marketing_metrics
-                    displayName: Marketing metrics
+                - reportInfo: null
+                  name: marketing_metrics
+                  displayName: Marketing metrics
                   dimensions:
                     - index: 0
                       displayName: Period
@@ -1969,7 +1969,7 @@ components:
             type: object
             properties:
               date:
-                $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
                 description: Last date of the period.
               balance:
                 type: number
@@ -2019,7 +2019,7 @@ components:
               type: string
               description: Name of the company queried.
             generatedDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Returns the YYYY-MM-DD datetime of report generation.
       examples:
         - reportInfo:
@@ -2069,45 +2069,38 @@ components:
       title: Excel status
       properties:
         lastGenerated:
-          title: Date time
-          type: string
-          examples:
-            - 2022-10-23T00:00:00.000Z
-            - 2022-10-23T00:00:00.000Z
-          description: |-
-            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-            ```
-            2020-10-08T22:40:50Z
-            2021-01-01T00:00:00
-            ```
-
-
-
-            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-            - Unqualified local time: `2021-11-15T01:00:00`
-            - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-            > Time zones
-            > 
-            > Not all dates from Codat will contain information about time zones.  
-            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+          $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
+          description: The date and time of when the generation of the most recent report was initiated.
         inProgress:
           type: boolean
+          description: 'When true, the request was successful and the report is being generated. If false, the request was unsuccessful and the report is not being generated.'
         queued:
           type: string
+          description: The date and time of when a successful request was queued for the most recent report.
         success:
           type: boolean
+          description: True if the requested report was successfully queued and false if the requested report was not able to be queued.
         errorMessage:
           type: string
+          description: Error details in case the report generation request was unsuccessful.
         lastInvocationId:
           type: string
+          description: A unique ID generated for this request.
         reportType:
-          type: string
+          $ref: '#/components/schemas/ExcelStatus/definitions/excelReportTypes'
         fileSize:
           type: integer
+          nullable: true
+          description: The file size in Bytes is populated upon successful generation of the report.
+      definitions:
+        excelReportTypes:
+          type: string
+          enum:
+            - audit
+            - enhancedFinancials
+            - enhancedInvoices
+            - enhancedCashFlow
+          description: The type of the report requested in the query string.
       examples:
         Example 1:
           value:
@@ -2140,7 +2133,7 @@ components:
           properties:
             lastMatched:
               type: string
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: The date the matching algorithm last ran against the company’s data type specified.
               readOnly: true
             currentStatus:
@@ -2178,19 +2171,19 @@ components:
           description: 'Only returned for transactions. For accounts, there is nothing returned.'
           properties:
             minDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Earliest date of transaction set.
               readOnly: true
             maxDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Latest date of transaction set.
               readOnly: true
             minOverlappingDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Earliest date where transactions exist in both accounting and banking platforms.
               readOnly: true
             maxOverlappingDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Latest date where transactions exist in both account and banking platforms.
               readOnly: true
         integrityStatus:
@@ -2307,7 +2300,7 @@ components:
           description: ID GUID representing the connection of the accounting or banking platform.
           readOnly: true
         date:
-          $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+          $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
           description: The date of the transaction.
         description:
           type: string
@@ -2458,7 +2451,7 @@ components:
               type: string
             date:
               description: The date the bank transaction was posted.
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
             description:
               description: The description of the bank transaction.
               type: string
@@ -2587,7 +2580,31 @@ components:
               type: string
               description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform'
             date:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              title: Date time
+              type: string
+              examples:
+                - 2022-10-23T00:00:00.000Z
+                - 2022-10-23T00:00:00.000Z
+              description: |-
+                In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+                ```
+                2020-10-08T22:40:50Z
+                2021-01-01T00:00:00
+                ```
+
+
+
+                When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+                - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+                - Unqualified local time: `2021-11-15T01:00:00`
+                - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+                > Time zones
+                > 
+                > Not all dates from Codat will contain information about time zones.  
+                > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
             paymentType:
               type: string
             amount:
@@ -2613,7 +2630,7 @@ components:
             accountName:
               type: string
             date:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
             description:
               type: string
             amount:
@@ -2649,9 +2666,9 @@ components:
                 customerRef:
                   $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/customerRef'
                 issueDate:
-                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                  $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
                 dueDate:
-                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                  $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
                 status:
                   $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/invoiceStatus'
                 currency:
@@ -2665,7 +2682,7 @@ components:
                   items:
                     $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment'
                 paidOnDate:
-                  $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                  $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
             - x-internal: true
               allOf:
                 - title: ModifiedDate
@@ -2674,7 +2691,7 @@ components:
                   properties:
                     modifiedDate:
                       allOf:
-                        - $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                        - $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
                         - description: |-
                             The date when the record was last fetched from the data source and updated in Codat’s data cache. 
 
@@ -2690,7 +2707,7 @@ components:
                   properties:
                     sourceModifiedDate:
                       allOf:
-                        - $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+                        - $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
                         - description: |-
                             The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
 
@@ -2768,7 +2785,7 @@ components:
               type: string
               description: Name of the company queried.
             generatedDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Returns the YYYY-MM-DD datetime of report generation.
         loanRef:
           title: Loan Reference
@@ -2806,7 +2823,7 @@ components:
               $ref: '#/components/schemas/LoanTransactions/definitions/itemRef'
               description: Contains object of reporting properties. The loan ref will reference a different object depending on the integration type.
             date:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: The date of that entry type occurred.
             amount:
               type: number
@@ -2869,7 +2886,7 @@ components:
               type: string
               description: Name of the company queried.
             generatedDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: Returns the YYYY-MM-DD datetime of report generation.  urns the YYYY-MM-DD datetime of report generation.
         loanRef:
           title: Loan Reference
@@ -2926,7 +2943,7 @@ components:
               type: string
               description: The description of the object being referred to. E.g. the account.
             startDate:
-              $ref: '#/components/schemas/ExcelStatus/properties/lastGenerated'
+              $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
               description: The date of the earliest loan transaction.
               x-stoplight:
                 id: v8jngp34fn5w4
