@@ -5,7 +5,7 @@ servers:
   - description: Production
     url: 'https://api.codat.io'
 info:
-  title: Sync for Commerce API
+  title: Sync for Commerce
   version: '1.1'
   contact:
     name: Codat
@@ -44,10 +44,8 @@ tags:
     description: Initiate and monitor the sync of company data into accounting software.
   - name: Integrations
     description: View useful information about codat's integrations.
-  - name: Connections (advanced)
-    description: Create new and manage existing Sync for Commerce companies.
-  - name: Configuration (advanced)
-    description: Expressively configure preferences for any given Sync for Commerce company.
+  - name: Advanced controls
+    description: Advanced company management and sync preferences.
 paths:
   '/config/sync/commerce/{commerceKey}/{accountingKey}/start':
     get:
@@ -116,7 +114,7 @@ paths:
                 $ref: '#/components/schemas/Companies'
     post:
       tags:
-        - Connections (advanced)
+        - Advanced controls
       summary: Create company
       description: Creates a Codat company..
       operationId: create-company
@@ -138,7 +136,7 @@ paths:
   '/companies/{companyId}/connections':
     get:
       tags:
-        - Connections (advanced)
+        - Advanced controls
       summary: List connections
       description: List the connections for a company.
       operationId: list-connections
@@ -158,7 +156,7 @@ paths:
                 $ref: '#/components/schemas/Connections'
     post:
       tags:
-        - Connections (advanced)
+        - Advanced controls
       summary: Create connection
       description: Creates a connection for the company by providing a valid platformKey.
       operationId: create-connection
@@ -182,7 +180,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}':
     patch:
       tags:
-        - Connections (advanced)
+        - Advanced controls
       summary: Update connection
       description: Update a data connection
       operationId: update-connection
@@ -234,10 +232,11 @@ paths:
   '/config/companies/{companyId}/sync/commerce':
     get:
       tags:
-        - Configuration (advanced)
+        - Advanced controls
       summary: Get company configuration
       description: Returns a company's commerce sync configuration'.
       operationId: get-configuration
+      x-speakeasy-name-override: get-configuration
       parameters:
         - $ref: '#/components/parameters/companyId'
       responses:
@@ -249,10 +248,11 @@ paths:
                 $ref: '#/components/schemas/Configuration'
     post:
       tags:
-        - Configuration (advanced)
-      summary: Set configuration.
-      description: Sets a company's commerce sync configuration'.
+        - Advanced controls
+      summary: Set configuration
+      description: Sets a company's commerce sync configuration.
       operationId: set-configuration
+      x-speakeasy-name-override: set-configuration
       parameters:
         - $ref: '#/components/parameters/companyId'
       responses:
@@ -266,8 +266,8 @@ paths:
     get:
       tags:
         - Integrations
-      summary: List information on Codat's supported integrations
-      description: Retrieve a list of available integrations support by datatype and state of release.
+      summary: List integrations
+      description: Retrieve a list of available integrations support by data type and state of release.
       operationId: list-integrations
       parameters:
         - $ref: '#/components/parameters/page'
@@ -396,8 +396,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisibleAccounts'
-      x-stoplight:
-        id: d96aeyckv9yk6
   '/companies/{companyId}/sync/commerce/latest':
     post:
       tags:
