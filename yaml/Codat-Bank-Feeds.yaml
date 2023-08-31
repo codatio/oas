@@ -304,7 +304,7 @@ paths:
     get:
       summary: List connections
       description: "\uFEFFList the connections for a company."
-      operationId: list-company-connections
+      operationId: list-connections
       tags:
         - Connections
       parameters:
@@ -361,7 +361,7 @@ paths:
         - $ref: '#/components/parameters/companyId'
       tags:
         - Connections
-      operationId: create-data-connection
+      operationId: create-connection
       requestBody:
         content:
           application/json:
@@ -399,7 +399,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}':
     get:
       summary: Get connection
-      operationId: get-company-connection
+      operationId: get-connection
       description: "\uFEFFReturns a specific connection for a company when valid identifiers are provided. If the identifiers are for a deleted company and/or connection, a not found response is returned."
       tags:
         - Connections
@@ -434,7 +434,7 @@ paths:
           $ref: '#/components/responses/Too-Many-Requests'
     delete:
       summary: Delete connection
-      operationId: delete-company-connection
+      operationId: delete-connection
       description: "\uFEFFRevoke and remove a connection from a company.\nThis operation is not reversible. The end user would need to reauthorize a new data connection if you wish to view new data for this company."
       parameters:
         - $ref: '#/components/parameters/companyId'
@@ -454,6 +454,7 @@ paths:
       summary: Unlink connection
       description: "\uFEFFThis allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data."
       operationId: unlink-connection
+      x-speakeasy-name-override: unlink
       tags:
         - Connections
       parameters:
@@ -597,7 +598,7 @@ paths:
         - Source accounts
       summary: Generate source account credentials
       description: "\uFEFFThe _Generate Bank Account Credentials_ endpoint can be used to generate credentials for QuickBooks Online to use for authentication of the Bank Feed in their portal, each time this is used a new set of credentials will be generated.\n\nThe old credentials will still be valid until the revoke credentials endpoint is used, which will revoke all credentials associated to the data connection.\n"
-      operationId: generate-source-account-credentials
+      operationId: generate-credentials
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
@@ -674,7 +675,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountMappingResult'
+                $ref: '#/components/schemas/BankFeedAccountMappingResponse'
               examples: {}
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -738,11 +739,11 @@ paths:
         required: true
         description: Push operation key.
     get:
-      summary: Get push operation
+      summary: Get create operation
       tags:
         - Transactions
-      operationId: get-push-operation
-      x-speakeasy-name-override: get-operation
+      operationId: get-create-operation
+      x-speakeasy-name-override: get-create-operation
       description: Retrieve push operation.
       responses:
         '200':
@@ -767,19 +768,19 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      summary: List push operations
+      summary: List create operations
       tags:
         - Transactions
-      operationId: get-company-push-history
-      x-speakeasy-name-override: list-operations
-      description: List push operation records.
+      operationId: list-create-operations
+      x-speakeasy-name-override: list-create-operations
+      description: List create operations.
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushHistoryResponse'
+                $ref: '#/components/schemas/ListPushOperations'
               examples: {}
         '400':
           $ref: '#/components/responses/Malformed-Query'
@@ -857,7 +858,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Company'
-        - $ref: '#/components/schemas/PushHistoryResponse/allOf/1'
+        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
     CompanyRequestBody:
       x-internal: true
       type: object
@@ -988,7 +989,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Connection'
-        - $ref: '#/components/schemas/PushHistoryResponse/allOf/1'
+        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
     BankFeedAccount:
       title: Bank feed account
       type: object
@@ -1067,7 +1068,7 @@ components:
           modifiedDate: '2023-01-09T14:14:14.1057478Z'
           status: pending
     BankFeedAccountMapping:
-      title: Bank Feed Bank Account Mapping
+      title: Bank feed account mapping
       type: object
       additionalProperties: false
       properties:
@@ -1086,8 +1087,8 @@ components:
         - sourceAccountId: acc-002
           targetAccountId: account-081
           feedStartDate: '2023-01-09T14:14:14.1057478Z'
-    AccountMappingResult:
-      title: Bank Feed Bank Account Mapping Result
+    BankFeedAccountMappingResponse:
+      title: Bank feed account mapping response
       type: object
       additionalProperties: false
       properties:
@@ -1462,7 +1463,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PullOperation'
-        - $ref: '#/components/schemas/PushHistoryResponse/allOf/1'
+        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
     PullOperation:
       title: Pull Operation
       description: |-
@@ -1544,6 +1545,55 @@ components:
     PushOperation:
       type: object
       x-internal: true
+      properties:
+        changes:
+          type: array
+          nullable: true
+          description: 'Contains a single entry that communicates which record has changed and the manner in which it changed. '
+          items:
+            $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
+        dataType:
+          $ref: '#/components/schemas/DataType'
+          description: 'The type of data being pushed, eg invoices, customers.'
+        companyId:
+          $ref: '#/components/parameters/companyId/schema'
+        pushOperationKey:
+          type: string
+          format: uuid
+          description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
+        dataConnectionKey:
+          $ref: '#/components/parameters/connectionId/schema'
+        requestedOnUtc:
+          $ref: '#/components/schemas/DateTime'
+          description: The datetime when the push was requested.
+        completedOnUtc:
+          $ref: '#/components/schemas/DateTime'
+          description: 'The datetime when the push was completed, null if Pending.'
+        timeoutInMinutes:
+          type: integer
+          format: int32
+          nullable: true
+        timeoutInSeconds:
+          type: integer
+          format: int32
+          nullable: true
+          deprecated: true
+        status:
+          $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
+        errorMessage:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/PushOperation/definitions/validation'
+        statusCode:
+          type: integer
+      required:
+        - companyId
+        - pushOperationKey
+        - dataConnectionKey
+        - requestedOnUtc
+        - status
+        - statusCode
       definitions:
         validation:
           type: object
@@ -1613,58 +1663,7 @@ components:
             attachmentId:
               type: string
               nullable: true
-      properties:
-        changes:
-          type: array
-          nullable: true
-          description: 'Contains a single entry that communicates which record has changed and the manner in which it changed. '
-          items:
-            $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
-        dataType:
-          $ref: '#/components/schemas/DataType'
-          description: 'The type of data being pushed, eg invoices, customers.'
-        companyId:
-          $ref: '#/components/parameters/companyId/schema'
-        pushOperationKey:
-          type: string
-          format: uuid
-          description: 'A unique identifier generated by Codat to represent this single push operation. This identifier can be used to track the status of the push, and should be persisted.'
-        dataConnectionKey:
-          $ref: '#/components/parameters/connectionId/schema'
-        requestedOnUtc:
-          $ref: '#/components/schemas/DateTime'
-          description: The datetime when the push was requested.
-        completedOnUtc:
-          $ref: '#/components/schemas/DateTime'
-          description: 'The datetime when the push was completed, null if Pending.'
-        timeoutInMinutes:
-          type: integer
-          format: int32
-          nullable: true
-        timeoutInSeconds:
-          type: integer
-          format: int32
-          nullable: true
-          deprecated: true
-        status:
-          $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
-        errorMessage:
-          type: string
-          nullable: true
-        validation:
-          $ref: '#/components/schemas/PushOperation/definitions/validation'
-        statusCode:
-          type: integer
-      required:
-        - companyId
-        - pushOperationKey
-        - dataConnectionKey
-        - requestedOnUtc
-        - status
-        - statusCode
-    PushOperationSummary:
-      $ref: '#/components/schemas/PushOperation'
-    PushHistoryResponse:
+    ListPushOperations:
       x-internal: true
       allOf:
         - type: object
@@ -1683,7 +1682,7 @@ components:
             totalResults:
               type: integer
             _links:
-              $ref: '#/components/schemas/PushHistoryResponse/allOf/1/definitions/links'
+              $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/links'
           definitions:
             links:
               title: Hal Links
@@ -1693,13 +1692,13 @@ components:
                 - current
               properties:
                 self:
-                  $ref: '#/components/schemas/PushHistoryResponse/allOf/1/definitions/halRef'
+                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
                 current:
-                  $ref: '#/components/schemas/PushHistoryResponse/allOf/1/definitions/halRef'
+                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
                 next:
-                  $ref: '#/components/schemas/PushHistoryResponse/allOf/1/definitions/halRef'
+                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
                 previous:
-                  $ref: '#/components/schemas/PushHistoryResponse/allOf/1/definitions/halRef'
+                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
               examples:
                 - self:
                     href: '/companies/{id}/data/{dataType}'
