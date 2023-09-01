@@ -5468,7 +5468,7 @@ components:
         - $ref: '#/components/schemas/CreatedDate'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
-        customerRef:
+        commerceCustomerRef:
           type: object
           description: Reference to the customer that placed the order.
           properties:
@@ -5788,7 +5788,7 @@ components:
             locationRef:
               $ref: '#/components/schemas/Location/definitions/locationRef'
             customerRef:
-              $ref: '#/components/schemas/Customer/definitions/customerRef'
+              $ref: '#/components/schemas/Customer/definitions/commerceCustomerRef'
             supplementalData:
               type: object
               description: |-
@@ -6008,7 +6008,29 @@ components:
               $ref: '#/components/schemas/Transaction/allOf/1/properties/currency'
               description: Currency in which the payment was made
             paymentMethodRef:
-              $ref: '#/components/schemas/PaymentMethod/definitions/paymentMethodRef'
+              paymentMethodRef:
+                type: object
+                description: The payment method the record is linked to in the accounting or commerce platform.
+                properties:
+                  id:
+                    description: The unique identifier of the location being referenced.
+                    type: string
+                  name:
+                    description: Name of the location being referenced.
+                    type: string
+                required:
+                  - id
+                example:
+                  id: EILBDVJVNUAGVKRQ
+                  name: AliPay
+              paymentMethodStatus:
+                type: string
+                enum:
+                  - Active
+                  - Archived
+                  - Unknown
+                description: Status of the Payment Method
+                example: Active
             status:
               $ref: '#/components/schemas/Payment/definitions/paymentStatus'
             paymentProvider:
@@ -6116,21 +6138,6 @@ components:
               $ref: '#/components/schemas/PaymentMethod/definitions/paymentMethodStatus'
         - $ref: '#/components/schemas/ModifiedDates'
       definitions:
-        paymentMethodRef:
-          type: object
-          description: The payment method the payment is linked to in the commerce platform.
-          properties:
-            id:
-              description: The unique identitifer of the location being referenced.
-              type: string
-            name:
-              description: Name of the location being referenced.
-              type: string
-          required:
-            - id
-          example:
-            id: EILBDVJVNUAGVKRQ
-            name: AliPay
         paymentMethodStatus:
           type: string
           enum:
@@ -6603,7 +6610,7 @@ components:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/Address/definitions/addressType'
+          $ref: '#/components/schemas/Address/definitions/commerceAddressType'
         line1:
           description: The first line of the address
           type: string
@@ -6623,7 +6630,7 @@ components:
           description: The postal (or zip) code for the address
           type: string
       definitions:
-        addressType:
+        commerceAddressType:
           description: The type of the address
           type: string
           enum:
