@@ -797,9 +797,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Transaction'
+                $ref: '#/components/schemas/Transaction'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -4640,16 +4638,6 @@ components:
       title: Transaction
       type: object
       additionalProperties: false
-      x-examples:
-        Successful Transaction:
-          transactionId: 8fdba4ed-e327-4925-be1a-b7a2b04627f7
-          status: Completed
-          integrationType: expense
-        Unsuccessful Transaction:
-          transactionId: 3d694cd1-4cd9-4136-91db-32408195c6fc
-          status: ValidationError
-          message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
-          integrationType: string
       properties:
         transactionId:
           type: string
@@ -4664,6 +4652,16 @@ components:
           nullable: true
         integrationType:
           $ref: '#/components/schemas/IntegrationType'
+      x-examples:
+        Successful Transaction:
+          transactionId: 8fdba4ed-e327-4925-be1a-b7a2b04627f7
+          status: Completed
+          integrationType: expense
+        Unsuccessful Transaction:
+          transactionId: 3d694cd1-4cd9-4136-91db-32408195c6fc
+          status: ValidationError
+          message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
+          integrationType: string
     TransactionStatus:
       x-internal: true
       type: string
