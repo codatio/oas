@@ -688,7 +688,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BankFeedAccountMapping'
+              title: Bank feed account mapping
+              type: object
+              additionalProperties: false
+              properties:
+                sourceAccountId:
+                  type: string
+                  description: Unique ID for the source account
+                targetAccountId:
+                  type: string
+                  nullable: true
+                  description: Unique ID for the target account
+                feedStartDate:
+                  $ref: '#/components/schemas/DateTime'
+                  nullable: true
+                  description: Date to start importing transactions from
+              description: A bank feed connection between a source account and a target account.
+              examples:
+                - sourceAccountId: acc-002
+                  targetAccountId: account-081
+                  feedStartDate: '2023-01-09T14:14:14.1057478Z'
       responses:
         '200':
           description: Success
@@ -1112,26 +1131,8 @@ components:
           modifiedDate: '2023-01-09T14:14:14.1057478Z'
           status: pending
     BankFeedAccountMapping:
-      title: Bank feed account mapping
-      type: object
-      additionalProperties: false
-      properties:
-        sourceAccountId:
-          type: string
-          description: Unique ID for the source account
-        targetAccountId:
-          type: string
-          nullable: true
-          description: Unique ID for the target account
-        feedStartDate:
-          $ref: '#/components/schemas/DateTime'
-          nullable: true
-          description: Date to start importing transactions from
-      description: A bank feed connection between a source account and a target account.
-      examples:
-        - sourceAccountId: acc-002
-          targetAccountId: account-081
-          feedStartDate: '2023-01-09T14:14:14.1057478Z'
+      x-internal: true
+      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1bankFeedAccounts~1mapping/post/requestBody/content/application~1json/schema'
     BankFeedAccountMappingResponse:
       title: Bank feed account mapping response
       type: object
@@ -1510,7 +1511,7 @@ components:
                 $ref: '#/components/schemas/PullOperation'
         - $ref: '#/components/schemas/ListPushOperations/allOf/1'
     PullOperation:
-      title: Pull Operation
+      title: Pull operation
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
@@ -1589,6 +1590,7 @@ components:
           isErrored: false
     PushOperation:
       type: object
+      title: Push operation
       x-internal: true
       properties:
         changes:

@@ -5,11 +5,9 @@ servers:
 info:
   title: Lending API
   description: |-
-    An API for uploading and downloading files from 'File Upload' Integrations.
+    Our Lending API helps you make smarter credit decisions on small businesses by enabling you to pull your customers' latest data from accounting, banking, and commerce platforms they are already using. It also includes features to help providers verify the accuracy of data and process it more efficiently.
 
-    The Accounting file upload, Banking file upload, and Business documents file upload integrations provide simple file upload functionality.
-
-    [Read more...](https://docs.codat.io/other/file-upload)
+    The Lending API is built on top of the latest accounting, commerce, and banking data, providing you with the most important data points you need to get a full picture of SMB creditworthiness and make a comprehensive assessment of your customers.
 
     [See our OpenAPI spec](https://github.com/codatio/oas) 
   version: 3.0.0
@@ -70,7 +68,7 @@ tags:
     description: Access bank transactions from an accounting platform.
   - name: Transactions
     description: Data from a linked accounting platform representing transactions.
-  - name: Financials
+  - name: Financial statements
     description: Financial data and reports from a linked accounting platform.
   - name: Cash flow
     description: Retrieve banking data from linked bank accounts.
@@ -762,7 +760,7 @@ paths:
       summary: Get enhanced profit and loss accounts
       description: "\uFEFFThe *Get enhanced profit and loss accounts* endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss statement. It also includes a balance as of the financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
       tags:
-        - Financials
+        - Financial statements
       responses:
         '200':
           description: OK
@@ -1048,7 +1046,7 @@ paths:
       x-speakeasy-name-override: get-enhanced-balance-sheet-accounts
       description: "\uFEFFThe *Get enhanced balance sheet accounts* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
       tags:
-        - Financials
+        - Financial statements
       responses:
         '200':
           description: OK
@@ -2722,7 +2720,7 @@ paths:
   '/companies/{companyId}/data/accounts':
     get:
       tags:
-        - Financials
+        - Financial statements
       summary: List accounts
       description: "\uFEFFThe *List accounts* endpoint returns a list of [accounts](https://docs.codat.io/accounting-api#/schemas/Account) for a given company's connection.\n\n[Accounts](https://docs.codat.io/accounting-api#/schemas/Account) are the categories a business uses to record accounting transactions.\n\nBefore using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data)."
       operationId: list-accounting-accounts
@@ -3539,7 +3537,7 @@ paths:
       - $ref: '#/components/parameters/accountingAccountId'
     get:
       tags:
-        - Financials
+        - Financial statements
       summary: Get account
       responses:
         '200':
@@ -32515,6 +32513,7 @@ paths:
       operationId: get-accounting-transfer
       x-speakeasy-name-override: get-transfer
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts':
+    x-internal: true
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -32963,6 +32962,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}':
+    x-internal: true
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -33151,6 +33151,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
+    x-internal: true
     get:
       tags:
         - Accounting bank data
@@ -37624,6 +37625,161 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+  '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
+    x-internal: true
+    get:
+      tags:
+        - Accounting bank data
+      summary: Get create bank account transactions model
+      description: |
+        The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/accounting-api#/schemas/BankTransactions) for a given company and integration.
+
+        [Bank account transactions](https://docs.codat.io/accounting-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
+
+        **Integration-specific behaviour**
+
+        See the *response examples* for integration-specific indicative models.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support creating an bank transaction.
+      operationId: get-create-accounting-bank-transactions-model
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+        - $ref: '#/components/parameters/connectionId'
+        - $ref: '#/components/parameters/accountingAccountId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Push option
+                x-internal: true
+                required:
+                  - displayName
+                  - required
+                  - type
+                type: object
+                properties:
+                  type:
+                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionType'
+                  displayName:
+                    minLength: 1
+                    type: string
+                  description:
+                    type: string
+                  properties:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionProperty'
+                    nullable: true
+                  required:
+                    type: boolean
+                  options:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionChoice'
+                    nullable: true
+                  validation:
+                    $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushValidationInfo'
+                    nullable: true
+                definitions:
+                  pushOptionProperty:
+                    title: Push Option Property
+                    required:
+                      - description
+                      - displayName
+                      - required
+                      - type
+                    type: object
+                    properties:
+                      type:
+                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionType'
+                      displayName:
+                        minLength: 1
+                        type: string
+                      description:
+                        minLength: 1
+                        type: string
+                      properties:
+                        type: object
+                        additionalProperties:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionProperty'
+                        nullable: true
+                      options:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionChoice'
+                        nullable: true
+                      required:
+                        type: boolean
+                      validation:
+                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushValidationInfo'
+                  pushValidationInfo:
+                    title: Push validation info
+                    type: object
+                    properties:
+                      warnings:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushFieldValidation'
+                        nullable: true
+                      information:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushFieldValidation'
+                        nullable: true
+                    additionalProperties: false
+                  pushFieldValidation:
+                    title: Push field validation
+                    required:
+                      - details
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                      details:
+                        minLength: 1
+                        type: string
+                      ref:
+                        type: string
+                        format: uri
+                        nullable: true
+                    additionalProperties: false
+                  pushOptionType:
+                    title: Option Type
+                    enum:
+                      - Array
+                      - Object
+                      - String
+                      - Number
+                      - Boolean
+                      - DateTime
+                      - File
+                      - MultiPart
+                    type: string
+                  pushOptionChoice:
+                    title: Push Option Choice
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                        minLength: 1
+                        description: Allowed value for field.
+                      type:
+                        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1options~1bankAccounts~1%7BaccountId%7D~1bankTransactions/get/responses/200/content/application~1json/schema/definitions/pushOptionType'
+                      displayName:
+                        type: string
+                      description:
+                        type: string
+                      required:
+                        type: boolean
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/reports/agedDebtor/available':
@@ -44977,7 +45133,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       tags:
-        - Financials
+        - Financial statements
       summary: Get balance sheet
       description: Gets the latest balance sheet for a company.
       operationId: get-accounting-balance-sheet
@@ -49021,7 +49177,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       tags:
-        - Financials
+        - Financial statements
       summary: Get profit and loss
       description: Gets the latest profit and loss for a company.
       operationId: get-accounting-profit-and-loss
@@ -51771,7 +51927,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       tags:
-        - Financials
+        - Financial statements
       summary: Get cash flow statement
       description: Gets the latest cash flow statement for a company.
       operationId: get-accounting-cash-flow-statement
@@ -58306,7 +58462,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/DataStatus'
     PullOperation:
-      title: Pull Operation
+      title: Pull operation
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
