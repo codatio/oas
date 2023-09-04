@@ -109,10 +109,6 @@
       "description": "Tracking categories"
     },
     {
-      "name": "Push operations",
-      "description": "Access create, update and delete operations made to an SMB's data connection."
-    },
-    {
       "name": "Manage data",
       "description": "Asynchronously retrieve data from an integration to refresh data in Codat."
     }
@@ -805,6 +801,7 @@
       "get": {
         "summary": "Get data status",
         "operationId": "get-data-status",
+        "x-speakeasy-name-override": "get-data-status",
         "description": "Get the state of each data type for a company",
         "tags": [
           "Manage data"
@@ -1015,7 +1012,7 @@
         ],
         "summary": "List push operations",
         "tags": [
-          "Push operations"
+          "Manage data"
         ],
         "operationId": "list-push-operations",
         "description": "List push operation records.",
@@ -1106,9 +1103,10 @@
       "get": {
         "summary": "Get push operation",
         "tags": [
-          "Push operations"
+          "Manage data"
         ],
         "operationId": "get-push-operation",
+        "x-speakeasy-name-override": "get-push-operation",
         "description": "Retrieve push operation.",
         "responses": {
           "200": {
@@ -13533,7 +13531,7 @@
         }
       },
       "DataStatus": {
-        "title": "Data Status",
+        "title": "Data status",
         "description": "Describes the state of data in the Codat cache for a company and data type",
         "type": "object",
         "required": [

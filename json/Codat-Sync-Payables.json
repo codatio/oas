@@ -41328,7 +41328,7 @@
         }
       },
       "DataStatus": {
-        "title": "Data Status",
+        "title": "Data status",
         "description": "Describes the state of data in the Codat cache for a company and data type",
         "type": "object",
         "required": [
@@ -44122,7 +44122,7 @@
         ]
       },
       "TaxRate": {
-        "title": "Tax Rate",
+        "title": "Tax rate",
         "description": "> View the coverage for tax rates in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=taxRates\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounting systems typically store a set of taxes and associated rates within the accounting package. This means that users don't have to look up or remember the rates for each type of tax. For example, applying the tax \"UK sales VAT\" to line items of an invoice adds the correct rate of 20%. \n\n### Tax components\n\nIn some cases, a tax is made up of multiple sub taxes, often called _components_ of the tax.  For example, you may have an item that is charged a tax rate called \"City import tax (8%)\" that has two components: \n\n- A city tax of 5%  \n- An import tax of 3%\n\n> **Effective tax rates**  \n> - Where there are multiple components of a tax, each component may be calculated on the original amount and added together. Alternatively, one tax may be calculated on the sub-total of the original amount plus another tax, which is referred to as _compounding_. When there is compounding, the effective tax rate is the rate that, if applied to the original amount, would result in the total amount of tax with compounding.  \n>\n> **Example:**  \n> A tax has two components. Both components have a rate of 10%, and one component is compound. In this case, there is a total tax rate of 20% but an effective tax rate of 21%.\n>\n> - For QuickBooks Online, Codat doesn't use compound rates. Instead, the calculated effective tax rate for each component is shown. This means that the effective and total rates are the same because the total tax rate is a sum of the component rates.",
         "type": "object",
         "allOf": [

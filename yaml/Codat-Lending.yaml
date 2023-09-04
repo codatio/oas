@@ -1717,7 +1717,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: List enhanced loan transactions
+      summary: List loan transactions
       description: "\uFEFFThe *List enhanced loan transactions* endpoint returns all [loan transactions](https://docs.codat.io/lending-api#/schemas/LoanTransactions) identified from a company's accounting, banking, and commerce integrations.\n\nThis detail gives analysts a better idea of the loan obligations a company may have.\n\nMake sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.\n"
       tags:
         - Liabilities
@@ -1749,7 +1749,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get enhanced loan summaries
+      summary: Get loan summaries
       description: "\uFEFFThe *Get enhanced loan summaries* endpoint returns a summary by integration type of all loans identified in each integration.\n\nThe endpoint returns a list of a company's [loan summaries](https://docs.codat.io/lending-api#/schemas/LoanSummary) for each valid data connection.\n\nMake sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.\n"
       tags:
         - Liabilities
@@ -18628,7 +18628,7 @@ paths:
     get:
       tags:
         - Company info
-      summary: Get company info
+      summary: Get company accounting profile
       responses:
         '200':
           description: Success
@@ -18683,8 +18683,8 @@ paths:
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
       description: Gets the latest basic info for a company.
-      operationId: get-accounting-company-info
-      x-speakeasy-name-override: from-accounting-platform
+      operationId: get-accounting-profile
+      x-speakeasy-name-override: get-accounting-profile
   '/companies/{companyId}/data/invoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53693,11 +53693,11 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
-      summary: Get company info
+      summary: Get company commerce profile
       tags:
         - Company info
-      operationId: get-commerce-company-info
-      x-speakeasy-name-override: from-commerce-platform
+      operationId: get-commerce-profile
+      x-speakeasy-name-override: get-commerce-profile
       responses:
         '200':
           description: OK
@@ -58427,7 +58427,7 @@ components:
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
     DataStatus:
-      title: Data Status
+      title: Data status
       description: Describes the state of data in the Codat cache for a company and data type
       type: object
       required:
@@ -59216,7 +59216,7 @@ components:
                       - BankTransfers
                       - ShareholderTransfers
     LoanTransactions:
-      title: Loan Transactions
+      title: Loan transactions
       type: object
       properties:
         reportInfo:
@@ -59321,7 +59321,7 @@ components:
               amount: -455
               transactionType: Repayment
     LoanSummary:
-      title: Loan Summary
+      title: Loan summary
       type: object
       properties:
         reportInfo:
@@ -61073,7 +61073,7 @@ components:
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       examples: []
     AccountingCreditNote:
-      title: CreditNote
+      title: Credit note
       description: |-
         > View the coverage for credit notes in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes" target="_blank">Data coverage explorer</a>.
 
@@ -61326,7 +61326,7 @@ components:
               nullable: true
               description: An array of Addresses.
               items:
-                $ref: '#/components/schemas/AccountingAddress'
+                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
             contacts:
               type: array
               nullable: true
@@ -61390,7 +61390,7 @@ components:
               items:
                 $ref: '#/components/schemas/AccountingCompanyInfo/properties/phoneNumbers/items'
             address:
-              $ref: '#/components/schemas/AccountingAddress'
+              $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
               description: An object of Address information.
             status:
               $ref: '#/components/schemas/AccountingCustomer/definitions/customerStatus'
@@ -61739,7 +61739,44 @@ components:
           nullable: true
           description: An array of Addresses.
           items:
-            $ref: '#/components/schemas/AccountingAddress'
+            type: object
+            properties:
+              type:
+                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items/definitions/accountingAddressType'
+              line1:
+                type: string
+                nullable: true
+                description: Line 1 of the customer address.
+              line2:
+                type: string
+                nullable: true
+                description: Line 2 of the customer address.
+              city:
+                type: string
+                nullable: true
+                description: City of the customer address.
+              region:
+                type: string
+                nullable: true
+                description: Region of the customer address.
+              country:
+                type: string
+                nullable: true
+                description: Country of the customer address.
+              postalCode:
+                type: string
+                nullable: true
+                description: Postal code or zip code.
+            required:
+              - type
+            definitions:
+              accountingAddressType:
+                description: The type of the address
+                type: string
+                enum:
+                  - Unknown
+                  - Billing
+                  - Delivery
         phoneNumbers:
           type: array
           nullable: true
@@ -61861,44 +61898,8 @@ components:
             url2: 'https://reporting.xero.com/!rxs0Q'
           createdDate: '2020-02-03T16:42:02Z'
     AccountingAddress:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountingAddress/definitions/accountingAddressType'
-        line1:
-          type: string
-          nullable: true
-          description: Line 1 of the customer address.
-        line2:
-          type: string
-          nullable: true
-          description: Line 2 of the customer address.
-        city:
-          type: string
-          nullable: true
-          description: City of the customer address.
-        region:
-          type: string
-          nullable: true
-          description: Region of the customer address.
-        country:
-          type: string
-          nullable: true
-          description: Country of the customer address.
-        postalCode:
-          type: string
-          nullable: true
-          description: Postal code or zip code.
-      required:
-        - type
-      definitions:
-        accountingAddressType:
-          description: The type of the address
-          type: string
-          enum:
-            - Unknown
-            - Billing
-            - Delivery
+      x-internal: true
+      $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
     AccountingInvoice:
       title: Invoice
       description: |-
@@ -63161,7 +63162,7 @@ components:
               nullable: true
               description: An array of Addresses.
               items:
-                $ref: '#/components/schemas/AccountingAddress'
+                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
             registrationNumber:
               type: string
               nullable: true
@@ -64263,7 +64264,7 @@ components:
                 $ref: '#/components/schemas/BankingTransaction'
         - $ref: '#/components/schemas/PagingInfo'
     BankingAccountBalance:
-      title: Account Balance
+      title: Account balance
       description: |-
         The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
 
