@@ -40970,6 +40970,7 @@
     "schemas": {
       "PagingInfo": {
         "type": "object",
+        "title": "Pagination information",
         "x-internal": true,
         "properties": {
           "pageNumber": {
@@ -41052,6 +41053,7 @@
         ]
       },
       "Companies": {
+        "title": "Companies",
         "x-internal": true,
         "allOf": [
           {
@@ -41071,6 +41073,7 @@
         ]
       },
       "CompanyRequestBody": {
+        "title": "Create company request",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -41172,6 +41175,7 @@
         ]
       },
       "Connections": {
+        "title": "Connections",
         "x-internal": true,
         "allOf": [
           {
@@ -41468,8 +41472,29 @@
           }
         ]
       },
+      "PullOperations": {
+        "title": "Pull operations",
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PullOperation"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PagingInfo"
+          }
+        ]
+      },
       "DataType": {
         "x-internal": true,
+        "title": "Data types",
         "type": "string",
         "description": "Available Data types",
         "enum": [
@@ -41518,28 +41543,9 @@
         ],
         "example": "invoices"
       },
-      "PullOperations": {
-        "x-internal": true,
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "results": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/PullOperation"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
       "PushOperation": {
-        "type": "object",
         "title": "Push operation",
+        "type": "object",
         "x-internal": true,
         "properties": {
           "changes": {
@@ -41702,6 +41708,7 @@
         }
       },
       "PushOperations": {
+        "title": "Push operations",
         "x-internal": true,
         "allOf": [
           {
@@ -42031,6 +42038,7 @@
         "type": "object"
       },
       "Accounts": {
+        "title": "Accounts",
         "x-internal": true,
         "allOf": [
           {
@@ -42050,6 +42058,7 @@
         ]
       },
       "CreateAccountResponse": {
+        "title": "Create account response",
         "x-internal": true,
         "allOf": [
           {
@@ -42307,6 +42316,7 @@
                     ]
                   },
                   "projectRef": {
+                    "title": "Project reference",
                     "x-internal": true,
                     "required": [
                       "id"
@@ -42456,6 +42466,7 @@
         ]
       },
       "BillCreditNotes": {
+        "title": "Bill credit notes",
         "x-internal": true,
         "allOf": [
           {
@@ -42475,6 +42486,7 @@
         ]
       },
       "CreateBillCreditNoteResponse": {
+        "title": "Create bill credit note response",
         "x-internal": true,
         "allOf": [
           {
@@ -42491,6 +42503,7 @@
         ]
       },
       "UpdateBillCreditNoteResponse": {
+        "title": "Update bill credit note response",
         "x-internal": true,
         "allOf": [
           {
@@ -43040,6 +43053,7 @@
         ]
       },
       "BillPayments": {
+        "title": "Bill payments",
         "x-internal": true,
         "allOf": [
           {
@@ -43059,6 +43073,7 @@
         ]
       },
       "CreateBillPaymentResponse": {
+        "title": "Create bill payment response",
         "x-internal": true,
         "allOf": [
           {
@@ -43301,6 +43316,7 @@
             }
           },
           {
+            "title": "Modified dates",
             "x-internal": true,
             "allOf": [
               {
@@ -43436,6 +43452,7 @@
         }
       },
       "Bills": {
+        "title": "Bills",
         "x-internal": true,
         "allOf": [
           {
@@ -43455,6 +43472,7 @@
         ]
       },
       "CreateBillResponse": {
+        "title": "Create bill response",
         "x-internal": true,
         "allOf": [
           {
@@ -43471,6 +43489,7 @@
         ]
       },
       "UpdateBillResponse": {
+        "title": "Update bill response",
         "x-internal": true,
         "allOf": [
           {
@@ -43658,6 +43677,7 @@
         }
       },
       "CreateJournalEntryResponse": {
+        "title": "Create journal entry response",
         "x-internal": true,
         "allOf": [
           {
@@ -43760,6 +43780,7 @@
         }
       },
       "Journals": {
+        "title": "Journals",
         "x-internal": true,
         "allOf": [
           {
@@ -43779,6 +43800,7 @@
         ]
       },
       "CreateJournalResponse": {
+        "title": "Create journal response",
         "x-internal": true,
         "allOf": [
           {
@@ -43852,6 +43874,7 @@
         }
       },
       "PaymentMethods": {
+        "title": "Payment methods",
         "x-internal": true,
         "allOf": [
           {
@@ -43912,6 +43935,7 @@
                 "nullable": true,
                 "description": "An array of Addresses.",
                 "items": {
+                  "title": "Accounting address",
                   "type": "object",
                   "properties": {
                     "type": {
@@ -44071,6 +44095,7 @@
         ]
       },
       "Suppliers": {
+        "title": "Suppliers",
         "x-internal": true,
         "allOf": [
           {
@@ -44090,6 +44115,7 @@
         ]
       },
       "CreateSupplierResponse": {
+        "title": "Create supplier response",
         "x-internal": true,
         "allOf": [
           {
@@ -44106,6 +44132,7 @@
         ]
       },
       "UpdateSupplierResponse": {
+        "title": "Update supplier response",
         "x-internal": true,
         "allOf": [
           {
@@ -44237,6 +44264,7 @@
         }
       },
       "TaxRates": {
+        "title": "Tax rates",
         "x-internal": true,
         "allOf": [
           {
@@ -44334,6 +44362,7 @@
         ]
       },
       "TrackingCategories": {
+        "title": "Tracking categories",
         "x-internal": true,
         "allOf": [
           {
@@ -44398,6 +44427,7 @@
         ]
       },
       "ErrorMessage": {
+        "title": "Error message",
         "type": "object",
         "x-internal": true,
         "properties": {
@@ -44422,6 +44452,7 @@
         }
       },
       "Metadata": {
+        "title": "Metadata",
         "type": "object",
         "x-internal": true,
         "properties": {

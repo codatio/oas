@@ -58176,6 +58176,7 @@ components:
   schemas:
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -58229,6 +58230,7 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -58239,6 +58241,7 @@ components:
                 $ref: '#/components/schemas/Company'
         - $ref: '#/components/schemas/PagingInfo'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -58309,16 +58312,6 @@ components:
               lastSync: '2022-10-27T10:22:43.6464237Z'
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
-    Connections:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/Connection'
-        - $ref: '#/components/schemas/PagingInfo'
     Connection:
       title: Connection
       description: "\uFEFFA connection represents a [company's](https://docs.codat.io/lending-api#/schemas/Company) connection to a data source and allows you to synchronize data (pull and/or push) with that source.\n\nA company can have multiple data connections depending on the type of data source it is connecting to. For example, a single company can link to:\n\n- [Accounting data](https://docs.codat.io/accounting-api/overview) - 1 active connection.\n- [Banking data](https://docs.codat.io/banking-api/overview) - Multiple active connections.\n- [Commerce data](https://docs.codat.io/commerce-api/overview) - Multiple active connections.\nAny combination of accounting, banking, and commerce data connections is allowed.\n\nBefore you can use a data connection to pull or push data, the company must grant you access to their business data by [linking the connection](https://docs.codat.io/auth-flow/overview)."
@@ -58426,6 +58419,17 @@ components:
         lastSync: '2022-10-27T10:22:43.6464237Z'
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
+    Connections:
+      title: Connections
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/Connection'
+        - $ref: '#/components/schemas/PagingInfo'
     DataStatus:
       title: Data status
       description: Describes the state of data in the Codat cache for a company and data type
@@ -58461,6 +58465,55 @@ components:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/DataStatus'
+    DataType:
+      x-internal: true
+      title: Data types
+      type: string
+      description: Available Data types
+      enum:
+        - accountTransactions
+        - balanceSheet
+        - bankAccounts
+        - bankTransactions
+        - billCreditNotes
+        - billPayments
+        - bills
+        - cashFlowStatement
+        - chartOfAccounts
+        - company
+        - creditNotes
+        - customers
+        - directCosts
+        - directIncomes
+        - invoices
+        - items
+        - journalEntries
+        - journals
+        - paymentMethods
+        - payments
+        - profitAndLoss
+        - purchaseOrders
+        - salesOrders
+        - suppliers
+        - taxRates
+        - trackingCategories
+        - transfers
+        - banking-accountBalances
+        - banking-accounts
+        - banking-transactionCategories
+        - banking-transactions
+        - commerce-companyInfo
+        - commerce-customers
+        - commerce-disputes
+        - commerce-locations
+        - commerce-orders
+        - commerce-paymentMethods
+        - commerce-payments
+        - commerce-productCategories
+        - commerce-products
+        - commerce-taxComponents
+        - commerce-transactions
+      example: invoices
     PullOperation:
       title: Pull operation
       description: |-
@@ -58539,55 +58592,8 @@ components:
           progress: 10
           isCompleted: false
           isErrored: false
-    DataType:
-      x-internal: true
-      type: string
-      description: Available Data types
-      enum:
-        - accountTransactions
-        - balanceSheet
-        - bankAccounts
-        - bankTransactions
-        - billCreditNotes
-        - billPayments
-        - bills
-        - cashFlowStatement
-        - chartOfAccounts
-        - company
-        - creditNotes
-        - customers
-        - directCosts
-        - directIncomes
-        - invoices
-        - items
-        - journalEntries
-        - journals
-        - paymentMethods
-        - payments
-        - profitAndLoss
-        - purchaseOrders
-        - salesOrders
-        - suppliers
-        - taxRates
-        - trackingCategories
-        - transfers
-        - banking-accountBalances
-        - banking-accounts
-        - banking-transactionCategories
-        - banking-transactions
-        - commerce-companyInfo
-        - commerce-customers
-        - commerce-disputes
-        - commerce-locations
-        - commerce-orders
-        - commerce-paymentMethods
-        - commerce-payments
-        - commerce-productCategories
-        - commerce-products
-        - commerce-taxComponents
-        - commerce-transactions
-      example: invoices
     PullOperations:
+      title: Pull operations
       x-internal: true
       allOf:
         - type: object
@@ -58702,6 +58708,7 @@ components:
             minOverlappingDate: '2021-09-30T12:09:13.441Z'
             maxOverlappingDate: '2021-11-27T12:19:33.441Z'
     DataIntegrityStatuses:
+      title: Data integrity statuses
       x-internal: true
       type: object
       properties:
@@ -58762,6 +58769,7 @@ components:
               type: number
               description: The total of unmatched and matched.
     DataIntegritySummaries:
+      title: Data integrity summaries
       x-internal: true
       type: object
       properties:
@@ -58827,6 +58835,7 @@ components:
               $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
               description: The currency of the transaction.
     DataIntegrityDetails:
+      title: Data integrity details
       x-internal: true
       allOf:
         - type: object
@@ -59652,6 +59661,7 @@ components:
             reportType: string
             fileSize: 0
     ProjectRef:
+      title: Project reference
       x-internal: true
       required:
         - id
@@ -59767,6 +59777,7 @@ components:
               type: number
               description: Amount in the bill payment currency.
     AccountingAccountTransactions:
+      title: Account transactions
       x-internal: true
       allOf:
         - type: object
@@ -59956,6 +59967,7 @@ components:
           example: Active
       type: object
     AccountingAccounts:
+      title: Accounts
       x-internal: true
       allOf:
         - type: object
@@ -60242,6 +60254,7 @@ components:
             id: 67C6A7A1-5E84-4AC4-B950-24A114E379D0
             supplierName: Chin's Gas and Oil
     AccountingBillCreditNotes:
+      title: Bill credit notes
       x-internal: true
       allOf:
         - type: object
@@ -60682,6 +60695,7 @@ components:
                   id: z
                   amount: 750
     AccountingBillPayments:
+      title: Bill payments
       x-internal: true
       allOf:
         - type: object
@@ -60877,6 +60891,17 @@ components:
           required:
             - unitAmount
             - quantity
+    AccountingBills:
+      title: Bills
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/AccountingBill'
+        - $ref: '#/components/schemas/PagingInfo'
     AccountingPaymentMethod:
       title: Payment method
       description: |-
@@ -61002,16 +61027,6 @@ components:
             totalAmount:
               type: number
               description: Total amount that was paid.
-    AccountingBills:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/AccountingBill'
-        - $ref: '#/components/schemas/PagingInfo'
     Attachments:
       x-internal: true
       type: object
@@ -61276,6 +61291,7 @@ components:
             modifiedDate: null
             sourceModifiedDate: null
     AccountingCreditNotes:
+      title: Credit notes
       x-internal: true
       allOf:
         - type: object
@@ -61399,6 +61415,7 @@ components:
           required:
             - status
     AccountingCustomers:
+      title: Accounting customers
       x-internal: true
       allOf:
         - type: object
@@ -61558,6 +61575,7 @@ components:
               $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
           additionalProperties: false
     AccountingDirectCosts:
+      title: Direct costs
       x-internal: true
       allOf:
         - type: object
@@ -61701,6 +61719,7 @@ components:
             - unitAmount
             - quantity
     AccountingDirectIncomes:
+      title: Direct incomes
       x-internal: true
       allOf:
         - type: object
@@ -61739,6 +61758,7 @@ components:
           nullable: true
           description: An array of Addresses.
           items:
+            title: Accounting address
             type: object
             properties:
               type:
@@ -62106,6 +62126,7 @@ components:
             - `Paid` - Invoice is paid in full. This includes if the invoice has been credited or overpaid (amountDue == 0).
             - `Void` - An invoice can become Void when it's deleted, refunded, written off, or cancelled. A voided invoice may still be PartiallyPaid, and so all outstanding amounts on voided invoices are removed from the accounts receivable account.
     AccountingInvoices:
+      title: Invoices
       x-internal: true
       allOf:
         - type: object
@@ -62211,6 +62232,7 @@ components:
           required:
             - netAmount
     AccountingJournalEntries:
+      title: Journal entries
       x-internal: true
       allOf:
         - type: object
@@ -62309,6 +62331,7 @@ components:
             - Active
             - Archived
     AccountingJournals:
+      title: Journals
       x-internal: true
       allOf:
         - type: object
@@ -63113,6 +63136,7 @@ components:
             `Manual Journal`  
             `Discount` - ID refers to the payment
     AccountingPayments:
+      title: Accounting payments
       x-internal: true
       allOf:
         - type: object
@@ -63238,6 +63262,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     AccountingSuppliers:
+      title: Suppliers
       x-internal: true
       allOf:
         - type: object
@@ -63316,6 +63341,7 @@ components:
               description: The amount transferred between accounts.
       type: object
     AccountingTransfers:
+      title: Transfers
       x-internal: true
       allOf:
         - type: object
@@ -63423,6 +63449,7 @@ components:
           description: Links to the Account transactions data type.
     AccountingBankAccounts:
       x-internal: true
+      title: Bank Accounts
       allOf:
         - type: object
           properties:
@@ -63432,7 +63459,7 @@ components:
                 $ref: '#/components/schemas/AccountingBankAccount'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingBankTransaction:
-      title: Bank account transactions
+      title: Bank account transaction
       description: |-
         > **Accessing Bank Accounts through Banking API**
         > 
@@ -63498,6 +63525,7 @@ components:
             - RepeatPmt
             - Other
     AccountingBankTransactions:
+      title: Accounting bank transactions
       x-internal: true
       allOf:
         - type: object
@@ -64170,7 +64198,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     BankingTransaction:
-      title: Transaction
+      title: Banking transaction
       description: |-
         The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
@@ -64254,6 +64282,7 @@ components:
           modifiedDate: '2022-05-23T16:32:50Z'
           sourceModifiedDate: '2021-06-28T10:48:12'
     BankingTransactions:
+      title: Banking transactions
       x-internal: true
       allOf:
         - type: object
@@ -64339,6 +64368,7 @@ components:
                 limit: 0
               date: '2022-03-09T00:00:00'
     BankingAccountBalances:
+      title: Account balances
       x-internal: true
       allOf:
         - type: object
@@ -64347,16 +64377,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/BankingAccountBalance'
-        - $ref: '#/components/schemas/PagingInfo'
-    BankingAccounts:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/BankingAccount'
         - $ref: '#/components/schemas/PagingInfo'
     BankingAccount:
       title: Account
@@ -64500,6 +64520,17 @@ components:
                 name: Lloyds Bank
               modifiedDate: '2022-05-23T16:32:50Z'
               sourceModifiedDate: '2021-08-14T05:04:12'
+    BankingAccounts:
+      title: Banking accounts
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/BankingAccount'
+        - $ref: '#/components/schemas/PagingInfo'
     BankingTransactionCategory:
       title: Transaction Category
       description: |-
@@ -64563,6 +64594,7 @@ components:
           modifiedDate: '2022-05-23T16:32:50'
           sourceModifiedDate: '2021-04-24T07:59:10'
     BankingTransactionCategories:
+      title: Transaction categories
       x-internal: true
       allOf:
         - type: object
@@ -64572,51 +64604,6 @@ components:
               items:
                 $ref: '#/components/schemas/BankingTransactionCategory'
         - $ref: '#/components/schemas/PagingInfo'
-    CommerceCustomers:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/CommerceCustomer'
-        - $ref: '#/components/schemas/PagingInfo'
-    CommerceAddress:
-      title: Address
-      x-internal: true
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/CommerceAddress/definitions/commerceAddressType'
-        line1:
-          description: The first line of the address
-          type: string
-        line2:
-          description: The second line of the address
-          type: string
-        city:
-          description: 'The third line of the address, or city'
-          type: string
-        region:
-          description: 'The fourth line of the address, or region'
-          type: string
-        country:
-          description: The country for the address
-          type: string
-        postalCode:
-          description: The postal (or zip) code for the address
-          type: string
-      definitions:
-        commerceAddressType:
-          description: The type of the address
-          type: string
-          enum:
-            - Billing
-            - Delivery
-            - Order
-            - Inventory
-            - Unknown
     CommerceCustomer:
       title: Commerce customer
       description: |-
@@ -64739,7 +64726,8 @@ components:
               createdDate: '0001-01-01T00:00:00'
               modifiedDate: null
               sourceModifiedDate: '2020-08-12T14:37:37'
-    CommerceDisputes:
+    CommerceCustomers:
+      title: Commerce customers
       x-internal: true
       allOf:
         - type: object
@@ -64747,8 +64735,43 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommerceDispute'
+                $ref: '#/components/schemas/CommerceCustomer'
         - $ref: '#/components/schemas/PagingInfo'
+    CommerceAddress:
+      title: Address
+      x-internal: true
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CommerceAddress/definitions/commerceAddressType'
+        line1:
+          description: The first line of the address
+          type: string
+        line2:
+          description: The second line of the address
+          type: string
+        city:
+          description: 'The third line of the address, or city'
+          type: string
+        region:
+          description: 'The fourth line of the address, or region'
+          type: string
+        country:
+          description: The country for the address
+          type: string
+        postalCode:
+          description: The postal (or zip) code for the address
+          type: string
+      definitions:
+        commerceAddressType:
+          description: The type of the address
+          type: string
+          enum:
+            - Billing
+            - Delivery
+            - Order
+            - Inventory
+            - Unknown
     CommerceDispute:
       title: Commerce dispute
       description: |-
@@ -64825,6 +64848,17 @@ components:
           createdDate: '2021-03-22T14:39:55'
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-22T14:39:55'
+    CommerceDisputes:
+      title: Disputes
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/CommerceDispute'
+        - $ref: '#/components/schemas/PagingInfo'
     CommerceCompanyInfo:
       title: Commerce company info
       description: |
@@ -64906,16 +64940,6 @@ components:
               description: The currency of the account
               allOf:
                 - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
-    CommerceLocations:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/CommerceLocation'
-        - $ref: '#/components/schemas/PagingInfo'
     CommerceLocation:
       title: Commerce location
       type: object
@@ -64967,7 +64991,8 @@ components:
             postalCode: WC1X 8WB
           modifiedDate: '2020-08-12T14:37:37'
           sourceModifiedDate: '2020-08-12T14:37:37'
-    CommerceOrders:
+    CommerceLocations:
+      title: Locations
       x-internal: true
       allOf:
         - type: object
@@ -64975,7 +65000,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommerceOrder'
+                $ref: '#/components/schemas/CommerceLocation'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceOrder:
       title: Commerce order
@@ -65071,13 +65096,15 @@ components:
                     additionalProperties: {}
                   nullable: true
               title: Supplemental data
-        - type: object
+        - title: Created date
+          type: object
           x-internal: true
           properties:
             createdDate:
               $ref: '#/components/schemas/DateTime'
               description: The date the entity was created.
-        - x-internal: true
+        - title: Modified dates
+          x-internal: true
           allOf:
             - title: ModifiedDate
               x-internal: true
@@ -65279,7 +65306,8 @@ components:
             name: Emmy Roberts
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-28T03:00:14'
-    CommercePaymentMethods:
+    CommerceOrders:
+      title: Orders
       x-internal: true
       allOf:
         - type: object
@@ -65287,7 +65315,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommercePaymentMethod'
+                $ref: '#/components/schemas/CommerceOrder'
         - $ref: '#/components/schemas/PagingInfo'
     CommercePaymentMethod:
       title: Commerce payment method
@@ -65316,7 +65344,8 @@ components:
             - Unknown
           description: Status of the Payment Method
           example: Active
-    CommercePayments:
+    CommercePaymentMethods:
+      title: Commerce payment methods
       x-internal: true
       allOf:
         - type: object
@@ -65324,7 +65353,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommercePayment'
+                $ref: '#/components/schemas/CommercePaymentMethod'
         - $ref: '#/components/schemas/PagingInfo'
     CommercePayment:
       title: Commerce payment
@@ -65453,7 +65482,8 @@ components:
                   $ref: '#/components/schemas/DateTime'
             - $ref: '#/components/schemas/CommerceOrder/allOf/2'
             - $ref: '#/components/schemas/CommerceOrder/allOf/3'
-    CommerceProductCategories:
+    CommercePayments:
+      title: Commerce payments
       x-internal: true
       allOf:
         - type: object
@@ -65461,7 +65491,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommerceProductCategory'
+                $ref: '#/components/schemas/CommercePayment'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceProductCategory:
       title: Commerce product category
@@ -65516,7 +65546,8 @@ components:
               hasChildren: false
               modifiedDate: '2022-01-01T12:00:00Z'
               sourceModifiedDate: '2021-12-25T12:00:00Z'
-    CommerceProducts:
+    CommerceProductCategories:
+      title: Product categories
       x-internal: true
       allOf:
         - type: object
@@ -65524,7 +65555,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommerceProduct'
+                $ref: '#/components/schemas/CommerceProductCategory'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceProduct:
       title: Commerce product
@@ -65702,7 +65733,8 @@ components:
             - Unknown
             - Published
             - Unpublished
-    CommerceTransactions:
+    CommerceProducts:
+      title: Products
       x-internal: true
       allOf:
         - type: object
@@ -65710,7 +65742,7 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/CommerceTransaction'
+                $ref: '#/components/schemas/CommerceProduct'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceTransaction:
       title: Commerce transaction
@@ -65809,6 +65841,17 @@ components:
             - PaymentFeeRefund
             - Unknown
       examples: []
+    CommerceTransactions:
+      title: Commerce transactions
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/CommerceTransaction'
+        - $ref: '#/components/schemas/PagingInfo'
     AccountsPayableTracking:
       title: Tracking
       type: object
@@ -65902,10 +65945,12 @@ components:
           $ref: '#/components/schemas/DateTime'
       additionalProperties: false
     Files:
+      title: Files
       type: array
       items:
         $ref: '#/components/schemas/File'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:
@@ -65922,6 +65967,7 @@ components:
         detailedErrorCode:
           type: integer
     Metadata:
+      title: Metadata
       type: object
       x-internal: true
       properties:

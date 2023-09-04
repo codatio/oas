@@ -1254,6 +1254,7 @@ components:
         integrationType:
           $ref: '#/components/schemas/IntegrationType'
     TransactionStatus:
+      title: Transaction status
       x-internal: true
       type: string
       description: Status of the transaction.
@@ -1266,6 +1267,7 @@ components:
       example: Completed
       nullable: true
     IntegrationType:
+      title: Integration type
       x-internal: true
       type: string
       description: Type of transaction that has been processed e.g. Expense or Bank Feed.
@@ -1276,6 +1278,7 @@ components:
       example: expenses
       nullable: true
     TransactionMetadataList:
+      title: Transaction metadata list
       x-internal: true
       additionalProperties: false
       allOf:
@@ -1304,6 +1307,7 @@ components:
             current:
               href: string
     CreateExpenseRequest:
+      title: Create expense request
       x-internal: true
       type: object
       properties:
@@ -1314,6 +1318,7 @@ components:
           items:
             $ref: '#/components/schemas/ExpenseTransaction'
     CreateExpenseResponse:
+      title: Create expense response
       x-internal: true
       type: object
       properties:
@@ -1524,6 +1529,7 @@ components:
         customer:
           $ref: '#/components/schemas/Customer'
     BankAccount:
+      title: Bank account
       x-internal: true
       type: object
       properties:
@@ -1532,6 +1538,7 @@ components:
           description: The id of the account from which purchases are made
           example: '32'
     Supplier:
+      title: Supplier
       x-internal: true
       type: object
       properties:
@@ -1540,6 +1547,7 @@ components:
           description: id of the supplier for all purchases to be associated to
           example: '124'
     Customer:
+      title: Customer
       x-internal: true
       type: object
       properties:
@@ -1569,6 +1577,7 @@ components:
       additionalProperties: false
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -1621,14 +1630,6 @@ components:
               href: '/companies/{id}/data/{dataType}'
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    HalLink:
-      title: Hypertext reference
-      type: object
-      x-internal: true
-      properties:
-        href:
-          type: string
-          format: uri-reference
     UpdateExpenseRequest:
       title: Updating Expense Transaction Request
       type: object
@@ -1842,6 +1843,7 @@ components:
             SyncDateRangeStartUtc: '2023-05-03T09:56:17.4357111Z'
             SyncDateRangeFinishUtc: '2023-05-03T09:56:18.4357111Z'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:
@@ -1858,6 +1860,7 @@ components:
         detailedErrorCode:
           type: integer
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -1868,6 +1871,7 @@ components:
                 $ref: '#/components/schemas/Company'
         - $ref: '#/components/schemas/PagingInfo'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -1963,6 +1967,7 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object

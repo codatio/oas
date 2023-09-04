@@ -28828,6 +28828,7 @@ components:
   schemas:
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -28881,6 +28882,7 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -28891,6 +28893,7 @@ components:
                 $ref: '#/components/schemas/Company'
         - $ref: '#/components/schemas/PagingInfo'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -28986,6 +28989,7 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object
@@ -29215,8 +29219,20 @@ components:
           progress: 10
           isCompleted: false
           isErrored: false
+    PullOperations:
+      title: Pull operations
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/PullOperation'
+        - $ref: '#/components/schemas/PagingInfo'
     DataType:
       x-internal: true
+      title: Data types
       type: string
       description: Available Data types
       enum:
@@ -29263,19 +29279,9 @@ components:
         - commerce-taxComponents
         - commerce-transactions
       example: invoices
-    PullOperations:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/PullOperation'
-        - $ref: '#/components/schemas/PagingInfo'
     PushOperation:
-      type: object
       title: Push operation
+      type: object
       x-internal: true
       properties:
         changes:
@@ -29396,6 +29402,7 @@ components:
               type: string
               nullable: true
     PushOperations:
+      title: Push operations
       x-internal: true
       allOf:
         - type: object
@@ -29707,6 +29714,7 @@ components:
           example: Active
       type: object
     Accounts:
+      title: Accounts
       x-internal: true
       allOf:
         - type: object
@@ -29717,6 +29725,7 @@ components:
                 $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PagingInfo'
     CreateAccountResponse:
+      title: Create account response
       x-internal: true
       allOf:
         - type: object
@@ -29926,6 +29935,7 @@ components:
                   required:
                     - id
                 projectRef:
+                  title: Project reference
                   x-internal: true
                   required:
                     - id
@@ -30027,6 +30037,7 @@ components:
             id: 67C6A7A1-5E84-4AC4-B950-24A114E379D0
             supplierName: Chin's Gas and Oil
     BillCreditNotes:
+      title: Bill credit notes
       x-internal: true
       allOf:
         - type: object
@@ -30037,6 +30048,7 @@ components:
                 $ref: '#/components/schemas/BillCreditNote'
         - $ref: '#/components/schemas/PagingInfo'
     CreateBillCreditNoteResponse:
+      title: Create bill credit note response
       x-internal: true
       allOf:
         - type: object
@@ -30045,6 +30057,7 @@ components:
               $ref: '#/components/schemas/BillCreditNote'
         - $ref: '#/components/schemas/PushOperation'
     UpdateBillCreditNoteResponse:
+      title: Update bill credit note response
       x-internal: true
       allOf:
         - type: object
@@ -30533,6 +30546,7 @@ components:
                   id: z
                   amount: 750
     BillPayments:
+      title: Bill payments
       x-internal: true
       allOf:
         - type: object
@@ -30543,6 +30557,7 @@ components:
                 $ref: '#/components/schemas/BillPayment'
         - $ref: '#/components/schemas/PagingInfo'
     CreateBillPaymentResponse:
+      title: Create bill payment response
       x-internal: true
       allOf:
         - type: object
@@ -30738,7 +30753,8 @@ components:
                     additionalProperties: {}
                   nullable: true
               title: Supplemental data
-        - x-internal: true
+        - title: Modified dates
+          x-internal: true
           allOf:
             - title: ModifiedDate
               x-internal: true
@@ -30848,6 +30864,7 @@ components:
             - unitAmount
             - quantity
     Bills:
+      title: Bills
       x-internal: true
       allOf:
         - type: object
@@ -30858,6 +30875,7 @@ components:
                 $ref: '#/components/schemas/Bill'
         - $ref: '#/components/schemas/PagingInfo'
     CreateBillResponse:
+      title: Create bill response
       x-internal: true
       allOf:
         - type: object
@@ -30866,6 +30884,7 @@ components:
               $ref: '#/components/schemas/Bill'
         - $ref: '#/components/schemas/PushOperation'
     UpdateBillResponse:
+      title: Update bill response
       x-internal: true
       allOf:
         - type: object
@@ -31046,6 +31065,7 @@ components:
           required:
             - netAmount
     CreateJournalEntryResponse:
+      title: Create journal entry response
       x-internal: true
       allOf:
         - type: object
@@ -31142,6 +31162,7 @@ components:
             - Active
             - Archived
     Journals:
+      title: Journals
       x-internal: true
       allOf:
         - type: object
@@ -31152,6 +31173,7 @@ components:
                 $ref: '#/components/schemas/Journal'
         - $ref: '#/components/schemas/PagingInfo'
     CreateJournalResponse:
+      title: Create journal response
       x-internal: true
       allOf:
         - type: object
@@ -31205,6 +31227,7 @@ components:
             - Active
             - Archived
     PaymentMethods:
+      title: Payment methods
       x-internal: true
       allOf:
         - type: object
@@ -31254,6 +31277,7 @@ components:
               nullable: true
               description: An array of Addresses.
               items:
+                title: Accounting address
                 type: object
                 properties:
                   type:
@@ -31367,6 +31391,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     Suppliers:
+      title: Suppliers
       x-internal: true
       allOf:
         - type: object
@@ -31377,6 +31402,7 @@ components:
                 $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PagingInfo'
     CreateSupplierResponse:
+      title: Create supplier response
       x-internal: true
       allOf:
         - type: object
@@ -31385,6 +31411,7 @@ components:
               $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PushOperation'
     UpdateSupplierResponse:
+      title: Update supplier response
       x-internal: true
       allOf:
         - type: object
@@ -31510,6 +31537,7 @@ components:
           required:
             - isCompound
     TaxRates:
+      title: Tax rates
       x-internal: true
       allOf:
         - type: object
@@ -31703,6 +31731,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TrackingCategories:
+      title: Tracking categories
       x-internal: true
       allOf:
         - type: object
@@ -31744,6 +31773,7 @@ components:
                 $ref: '#/components/schemas/TrackingCategoryTree'
         - $ref: '#/components/schemas/Bill/allOf/1'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:
@@ -31760,6 +31790,7 @@ components:
         detailedErrorCode:
           type: integer
     Metadata:
+      title: Metadata
       type: object
       x-internal: true
       properties:

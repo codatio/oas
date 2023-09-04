@@ -597,7 +597,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataConnectionHistory'
+                $ref: '#/components/schemas/PullOperations'
               examples:
                 Example:
                   value:
@@ -657,7 +657,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushHistoryResponse'
+                $ref: '#/components/schemas/PushOperations'
               examples: {}
         '400':
           $ref: '#/components/responses/Malformed-Query'
@@ -7044,7 +7044,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushOperationSummary'
+                $ref: '#/components/schemas/PushOperation'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -9040,6 +9040,7 @@ components:
   schemas:
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -9093,6 +9094,7 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -9103,6 +9105,7 @@ components:
                 $ref: '#/components/schemas/Company'
         - $ref: '#/components/schemas/PagingInfo'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -9198,6 +9201,7 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object
@@ -9427,8 +9431,20 @@ components:
           progress: 10
           isCompleted: false
           isErrored: false
+    PullOperations:
+      title: Pull operations
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/PullOperation'
+        - $ref: '#/components/schemas/PagingInfo'
     DataType:
       x-internal: true
+      title: Data types
       type: string
       description: Available Data types
       enum:
@@ -9475,19 +9491,9 @@ components:
         - commerce-taxComponents
         - commerce-transactions
       example: invoices
-    DataConnectionHistory:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/PullOperation'
-        - $ref: '#/components/schemas/PagingInfo'
-    PushOperationSummary:
-      type: object
+    PushOperation:
       title: Push operation
+      type: object
       x-internal: true
       properties:
         changes:
@@ -9495,7 +9501,7 @@ components:
           nullable: true
           description: 'Contains a single entry that communicates which record has changed and the manner in which it changed. '
           items:
-            $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationChange'
+            $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
         dataType:
           $ref: '#/components/schemas/DataType'
           description: 'The type of data being pushed, eg invoices, customers.'
@@ -9523,12 +9529,12 @@ components:
           nullable: true
           deprecated: true
         status:
-          $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationStatus'
+          $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
         errorMessage:
           type: string
           nullable: true
         validation:
-          $ref: '#/components/schemas/PushOperationSummary/definitions/validation'
+          $ref: '#/components/schemas/PushOperation/definitions/validation'
         statusCode:
           type: integer
       required:
@@ -9548,12 +9554,12 @@ components:
               type: array
               nullable: true
               items:
-                $ref: '#/components/schemas/PushOperationSummary/definitions/validationItem'
+                $ref: '#/components/schemas/PushOperation/definitions/validationItem'
             warnings:
               type: array
               nullable: true
               items:
-                $ref: '#/components/schemas/PushOperationSummary/definitions/validationItem'
+                $ref: '#/components/schemas/PushOperation/definitions/validationItem'
         validationItem:
           title: Validation item
           type: object
@@ -9601,13 +9607,14 @@ components:
           type: object
           properties:
             type:
-              $ref: '#/components/schemas/PushOperationSummary/definitions/pushChangeType'
+              $ref: '#/components/schemas/PushOperation/definitions/pushChangeType'
             recordRef:
-              $ref: '#/components/schemas/PushOperationSummary/definitions/pushOperationRef'
+              $ref: '#/components/schemas/PushOperation/definitions/pushOperationRef'
             attachmentId:
               type: string
               nullable: true
-    PushHistoryResponse:
+    PushOperations:
+      title: Push operations
       x-internal: true
       allOf:
         - type: object
@@ -9615,17 +9622,8 @@ components:
             results:
               type: array
               items:
-                $ref: '#/components/schemas/PushOperationSummary'
+                $ref: '#/components/schemas/PushOperation'
         - $ref: '#/components/schemas/PagingInfo'
-    PushOperation:
-      allOf:
-        - type: object
-          properties:
-            data:
-              type: object
-              description: Object submitted in push operation.
-              additionalProperties: true
-        - $ref: '#/components/schemas/PushOperationSummary'
     PushOption:
       title: Push option
       x-internal: true
@@ -9905,6 +9903,7 @@ components:
                     items:
                       type: string
             metadata:
+              title: Metadata
               type: object
               x-internal: true
               properties:
@@ -9912,7 +9911,8 @@ components:
                   type: boolean
                   description: Indicates whether the record has been deleted in the third-party system this record originated from.
                   nullable: true
-        - x-internal: true
+        - title: Modified dates
+          x-internal: true
           allOf:
             - title: ModifiedDate
               x-internal: true
@@ -9983,6 +9983,7 @@ components:
           example: Active
       type: object
     Accounts:
+      title: Accounts
       x-internal: true
       allOf:
         - type: object
@@ -9993,13 +9994,14 @@ components:
                 $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PagingInfo'
     CreateAccountResponse:
+      title: Create account response
       x-internal: true
       allOf:
         - type: object
           properties:
             data:
               $ref: '#/components/schemas/Account'
-        - $ref: '#/components/schemas/PushOperationSummary'
+        - $ref: '#/components/schemas/PushOperation'
     JournalEntry:
       title: Journal entry
       description: |-
@@ -10125,6 +10127,7 @@ components:
           required:
             - netAmount
     JournalEntries:
+      title: Journal entries
       x-internal: true
       allOf:
         - type: object
@@ -10135,13 +10138,14 @@ components:
                 $ref: '#/components/schemas/JournalEntry'
         - $ref: '#/components/schemas/PagingInfo'
     CreateJournalEntryResponse:
+      title: Create journal entry response
       x-internal: true
       allOf:
         - type: object
           properties:
             data:
               $ref: '#/components/schemas/JournalEntry'
-        - $ref: '#/components/schemas/PushOperationSummary'
+        - $ref: '#/components/schemas/PushOperation'
     Journal:
       title: Journal
       description: |
@@ -10231,6 +10235,7 @@ components:
             - Active
             - Archived
     Journals:
+      title: Journals
       x-internal: true
       allOf:
         - type: object
@@ -10241,13 +10246,14 @@ components:
                 $ref: '#/components/schemas/Journal'
         - $ref: '#/components/schemas/PagingInfo'
     CreateJournalResponse:
+      title: Create journal response
       x-internal: true
       allOf:
         - type: object
           properties:
             data:
               $ref: '#/components/schemas/Journal'
-        - $ref: '#/components/schemas/PushOperationSummary'
+        - $ref: '#/components/schemas/PushOperation'
     TrackingCategory:
       title: Tracking category
       description: |-
@@ -10432,6 +10438,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TrackingCategories:
+      title: Tracking categories
       x-internal: true
       allOf:
         - type: object
@@ -10473,6 +10480,7 @@ components:
                 $ref: '#/components/schemas/TrackingCategoryTree'
         - $ref: '#/components/schemas/Account/allOf/1'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:

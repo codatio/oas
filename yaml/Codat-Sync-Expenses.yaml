@@ -4663,6 +4663,7 @@ components:
           message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
           integrationType: string
     TransactionStatus:
+      title: Transaction status
       x-internal: true
       type: string
       description: Status of the transaction.
@@ -4675,6 +4676,7 @@ components:
       example: Completed
       nullable: true
     IntegrationType:
+      title: Integration type
       x-internal: true
       type: string
       description: Type of transaction that has been processed e.g. Expense or Bank Feed.
@@ -4685,6 +4687,7 @@ components:
       example: expenses
       nullable: true
     Transactions:
+      title: Transactions
       x-internal: true
       additionalProperties: false
       allOf:
@@ -4713,6 +4716,7 @@ components:
             current:
               href: string
     CreateExpenseRequest:
+      title: Create expense request
       x-internal: true
       type: object
       properties:
@@ -4723,6 +4727,7 @@ components:
           items:
             $ref: '#/components/schemas/ExpenseTransaction'
     CreateExpenseResponse:
+      title: Create expense response
       x-internal: true
       type: object
       properties:
@@ -4951,6 +4956,7 @@ components:
         customer:
           $ref: '#/components/schemas/Customer'
     BankAccount:
+      title: Bank account
       x-internal: true
       type: object
       properties:
@@ -4959,6 +4965,7 @@ components:
           description: The id of the account from which purchases are made
           example: '32'
     Supplier:
+      title: Supplier
       x-internal: true
       type: object
       properties:
@@ -4967,6 +4974,7 @@ components:
           description: id of the supplier for all purchases to be associated to
           example: '124'
     Customer:
+      title: Customer
       x-internal: true
       type: object
       properties:
@@ -4996,6 +5004,7 @@ components:
       additionalProperties: false
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -5271,6 +5280,7 @@ components:
             SyncDateRangeStartUtc: '2023-05-03T09:56:17.4357111Z'
             SyncDateRangeFinishUtc: '2023-05-03T09:56:18.4357111Z'
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -5281,6 +5291,7 @@ components:
                 $ref: '#/components/schemas/Company'
         - $ref: '#/components/schemas/PagingInfo'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -5376,6 +5387,7 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object
@@ -5607,6 +5619,7 @@ components:
           isErrored: false
     DataType:
       x-internal: true
+      title: Data types
       type: string
       description: Available Data types
       enum:
@@ -5654,6 +5667,7 @@ components:
         - commerce-transactions
       example: invoices
     PullOperations:
+      title: Pull operations
       x-internal: true
       allOf:
         - type: object
@@ -5664,8 +5678,8 @@ components:
                 $ref: '#/components/schemas/PullOperation'
         - $ref: '#/components/schemas/PagingInfo'
     PushOperation:
-      type: object
       title: Push operation
+      type: object
       x-internal: true
       properties:
         changes:
@@ -5786,6 +5800,7 @@ components:
               type: string
               nullable: true
     PushOperations:
+      title: Push operations
       x-internal: true
       allOf:
         - type: object
@@ -5952,6 +5967,7 @@ components:
                     items:
                       type: string
             metadata:
+              title: Metadata
               type: object
               x-internal: true
               properties:
@@ -5959,7 +5975,8 @@ components:
                   type: boolean
                   description: Indicates whether the record has been deleted in the third-party system this record originated from.
                   nullable: true
-        - x-internal: true
+        - title: Modified dates
+          x-internal: true
           allOf:
             - title: ModifiedDate
               x-internal: true
@@ -6030,6 +6047,7 @@ components:
           example: Active
       type: object
     CreateAccountResponse:
+      title: Create account response
       x-internal: true
       allOf:
         - type: object
@@ -6038,6 +6056,7 @@ components:
               $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PushOperation'
     Customers:
+      title: Customers
       x-internal: true
       allOf:
         - type: object
@@ -6048,6 +6067,7 @@ components:
                 $ref: '#/components/schemas/Customer'
         - $ref: '#/components/schemas/PagingInfo'
     CreateCustomerResponse:
+      title: Create customer response
       x-internal: true
       allOf:
         - type: object
@@ -6056,6 +6076,7 @@ components:
               $ref: '#/components/schemas/Customer'
         - $ref: '#/components/schemas/PushOperation'
     UpdateCustomerResponse:
+      title: Update customer response
       x-internal: true
       allOf:
         - type: object
@@ -6064,6 +6085,7 @@ components:
               $ref: '#/components/schemas/Customer'
         - $ref: '#/components/schemas/PushOperation'
     Suppliers:
+      title: Suppliers
       x-internal: true
       allOf:
         - type: object
@@ -6074,6 +6096,7 @@ components:
                 $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PagingInfo'
     CreateSupplierResponse:
+      title: Create supplier response
       x-internal: true
       allOf:
         - type: object
@@ -6082,6 +6105,7 @@ components:
               $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PushOperation'
     UpdateSupplierResponse:
+      title: Update supplier response
       x-internal: true
       allOf:
         - type: object
@@ -6090,6 +6114,7 @@ components:
               $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PushOperation'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:

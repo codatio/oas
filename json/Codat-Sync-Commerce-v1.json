@@ -824,7 +824,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyRequestBody"
+                "$ref": "#/components/schemas/CreateCompany"
               },
               "examples": {
                 "Update name": {
@@ -1220,7 +1220,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DataConnectionHistory"
+                  "$ref": "#/components/schemas/PullOperations"
                 },
                 "examples": {
                   "Example": {
@@ -1325,7 +1325,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PushHistoryResponse"
+                  "$ref": "#/components/schemas/PushOperations"
                 },
                 "examples": {}
               }
@@ -3728,7 +3728,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccountingDataset"
+                  "$ref": "#/components/schemas/Dataset"
                 }
               }
             }
@@ -12075,6 +12075,7 @@
         }
       },
       "SyncSummary": {
+        "title": "Sync summary",
         "type": "object",
         "properties": {
           "syncDateRangeUtc": {
@@ -12181,20 +12182,126 @@
         }
       },
       "CreateCompany": {
+        "title": "Create company request",
         "x-internal": true,
-        "required": [
-          "name"
-        ],
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "format": "string",
-            "description": "Name of the company in Codat with a partner-commerce data connection.",
-            "example": "Bob's Burgers"
+            "description": "Name of company being connected.",
+            "pattern": "^[A-Za-z0-9\\s\\-',&@.,?!\\s]+$",
+            "minLength": 1,
+            "example": "Bank of Dave"
+          },
+          "description": {
+            "$ref": "#/components/schemas/Company/properties/description"
           }
         },
-        "additionalProperties": false
+        "required": [
+          "name"
+        ]
+      },
+      "Company": {
+        "title": "Company",
+        "description": "﻿In Codat, a company represents a business sharing access to their data. Each company can have multiple [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) to different data sources such as one connection to [Xero](https://docs.codat.io/integrations/accounting/xero/accounting-xero) for accounting data, two connections to [Plaid](https://docs.codat.io/integrations/banking/plaid/banking-plaid) for two bank accounts and a connection to [Zettle](https://docs.codat.io/integrations/commerce/zettle/commerce-zettle) for POS data.\n\nTypically each company is one of your customers.\n\nWhen you create a company, you can specify a `name` and we will automatically generate a unique `id` for the company. You can also add a `description` to store any additional information about the company.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/parameters/companyId/schema"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the company",
+            "example": "Codat Ltd."
+          },
+          "description": {
+            "type": "string",
+            "example": "Requested early access to the new financing scheme.",
+            "description": "Additional information about the company. This can be used to store foreign IDs, references, etc."
+          },
+          "platform": {
+            "type": "string",
+            "deprecated": true,
+            "example": "Xero"
+          },
+          "redirect": {
+            "type": "string",
+            "format": "uri",
+            "description": "The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.",
+            "example": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"
+          },
+          "lastSync": {
+            "$ref": "#/components/schemas/Company/properties/created"
+          },
+          "created": {
+            "title": "Date time",
+            "type": "string",
+            "examples": [
+              "2022-10-23T00:00:00.000Z",
+              "2022-10-23T00:00:00.000Z"
+            ],
+            "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
+          },
+          "createdByUserName": {
+            "type": "string"
+          },
+          "dataConnections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Connection"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "redirect"
+        ],
+        "examples": [
+          {
+            "id": "0498e921-9b53-4396-a412-4f2f5983b0a2",
+            "name": "string",
+            "platform": "string",
+            "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739",
+            "lastSync": "2022-01-01T12:00:00.000Z",
+            "created": "2022-01-01T12:00:00.000Z",
+            "createdByUserName": "string",
+            "dataConnections": [
+              {
+                "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd",
+                "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c",
+                "integrationKey": "dfxm",
+                "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee",
+                "platformName": "Basiq",
+                "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start",
+                "status": "Linked",
+                "lastSync": "2022-10-27T10:22:43.6464237Z",
+                "created": "2022-10-27T09:53:29Z",
+                "sourceType": "Banking"
+              }
+            ]
+          }
+        ]
+      },
+      "Companies": {
+        "title": "Companies",
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Company"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PagingInfo"
+          }
+        ]
       },
       "Connection": {
         "title": "Connection",
@@ -12330,7 +12437,8 @@
           "sourceType": "Banking"
         }
       },
-      "Companies": {
+      "Connections": {
+        "title": "Connections",
         "x-internal": true,
         "allOf": [
           {
@@ -12339,7 +12447,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/Company"
+                  "$ref": "#/components/schemas/Connection"
                 }
               }
             }
@@ -12351,6 +12459,7 @@
       },
       "PagingInfo": {
         "type": "object",
+        "title": "Pagination information",
         "x-internal": true,
         "properties": {
           "pageNumber": {
@@ -12429,131 +12538,6 @@
                 "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
               }
             }
-          }
-        ]
-      },
-      "Links": {
-        "type": "object",
-        "x-internal": true,
-        "required": [
-          "self",
-          "current"
-        ],
-        "properties": {
-          "self": {
-            "$ref": "#/components/schemas/HalRef"
-          },
-          "current": {
-            "$ref": "#/components/schemas/HalRef"
-          },
-          "next": {
-            "$ref": "#/components/schemas/HalRef"
-          },
-          "previous": {
-            "$ref": "#/components/schemas/HalRef"
-          }
-        },
-        "examples": [
-          {
-            "self": {
-              "href": "/companies/{id}/data/{dataType}"
-            },
-            "current": {
-              "href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"
-            }
-          }
-        ]
-      },
-      "HalRef": {
-        "title": "Hypertext reference",
-        "type": "object",
-        "x-internal": true,
-        "properties": {
-          "href": {
-            "type": "string",
-            "format": "uri-reference"
-          }
-        }
-      },
-      "Company": {
-        "title": "Company",
-        "description": "﻿In Codat, a company represents a business sharing access to their data. Each company can have multiple [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) to different data sources such as one connection to [Xero](https://docs.codat.io/integrations/accounting/xero/accounting-xero) for accounting data, two connections to [Plaid](https://docs.codat.io/integrations/banking/plaid/banking-plaid) for two bank accounts and a connection to [Zettle](https://docs.codat.io/integrations/commerce/zettle/commerce-zettle) for POS data.\n\nTypically each company is one of your customers.\n\nWhen you create a company, you can specify a `name` and we will automatically generate a unique `id` for the company. You can also add a `description` to store any additional information about the company.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/parameters/companyId/schema"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the company",
-            "example": "Codat Ltd."
-          },
-          "description": {
-            "type": "string",
-            "example": "Requested early access to the new financing scheme.",
-            "description": "Additional information about the company. This can be used to store foreign IDs, references, etc."
-          },
-          "platform": {
-            "type": "string",
-            "deprecated": true,
-            "example": "Xero"
-          },
-          "redirect": {
-            "type": "string",
-            "format": "uri",
-            "description": "The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.",
-            "example": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"
-          },
-          "lastSync": {
-            "$ref": "#/components/schemas/Company/properties/created"
-          },
-          "created": {
-            "title": "Date time",
-            "type": "string",
-            "examples": [
-              "2022-10-23T00:00:00.000Z",
-              "2022-10-23T00:00:00.000Z"
-            ],
-            "description": "In Codat's data model, dates and times are represented using the <a class=\"external\" href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:\n\n```\n2020-10-08T22:40:50Z\n2021-01-01T00:00:00\n```\n\n\n\nWhen syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:\n\n- Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`\n- Unqualified local time: `2021-11-15T01:00:00`\n- UTC time offsets: `2021-11-15T01:00:00-05:00`\n\n> Time zones\n> \n> Not all dates from Codat will contain information about time zones.  \n> Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced."
-          },
-          "createdByUserName": {
-            "type": "string"
-          },
-          "dataConnections": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Connection"
-            }
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "redirect"
-        ],
-        "examples": [
-          {
-            "id": "0498e921-9b53-4396-a412-4f2f5983b0a2",
-            "name": "string",
-            "platform": "string",
-            "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739",
-            "lastSync": "2022-01-01T12:00:00.000Z",
-            "created": "2022-01-01T12:00:00.000Z",
-            "createdByUserName": "string",
-            "dataConnections": [
-              {
-                "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd",
-                "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c",
-                "integrationKey": "dfxm",
-                "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee",
-                "platformName": "Basiq",
-                "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start",
-                "status": "Linked",
-                "lastSync": "2022-10-27T10:22:43.6464237Z",
-                "created": "2022-10-27T09:53:29Z",
-                "sourceType": "Banking"
-              }
-            ]
           }
         ]
       },
@@ -12660,26 +12644,8 @@
           }
         ]
       },
-      "Connections": {
-        "x-internal": true,
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "results": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/Connection"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
       "Integrations": {
+        "title": "Integrations",
         "x-internal": true,
         "allOf": [
           {
@@ -12786,6 +12752,7 @@
             "type": "object",
             "properties": {
               "dataType": {
+                "title": "Data types",
                 "x-internal": true,
                 "type": "string",
                 "description": "Available Data types",
@@ -12907,13 +12874,13 @@
         }
       },
       "UpdateConnection": {
+        "title": "Update connection",
         "x-internal": true,
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
+            "$ref": "#/components/schemas/Connection/definitions/dataConnectionStatus",
             "description": "The current authorization status of the data connection.",
-            "example": "Linked",
             "nullable": true
           }
         },
@@ -12984,6 +12951,7 @@
         "additionalProperties": false
       },
       "Configuration": {
+        "title": "Configuration",
         "type": "object",
         "properties": {
           "sales": {
@@ -13002,6 +12970,7 @@
         "additionalProperties": false
       },
       "Fees": {
+        "title": "Fees",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13044,6 +13013,7 @@
         "additionalProperties": false
       },
       "Grouping": {
+        "title": "Grouping",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13226,6 +13196,7 @@
         "additionalProperties": false
       },
       "Option": {
+        "title": "Option",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13242,6 +13213,7 @@
         "additionalProperties": false
       },
       "Payments": {
+        "title": "Payments",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13260,6 +13232,7 @@
         "additionalProperties": false
       },
       "Sales": {
+        "title": "Sales",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13297,6 +13270,7 @@
         "additionalProperties": false
       },
       "Customer": {
+        "title": "Customer",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13359,6 +13333,7 @@
         "additionalProperties": false
       },
       "Localization": {
+        "title": "Localization",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13405,23 +13380,7 @@
         }
       },
       "CompanyRequestBody": {
-        "x-internal": true,
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of company being connected.",
-            "pattern": "^[A-Za-z0-9\\s\\-',&@.,?!\\s]+$",
-            "minLength": 1,
-            "example": "Bank of Dave"
-          },
-          "description": {
-            "$ref": "#/components/schemas/Company/properties/description"
-          }
-        },
-        "required": [
-          "name"
-        ]
+        "$ref": "#/components/schemas/CreateCompany"
       },
       "DataStatus": {
         "title": "Data status",
@@ -13568,7 +13527,8 @@
         "x-internal": true,
         "$ref": "#/components/schemas/Integration/definitions/dataTypeFeature/properties/dataType"
       },
-      "DataConnectionHistory": {
+      "PullOperations": {
+        "title": "Pull operations",
         "x-internal": true,
         "allOf": [
           {
@@ -13587,9 +13547,9 @@
           }
         ]
       },
-      "PushOperationSummary": {
-        "type": "object",
+      "PushOperation": {
         "title": "Push operation",
+        "type": "object",
         "x-internal": true,
         "properties": {
           "changes": {
@@ -13597,7 +13557,7 @@
             "nullable": true,
             "description": "Contains a single entry that communicates which record has changed and the manner in which it changed. ",
             "items": {
-              "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationChange"
+              "$ref": "#/components/schemas/PushOperation/definitions/pushOperationChange"
             }
           },
           "dataType": {
@@ -13635,14 +13595,14 @@
             "deprecated": true
           },
           "status": {
-            "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationStatus"
+            "$ref": "#/components/schemas/PushOperation/definitions/pushOperationStatus"
           },
           "errorMessage": {
             "type": "string",
             "nullable": true
           },
           "validation": {
-            "$ref": "#/components/schemas/PushOperationSummary/definitions/validation"
+            "$ref": "#/components/schemas/PushOperation/definitions/validation"
           },
           "statusCode": {
             "type": "integer"
@@ -13666,14 +13626,14 @@
                 "type": "array",
                 "nullable": true,
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary/definitions/validationItem"
+                  "$ref": "#/components/schemas/PushOperation/definitions/validationItem"
                 }
               },
               "warnings": {
                 "type": "array",
                 "nullable": true,
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary/definitions/validationItem"
+                  "$ref": "#/components/schemas/PushOperation/definitions/validationItem"
                 }
               }
             }
@@ -13738,10 +13698,10 @@
             "type": "object",
             "properties": {
               "type": {
-                "$ref": "#/components/schemas/PushOperationSummary/definitions/pushChangeType"
+                "$ref": "#/components/schemas/PushOperation/definitions/pushChangeType"
               },
               "recordRef": {
-                "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationRef"
+                "$ref": "#/components/schemas/PushOperation/definitions/pushOperationRef"
               },
               "attachmentId": {
                 "type": "string",
@@ -13751,7 +13711,8 @@
           }
         }
       },
-      "PushHistoryResponse": {
+      "PushOperations": {
+        "title": "Push operations",
         "x-internal": true,
         "allOf": [
           {
@@ -13760,30 +13721,13 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary"
+                  "$ref": "#/components/schemas/PushOperation"
                 }
               }
             }
           },
           {
             "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
-      "PushOperation": {
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "object",
-                "description": "Object submitted in push operation.",
-                "additionalProperties": true
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PushOperationSummary"
           }
         ]
       },
@@ -13885,6 +13829,7 @@
                 }
               },
               "metadata": {
+                "title": "Metadata",
                 "type": "object",
                 "x-internal": true,
                 "properties": {
@@ -13947,6 +13892,7 @@
         "type": "object"
       },
       "AccountingAccounts": {
+        "title": "Accounts",
         "x-internal": true,
         "allOf": [
           {
@@ -13966,6 +13912,7 @@
         ]
       },
       "AccountingCreateAccountResponse": {
+        "title": "Create account response",
         "x-internal": true,
         "allOf": [
           {
@@ -13977,7 +13924,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14198,6 +14145,7 @@
                     "$ref": "#/components/schemas/AccountingCustomer/definitions/accountingCustomerRef"
                   },
                   "projectRef": {
+                    "title": "Project reference",
                     "x-internal": true,
                     "required": [
                       "id"
@@ -14293,6 +14241,7 @@
         ]
       },
       "AccountingCreateCreditNoteResponse": {
+        "title": "Create credit note response",
         "x-internal": true,
         "allOf": [
           {
@@ -14304,7 +14253,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14456,6 +14405,7 @@
         }
       },
       "AccountingCreateCustomerResponse": {
+        "title": "Create customer response",
         "x-internal": true,
         "allOf": [
           {
@@ -14467,7 +14417,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14683,6 +14633,7 @@
         }
       },
       "AccountingCreateDirectIncomeResponse": {
+        "title": "Create direct income response",
         "x-internal": true,
         "allOf": [
           {
@@ -14694,7 +14645,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14723,6 +14674,7 @@
             "nullable": true,
             "description": "An array of Addresses.",
             "items": {
+              "title": "Accounting address",
               "type": "object",
               "properties": {
                 "type": {
@@ -14934,7 +14886,8 @@
           }
         ]
       },
-      "AccountingDataset": {
+      "Dataset": {
+        "title": "Dataset",
         "x-internal": true,
         "required": [
           "companyId",
@@ -15019,8 +14972,7 @@
             "type": "string",
             "nullable": true
           }
-        },
-        "title": ""
+        }
       },
       "AccountingInvoice": {
         "title": "Invoice",
@@ -15335,6 +15287,7 @@
         }
       },
       "AccountingCreateInvoiceResponse": {
+        "title": "Create invoice response",
         "x-internal": true,
         "allOf": [
           {
@@ -15346,7 +15299,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -15484,6 +15437,7 @@
         }
       },
       "AccountingCreateJournalEntryResponse": {
+        "title": "Create journal entry response",
         "x-internal": true,
         "allOf": [
           {
@@ -15495,7 +15449,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -15644,6 +15598,7 @@
         }
       },
       "AccountingCreatePaymentResponse": {
+        "title": "Create payment response",
         "x-internal": true,
         "allOf": [
           {
@@ -15655,7 +15610,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -15760,6 +15715,7 @@
       },
       "AccountingBankAccounts": {
         "x-internal": true,
+        "title": "Bank Accounts",
         "allOf": [
           {
             "type": "object",
@@ -15768,25 +15724,6 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/AccountingBankAccount"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
-      "CommerceCustomers": {
-        "x-internal": true,
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "results": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CommerceCustomer"
                 }
               }
             }
@@ -16010,6 +15947,26 @@
           }
         ]
       },
+      "CommerceCustomers": {
+        "title": "Commerce customers",
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CommerceCustomer"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PagingInfo"
+          }
+        ]
+      },
       "CommerceCompanyInfo": {
         "title": "Commerce company info",
         "description": "In the Codat system, company information includes standard commercial details about \na linked company, such as their address, phone number, and company registration.\n\nExplore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.\n",
@@ -16123,25 +16080,6 @@
           }
         }
       },
-      "CommerceLocations": {
-        "x-internal": true,
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "results": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CommerceLocation"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
       "CommerceLocation": {
         "title": "Commerce location",
         "type": "object",
@@ -16210,7 +16148,8 @@
           }
         ]
       },
-      "CommerceOrders": {
+      "CommerceLocations": {
+        "title": "Locations",
         "x-internal": true,
         "allOf": [
           {
@@ -16219,7 +16158,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CommerceOrder"
+                  "$ref": "#/components/schemas/CommerceLocation"
                 }
               }
             }
@@ -16353,6 +16292,7 @@
             }
           },
           {
+            "title": "Created date",
             "type": "object",
             "x-internal": true,
             "properties": {
@@ -16363,6 +16303,7 @@
             }
           },
           {
+            "title": "Modified dates",
             "x-internal": true,
             "allOf": [
               {
@@ -16668,7 +16609,8 @@
           }
         ]
       },
-      "CommercePaymentMethods": {
+      "CommerceOrders": {
+        "title": "Orders",
         "x-internal": true,
         "allOf": [
           {
@@ -16677,7 +16619,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CommercePaymentMethod"
+                  "$ref": "#/components/schemas/CommerceOrder"
                 }
               }
             }
@@ -16725,7 +16667,8 @@
           }
         }
       },
-      "CommercePayments": {
+      "CommercePaymentMethods": {
+        "title": "Commerce payment methods",
         "x-internal": true,
         "allOf": [
           {
@@ -16734,7 +16677,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CommercePayment"
+                  "$ref": "#/components/schemas/CommercePaymentMethod"
                 }
               }
             }
@@ -16915,7 +16858,8 @@
           }
         }
       },
-      "CommerceProducts": {
+      "CommercePayments": {
+        "title": "Commerce payments",
         "x-internal": true,
         "allOf": [
           {
@@ -16924,7 +16868,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CommerceProduct"
+                  "$ref": "#/components/schemas/CommercePayment"
                 }
               }
             }
@@ -17175,7 +17119,8 @@
           }
         }
       },
-      "CommerceTransactions": {
+      "CommerceProducts": {
+        "title": "Products",
         "x-internal": true,
         "allOf": [
           {
@@ -17184,7 +17129,7 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CommerceTransaction"
+                  "$ref": "#/components/schemas/CommerceProduct"
                 }
               }
             }
@@ -17342,7 +17287,28 @@
         },
         "examples": []
       },
+      "CommerceTransactions": {
+        "title": "Commerce transactions",
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CommerceTransaction"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PagingInfo"
+          }
+        ]
+      },
       "ErrorMessage": {
+        "title": "Error message",
         "type": "object",
         "x-internal": true,
         "properties": {

@@ -754,17 +754,20 @@ components:
             - start
             - finish
     CreateCompany:
+      title: Create company request
       x-internal: true
-      required:
-        - name
       type: object
       properties:
         name:
           type: string
-          format: string
-          description: Name of the company in Codat with a partner-commerce data connection.
-          example: Bob's Burgers
-      additionalProperties: false
+          description: Name of company being connected.
+          pattern: '^[A-Za-z0-9\s\-'',&@.,?!\s]+$'
+          minLength: 1
+          example: Bank of Dave
+        description:
+          $ref: '#/components/schemas/Company/properties/description'
+      required:
+        - name
     Connection:
       title: Connection
       description: "\uFEFFA connection represents a [company's](https://docs.codat.io/sync-for-commerce-api#/schemas/Company) connection to a data source and allows you to synchronize data (pull and/or push) with that source.\n\nA company can have multiple data connections depending on the type of data source it is connecting to. For example, a single company can link to:\n\n- [Accounting data](https://docs.codat.io/accounting-api/overview) - 1 active connection.\n- [Banking data](https://docs.codat.io/banking-api/overview) - Multiple active connections.\n- [Commerce data](https://docs.codat.io/commerce-api/overview) - Multiple active connections.\nAny combination of accounting, banking, and commerce data connections is allowed.\n\nBefore you can use a data connection to pull or push data, the company must grant you access to their business data by [linking the connection](https://docs.codat.io/auth-flow/overview)."
@@ -870,6 +873,7 @@ components:
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object
@@ -880,6 +884,7 @@ components:
                 $ref: '#/components/schemas/Connection'
         - $ref: '#/components/schemas/PagingInfo'
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -891,6 +896,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -943,34 +949,6 @@ components:
               href: '/companies/{id}/data/{dataType}'
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    Links:
-      type: object
-      x-internal: true
-      required:
-        - self
-        - current
-      properties:
-        self:
-          $ref: '#/components/schemas/HalRef'
-        current:
-          $ref: '#/components/schemas/HalRef'
-        next:
-          $ref: '#/components/schemas/HalRef'
-        previous:
-          $ref: '#/components/schemas/HalRef'
-      examples:
-        - self:
-            href: '/companies/{id}/data/{dataType}'
-          current:
-            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    HalRef:
-      title: Hypertext reference
-      type: object
-      x-internal: true
-      properties:
-        href:
-          type: string
-          format: uri-reference
     Company:
       title: Company
       description: "\uFEFFIn Codat, a company represents a business sharing access to their data. Each company can have multiple [connections](https://docs.codat.io/sync-for-commerce-api#/schemas/Connection) to different data sources such as one connection to [Xero](https://docs.codat.io/integrations/accounting/xero/accounting-xero) for accounting data, two connections to [Plaid](https://docs.codat.io/integrations/banking/plaid/banking-plaid) for two bank accounts and a connection to [Zettle](https://docs.codat.io/integrations/commerce/zettle/commerce-zettle) for POS data.\n\nTypically each company is one of your customers.\n\nWhen you create a company, you can specify a `name` and we will automatically generate a unique `id` for the company. You can also add a `description` to store any additional information about the company."
@@ -1121,16 +1099,6 @@ components:
                 src: 'https://static.codat.io/public/officialLogos/Full/8A156A5A-39CB-4F9D-856E-76EF9B9A9607.png'
                 alt: xero hover button icon
           sourceId: 35b92968-9851-4095-ad60-395c95cbcba4
-    Integrations:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/Integration'
-        - $ref: '#/components/schemas/PagingInfo'
     Integration:
       title: Integration
       description: An integration that Codat supports
@@ -1196,6 +1164,7 @@ components:
           type: object
           properties:
             dataType:
+              title: Data types
               x-internal: true
               type: string
               description: Available Data types
@@ -1292,14 +1261,25 @@ components:
             - GetAttachments
             - UploadAttachment
           example: Get
+    Integrations:
+      title: Integrations
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/Integration'
+        - $ref: '#/components/schemas/PagingInfo'
     UpdateConnection:
+      title: Update connection
       x-internal: true
       type: object
       properties:
         status:
-          type: string
+          $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
           description: The current authorization status of the data connection.
-          example: Linked
           nullable: true
       additionalProperties: false
     AccountOption:
@@ -1353,6 +1333,7 @@ components:
           nullable: true
       additionalProperties: false
     Configuration:
+      title: Configuration
       type: object
       properties:
         sales:
@@ -1365,6 +1346,7 @@ components:
           $ref: '#/components/schemas/Fees'
       additionalProperties: false
     Fees:
+      title: Fees
       x-internal: true
       type: object
       properties:
@@ -1396,6 +1378,7 @@ components:
           nullable: true
       additionalProperties: false
     Grouping:
+      title: Grouping
       x-internal: true
       type: object
       properties:
@@ -1532,6 +1515,7 @@ components:
           nullable: true
       additionalProperties: false
     Option:
+      title: Option
       x-internal: true
       type: object
       properties:
@@ -1544,6 +1528,7 @@ components:
           description: Unique identifier for the option.
       additionalProperties: false
     Payments:
+      title: Payments
       x-internal: true
       type: object
       properties:
@@ -1557,6 +1542,7 @@ components:
           nullable: true
       additionalProperties: false
     Sales:
+      title: Sales
       x-internal: true
       type: object
       properties:
@@ -1583,6 +1569,7 @@ components:
           $ref: '#/components/schemas/Grouping'
       additionalProperties: false
     Customer:
+      title: Customer
       x-internal: true
       type: object
       properties:
@@ -1630,6 +1617,7 @@ components:
           description: Selected tax rate id from the list of tax rates on the accounting software.
       additionalProperties: false
     Localization:
+      title: Localization
       x-internal: true
       type: object
       properties:
@@ -1663,6 +1651,7 @@ components:
           description: Sync flow URL.
           example: 'https://sync-flow-integration.codat.io/57b6fad9-e3ca-447b-89db-e4ffa21e6ef3/aiwb/mqjo/start?otp=836415'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:

@@ -5553,6 +5553,7 @@ components:
               modifiedDate: null
               sourceModifiedDate: '2020-08-12T14:37:37'
     Customers:
+      title: Commerce customers
       x-internal: true
       allOf:
         - type: object
@@ -5639,6 +5640,7 @@ components:
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-22T14:39:55'
     Disputes:
+      title: Disputes
       x-internal: true
       allOf:
         - type: object
@@ -5700,6 +5702,7 @@ components:
           modifiedDate: '2020-08-12T14:37:37'
           sourceModifiedDate: '2020-08-12T14:37:37'
     Locations:
+      title: Locations
       x-internal: true
       allOf:
         - type: object
@@ -5973,6 +5976,7 @@ components:
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-28T03:00:14'
     Orders:
+      title: Orders
       x-internal: true
       allOf:
         - type: object
@@ -6110,6 +6114,7 @@ components:
             - $ref: '#/components/schemas/CreatedDate'
             - $ref: '#/components/schemas/ModifiedDates'
     Payments:
+      title: Commerce payments
       x-internal: true
       allOf:
         - type: object
@@ -6147,6 +6152,7 @@ components:
           description: Status of the Payment Method
           example: Active
     PaymentMethods:
+      title: Commerce payment methods
       x-internal: true
       allOf:
         - type: object
@@ -6333,6 +6339,7 @@ components:
             - Published
             - Unpublished
     Products:
+      title: Products
       x-internal: true
       allOf:
         - type: object
@@ -6396,6 +6403,7 @@ components:
               modifiedDate: '2022-01-01T12:00:00Z'
               sourceModifiedDate: '2021-12-25T12:00:00Z'
     ProductCategories:
+      title: Product categories
       x-internal: true
       allOf:
         - type: object
@@ -6473,6 +6481,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TaxComponents:
+      title: Tax components
       x-internal: true
       allOf:
         - type: object
@@ -6595,6 +6604,7 @@ components:
             - Unknown
       examples: []
     Transactions:
+      title: Commerce transactions
       x-internal: true
       allOf:
         - type: object
@@ -6641,6 +6651,7 @@ components:
             - Unknown
     PagingInfo:
       type: object
+      title: Pagination information
       x-internal: true
       properties:
         pageNumber:
@@ -6741,34 +6752,6 @@ components:
         - id
         - type
       description: ''
-    Links:
-      type: object
-      x-internal: true
-      required:
-        - self
-        - current
-      properties:
-        self:
-          $ref: '#/components/schemas/HRef'
-        current:
-          $ref: '#/components/schemas/HRef'
-        next:
-          $ref: '#/components/schemas/HRef'
-        previous:
-          $ref: '#/components/schemas/HRef'
-      examples:
-        - self:
-            href: '/companies/{id}/data/{dataType}'
-          current:
-            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    HRef:
-      title: Hypertext reference
-      type: object
-      x-internal: true
-      properties:
-        href:
-          type: string
-          format: uri-reference
     DateTime:
       title: Date time
       type: string
@@ -6796,6 +6779,7 @@ components:
         > Not all dates from Codat will contain information about time zones.  
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     CreatedDate:
+      title: Created date
       type: object
       x-internal: true
       properties:
@@ -6803,6 +6787,7 @@ components:
           $ref: '#/components/schemas/DateTime'
           description: The date the entity was created.
     ModifiedDates:
+      title: Modified dates
       x-internal: true
       allOf:
         - title: ModifiedDate
@@ -6839,6 +6824,7 @@ components:
 
                     In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:

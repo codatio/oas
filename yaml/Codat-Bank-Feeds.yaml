@@ -843,7 +843,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListPushOperations'
+                $ref: '#/components/schemas/PushOperations'
               examples: {}
         '400':
           $ref: '#/components/responses/Malformed-Query'
@@ -913,6 +913,7 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     Companies:
+      title: Companies
       x-internal: true
       allOf:
         - type: object
@@ -921,8 +922,62 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Company'
-        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
+        - type: object
+          title: Pagination information
+          x-internal: true
+          properties:
+            pageNumber:
+              type: integer
+            pageSize:
+              type: integer
+            totalResults:
+              type: integer
+            _links:
+              $ref: '#/components/schemas/Companies/allOf/1/definitions/links'
+          definitions:
+            links:
+              title: Hal Links
+              type: object
+              required:
+                - self
+                - current
+              properties:
+                self:
+                  $ref: '#/components/schemas/Companies/allOf/1/definitions/halRef'
+                current:
+                  $ref: '#/components/schemas/Companies/allOf/1/definitions/halRef'
+                next:
+                  $ref: '#/components/schemas/Companies/allOf/1/definitions/halRef'
+                previous:
+                  $ref: '#/components/schemas/Companies/allOf/1/definitions/halRef'
+              examples:
+                - self:
+                    href: '/companies/{id}/data/{dataType}'
+                  current:
+                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+            halRef:
+              title: Hypertext reference
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri-reference
+          required:
+            - pageNumber
+            - pageSize
+            - totalResults
+            - _links
+          examples:
+            - _links:
+                pageNumber: 1
+                pageSize: 10
+                totalResults: 1
+                self:
+                  href: '/companies/{id}/data/{dataType}'
+                current:
+                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     CompanyRequestBody:
+      title: Create company request
       x-internal: true
       type: object
       properties:
@@ -1044,6 +1099,7 @@ components:
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
     Connections:
+      title: Connections
       x-internal: true
       allOf:
         - type: object
@@ -1052,7 +1108,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Connection'
-        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
+        - $ref: '#/components/schemas/Companies/allOf/1'
     SourceAccount:
       title: Source Account
       type: object
@@ -1245,37 +1301,28 @@ components:
           sourceBalance: 1550
           sourceCurrency: GBP
     SourceAccounts:
+      title: Source accounts
       x-internal: true
       type: array
       items:
         $ref: '#/components/schemas/SourceAccount'
     BankTransactions:
-      title: Bank account transactions
-      description: |-
-        > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/banking-api#/operations/list-all-banking-transactions)
-
-        > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
-
-        ## Overview
-
-        Transactional banking data for a specific company and account.
-
-        Bank transactions include the:
-        * Amount of the transaction.
-        * Current account balance.
-        * Transaction type, for example, credit, debit, or transfer.
+      title: Bank account transaction
       type: object
       allOf:
         - type: object
           properties:
             id:
               type: string
-            accountId:
-              type: string
-              nullable: true
             clearedOnDate:
               $ref: '#/components/schemas/DateTime'
             description:
+              type: string
+              nullable: true
+            counterparty:
+              type: string
+              nullable: true
+            reference:
               type: string
               nullable: true
             reconciled:
@@ -1285,8 +1332,30 @@ components:
             balance:
               type: number
             transactionType:
-              $ref: '#/components/schemas/BankTransactions/definitions/bankTransactionType'
-        - x-internal: true
+              title: Bank transaction type
+              description: Type of transaction for the bank statement line
+              type: string
+              enum:
+                - Unknown
+                - Credit
+                - Debit
+                - Int
+                - Div
+                - Fee
+                - SerChg
+                - Dep
+                - Atm
+                - Pos
+                - Xfer
+                - Check
+                - Payment
+                - Cash
+                - DirectDep
+                - DirectDebit
+                - RepeatPmt
+                - Other
+        - title: Modified dates
+          x-internal: true
           allOf:
             - title: ModifiedDate
               x-internal: true
@@ -1321,30 +1390,6 @@ components:
                           - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
                         In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-      definitions:
-        bankTransactionType:
-          title: Bank transaction type
-          description: Type of transaction for the bank statement line
-          type: string
-          enum:
-            - Unknown
-            - Credit
-            - Debit
-            - Int
-            - Div
-            - Fee
-            - SerChg
-            - Dep
-            - Atm
-            - Pos
-            - Xfer
-            - Check
-            - Payment
-            - Cash
-            - DirectDep
-            - DirectDebit
-            - RepeatPmt
-            - Other
     CreateBankTransactions:
       title: Create bank account transactions
       type: object
@@ -1363,17 +1408,18 @@ components:
           type: object
           properties:
             id:
-              type: string
+              $ref: '#/components/schemas/BankTransactions/allOf/0/properties/id'
             amount:
-              type: number
+              $ref: '#/components/schemas/BankTransactions/allOf/0/properties/amount'
             date:
               $ref: '#/components/schemas/DateTime'
             description:
+              $ref: '#/components/schemas/BankTransactions/allOf/0/properties/description'
               nullable: false
-              type: string
             balance:
-              type: number
+              $ref: '#/components/schemas/BankTransactions/allOf/0/properties/balance'
     CreateBankTransactionsResponse:
+      title: Create bank transaction response
       x-internal: true
       allOf:
         - type: object
@@ -1407,35 +1453,8 @@ components:
         > 
         > Not all dates from Codat will contain information about time zones.  
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-    Links:
-      type: object
-      x-internal: true
-      required:
-        - self
-        - current
-      properties:
-        self:
-          $ref: '#/components/schemas/HRef'
-        current:
-          $ref: '#/components/schemas/HRef'
-        next:
-          $ref: '#/components/schemas/HRef'
-        previous:
-          $ref: '#/components/schemas/HRef'
-      examples:
-        - self:
-            href: '/companies/{id}/data/{dataType}'
-          current:
-            href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-    HRef:
-      title: Hypertext reference
-      type: object
-      x-internal: true
-      properties:
-        href:
-          type: string
-          format: uri-reference
     DataType:
+      title: Data types
       x-internal: true
       type: string
       description: Available Data types
@@ -1500,16 +1519,6 @@ components:
         QuickBooks Online Bank Feeds:
           username: S0MW-TR0P-7DS0
           password: cO0ajh0uGyTN0Pwh
-    DataConnectionHistory:
-      x-internal: true
-      allOf:
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                $ref: '#/components/schemas/PullOperation'
-        - $ref: '#/components/schemas/ListPushOperations/allOf/1'
     PullOperation:
       title: Pull operation
       description: |-
@@ -1588,9 +1597,20 @@ components:
           progress: 10
           isCompleted: false
           isErrored: false
+    PullOperations:
+      title: Pull operations
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/PullOperation'
+        - $ref: '#/components/schemas/Companies/allOf/1'
     PushOperation:
-      type: object
       title: Push operation
+      type: object
       x-internal: true
       properties:
         changes:
@@ -1710,7 +1730,8 @@ components:
             attachmentId:
               type: string
               nullable: true
-    ListPushOperations:
+    PushOperations:
+      title: Push operations
       x-internal: true
       allOf:
         - type: object
@@ -1719,60 +1740,9 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PushOperation'
-        - type: object
-          x-internal: true
-          properties:
-            pageNumber:
-              type: integer
-            pageSize:
-              type: integer
-            totalResults:
-              type: integer
-            _links:
-              $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/links'
-          definitions:
-            links:
-              title: Hal Links
-              type: object
-              required:
-                - self
-                - current
-              properties:
-                self:
-                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
-                current:
-                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
-                next:
-                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
-                previous:
-                  $ref: '#/components/schemas/ListPushOperations/allOf/1/definitions/halRef'
-              examples:
-                - self:
-                    href: '/companies/{id}/data/{dataType}'
-                  current:
-                    href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
-            halRef:
-              title: Hypertext reference
-              type: object
-              properties:
-                href:
-                  type: string
-                  format: uri-reference
-          required:
-            - pageNumber
-            - pageSize
-            - totalResults
-            - _links
-          examples:
-            - _links:
-                pageNumber: 1
-                pageSize: 10
-                totalResults: 1
-                self:
-                  href: '/companies/{id}/data/{dataType}'
-                current:
-                  href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
+        - $ref: '#/components/schemas/Companies/allOf/1'
     ErrorMessage:
+      title: Error message
       type: object
       x-internal: true
       properties:

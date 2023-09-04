@@ -918,7 +918,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DataConnectionHistory"
+                  "$ref": "#/components/schemas/PullOperations"
                 },
                 "examples": {
                   "Example": {
@@ -1022,7 +1022,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PushHistoryResponse"
+                  "$ref": "#/components/schemas/PushOperations"
                 },
                 "examples": {}
               }
@@ -10349,7 +10349,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PushOperationSummary"
+                  "$ref": "#/components/schemas/PushOperation"
                 },
                 "examples": {}
               }
@@ -13173,6 +13173,7 @@
     "schemas": {
       "PagingInfo": {
         "type": "object",
+        "title": "Pagination information",
         "x-internal": true,
         "properties": {
           "pageNumber": {
@@ -13255,6 +13256,7 @@
         ]
       },
       "Companies": {
+        "title": "Companies",
         "x-internal": true,
         "allOf": [
           {
@@ -13274,6 +13276,7 @@
         ]
       },
       "CompanyRequestBody": {
+        "title": "Create company request",
         "x-internal": true,
         "type": "object",
         "properties": {
@@ -13375,6 +13378,7 @@
         ]
       },
       "Connections": {
+        "title": "Connections",
         "x-internal": true,
         "allOf": [
           {
@@ -13671,8 +13675,29 @@
           }
         ]
       },
+      "PullOperations": {
+        "title": "Pull operations",
+        "x-internal": true,
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PullOperation"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PagingInfo"
+          }
+        ]
+      },
       "DataType": {
         "x-internal": true,
+        "title": "Data types",
         "type": "string",
         "description": "Available Data types",
         "enum": [
@@ -13721,28 +13746,9 @@
         ],
         "example": "invoices"
       },
-      "DataConnectionHistory": {
-        "x-internal": true,
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "results": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/PullOperation"
-                }
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
-      "PushOperationSummary": {
-        "type": "object",
+      "PushOperation": {
         "title": "Push operation",
+        "type": "object",
         "x-internal": true,
         "properties": {
           "changes": {
@@ -13750,7 +13756,7 @@
             "nullable": true,
             "description": "Contains a single entry that communicates which record has changed and the manner in which it changed. ",
             "items": {
-              "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationChange"
+              "$ref": "#/components/schemas/PushOperation/definitions/pushOperationChange"
             }
           },
           "dataType": {
@@ -13788,14 +13794,14 @@
             "deprecated": true
           },
           "status": {
-            "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationStatus"
+            "$ref": "#/components/schemas/PushOperation/definitions/pushOperationStatus"
           },
           "errorMessage": {
             "type": "string",
             "nullable": true
           },
           "validation": {
-            "$ref": "#/components/schemas/PushOperationSummary/definitions/validation"
+            "$ref": "#/components/schemas/PushOperation/definitions/validation"
           },
           "statusCode": {
             "type": "integer"
@@ -13819,14 +13825,14 @@
                 "type": "array",
                 "nullable": true,
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary/definitions/validationItem"
+                  "$ref": "#/components/schemas/PushOperation/definitions/validationItem"
                 }
               },
               "warnings": {
                 "type": "array",
                 "nullable": true,
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary/definitions/validationItem"
+                  "$ref": "#/components/schemas/PushOperation/definitions/validationItem"
                 }
               }
             }
@@ -13891,10 +13897,10 @@
             "type": "object",
             "properties": {
               "type": {
-                "$ref": "#/components/schemas/PushOperationSummary/definitions/pushChangeType"
+                "$ref": "#/components/schemas/PushOperation/definitions/pushChangeType"
               },
               "recordRef": {
-                "$ref": "#/components/schemas/PushOperationSummary/definitions/pushOperationRef"
+                "$ref": "#/components/schemas/PushOperation/definitions/pushOperationRef"
               },
               "attachmentId": {
                 "type": "string",
@@ -13904,7 +13910,8 @@
           }
         }
       },
-      "PushHistoryResponse": {
+      "PushOperations": {
+        "title": "Push operations",
         "x-internal": true,
         "allOf": [
           {
@@ -13913,30 +13920,13 @@
               "results": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PushOperationSummary"
+                  "$ref": "#/components/schemas/PushOperation"
                 }
               }
             }
           },
           {
             "$ref": "#/components/schemas/PagingInfo"
-          }
-        ]
-      },
-      "PushOperation": {
-        "allOf": [
-          {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "object",
-                "description": "Object submitted in push operation.",
-                "additionalProperties": true
-              }
-            }
-          },
-          {
-            "$ref": "#/components/schemas/PushOperationSummary"
           }
         ]
       },
@@ -14206,6 +14196,7 @@
                 }
               },
               "metadata": {
+                "title": "Metadata",
                 "type": "object",
                 "x-internal": true,
                 "properties": {
@@ -14219,6 +14210,7 @@
             }
           },
           {
+            "title": "Modified dates",
             "x-internal": true,
             "allOf": [
               {
@@ -14305,6 +14297,7 @@
         "type": "object"
       },
       "Accounts": {
+        "title": "Accounts",
         "x-internal": true,
         "allOf": [
           {
@@ -14324,6 +14317,7 @@
         ]
       },
       "CreateAccountResponse": {
+        "title": "Create account response",
         "x-internal": true,
         "allOf": [
           {
@@ -14335,7 +14329,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14466,6 +14460,7 @@
         }
       },
       "JournalEntries": {
+        "title": "Journal entries",
         "x-internal": true,
         "allOf": [
           {
@@ -14485,6 +14480,7 @@
         ]
       },
       "CreateJournalEntryResponse": {
+        "title": "Create journal entry response",
         "x-internal": true,
         "allOf": [
           {
@@ -14496,7 +14492,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14587,6 +14583,7 @@
         }
       },
       "Journals": {
+        "title": "Journals",
         "x-internal": true,
         "allOf": [
           {
@@ -14606,6 +14603,7 @@
         ]
       },
       "CreateJournalResponse": {
+        "title": "Create journal response",
         "x-internal": true,
         "allOf": [
           {
@@ -14617,7 +14615,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/PushOperationSummary"
+            "$ref": "#/components/schemas/PushOperation"
           }
         ]
       },
@@ -14700,6 +14698,7 @@
         ]
       },
       "TrackingCategories": {
+        "title": "Tracking categories",
         "x-internal": true,
         "allOf": [
           {
@@ -14764,6 +14763,7 @@
         ]
       },
       "ErrorMessage": {
+        "title": "Error message",
         "type": "object",
         "x-internal": true,
         "properties": {
