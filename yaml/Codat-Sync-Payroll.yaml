@@ -7029,6 +7029,32 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payroll-api#/operations/refresh-company-data).
       operationId: get-journal-entry
+    delete:
+      summary: Delete journal entry
+      operationId: delete-journal-entry
+      parameters:
+        - name: journalEntryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushOperationSummary'
+              examples: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+      description: "\uFEFF> **Use with caution**\n>\n>Because journal entries underpin every transaction in an accounting platform, deleting a journal entry can affect every transaction for a given company.\n> \n> **Before you proceed, make sure you understand the implications of deleting journal entries from an accounting perspective.**\n\nThe *Delete journal entry* endpoint allows you to delete a specified journal entry from an accounting platform.\n\n[Journal entries](https://docs.codat.io/sync-for-payroll-api#/schemas/JournalEntry) are made in a company's general ledger, or accounts, when transactions are approved.\n\n### Process\n1. Pass the `{journalEntryId}` to the *Delete journal entry* endpoint and store the `pushOperationKey` returned.\n2. Check the status of the delete by checking the status of push operation either via\n   1. [Push operation webhook](https://docs.codat.io/introduction/webhooks/core-rules-types#push-operation-status-has-changed) (advised),\n   2. [Push operation status endpoint](https://docs.codat.io/sync-for-payroll-api#/operations/get-push-operation). \n   \n   A `Success` status indicates that the journal entry object was deleted from the accounting platform.\n3. (Optional) Check that the journal entry was deleted from the accounting platform.\n\n### Effect on related objects\n\nBe aware that deleting a journal entry from an accounting platform might cause related objects to be modified. For example, if you delete the journal entry for a paid invoice in QuickBooks Online, the invoice is deleted but the payment against that invoice is not. The payment is converted to a payment on account.\n\n## Integration specifics\nIntegrations that support soft delete do not permanently delete the object in the accounting platform.\n\n| Integration | Soft Deleted | \n|-------------|--------------|\n| QuickBooks Online | Yes    |       \n"
+      tags:
+        - Journal entries
   '/companies/{companyId}/connections/{connectionId}/options/journalEntries':
     parameters:
       - $ref: '#/components/parameters/companyId'
