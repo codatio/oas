@@ -9,7 +9,29 @@ info:
 
     The Lending API is built on top of the latest accounting, commerce, and banking data, providing you with the most important data points you need to get a full picture of SMB creditworthiness and make a comprehensive assessment of your customers.
 
-    [See our OpenAPI spec](https://github.com/codatio/oas) 
+    [Explore product](https://docs.codat.io/bank-feeds-api/overview) | [See OpenAPI spec](https://github.com/codatio/oas)
+
+    ---
+
+    ## Endpoints
+
+    | Endpoints            | Description                                                                                                |
+    |:---------------------|:-----------------------------------------------------------------------------------------------------------|
+    | Companies            | Create and manage your SMB users' companies.                                                               |
+    | Connections          | Create new and manage existing data connections for a company.                                             |
+    | Company info         | View company profile from the source platform.                                                             |
+    | Accounts payable     | Data from a linked accounting platform representing money the business owes money to its suppliers.        |
+    | Accounts receivable  | Data from a linked accounting platform representing money owed to the business for sold goods or services. |
+    | Transactions         | Data from a linked accounting platform representing transactions.                                          |
+    | Financial statements | Financial data and reports from a linked accounting platform.                                              |
+    | Banking              | Retrieve banking data from linked bank accounts.                                                           |
+    | Sales                | Retrieve standardized sales data from a linked commerce platform.                                          |
+    | Liabilities          | Debt and other liabilities.                                                                                |
+    | Data integrity       | Match mutable accounting data with immutable banking data to increase confidence in financial data.        |
+    | Excel reports        | Download reports in Excel format.                                                                          |
+    | Categories           | Manage Codat's automatic account categorization functionality.                                             |
+    | Manage data          | Control how data is retrieved from an integration.                                                         |
+    | File upload          | Endpoints to manage uploaded files.                                                                        |
   version: 3.0.0
   contact:
     name: Codat
@@ -70,7 +92,7 @@ tags:
     description: Data from a linked accounting platform representing transactions.
   - name: Financial statements
     description: Financial data and reports from a linked accounting platform.
-  - name: Cash flow
+  - name: Banking
     description: Retrieve banking data from linked bank accounts.
   - name: Sales
     description: Retrieve standardized sales data from a linked commerce platform.
@@ -81,7 +103,7 @@ tags:
   - name: Excel reports
     description: Downloadable reports
   - name: Categories
-    description: Manage Codat's automatic account categorization functionality
+    description: Manage Codat's automatic account categorization functionality.
   - name: Manage data
     description: Control how data is retrieved from an integration.
   - name: File upload
@@ -757,7 +779,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get enhanced profit and loss accounts
+      summary: Get categorized profit and loss statement
       description: "\uFEFFThe *Get enhanced profit and loss accounts* endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss statement. It also includes a balance as of the financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
       tags:
         - Financial statements
@@ -1032,8 +1054,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-enhanced-profit-and-loss-accounts
-      x-speakeasy-name-override: get-enhanced-profit-and-loss-accounts
+      operationId: get-categorized-profit-and-loss-statement
+      x-speakeasy-name-override: get-categorized-profit-and-loss
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/numberOfPeriods'
@@ -1041,9 +1063,9 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get enhanced balance sheet accounts
-      operationId: get-enhanced-balance-sheet-accounts
-      x-speakeasy-name-override: get-enhanced-balance-sheet-accounts
+      summary: Get categorized balance sheet statement
+      operationId: get-categorized-balance-sheet-statement
+      x-speakeasy-name-override: get-categorized-balance-sheet
       description: "\uFEFFThe *Get enhanced balance sheet accounts* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
       tags:
         - Financial statements
@@ -1257,9 +1279,9 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get enhanced cash flow report
-      operationId: get-enhanced-cash-flow-transactions
-      x-speakeasy-name-override: get-enhanced-cash-flow-transactions
+      summary: Get categorized bank statement
+      operationId: get-categorized-bank-statement
+      x-speakeasy-name-override: get-categorized-bank-statement
       description: |-
         > **Categorization engine**
         > 
@@ -1267,7 +1289,7 @@ paths:
 
         The Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
       tags:
-        - Cash flow
+        - Banking
       responses:
         '200':
           description: OK
@@ -1488,7 +1510,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get enhanced invoices report
+      summary: Get reconciled invoices
       tags:
         - Accounts receivable
       responses:
@@ -1706,8 +1728,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-enhanced-invoices-report
-      x-speakeasy-name-override: get-enhanced-invoices-report
+      operationId: get-reconciled-invoices
+      x-speakeasy-name-override: get-reconciled-invoices
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -52360,7 +52382,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances':
     get:
       tags:
-        - Cash flow
+        - Banking
       summary: List account balances
       operationId: list-banking-account-balances
       x-speakeasy-name-override: list-bank-account-balances
@@ -52443,7 +52465,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
-        - Cash flow
+        - Banking
       summary: List accounts
       operationId: list-banking-accounts
       x-speakeasy-name-override: list-bank-accounts
@@ -52576,7 +52598,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
-        - Cash flow
+        - Banking
       summary: Get account
       operationId: get-banking-account
       x-speakeasy-name-override: get-bank-account
@@ -52658,7 +52680,7 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       tags:
-        - Cash flow
+        - Banking
       operationId: list-banking-transactions
       x-speakeasy-name-override: list-bank-transactions
       summary: List transactions
@@ -52777,7 +52799,7 @@ paths:
         description: The unique identifier for a transaction
     get:
       tags:
-        - Cash flow
+        - Banking
       summary: Get bank transaction
       responses:
         '200':
@@ -52831,7 +52853,7 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       tags:
-        - Cash flow
+        - Banking
       operationId: list-banking-transaction-categories
       x-speakeasy-name-override: list-bank-transaction-categories
       summary: List transaction categories
@@ -52922,7 +52944,7 @@ paths:
         description: The unique identifier for a banking transaction category
     get:
       tags:
-        - Cash flow
+        - Banking
       operationId: get-banking-transaction-category
       x-speakeasy-name-override: get-bank-transaction-category
       summary: Get transaction category
