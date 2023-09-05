@@ -32513,11 +32513,11 @@ paths:
       operationId: get-accounting-transfer
       x-speakeasy-name-override: get-transfer
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts':
-    x-internal: true
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
+      x-internal: true
       tags:
         - Accounting bank data
       summary: List bank accounts
@@ -32962,12 +32962,12 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}':
-    x-internal: true
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
       - $ref: '#/components/parameters/accountingAccountId'
     get:
+      x-internal: true
       tags:
         - Accounting bank data
       summary: Get bank account
@@ -33151,8 +33151,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
-    x-internal: true
     get:
+      x-internal: true
       tags:
         - Accounting bank data
       summary: List bank account transactions
@@ -37628,8 +37628,8 @@ paths:
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
-    x-internal: true
     get:
+      x-internal: true
       tags:
         - Accounting bank data
       summary: Get create bank account transactions model
@@ -37786,6 +37786,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
+      x-internal: true
       tags:
         - Accounts receivable
       summary: Aged debtors report available
