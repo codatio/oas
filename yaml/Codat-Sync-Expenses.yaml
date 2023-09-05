@@ -4571,10 +4571,12 @@ components:
           nullable: true
         effectiveTaxRate:
           type: number
+          format: decimal
           description: Effective tax rate.
           example: 20
         totalTaxRate:
           type: number
+          format: decimal
           description: Total (not compounded) sum of the components of a tax rate.
           example: 20
         validTransactionTypes:
@@ -4777,6 +4779,7 @@ components:
         currencyRate:
           title: Currency rate
           type: number
+          format: decimal
           nullable: true
           description: |-
             Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
@@ -4894,10 +4897,12 @@ components:
       properties:
         netAmount:
           type: number
+          format: decimal
           example: 110.42
           description: 'Amount of the line, exclusive of tax.'
         taxAmount:
           type: number
+          format: decimal
           example: 14.43
           description: Amount of tax for the line.
         taxRateRef:
@@ -5897,6 +5902,7 @@ components:
                 - EUR
             currentBalance:
               type: number
+              format: decimal
               nullable: true
               description: Current balance in the account.
               example: 0

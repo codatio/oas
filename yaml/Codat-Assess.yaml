@@ -1918,6 +1918,7 @@ components:
               type: string
             value:
               type: number
+              format: decimal
       x-examples:
         Example 1:
           reportInfo:
@@ -1973,6 +1974,7 @@ components:
                 description: Last date of the period.
               balance:
                 type: number
+                format: decimal
                 description: Balance of the account as reported on the profit and loss or Balance sheet.
               accountName:
                 type: string
@@ -2005,6 +2007,7 @@ components:
               description: Account category name.
             confidence:
               type: number
+              format: decimal
               description: Confidence level of the category. This will only be populated where `status` is `Suggested`.
         enhancedReportInfo:
           type: object
@@ -2160,9 +2163,11 @@ components:
           properties:
             min:
               type: number
+              format: decimal
               description: Lowest value of transaction set.
             max:
               type: number
+              format: decimal
               description: Highest value of transaction set.
             currency:
               $ref: '#/components/schemas/Currency'
@@ -2249,15 +2254,19 @@ components:
           properties:
             matchPercentage:
               type: number
+              format: decimal
               description: The percentage of the absolute value of transactions of the type specified in the route which have a match.
             unmatched:
               type: number
+              format: decimal
               description: The sum of the absolute value of transactions of the type specified in the route which don't have a match.
             matched:
               type: number
+              format: decimal
               description: The sum of the absolute value of transactions of the type specified in the route which have a match.
             total:
               type: number
+              format: decimal
               description: The total of unmatched and matched.
             currency:
               $ref: '#/components/schemas/Currency'
@@ -2267,15 +2276,19 @@ components:
           properties:
             matchPercentage:
               type: number
+              format: decimal
               description: The percentage of records of the type specified in the route which have a match.
             unmatched:
               type: number
+              format: decimal
               description: The number of records of the type specified in the route which don't have a match.
             matched:
               type: number
+              format: decimal
               description: The number of records of the type specified in the route which do have a match.
             total:
               type: number
+              format: decimal
               description: The total of unmatched and matched.
     Summaries:
       title: Data integrity summaries
@@ -2309,6 +2322,7 @@ components:
           description: The transaction description.
         amount:
           type: number
+          format: decimal
           description: The transaction value.
         currency:
           $ref: '#/components/schemas/Currency'
@@ -2407,6 +2421,7 @@ components:
             currentBalance:
               description: The balance of the bank account.
               type: number
+              format: decimal
         sourceRef:
           title: Report source reference
           description: A source reference containing the `sourceType` object "Banking".
@@ -2461,6 +2476,7 @@ components:
             amount:
               description: The bank transaction amount.
               type: number
+              format: decimal
             currency:
               type: string
             transactionCategory:
@@ -2480,6 +2496,7 @@ components:
             confidence:
               description: Returns the confidence of the suggested category for the transaction. The value is between 0 and 100.
               type: number
+              format: decimal
             levels:
               description: The suggested category is an ordered array of category levels where each element (or level) is a subcategory of the previous element (or level).
               type: array
@@ -2607,6 +2624,7 @@ components:
               type: string
             amount:
               type: number
+              format: decimal
             currency:
               $ref: '#/components/schemas/Currency'
             currencyRate:
@@ -2633,6 +2651,7 @@ components:
               type: string
             amount:
               type: number
+              format: decimal
         invoiceStatus:
           type: string
           enum:
@@ -2673,8 +2692,10 @@ components:
                   $ref: '#/components/schemas/Currency'
                 totalAmount:
                   type: number
+                  format: decimal
                 amountDue:
                   type: number
+                  format: decimal
                 payments:
                   type: array
                   items:
@@ -2826,6 +2847,7 @@ components:
               description: The date of that entry type occurred.
             amount:
               type: number
+              format: decimal
               description: The loan transaction amount.
             loanTransactionType:
               type: string
@@ -2922,12 +2944,15 @@ components:
               description: The date of the earliest loan transaction.
             totalDrawdowns:
               type: number
+              format: decimal
               description: The total loan drawdowns.
             totalRepayments:
               type: number
+              format: decimal
               description: The total loan repayments which includes capital plus any interest.
             balance:
               type: number
+              format: decimal
               description: The loan outstanding balance.  This may not equal totalDrawdowns - totalRepayments due to interest which has been accrued.
         loanSummaryIntegrationType:
           title: Integration type
@@ -3036,6 +3061,7 @@ components:
     CurrencyRate:
       title: Currency rate
       type: number
+      format: decimal
       nullable: true
       description: |-
         Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.

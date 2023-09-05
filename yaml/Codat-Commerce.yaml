@@ -5424,7 +5424,6 @@ components:
               format: decimal
             reserved:
               description: Funds reserved as holdings
-              type: number
               format: decimal
             currency:
               description: The currency of the account
@@ -5588,7 +5587,7 @@ components:
                 $ref: '#/components/schemas/Transaction/definitions/transactionSourceRef'
             totalAmount:
               description: Total transaction amount that is under dispute.
-              type: number
+              format: decimal
               examples:
                 - 194.12
                 - -283.56
@@ -5764,18 +5763,23 @@ components:
             totalAmount:
               description: 'Total amount of the order, including tax, net of any discounts and refunds.'
               type: number
+              format: decimal
             totalRefund:
               description: Total amount refunded issued by a merchant on an order (always a negative value).
               type: number
+              format: decimal
             totalTaxAmount:
               description: Total amount of tax applied to the order.
               type: number
+              format: decimal
             totalDiscount:
               description: Total amount of discount applied to the order.
               type: number
+              format: decimal
             totalGratuity:
               description: Extra amount added to a bill.
               type: number
+              format: decimal
             orderLineItems:
               type: array
               items:
@@ -5816,11 +5820,13 @@ components:
               properties:
                 quantity:
                   type: number
+                  format: decimal
                   description: |
                     Number of units of the product sold.
                     For refunds, quantity is a negative value.
                 taxPercentage:
                   type: number
+                  format: decimal
                   description: Percentage rate (from 0 to 100) of any sale tax applied to the unit amount.
                   examples:
                     - 0
@@ -5828,12 +5834,15 @@ components:
                     - '45.00'
                 totalAmount:
                   type: number
+                  format: decimal
                   description: 'Total price of the line item, including discounts, tax and minus any refunds.'
                 totalTaxAmount:
                   type: number
+                  format: decimal
                   description: Total amount of tax applied to the line item.
                 unitPrice:
                   type: number
+                  format: decimal
                   description: Price per unit of goods or service.
                 taxes:
                   type: array
@@ -5859,6 +5868,7 @@ components:
             totalAmount:
               description: 'Total service charge, including taxes.'
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -5866,6 +5876,7 @@ components:
             taxPercentage:
               description: Percentage rate (from 0 to 100) of any tax applied to the service charge.
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -5873,6 +5884,7 @@ components:
             taxAmount:
               description: Amount of the service charge that is tax.
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -5911,6 +5923,7 @@ components:
               example: Promotional Discount
             totalAmount:
               type: number
+              format: decimal
               description: Total amount of discount applied.
               example: 15.25
       examples:
@@ -6003,6 +6016,7 @@ components:
           properties:
             amount:
               type: number
+              format: decimal
               description: Payment Amount (including gratuity)
               examples:
                 - 194.12
@@ -6088,6 +6102,7 @@ components:
               properties:
                 amount:
                   type: number
+                  format: decimal
                   nullable: true
                   description: Payment Amount (including gratuity).
                   examples:
@@ -6262,6 +6277,7 @@ components:
                   description: 'Unit of measure for the variant, such as `kg` or `meters`.'
                 vatPercentage:
                   type: number
+                  format: decimal
                   examples:
                     - 12.5
                     - 0
@@ -6309,6 +6325,7 @@ components:
               nullable: true
             unitPrice:
               type: number
+              format: decimal
         productInventory:
           title: Product Inventory
           description: Information about the total inventory as well as the locations inventory is in.
@@ -6317,6 +6334,7 @@ components:
           properties:
             totalQuantity:
               type: number
+              format: decimal
               nullable: true
             locations:
               type: array
@@ -6329,6 +6347,7 @@ components:
           properties:
             quantity:
               type: number
+              format: decimal
             locationRef:
               $ref: '#/components/schemas/Location/definitions/locationRef'
         productVariantStatus:
@@ -6431,7 +6450,7 @@ components:
             rate:
               description: Rate of taxation represented as a fraction of the net price (typically in the range 0.00 - 1.00).
               type: number
-              format: float
+              format: decimal
               examples:
                 - 0.15
                 - 0.2
@@ -6454,6 +6473,7 @@ components:
             rate:
               description: Tax amount on order line sale as available from source commerce platform.
               type: number
+              format: decimal
               nullable: true
         taxComponentRef:
           type: object
@@ -6512,6 +6532,7 @@ components:
             totalAmount:
               description: The total transaction amount
               type: number
+              format: decimal
               examples:
                 - 194.12
                 - -283.56

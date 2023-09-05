@@ -771,6 +771,7 @@ paths:
                       type: string
                     amount:
                       type: number
+                      format: decimal
                     date:
                       $ref: '#/components/schemas/DateTime'
                     description:
@@ -778,6 +779,7 @@ paths:
                       type: string
                     balance:
                       type: number
+                      format: decimal
       responses:
         '200':
           description: Success
@@ -1152,6 +1154,7 @@ components:
             - EUR
         balance:
           type: number
+          format: decimal
           nullable: true
           description: The latest balance for the bank account
         modifiedDate:
@@ -1268,6 +1271,7 @@ components:
               description: Name of the target account.
             balance:
               type: number
+              format: decimal
               nullable: true
               description: The balance of the account.
             sortCode:
@@ -1329,8 +1333,10 @@ components:
               type: boolean
             amount:
               type: number
+              format: decimal
             balance:
               type: number
+              format: decimal
             transactionType:
               title: Bank transaction type
               description: Type of transaction for the bank statement line

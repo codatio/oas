@@ -29606,6 +29606,7 @@ components:
               $ref: '#/components/schemas/Bill/allOf/0/properties/currency'
             currentBalance:
               type: number
+              format: decimal
               nullable: true
               description: Current balance in the account.
               example: 0
@@ -29774,26 +29775,32 @@ components:
                 $ref: '#/components/schemas/Bill/allOf/0/properties/withholdingTax/items'
             totalAmount:
               type: number
+              format: decimal
               description: 'Total amount of credit that has been applied to the business'' account with the supplier, including discounts and tax.'
               example: 805.78
             totalDiscount:
               type: number
+              format: decimal
               description: Total value of any discounts applied.
               example: 0
             subTotal:
               type: number
+              format: decimal
               description: 'Total amount of the bill credit note, including discounts but excluding tax.'
               example: 805.78
             totalTaxAmount:
               type: number
+              format: decimal
               description: Amount of tax included in the bill credit note.
               example: 0
             discountPercentage:
               type: number
+              format: decimal
               description: Percentage rate of any discount applied to the bill credit note.
               example: 0
             remainingCredit:
               type: number
+              format: decimal
               description: Amount of the bill credit note that is still outstanding.
               example: 0
             status:
@@ -29862,30 +29869,37 @@ components:
               description: 'Friendly name of each line item. For example, the goods or service for which credit has been received.'
             unitAmount:
               type: number
+              format: decimal
               description: Unit price of the goods or service.
             quantity:
               type: number
+              format: decimal
               description: Number of units of the goods or service for which credit has been received.
             discountAmount:
               type: number
+              format: decimal
               nullable: true
               description: Value of any discounts applied.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: 'Amount of credit associated with the line item, including discounts but excluding tax.'
             taxAmount:
               type: number
+              format: decimal
               nullable: true
               description: Amount of tax associated with the line item.
             totalAmount:
               type: number
+              format: decimal
               nullable: true
               description: 'Total amount of the line item, including discounts and tax.'
             accountRef:
               $ref: '#/components/schemas/Account/definitions/accountRef'
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
               description: Percentage rate of any discount applied to the line item.
             taxRateRef:
@@ -30235,6 +30249,7 @@ components:
               description: Account the payment is linked to in the accounting platform.
             totalAmount:
               type: number
+              format: decimal
               description: Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
               example: 1329.54
             currency:
@@ -30301,6 +30316,7 @@ components:
           properties:
             amount:
               type: number
+              format: decimal
               description: Amount in the bill payment currency.
             links:
               type: array
@@ -30323,6 +30339,7 @@ components:
               description: Unique identifier of the transaction represented by the link.
             amount:
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Amount by which the balance of the linked entity is altered, in the currency of the linked entity.
@@ -30332,6 +30349,7 @@ components:
             currencyRate:
               title: Currency rate
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
@@ -30659,6 +30677,7 @@ components:
                     type: string
                   amount:
                     type: number
+                    format: decimal
                 required:
                   - amount
                   - name
@@ -30666,15 +30685,19 @@ components:
               $ref: '#/components/schemas/Bill/definitions/billStatus'
             subTotal:
               type: number
+              format: decimal
               description: 'Total amount of the bill, excluding any taxes.'
             taxAmount:
               type: number
+              format: decimal
               description: Amount of tax on the bill.
             totalAmount:
               type: number
+              format: decimal
               description: 'Amount of the bill, including tax.'
             amountDue:
               type: number
+              format: decimal
               nullable: true
               description: Amount outstanding on the bill.
             note:
@@ -30704,6 +30727,7 @@ components:
                         description: The date the payment was allocated.
                       totalAmount:
                         type: number
+                        format: decimal
                         description: The total amount that has been allocated.
                 required:
                   - payment
@@ -30736,6 +30760,7 @@ components:
                         description: The date the payment was paid.
                       totalAmount:
                         type: number
+                        format: decimal
                         description: Total amount that was paid.
             metadata:
               $ref: '#/components/schemas/Metadata'
@@ -30815,12 +30840,15 @@ components:
               description: Friendly name of the goods or services received.
             unitAmount:
               type: number
+              format: decimal
               description: Price of each unit of goods or services.
             quantity:
               type: number
+              format: decimal
               description: Number of units of goods or services received.
             discountAmount:
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Numerical value of any discounts applied.
@@ -30828,18 +30856,22 @@ components:
                 Do not use to apply discounts in Oracle NetSuite—see Oracle NetSuite integration reference.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: 'Amount of the line, inclusive of discounts but exclusive of tax.'
             taxAmount:
               type: number
+              format: decimal
               nullable: true
               description: Amount of tax for the line.
             totalAmount:
               type: number
+              format: decimal
               nullable: true
               description: 'Total amount of the line, including tax.'
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
             accountRef:
               $ref: '#/components/schemas/Account/definitions/accountRef'
@@ -31046,6 +31078,7 @@ components:
               description: Description of the journal line item.
             netAmount:
               type: number
+              format: decimal
               description: 'Amount for the journal line. Debit entries are considered positive, and credit entries are considered negative.'
             currency:
               type: string
@@ -31461,10 +31494,12 @@ components:
               $ref: '#/components/schemas/TaxRate/definitions/taxRateStatus'
             effectiveTaxRate:
               type: number
+              format: decimal
               nullable: true
               description: See Effective tax rates description.
             totalTaxRate:
               type: number
+              format: decimal
               nullable: true
               description: Total (not compounded) sum of the components of a tax rate.
             components:
@@ -31504,6 +31539,7 @@ components:
               description: Name of the tax rate in the accounting platform.
             effectiveTaxRate:
               type: number
+              format: decimal
               description: Applicable tax rate.
         taxRateStatus:
           title: Tax rate status
@@ -31529,6 +31565,7 @@ components:
               description: Name of the tax rate component.
             rate:
               type: number
+              format: decimal
               nullable: true
               description: 'The rate of the tax rate component, usually a percentage.'
             isCompound:

@@ -9932,6 +9932,7 @@ components:
                 - EUR
             currentBalance:
               type: number
+              format: decimal
               nullable: true
               description: Current balance in the account.
               example: 0
@@ -10102,25 +10103,33 @@ components:
                 $ref: '#/components/schemas/AccountingInvoice/allOf/0/properties/withholdingTax/items'
             totalAmount:
               type: number
+              format: decimal
               description: Total amount of credit that has been applied to the customer's accounts receivable
             totalDiscount:
               type: number
+              format: decimal
               description: Any discounts applied to the credit note amount.
             subTotal:
               type: number
+              format: decimal
               description: 'Value of the credit note, including discounts and excluding tax.'
             additionalTaxAmount:
               type: number
+              format: decimal
             additionalTaxPercentage:
               type: number
+              format: decimal
             totalTaxAmount:
               type: number
+              format: decimal
               description: Any tax applied to the credit note amount.
             discountPercentage:
               type: number
+              format: decimal
               description: Percentage rate (from 0 to 100) of discounts applied to the credit note.
             remainingCredit:
               type: number
+              format: decimal
               description: Unused balance of totalAmount originally raised.
             status:
               $ref: '#/components/schemas/AccountingCreditNote/definitions/creditNoteStatus'
@@ -10183,24 +10192,30 @@ components:
               description: 'Friendly name of each line item. For example, the goods or service for which credit has been issued.'
             unitAmount:
               type: number
+              format: decimal
               description: Unit price of the goods or service.
             quantity:
               type: number
+              format: decimal
               description: Number of units of the goods or service for which credit has been issued.
             discountAmount:
               type: number
+              format: decimal
               nullable: true
               description: Value of any discounts applied.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: 'Amount of credit associated with the line item, including discounts but excluding tax.'
             taxAmount:
               type: number
+              format: decimal
               nullable: true
               description: Amount of tax associated with the line item.
             totalAmount:
               type: number
+              format: decimal
               nullable: true
               description: 'Total amount of the line item, including discounts and tax.'
             accountRef:
@@ -10208,6 +10223,7 @@ components:
               description: Reference to the account to which the line item is linked.
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
               description: Percentage rate of any discount applied to the line item.
             taxRateRef:
@@ -10502,12 +10518,15 @@ components:
                 $ref: '#/components/schemas/AccountingInvoice/allOf/0/properties/paymentAllocations/items'
             subTotal:
               type: number
+              format: decimal
               description: 'The total amount of the direct incomes, excluding any taxes.'
             taxAmount:
               type: number
+              format: decimal
               description: The total amount of tax on the direct incomes.
             totalAmount:
               type: number
+              format: decimal
               description: 'The amount of the direct incomes, inclusive of tax.'
             metadata:
               $ref: '#/components/schemas/AccountingAccount/allOf/0/properties/metadata'
@@ -10532,35 +10551,42 @@ components:
               description: A user-friendly name of the goods or services.
             unitAmount:
               type: number
+              format: decimal
               description: |-
                 The price of each unit of goods or services.
                 Note: If the platform does not provide this information, the unit amount will be mapped to the total amount.
             quantity:
               type: number
+              format: decimal
               description: |-
                 The number of units of goods or services received.
 
                 Note: If the platform does not provide this information, the quantity will be mapped as 1.
             discountAmount:
               type: number
+              format: decimal
               nullable: true
               description: Discount amount for the line before tax.
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
               description: Discount percentage for the line before tax.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: 'The amount of the line, inclusive of discounts, but exclusive of tax.'
             taxAmount:
               type: number
+              format: decimal
               nullable: true
               description: |-
                 The amount of tax for the line.
                 Note: If the platform does not provide this information, the quantity will be mapped as 0.00.
             totalAmount:
               type: number
+              format: decimal
               nullable: true
               description: 'The total amount of the line, including tax.'
             accountRef:
@@ -10579,6 +10605,7 @@ components:
                   description: Name of the tax rate in the accounting platform.
                 effectiveTaxRate:
                   type: number
+                  format: decimal
                   description: Applicable tax rate.
             itemRef:
               description: 'Reference to the product, service type, or inventory item to which the direct cost is linked.'
@@ -10984,6 +11011,7 @@ components:
                         description: The date the payment was allocated.
                       totalAmount:
                         type: number
+                        format: decimal
                         description: The total amount that has been allocated.
                 required:
                   - payment
@@ -11016,6 +11044,7 @@ components:
                         description: The date the payment was paid.
                       totalAmount:
                         type: number
+                        format: decimal
                         description: Total amount that was paid.
             withholdingTax:
               type: array
@@ -11028,32 +11057,41 @@ components:
                     type: string
                   amount:
                     type: number
+                    format: decimal
                 required:
                   - amount
                   - name
             totalDiscount:
               type: number
+              format: decimal
               nullable: true
               description: Numerical value of discounts applied to the invoice.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: Total amount of the invoice excluding any taxes.
             additionalTaxAmount:
               type: number
+              format: decimal
             additionalTaxPercentage:
               type: number
+              format: decimal
             totalTaxAmount:
               type: number
+              format: decimal
               description: Amount of tax on the invoice.
             totalAmount:
               type: number
+              format: decimal
               description: 'Amount of the invoice, inclusive of tax.'
             amountDue:
               type: number
+              format: decimal
               description: Amount outstanding on the invoice.
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
               description: 'Percentage rate (from 0 to 100) of discounts applied to the invoice. For example: A 5% discount will return a value of `5`, not `0.05`.'
             status:
@@ -11083,24 +11121,30 @@ components:
               description: Friendly name of the goods or services provided.
             unitAmount:
               type: number
+              format: decimal
               description: Price of each unit of goods or services.
             quantity:
               type: number
+              format: decimal
               description: Number of units of goods or services provided.
             discountAmount:
               type: number
+              format: decimal
               nullable: true
               description: Numerical value of any discounts applied.
             subTotal:
               type: number
+              format: decimal
               nullable: true
               description: 'Amount of the line, inclusive of discounts but exclusive of tax.'
             taxAmount:
               type: number
+              format: decimal
               nullable: true
               description: Amount of tax for the line.
             totalAmount:
               type: number
+              format: decimal
               nullable: true
               description: 'Total amount of the line, including tax. When pushing invoices to Xero, the total amount is exclusive of tax to allow automatic calculations if a tax rate or tax amount is not specified.'
             accountRef:
@@ -11108,6 +11152,7 @@ components:
               description: Reference to the account to which the line item is linked.
             discountPercentage:
               type: number
+              format: decimal
               nullable: true
               description: Percentage rate (from 0 to 100) of any discounts applied to the unit amount.
             taxRateRef:
@@ -11265,6 +11310,7 @@ components:
               description: Description of the journal line item.
             netAmount:
               type: number
+              format: decimal
               description: 'Amount for the journal line. Debit entries are considered positive, and credit entries are considered negative.'
             currency:
               type: string
@@ -11991,6 +12037,7 @@ components:
               description: The Payment Method to which the payment is linked in the accounting platform.
             totalAmount:
               type: number
+              format: decimal
               description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
             currency:
               $ref: '#/components/schemas/AccountingAccount/allOf/0/properties/currency'
@@ -12028,6 +12075,7 @@ components:
           properties:
             amount:
               type: number
+              format: decimal
               description: Amount in the payment currency.
             links:
               type: array
@@ -12051,6 +12099,7 @@ components:
               description: Unique identifier of the transaction represented by the link.
             amount:
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Amount by which the balance of the linked entity is altered, in the currency of the linked entity.  
@@ -12059,6 +12108,7 @@ components:
             currencyRate:
               title: Currency rate
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
@@ -12197,6 +12247,7 @@ components:
               description: Base currency of the bank account.
             balance:
               type: number
+              format: decimal
               nullable: true
               description: Balance of the bank account.
             institution:
@@ -12205,10 +12256,12 @@ components:
               description: The institution of the bank account.
             availableBalance:
               type: number
+              format: decimal
               nullable: true
               description: Total available balance of the bank account as reported by the underlying data source. This may take into account overdrafts or pending transactions for example.
             overdraftLimit:
               type: number
+              format: decimal
               nullable: true
               description: |-
                 Pre-arranged overdraft limit of the account.
@@ -12481,7 +12534,6 @@ components:
               format: decimal
             reserved:
               description: Funds reserved as holdings
-              type: number
               format: decimal
             currency:
               description: The currency of the account
@@ -12601,18 +12653,23 @@ components:
             totalAmount:
               description: 'Total amount of the order, including tax, net of any discounts and refunds.'
               type: number
+              format: decimal
             totalRefund:
               description: Total amount refunded issued by a merchant on an order (always a negative value).
               type: number
+              format: decimal
             totalTaxAmount:
               description: Total amount of tax applied to the order.
               type: number
+              format: decimal
             totalDiscount:
               description: Total amount of discount applied to the order.
               type: number
+              format: decimal
             totalGratuity:
               description: Extra amount added to a bill.
               type: number
+              format: decimal
             orderLineItems:
               type: array
               items:
@@ -12694,11 +12751,13 @@ components:
               properties:
                 quantity:
                   type: number
+                  format: decimal
                   description: |
                     Number of units of the product sold.
                     For refunds, quantity is a negative value.
                 taxPercentage:
                   type: number
+                  format: decimal
                   description: Percentage rate (from 0 to 100) of any sale tax applied to the unit amount.
                   examples:
                     - 0
@@ -12706,12 +12765,15 @@ components:
                     - '45.00'
                 totalAmount:
                   type: number
+                  format: decimal
                   description: 'Total price of the line item, including discounts, tax and minus any refunds.'
                 totalTaxAmount:
                   type: number
+                  format: decimal
                   description: Total amount of tax applied to the line item.
                 unitPrice:
                   type: number
+                  format: decimal
                   description: Price per unit of goods or service.
                 taxes:
                   type: array
@@ -12737,6 +12799,7 @@ components:
             totalAmount:
               description: 'Total service charge, including taxes.'
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -12744,6 +12807,7 @@ components:
             taxPercentage:
               description: Percentage rate (from 0 to 100) of any tax applied to the service charge.
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -12751,6 +12815,7 @@ components:
             taxAmount:
               description: Amount of the service charge that is tax.
               type: number
+              format: decimal
               examples:
                 - 0
                 - 12.5
@@ -12783,6 +12848,7 @@ components:
                   rate:
                     description: Tax amount on order line sale as available from source commerce platform.
                     type: number
+                    format: decimal
                     nullable: true
             quantity:
               description: The number of times the charge is charged.
@@ -12813,6 +12879,7 @@ components:
               example: Promotional Discount
             totalAmount:
               type: number
+              format: decimal
               description: Total amount of discount applied.
               example: 15.25
       examples:
@@ -12943,6 +13010,7 @@ components:
           properties:
             amount:
               type: number
+              format: decimal
               description: Payment Amount (including gratuity)
               examples:
                 - 194.12
@@ -13028,6 +13096,7 @@ components:
               properties:
                 amount:
                   type: number
+                  format: decimal
                   nullable: true
                   description: Payment Amount (including gratuity).
                   examples:
@@ -13164,6 +13233,7 @@ components:
                   description: 'Unit of measure for the variant, such as `kg` or `meters`.'
                 vatPercentage:
                   type: number
+                  format: decimal
                   examples:
                     - 12.5
                     - 0
@@ -13211,6 +13281,7 @@ components:
               nullable: true
             unitPrice:
               type: number
+              format: decimal
         productInventory:
           title: Product Inventory
           description: Information about the total inventory as well as the locations inventory is in.
@@ -13219,6 +13290,7 @@ components:
           properties:
             totalQuantity:
               type: number
+              format: decimal
               nullable: true
             locations:
               type: array
@@ -13231,6 +13303,7 @@ components:
           properties:
             quantity:
               type: number
+              format: decimal
             locationRef:
               $ref: '#/components/schemas/CommerceLocation/definitions/locationRef'
         productVariantStatus:
@@ -13272,6 +13345,7 @@ components:
             totalAmount:
               description: The total transaction amount
               type: number
+              format: decimal
               examples:
                 - 194.12
                 - -283.56

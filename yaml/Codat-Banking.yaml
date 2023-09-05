@@ -747,13 +747,16 @@ components:
           properties:
             available:
               type: number
+              format: decimal
               nullable: true
               description: 'The balance available in the account, including any pending transactions. This doesn''t include additional funds available from any overdrafts.'
             current:
               type: number
+              format: decimal
               description: The balance of the account only including cleared transactions.
             limit:
               type: number
+              format: decimal
               nullable: true
               description: 'The minimum allowed balance for the account. For example, a $100.00 overdraft would show as a limit of `-100.00`.'
           additionalProperties: false
@@ -974,6 +977,7 @@ components:
               description: The description of the bank transaction.
             amount:
               type: number
+              format: decimal
               description: The amount of the bank transaction.
             currency:
               minLength: 1
