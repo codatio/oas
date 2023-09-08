@@ -722,7 +722,15 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-data-integrity-status
       x-speakeasy-name-override: status
-      description: "\uFEFFThe *Get data integrity status* endpoint returns the [status](https://docs.codat.io/lending-api#/schemas/DataIntegrityStatus) for the company’s match results between the data type provided in the URL and other data types that Data Integrity uses to support matching.\nThis endpoint helps you understand whether match data is available and, if so, how to usefully query it.\n\nThe response tells you:\n\n- Whether match results are available.\n- When the results were generated, and their status.\n- The connection IDs, amounts, and dates involved to support useful querying."
+      description: |-
+        The *Get data integrity status* endpoint returns the [status](https://docs.codat.io/lending-api#/schemas/DataIntegrityStatus) for the company’s match results between the data type provided in the URL and other data types that Data Integrity uses to support matching.
+        This endpoint helps you understand whether match data is available and, if so, how to usefully query it.
+
+        The response tells you:
+
+        - Whether match results are available.
+        - When the results were generated, and their status.
+        - The connection IDs, amounts, and dates involved to support useful querying.
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/summaries':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -744,7 +752,12 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-data-integrity-summaries
       x-speakeasy-name-override: summaries
-      description: "\uFEFFThe *Get data integrity summary* endpoint returns a [summary](https://docs.codat.io/lending-api#/schemas/DataIntegritySummary) of match results for a given data type filtered by a query string in the [Codat query language](https://docs.codat.io/using-the-api/querying). \n\nFor example, if you wanted to see summary match results only for transactions after 1 December 2020, you could include a query parameter of `query=date>2020-12-01`.\n\nThe endpoint response includes only the summary results, not transactions. To view match data for transactions, use the [List data integrity details](https://docs.codat.io/lending-api#/operations/list-data-type-data-integrity-details) endpoint."
+      description: |-
+        The *Get data integrity summary* endpoint returns a [summary](https://docs.codat.io/lending-api#/schemas/DataIntegritySummary) of match results for a given data type filtered by a query string in the [Codat query language](https://docs.codat.io/using-the-api/querying). 
+
+        For example, if you wanted to see summary match results only for transactions after 1 December 2020, you could include a query parameter of `query=date>2020-12-01`.
+
+        The endpoint response includes only the summary results, not transactions. To view match data for transactions, use the [List data integrity details](https://docs.codat.io/lending-api#/operations/list-data-type-data-integrity-details) endpoint.
       parameters:
         - $ref: '#/components/parameters/query'
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/details':
@@ -774,13 +787,19 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      description: "\uFEFFThe *List data integrity details* endpoint returns the match result record by record for a given data type, filtered based on a query string in the same way as summary results.\n\nThe [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetails) are paginated and support ordering, following the same conventions as our other data endpoints."
+      description: |-
+        The *List data integrity details* endpoint returns the match result record by record for a given data type, filtered based on a query string in the same way as summary results.
+
+        The [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetails) are paginated and support ordering, following the same conventions as our other data endpoints.
   '/companies/{companyId}/reports/enhancedProfitAndLoss/accounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Get categorized profit and loss statement
-      description: "\uFEFFThe *Get enhanced profit and loss accounts* endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss statement. It also includes a balance as of the financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
+      description: |-
+        The *Get categorized profit and loss statement* endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss statement. It also includes a balance as of the financial statement date.
+
+        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one.
       tags:
         - Financial statements
       responses:
@@ -1066,7 +1085,10 @@ paths:
       summary: Get categorized balance sheet statement
       operationId: get-categorized-balance-sheet-statement
       x-speakeasy-name-override: get-categorized-balance-sheet
-      description: "\uFEFFThe *Get enhanced balance sheet accounts* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.\n\nCodat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one."
+      description: |-
+        The *Get categorized balance sheet statement* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.
+
+        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one.
       tags:
         - Financial statements
       responses:
@@ -1287,7 +1309,7 @@ paths:
         > 
         > The categorization engine uses machine learning and has been fully trained against Plaid and TrueLayer banking data sources. It is not fully trained against the Basiq banking data source.
 
-        The Enhanced Cash Flow Transactions endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
+        The _Get categorized bank statement_ endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
       tags:
         - Banking
       responses:
@@ -1734,13 +1756,18 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
-      description: Gets a list of invoices linked to the corresponding banking transaction
+      description: The _Get reconciled invoices_ endpoint gets a list of invoices linked to the corresponding banking transaction
   '/companies/{companyId}/reports/enhancedLiabilities/loan/transactions':
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: List loan transactions
-      description: "\uFEFFThe *List enhanced loan transactions* endpoint returns all [loan transactions](https://docs.codat.io/lending-api#/schemas/LoanTransactions) identified from a company's accounting, banking, and commerce integrations.\n\nThis detail gives analysts a better idea of the loan obligations a company may have.\n\nMake sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.\n"
+      description: |
+        The *List loan transactions* endpoint returns all [loan transactions](https://docs.codat.io/lending-api#/schemas/LoanTransactions) identified from a company's accounting, banking, and commerce integrations.
+
+        This detail gives analysts a better idea of the loan obligations a company may have.
+
+        Make sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.
       tags:
         - Liabilities
       responses:
@@ -1772,7 +1799,12 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Get loan summaries
-      description: "\uFEFFThe *Get enhanced loan summaries* endpoint returns a summary by integration type of all loans identified in each integration.\n\nThe endpoint returns a list of a company's [loan summaries](https://docs.codat.io/lending-api#/schemas/LoanSummary) for each valid data connection.\n\nMake sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.\n"
+      description: |
+        The *Get loan summaries* endpoint returns a summary by integration type of all loans identified in each integration.
+
+        The endpoint returns a list of a company's [loan summaries](https://docs.codat.io/lending-api#/schemas/LoanSummary) for each valid data connection.
+
+        Make sure you have [synced a company](https://docs.codat.io/lending-api#/operations/refresh-company-data) recently before calling the endpoint.
       tags:
         - Liabilities
       responses:
@@ -1861,7 +1893,30 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-revenue-metrics
       x-speakeasy-name-override: get-revenue-metrics
-      description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
+      description: |
+        The *Get revenue report* endpoint returns the revenue and revenue growth for a specific company connection over one or more periods of time.
+
+        This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
+
+        Learn more about the formulas used to calculate the revenue metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+
+        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+
+        #### Response structure
+
+        The Revenue report's dimensions and measures are:
+
+        | Index         | Dimensions |
+        |---------------|------------|
+        |   `index` = 0 | Period     |
+        |   `index` = 1 | Revenue    |
+
+        | Index         | Measures                                                                                                                 |
+        |---------------|--------------------------------------------------------------------------------------------------------------------------|
+        | `index` = 0   | Value                                                                                                                    |
+        | `index` = 1   | Percentage change, defined as the change between the current and previous periods' values and expressed as a percentage. |
+
+        The report data then combines multiple reporting dimensions and measures and outputs the value of each combination.
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -1950,7 +2005,30 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-orders-report
       x-speakeasy-name-override: get-orders-report
-      description: "\uFEFFThe *Get orders report* endpoint returns the number of orders, total value, and average order value for a specific company's commerce connection over one or more periods of time.\n\nThis detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. \n\nLearn more about the formulas used to calculate the order metrics [here](/lending/commerce-metrics/overview#what-metrics-are-available).\n\nRefer to the [commerce reporting structure](/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.\n\n#### Response structure\n\nThe Orders report's dimensions and measures are:\n\n| Index         | Dimensions     |\n|---------------|----------------|\n|   `index` = 0 | Period         |\n|   `index` = 1 | Order metrics  |\n\n| Index         | Measures   |\n|---------------|------------|\n| `index` = 0   | Count      |\n| `index` = 1   | Value      |\n\nThe report data then combines multiple reporting dimensions and measures and outputs the value of each combination.\n"
+      description: |
+        The *Get orders report* endpoint returns the number of orders, total value, and average order value for a specific company's commerce connection over one or more periods of time.
+
+        This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
+
+        Learn more about the formulas used to calculate the order metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+
+        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+
+        #### Response structure
+
+        The Orders report's dimensions and measures are:
+
+        | Index         | Dimensions     |
+        |---------------|----------------|
+        |   `index` = 0 | Period         |
+        |   `index` = 1 | Order metrics  |
+
+        | Index         | Measures   |
+        |---------------|------------|
+        | `index` = 0   | Count      |
+        | `index` = 1   | Value      |
+
+        The report data then combines multiple reporting dimensions and measures and outputs the value of each combination.
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -2043,7 +2121,31 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-refunds-metrics
       x-speakeasy-name-override: get-refunds-report
-      description: "\uFEFFThe *Get refunds report* endpoint returns the number and total value of refunds and the refund rate for a specific company's commerce connection over one or more periods of time.\n\nThis detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. \n\nLearn more about the formulas used to calculate the refunds metrics [here](/lending/commerce-metrics/overview#what-metrics-are-available).\n\nRefer to the [commerce reporting structure](/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.\n\n#### Response structure\n\nThe Refunds report's dimensions and measures are:\n\n| Index          | Dimensions     |\n|----------------|----------------|\n| `index` = 0    | Period         |\n| `index` = 1    | Refund metrics |\n\n| Index          | Measures    |\n|----------------|------------|\n| `index` = 0    | Count      |\n| `index` = 1    | Value      |\n| `index` = 2    | Percentage |\n\nThe report data then combines multiple reporting dimensions and measures and outputs the value of each combination.\n"
+      description: |
+        The *Get refunds report* endpoint returns the number and total value of refunds and the refund rate for a specific company's commerce connection over one or more periods of time.
+
+        This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
+
+        Learn more about the formulas used to calculate the refunds metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+
+        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+
+        #### Response structure
+
+        The Refunds report's dimensions and measures are:
+
+        | Index          | Dimensions     |
+        |----------------|----------------|
+        | `index` = 0    | Period         |
+        | `index` = 1    | Refund metrics |
+
+        | Index          | Measures    |
+        |----------------|------------|
+        | `index` = 0    | Count      |
+        | `index` = 1    | Value      |
+        | `index` = 2    | Percentage |
+
+        The report data then combines multiple reporting dimensions and measures and outputs the value of each combination.
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -2151,7 +2253,36 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-customer-retention-metrics
       x-speakeasy-name-override: get-customer-retention-metrics
-      description: "\uFEFFThe *Get customer retention metrics* endpoint returns customer retention insights for a specific company's commerce connection over one or more periods of time.\n\nThis detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. \n\n#### Customer retention metrics\n\n- __Existing customers__: the number of unique customers that have placed an order(s) in the specified period and any previous period. \n- __New customers__: the number of unique customers that have placed an order(s) in the specified period and none in any previous period.\n- __Total customers__: the total number of existing and new customers within the specified period.\n- __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.\n- __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.\n\nLearn more about the formulas used to calculate customer retention metrics [here](/lending/commerce-metrics/overview#what-metrics-are-available).\n\n#### Response structure\n\nThe Customer retention report's dimensions and measures are:\n\n| Index                       | Dimensions                 |\n|-----------------------------|----------------------------|\n| `index` = 0                 | Period                     |\n| `index` = 1                 | Customer retention metrics |\n\n| Index                | Measures    |\n|----------------------|------------|\n| `index` = 0          | Count      |\n| `index` = 1          | Percentage |\n\nThe report data then combines multiple reporting dimensions and measures and outputs the value of each combination."
+      description: |-
+        The *Get customer retention metrics* endpoint returns customer retention insights for a specific company's commerce connection over one or more periods of time.
+
+        This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
+
+        #### Customer retention metrics
+
+        - __Existing customers__: the number of unique customers that have placed an order(s) in the specified period and any previous period. 
+        - __New customers__: the number of unique customers that have placed an order(s) in the specified period and none in any previous period.
+        - __Total customers__: the total number of existing and new customers within the specified period.
+        - __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.
+        - __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.
+
+        Learn more about the formulas used to calculate customer retention metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+
+        #### Response structure
+
+        The Customer retention report's dimensions and measures are:
+
+        | Index                       | Dimensions                 |
+        |-----------------------------|----------------------------|
+        | `index` = 0                 | Period                     |
+        | `index` = 1                 | Customer retention metrics |
+
+        | Index                | Measures    |
+        |----------------------|------------|
+        | `index` = 0          | Count      |
+        | `index` = 1          | Percentage |
+
+        The report data then combines multiple reporting dimensions and measures and outputs the value of each combination.
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -2217,7 +2348,29 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-lifetime-value-metrics
       x-speakeasy-name-override: get-lifetime-value-metrics
-      description: "\uFEFFThe *Get lifetime value metrics* endpoint returns the average revenue that a specific company will generate throughout its lifespan over one or more periods of time.\n\nThis detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.\n\nLearn more about the formulas used to calculate the lifetime value metrics [here](/lending/commerce-metrics/overview#what-metrics-are-available).\n\nRefer to the [commerce reporting structure](/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.\n\n#### Response structure\n\nThe Lifetime value report's dimensions and measures are:\n\n| Index         | Dimensions             |\n|---------------|------------------------|\n| `index` = 0   | Period                 |\n| `index` = 1   | Lifetime value metrics |\n\n| Index             | Measures |\n|-------------------|---------|\n|   `index` = 1     | Value   |\n\nThe report data then combines multiple reporting dimensions and measures and outputs the value of each combination.\n"
+      description: |
+        The *Get lifetime value metrics* endpoint returns the average revenue that a specific company will generate throughout its lifespan over one or more periods of time.
+
+        This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.
+
+        Learn more about the formulas used to calculate the lifetime value metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+
+        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.
+
+        #### Response structure
+
+        The Lifetime value report's dimensions and measures are:
+
+        | Index         | Dimensions             |
+        |---------------|------------------------|
+        | `index` = 0   | Period                 |
+        | `index` = 1   | Lifetime value metrics |
+
+        | Index             | Measures |
+        |-------------------|---------|
+        |   `index` = 1     | Value   |
+
+        The report data then combines multiple reporting dimensions and measures and outputs the value of each combination.
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/periodLength'
@@ -2244,7 +2397,23 @@ paths:
           $ref: '#/components/responses/Not-Found'
       operationId: generate-excel-report
       x-speakeasy-name-override: generate
-      description: "\uFEFFThe *Generate Excel report* endpoint requests the production of a downloadable Excel file for a report type specified in the `reportType` query parameter.\n\nIn response, the endpoint returns the [status](https://docs.codat.io/lending-api#/schemas/ExcelStatus) detailing the current state of the report generation request.\n\n### Report types\n\n| reportType                                                                           | Description                                                                                                                                   |\n|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|\n| [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |\n| [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |\n| [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |\n| [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |\n\n[Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.\n\n\n"
+      description: |+
+        The *Generate Excel report* endpoint requests the production of a downloadable Excel file for a report type specified in the `reportType` query parameter.
+
+        In response, the endpoint returns the [status](https://docs.codat.io/lending-api#/schemas/ExcelStatus) detailing the current state of the report generation request.
+
+        ### Report types
+
+        | reportType                                                                           | Description                                                                                                                                   |
+        |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+        | [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+        | [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+        | [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+        | [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+
+        [Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+
+
       parameters:
         - $ref: '#/components/parameters/excelReportType'
     get:
