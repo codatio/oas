@@ -24,7 +24,7 @@ info:
     | Accounts receivable  | Data from a linked accounting platform representing money owed to the business for sold goods or services. |
     | Transactions         | Data from a linked accounting platform representing transactions.                                          |
     | Financial statements | Financial data and reports from a linked accounting platform.                                              |
-    | Banking              | Retrieve banking data from linked bank accounts.                                                           |
+    | Bank statements              | Retrieve banking data from linked bank accounts.                                                           |
     | Sales                | Retrieve standardized sales data from a linked commerce platform.                                          |
     | Liabilities          | Debt and other liabilities.                                                                                |
     | Data integrity       | Match mutable accounting data with immutable banking data to increase confidence in financial data.        |
@@ -100,7 +100,7 @@ tags:
     description: Data from a linked accounting platform representing transactions.
   - name: Financial statements
     description: Financial data and reports from a linked accounting platform.
-  - name: Banking
+  - name: Bank statements
     description: Retrieve banking data from linked bank accounts.
   - name: Sales
     description: Retrieve standardized sales data from a linked commerce platform.
@@ -1327,7 +1327,7 @@ paths:
 
         The _Get categorized bank statement_ endpoint provides a fully categorized list of banking transactions for a company. Accounts and transaction data are obtained from the company's banking data sources.
       tags:
-        - Banking
+        - Bank statements
       responses:
         '200':
           description: OK
@@ -52460,7 +52460,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances':
     get:
       tags:
-        - Banking
+        - Bank statements
       summary: List account balances
       operationId: list-banking-account-balances
       x-speakeasy-name-override: list-bank-account-balances
@@ -52545,7 +52545,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
-        - Banking
+        - Bank statements
       summary: List accounts
       operationId: list-banking-accounts
       x-speakeasy-name-override: list-bank-accounts
@@ -52680,7 +52680,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
-        - Banking
+        - Bank statements
       summary: Get account
       operationId: get-banking-account
       x-speakeasy-name-override: get-bank-account
@@ -52762,7 +52762,7 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       tags:
-        - Banking
+        - Bank statements
       operationId: list-banking-transactions
       x-speakeasy-name-override: list-bank-transactions
       summary: List transactions
@@ -52883,7 +52883,7 @@ paths:
         description: The unique identifier for a transaction
     get:
       tags:
-        - Banking
+        - Bank statements
       summary: Get bank transaction
       responses:
         '200':
@@ -52937,7 +52937,7 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       tags:
-        - Banking
+        - Bank statements
       operationId: list-banking-transaction-categories
       x-speakeasy-name-override: list-bank-transaction-categories
       summary: List transaction categories
@@ -53030,7 +53030,7 @@ paths:
         description: The unique identifier for a banking transaction category
     get:
       tags:
-        - Banking
+        - Bank statements
       operationId: get-banking-transaction-category
       x-speakeasy-name-override: get-bank-transaction-category
       summary: Get transaction category
