@@ -18867,9 +18867,10 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      tags:
-        - Company info
       summary: Get company accounting profile
+      description: Gets the latest basic info for a company.
+      operationId: get-accounting-profile
+      x-speakeasy-name-override: get-accounting-profile
       responses:
         '200':
           description: Success
@@ -18923,9 +18924,6 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: Gets the latest basic info for a company.
-      operationId: get-accounting-profile
-      x-speakeasy-name-override: get-accounting-profile
   '/companies/{companyId}/data/invoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
