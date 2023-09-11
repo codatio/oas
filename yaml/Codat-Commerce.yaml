@@ -37,6 +37,14 @@ x-speakeasy-name-override:
     methodNameOverride: list
   - operationId: ^get*
     methodNameOverride: get
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 x-codat-docs-path: codat-api
 tags:
   - name: Customers
@@ -435,6 +443,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -719,6 +729,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-disputes/{disputeId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -973,6 +985,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2087,6 +2101,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2996,6 +3012,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments/{paymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3345,6 +3363,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods/{paymentMethodId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4296,6 +4316,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products/{productId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4958,6 +4980,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions/{transactionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5125,6 +5149,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories/{productId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5268,6 +5294,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-taxComponents/{taxId}':
     parameters:
       - $ref: '#/components/parameters/companyId'

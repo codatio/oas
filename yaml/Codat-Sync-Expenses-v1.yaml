@@ -34,6 +34,14 @@ x-speakeasy-retries:
     - 5XX
   retryConnectionErrors: true
 x-codat-docs-path: sync-for-expenses-v1-api
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 tags:
   - name: Connections
     description: Create and manage partner expense connection.
@@ -198,7 +206,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
-      operationId: intiate-sync
+      operationId: initiate-sync
     parameters:
       - $ref: '#/components/parameters/companyId'
   '/companies/{companyId}/sync/expenses/syncs/lastSuccessful/status':
@@ -334,6 +342,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/syncId'
+    x-speakeasy-pagination:
+      $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/sync/expenses/syncs/{syncId}/transactions/{transactionId}':
     get:
       parameters:
@@ -630,6 +640,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create company
       tags:
@@ -812,6 +824,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/sync-for-expenses-v1-api#/operations/list-integrations) endpoint to access valid platform keys. "

@@ -75,6 +75,14 @@ x-speakeasy-name-override:
   - operationId: ^upload-.*?-attachment
     methodNameOverride: upload-attachment
 x-codat-docs-path: lending-api
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 tags:
   - name: Companies
     description: Create and manage your Codat companies.
@@ -214,6 +222,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create company
       tags:
@@ -396,6 +406,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/lending-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -676,6 +688,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/history/{datasetId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -791,6 +805,8 @@ paths:
         The *List data integrity details* endpoint returns the match result record by record for a given data type, filtered based on a query string in the same way as summary results.
 
         The [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetails) are paginated and support ordering, following the same conventions as our other data endpoints.
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/reports/enhancedProfitAndLoss/accounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1528,6 +1544,14 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs:
+          - name: page
+            in: parameters
+            type: page
+        outputs:
+          results: $.reportItems
   '/companies/{companyId}/reports/enhancedInvoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1756,7 +1780,15 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
-      description: The _Get reconciled invoices_ endpoint gets a list of invoices linked to the corresponding banking transaction
+      description: Gets a list of invoices linked to the corresponding banking transaction
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs:
+          - name: page
+            in: parameters
+            type: page
+        outputs:
+          results: $.reportItems
   '/companies/{companyId}/reports/enhancedLiabilities/loan/transactions':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2761,6 +2793,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        x-speakeasy-pagination:
+          $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}':
     get:
       tags:
@@ -3722,6 +3756,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/accounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5529,6 +5565,8 @@ paths:
             
       operationId: list-accounting-bill-credit-notes
       x-speakeasy-name-override: list-bill-credit-notes
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -7147,6 +7185,8 @@ paths:
             
       operationId: list-accounting-bill-payments
       x-speakeasy-name-override: list-bill-payments
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billPayments/{billPaymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -9928,6 +9968,8 @@ paths:
             
       operationId: list-accounting-bills
       x-speakeasy-name-override: list-bills
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/bills/{billId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -13016,6 +13058,8 @@ paths:
             
       operationId: list-accounting-credit-notes
       x-speakeasy-name-override: list-credit-notes
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/creditNotes/{creditNoteId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -15132,6 +15176,8 @@ paths:
             
       operationId: list-accounting-customers
       x-speakeasy-name-override: list-customers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -16869,6 +16915,8 @@ paths:
             
       operationId: list-accounting-direct-costs
       x-speakeasy-name-override: list-direct-costs
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18295,6 +18343,8 @@ paths:
             
       operationId: list-accounting-direct-incomes
       x-speakeasy-name-override: list-direct-incomes
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -23805,6 +23855,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/invoices/{invoiceId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -28267,6 +28319,8 @@ paths:
             
       operationId: list-accounting-journal-entries
       x-speakeasy-name-override: list-journal-entries
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/journalEntries/{journalEntryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -29042,6 +29096,8 @@ paths:
             
       operationId: list-accounting-journals
       x-speakeasy-name-override: list-journals
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/journals/{journalId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -30173,6 +30229,8 @@ paths:
             
       operationId: list-accounting-payments
       x-speakeasy-name-override: list-payments
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/payments/{paymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31436,6 +31494,8 @@ paths:
             
       operationId: list-accounting-suppliers
       x-speakeasy-name-override: list-suppliers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/suppliers/{supplierId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -32435,6 +32495,8 @@ paths:
             
       operationId: list-accounting-transfers
       x-speakeasy-name-override: list-transfers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/transfers/{transferId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -33152,6 +33214,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -37818,6 +37882,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/reports/agedDebtor/available':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52476,6 +52542,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
@@ -52609,6 +52677,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
@@ -52801,6 +52871,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52946,6 +53018,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories/{transactionCategoryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53370,6 +53444,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53656,6 +53732,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-disputes/{disputeId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53913,6 +53991,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -55029,6 +55109,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -55820,6 +55902,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods/{paymentMethodId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -56236,6 +56320,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments/{paymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -56443,6 +56529,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories/{productId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -57347,6 +57435,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products/{productId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -58011,6 +58101,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions/{transactionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'

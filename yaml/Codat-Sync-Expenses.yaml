@@ -57,6 +57,14 @@ x-speakeasy-name-override:
   - operationId: ^upload-.*?-attachment
     methodNameOverride: upload-attachment
 x-codat-docs-path: sync-for-expenses-api
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 tags:
   - name: Companies
     description: Create and manage your Codat companies.
@@ -188,6 +196,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create company
       tags:
@@ -370,6 +380,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/sync-for-expenses-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -782,6 +794,8 @@ paths:
       summary: List sync transactions
       description: Gets the transactions and status for a sync
       operationId: list-sync-transactions
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/syncId'
@@ -1077,6 +1091,8 @@ paths:
         - Manage data
       operationId: list-pull-operations
       x-speakeasy-name-override: list-pull-operations
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
       responses:
         '200':
           description: OK
@@ -1178,6 +1194,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2507,6 +2525,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-expenses-api#/operations/refresh-company-data).
             
       operationId: list-customers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3952,6 +3972,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-expenses-api#/operations/refresh-company-data).
             
       operationId: list-suppliers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/suppliers/{supplierId}':
     parameters:
       - $ref: '#/components/parameters/companyId'

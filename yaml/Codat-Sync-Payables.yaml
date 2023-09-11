@@ -53,6 +53,14 @@ x-speakeasy-name-override:
   - operationId: ^upload-.*?-attachment
     methodNameOverride: upload-attachment
 x-codat-docs-path: sync-for-payables-api
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 tags:
   - name: Companies
     description: Create and manage your Codat companies.
@@ -188,6 +196,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create company
       tags:
@@ -370,6 +380,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/sync-for-payables-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -650,6 +662,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/push':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -680,6 +694,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/history/{datasetId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1548,6 +1564,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/accounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -6737,6 +6755,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-bill-credit-notes
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -11368,6 +11388,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-bill-payments
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billPayments/{billPaymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -16056,6 +16078,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-bills
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/bills/{billId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -22100,6 +22124,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-journals
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/journals/{journalId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -22482,6 +22508,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-payment-methods
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/paymentMethods/{paymentMethodId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -23346,6 +23374,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-suppliers
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/suppliers/{supplierId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -28023,6 +28053,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-tax-rates
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/taxRates/{taxRateId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -28685,6 +28717,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-tracking-categories
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/trackingCategories/{trackingCategoryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'

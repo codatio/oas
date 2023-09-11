@@ -35,6 +35,14 @@ x-speakeasy-retries:
     - 5XX
   retryConnectionErrors: true
 x-codat-docs-path: sync-for-commerce-v1-api
+x-codat-speakeasy-pagination:
+  type: offsetLimit
+  inputs:
+    - name: page
+      in: parameters
+      type: page
+  outputs:
+    results: $.results
 tags:
   - name: Company management
     description: Create new and manage existing Sync for Commerce companies.
@@ -106,6 +114,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Companies'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   /meta/companies/sync:
     post:
       tags:
@@ -147,6 +157,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connections'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
     post:
       tags:
         - Company management
@@ -219,6 +231,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integrations'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/config/integrations/{platformKey}/branding':
     get:
       tags:
@@ -791,6 +805,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/push':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -822,6 +838,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/history/{datasetId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1691,6 +1709,8 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/accounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3579,6 +3599,8 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-commerce-v1-api#/operations/refresh-company-data).
             
       operationId: list-accounting-bank-accounts
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4143,6 +4165,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4504,6 +4528,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-commerce-v1-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-locations/{locationId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5618,6 +5644,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders/{orderId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -6408,6 +6436,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods/{paymentMethodId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -6823,6 +6853,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments/{paymentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -7827,6 +7859,8 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-commerce-v1-api#/operations/refresh-company-data).
             
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products/{productId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -8489,6 +8523,8 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+      x-speakeasy-pagination:
+        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions/{transactionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
