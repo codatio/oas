@@ -81,7 +81,7 @@ paths:
   '/config/sync/commerce/{commerceKey}/{accountingKey}/start':
     get:
       tags:
-        - Connections
+        - Companies
       summary: Start new sync flow
       description: 'Create a new company and connections. Get a URL for Sync Flow, including a one time passcode.'
       operationId: get-sync-flow-url
@@ -281,7 +281,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}':
     patch:
       tags:
-        - Connections
+        - Companies
       summary: Update connection
       description: Update a data connection
       operationId: update-connection
@@ -314,7 +314,7 @@ paths:
       x-speakeasy-name-override: update-authorization
       description: Update data connection's authorization.
       tags:
-        - Connections
+        - Companies
       responses:
         '200':
           description: OK

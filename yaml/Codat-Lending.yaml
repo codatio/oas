@@ -551,6 +551,8 @@ paths:
     post:
       summary: Refresh all data
       operationId: refresh-all-data-types
+      x-speakeasy-group: manage-data.refresh
+      x-speakeasy-name-override: all-data-types
       responses:
         '204':
           description: No Content
@@ -574,6 +576,8 @@ paths:
     get:
       summary: Get data status
       operationId: get-data-status
+      x-speakeasy-group: manage-data
+      x-speakeasy-name-override: get-status
       description: Get the state of each data type for a company
       tags:
         - Manage data
@@ -612,6 +616,8 @@ paths:
     post:
       summary: Refresh data type
       operationId: refresh-data-type
+      x-speakeasy-group: manage-data.refresh
+      x-speakeasy-name-override: data-type
       description: |-
         Refreshes a given data type for a given company.
 
@@ -646,7 +652,7 @@ paths:
       tags:
         - Manage data
       operationId: list-pull-operations
-      x-speakeasy-name-override: list-pull-operations
+      x-speakeasy-group: manage-data.pull-operations
       responses:
         '200':
           description: OK
@@ -702,7 +708,7 @@ paths:
     get:
       summary: Get pull operation
       operationId: get-pull-operation
-      x-speakeasy-name-override: get-pull-operation
+      x-speakeasy-group: manage-data.pull-operations
       tags:
         - Manage data
       responses:
@@ -1095,7 +1101,8 @@ paths:
         '404':
           $ref: '#/components/responses/Not-Found'
       operationId: get-categorized-profit-and-loss-statement
-      x-speakeasy-name-override: get-categorized-profit-and-loss
+      x-speakeasy-name-override: get-categorized-accounts
+      x-speakeasy-group: financial-statements.profit-and-loss
       parameters:
         - $ref: '#/components/parameters/reportDate'
         - $ref: '#/components/parameters/numberOfPeriods'
@@ -1105,7 +1112,8 @@ paths:
     get:
       summary: Get categorized balance sheet statement
       operationId: get-categorized-balance-sheet-statement
-      x-speakeasy-name-override: get-categorized-balance-sheet
+      x-speakeasy-name-override: get-categorized-accounts
+      x-speakeasy-group: financial-statements.balance-sheet
       description: |-
         The *Get categorized balance sheet statement* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.
 
@@ -1324,7 +1332,7 @@ paths:
     get:
       summary: Get categorized bank statement
       operationId: get-categorized-bank-statement
-      x-speakeasy-name-override: get-categorized-bank-statement
+      x-speakeasy-group: banking.categorized-statement
       description: |-
         > **Categorization engine**
         > 
@@ -1561,9 +1569,16 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
     get:
-      summary: Get reconciled invoices
+      summary: List reconciled invoices
       tags:
         - Accounts receivable
+      operationId: list-reconciled-invoices
+      x-speakeasy-name-override: list-reconciled
+      x-speakeasy-group: accounts-receivable.invoices
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
       responses:
         '200':
           description: OK
@@ -1779,12 +1794,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-reconciled-invoices
-      x-speakeasy-name-override: get-reconciled-invoices
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
       description: Gets a list of invoices linked to the corresponding banking transaction
       x-speakeasy-pagination:
         type: offsetLimit
@@ -1929,7 +1938,8 @@ paths:
         '404':
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-revenue-metrics
-      x-speakeasy-name-override: get-revenue-metrics
+      x-speakeasy-name-override: get-revenue
+      x-speakeasy-group: sales.metrics
       description: |
         The *Get revenue report* endpoint returns the revenue and revenue growth for a specific company connection over one or more periods of time.
 
@@ -2041,7 +2051,8 @@ paths:
         '404':
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-orders-report
-      x-speakeasy-name-override: get-orders-report
+      x-speakeasy-name-override: get-orders
+      x-speakeasy-group: sales.reports
       description: |
         The *Get orders report* endpoint returns the number of orders, total value, and average order value for a specific company's commerce connection over one or more periods of time.
 
@@ -2156,8 +2167,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/Not-Found'
-      operationId: get-commerce-refunds-metrics
-      x-speakeasy-name-override: get-refunds-report
+      operationId: get-commerce-refunds-report
+      x-speakeasy-name-override: get-refunds
+      x-speakeasy-group: sales.reports
       description: |
         The *Get refunds report* endpoint returns the number and total value of refunds and the refund rate for a specific company's commerce connection over one or more periods of time.
 
@@ -2289,7 +2301,8 @@ paths:
         '404':
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-customer-retention-metrics
-      x-speakeasy-name-override: get-customer-retention-metrics
+      x-speakeasy-name-override: get-customer-retention
+      x-speakeasy-group: sales.metrics
       description: |-
         The *Get customer retention metrics* endpoint returns customer retention insights for a specific company's commerce connection over one or more periods of time.
 
@@ -2384,7 +2397,8 @@ paths:
         '404':
           $ref: '#/components/responses/Not-Found'
       operationId: get-commerce-lifetime-value-metrics
-      x-speakeasy-name-override: get-lifetime-value-metrics
+      x-speakeasy-name-override: get-lifetime-value
+      x-speakeasy-group: sales.metrics
       description: |
         The *Get lifetime value metrics* endpoint returns the average revenue that a specific company will generate throughout its lifespan over one or more periods of time.
 
@@ -2508,7 +2522,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-account-transactions
-      x-speakeasy-name-override: list-account-transactions
+      x-speakeasy-group: transactions.account-transactions
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/connectionId'
@@ -2806,7 +2820,7 @@ paths:
         - Transactions
       summary: Get account transaction
       operationId: get-accounting-account-transaction
-      x-speakeasy-name-override: get-account-transaction
+      x-speakeasy-group: transactions.account-transactions
       description: |
         The *Get account transaction* endpoint returns a single account transaction for a given accountTransactionId.
 
@@ -2954,7 +2968,7 @@ paths:
       summary: List accounts
       description: "\uFEFFThe *List accounts* endpoint returns a list of [accounts](https://docs.codat.io/accounting-api#/schemas/Account) for a given company's connection.\n\n[Accounts](https://docs.codat.io/accounting-api#/schemas/Account) are the categories a business uses to record accounting transactions.\n\nBefore using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data)."
       operationId: list-accounting-accounts
-      x-speakeasy-name-override: list-accounts
+      x-speakeasy-group: financial-statements.accounts
       parameters:
         - $ref: '#/components/parameters/companyId'
         - $ref: '#/components/parameters/page'
@@ -4085,7 +4099,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-account
-      x-speakeasy-name-override: get-account
+      x-speakeasy-group: financial-statements.accounts
   '/companies/{companyId}/data/billCreditNotes':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -5569,7 +5583,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-bill-credit-notes
-      x-speakeasy-name-override: list-bill-credit-notes
+      x-speakeasy-group: accounts-payable.bill-credit-notes
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billCreditNotes/{billCreditNoteId}':
@@ -6269,7 +6283,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-bill-credit-note
-      x-speakeasy-name-override: get-bill-credit-note
+      x-speakeasy-group: accounts-payable.bill-credit-notes
   '/companies/{companyId}/data/billPayments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -7189,7 +7203,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-bill-payments
-      x-speakeasy-name-override: list-bill-payments
+      x-speakeasy-group: accounts-payable.bill-payments
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/billPayments/{billPaymentId}':
@@ -7607,7 +7621,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-bill-payment
-      x-speakeasy-name-override: get-bill-payment
+      x-speakeasy-group: accounts-payable.bill-payments
   '/companies/{companyId}/data/bills':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -9972,7 +9986,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-bills
-      x-speakeasy-name-override: list-bills
+      x-speakeasy-group: accounts-payable.bills
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/bills/{billId}':
@@ -11248,7 +11262,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-bill
-      x-speakeasy-name-override: get-bill
+      x-speakeasy-group: accounts-payable.bills
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -11271,7 +11285,7 @@ paths:
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
       operationId: list-accounting-bill-attachments
-      x-speakeasy-name-override: list-bill-attachments
+      x-speakeasy-group: accounts-payable.bills
       summary: List bill attachments
       description: |
         The *List bill attachments* endpoint returns a list of attachments available to download for a given `billId`.
@@ -13062,7 +13076,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-credit-notes
-      x-speakeasy-name-override: list-credit-notes
+      x-speakeasy-group: accounts-receivable.credit-notes
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/creditNotes/{creditNoteId}':
@@ -13922,7 +13936,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-credit-note
-      x-speakeasy-name-override: get-credit-note
+      x-speakeasy-group: accounts-receivable.credit-notes
   '/companies/{companyId}/data/customers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -15180,7 +15194,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-customers
-      x-speakeasy-name-override: list-customers
+      x-speakeasy-group: accounts-receivable.customers
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/customers/{customerId}':
@@ -15738,7 +15752,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-customer
-      x-speakeasy-name-override: get-customer
+      x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -15772,7 +15786,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support listing customer attachments.
       operationId: list-accounting-customer-attachments
-      x-speakeasy-name-override: list-customer-attachments
+      x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -15808,7 +15822,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a customer attachment.
       operationId: get-accounting-customer-attachment
-      x-speakeasy-name-override: get-customer-attachment
+      x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -15845,7 +15859,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support downloading a customer attachment.
       operationId: download-accounting-customer-attachment
-      x-speakeasy-name-override: download-customer-attachment
+      x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/directCosts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -16919,7 +16933,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-direct-costs
-      x-speakeasy-name-override: list-direct-costs
+      x-speakeasy-group: transactions.direct-costs
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}':
@@ -17393,7 +17407,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-cost
-      x-speakeasy-name-override: get-direct-cost
+      x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -17426,7 +17440,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support getting a direct cost attachment.
       operationId: get-accounting-direct-cost-attachment
-      x-speakeasy-name-override: get-direct-cost-attachment
+      x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -17460,7 +17474,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support downloading a direct cost attachment.
       operationId: download-accounting-direct-cost-attachment
-      x-speakeasy-name-override: download-direct-cost-attachment
+      x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -17491,7 +17505,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support listing direct cost attachments.
       operationId: list-accounting-direct-cost-attachments
-      x-speakeasy-name-override: list-direct-cost-attachments
+      x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18347,7 +18361,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-direct-incomes
-      x-speakeasy-name-override: list-direct-incomes
+      x-speakeasy-group: accounts-receivable.direct-incomes
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}':
@@ -18768,7 +18782,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-income
-      x-speakeasy-name-override: get-direct-income
+      x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18802,7 +18816,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support getting a direct income attachment.
       operationId: get-accounting-direct-income-attachment
-      x-speakeasy-name-override: get-direct-income-attachment
+      x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18837,7 +18851,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support downloading a direct income attachment.
       operationId: download-accounting-direct-income-attachment
-      x-speakeasy-name-override: download-direct-income-attachment
+      x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18867,7 +18881,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support listing direct income attachments.
       operationId: list-accounting-direct-income-attachments
-      x-speakeasy-name-override: list-direct-income-attachments
+      x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/data/info':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -18946,7 +18960,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-invoices
-      x-speakeasy-name-override: list-invoices
+      x-speakeasy-group: accounts-receivable.invoices
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -26985,7 +26999,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-invoice
-      x-speakeasy-name-override: get-invoice
+      x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/data/invoices/{invoiceId}/pdf':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -27006,7 +27020,8 @@ paths:
       summary: Get invoice as PDF
       description: "\uFEFFDownload invoice as a pdf."
       operationId: download-accounting-invoice-pdf
-      x-speakeasy-name-override: download-invoice-pdf
+      x-speakeasy-name-override: download-pdf
+      x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -27037,7 +27052,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support listing invoice attachments.
       operationId: list-accounting-invoice-attachments
-      x-speakeasy-name-override: list-invoice-attachments
+      x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -27070,7 +27085,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting an invoice attachment.
       operationId: get-accounting-invoice-attachment
-      x-speakeasy-name-override: get-invoice-attachment
+      x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -27104,7 +27119,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support downloading an invoice attachment.
       operationId: download-accounting-invoice-attachment
-      x-speakeasy-name-override: download-invoice-attachment
+      x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/data/journalEntries':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -28323,7 +28338,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-journal-entries
-      x-speakeasy-name-override: list-journal-entries
+      x-speakeasy-group: transactions.journal-entries
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/journalEntries/{journalEntryId}':
@@ -28895,7 +28910,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-journal-entry
-      x-speakeasy-name-override: get-journal-entry
+      x-speakeasy-group: transactions.journal-entries
   '/companies/{companyId}/data/journals':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -29100,7 +29115,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-journals
-      x-speakeasy-name-override: list-journals
+      x-speakeasy-group: transactions.journals
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/journals/{journalId}':
@@ -29201,7 +29216,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-journal
-      x-speakeasy-name-override: get-journal
+      x-speakeasy-group: transactions.journals
   '/companies/{companyId}/data/payments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -30233,7 +30248,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-payments
-      x-speakeasy-name-override: list-payments
+      x-speakeasy-group: accounts-receivable.payments
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/payments/{paymentId}':
@@ -30697,7 +30712,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-payment
-      x-speakeasy-name-override: get-payment
+      x-speakeasy-group: accounts-receivable.payments
   '/companies/{companyId}/data/suppliers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31498,7 +31513,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-suppliers
-      x-speakeasy-name-override: list-suppliers
+      x-speakeasy-group: accounts-payable.suppliers
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/suppliers/{supplierId}':
@@ -31829,7 +31844,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-supplier
-      x-speakeasy-name-override: get-supplier
+      x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31859,7 +31874,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support listing supplier attachments.
       operationId: list-accounting-supplier-attachments
-      x-speakeasy-name-override: list-supplier-attachments
+      x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31891,7 +31906,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support getting a supplier attachment.
       operationId: get-accounting-supplier-attachment
-      x-speakeasy-name-override: get-supplier-attachment
+      x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -31924,7 +31939,7 @@ paths:
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support downloading a supplier attachment.
       operationId: download-accounting-supplier-attachment
-      x-speakeasy-name-override: download-supplier-attachment
+      x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/transfers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -32499,7 +32514,7 @@ paths:
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
       operationId: list-accounting-transfers
-      x-speakeasy-name-override: list-transfers
+      x-speakeasy-group: transactions.transfers
       x-speakeasy-pagination:
         $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/transfers/{transferId}':
@@ -32769,7 +32784,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-transfer
-      x-speakeasy-name-override: get-transfer
+      x-speakeasy-group: transactions.transfers
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -32780,7 +32795,7 @@ paths:
         - Accounting bank data
       summary: List bank accounts
       operationId: list-accounting-bank-accounts
-      x-speakeasy-name-override: list-accounts
+      x-speakeasy-group: accounting-bank-data.accounts
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -33232,7 +33247,7 @@ paths:
         - Accounting bank data
       summary: Get bank account
       operationId: get-accounting-bank-account
-      x-speakeasy-name-override: get-account
+      x-speakeasy-group: accounting-bank-data.accounts
       responses:
         '200':
           description: Success
@@ -37897,8 +37912,8 @@ paths:
       tags:
         - Accounts receivable
       summary: Aged debtors report available
-      description: Indicates whether the aged debtor report is available for the company.
-      operationId: is-aged-debtor-report-available
+      description: Indicates whether the aged debtors report is available for the company.
+      operationId: is-aged-debtors-report-available
       responses:
         '200':
           description: OK
@@ -37906,6 +37921,8 @@ paths:
             application/json:
               schema:
                 type: boolean
+      x-speakeasy-name-override: is-aged-debtors-available
+      x-speakeasy-group: accounts-receivable.reports
   '/companies/{companyId}/reports/agedDebtor':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -37919,7 +37936,8 @@ paths:
       summary: Aged debtors report
       description: Returns aged debtors report for company that shows the total outstanding balance due from customers to the business over time.
       operationId: get-accounting-aged-debtors-report
-      x-speakeasy-name-override: get-aged-debtors-report
+      x-speakeasy-name-override: get-aged-debtors
+      x-speakeasy-group: accounts-receivable.reports
       responses:
         '200':
           description: OK
@@ -41645,6 +41663,8 @@ paths:
       summary: Aged creditors report available
       description: Indicates whether the aged creditor report is available for the company.
       operationId: is-aged-creditors-report-available
+      x-speakeasy-name-override: is-aged-creditors-available
+      x-speakeasy-group: accounts-receivable.reports
       responses:
         '200':
           description: OK
@@ -41665,7 +41685,8 @@ paths:
       summary: Aged creditors report
       description: Returns aged creditors report for company that shows the total balance owed by a business to its suppliers over time.
       operationId: get-accounting-aged-creditors-report
-      x-speakeasy-name-override: get-aged-creditors-report
+      x-speakeasy-name-override: get-aged-creditors
+      x-speakeasy-group: accounts-receivable.reports
       responses:
         '200':
           description: OK
@@ -45245,7 +45266,7 @@ paths:
       summary: Get balance sheet
       description: Gets the latest balance sheet for a company.
       operationId: get-accounting-balance-sheet
-      x-speakeasy-name-override: get-balance-sheet
+      x-speakeasy-group: financial-statements.balance-sheet
       parameters:
         - $ref: '#/components/parameters/accountingPeriodLength'
         - $ref: '#/components/parameters/accountingPeriodsToCompare'
@@ -49289,7 +49310,7 @@ paths:
       summary: Get profit and loss
       description: Gets the latest profit and loss for a company.
       operationId: get-accounting-profit-and-loss
-      x-speakeasy-name-override: get-profit-and-loss
+      x-speakeasy-group: financial-statements.profit-and-loss
       parameters:
         - $ref: '#/components/parameters/accountingPeriodLength'
         - $ref: '#/components/parameters/accountingPeriodsToCompare'
@@ -52039,7 +52060,7 @@ paths:
       summary: Get cash flow statement
       description: Gets the latest cash flow statement for a company.
       operationId: get-accounting-cash-flow-statement
-      x-speakeasy-name-override: get-cash-flow-statement
+      x-speakeasy-group: financial-statements.cash-flow
       parameters:
         - $ref: '#/components/parameters/accountingPeriodLength'
         - $ref: '#/components/parameters/accountingPeriodsToCompare'
@@ -52470,7 +52491,7 @@ paths:
         - Bank statements
       summary: List account balances
       operationId: list-banking-account-balances
-      x-speakeasy-name-override: list-bank-account-balances
+      x-speakeasy-group: banking.account-balances
       description: |-
         The *List account balances* endpoint returns a list of [account balances](https://docs.codat.io/banking-api#/schemas/AccountBalance) for a given company's connection.
 
@@ -52555,7 +52576,7 @@ paths:
         - Bank statements
       summary: List accounts
       operationId: list-banking-accounts
-      x-speakeasy-name-override: list-bank-accounts
+      x-speakeasy-group: banking.accounts
       description: |-
         The *List accounts* endpoint returns a list of [accounts](https://docs.codat.io/banking-api#/schemas/Account) for a given company's connection.
 
@@ -52690,7 +52711,7 @@ paths:
         - Bank statements
       summary: Get account
       operationId: get-banking-account
-      x-speakeasy-name-override: get-bank-account
+      x-speakeasy-group: banking.accounts
       description: |
         The *Get account* endpoint returns a single account for a given accountId.
 
@@ -52771,7 +52792,7 @@ paths:
       tags:
         - Bank statements
       operationId: list-banking-transactions
-      x-speakeasy-name-override: list-bank-transactions
+      x-speakeasy-group: banking.transactions
       summary: List transactions
       description: |-
         The *List transactions* endpoint returns a list of [transactions](https://docs.codat.io/banking-api#/schemas/Transaction) for a given company's connection.
@@ -52889,9 +52910,9 @@ paths:
         required: true
         description: The unique identifier for a transaction
     get:
+      summary: Get bank transaction
       tags:
         - Bank statements
-      summary: Get bank transaction
       responses:
         '200':
           description: Success
@@ -52937,7 +52958,7 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-banking-transaction
-      x-speakeasy-name-override: get-bank-transaction
+      x-speakeasy-group: banking.transactions
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactionCategories':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52946,7 +52967,7 @@ paths:
       tags:
         - Bank statements
       operationId: list-banking-transaction-categories
-      x-speakeasy-name-override: list-bank-transaction-categories
+      x-speakeasy-group: banking.transaction-categories
       summary: List transaction categories
       parameters:
         - $ref: '#/components/parameters/page'
@@ -53039,7 +53060,7 @@ paths:
       tags:
         - Bank statements
       operationId: get-banking-transaction-category
-      x-speakeasy-name-override: get-bank-transaction-category
+      x-speakeasy-group: banking.transaction-categories
       summary: Get transaction category
       description: |
         The *Get transaction category* endpoint returns a single transaction category for a given transactionCategoryId.
@@ -53080,7 +53101,7 @@ paths:
         - Sales
       summary: List customers
       operationId: list-commerce-customers
-      x-speakeasy-name-override: list-customers
+      x-speakeasy-group: sales.customers
       description: |-
         The *List customers* endpoint returns a list of [customers](https://docs.codat.io/commerce-api#/schemas/Customer) for a given company's connection.
 
@@ -53468,7 +53489,7 @@ paths:
         - Sales
       summary: Get customer
       operationId: get-commerce-customer
-      x-speakeasy-name-override: get-customer
+      x-speakeasy-group: sales.customers
       description: |
         The *Get customer* endpoint returns a single customer for a given customerId.
 
@@ -53636,7 +53657,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-disputes
-      x-speakeasy-name-override: list-disputes
+      x-speakeasy-group: sales.disputes
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -53756,7 +53777,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-dispute
-      x-speakeasy-name-override: get-dispute
+      x-speakeasy-group: sales.disputes
       responses:
         '200':
           description: OK
@@ -53888,7 +53909,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-locations
-      x-speakeasy-name-override: list-locations
+      x-speakeasy-group: sales.locations
       responses:
         '200':
           description: OK
@@ -54015,7 +54036,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-location
-      x-speakeasy-name-override: get-location
+      x-speakeasy-group: sales.locations
       responses:
         '200':
           description: OK
@@ -54095,7 +54116,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-orders
-      x-speakeasy-name-override: list-orders
+      x-speakeasy-group: sales.orders
       responses:
         '200':
           description: OK
@@ -55133,7 +55154,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-order
-      x-speakeasy-name-override: get-order
+      x-speakeasy-group: sales.orders
       responses:
         '200':
           description: OK
@@ -55710,7 +55731,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-payment-methods
-      x-speakeasy-name-override: list-payment-methods
+      x-speakeasy-group: sales.payment-methods
       responses:
         '200':
           description: OK
@@ -55926,7 +55947,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-payment-method
-      x-speakeasy-name-override: get-payment-method
+      x-speakeasy-group: sales.payment-methods
       responses:
         '200':
           description: OK
@@ -56008,7 +56029,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-payments
-      x-speakeasy-name-override: list-payments
+      x-speakeasy-group: sales.payments
       responses:
         '200':
           description: OK
@@ -56344,7 +56365,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-payment
-      x-speakeasy-name-override: get-payment
+      x-speakeasy-group: sales.payments
       responses:
         '200':
           description: OK
@@ -56480,7 +56501,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-product-categories
-      x-speakeasy-name-override: list-product-categories
+      x-speakeasy-group: sales.product-categories
       responses:
         '200':
           description: OK
@@ -56546,7 +56567,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-product-category
-      x-speakeasy-name-override: get-product-category
+      x-speakeasy-group: sales.product-categories
       responses:
         '200':
           description: OK
@@ -56587,7 +56608,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-products
-      x-speakeasy-name-override: list-products
+      x-speakeasy-group: sales.products
       responses:
         '200':
           description: OK
@@ -57459,7 +57480,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-product
-      x-speakeasy-name-override: get-product
+      x-speakeasy-group: sales.products
       responses:
         '200':
           description: OK
@@ -57895,7 +57916,7 @@ paths:
       tags:
         - Sales
       operationId: list-commerce-transactions
-      x-speakeasy-name-override: list-transactions
+      x-speakeasy-group: sales.transactions
       responses:
         '200':
           description: OK
@@ -58125,7 +58146,7 @@ paths:
       tags:
         - Sales
       operationId: get-commerce-transaction
-      x-speakeasy-name-override: get-transaction
+      x-speakeasy-group: sales.transactions
       responses:
         '200':
           description: OK
