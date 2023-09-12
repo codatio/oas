@@ -513,10 +513,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                status:
-                  type: string
+              $ref: '#/components/schemas/UpdateConnectionStatus'
             examples:
               Example:
                 value:
@@ -1594,6 +1591,16 @@ components:
               items:
                 $ref: '#/components/schemas/Connection'
         - $ref: '#/components/schemas/PagingInfo'
+    UpdateConnectionStatus:
+      title: Update connection
+      x-internal: true
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
+          description: The current authorization status of the data connection.
+          nullable: true
+      additionalProperties: false
     PagingInfo:
       type: object
       title: Pagination information
@@ -1939,16 +1946,6 @@ components:
         lastSync: '2022-10-27T10:22:43.6464237Z'
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
-    ConnectionStatus:
-      title: Data connection status
-      x-internal: true
-      description: The current authorization status of the data connection.
-      type: string
-      enum:
-        - PendingAuth
-        - Linked
-        - Unlinked
-        - Deauthorized
     SourceType:
       title: Source Type
       x-internal: true
@@ -2586,9 +2583,9 @@ components:
             dataConnectionId:
               $ref: '#/components/parameters/connectionId/schema'
             newStatus:
-              $ref: '#/components/schemas/ConnectionStatus'
+              $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
             oldStatus:
-              $ref: '#/components/schemas/ConnectionStatus'
+              $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
             platformKey:
               $ref: '#/components/parameters/platformKey/schema'
       examples:
