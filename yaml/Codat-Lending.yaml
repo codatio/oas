@@ -18959,6 +18959,12 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
+        ### Useful queries
+
+        - Outstanding invoices - `query = amountDue > 0`
+        - Invoices due after a certain date: `query = dueDate > 2021-01-28`
+
+        [Read more about querying](https://docs.codat.io/using-the-api/querying).
       operationId: list-accounting-invoices
       x-speakeasy-group: accounts-receivable.invoices
       parameters:
@@ -26990,7 +26996,7 @@ paths:
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
       summary: Get invoice
-      description: |
+      description: |-
         The *Get invoice* endpoint returns a single invoice for a given invoiceId.
 
         [Invoices](https://docs.codat.io/accounting-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
