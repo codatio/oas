@@ -191,8 +191,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create company
       tags:
@@ -388,8 +386,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/codat-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -695,8 +691,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/data/history/{datasetId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -767,8 +761,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create webhook
       description: Create a new webhook configuration
@@ -915,8 +907,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/integrations/{platformKey}':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -1299,8 +1289,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'

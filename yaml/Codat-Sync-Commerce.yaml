@@ -144,8 +144,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Companies'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     post:
       tags:
         - Advanced controls
@@ -234,8 +232,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/sync-for-commerce-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -382,8 +378,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integrations'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/config/integrations/{platformKey}/branding':
     get:
       tags:

@@ -138,8 +138,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
@@ -272,8 +270,6 @@ paths:
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
@@ -443,8 +439,6 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -511,8 +505,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
       responses:
         '200':
           description: Success
@@ -630,8 +622,6 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
-      x-speakeasy-pagination:
-        $ref: '#/x-codat-speakeasy-pagination'
       responses:
         '200':
           description: Success
