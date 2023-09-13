@@ -67,8 +67,8 @@ x-codat-speakeasy-pagination:
   outputs:
     results: $.results
 tags:
-  - name: Companies
-    description: Create new and manage existing Sync for Commerce companies using the Sync flow UI.
+  - name: Connections
+    description: Create new and manage existing Sync for Commerce connections using the Sync flow UI.
   - name: Sync
     description: Initiate and monitor the sync of company data into accounting software.
   - name: Sync flow settings
@@ -81,7 +81,7 @@ paths:
   '/config/sync/commerce/{commerceKey}/{accountingKey}/start':
     get:
       tags:
-        - Companies
+        - Connections
       summary: Start new sync flow
       description: 'Create a new company and connections. Get a URL for Sync Flow, including a one time passcode.'
       operationId: get-sync-flow-url
@@ -281,7 +281,7 @@ paths:
   '/companies/{companyId}/connections/{connectionId}':
     patch:
       tags:
-        - Companies
+        - Connections
       summary: Update connection
       description: Update a data connection
       operationId: update-connection
@@ -314,7 +314,7 @@ paths:
       x-speakeasy-name-override: update-authorization
       description: Update data connection's authorization.
       tags:
-        - Companies
+        - Connections
       responses:
         '200':
           description: OK
