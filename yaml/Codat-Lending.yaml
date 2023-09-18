@@ -61529,7 +61529,7 @@ components:
               nullable: true
               description: An array of Addresses.
               items:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
+                $ref: '#/components/schemas/AccountingAddress'
             contacts:
               type: array
               nullable: true
@@ -61591,9 +61591,9 @@ components:
               nullable: true
               description: An array of Phone numbers.
               items:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/phoneNumbers/items'
+                $ref: '#/components/schemas/PhoneNumber'
             address:
-              $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
+              $ref: '#/components/schemas/AccountingAddress'
               description: An object of Address information.
             status:
               $ref: '#/components/schemas/AccountingCustomer/definitions/customerStatus'
@@ -61936,6 +61936,47 @@ components:
               items:
                 $ref: '#/components/schemas/AccountingDirectIncome'
         - $ref: '#/components/schemas/PagingInfo'
+    AccountingAddress:
+      title: Accounting address
+      x-internal: true
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountingAddress/definitions/accountingAddressType'
+        line1:
+          type: string
+          nullable: true
+          description: Line 1 of the customer address.
+        line2:
+          type: string
+          nullable: true
+          description: Line 2 of the customer address.
+        city:
+          type: string
+          nullable: true
+          description: City of the customer address.
+        region:
+          type: string
+          nullable: true
+          description: Region of the customer address.
+        country:
+          type: string
+          nullable: true
+          description: Country of the customer address.
+        postalCode:
+          type: string
+          nullable: true
+          description: Postal code or zip code.
+      required:
+        - type
+      definitions:
+        accountingAddressType:
+          description: The type of the address
+          type: string
+          enum:
+            - Unknown
+            - Billing
+            - Delivery
     AccountingCompanyInfo:
       title: Company information
       description: |-
@@ -61965,100 +62006,19 @@ components:
           nullable: true
           description: An array of Addresses.
           items:
-            title: Accounting address
-            type: object
-            properties:
-              type:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items/definitions/accountingAddressType'
-              line1:
-                type: string
-                nullable: true
-                description: Line 1 of the customer address.
-              line2:
-                type: string
-                nullable: true
-                description: Line 2 of the customer address.
-              city:
-                type: string
-                nullable: true
-                description: City of the customer address.
-              region:
-                type: string
-                nullable: true
-                description: Region of the customer address.
-              country:
-                type: string
-                nullable: true
-                description: Country of the customer address.
-              postalCode:
-                type: string
-                nullable: true
-                description: Postal code or zip code.
-            required:
-              - type
-            definitions:
-              accountingAddressType:
-                description: The type of the address
-                type: string
-                enum:
-                  - Unknown
-                  - Billing
-                  - Delivery
+            $ref: '#/components/schemas/AccountingAddress'
         phoneNumbers:
           type: array
           nullable: true
           description: An array of phone numbers.
           items:
-            title: Phone
-            type: object
-            x-internal: true
-            properties:
-              number:
-                type: string
-                nullable: true
-                examples:
-                  - +44 25691 154789
-                  - (877) 492-8687
-                  - 01224 658 999
-                description: A phone number.
-              type:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/phoneNumbers/items/definitions/phoneNumberType'
-            required:
-              - number
-              - type
-            definitions:
-              phoneNumberType:
-                description: The type of phone number
-                type: string
-                enum:
-                  - Primary
-                  - Landline
-                  - Mobile
-                  - Fax
-                  - Unknown
+            $ref: '#/components/schemas/PhoneNumber'
         webLinks:
           type: array
           nullable: true
           description: An array of weblinks.
           items:
-            title: Weblink
-            description: Weblink associated with the company.
-            type: object
-            properties:
-              type:
-                description: The type of the weblink.
-                type: string
-                enum:
-                  - Website
-                  - Social
-                  - Unknown
-              url:
-                description: The full URL for the weblink.
-                type: string
-                format: url
-            example:
-              type: Website
-              url: 'https://codat.io'
+            $ref: '#/components/schemas/WebLink'
         ledgerLockDate:
           $ref: '#/components/schemas/DateTime'
           description: 'If set in the accounting platform, the date (in the ISO 8601 date/time format) after which accounting transactions cannot be edited. Commonly used when books are closed at year-end.'
@@ -62124,9 +62084,6 @@ components:
             url1: 'https://go.xero.com/organisationlogin/default.aspx?shortcode=!rxs0Q'
             url2: 'https://reporting.xero.com/!rxs0Q'
           createdDate: '2020-02-03T16:42:02Z'
-    AccountingAddress:
-      x-internal: true
-      $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
     AccountingInvoice:
       title: Invoice
       description: |-
@@ -63412,7 +63369,7 @@ components:
               nullable: true
               description: An array of Addresses.
               items:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/addresses/items'
+                $ref: '#/components/schemas/AccountingAddress'
             registrationNumber:
               type: string
               nullable: true
@@ -64867,7 +64824,7 @@ components:
               description: Email address of the customer
               example: fred.smith@myCompany.com
             phone:
-              $ref: '#/components/schemas/AccountingCompanyInfo/properties/phoneNumbers/items/properties/number'
+              $ref: '#/components/schemas/PhoneNumber/properties/number'
             defaultCurrency:
               allOf:
                 - description: |
@@ -65133,12 +65090,12 @@ components:
               type: array
               description: Phone numbers associated with the company
               items:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/phoneNumbers/items'
+                $ref: '#/components/schemas/PhoneNumber'
             webLinks:
               description: Weblinks associated with the company
               type: array
               items:
-                $ref: '#/components/schemas/AccountingCompanyInfo/properties/webLinks/items'
+                $ref: '#/components/schemas/WebLink'
             registrationNumber:
               description: The registration number of the company
               type: string
@@ -66485,6 +66442,53 @@ components:
             ResetReason: The quota was reset because it is a new day.
             DailyQuota: 1000
             ExpiresUtc: '2023-05-03T00:00:00Z'
+    PhoneNumber:
+      title: Phone
+      type: object
+      x-internal: true
+      properties:
+        number:
+          type: string
+          nullable: true
+          examples:
+            - +44 25691 154789
+            - (877) 492-8687
+            - 01224 658 999
+          description: A phone number.
+        type:
+          $ref: '#/components/schemas/PhoneNumber/definitions/phoneNumberType'
+      required:
+        - number
+        - type
+      definitions:
+        phoneNumberType:
+          description: The type of phone number
+          type: string
+          enum:
+            - Primary
+            - Landline
+            - Mobile
+            - Fax
+            - Unknown
+    WebLink:
+      title: Weblink
+      description: Weblink associated with the company.
+      type: object
+      properties:
+        type:
+          description: The type of the weblink.
+          type: string
+          enum:
+            - Website
+            - Social
+            - Unknown
+        url:
+          description: The full URL for the weblink.
+          type: string
+          format: url
+      example:
+        type: Website
+        url: 'https://codat.io'
   parameters:
     page:
       name: page
