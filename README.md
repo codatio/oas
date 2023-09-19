@@ -8,21 +8,33 @@ You can browse interactive versions of our OAS on [our docs](https://docs.codat.
 
 | API | Description | JSON | YAML |
 | :- | :- | :- | :- |
-| [Common API](https://docs.codat.io/codat-api#/) | Manage the building blocks of Codat, including companies, connections, and more.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Common.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Common.yaml)
+| [Platform API](https://docs.codat.io/platform-api#/) | Manage the building blocks of Codat, including companies, connections, and more.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Platform.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Platform.yaml)
+| [Bank Feeds API](https://docs.codat.io/bank-feeds-api#/) | Set up bank feeds from accounts in your application to supported accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Bank-Feeds.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Bank-Feeds.yaml)
+| [Sync for Commerce API](https://docs.codat.io/sync-for-commerce-api#/) | Push merchants' data from your ecommerce or point-of-sale (POS) platform into your merchants' accounting platform.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Commerce.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Commerce.yaml)
+| [Sync for Expenses API](https://docs.codat.io/sync-for-expenses-api#/) | Push expenses to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Expenses.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml)
+| [Lending API](https://docs.codat.io/lending-api#/) | Make credit decisions backed by enhanced financials, metrics, reports, and data integrity features.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Lending.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Lending.yaml)
+| [Sync for Payroll API](https://docs.codat.io/sync-for-payroll-api#/) | Push payroll to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Payroll.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Payroll.yaml)
+| [Sync for Payables API](https://docs.codat.io/sync-for-expenses-api#/) | Streamline your customers' accounts payable workflow.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Payables.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml)
+
+#### Alternative products and versions
+
+| API | Description | JSON | YAM: |
+| :-  | :-          | :-   | :-   |
+| [Common API](https://docs.codat.io/codat-api#/) | Manage the building blocks of Codat, including companies, connections, and more.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Platform.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Platform.yaml)
 | [Accounting API](https://docs.codat.io/accounting-api#/) | Access standardized accounting data from our accounting integrations.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Accounting.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Accounting.yaml)
 | [Banking API](https://docs.codat.io/banking-api#/) | Access standardized banking data from our banking integrations.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Banking.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Banking.yaml)
 | [Commerce API](https://docs.codat.io/commerce-api#/) | Access standardized commerce data from our commerce integrations.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Commerce.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Commerce.yaml)
-| [Bank Feeds API](https://docs.codat.io/bank-feeds-api#/) | Set up bank feeds from accounts in your application to supported accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Bank-Feeds.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Bank-Feeds.yaml)
 | [Assess API](https://docs.codat.io/assess-api#/) | Make credit decisions backed by enhanced financials, metrics, reports, and data integrity features.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Assess.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Assess.yaml)
-| [Sync for Expenses API](https://docs.codat.io/sync-for-expenses-api#/) | Push merchants' data from your ecommerce or point-of-sale (POS) platform into your merchants' accounting platform.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Expenses.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Expenses.yaml)
-| [Sync for Commerce API](https://docs.codat.io/sync-for-commerce-api#/) | Push expenses to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Commerce.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Commerce.yaml)
+| [Sync for Expenses API (v1)](https://docs.codat.io/sync-for-expenses-api-v1#/) | Push expenses to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Expenses-v1.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses-v1.yaml)
+| [Sync for Commerce API (v1)](https://docs.codat.io/sync-for-commerce-api-v1#/) | Push merchants' data from your ecommerce or point-of-sale (POS) platform into your merchants' accounting platform. | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Commerce-v1.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Commerce-v1.yaml)
 | [Files API](https://docs.codat.io/files-api#/) | Capture your SMB's business documents with our file upload functionality.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Files.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Files.yaml)
+
 
 ### Client library SDKs
 
 - [TypeScript](https://github.com/codatio/client-sdk-typescript)
 - [Python](https://github.com/codatio/client-sdk-python)
 - [Go](https://github.com/codatio/client-sdk-go)
-- COMING SOON! [C#](https://github.com/codatio/client-sdk-csharp)
+- [C#](https://github.com/codatio/client-sdk-csharp)
 
 [Read more about our SDKs](https://docs.codat.io/introduction/libraries)
