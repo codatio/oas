@@ -72026,6 +72026,9 @@ components:
                 - Repayment
                 - Interest
                 - AccuredInterest
+            lenderName:
+              type: string
+              description: The name of lender providing the loan.
       examples:
         - reportInfo:
             pageNumber: 1
@@ -72046,6 +72049,7 @@ components:
               date: '2020-08-02'
               amount: -455
               transactionType: Repayment
+              lenderName: Barclays Bank
     LoanSummary:
       title: Loan summary
       type: object
@@ -72124,6 +72128,9 @@ components:
               type: number
               format: decimal
               description: The loan outstanding balance.  This may not equal totalDrawdowns - totalRepayments due to interest which has been accrued.
+            lenderName:
+              type: string
+              description: The name of lender providing the loan.
         loanSummaryIntegrationType:
           title: Integration type
           type: string
@@ -72156,6 +72163,7 @@ components:
               totalInvestments: 100000
               totalRepayments: 83481.72
               balance: 42513.18
+              lenderName: Barclays Bank
     CommerceReport:
       title: Commerce report
       description: |-
