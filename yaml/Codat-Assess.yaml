@@ -1721,6 +1721,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: List enhanced loan transactions
+      description: Returns a list of transactions identified as relating to a loan.
       tags:
         - Reports
       responses:
@@ -1751,6 +1752,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
     get:
       summary: Get enhanced loan summaries
+      description: Returns a summary of loan transactions identified for the SMB.
       tags:
         - Reports
       responses:
@@ -1851,22 +1853,29 @@ components:
           type: object
           properties:
             displayName:
+              description: The measure's display name.
               type: string
             units:
               type: string
+              description: The measure's units e.g. percentage (%).
             index:
               type: integer
+              description: The measure's index.
             type:
               type: string
+              description: The measure's type.
         commerceReportError:
           title: Error
           type: object
           properties:
             message:
               type: string
+              description: Message returned by error.
             type:
               type: string
+              description: The type of error.
             details:
+              description: Additional details on the error.
               type: object
               additionalProperties:
                 type: array
@@ -1878,10 +1887,13 @@ components:
           properties:
             index:
               type: integer
+              description: The dimension's index.
             displayName:
               type: string
+              description: The dimension's display name.
             type:
               type: string
+              description: The dimension's type.
             items:
               type: array
               items:
@@ -1889,18 +1901,23 @@ components:
                 properties:
                   index:
                     type: integer
+                    description: The dimension's items index.
         commerceReportComponent:
           title: Report component
           type: object
           properties:
             dimension:
               type: integer
+              description: The component's dimension.
             dimensionDisplayName:
               type: string
+              description: The component's display name.
             item:
               type: integer
+              description: The component's item number.
             itemDisplayName:
               type: string
+              description: The component's item display name.
             measures:
               type: array
               items:
@@ -1911,14 +1928,18 @@ components:
                 $ref: '#/components/schemas/Report/definitions/commerceReportComponent'
         reportComponentMeasure:
           type: object
+          title: Report component measure
           properties:
             index:
               type: integer
+              description: The measure's index.
             measureDisplayName:
               type: string
+              description: The measure's display name.
             value:
               type: number
               format: decimal
+              description: The measure's value.
       x-examples:
         Example 1:
           reportInfo:
@@ -2478,7 +2499,8 @@ components:
               type: number
               format: decimal
             currency:
-              type: string
+              $ref: '#/components/schemas/Currency'
+              description: The currency code for bank transaction.
             transactionCategory:
               description: Contains an array of category levels.
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/transactionCategory'
@@ -2587,18 +2609,18 @@ components:
             id:
               minLength: 1
               type: string
-              description: '`id` from the Customers data type'
+              description: '`id` from the Customers data type.'
             customerName:
               type: string
               nullable: true
-              description: '`customerName` from the Customer data type'
+              description: '`customerName` from the Customer data type.'
         payment:
           title: Enhanced invoice payment item
           type: object
           properties:
             id:
               type: string
-              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform'
+              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
             date:
               title: Date time
               type: string
@@ -2627,9 +2649,11 @@ components:
                 > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
             paymentType:
               type: string
+              description: The type of payment.
             amount:
               type: number
               format: decimal
+              description: Payment amount.
             currency:
               $ref: '#/components/schemas/Currency'
             currencyRate:
@@ -2644,18 +2668,24 @@ components:
           properties:
             id:
               type: string
+              description: Unique identifier for the bank transaction.
             dataConnectionId:
               type: string
+              description: Unique identifier of the bank transaction's connection.
             accountId:
               type: string
+              description: Unique identifier of the bank transaction's account.
             accountName:
               type: string
+              description: Name given to account.
             date:
               $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/payment/properties/date'
             description:
               type: string
+              description: Description given to bank transaction.
             amount:
               type: number
+              description: Bank transaction amount.
               format: decimal
         invoiceStatus:
           type: string
@@ -2682,9 +2712,10 @@ components:
               properties:
                 id:
                   type: string
-                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platdform'
+                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
                 invoiceNumber:
                   type: string
+                  description: Invoice number.
                 customerRef:
                   $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/lendingCustomerRef'
                 issueDate:
@@ -2698,9 +2729,11 @@ components:
                 totalAmount:
                   type: number
                   format: decimal
+                  description: Invoice's total amount.
                 amountDue:
                   type: number
                   format: decimal
+                  description: Invoice's total amount due.
                 payments:
                   type: array
                   items:
@@ -2746,7 +2779,7 @@ components:
         reportInfo:
           title: Report information
           type: object
-          description: 'Report additional information, which is specific to Assess reports'
+          description: 'Report additional information, which is specific to Lending API reports.'
           properties:
             pageNumber:
               type: integer
@@ -2759,13 +2792,13 @@ components:
               description: The total number of transactions available for a company for the period specified in the query string.
             reportName:
               type: string
-              description: Name of the report
+              description: Name of the report.
             companyName:
               type: string
               description: The name of the company being queried.
             generatedDate:
               type: string
-              description: Date the report was generated
+              description: Date the report was generated.
           examples:
             - Example 1:
                 value:
@@ -2855,6 +2888,7 @@ components:
               format: decimal
               description: The loan transaction amount.
             loanTransactionType:
+              description: The type of loan transaction.
               type: string
               enum:
                 - Investment
@@ -2998,10 +3032,14 @@ components:
       properties:
         pageNumber:
           type: integer
+          description: Current page number.
         pageSize:
           type: integer
+          description: Number of items to return in results array.
+          maximum: 2000
         totalResults:
           type: integer
+          description: Total number of items.
         _links:
           $ref: '#/components/schemas/PagingInfo/definitions/links'
       definitions:
@@ -3032,6 +3070,7 @@ components:
             href:
               type: string
               format: uri-reference
+              description: Uri hypertext reference.
       required:
         - pageNumber
         - pageSize
@@ -3101,16 +3140,22 @@ components:
       properties:
         statusCode:
           type: integer
+          description: The HTTP status code returned by the error.
         service:
           type: string
+          description: Codat's service the returned the error.
         error:
           type: string
+          description: A brief description of the error.
         correlationId:
           type: string
+          description: Unique identifier used to propagate to all downstream services and determine the source of the error.
         canBeRetried:
           type: string
+          description: '`True` if the error occurred transiently and can be retried.'
         detailedErrorCode:
           type: integer
+          description: Machine readable error code used to automate processes based on the code returned.
   parameters:
     companyId:
       name: companyId
@@ -3121,6 +3166,7 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
         description: Unique identifier for your SMB in Codat.
+      description: Unique identifier for a company.
     connectionId:
       name: connectionId
       in: path
@@ -3130,6 +3176,7 @@ components:
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
         description: Unique identifier for a company's data connection.
+      description: Unique identifier for a connection.
     page:
       name: page
       in: query
@@ -3167,8 +3214,6 @@ components:
         type: string
         example: '-modifiedDate'
       description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-      x-stoplight:
-        id: 4je9lwo02netu
     dataIntegrityDataType:
       name: dataType
       in: path

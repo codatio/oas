@@ -399,6 +399,11 @@ paths:
               properties:
                 platformKey:
                   type: string
+                  minLength: 4
+                  maxLength: 4
+                  pattern: '[a-z]{4}'
+                  example: gbol
+                  description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
       responses:
         '200':
           description: OK
@@ -5242,6 +5247,7 @@ paths:
       summary: Create account
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -6495,16 +6501,11 @@ paths:
   '/companies/{companyId}/data/journalEntries/{journalEntryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/journalEntryId'
     get:
       tags:
         - Journal entries
       summary: Get journal entry
-      parameters:
-        - name: journalEntryId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -7061,15 +7062,17 @@ paths:
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payroll-api#/operations/refresh-company-data).
       operationId: get-journal-entry
+  '/companies/{companyId}/connections/{connectionId}/push/journalEntries/{journalEntryId}':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/components/parameters/journalEntryId'
     delete:
       summary: Delete journal entry
       operationId: delete-journal-entry
       parameters:
-        - name: journalEntryId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       responses:
         '200':
           description: OK
@@ -8025,6 +8028,7 @@ paths:
       summary: Create journal entry
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -8345,16 +8349,11 @@ paths:
   '/companies/{companyId}/data/journals/{journalId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/journalId'
     get:
       tags:
         - Journals
       summary: Get journal
-      parameters:
-        - name: journalId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -8575,6 +8574,7 @@ paths:
       summary: Create journal
       parameters:
         - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -8932,11 +8932,7 @@ paths:
   '/companies/{companyId}/data/trackingCategories/{trackingCategoryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
-      - name: trackingCategoryId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/trackingCategoryId'
     get:
       tags:
         - Tracking categories
@@ -9163,10 +9159,14 @@ components:
       properties:
         pageNumber:
           type: integer
+          description: Current page number.
         pageSize:
           type: integer
+          description: Number of items to return in results array.
+          maximum: 2000
         totalResults:
           type: integer
+          description: Total number of items.
         _links:
           $ref: '#/components/schemas/PagingInfo/definitions/links'
       definitions:
@@ -9197,6 +9197,7 @@ components:
             href:
               type: string
               format: uri-reference
+              description: Uri hypertext reference.
       required:
         - pageNumber
         - pageSize
@@ -9256,6 +9257,7 @@ components:
           type: string
           deprecated: true
           example: Xero
+          description: '`platformKeys` name used when creating the company.'
         redirect:
           type: string
           format: uri
@@ -9291,6 +9293,7 @@ components:
             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
         createdByUserName:
           type: string
+          description: Name of user that created the company in Codat.
         dataConnections:
           type: array
           items:
@@ -9363,9 +9366,11 @@ components:
           example: Accounting
         platformName:
           type: string
+          description: Name of integration connected to company.
         linkUrl:
           type: string
           format: uri
+          description: The link URL your customers can use to authorize access to their business application.
           example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
         status:
           $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
@@ -9408,10 +9413,13 @@ components:
           properties:
             statusCode:
               type: string
+              description: The HTTP status code returned by the error.
             statusText:
               type: string
+              description: A non-numeric status code/text.
             errorMessage:
               type: string
+              description: A brief message about the error.
             erroredOnUtc:
               $ref: '#/components/schemas/Company/properties/created'
         dataConnectionSourceType:
@@ -9446,17 +9454,67 @@ components:
         - currentStatus
       properties:
         dataType:
+          title: Data types
+          x-internal: true
           type: string
+          description: Available Data types
+          enum:
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
+            - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
+            - customers
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
         lastSuccessfulSync:
           $ref: '#/components/schemas/Company/properties/created'
         currentStatus:
           type: string
+          description: The current status of the dataset in Codat's cache.
         latestSyncId:
           type: string
+          description: Unique identifier for most recent sync of data type.
           format: uuid
           example: ad474a37-2003-478e-baee-9af9f1ec2fe3
         latestSuccessfulSyncId:
           type: string
+          description: Unique identifier for the most recent successful sync of data type.
           format: uuid
           example: 8220fc90-55b6-47bc-9417-48ac6ea93101
       examples:
@@ -9476,26 +9534,28 @@ components:
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
-      x-stoplight:
-        id: hvk8xbvt7ekyg
       type: object
       properties:
         id:
           type: string
           format: uuid
+          description: Unique identifier of the pull operation.
           example: 943accd0-4247-42d8-865b-363c8629e1da
         companyId:
           type: string
           format: uuid
+          description: Unique identifier of the company associated to this pull operation.
           example: 22ece347-e5f6-4896-95e0-35a4c7f17023
         connectionId:
           type: string
           format: uuid
+          description: Unique identifier of the connection associated to this pull operation.
           example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
         dataType:
-          type: string
+          $ref: '#/components/schemas/DataStatus/properties/dataType'
         status:
           type: string
+          description: The current status of the pull operation.
           enum:
             - Initial
             - Queued
@@ -9525,10 +9585,13 @@ components:
           $ref: '#/components/schemas/Company/properties/created'
         progress:
           type: integer
+          description: An integer signifying the progress of the pull operation.
         isCompleted:
           type: boolean
+          description: '`True` if the pull operation completed successfully.'
         isErrored:
           type: boolean
+          description: '`True` if the pull operation entered an error state.'
       required:
         - id
         - companyId
@@ -9710,53 +9773,7 @@ components:
           createdDate: '2020-02-03T16:42:02Z'
     DataType:
       x-internal: true
-      title: Data types
-      type: string
-      description: Available Data types
-      enum:
-        - accountTransactions
-        - balanceSheet
-        - bankAccounts
-        - bankTransactions
-        - billCreditNotes
-        - billPayments
-        - bills
-        - cashFlowStatement
-        - chartOfAccounts
-        - company
-        - creditNotes
-        - customers
-        - directCosts
-        - directIncomes
-        - invoices
-        - items
-        - journalEntries
-        - journals
-        - paymentMethods
-        - payments
-        - profitAndLoss
-        - purchaseOrders
-        - salesOrders
-        - suppliers
-        - taxRates
-        - trackingCategories
-        - transfers
-        - banking-accountBalances
-        - banking-accounts
-        - banking-transactionCategories
-        - banking-transactions
-        - commerce-companyInfo
-        - commerce-customers
-        - commerce-disputes
-        - commerce-locations
-        - commerce-orders
-        - commerce-paymentMethods
-        - commerce-payments
-        - commerce-productCategories
-        - commerce-products
-        - commerce-taxComponents
-        - commerce-transactions
-      example: invoices
+      $ref: '#/components/schemas/DataStatus/properties/dataType'
     PushOperation:
       title: Push operation
       type: object
@@ -9769,7 +9786,7 @@ components:
           items:
             $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
         dataType:
-          $ref: '#/components/schemas/DataType'
+          $ref: '#/components/schemas/DataStatus/properties/dataType'
           description: 'The type of data being pushed, eg invoices, customers.'
         companyId:
           $ref: '#/components/parameters/companyId/schema'
@@ -9789,20 +9806,24 @@ components:
           type: integer
           format: int32
           nullable: true
+          description: Number of minutes the push operation must complete within before it times out.
         timeoutInSeconds:
           type: integer
           format: int32
           nullable: true
           deprecated: true
+          description: Number of seconds the push operation must complete within before it times out.
         status:
           $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
         errorMessage:
           type: string
           nullable: true
+          description: A message about the error.
         validation:
           $ref: '#/components/schemas/PushOperation/definitions/validation'
         statusCode:
           type: integer
+          description: Push status code.
       required:
         - companyId
         - pushOperationKey
@@ -9833,15 +9854,19 @@ components:
             itemId:
               type: string
               nullable: true
+              description: Unique identifier for a validation item.
             message:
               type: string
               nullable: true
+              description: A message outlining validation item's issue.
             validatorName:
               type: string
               nullable: true
+              description: Name of validator.
           additionalProperties: false
         pushChangeType:
           title: Push change type
+          description: Type of change being applied to record in third party platform.
           type: string
           enum:
             - Unknown
@@ -9856,8 +9881,9 @@ components:
           properties:
             id:
               type: string
+              description: Unique identifier for a push operation.
             dataType:
-              $ref: '#/components/schemas/DataType'
+              $ref: '#/components/schemas/DataStatus/properties/dataType'
               nullable: true
           additionalProperties: false
         pushOperationStatus:
@@ -9878,6 +9904,7 @@ components:
               $ref: '#/components/schemas/PushOperation/definitions/pushOperationRef'
             attachmentId:
               type: string
+              description: Unique identifier for the attachment created otherwise null.
               nullable: true
     PushOperations:
       title: Push operations
@@ -9902,17 +9929,16 @@ components:
         type:
           $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
         displayName:
-          minLength: 1
-          type: string
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/displayName'
         description:
-          type: string
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/description'
+        required:
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
         properties:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
           nullable: true
-        required:
-          type: boolean
         options:
           type: array
           items:
@@ -9936,9 +9962,13 @@ components:
             displayName:
               minLength: 1
               type: string
+              description: The property's display name.
             description:
-              minLength: 1
               type: string
+              description: A description of the property.
+            required:
+              type: boolean
+              description: The property is required if `True`.
             properties:
               type: object
               additionalProperties:
@@ -9949,8 +9979,6 @@ components:
               items:
                 $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
               nullable: true
-            required:
-              type: boolean
             validation:
               $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
         pushValidationInfo:
@@ -9976,16 +10004,20 @@ components:
           properties:
             field:
               type: string
+              description: Field name that resulted in the validation issue.
             details:
               minLength: 1
               type: string
+              description: Details on the validation issue.
             ref:
               type: string
               format: uri
               nullable: true
+              description: Unique reference identifier for the validation issue.
           additionalProperties: false
         pushOptionType:
           title: Option Type
+          description: The option type.
           enum:
             - Array
             - Object
@@ -10007,11 +10039,11 @@ components:
             type:
               $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
             displayName:
-              type: string
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/displayName'
             description:
-              type: string
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/description'
             required:
-              type: boolean
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
     Account:
       title: Account
       description: |-
@@ -10659,21 +10691,21 @@ components:
           properties:
             id:
               type: string
-              description: 'The identifier for the item, unique per tracking category'
+              description: 'The identifier for the item, unique per tracking category.'
               nullable: true
             name:
               type: string
-              description: The name of the tracking category
+              description: The name of the tracking category.
               nullable: true
             status:
               $ref: '#/components/schemas/TrackingCategory/definitions/status'
             parentId:
               type: string
-              description: The identifier for this item's immediate parent
+              description: The identifier for this item's immediate parent.
               nullable: true
             hasChildren:
               type: boolean
-              description: Boolean value indicating whether this category has SubCategories
+              description: Boolean value indicating whether this category has SubCategories.
         - $ref: '#/components/schemas/Account/allOf/1'
       definitions:
         trackingCategoryRef:
@@ -10686,9 +10718,11 @@ components:
             id:
               minLength: 1
               type: string
+              description: Unique identifier to the tracking category.
             name:
               type: string
               nullable: true
+              description: Name of tracking category.
         status:
           title: Tracking category status
           type: string
@@ -10754,16 +10788,22 @@ components:
       properties:
         statusCode:
           type: integer
+          description: The HTTP status code returned by the error.
         service:
           type: string
+          description: Codat's service the returned the error.
         error:
           type: string
+          description: A brief description of the error.
         correlationId:
           type: string
+          description: Unique identifier used to propagate to all downstream services and determine the source of the error.
         canBeRetried:
           type: string
+          description: '`True` if the error occurred transiently and can be retried.'
         detailedErrorCode:
           type: integer
+          description: Machine readable error code used to automate processes based on the code returned.
     PhoneNumber:
       title: Phone
       type: object
@@ -10951,8 +10991,6 @@ components:
         type: string
         example: '-modifiedDate'
       description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-      x-stoplight:
-        id: 4je9lwo02netu
     companyId:
       name: companyId
       in: path
@@ -10962,6 +11000,7 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
         description: Unique identifier for your SMB in Codat.
+      description: Unique identifier for a company.
     connectionId:
       name: connectionId
       in: path
@@ -10971,6 +11010,30 @@ components:
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
         description: Unique identifier for a company's data connection.
+      description: Unique identifier for a connection.
+    journalId:
+      name: journalId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique identifier for a journal.
+    journalEntryId:
+      name: journalEntryId
+      in: path
+      required: true
+      schema:
+        type: string
+        examples:
+          $ref: '#/components/parameters/accountId/schema/examples'
+      description: Unique identifier for a journal entry.
+    trackingCategoryId:
+      name: trackingCategoryId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique identifier for a tracking category.
     dataType:
       name: dataType
       description: The key of a Codat data type
@@ -10985,8 +11048,8 @@ components:
       schema:
         type: string
         format: uuid
-        example: eaed9f0f-e77b-4bc9-a58f-ab8b4b99ab18
-      description: Unique ID of a dataset or pull operation.
+        description: Unique identifier for the dataset that completed its sync.
+      description: Unique identifier for the dataset that completed its sync.
     accountId:
       name: accountId
       in: path
@@ -10998,15 +11061,28 @@ components:
           - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
           - 7110701885
           - EILBDVJVNUAGVKRQ
-      description: Unique identifier for an account
+      description: Unique identifier for an account.
     timeoutInMinutes:
-      x-stoplight:
-        id: irz50qjbs3yef
       name: timeoutInMinutes
       in: query
       schema:
         type: integer
         format: int32
+      description: Time limit for the push operation to complete before it is timed out.
+    allowSyncOnPushComplete:
+      name: allowSyncOnPushComplete
+      in: query
+      schema:
+        type: boolean
+        default: true
+      description: Allow a sync upon push completion.
+    forceUpdate:
+      name: forceUpdate
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
   responses:
     BadRequest:
       description: The request made is not valid.

@@ -297,7 +297,7 @@ paths:
               - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
               - 7110701885
               - EILBDVJVNUAGVKRQ
-          description: Unique identifier for an account
+          description: Unique identifier for an account.
       responses:
         '200':
           description: Success
@@ -807,7 +807,7 @@ components:
                 $ref: '#/components/schemas/AccountBalance'
         - $ref: '#/components/schemas/PagingInfo'
     Account:
-      title: Account
+      title: Banking bank account
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
@@ -949,7 +949,7 @@ components:
               modifiedDate: '2022-05-23T16:32:50Z'
               sourceModifiedDate: '2021-08-14T05:04:12'
     Accounts:
-      title: Banking accounts
+      title: Banking bank accounts
       x-internal: true
       allOf:
         - type: object
@@ -1105,6 +1105,7 @@ components:
             - id
         transactionCategoryStatus:
           type: string
+          description: The status of the transaction category.
           x-internal: true
           enum:
             - Unknown
@@ -1176,10 +1177,14 @@ components:
       properties:
         pageNumber:
           type: integer
+          description: Current page number.
         pageSize:
           type: integer
+          description: Number of items to return in results array.
+          maximum: 2000
         totalResults:
           type: integer
+          description: Total number of items.
         _links:
           $ref: '#/components/schemas/PagingInfo/definitions/links'
       definitions:
@@ -1210,6 +1215,7 @@ components:
             href:
               type: string
               format: uri-reference
+              description: Uri hypertext reference.
       required:
         - pageNumber
         - pageSize
@@ -1243,16 +1249,22 @@ components:
       properties:
         statusCode:
           type: integer
+          description: The HTTP status code returned by the error.
         service:
           type: string
+          description: Codat's service the returned the error.
         error:
           type: string
+          description: A brief description of the error.
         correlationId:
           type: string
+          description: Unique identifier used to propagate to all downstream services and determine the source of the error.
         canBeRetried:
           type: string
+          description: '`True` if the error occurred transiently and can be retried.'
         detailedErrorCode:
           type: integer
+          description: Machine readable error code used to automate processes based on the code returned.
   parameters:
     companyId:
       name: companyId
@@ -1263,6 +1275,7 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
         description: Unique identifier for your SMB in Codat.
+      description: Unique identifier for a company.
     connectionId:
       name: connectionId
       in: path
@@ -1272,6 +1285,7 @@ components:
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
         description: Unique identifier for a company's data connection.
+      description: Unique identifier for a connection.
     page:
       name: page
       in: query
@@ -1309,8 +1323,6 @@ components:
         type: string
         example: '-modifiedDate'
       description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-      x-stoplight:
-        id: 4je9lwo02netu
   responses:
     Unauthorized:
       description: Your API request was not properly authorized.

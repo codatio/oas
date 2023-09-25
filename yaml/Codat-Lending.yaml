@@ -424,6 +424,11 @@ paths:
               properties:
                 platformKey:
                   type: string
+                  minLength: 4
+                  maxLength: 4
+                  pattern: '[a-z]{4}'
+                  example: gbol
+                  description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
       responses:
         '200':
           description: OK
@@ -2815,6 +2820,7 @@ paths:
           required: true
           schema:
             type: string
+          description: Unique identifier for an account transaction.
       responses:
         '200':
           description: Success
@@ -5568,6 +5574,9 @@ paths:
         required: true
         schema:
           type: string
+          examples:
+            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+        description: Unique identifier for a bill credit note.
     get:
       tags:
         - Accounts payable
@@ -13055,6 +13064,7 @@ paths:
         required: true
         schema:
           type: string
+        description: Unique identifier for a credit note.
     get:
       tags:
         - Accounts receivable
@@ -15166,11 +15176,7 @@ paths:
   '/companies/{companyId}/data/customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
-      - name: customerId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/customerId'
     get:
       tags:
         - Accounts receivable
@@ -15723,11 +15729,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: customerId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/customerId'
     get:
       tags:
         - Accounts receivable
@@ -15757,11 +15759,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: customerId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/customerId'
       - $ref: '#/components/parameters/attachmentId'
     get:
       tags:
@@ -15793,11 +15791,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: customerId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/customerId'
       - $ref: '#/components/parameters/attachmentId'
     get:
       tags:
@@ -18335,11 +18329,7 @@ paths:
         - Accounts receivable
       summary: Get direct income
       parameters:
-        - name: directIncomeId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/accountingDirectIncomeId'
       responses:
         '200':
           description: Success
@@ -28318,6 +28308,9 @@ paths:
           required: true
           schema:
             type: string
+            examples:
+              $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          description: Unique identifier for a journal entry.
       responses:
         '200':
           description: Success
@@ -29093,6 +29086,7 @@ paths:
           required: true
           schema:
             type: string
+          description: Unique identifier for a journal.
       responses:
         '200':
           description: Success
@@ -30218,11 +30212,7 @@ paths:
       tags:
         - Accounts receivable
       parameters:
-        - name: paymentId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-payments~1%7BpaymentId%7D/parameters/2'
       responses:
         '200':
           description: Success
@@ -32482,6 +32472,9 @@ paths:
         required: true
         schema:
           type: string
+          examples:
+            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+        description: Unique identifier for a transfer.
     get:
       tags:
         - Transactions
@@ -53418,14 +53411,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: customerId
-        in: path
-        required: true
-        schema:
-          type: string
-          examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-        description: Unique identifier for a customer.
+      - $ref: '#/components/parameters/customerId'
     get:
       tags:
         - Sales
@@ -59114,9 +59100,8 @@ paths:
         - Loan writeback
       summary: Create bank account
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -62503,9 +62488,8 @@ paths:
         - Loan writeback
       summary: Create account
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -66002,9 +65986,8 @@ paths:
       tags:
         - Loan writeback
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -67257,9 +67240,8 @@ paths:
       tags:
         - Loan writeback
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       summary: Create transfer
       requestBody:
         content:
@@ -67271,8 +67253,8 @@ paths:
                 value:
                   description: test transfers push 20230126 12.08
                   contactRef:
-                    id: string
-                    dataType: string
+                    id: 80000028-167239230944
+                    dataType: bankAccounts
                   date: '2023-01-26T11:51:18.104Z'
                   from:
                     accountRef:
@@ -67374,9 +67356,8 @@ paths:
       operationId: create-bank-transactions
       x-speakeasy-group: loan-writeback.bank-transactions
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -70201,9 +70182,8 @@ paths:
         - Loan writeback
       summary: Create direct cost
       parameters:
-        - $ref: '#/components/parameters/allowSyncOnPushComplete'
         - $ref: '#/components/parameters/timeoutInMinutes'
-        - $ref: '#/components/parameters/forceUpdate'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
       requestBody:
         content:
           application/json:
@@ -70216,7 +70196,7 @@ paths:
                   note: directCost 21/03 09.20
                   contactRef:
                     id: 80000001-1671793885
-                    dataType: Test Vendor 1
+                    dataType: suppliers
                   issueDate: '2023-03-21T10:19:52.223Z'
                   currency: USD
                   lineItems:
@@ -70593,10 +70573,14 @@ components:
       properties:
         pageNumber:
           type: integer
+          description: Current page number.
         pageSize:
           type: integer
+          description: Number of items to return in results array.
+          maximum: 2000
         totalResults:
           type: integer
+          description: Total number of items.
         _links:
           $ref: '#/components/schemas/PagingInfo/definitions/links'
       definitions:
@@ -70627,6 +70611,7 @@ components:
             href:
               type: string
               format: uri-reference
+              description: Uri hypertext reference.
       required:
         - pageNumber
         - pageSize
@@ -70686,6 +70671,7 @@ components:
           type: string
           deprecated: true
           example: Xero
+          description: '`platformKeys` name used when creating the company.'
         redirect:
           type: string
           format: uri
@@ -70697,6 +70683,7 @@ components:
           $ref: '#/components/schemas/DateTime'
         createdByUserName:
           type: string
+          description: Name of user that created the company in Codat.
         dataConnections:
           type: array
           items:
@@ -70758,9 +70745,11 @@ components:
           example: Accounting
         platformName:
           type: string
+          description: Name of integration connected to company.
         linkUrl:
           type: string
           format: uri
+          description: The link URL your customers can use to authorize access to their business application.
           example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
         status:
           $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
@@ -70803,10 +70792,13 @@ components:
           properties:
             statusCode:
               type: string
+              description: The HTTP status code returned by the error.
             statusText:
               type: string
+              description: A non-numeric status code/text.
             errorMessage:
               type: string
+              description: A brief message about the error.
             erroredOnUtc:
               $ref: '#/components/schemas/DateTime'
         dataConnectionSourceType:
@@ -70854,17 +70846,16 @@ components:
         type:
           $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
         displayName:
-          minLength: 1
-          type: string
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/displayName'
         description:
-          type: string
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/description'
+        required:
+          $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
         properties:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty'
           nullable: true
-        required:
-          type: boolean
         options:
           type: array
           items:
@@ -70888,9 +70879,13 @@ components:
             displayName:
               minLength: 1
               type: string
+              description: The property's display name.
             description:
-              minLength: 1
               type: string
+              description: A description of the property.
+            required:
+              type: boolean
+              description: The property is required if `True`.
             properties:
               type: object
               additionalProperties:
@@ -70901,8 +70896,6 @@ components:
               items:
                 $ref: '#/components/schemas/PushOption/definitions/pushOptionChoice'
               nullable: true
-            required:
-              type: boolean
             validation:
               $ref: '#/components/schemas/PushOption/definitions/pushValidationInfo'
         pushValidationInfo:
@@ -70928,16 +70921,20 @@ components:
           properties:
             field:
               type: string
+              description: Field name that resulted in the validation issue.
             details:
               minLength: 1
               type: string
+              description: Details on the validation issue.
             ref:
               type: string
               format: uri
               nullable: true
+              description: Unique reference identifier for the validation issue.
           additionalProperties: false
         pushOptionType:
           title: Option Type
+          description: The option type.
           enum:
             - Array
             - Object
@@ -70959,11 +70956,11 @@ components:
             type:
               $ref: '#/components/schemas/PushOption/definitions/pushOptionType'
             displayName:
-              type: string
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/displayName'
             description:
-              type: string
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/description'
             required:
-              type: boolean
+              $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
     DataStatus:
       title: Data status
       description: Describes the state of data in the Codat cache for a company and data type
@@ -70974,17 +70971,67 @@ components:
         - currentStatus
       properties:
         dataType:
+          title: Data types
+          x-internal: true
           type: string
+          description: Available Data types
+          enum:
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
+            - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
+            - customers
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
         lastSuccessfulSync:
           $ref: '#/components/schemas/DateTime'
         currentStatus:
           type: string
+          description: The current status of the dataset in Codat's cache.
         latestSyncId:
           type: string
+          description: Unique identifier for most recent sync of data type.
           format: uuid
           example: ad474a37-2003-478e-baee-9af9f1ec2fe3
         latestSuccessfulSyncId:
           type: string
+          description: Unique identifier for the most recent successful sync of data type.
           format: uuid
           example: 8220fc90-55b6-47bc-9417-48ac6ea93101
       examples:
@@ -71001,78 +71048,34 @@ components:
         $ref: '#/components/schemas/DataStatus'
     DataType:
       x-internal: true
-      title: Data types
-      type: string
-      description: Available Data types
-      enum:
-        - accountTransactions
-        - balanceSheet
-        - bankAccounts
-        - bankTransactions
-        - billCreditNotes
-        - billPayments
-        - bills
-        - cashFlowStatement
-        - chartOfAccounts
-        - company
-        - creditNotes
-        - customers
-        - directCosts
-        - directIncomes
-        - invoices
-        - items
-        - journalEntries
-        - journals
-        - paymentMethods
-        - payments
-        - profitAndLoss
-        - purchaseOrders
-        - salesOrders
-        - suppliers
-        - taxRates
-        - trackingCategories
-        - transfers
-        - banking-accountBalances
-        - banking-accounts
-        - banking-transactionCategories
-        - banking-transactions
-        - commerce-companyInfo
-        - commerce-customers
-        - commerce-disputes
-        - commerce-locations
-        - commerce-orders
-        - commerce-paymentMethods
-        - commerce-payments
-        - commerce-productCategories
-        - commerce-products
-        - commerce-taxComponents
-        - commerce-transactions
-      example: invoices
+      $ref: '#/components/schemas/DataStatus/properties/dataType'
     PullOperation:
       title: Pull operation
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
-      x-stoplight:
-        id: hvk8xbvt7ekyg
       type: object
       properties:
         id:
           type: string
           format: uuid
+          description: Unique identifier of the pull operation.
           example: 943accd0-4247-42d8-865b-363c8629e1da
         companyId:
           type: string
           format: uuid
+          description: Unique identifier of the company associated to this pull operation.
           example: 22ece347-e5f6-4896-95e0-35a4c7f17023
         connectionId:
           type: string
           format: uuid
+          description: Unique identifier of the connection associated to this pull operation.
           example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
         dataType:
-          type: string
+          $ref: '#/components/schemas/DataStatus/properties/dataType'
         status:
           type: string
+          description: The current status of the pull operation.
           enum:
             - Initial
             - Queued
@@ -71102,10 +71105,13 @@ components:
           $ref: '#/components/schemas/DateTime'
         progress:
           type: integer
+          description: An integer signifying the progress of the pull operation.
         isCompleted:
           type: boolean
+          description: '`True` if the pull operation completed successfully.'
         isErrored:
           type: boolean
+          description: '`True` if the pull operation entered an error state.'
       required:
         - id
         - companyId
@@ -71149,7 +71155,7 @@ components:
           items:
             $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
         dataType:
-          $ref: '#/components/schemas/DataType'
+          $ref: '#/components/schemas/DataStatus/properties/dataType'
           description: 'The type of data being pushed, eg invoices, customers.'
         companyId:
           $ref: '#/components/parameters/companyId/schema'
@@ -71169,20 +71175,24 @@ components:
           type: integer
           format: int32
           nullable: true
+          description: Number of minutes the push operation must complete within before it times out.
         timeoutInSeconds:
           type: integer
           format: int32
           nullable: true
           deprecated: true
+          description: Number of seconds the push operation must complete within before it times out.
         status:
           $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
         errorMessage:
           type: string
           nullable: true
+          description: A message about the error.
         validation:
           $ref: '#/components/schemas/PushOperation/definitions/validation'
         statusCode:
           type: integer
+          description: Push status code.
       required:
         - companyId
         - pushOperationKey
@@ -71213,15 +71223,19 @@ components:
             itemId:
               type: string
               nullable: true
+              description: Unique identifier for a validation item.
             message:
               type: string
               nullable: true
+              description: A message outlining validation item's issue.
             validatorName:
               type: string
               nullable: true
+              description: Name of validator.
           additionalProperties: false
         pushChangeType:
           title: Push change type
+          description: Type of change being applied to record in third party platform.
           type: string
           enum:
             - Unknown
@@ -71236,8 +71250,9 @@ components:
           properties:
             id:
               type: string
+              description: Unique identifier for a push operation.
             dataType:
-              $ref: '#/components/schemas/DataType'
+              $ref: '#/components/schemas/DataStatus/properties/dataType'
               nullable: true
           additionalProperties: false
         pushOperationStatus:
@@ -71258,6 +71273,7 @@ components:
               $ref: '#/components/schemas/PushOperation/definitions/pushOperationRef'
             attachmentId:
               type: string
+              description: Unique identifier for the attachment created otherwise null.
               nullable: true
     PushOperations:
       title: Push operations
@@ -71652,25 +71668,27 @@ components:
             id:
               minLength: 1
               type: string
-              description: '`id` from the Customers data type'
+              description: '`id` from the Customers data type.'
             customerName:
               type: string
               nullable: true
-              description: '`customerName` from the Customer data type'
+              description: '`customerName` from the Customer data type.'
         payment:
           title: Enhanced invoice payment item
           type: object
           properties:
             id:
               type: string
-              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform'
+              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
             date:
               $ref: '#/components/schemas/DateTime'
             paymentType:
               type: string
+              description: The type of payment.
             amount:
               type: number
               format: decimal
+              description: Payment amount.
             currency:
               $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
             currencyRate:
@@ -71685,18 +71703,24 @@ components:
           properties:
             id:
               type: string
+              description: Unique identifier for the bank transaction.
             dataConnectionId:
               type: string
+              description: Unique identifier of the bank transaction's connection.
             accountId:
               type: string
+              description: Unique identifier of the bank transaction's account.
             accountName:
               type: string
+              description: Name given to account.
             date:
               $ref: '#/components/schemas/DateTime'
             description:
               type: string
+              description: Description given to bank transaction.
             amount:
               type: number
+              description: Bank transaction amount.
               format: decimal
         invoiceStatus:
           $ref: '#/components/schemas/AccountingInvoice/definitions/invoiceStatus'
@@ -71708,9 +71732,10 @@ components:
               properties:
                 id:
                   type: string
-                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platdform'
+                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
                 invoiceNumber:
                   type: string
+                  description: Invoice number.
                 customerRef:
                   $ref: '#/components/schemas/EnhancedInvoicesReport/definitions/lendingCustomerRef'
                 issueDate:
@@ -71724,9 +71749,11 @@ components:
                 totalAmount:
                   type: number
                   format: decimal
+                  description: Invoice's total amount.
                 amountDue:
                   type: number
                   format: decimal
+                  description: Invoice's total amount due.
                 payments:
                   type: array
                   items:
@@ -71737,7 +71764,7 @@ components:
         reportInfo:
           title: Report information
           type: object
-          description: 'Report additional information, which is specific to Assess reports'
+          description: 'Report additional information, which is specific to Lending API reports.'
           properties:
             pageNumber:
               type: integer
@@ -71750,13 +71777,13 @@ components:
               description: The total number of transactions available for a company for the period specified in the query string.
             reportName:
               type: string
-              description: Name of the report
+              description: Name of the report.
             companyName:
               type: string
               description: The name of the company being queried.
             generatedDate:
               type: string
-              description: Date the report was generated
+              description: Date the report was generated.
           examples:
             - Example 1:
                 value:
@@ -71876,7 +71903,8 @@ components:
               type: number
               format: decimal
             currency:
-              type: string
+              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              description: The currency code for bank transaction.
             transactionCategory:
               description: Contains an array of category levels.
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/transactionCategory'
@@ -71991,6 +72019,7 @@ components:
               format: decimal
               description: The loan transaction amount.
             loanTransactionType:
+              description: The type of loan transaction.
               type: string
               enum:
                 - Investment
@@ -72199,22 +72228,29 @@ components:
           type: object
           properties:
             displayName:
+              description: The measure's display name.
               type: string
             units:
               type: string
+              description: The measure's units e.g. percentage (%).
             index:
               type: integer
+              description: The measure's index.
             type:
               type: string
+              description: The measure's type.
         commerceReportError:
           title: Error
           type: object
           properties:
             message:
               type: string
+              description: Message returned by error.
             type:
               type: string
+              description: The type of error.
             details:
+              description: Additional details on the error.
               type: object
               additionalProperties:
                 type: array
@@ -72226,10 +72262,13 @@ components:
           properties:
             index:
               type: integer
+              description: The dimension's index.
             displayName:
               type: string
+              description: The dimension's display name.
             type:
               type: string
+              description: The dimension's type.
             items:
               type: array
               items:
@@ -72237,18 +72276,23 @@ components:
                 properties:
                   index:
                     type: integer
+                    description: The dimension's items index.
         commerceReportComponent:
           title: Report component
           type: object
           properties:
             dimension:
               type: integer
+              description: The component's dimension.
             dimensionDisplayName:
               type: string
+              description: The component's display name.
             item:
               type: integer
+              description: The component's item number.
             itemDisplayName:
               type: string
+              description: The component's item display name.
             measures:
               type: array
               items:
@@ -72259,14 +72303,18 @@ components:
                 $ref: '#/components/schemas/CommerceReport/definitions/commerceReportComponent'
         reportComponentMeasure:
           type: object
+          title: Report component measure
           properties:
             index:
               type: integer
+              description: The measure's index.
             measureDisplayName:
               type: string
+              description: The measure's display name.
             value:
               type: number
               format: decimal
+              description: The measure's value.
       x-examples:
         Example 1:
           reportInfo:
@@ -72362,9 +72410,11 @@ components:
         id:
           minLength: 1
           type: string
+          description: Unique identifier to the project reference.
         name:
           type: string
           nullable: true
+          description: The project's name.
     ReportLine:
       x-internal: true
       type: object
@@ -73504,9 +73554,11 @@ components:
                   name:
                     minLength: 1
                     type: string
+                    description: Name assigned to withheld tax.
                   amount:
                     type: number
                     format: decimal
+                    description: Amount of tax withheld.
                 required:
                   - amount
                   - name
@@ -73603,6 +73655,7 @@ components:
               type: number
               format: decimal
               nullable: true
+              description: Percentage rate of any discount applied to the bill.
             accountRef:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
               description: Reference to the account to which the line item is linked.
@@ -73622,6 +73675,7 @@ components:
               $ref: '#/components/schemas/AccountsPayableTracking'
             isDirectCost:
               type: boolean
+              description: The bill is a direct cost if `True`.
           required:
             - unitAmount
             - quantity
@@ -73783,7 +73837,7 @@ components:
         > 
         > If a company is authorized, you can query the Codat API to read, download, and upload attachments without requiring a fresh sync of data.
 
-        Unlike other data types, Codat doesn't support sync settings for attachments.
+        Unlike other data types, Codat doesn't support [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings) for attachments.
 
         Note that different integrations have different requirements to file size and extension of attachments.
 
@@ -73873,9 +73927,11 @@ components:
             additionalTaxAmount:
               type: number
               format: decimal
+              description: Additional tax amount applied to credit note.
             additionalTaxPercentage:
               type: number
               format: decimal
+              description: Percentage rate of any additional tax applied to the credit note.
             totalTaxAmount:
               type: number
               format: decimal
@@ -73932,6 +73988,8 @@ components:
         - status
       definitions:
         creditNoteStatus:
+          title: Credit note status
+          description: Current state of the credit note.
           type: string
           enum:
             - Unknown
@@ -74000,6 +74058,7 @@ components:
               $ref: '#/components/schemas/AccountsReceivableTracking'
             isDirectIncome:
               type: boolean
+              description: The credit note is a direct income if `True`.
           required:
             - unitAmount
             - quantity
@@ -74388,6 +74447,7 @@ components:
             note:
               type: string
               nullable: true
+              description: An optional note on the direct income that can be used to assign the direct income with a reference ID in your application.
             contactRef:
               $ref: '#/components/schemas/AccountingTransfer/allOf/0/properties/contactRef'
               description: A customer or supplier associated with the direct income.
@@ -74714,8 +74774,9 @@ components:
                 properties:
                   id:
                     type: string
+                    description: Unique identifier to a record in `dataType`.
                   dataType:
-                    type: string
+                    $ref: '#/components/schemas/DataStatus/properties/dataType'
             issueDate:
               $ref: '#/components/schemas/DateTime'
               description: Date of the invoice as recorded in the accounting system.
@@ -74760,9 +74821,11 @@ components:
             additionalTaxAmount:
               type: number
               format: decimal
+              description: Additional tax amount applied to invoice.
             additionalTaxPercentage:
               type: number
               format: decimal
+              description: Percentage rate of any additional tax applied to the invoice.
             totalTaxAmount:
               type: number
               format: decimal
@@ -74858,6 +74921,7 @@ components:
               $ref: '#/components/schemas/AccountsReceivableTracking'
             isDirectIncome:
               type: boolean
+              description: The invoice is a direct income if `True`.
           required:
             - unitAmount
             - quantity
@@ -76062,8 +76126,9 @@ components:
                 id:
                   minLength: 1
                   type: string
+                  description: Unique identifier for a customer or supplier.
                 dataType:
-                  type: string
+                  $ref: '#/components/schemas/DataStatus/properties/dataType'
                   nullable: true
             date:
               $ref: '#/components/schemas/DateTime'
@@ -76094,8 +76159,8 @@ components:
       definitions:
         transferAccount:
           title: Transfer account
+          description: Account details of the account sending or receiving the transfer.
           type: object
-          description: ''
           properties:
             accountRef:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
@@ -76271,29 +76336,35 @@ components:
           properties:
             id:
               type: string
+              description: 'Identifier for the bank transaction, unique to the company in the accounting platform.'
             accountId:
               type: string
               nullable: true
+              description: Unique identifier to the `accountId` the bank transactions originates from.
             clearedOnDate:
               $ref: '#/components/schemas/DateTime'
             description:
               type: string
               nullable: true
+              description: Description of the bank transaction.
             reconciled:
               type: boolean
+              description: '`True` if the bank transaction has been [reconciled](https://www.xero.com/uk/guides/what-is-bank-reconciliation/) in the accounting platform.'
             amount:
               type: number
               format: decimal
+              description: The amount transacted in the bank transaction.
             balance:
               type: number
               format: decimal
+              description: The remaining balance in the account with ID `accountId`.
             transactionType:
               $ref: '#/components/schemas/AccountingBankTransaction/definitions/bankTransactionType'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         bankTransactionType:
           title: Bank transaction type
-          description: Type of transaction for the bank statement line
+          description: Type of transaction for the bank statement line.
           type: string
           enum:
             - Unknown
@@ -76331,6 +76402,7 @@ components:
       properties:
         accountId:
           type: string
+          description: Unique identifier for a bank account.
           examples:
             $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
         transactions:
@@ -76339,22 +76411,26 @@ components:
             $ref: '#/components/schemas/AccountingCreateBankTransactions/definitions/CreateBankAccountTransaction'
       definitions:
         CreateBankAccountTransaction:
-          title: bank account transaction
+          title: Bank account transaction
           type: object
           properties:
             id:
               type: string
+              description: 'Identifier for the bank account transaction, unique for the company in the accounting platform.'
             amount:
               type: number
               format: decimal
+              description: The amount transacted in the bank transaction.
             date:
               $ref: '#/components/schemas/DateTime'
             description:
               nullable: false
               type: string
+              description: Description of the bank transaction.
             balance:
               type: number
               format: decimal
+              description: The remaining balance in the account with ID `accountId`.
     AccountingCreateBankTransactionsResponse:
       title: Create/update bank transaction response
       x-internal: true
@@ -76987,21 +77063,21 @@ components:
           properties:
             id:
               type: string
-              description: 'The identifier for the item, unique per tracking category'
+              description: 'The identifier for the item, unique per tracking category.'
               nullable: true
             name:
               type: string
-              description: The name of the tracking category
+              description: The name of the tracking category.
               nullable: true
             status:
               $ref: '#/components/schemas/AccountingTrackingCategory/definitions/status'
             parentId:
               type: string
-              description: The identifier for this item's immediate parent
+              description: The identifier for this item's immediate parent.
               nullable: true
             hasChildren:
               type: boolean
-              description: Boolean value indicating whether this category has SubCategories
+              description: Boolean value indicating whether this category has SubCategories.
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         trackingCategoryRef:
@@ -77014,9 +77090,11 @@ components:
             id:
               minLength: 1
               type: string
+              description: Unique identifier to the tracking category.
             name:
               type: string
               nullable: true
+              description: Name of tracking category.
         status:
           title: Tracking category status
           type: string
@@ -77219,7 +77297,7 @@ components:
                 $ref: '#/components/schemas/BankingAccountBalance'
         - $ref: '#/components/schemas/PagingInfo'
     BankingAccount:
-      title: Account
+      title: Banking bank account
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
@@ -77361,7 +77439,7 @@ components:
               modifiedDate: '2022-05-23T16:32:50Z'
               sourceModifiedDate: '2021-08-14T05:04:12'
     BankingAccounts:
-      title: Banking accounts
+      title: Banking bank accounts
       x-internal: true
       allOf:
         - type: object
@@ -77421,6 +77499,7 @@ components:
             - id
         transactionCategoryStatus:
           type: string
+          description: The status of the transaction category.
           x-internal: true
           enum:
             - Unknown
@@ -78439,7 +78518,7 @@ components:
                 - 1 hour of support from an agent (phone or remote)
             categorization:
               type: string
-              description: Retail category that the product is assigned to
+              description: Retail category that the product is assigned to e.g. `Hardware`.
               examples:
                 - Hardware
                 - Software
@@ -78448,7 +78527,7 @@ components:
               type: boolean
               description: |
                 Whether the product represents a gift card or voucher that
-                can be redeemed in the commerce or POS platform
+                can be redeemed in the commerce or POS platform.
             variants:
               type: array
               items:
@@ -78459,7 +78538,7 @@ components:
           description: Reference that links the line item to the correct product details.
           properties:
             id:
-              description: The unique identitifer of the product being referenced.
+              description: The unique identifier of the product being referenced.
               type: string
               examples:
                 - 13d946f0-c5d5-42bc-b092-97ece17923ab
@@ -78533,12 +78612,12 @@ components:
             - $ref: '#/components/schemas/CommerceOrder/allOf/2'
             - $ref: '#/components/schemas/CommerceOrder/allOf/3'
         productVariantRef:
-          title: Product Variant Ref
+          title: Product variant reference
           type: object
           description: Reference that links the line item to the specific version of product that has been ordered.
           properties:
             id:
-              description: The unique identitifer of the product variant being referenced.
+              description: The unique identifier of the product variant being referenced.
               type: string
               examples:
                 - 13d946f0-c5d5-42bc-b092-97ece17923ab
@@ -78561,6 +78640,7 @@ components:
             unitPrice:
               type: number
               format: decimal
+              description: The product variant's unit price.
         productInventory:
           title: Product Inventory
           description: Information about the total inventory as well as the locations inventory is in.
@@ -78571,6 +78651,7 @@ components:
               type: number
               format: decimal
               nullable: true
+              description: The total quantity of stock remaining across locations.
             locations:
               type: array
               items:
@@ -78583,11 +78664,13 @@ components:
             quantity:
               type: number
               format: decimal
+              description: The quantity of stock remaining at location.
             locationRef:
               $ref: '#/components/schemas/CommerceLocation/definitions/locationRef'
         productVariantStatus:
           x-internal: true
           type: string
+          description: The status of the product variant.
           enum:
             - Unknown
             - Published
@@ -78672,6 +78755,7 @@ components:
         transactionSourceType:
           x-internal: true
           type: string
+          description: The type of source the transaction arose.
           enum:
             - Fee
             - Order
@@ -78736,6 +78820,7 @@ components:
       definitions:
         billedToType:
           type: string
+          description: Defines if the invoice or credit note is billed/rebilled to a project or customer.
           enum:
             - Unknown
             - NotApplicable
@@ -78745,13 +78830,6 @@ components:
       title: Tracking
       type: object
       description: 'Categories, and a project and customer, against which the item is tracked.'
-      definitions:
-        billedToType:
-          type: string
-          enum:
-            - Unknown
-            - NotApplicable
-            - Project
       properties:
         categoryRefs:
           type: array
@@ -78788,6 +78866,14 @@ components:
         - categoryRefs
         - isBilledTo
         - isRebilledTo
+      definitions:
+        billedToType:
+          type: string
+          enum:
+            - Unknown
+            - NotApplicable
+            - Project
+          description: Defines if the bill or bill credit note is billed/rebilled to a project.
     File:
       title: File
       type: object
@@ -78795,12 +78881,15 @@ components:
         fileName:
           type: string
           nullable: true
+          description: The file's name.
         displayName:
           type: string
           nullable: true
+          description: An optional display name for the file.
         sourceType:
           type: string
           nullable: true
+          description: The source of the file uploaded.
         uploaded:
           $ref: '#/components/schemas/DateTime'
       additionalProperties: false
@@ -78816,16 +78905,22 @@ components:
       properties:
         statusCode:
           type: integer
+          description: The HTTP status code returned by the error.
         service:
           type: string
+          description: Codat's service the returned the error.
         error:
           type: string
+          description: A brief description of the error.
         correlationId:
           type: string
+          description: Unique identifier used to propagate to all downstream services and determine the source of the error.
         canBeRetried:
           type: string
+          description: '`True` if the error occurred transiently and can be retried.'
         detailedErrorCode:
           type: integer
+          description: Machine readable error code used to automate processes based on the code returned.
     Metadata:
       title: Metadata
       type: object
@@ -79167,8 +79262,6 @@ components:
         type: string
         example: '-modifiedDate'
       description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-      x-stoplight:
-        id: 4je9lwo02netu
     companyId:
       name: companyId
       in: path
@@ -79178,6 +79271,7 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
         description: Unique identifier for your SMB in Codat.
+      description: Unique identifier for a company.
     connectionId:
       name: connectionId
       in: path
@@ -79187,6 +79281,7 @@ components:
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
         description: Unique identifier for a company's data connection.
+      description: Unique identifier for a connection.
     dataType:
       name: dataType
       description: The key of a Codat data type
@@ -79201,8 +79296,8 @@ components:
       schema:
         type: string
         format: uuid
-        example: eaed9f0f-e77b-4bc9-a58f-ab8b4b99ab18
-      description: Unique ID of a dataset or pull operation.
+        description: Unique identifier for the dataset that completed its sync.
+      description: Unique identifier for the dataset that completed its sync.
     dataIntegrityDataType:
       name: dataType
       in: path
@@ -79278,7 +79373,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for an account
+      description: Unique identifier for an account.
     accountingBillPaymentId:
       name: billPaymentId
       in: path
@@ -79287,7 +79382,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-        description: Unique identifier for a bill payment
+      description: Unique identifier for a bill payment.
     accountingBillId:
       name: billId
       in: path
@@ -79296,7 +79391,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for a bill
+      description: Unique identifier for a bill.
     attachmentId:
       name: attachmentId
       in: path
@@ -79305,7 +79400,7 @@ components:
         type: string
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
-      description: Unique identifier for an attachment
+      description: Unique identifier for an attachment.
     accountingDirectCostId:
       name: directCostId
       in: path
@@ -79314,7 +79409,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for a direct cost
+      description: Unique identifier for a direct cost.
     accountingDirectIncomeId:
       name: directIncomeId
       in: path
@@ -79323,7 +79418,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for a direct income
+      description: Unique identifier for a direct income.
     accountingInvoiceId:
       name: invoiceId
       in: path
@@ -79332,7 +79427,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for an invoice
+      description: Unique identifier for an invoice.
     accountingSupplierId:
       name: supplierId
       in: path
@@ -79341,7 +79436,7 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for a supplier
+      description: Unique identifier for a supplier.
     accountingReportDate:
       name: reportDate
       in: query
@@ -79389,22 +79484,30 @@ components:
       in: query
       schema:
         $ref: '#/components/schemas/DateTime'
-    allowSyncOnPushComplete:
-      x-stoplight:
-        id: kc8ehjqr6p02q
-      name: allowSyncOnPushComplete
-      in: query
+      description: The month the report starts from.
+    customerId:
+      name: customerId
+      in: path
+      required: true
       schema:
-        type: boolean
-        default: true
+        type: string
+        examples:
+          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+      description: Unique identifier for a customer.
     timeoutInMinutes:
-      x-stoplight:
-        id: irz50qjbs3yef
       name: timeoutInMinutes
       in: query
       schema:
         type: integer
         format: int32
+      description: Time limit for the push operation to complete before it is timed out.
+    allowSyncOnPushComplete:
+      name: allowSyncOnPushComplete
+      in: query
+      schema:
+        type: boolean
+        default: true
+      description: Allow a sync upon push completion.
     forceUpdate:
       name: forceUpdate
       in: query

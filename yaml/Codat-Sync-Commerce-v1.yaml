@@ -118,7 +118,7 @@ paths:
     post:
       tags:
         - Company management
-      summary: Create Sync for Commerce company
+      summary: Create sync for commerce company
       description: Creates a Codat company with a commerce partner data connection.
       operationId: create-company
       requestBody:
@@ -181,7 +181,7 @@ paths:
     get:
       tags:
         - Configuration
-      summary: Retrieve config preferences set for a company.
+      summary: Retrieve config preferences set for a company
       description: Retrieve current config preferences.
       operationId: get-configuration
       parameters:
@@ -196,7 +196,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: Create or update configuration.
+      summary: Create or update configuration
       description: Make changes to configuration preferences.
       operationId: set-configuration
       parameters:
@@ -212,7 +212,7 @@ paths:
     get:
       tags:
         - Integrations
-      summary: List information on Codat's supported integrations
+      summary: List integrations
       description: Retrieve a list of available integrations support by datatype and state of release.
       operationId: list-integrations
       parameters:
@@ -235,12 +235,7 @@ paths:
       description: Retrieve Integration branding assets.
       operationId: get-integration-branding
       parameters:
-        - name: platformKey
-          in: path
-          description: PlatformKey
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/platformKey'
       responses:
         '200':
           description: Success
@@ -329,7 +324,7 @@ paths:
     get:
       tags:
         - Sync flow preferences
-      summary: Retrieve preferences for text fields on Sync Flow
+      summary: Retrieve preferences for text fields on sync flow
       description: To enable retrieval of preferences set for the text fields on Sync Flow.
       operationId: get-config-text-sync-flow
       responses:
@@ -366,12 +361,9 @@ paths:
         schema:
           type: string
           format: uuid
-      - name: platformKey
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
+          description: Unique identifier for your client in Codat.
+        description: Unique identifier for your client in Codat.
+      - $ref: '#/components/parameters/platformKey'
     get:
       tags:
         - Sync flow preferences
@@ -389,16 +381,11 @@ paths:
     post:
       tags:
         - Sync flow preferences
-      summary: Update the visible accounts on Sync Flow
+      summary: Update the visible accounts on sync flow
       description: To enable update of accounts visible preferences set on Sync Flow.
       operationId: update-visible-accounts-sync-flow
       parameters:
-        - name: platformKey
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/platformKey'
       requestBody:
         description: ''
         content:
@@ -2244,7 +2231,7 @@ paths:
                   note: test note
                   contactRef:
                     id: 80000002-1674552702
-                    dataType: string
+                    dataType: customers
                   issueDate: '2023-02-01T16:27:40.023Z'
                   currency: USD
                   lineItems:
@@ -2615,7 +2602,7 @@ paths:
                     companyName: Test Customer 1
                   salesOrderRefs:
                     - id: string
-                      dataType: string
+                      dataType: customers
                   issueDate: '2023-04-18T11:09:01.438Z'
                   dueDate: '2023-05-24T11:09:01.438Z'
                   modifiedDate: '2023-02-14T11:09:01.438Z'
@@ -2758,7 +2745,7 @@ paths:
                     companyName: Stanley Test
                   salesOrderRefs:
                     - id: string
-                      dataType: string
+                      dataType: customers
                   issueDate: '2022-04-06T12:58:21.273Z'
                   dueDate: '2023-05-04T12:58:21.273Z'
                   paidOnDate: '2022-12-05T12:58:21.273Z'
@@ -8725,6 +8712,7 @@ components:
           type: string
           deprecated: true
           example: Xero
+          description: '`platformKeys` name used when creating the company.'
         redirect:
           type: string
           format: uri
@@ -8760,6 +8748,7 @@ components:
             > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
         createdByUserName:
           type: string
+          description: Name of user that created the company in Codat.
         dataConnections:
           type: array
           items:
@@ -8829,9 +8818,11 @@ components:
           example: Accounting
         platformName:
           type: string
+          description: Name of integration connected to company.
         linkUrl:
           type: string
           format: uri
+          description: The link URL your customers can use to authorize access to their business application.
           example: 'https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/2e2eb431-c1fa-4dc9-93fa-d29781c12bcd/start'
         status:
           $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
@@ -8874,10 +8865,13 @@ components:
           properties:
             statusCode:
               type: string
+              description: The HTTP status code returned by the error.
             statusText:
               type: string
+              description: A non-numeric status code/text.
             errorMessage:
               type: string
+              description: A brief message about the error.
             erroredOnUtc:
               $ref: '#/components/schemas/Company/properties/created'
         dataConnectionSourceType:
@@ -8920,10 +8914,14 @@ components:
       properties:
         pageNumber:
           type: integer
+          description: Current page number.
         pageSize:
           type: integer
+          description: Number of items to return in results array.
+          maximum: 2000
         totalResults:
           type: integer
+          description: Total number of items.
         _links:
           $ref: '#/components/schemas/PagingInfo/definitions/links'
       definitions:
@@ -8954,6 +8952,7 @@ components:
             href:
               type: string
               format: uri-reference
+              description: Uri hypertext reference.
       required:
         - pageNumber
         - pageSize
@@ -9070,21 +9069,18 @@ components:
       type: object
       properties:
         key:
-          type: string
-          minLength: 4
-          maxLength: 4
-          pattern: '[a-z]{4}'
-          example: gbol
-          description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/accounting-platform-keys), [banking](https://docs.codat.io/integrations/banking/banking-platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/commerce-platform-keys) platform keys. '
+          $ref: '#/components/parameters/platformKey/schema'
         logoUrl:
           type: string
           format: uri
+          description: Static url for integration's logo.
         name:
           type: string
           example: Xero
+          description: Name of integration.
         enabled:
           type: boolean
-          description: Whether this integration is enabled for your customers to use
+          description: Whether this integration is enabled for your customers to use.
         sourceId:
           $ref: '#/components/schemas/Branding/properties/sourceId'
         sourceType:
@@ -9093,10 +9089,13 @@ components:
           $ref: '#/components/schemas/Connection/properties/integrationId'
         isOfflineConnector:
           type: boolean
+          description: '`True` if the integration is to an application installed and run locally on an SMBs computer.'
         isBeta:
           type: boolean
+          description: '`True` if the integration is currently in beta release.'
         dataProvidedBy:
           type: string
+          description: The name of the data provider.
         datatypeFeatures:
           type: array
           items:
@@ -9113,54 +9112,7 @@ components:
           type: object
           properties:
             dataType:
-              title: Data types
-              x-internal: true
-              type: string
-              description: Available Data types
-              enum:
-                - accountTransactions
-                - balanceSheet
-                - bankAccounts
-                - bankTransactions
-                - billCreditNotes
-                - billPayments
-                - bills
-                - cashFlowStatement
-                - chartOfAccounts
-                - company
-                - creditNotes
-                - customers
-                - directCosts
-                - directIncomes
-                - invoices
-                - items
-                - journalEntries
-                - journals
-                - paymentMethods
-                - payments
-                - profitAndLoss
-                - purchaseOrders
-                - salesOrders
-                - suppliers
-                - taxRates
-                - trackingCategories
-                - transfers
-                - banking-accountBalances
-                - banking-accounts
-                - banking-transactionCategories
-                - banking-transactions
-                - commerce-companyInfo
-                - commerce-customers
-                - commerce-disputes
-                - commerce-locations
-                - commerce-orders
-                - commerce-paymentMethods
-                - commerce-payments
-                - commerce-productCategories
-                - commerce-products
-                - commerce-taxComponents
-                - commerce-transactions
-              example: invoices
+              $ref: '#/components/schemas/Dataset/properties/dataType'
             supportedFeatures:
               type: array
               items:
@@ -9188,6 +9140,7 @@ components:
           title: Feature state
           type: string
           example: Release
+          description: The current release state of the feature.
           enum:
             - Release
             - Alpha
@@ -9198,6 +9151,7 @@ components:
         featureType:
           type: string
           x-internal: true
+          description: The type of feature.
           enum:
             - Get
             - Post
@@ -9565,6 +9519,7 @@ components:
           nullable: true
         required:
           type: boolean
+          description: '`True` if required.'
     LocalizationInfo:
       title: Localization info
       type: object
@@ -9600,17 +9555,20 @@ components:
         - currentStatus
       properties:
         dataType:
-          type: string
+          $ref: '#/components/schemas/Dataset/properties/dataType'
         lastSuccessfulSync:
           $ref: '#/components/schemas/Company/properties/created'
         currentStatus:
           type: string
+          description: The current status of the dataset in Codat's cache.
         latestSyncId:
           type: string
+          description: Unique identifier for most recent sync of data type.
           format: uuid
           example: ad474a37-2003-478e-baee-9af9f1ec2fe3
         latestSuccessfulSyncId:
           type: string
+          description: Unique identifier for the most recent successful sync of data type.
           format: uuid
           example: 8220fc90-55b6-47bc-9417-48ac6ea93101
       examples:
@@ -9630,26 +9588,28 @@ components:
       description: |-
         Information about a queued, in progress or completed pull operation.
         *Formally called `dataset`*
-      x-stoplight:
-        id: hvk8xbvt7ekyg
       type: object
       properties:
         id:
           type: string
           format: uuid
+          description: Unique identifier of the pull operation.
           example: 943accd0-4247-42d8-865b-363c8629e1da
         companyId:
           type: string
           format: uuid
+          description: Unique identifier of the company associated to this pull operation.
           example: 22ece347-e5f6-4896-95e0-35a4c7f17023
         connectionId:
           type: string
           format: uuid
+          description: Unique identifier of the connection associated to this pull operation.
           example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
         dataType:
-          type: string
+          $ref: '#/components/schemas/Dataset/properties/dataType'
         status:
           type: string
+          description: The current status of the pull operation.
           enum:
             - Initial
             - Queued
@@ -9679,10 +9639,13 @@ components:
           $ref: '#/components/schemas/Company/properties/created'
         progress:
           type: integer
+          description: An integer signifying the progress of the pull operation.
         isCompleted:
           type: boolean
+          description: '`True` if the pull operation completed successfully.'
         isErrored:
           type: boolean
+          description: '`True` if the pull operation entered an error state.'
       required:
         - id
         - companyId
@@ -9705,7 +9668,7 @@ components:
           isErrored: false
     DataType:
       x-internal: true
-      $ref: '#/components/schemas/Integration/definitions/dataTypeFeature/properties/dataType'
+      $ref: '#/components/schemas/Dataset/properties/dataType'
     PullOperations:
       title: Pull operations
       x-internal: true
@@ -9729,7 +9692,7 @@ components:
           items:
             $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
         dataType:
-          $ref: '#/components/schemas/Integration/definitions/dataTypeFeature/properties/dataType'
+          $ref: '#/components/schemas/Dataset/properties/dataType'
           description: 'The type of data being pushed, eg invoices, customers.'
         companyId:
           $ref: '#/components/parameters/companyId/schema'
@@ -9749,20 +9712,24 @@ components:
           type: integer
           format: int32
           nullable: true
+          description: Number of minutes the push operation must complete within before it times out.
         timeoutInSeconds:
           type: integer
           format: int32
           nullable: true
           deprecated: true
+          description: Number of seconds the push operation must complete within before it times out.
         status:
           $ref: '#/components/schemas/PushOperation/definitions/pushOperationStatus'
         errorMessage:
           type: string
           nullable: true
+          description: A message about the error.
         validation:
           $ref: '#/components/schemas/PushOperation/definitions/validation'
         statusCode:
           type: integer
+          description: Push status code.
       required:
         - companyId
         - pushOperationKey
@@ -9793,15 +9760,19 @@ components:
             itemId:
               type: string
               nullable: true
+              description: Unique identifier for a validation item.
             message:
               type: string
               nullable: true
+              description: A message outlining validation item's issue.
             validatorName:
               type: string
               nullable: true
+              description: Name of validator.
           additionalProperties: false
         pushChangeType:
           title: Push change type
+          description: Type of change being applied to record in third party platform.
           type: string
           enum:
             - Unknown
@@ -9816,8 +9787,9 @@ components:
           properties:
             id:
               type: string
+              description: Unique identifier for a push operation.
             dataType:
-              $ref: '#/components/schemas/Integration/definitions/dataTypeFeature/properties/dataType'
+              $ref: '#/components/schemas/Dataset/properties/dataType'
               nullable: true
           additionalProperties: false
         pushOperationStatus:
@@ -9838,6 +9810,7 @@ components:
               $ref: '#/components/schemas/PushOperation/definitions/pushOperationRef'
             attachmentId:
               type: string
+              description: Unique identifier for the attachment created otherwise null.
               nullable: true
     PushOperations:
       title: Push operations
@@ -10121,9 +10094,11 @@ components:
             additionalTaxAmount:
               type: number
               format: decimal
+              description: Additional tax amount applied to credit note.
             additionalTaxPercentage:
               type: number
               format: decimal
+              description: Percentage rate of any additional tax applied to the credit note.
             totalTaxAmount:
               type: number
               format: decimal
@@ -10180,6 +10155,8 @@ components:
         - status
       definitions:
         creditNoteStatus:
+          title: Credit note status
+          description: Current state of the credit note.
           type: string
           enum:
             - Unknown
@@ -10248,13 +10225,6 @@ components:
               title: Tracking
               type: object
               description: 'Categories, and a project and customer, against which the item is tracked.'
-              definitions:
-                billedToType:
-                  type: string
-                  enum:
-                    - Unknown
-                    - NotApplicable
-                    - Project
               properties:
                 categoryRefs:
                   type: array
@@ -10272,9 +10242,11 @@ components:
                     id:
                       minLength: 1
                       type: string
+                      description: Unique identifier to the project reference.
                     name:
                       type: string
                       nullable: true
+                      description: The project's name.
                 isBilledTo:
                   $ref: '#/components/schemas/AccountingCreditNote/definitions/creditNoteLineItem/properties/tracking/definitions/billedToType'
                 isRebilledTo:
@@ -10285,8 +10257,17 @@ components:
                 - categoryRefs
                 - isBilledTo
                 - isRebilledTo
+              definitions:
+                billedToType:
+                  type: string
+                  enum:
+                    - Unknown
+                    - NotApplicable
+                    - Project
+                  description: Defines if the bill or bill credit note is billed/rebilled to a project.
             isDirectIncome:
               type: boolean
+              description: The credit note is a direct income if `True`.
           required:
             - unitAmount
             - quantity
@@ -10492,6 +10473,7 @@ components:
             note:
               type: string
               nullable: true
+              description: An optional note on the direct income that can be used to assign the direct income with a reference ID in your application.
             contactRef:
               description: A customer or supplier associated with the direct income.
               required:
@@ -10501,8 +10483,9 @@ components:
                 id:
                   minLength: 1
                   type: string
+                  description: Unique identifier for a customer or supplier.
                 dataType:
-                  type: string
+                  $ref: '#/components/schemas/Dataset/properties/dataType'
                   nullable: true
             issueDate:
               $ref: '#/components/schemas/Company/properties/created'
@@ -10641,9 +10624,11 @@ components:
                   id:
                     minLength: 1
                     type: string
+                    description: Unique identifier to the tracking category.
                   name:
                     type: string
                     nullable: true
+                    description: Name of tracking category.
           required:
             - unitAmount
             - quantity
@@ -10861,20 +10846,97 @@ components:
       properties:
         datasetLogsUrl:
           type: string
+          format: uri
           nullable: true
+          description: URI to the dataset's logs.
         id:
           type: string
           format: uuid
+          description: Identifier for the dataset.
         companyId:
-          type: string
-          format: uuid
+          $ref: '#/components/parameters/companyId/schema'
         connectionId:
-          type: string
-          format: uuid
+          $ref: '#/components/parameters/connectionId/schema'
         dataType:
+          title: Data types
+          x-internal: true
+          type: string
+          description: Available Data types
+          enum:
+            - accountTransactions
+            - balanceSheet
+            - bankAccounts
+            - bankTransactions
+            - billCreditNotes
+            - billPayments
+            - bills
+            - cashFlowStatement
+            - chartOfAccounts
+            - company
+            - creditNotes
+            - customers
+            - directCosts
+            - directIncomes
+            - invoices
+            - items
+            - journalEntries
+            - journals
+            - paymentMethods
+            - payments
+            - profitAndLoss
+            - purchaseOrders
+            - salesOrders
+            - suppliers
+            - taxRates
+            - trackingCategories
+            - transfers
+            - banking-accountBalances
+            - banking-accounts
+            - banking-transactionCategories
+            - banking-transactions
+            - commerce-companyInfo
+            - commerce-customers
+            - commerce-disputes
+            - commerce-locations
+            - commerce-orders
+            - commerce-paymentMethods
+            - commerce-payments
+            - commerce-productCategories
+            - commerce-products
+            - commerce-taxComponents
+            - commerce-transactions
+          example: invoices
+        status:
+          $ref: '#/components/schemas/Dataset/definitions/datasetStatus'
+        errorMessage:
           type: string
           nullable: true
-        status:
+          description: A brief message about the error.
+        requested:
+          $ref: '#/components/schemas/Company/properties/created'
+        completed:
+          $ref: '#/components/schemas/Company/properties/created'
+          nullable: true
+        progress:
+          type: integer
+          format: int32
+          description: An integer signifying the progress of the dataset.
+        isCompleted:
+          type: boolean
+          description: '`True` if the dataset completed successfully.'
+        isErrored:
+          type: boolean
+          description: '`True` if the dataset entered an error state.'
+        validationInformationUrl:
+          type: string
+          nullable: true
+          format: uri
+          description: URI to the dataset's validation information.
+      definitions:
+        datasetStatus:
+          title: Dataset status
+          type: string
+          description: The current status of the dataset.
           enum:
             - Initial
             - Queued
@@ -10897,25 +10959,6 @@ components:
             - RateLimitError
             - PermissionsError
             - PrerequisiteNotMet
-          type: string
-        errorMessage:
-          type: string
-          nullable: true
-        requested:
-          $ref: '#/components/schemas/Company/properties/created'
-        completed:
-          $ref: '#/components/schemas/Company/properties/created'
-          nullable: true
-        progress:
-          type: integer
-          format: int32
-        isCompleted:
-          type: boolean
-        isErrored:
-          type: boolean
-        validationInformationUrl:
-          type: string
-          nullable: true
     AccountingInvoice:
       title: Invoice
       description: |-
@@ -10972,8 +11015,9 @@ components:
                 properties:
                   id:
                     type: string
+                    description: Unique identifier to a record in `dataType`.
                   dataType:
-                    type: string
+                    $ref: '#/components/schemas/Dataset/properties/dataType'
             issueDate:
               $ref: '#/components/schemas/Company/properties/created'
               description: Date of the invoice as recorded in the accounting system.
@@ -11061,9 +11105,11 @@ components:
                   name:
                     minLength: 1
                     type: string
+                    description: Name assigned to withheld tax.
                   amount:
                     type: number
                     format: decimal
+                    description: Amount of tax withheld.
                 required:
                   - amount
                   - name
@@ -11080,9 +11126,11 @@ components:
             additionalTaxAmount:
               type: number
               format: decimal
+              description: Additional tax amount applied to invoice.
             additionalTaxPercentage:
               type: number
               format: decimal
+              description: Percentage rate of any additional tax applied to the invoice.
             totalTaxAmount:
               type: number
               format: decimal
@@ -11178,6 +11226,7 @@ components:
               $ref: '#/components/schemas/AccountingCreditNote/definitions/creditNoteLineItem/properties/tracking'
             isDirectIncome:
               type: boolean
+              description: The invoice is a direct income if `True`.
           required:
             - unitAmount
             - quantity
@@ -13166,7 +13215,7 @@ components:
                 - 1 hour of support from an agent (phone or remote)
             categorization:
               type: string
-              description: Retail category that the product is assigned to
+              description: Retail category that the product is assigned to e.g. `Hardware`.
               examples:
                 - Hardware
                 - Software
@@ -13175,7 +13224,7 @@ components:
               type: boolean
               description: |
                 Whether the product represents a gift card or voucher that
-                can be redeemed in the commerce or POS platform
+                can be redeemed in the commerce or POS platform.
             variants:
               type: array
               items:
@@ -13186,7 +13235,7 @@ components:
           description: Reference that links the line item to the correct product details.
           properties:
             id:
-              description: The unique identitifer of the product being referenced.
+              description: The unique identifier of the product being referenced.
               type: string
               examples:
                 - 13d946f0-c5d5-42bc-b092-97ece17923ab
@@ -13260,12 +13309,12 @@ components:
             - $ref: '#/components/schemas/CommerceOrder/allOf/2'
             - $ref: '#/components/schemas/CommerceOrder/allOf/3'
         productVariantRef:
-          title: Product Variant Ref
+          title: Product variant reference
           type: object
           description: Reference that links the line item to the specific version of product that has been ordered.
           properties:
             id:
-              description: The unique identitifer of the product variant being referenced.
+              description: The unique identifier of the product variant being referenced.
               type: string
               examples:
                 - 13d946f0-c5d5-42bc-b092-97ece17923ab
@@ -13288,6 +13337,7 @@ components:
             unitPrice:
               type: number
               format: decimal
+              description: The product variant's unit price.
         productInventory:
           title: Product Inventory
           description: Information about the total inventory as well as the locations inventory is in.
@@ -13298,6 +13348,7 @@ components:
               type: number
               format: decimal
               nullable: true
+              description: The total quantity of stock remaining across locations.
             locations:
               type: array
               items:
@@ -13310,11 +13361,13 @@ components:
             quantity:
               type: number
               format: decimal
+              description: The quantity of stock remaining at location.
             locationRef:
               $ref: '#/components/schemas/CommerceLocation/definitions/locationRef'
         productVariantStatus:
           x-internal: true
           type: string
+          description: The status of the product variant.
           enum:
             - Unknown
             - Published
@@ -13417,6 +13470,7 @@ components:
         transactionSourceType:
           x-internal: true
           type: string
+          description: The type of source the transaction arose.
           enum:
             - Fee
             - Order
@@ -13464,16 +13518,22 @@ components:
       properties:
         statusCode:
           type: integer
+          description: The HTTP status code returned by the error.
         service:
           type: string
+          description: Codat's service the returned the error.
         error:
           type: string
+          description: A brief description of the error.
         correlationId:
           type: string
+          description: Unique identifier used to propagate to all downstream services and determine the source of the error.
         canBeRetried:
           type: string
+          description: '`True` if the error occurred transiently and can be retried.'
         detailedErrorCode:
           type: integer
+          description: Machine readable error code used to automate processes based on the code returned.
   parameters:
     companyId:
       name: companyId
@@ -13484,6 +13544,7 @@ components:
         format: uuid
         example: 8a210b68-6988-11ed-a1eb-0242ac120002
         description: Unique identifier for your SMB in Codat.
+      description: Unique identifier for a company.
     connectionId:
       name: connectionId
       in: path
@@ -13493,6 +13554,7 @@ components:
         format: uuid
         example: 2e9d2c44-f675-40ba-8049-353bfcb5e171
         description: Unique identifier for a company's data connection.
+      description: Unique identifier for a connection.
     page:
       name: page
       in: query
@@ -13530,16 +13592,13 @@ components:
         type: string
         example: '-modifiedDate'
       description: 'Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).'
-      x-stoplight:
-        id: 4je9lwo02netu
     timeoutInMinutes:
-      x-stoplight:
-        id: irz50qjbs3yef
       name: timeoutInMinutes
       in: query
       schema:
         type: integer
         format: int32
+      description: Time limit for the push operation to complete before it is timed out.
     dataType:
       name: dataType
       description: The key of a Codat data type
@@ -13554,8 +13613,8 @@ components:
       schema:
         type: string
         format: uuid
-        example: eaed9f0f-e77b-4bc9-a58f-ab8b4b99ab18
-      description: Unique ID of a dataset or pull operation.
+        description: Unique identifier for the dataset that completed its sync.
+      description: Unique identifier for the dataset that completed its sync.
     accountingAccountId:
       name: accountId
       in: path
@@ -13564,7 +13623,19 @@ components:
         type: string
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-      description: Unique identifier for an account
+      description: Unique identifier for an account.
+    platformKey:
+      name: platformKey
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 4
+        maxLength: 4
+        pattern: '[a-z]{4}'
+        example: gbol
+        description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
+      description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
   securitySchemes:
     auth_header:
       name: Authorization
