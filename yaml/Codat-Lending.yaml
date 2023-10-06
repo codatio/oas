@@ -73686,6 +73686,10 @@ components:
         billLineItem:
           type: object
           properties:
+            lineNumber:
+              type: string
+              nullable: true
+              description: The bill line's number.
             description:
               type: string
               nullable: true
@@ -73735,6 +73739,22 @@ components:
             itemRef:
               $ref: '#/components/schemas/AccountingBillCreditNote/definitions/billCreditNoteLineItem/properties/itemRef'
               description: 'Reference to the product, service type, or inventory item to which the line item is linked.'
+            purchaseOrderLineRef:
+              description: Reference to the purchase order line this line was generated from.
+              type: object
+              title: Record line reference
+              properties:
+                id:
+                  type: string
+                  description: '''id'' of the underlying record.'
+                dataType:
+                  type: string
+                  description: Allowed name of the 'dataType'.
+                  enum:
+                    - purchaseOrders
+                lineNumber:
+                  type: string
+                  description: Line number of the underlying record.
             trackingCategoryRefs:
               type: array
               nullable: true
