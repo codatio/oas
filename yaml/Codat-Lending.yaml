@@ -70530,6 +70530,2634 @@ paths:
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support creating an account.
       operationId: create-direct-cost
       x-speakeasy-group: loan-writeback.direct-costs
+  '/companies/{companyId}/connections/{connectionId}/options/payments':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    get:
+      summary: Get create payment model
+      tags:
+        - Loan writeback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushOption'
+              examples:
+                FreeAgent:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing account.
+                              information: []
+                        required: true
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: Must match the sum of the line amounts.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: true
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: true
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Amount
+                                  details: Must match the sum of the link amounts.
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: CreditNote
+                                    required: false
+                                  - value: Other
+                                    type: String
+                                    displayName: Other
+                                    required: false
+                                required: true
+                            required: true
+                        required: true
+                        validation:
+                          warnings:
+                            - field: Lines
+                              details: Only one line may be specified
+                          information: []
+                    required: true
+                FreshBooks:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                required: true
+                            required: true
+                            validation:
+                              warnings:
+                                - field: Lines.Links
+                                  details: Payment Amount must not exceed Invoice Amount Due or available Customer Credit
+                                - field: Lines.Links
+                                  details: Must be a Payment with one Invoice of PaymentOnAccount Link or two links of types Invoice and PaymentOnAccount
+                              information: []
+                        required: true
+                        validation:
+                          warnings:
+                            - field: Lines
+                              details: Only one line is supported
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        options:
+                          - value: AED
+                            type: Array
+                            displayName: AED
+                            required: false
+                          - value: AFN
+                            type: Array
+                            displayName: AFN
+                            required: false
+                          - value: ALL
+                            type: Array
+                            displayName: ALL
+                            required: false
+                          - value: AMD
+                            type: Array
+                            displayName: AMD
+                            required: false
+                          - value: ANG
+                            type: Array
+                            displayName: ANG
+                            required: false
+                          - value: AOA
+                            type: Array
+                            displayName: AOA
+                            required: false
+                          - value: ARS
+                            type: Array
+                            displayName: ARS
+                            required: false
+                          - value: AUD
+                            type: Array
+                            displayName: AUD
+                            required: false
+                          - value: AWG
+                            type: Array
+                            displayName: AWG
+                            required: false
+                          - value: AZN
+                            type: Array
+                            displayName: AZN
+                            required: false
+                          - value: BAM
+                            type: Array
+                            displayName: BAM
+                            required: false
+                          - value: BBD
+                            type: Array
+                            displayName: BBD
+                            required: false
+                          - value: BDT
+                            type: Array
+                            displayName: BDT
+                            required: false
+                          - value: BGN
+                            type: Array
+                            displayName: BGN
+                            required: false
+                          - value: BHD
+                            type: Array
+                            displayName: BHD
+                            required: false
+                          - value: BIF
+                            type: Array
+                            displayName: BIF
+                            required: false
+                          - value: BMD
+                            type: Array
+                            displayName: BMD
+                            required: false
+                          - value: BND
+                            type: Array
+                            displayName: BND
+                            required: false
+                          - value: BOB
+                            type: Array
+                            displayName: BOB
+                            required: false
+                          - value: BRL
+                            type: Array
+                            displayName: BRL
+                            required: false
+                          - value: BSD
+                            type: Array
+                            displayName: BSD
+                            required: false
+                          - value: BTN
+                            type: Array
+                            displayName: BTN
+                            required: false
+                          - value: BWP
+                            type: Array
+                            displayName: BWP
+                            required: false
+                          - value: BYR
+                            type: Array
+                            displayName: BYR
+                            required: false
+                          - value: BZD
+                            type: Array
+                            displayName: BZD
+                            required: false
+                          - value: CAD
+                            type: Array
+                            displayName: CAD
+                            required: false
+                          - value: CDF
+                            type: Array
+                            displayName: CDF
+                            required: false
+                          - value: CHF
+                            type: Array
+                            displayName: CHF
+                            required: false
+                          - value: CLP
+                            type: Array
+                            displayName: CLP
+                            required: false
+                          - value: CNY
+                            type: Array
+                            displayName: CNY
+                            required: false
+                          - value: COP
+                            type: Array
+                            displayName: COP
+                            required: false
+                          - value: CRC
+                            type: Array
+                            displayName: CRC
+                            required: false
+                          - value: CUC
+                            type: Array
+                            displayName: CUC
+                            required: false
+                          - value: CUP
+                            type: Array
+                            displayName: CUP
+                            required: false
+                          - value: CVE
+                            type: Array
+                            displayName: CVE
+                            required: false
+                          - value: CZK
+                            type: Array
+                            displayName: CZK
+                            required: false
+                          - value: DJF
+                            type: Array
+                            displayName: DJF
+                            required: false
+                          - value: DKK
+                            type: Array
+                            displayName: DKK
+                            required: false
+                          - value: DOP
+                            type: Array
+                            displayName: DOP
+                            required: false
+                          - value: DZD
+                            type: Array
+                            displayName: DZD
+                            required: false
+                          - value: EGP
+                            type: Array
+                            displayName: EGP
+                            required: false
+                          - value: ERN
+                            type: Array
+                            displayName: ERN
+                            required: false
+                          - value: ETB
+                            type: Array
+                            displayName: ETB
+                            required: false
+                          - value: EUR
+                            type: Array
+                            displayName: EUR
+                            required: false
+                          - value: FJD
+                            type: Array
+                            displayName: FJD
+                            required: false
+                          - value: FKP
+                            type: Array
+                            displayName: FKP
+                            required: false
+                          - value: GBP
+                            type: Array
+                            displayName: GBP
+                            required: false
+                          - value: GEL
+                            type: Array
+                            displayName: GEL
+                            required: false
+                          - value: GGP
+                            type: Array
+                            displayName: GGP
+                            required: false
+                          - value: GHS
+                            type: Array
+                            displayName: GHS
+                            required: false
+                          - value: GIP
+                            type: Array
+                            displayName: GIP
+                            required: false
+                          - value: GMD
+                            type: Array
+                            displayName: GMD
+                            required: false
+                          - value: GNF
+                            type: Array
+                            displayName: GNF
+                            required: false
+                          - value: GTQ
+                            type: Array
+                            displayName: GTQ
+                            required: false
+                          - value: GYD
+                            type: Array
+                            displayName: GYD
+                            required: false
+                          - value: HKD
+                            type: Array
+                            displayName: HKD
+                            required: false
+                          - value: HNL
+                            type: Array
+                            displayName: HNL
+                            required: false
+                          - value: HRK
+                            type: Array
+                            displayName: HRK
+                            required: false
+                          - value: HTG
+                            type: Array
+                            displayName: HTG
+                            required: false
+                          - value: HUF
+                            type: Array
+                            displayName: HUF
+                            required: false
+                          - value: IDR
+                            type: Array
+                            displayName: IDR
+                            required: false
+                          - value: ILS
+                            type: Array
+                            displayName: ILS
+                            required: false
+                          - value: IMP
+                            type: Array
+                            displayName: IMP
+                            required: false
+                          - value: INR
+                            type: Array
+                            displayName: INR
+                            required: false
+                          - value: IQD
+                            type: Array
+                            displayName: IQD
+                            required: false
+                          - value: IRR
+                            type: Array
+                            displayName: IRR
+                            required: false
+                          - value: ISK
+                            type: Array
+                            displayName: ISK
+                            required: false
+                          - value: JEP
+                            type: Array
+                            displayName: JEP
+                            required: false
+                          - value: JMD
+                            type: Array
+                            displayName: JMD
+                            required: false
+                          - value: JOD
+                            type: Array
+                            displayName: JOD
+                            required: false
+                          - value: JPY
+                            type: Array
+                            displayName: JPY
+                            required: false
+                          - value: KES
+                            type: Array
+                            displayName: KES
+                            required: false
+                          - value: KGS
+                            type: Array
+                            displayName: KGS
+                            required: false
+                          - value: KHR
+                            type: Array
+                            displayName: KHR
+                            required: false
+                          - value: KMF
+                            type: Array
+                            displayName: KMF
+                            required: false
+                          - value: KPW
+                            type: Array
+                            displayName: KPW
+                            required: false
+                          - value: KRW
+                            type: Array
+                            displayName: KRW
+                            required: false
+                          - value: KWD
+                            type: Array
+                            displayName: KWD
+                            required: false
+                          - value: KYD
+                            type: Array
+                            displayName: KYD
+                            required: false
+                          - value: KZT
+                            type: Array
+                            displayName: KZT
+                            required: false
+                          - value: LAK
+                            type: Array
+                            displayName: LAK
+                            required: false
+                          - value: LBP
+                            type: Array
+                            displayName: LBP
+                            required: false
+                          - value: LKR
+                            type: Array
+                            displayName: LKR
+                            required: false
+                          - value: LRD
+                            type: Array
+                            displayName: LRD
+                            required: false
+                          - value: LSL
+                            type: Array
+                            displayName: LSL
+                            required: false
+                          - value: LYD
+                            type: Array
+                            displayName: LYD
+                            required: false
+                          - value: MAD
+                            type: Array
+                            displayName: MAD
+                            required: false
+                          - value: MDL
+                            type: Array
+                            displayName: MDL
+                            required: false
+                          - value: MGA
+                            type: Array
+                            displayName: MGA
+                            required: false
+                          - value: MKD
+                            type: Array
+                            displayName: MKD
+                            required: false
+                          - value: MMK
+                            type: Array
+                            displayName: MMK
+                            required: false
+                          - value: MNT
+                            type: Array
+                            displayName: MNT
+                            required: false
+                          - value: MOP
+                            type: Array
+                            displayName: MOP
+                            required: false
+                          - value: MRO
+                            type: Array
+                            displayName: MRO
+                            required: false
+                          - value: MUR
+                            type: Array
+                            displayName: MUR
+                            required: false
+                          - value: MVR
+                            type: Array
+                            displayName: MVR
+                            required: false
+                          - value: MWK
+                            type: Array
+                            displayName: MWK
+                            required: false
+                          - value: MXN
+                            type: Array
+                            displayName: MXN
+                            required: false
+                          - value: MYR
+                            type: Array
+                            displayName: MYR
+                            required: false
+                          - value: MZN
+                            type: Array
+                            displayName: MZN
+                            required: false
+                          - value: NAD
+                            type: Array
+                            displayName: NAD
+                            required: false
+                          - value: NGN
+                            type: Array
+                            displayName: NGN
+                            required: false
+                          - value: NIO
+                            type: Array
+                            displayName: NIO
+                            required: false
+                          - value: NOK
+                            type: Array
+                            displayName: NOK
+                            required: false
+                          - value: NPR
+                            type: Array
+                            displayName: NPR
+                            required: false
+                          - value: NZD
+                            type: Array
+                            displayName: NZD
+                            required: false
+                          - value: OMR
+                            type: Array
+                            displayName: OMR
+                            required: false
+                          - value: PAB
+                            type: Array
+                            displayName: PAB
+                            required: false
+                          - value: PEN
+                            type: Array
+                            displayName: PEN
+                            required: false
+                          - value: PGK
+                            type: Array
+                            displayName: PGK
+                            required: false
+                          - value: PHP
+                            type: Array
+                            displayName: PHP
+                            required: false
+                          - value: PKR
+                            type: Array
+                            displayName: PKR
+                            required: false
+                          - value: PLN
+                            type: Array
+                            displayName: PLN
+                            required: false
+                          - value: PYG
+                            type: Array
+                            displayName: PYG
+                            required: false
+                          - value: QAR
+                            type: Array
+                            displayName: QAR
+                            required: false
+                          - value: RON
+                            type: Array
+                            displayName: RON
+                            required: false
+                          - value: RSD
+                            type: Array
+                            displayName: RSD
+                            required: false
+                          - value: RUB
+                            type: Array
+                            displayName: RUB
+                            required: false
+                          - value: RWF
+                            type: Array
+                            displayName: RWF
+                            required: false
+                          - value: SAR
+                            type: Array
+                            displayName: SAR
+                            required: false
+                          - value: SBD
+                            type: Array
+                            displayName: SBD
+                            required: false
+                          - value: SCR
+                            type: Array
+                            displayName: SCR
+                            required: false
+                          - value: SDG
+                            type: Array
+                            displayName: SDG
+                            required: false
+                          - value: SEK
+                            type: Array
+                            displayName: SEK
+                            required: false
+                          - value: SGD
+                            type: Array
+                            displayName: SGD
+                            required: false
+                          - value: SHP
+                            type: Array
+                            displayName: SHP
+                            required: false
+                          - value: SLL
+                            type: Array
+                            displayName: SLL
+                            required: false
+                          - value: SOS
+                            type: Array
+                            displayName: SOS
+                            required: false
+                          - value: SPL
+                            type: Array
+                            displayName: SPL
+                            required: false
+                          - value: SRD
+                            type: Array
+                            displayName: SRD
+                            required: false
+                          - value: STD
+                            type: Array
+                            displayName: STD
+                            required: false
+                          - value: SVC
+                            type: Array
+                            displayName: SVC
+                            required: false
+                          - value: SYP
+                            type: Array
+                            displayName: SYP
+                            required: false
+                          - value: SZL
+                            type: Array
+                            displayName: SZL
+                            required: false
+                          - value: THB
+                            type: Array
+                            displayName: THB
+                            required: false
+                          - value: TJS
+                            type: Array
+                            displayName: TJS
+                            required: false
+                          - value: TMT
+                            type: Array
+                            displayName: TMT
+                            required: false
+                          - value: TND
+                            type: Array
+                            displayName: TND
+                            required: false
+                          - value: TOP
+                            type: Array
+                            displayName: TOP
+                            required: false
+                          - value: TRY
+                            type: Array
+                            displayName: TRY
+                            required: false
+                          - value: TTD
+                            type: Array
+                            displayName: TTD
+                            required: false
+                          - value: TVD
+                            type: Array
+                            displayName: TVD
+                            required: false
+                          - value: TWD
+                            type: Array
+                            displayName: TWD
+                            required: false
+                          - value: TZS
+                            type: Array
+                            displayName: TZS
+                            required: false
+                          - value: UAH
+                            type: Array
+                            displayName: UAH
+                            required: false
+                          - value: UGX
+                            type: Array
+                            displayName: UGX
+                            required: false
+                          - value: USD
+                            type: Array
+                            displayName: USD
+                            required: false
+                          - value: UYU
+                            type: Array
+                            displayName: UYU
+                            required: false
+                          - value: UZS
+                            type: Array
+                            displayName: UZS
+                            required: false
+                          - value: VEF
+                            type: Array
+                            displayName: VEF
+                            required: false
+                          - value: VND
+                            type: Array
+                            displayName: VND
+                            required: false
+                          - value: VUV
+                            type: Array
+                            displayName: VUV
+                            required: false
+                          - value: WST
+                            type: Array
+                            displayName: WST
+                            required: false
+                          - value: XAF
+                            type: Array
+                            displayName: XAF
+                            required: false
+                          - value: XCD
+                            type: Array
+                            displayName: XCD
+                            required: false
+                          - value: XDR
+                            type: Array
+                            displayName: XDR
+                            required: false
+                          - value: XOF
+                            type: Array
+                            displayName: XOF
+                            required: false
+                          - value: XPF
+                            type: Array
+                            displayName: XPF
+                            required: false
+                          - value: YER
+                            type: Array
+                            displayName: YER
+                            required: false
+                          - value: ZAR
+                            type: Array
+                            displayName: ZAR
+                            required: false
+                          - value: ZMW
+                            type: Array
+                            displayName: ZMW
+                            required: false
+                          - value: ZWD
+                            type: Array
+                            displayName: ZWD
+                            required: false
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Currency
+                              details: Can be used for Payments on Account only
+                          information: []
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                    required: true
+                MYOB AccountRight and Essentials:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings:
+                                - field: CustomerRef.Id
+                                  details: Must be a valid GUID.
+                                - field: CustomerRef.Id
+                                  details: Must match the ID of an existing customer.
+                              information:
+                                - field: CustomerRef.Id
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CustomerRef
+                              details: Must be provided.
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must be a valid GUID.
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing account.
+                              information:
+                                - field: AccountRef.Id
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountRef
+                              details: Must be provided.
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: Precision must be maximum of two decimal places.
+                            - field: TotalAmount
+                              details: Must be greater than zero.
+                          information:
+                            - field: TotalAmount
+                              details: Must be provided and must equal the sum of the link items amount.
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Date
+                              details: Must be provided.
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Reference
+                              details: Must not be greater than 8 characters long.
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        options:
+                          - value: AUD
+                            type: String
+                            displayName: Australian Dollar
+                            required: false
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: Must be provided.
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Amount
+                                  details: Must be provided.
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Id
+                                      details: Must be provided.
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Amount
+                                      details: Precision must be maximum of two decimal places.
+                                    - field: Links.Amount
+                                      details: Must be provided.
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    required: false
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Type
+                                      details: Must be provided.
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Links
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Lines
+                              details: Must be provided.
+                    required: true
+                Oracle NetSuite:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                        required: true
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing account of type 'Bank' OR type 'Asset' (with category 'FixedAsset'/'OthAsset'/'OthCurrAsset') OR type 'Liability' (with category 'LongTermLiab'/'OthCurrLiab') OR type 'Expense' (with category 'Expense'/'OthExpense')
+                              information: []
+                        required: false
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: Must be greater than zero
+                            - field: TotalAmount
+                              details: Must be provided and must be equal to the sum of the lines amounts
+                          information: []
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Currency
+                              details: If the currency is set make sure it's the same as the 'Invoice' and/or 'CreditMemo' currency
+                          information: []
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Reference
+                              details: The id format should be 'location-<NUMBER>'
+                          information:
+                            - field: Reference
+                              details: This field can be used to provide a tracking category id (Location only)
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: Links.Id
+                                      details: If the Link Type specified is an 'Invoice' or 'CreditNote' make sure the status is either 'PartiallyPaid' or 'Submitted'
+                                  information: []
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: Credit Note
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: Payment On Account
+                                    required: false
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                            required: true
+                        required: true
+                    required: true
+                QuickBooks Desktop:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings:
+                                - field: CustomerRef.Id
+                                  details: Must match the ID of an existing supplier.
+                              information: []
+                        required: true
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing 'Bank' or 'Other Current Asset' account.
+                              information:
+                                - field: AccountRef.Id
+                                  details: Not required if total amount of the payment is 0.
+                        required: true
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Reference
+                              details: Max length of 20 characters.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Currency
+                              details: Must be a three letter ISO code that matches the currency of the customer.
+                            - field: Currency
+                              details: Can only be set if the Quickbooks Desktop company has Multicurrency enabled.
+                          information:
+                            - field: Currency
+                              details: 'If not set, will default to the default currency of the customer.'
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CurrencyRate
+                              details: 'If not set, will default to the rate set within QuickBooks Desktop, if no rate is set in QuickBooks Desktop, it will default to 1.'
+                            - field: CurrencyRate
+                              details: Can only be set if the Quickbooks Desktop company has Multicurrency enabled.
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: Must match the sum of amounts in the lines
+                          information: []
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                            validation:
+                              warnings:
+                                - field: Lines.Amount
+                                  details: Amount plus the sum of amounts in the links must equal 0
+                              information: []
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: Credit Note
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: Payment On Account
+                                    required: false
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: Links.Type
+                                      details: 'Only 1 link with type ''PaymentOnAccount'' may be specified per line, this line may contain no other links'
+                                    - field: Links.Type
+                                      details: Only 1 link with type 'Invoice' may be specified per line
+                                  information: []
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                            required: true
+                        required: true
+                    required: true
+                QuickBooks Online Sandbox:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CustomerRef
+                              details: 'Must be the ID of the Customer associated with the Invoice, Credit Note or Payment On Account.'
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountRef
+                              details: Must match the ID of an existing Account.
+                      paymentMethodRef:
+                        type: Object
+                        displayName: Payment Method Reference
+                        description: Reference to the method of this payment
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the payment method
+                            required: true
+                        required: false
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: Required if multi-currency is enabled for the company
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: Credit Note
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: Payment On Account
+                                    required: false
+                                required: true
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                            required: true
+                        required: false
+                    required: true
+                QuickBooks Online:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CustomerRef
+                              details: 'Must be the ID of the Customer associated with the Invoice, Credit Note or Payment On Account.'
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountRef
+                              details: Must match the ID of an existing Account.
+                      paymentMethodRef:
+                        type: Object
+                        displayName: Payment Method Reference
+                        description: Reference to the method of this payment
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the payment method
+                            required: true
+                        required: false
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: Required if multi-currency is enabled for the company
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: Credit Note
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: Payment On Account
+                                    required: false
+                                required: true
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                            required: true
+                        required: false
+                    required: true
+                Sage 50 (UK):
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      accountRef:
+                        type: Object
+                        displayName: Bank Account
+                        description: The bank account to pay this invoice from.
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account Id
+                            description: Nominal code of the bank account.
+                            required: true
+                            validation:
+                              warnings:
+                                - field: accountRef.id
+                                  details: Must match the ID of an existing bank account and have a max length of 8 characters.
+                              information: []
+                        required: true
+                      customerRef:
+                        type: Object
+                        displayName: Customer
+                        description: Customer to be paid.
+                        properties:
+                          id:
+                            type: String
+                            displayName: Customer Id
+                            description: Identifier of the customer.
+                            required: true
+                            validation:
+                              warnings:
+                                - field: customerRef.id
+                                  details: Must match the ID of an existing customer and have a max length of 8 characters.
+                              information: []
+                        required: true
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: The total amount being paid to the customer.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - details: This must equal the sum of the line amounts
+                      reference:
+                        type: Number
+                        displayName: Reference
+                        description: The user reference for this invoice payment.
+                        required: false
+                      date:
+                        type: Number
+                        displayName: Issue Date
+                        description: The date this payment was issued.
+                        required: true
+                      note:
+                        type: Number
+                        displayName: Note
+                        description: A description of the payment.
+                        required: false
+                      lines:
+                        type: Array
+                        displayName: Line Items
+                        description: Line items of the payment.
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The amount of this line item
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - details: this must equal the negative of the sum of the link amounts
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: Links to the invoice being paid.
+                            properties:
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: The amount to be added to the value of the invoice
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - details: 'When paying off an invoice, this value will be negative'
+                              id:
+                                type: String
+                                displayName: Invoice Id
+                                description: The ID of the invoice to pay
+                                required: true
+                              type:
+                                type: String
+                                displayName: Payment Link Type
+                                description: The type of the item to be paid
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: Payment On Account
+                                    required: false
+                                  - value: Refund
+                                    type: String
+                                    displayName: Refund
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: Credit Note
+                                    required: false
+                                  - value: Payment
+                                    type: String
+                                    displayName: Payment
+                                    required: false
+                                required: true
+                            required: true
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - details: Sage 50 only supports one line item per invoice payment so all lines will be merged together in the response.
+                    required: true
+                    validation:
+                      warnings: []
+                      information:
+                        - details: 'Pushing to Sage 50 2015 (v21) or below is not supported. To enable push, please upgrade to at least Sage 50 2016 (v22) and re-sync the company.'
+                Sage Business Cloud Accounting:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing Account.
+                              information:
+                                - field: AccountRef.Id
+                                  details: Must be provided.
+                        required: false
+                        validation:
+                          warnings:
+                            - field: AccountRef
+                              details: Required unless the Payment is only allocating a Credit Note.
+                          information: []
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings:
+                                - field: CustomerRef.Id
+                                  details: Must match the ID of an existing Customer.
+                              information:
+                                - field: CustomerRef.Id
+                                  details: Must be provided.
+                        required: true
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Date
+                              details: Must be provided.
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: Must be zero when allocating against Invoices using a Credit Note only.
+                            - field: TotalAmount
+                              details: Must equal the sum of the link items amount.
+                          information:
+                            - field: TotalAmount
+                              details: Must be provided.
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Note
+                              details: Should not be longer than 25 characters.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: 'If supplied, must match the currency of the customer.'
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: false
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Id
+                                      details: Must be provided.
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: Links.Amount
+                                      details: Must be greater than zero except when Type is Invoice
+                                  information:
+                                    - field: Links.Amount
+                                      details: Must be provided.
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: PaymentOnAccount
+                                    type: String
+                                    displayName: PaymentOnAccount
+                                    required: false
+                                  - value: Refund
+                                    type: String
+                                    displayName: Refund
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: CreditNote
+                                    required: false
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Type
+                                      details: Must be provided.
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Links
+                                  details: Must be provided.
+                        required: true
+                    required: true
+                Sage Intacct:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: TotalAmount
+                              details: Must equal the sum of Lines.Amount.
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Note
+                              details: Must be less than 1000 characters.
+                      paymentMethodRef:
+                        type: Object
+                        displayName: Payment Method Reference
+                        description: Reference to the method of this payment
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the payment method
+                            options:
+                              - value: '1'
+                                type: String
+                                displayName: Printed Check
+                                required: false
+                              - value: '3'
+                                type: String
+                                displayName: Credit Card
+                                required: false
+                              - value: '5'
+                                type: String
+                                displayName: EFT
+                                required: false
+                              - value: '6'
+                                type: String
+                                displayName: Cash
+                                required: false
+                            required: true
+                        required: true
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Reference
+                              details: Can be used to set the Document/Check No. in Sage Intacct.
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: false
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CurrencyRate
+                              details: Is required if currency is provided.
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Date
+                              details: Must occur after the date the invoice was created.
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: CustomerRef.Id
+                                  details: Must be an existing customer ID in Sage Intacct.
+                        required: true
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: AccountRef.Id
+                                  details: For undeposited payments use the GL account record number to charge.
+                                - field: AccountRef.Id
+                                  details: 'To charge either a savings, checking or credit card account use its associated GL account number.'
+                        required: true
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Amount
+                                  details: When added together with the sum of the Links.Amount the total must be zero.
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Id
+                                      details: 'Must be a valid Record No. from accounts receivable of either an invoice for an ''Invoice'', adjustment for a ''CreditNote'' or an advance for a ''PaymentOnAccount'' in Sage Intacct.'
+                                    - field: Links.Id
+                                      details: Must be an integer.
+                                    - field: Links.Id
+                                      details: Must related to CustomerRef.Id in Sage Intacct.
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Type
+                                      details: Must be one of Invoiceor CreditNoteor PaymentOnAccount.
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Amount
+                                      details: Must not be more than the total amount due for an invoice or the available funds in the account to be charged.
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Links
+                                  details: No more than two links can exist when paying for an invoice via a CreditNoteor PaymentOnAccount.
+                                - field: Lines.Links
+                                  details: Must contain only one Invoice.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Lines
+                              details: Must contain at least one payment line.
+                    required: true
+                    validation:
+                      warnings: []
+                      information:
+                        - details: Sage Intacct handles allocated payments only.
+                Sandbox:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                          companyName:
+                            type: String
+                            displayName: Name
+                            description: The name of the customer referenced by the identifier
+                            required: true
+                        required: true
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                          name:
+                            type: String
+                            displayName: Name
+                            description: Name of the account
+                            required: true
+                        required: true
+                      paymentMethodRef:
+                        type: Object
+                        displayName: Payment Method Reference
+                        description: Reference to the method of this payment
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the payment method
+                            required: true
+                          name:
+                            type: String
+                            displayName: Name
+                            description: The name of the payment method referenced by the identifier
+                            required: true
+                        required: true
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: true
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: true
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: true
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                required: true
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                              currencyRate:
+                                type: Number
+                                displayName: Currency Exchange Rate
+                                description: The exchange rate between the currency of the payment and the currency of the linked transaction
+                                required: true
+                            required: true
+                          allocatedOnDate:
+                            type: DateTime
+                            displayName: Allocated On Date
+                            description: The date the payment was allocated
+                            required: true
+                        required: true
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: true
+                      metadata:
+                        type: Object
+                        displayName: Metadata
+                        description: Miscellaneous data about the item
+                        properties:
+                          isDeleted:
+                            type: Boolean
+                            displayName: IsDeleted
+                            description: A boolean to indicate whether the object has been deleted
+                            required: true
+                        required: true
+                    required: true
+                Xero:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                            validation:
+                              warnings:
+                                - field: CustomerRef.Id
+                                  details: Must be a valid GUID.
+                                - field: CustomerRef.Id
+                                  details: Must match the ID of an existing account.
+                              information:
+                                - field: CustomerRef.Id
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: CustomerRef
+                              details: Must be provided.
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: Must be a valid GUID.
+                                - field: AccountRef.Id
+                                  details: Must match the ID of an existing account.
+                              information:
+                                - field: AccountRef.Id
+                                  details: Must be either a type of BANK account or enable payments must be switched on.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountRef
+                              details: Must be provided.
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: 'Must be greater than 0, unless the payment is a credit note allocation.'
+                          information:
+                            - field: TotalAmount
+                              details: Must be provided and must equal the sum of the link items amount.
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Date
+                              details: Must be provided.
+                      reference:
+                        type: String
+                        displayName: Reference
+                        description: A user friendly reference for the payment
+                        required: false
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: false
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: Must be provided.
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          amount:
+                            type: Number
+                            displayName: Amount
+                            description: The total amount for the line in the payment currency
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Amount
+                                  details: Must be provided.
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: Links.Id
+                                      details: Must be a valid GUID.
+                                  information:
+                                    - field: Links.Id
+                                      details: Invoice and Credit Note ID must be provided in order to allocate a Credit Note to an Invoice.
+                                    - field: Links.Id
+                                      details: Must be provided.
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Amount
+                                      details: Must be provided.
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - value: Invoice
+                                    type: String
+                                    displayName: Invoice
+                                    required: false
+                                  - value: CreditNote
+                                    type: String
+                                    displayName: CreditNote
+                                    required: false
+                                  - value: Payment
+                                    type: String
+                                    displayName: Payment
+                                    required: false
+                                required: true
+                                validation:
+                                  warnings: []
+                                  information:
+                                    - field: Links.Type
+                                      details: Must be provided.
+                            required: true
+                            validation:
+                              warnings: []
+                              information:
+                                - field: Lines.Links
+                                  details: Must be provided.
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Lines
+                              details: Must be provided.
+                    required: true
+                Zoho Books:
+                  value:
+                    type: Object
+                    displayName: Payment
+                    description: A payment represents an allocation of transactions across an 'accounts receivable' account (customer)
+                    properties:
+                      accountRef:
+                        type: Object
+                        displayName: Nominal Account Reference
+                        description: Reference to the nominal account the payment is linked to
+                        properties:
+                          id:
+                            type: String
+                            displayName: Account ID
+                            description: The identifier for the account
+                            required: true
+                            validation:
+                              warnings:
+                                - field: AccountRef.Id
+                                  details: AccountRef.ID is required when making a payment to an invoice and/or a payment on account
+                              information: []
+                        required: true
+                      customerRef:
+                        type: Object
+                        displayName: Customer Reference
+                        description: Reference to the customer the payment has been sent by
+                        properties:
+                          id:
+                            type: String
+                            displayName: Identifier
+                            description: The reference identifier for the customer
+                            required: true
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the payment
+                        required: true
+                        validation:
+                          warnings:
+                            - field: Currency
+                              details: must match the currency of any invoices or credit notes
+                          information: []
+                      date:
+                        type: DateTime
+                        displayName: Date
+                        description: The date the payment was recorded
+                        required: true
+                      currencyRate:
+                        type: Number
+                        displayName: Currency Exchange Rate
+                        description: The exchange rate between the currency of the payment and the base currency of the company
+                        required: true
+                      note:
+                        type: String
+                        displayName: Note
+                        description: Any additional text based information associated with the payment
+                        required: false
+                      totalAmount:
+                        type: Number
+                        displayName: Total Amount
+                        description: 'The total amount of the payment, inclusive of discounts and tax'
+                        required: true
+                        validation:
+                          warnings:
+                            - field: TotalAmount
+                              details: must be greater than or equal to 0
+                          information: []
+                      lines:
+                        type: Array
+                        displayName: Lines
+                        description: A collection of payment lines
+                        properties:
+                          links:
+                            type: Array
+                            displayName: Links
+                            description: A collection of linked transactions
+                            properties:
+                              amount:
+                                type: Number
+                                displayName: Amount
+                                description: 'The amount by which the balance of the linked entity is altered, in the currency of the linked entity'
+                                required: true
+                                validation:
+                                  warnings:
+                                    - field: Links.Amount
+                                      details: the sum of all link amounts must equal the negated total amount of the payment
+                                  information: []
+                              id:
+                                type: String
+                                displayName: Identifier
+                                description: The identifier for the referenced transaction
+                                required: true
+                              type:
+                                type: String
+                                displayName: Link Type
+                                description: The type of transaction that is being linked
+                                options:
+                                  - type: Array
+                                    displayName: Invoice
+                                    required: false
+                                  - type: Array
+                                    displayName: CreditNote
+                                    required: false
+                                  - type: Array
+                                    displayName: PaymentOnAccount
+                                    required: false
+                                required: true
+                            required: true
+                            validation:
+                              warnings:
+                                - field: Lines.Links
+                                  details: 'if a credit note link is provided, exactly one invoice link must be provided, otherwise unlimited invoice links and one payment on account link are allowed'
+                              information: []
+                        required: true
+                    required: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+      operationId: get-create-payments-model
+      x-speakeasy-group: loan-writeback.payments
+      description: |
+        The *Get create payment model* endpoint returns the expected data for the request payload when creating a [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company and integration.
+
+        [Payments](https://docs.codat.io/lending-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
+
+        **Integration-specific behaviour**
+
+        See the *response examples* for integration-specific indicative models.
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating a payment.
+  '/companies/{companyId}/connections/{connectionId}/push/payments':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Loan writeback
+      summary: Create payment
+      parameters:
+        - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingPayment'
+            examples:
+              QuickBooks Desktop:
+                value:
+                  customerRef:
+                    id: 80000002-1674552702
+                    companyName: string
+                  accountRef:
+                    id: '8000002E-1675267199'
+                    name: Undeposited Funds
+                  paymentMethodRef:
+                    id: string
+                    name: string
+                  totalAmount: 28
+                  currency: USD
+                  currencyRate: 1
+                  date: '2023-02-10T11:47:04.792Z'
+                  note: note 14/02 1147
+                  lines:
+                    - amount: 28
+                      links:
+                        - type: Invoice
+                          id: 181-1676374586
+                          amount: -28
+                          currencyRate: 1
+                      allocatedOnDate: '2023-02-11T11:47:04.792Z'
+                  reference: ref 14/02 1147
+              Sage 50 (UK):
+                value:
+                  customerRef:
+                    id: CUST1
+                  accountRef:
+                    id: '1200'
+                    name: Bank Current Account
+                  paymentMethodRef:
+                    id: '4405'
+                  totalAmount: 4
+                  currency: GBP
+                  currencyRate: 1
+                  date: '2023-03-17T11:47:04.792Z'
+                  note: note 07/03 14.31
+                  lines:
+                    - amount: 4
+                      links:
+                        - type: Invoice
+                          id: INV-31
+                          amount: -4
+                          currencyRate: 1
+                      allocatedOnDate: '2023-02-11T11:47:04.792Z'
+                  reference: ref
+              Sage Business Cloud Accounting:
+                value:
+                  customerRef:
+                    id: 30444c5bd4964fd787c7f8e2e5301ce1
+                    companyName: Stanley test customer
+                  accountRef:
+                    id: 9a25937b267a11e797950a57719b2edb
+                    name: Current
+                  totalAmount: 0.17
+                  currency: GBP
+                  currencyRate: 1
+                  date: '2023-03-20T11:47:04.792Z'
+                  note: Need to send products asap.
+                  lines:
+                    - amount: 0.17
+                      links:
+                        - type: Invoice
+                          id: bb85db9226d7450fb99eb83e7fb37505
+                          amount: -0.17
+                          currencyRate: 1
+                      allocatedOnDate: '2023-02-11T11:47:04.792Z'
+                  reference: normal payment 20/03 17.05
+              Sage Intacct:
+                value:
+                  customerRef:
+                    id: '19'
+                  accountRef:
+                    id: '81'
+                  date: '2022-03-12T00:00:00'
+                  totalAmount: 0
+                  lines:
+                    - amount: 0
+                      links:
+                        - id: '246'
+                          type: Invoice
+                          amount: -1.1
+                        - id: '280'
+                          type: CreditNote
+                          amount: 1.1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingCreatePaymentResponse'
+              examples:
+                Sage Intacct:
+                  value:
+                    data:
+                      customerRef:
+                        id: '19'
+                      accountRef:
+                        id: '81'
+                      totalAmount: 0
+                      date: '2022-03-12T00:00:00'
+                      lines:
+                        - amount: 0
+                          links:
+                            - type: Invoice
+                              id: '246'
+                              amount: -1.1
+                            - type: CreditNote
+                              id: '280'
+                              amount: 1.1
+                    dataType: payments
+                    companyId: ffa6368e-fde4-4165-9a0a-4bda1a6f916e
+                    pushOperationKey: 673f5d97-1c53-41ef-b9c8-cc9a8415d17c
+                    dataConnectionKey: bbecdbf3-913a-43ae-9c91-e830b3686657
+                    requestedOnUtc: '0001-01-01T00:00:00'
+                    status: Pending
+                    statusCode: 202
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+      description: |
+        The *Create payment* endpoint creates a new [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company's connection.
+
+        [Payments](https://docs.codat.io/lending-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
+
+        **Integration-specific behaviour**
+
+        Required data may vary by integration. To see what data to post, first call [Get create payment model](https://docs.codat.io/lending-api#/operations/get-create-payments-model).
+
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating an account.
+      operationId: create-payment
+      x-speakeasy-group: loan-writeback.payments
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -76057,6 +78685,15 @@ components:
               items:
                 $ref: '#/components/schemas/AccountingPayment'
         - $ref: '#/components/schemas/PagingInfo'
+    AccountingCreatePaymentResponse:
+      title: Create payment response
+      x-internal: true
+      allOf:
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AccountingPayment'
+        - $ref: '#/components/schemas/PushOperation'
     AccountingSupplier:
       title: Supplier
       description: |-
