@@ -9829,6 +9829,22 @@ components:
               items:
                 $ref: '#/components/schemas/PushOperation'
         - $ref: '#/components/schemas/PagingInfo'
+    PaymentMethodRef:
+      type: object
+      title: Payment method reference
+      description: The payment method the record is linked to in the accounting or commerce platform.
+      properties:
+        id:
+          description: The unique identifier of the location being referenced.
+          type: string
+        name:
+          description: Name of the location being referenced.
+          type: string
+      required:
+        - id
+      example:
+        id: EILBDVJVNUAGVKRQ
+        name: AliPay
     AccountingAccount:
       title: Account
       description: |-
@@ -12094,7 +12110,7 @@ components:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
               description: Account the payment is recorded against in the accounting platform.
             paymentMethodRef:
-              $ref: '#/components/schemas/CommercePayment/allOf/1/properties/paymentMethodRef'
+              $ref: '#/components/schemas/PaymentMethodRef'
               description: The Payment Method to which the payment is linked in the accounting platform.
             totalAmount:
               type: number
@@ -13032,17 +13048,14 @@ components:
               description: The name of the PaymentMethod
               example: Alipay
             status:
-              $ref: '#/components/schemas/CommercePaymentMethod/definitions/paymentMethodStatus'
+              description: Status of the Payment Method.
+              x-internal: true
+              type: string
+              enum:
+                - Unknown
+                - Active
+                - Archived
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
-      definitions:
-        paymentMethodStatus:
-          type: string
-          enum:
-            - Active
-            - Archived
-            - Unknown
-          description: Status of the Payment Method
-          example: Active
     CommercePaymentMethods:
       title: Commerce payment methods
       x-internal: true
@@ -13081,29 +13094,7 @@ components:
               $ref: '#/components/schemas/AccountingAccount/allOf/0/properties/currency'
               description: Currency in which the payment was made
             paymentMethodRef:
-              paymentMethodRef:
-                type: object
-                description: The payment method the record is linked to in the accounting or commerce platform.
-                properties:
-                  id:
-                    description: The unique identifier of the location being referenced.
-                    type: string
-                  name:
-                    description: Name of the location being referenced.
-                    type: string
-                required:
-                  - id
-                example:
-                  id: EILBDVJVNUAGVKRQ
-                  name: AliPay
-              paymentMethodStatus:
-                type: string
-                enum:
-                  - Active
-                  - Archived
-                  - Unknown
-                description: Status of the Payment Method
-                example: Active
+              $ref: '#/components/schemas/PaymentMethodRef'
             status:
               $ref: '#/components/schemas/CommercePayment/definitions/paymentStatus'
             paymentProvider:
