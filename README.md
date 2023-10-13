@@ -29,6 +29,11 @@ You can browse interactive versions of our OAS on [our docs](https://docs.codat.
 | [Sync for Commerce API (v1)](https://docs.codat.io/sync-for-commerce-api-v1#/) | Push merchants' data from your ecommerce or point-of-sale (POS) platform into your merchants' accounting platform. | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Commerce-v1.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Commerce-v1.yaml)
 | [Files API](https://docs.codat.io/files-api#/) | Capture your SMB's business documents with our file upload functionality.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Files.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Files.yaml)
 
+### Deprecated specifications
+
+Still using our deprecated OpenAPI specification for code generation?
+
+For clients still using our previous OpenAPI specification to generate libraries, you can continue to do so using our [Swagger-generated OAS](https://api.codat.io/swagger/v1/swagger.json). If you are new to Codat, do not use this specification. Instead, use one from the tables above. Alternatively, contact your account manager for further advice.
 
 ### Client library SDKs
 
