@@ -33,7 +33,7 @@ You can browse interactive versions of our OAS on [our docs](https://docs.codat.
 
 Still using our deprecated OpenAPI specification for code generation?
 
-For clients still using our previous OpenAPI specification to generate libraries, you can continue to do so using our [swagger generated oas](https://api.codat.io/swagger/v1/swagger.json). If you are new to Codat, do not use this specification. Instead, use one from the tables above. Alternatively, contact your account manager for further advice.
+For clients still using our previous OpenAPI specification to generate libraries, you can continue to do so using our [Swagger-generated OAS](https://api.codat.io/swagger/v1/swagger.json). If you are new to Codat, do not use this specification. Instead, use one from the tables above. Alternatively, contact your account manager for further advice.
 
 ### Client library SDKs
 
