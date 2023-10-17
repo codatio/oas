@@ -29900,6 +29900,8 @@ components:
                       type: string
             metadata:
               $ref: '#/components/schemas/Metadata'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/Bill/allOf/1'
       definitions:
         accountRef:
@@ -30059,7 +30061,7 @@ components:
               description: Any additional information about the bill credit note.
               example: 'Bill Credit Note with 1 line items, totaling 805.78'
             supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
             metadata:
               $ref: '#/components/schemas/Metadata'
         - $ref: '#/components/schemas/Bill/allOf/1'
@@ -30509,7 +30511,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/Bill/allOf/1'
       required:
         - date
@@ -30970,19 +30972,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              type: object
-              description: |-
-                Supplemental data is additional data you can include in our standard data types. 
-
-                It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
-              properties:
-                content:
-                  type: object
-                  additionalProperties:
-                    type: object
-                    additionalProperties: {}
-                  nullable: true
-              title: Supplemental data
+              $ref: '#/components/schemas/SupplementalData'
         - title: Modified dates
           x-internal: true
           allOf:
@@ -31309,7 +31299,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/Bill/allOf/1'
       definitions:
         journalLine:
@@ -31570,7 +31560,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/Bill/allOf/1'
       required:
         - status
@@ -31718,6 +31708,8 @@ components:
                 $ref: '#/components/schemas/Account/allOf/0/properties/validDatatypeLinks/items'
             metadata:
               $ref: '#/components/schemas/Metadata'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/Bill/allOf/1'
       definitions:
         taxRateRef:
@@ -32133,6 +32125,8 @@ components:
         createdDate:
           $ref: '#/components/schemas/Company/properties/created'
           description: Date the linked company was created in the accounting platform.
+        supplementalData:
+          $ref: '#/components/schemas/SupplementalData'
       examples:
         - companyName: ACME Corporation
           accountingPlatformRef: 4444e827-401b-4925-92cb-d79086bf3b6b
@@ -32348,6 +32342,21 @@ components:
             ResetReason: The quota was reset because it is a new day.
             DailyQuota: 1000
             ExpiresUtc: '2023-05-03T00:00:00Z'
+    SupplementalData:
+      title: Supplemental data
+      type: object
+      x-internal: true
+      description: |-
+        Supplemental data is additional data you can include in our standard data types. 
+
+        It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+      properties:
+        content:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+          nullable: true
   parameters:
     page:
       name: page

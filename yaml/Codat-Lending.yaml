@@ -74481,6 +74481,8 @@ components:
                       type: string
             metadata:
               $ref: '#/components/schemas/Metadata'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         accountRef:
@@ -74640,7 +74642,7 @@ components:
               description: Any additional information about the bill credit note.
               example: 'Bill Credit Note with 1 line items, totaling 805.78'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
             metadata:
               $ref: '#/components/schemas/Metadata'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
@@ -75043,7 +75045,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - date
@@ -75415,7 +75417,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - issueDate
@@ -75810,7 +75812,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - totalAmount
@@ -76008,7 +76010,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - status
@@ -76139,7 +76141,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - issueDate
@@ -76317,7 +76319,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - issueDate
@@ -76518,6 +76520,8 @@ components:
         createdDate:
           $ref: '#/components/schemas/DateTime'
           description: Date the linked company was created in the accounting platform.
+        supplementalData:
+          $ref: '#/components/schemas/SupplementalData'
       examples:
         - companyName: ACME Corporation
           accountingPlatformRef: 4444e827-401b-4925-92cb-d79086bf3b6b
@@ -76686,7 +76690,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - issueDate
@@ -76852,7 +76856,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         journalLine:
@@ -77719,7 +77723,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - date
@@ -77868,7 +77872,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       required:
         - status
@@ -77997,7 +78001,7 @@ components:
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
-              $ref: '#/components/schemas/CommerceOrder/allOf/1/properties/supplementalData'
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         transferAccount:
@@ -78121,6 +78125,8 @@ components:
                 The value is always positive. For example, an overdraftLimit of `1000` means that the balance of the account can go down to `-1000`.
             metadata:
               $ref: '#/components/schemas/Metadata'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
         bankAccountRef:
@@ -79855,19 +79861,7 @@ components:
             customerRef:
               $ref: '#/components/schemas/CommerceCustomer/definitions/commerceCustomerRef'
             supplementalData:
-              type: object
-              description: |-
-                Supplemental data is additional data you can include in our standard data types. 
-
-                It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
-              properties:
-                content:
-                  type: object
-                  additionalProperties:
-                    type: object
-                    additionalProperties: {}
-                  nullable: true
-              title: Supplemental data
+              $ref: '#/components/schemas/SupplementalData'
         - title: Created date
           type: object
           x-internal: true
@@ -80173,6 +80167,8 @@ components:
             dueDate:
               description: Date by which payment must be made
               $ref: '#/components/schemas/DateTime'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - $ref: '#/components/schemas/CommerceOrder/allOf/2'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       definitions:
@@ -80356,6 +80352,8 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/CommerceProduct/definitions/productVariant'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
       definitions:
         productRef:
           type: object
@@ -80550,6 +80548,8 @@ components:
               description: Link to the source event which triggered this transaction
               allOf:
                 - $ref: '#/components/schemas/CommerceTransaction/definitions/transactionSourceRef'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
         - allOf:
             - type: object
               x-stoplight:
@@ -81048,6 +81048,21 @@ components:
       example:
         type: Website
         url: 'https://codat.io'
+    SupplementalData:
+      title: Supplemental data
+      type: object
+      x-internal: true
+      description: |-
+        Supplemental data is additional data you can include in our standard data types. 
+
+        It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+      properties:
+        content:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+          nullable: true
   parameters:
     page:
       name: page
