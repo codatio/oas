@@ -37,12 +37,8 @@ tags:
     description: Enriched reports and analyses of financial data
   - name: Excel reports
     description: Downloadable reports
-  - name: Categories
-    description: Manage Codat's automatic account categorization functionality
   - name: Data integrity
     description: Match mutable accounting data with immutable banking data to increase confidence in financial data
-  - name: Loan transactions
-    description: Loan transactions
 paths:
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/status':
     parameters:
@@ -61,8 +57,18 @@ paths:
                 $ref: '#/components/schemas/Status'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-data-integrity-status
       x-speakeasy-name-override: status
       description: Gets match status for a given company and datatype.
@@ -81,10 +87,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Summaries'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-data-integrity-summaries
       x-speakeasy-name-override: summary
       description: 'Gets match summary for a given company and datatype, optionally restricted by a Codat query string.'
@@ -106,10 +124,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Details'
               examples: {}
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-data-type-data-integrity-details
       x-speakeasy-name-override: details
       parameters:
@@ -396,10 +426,22 @@ paths:
                         - levelName: Income
                         - levelName: Revenue
                         - levelName: Wholesale
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-accounts-for-enhanced-profit-and-loss
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -614,10 +656,22 @@ paths:
                       levels:
                         - levelName: Liability
                         - levelName: NonCurrent
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-accounts-for-enhanced-balance-sheet
       parameters:
         - $ref: '#/components/parameters/reportDate'
@@ -843,10 +897,22 @@ paths:
                             - Income
                             - Revenue
                         platformName: DoorDash
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-enhanced-cash-flow-transactions
       parameters:
         - $ref: '#/components/parameters/page'
@@ -1070,10 +1136,22 @@ paths:
                         amount: 2154.49
                         currency: GBP
                         currencyRate: 1
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-enhanced-invoices-report
       parameters:
         - $ref: '#/components/parameters/page'
@@ -1147,10 +1225,22 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs. previous period
                               value: 276.65
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-revenue-metrics
       x-speakeasy-name-override: get-commerce-revenue-metrics
       description: 'Get the revenue and revenue growth for a specific company connection, over one or more periods of time.'
@@ -1236,10 +1326,22 @@ paths:
                             - index: 1
                               measureDisplayName: Value
                               value: 35.27
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-orders-metrics
       x-speakeasy-name-override: get-commerce-orders-metrics
       description: 'Gets the order information for a specific company connection, over one or more periods of time.'
@@ -1329,10 +1431,22 @@ paths:
                             - index: 2
                               measureDisplayName: Percentage
                               value: 0.41
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-refunds-metrics
       x-speakeasy-name-override: get-commerce-refunds-metrics
       description: 'Gets the refunds information for a specific company connection, over one or more periods of time.'
@@ -1437,10 +1551,22 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage
                               value: 21.67
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-customer-retention-metrics
       x-speakeasy-name-override: get-commerce-customer-retention-metrics
       description: 'Gets the customer retention metrics for a specific company connection, over one or more periods of time.'
@@ -1503,10 +1629,22 @@ paths:
                             - index: 0
                               measureDisplayName: Value
                               value: 3782.07
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-lifetime-value-metrics
       x-speakeasy-name-override: get-commerce-lifetime-value-metrics
       description: 'Gets the lifetime value metric for a specific company connection, over one or more periods of time.'
@@ -1533,8 +1671,18 @@ paths:
                 $ref: '#/components/schemas/Report'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: request-recurring-revenue-metrics
       description: Requests production of key subscription revenue metrics.
   '/data/companies/{companyId}/connections/{connectionId}/assess/subscriptions/mrr':
@@ -1554,8 +1702,18 @@ paths:
                 $ref: '#/components/schemas/Report'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-recurring-revenue-metrics
       x-speakeasy-name-override: get-recurring-revenue-metrics
       description: Gets key metrics for subscription revenue.
@@ -1632,10 +1790,22 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs previous period
                               value: 0.12
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-accounting-marketing-metrics
       x-speakeasy-name-override: get-accounting-marketing-metrics
       description: |-
@@ -1667,10 +1837,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-excel-report
       description: Generate an Excel report which can subsequently be downloaded.
       parameters:
@@ -1686,10 +1868,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-excel-report-generation-status
       description: Returns the status of the latest report requested.
       parameters:
@@ -1708,10 +1902,22 @@ paths:
             application/octet-stream:
               schema:
                 type: object
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-excel-report
       description: Download the previously generated Excel report to a local drive.
       parameters:
@@ -1742,10 +1948,22 @@ paths:
       responses:
         '202':
           description: Accepted
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-loan-transactions
       x-speakeasy-name-override: generate-loan-transactions
     get:
@@ -1765,10 +1983,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoanTransactions'
+        '400':
+          $ref: '#/components/responses/Bad-Request'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-loan-transactions
       x-speakeasy-name-override: list-loan-transactions
   '/companies/{companyId}/reports/liabilities/loans':
@@ -1799,8 +2029,18 @@ paths:
           description: Accepted
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-loan-summary
       x-speakeasy-name-override: generate-loan-summary
     get:
@@ -1822,8 +2062,18 @@ paths:
                 $ref: '#/components/schemas/LoanSummary'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-loan-summary
       x-speakeasy-name-override: get-loan-summary
 webhooks:
@@ -2601,6 +2851,7 @@ components:
       type: object
       properties:
         ClientId:
+          title: Client ID
           type: string
           format: uuid
           description: Unique identifier for your client in Codat.
@@ -3355,19 +3606,19 @@ components:
       description: The type of report you want to generate and download.
       required: true
   responses:
-    Unauthorized:
-      description: Your API request was not properly authorized.
+    Bad-Request:
+      description: The request made is not valid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
           examples:
-            Unauthorized:
+            Malformed query:
               value:
-                statusCode: 401
+                statusCode: 400
                 service: PublicApi
-                error: Unauthorized
-                correlationId: 7eb40d6b415d7bcd99ce658268284056
+                error: Error processing request - not valid.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
     Malformed-Query:
@@ -3391,6 +3642,56 @@ components:
                 service: PullApi
                 error: Error parsing query - Could not resolve property isCompleted on Dataset
                 correlationId: 98457fb9956b7f9b4b2fd4f6e23bb5c8
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Unauthorized:
+      description: Your API request was not properly authorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Unauthorized:
+              value:
+                statusCode: 401
+                service: PublicApi
+                error: Unauthorized
+                correlationId: 7eb40d6b415d7bcd99ce658268284056
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Payment-Required:
+      description: |
+        An account limit has been exceeded. The type of limit is described in the error property:
+
+        - You have exceeded the 50-company limit that applies to a Free plan. Delete any companies you no longer need and retry the request.
+        - The requested sync schedule is not allowed. You requested an hourly sync schedule but this functionality is not included in the Free plan.
+        - Your Free account is older than 365 days and has expired. Contact support@codat.io.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have exceeded the 50-company limit that applies to a Free plan. We recommend that you delete any companies you no longer need and retry the request.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Forbidden:
+      description: You are using an outdated API key or a key not associated with that resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 403
+                service: PublicApi
+                error: You are using an outdated API key or a key not associated with that resource.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
     Not-Found:
@@ -3453,6 +3754,36 @@ components:
                 statusCode: 429
                 service: PublicApi
                 error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Internal-Server-Error:
+      description: There is a problem with our server. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: There is a problem with our server. Please try again later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Service-Unavailable:
+      description: The Codat API is temporarily offline for maintenance. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: The Codat API is temporarily offline for maintenance. Please try again later.
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0

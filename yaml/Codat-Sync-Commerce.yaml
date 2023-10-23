@@ -114,6 +114,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncFlowUrl'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - schema:
           type: string
@@ -147,11 +163,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Companies'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       tags:
         - Advanced controls
       summary: Create company
-      description: Creates a Codat company..
+      description: Creates a Codat company
       operationId: create-company
       x-speakeasy-name-override: create-company
       requestBody:
@@ -168,6 +200,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Company'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections':
     get:
       summary: List connections
@@ -215,34 +261,21 @@ paths:
                       previous:
                         href: string
         '400':
-          description: Your `query` parameter was not correctly formed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-              examples:
-                Malformed query:
-                  value:
-                    statusCode: 400
-                    service: ClientsApi
-                    error: Error parsing query - Malformed query.
-                    correlationId: bc997528a9d7abb9161ef45f05d38599
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
-                Unresolved property:
-                  value:
-                    statusCode: 400
-                    service: PullApi
-                    error: Error parsing query - Could not resolve property isCompleted on Dataset
-                    correlationId: 98457fb9956b7f9b4b2fd4f6e23bb5c8
-                    canBeRetried: Unknown
-                    detailedErrorCode: 0
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/sync-for-sync-for-commerce-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -281,10 +314,18 @@ paths:
                     sourceType: Banking
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}':
     patch:
       tags:
@@ -308,6 +349,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -329,6 +384,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -354,6 +423,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Configuration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       tags:
         - Advanced controls
@@ -370,6 +453,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Configuration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   /config/integrations:
     get:
       tags:
@@ -389,6 +490,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integrations'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/config/integrations/{platformKey}/branding':
     get:
       tags:
@@ -406,6 +521,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Branding'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - schema:
           type: string
@@ -428,6 +557,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocalizationInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     patch:
       tags:
         - Sync flow settings
@@ -448,6 +589,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocalizationInfo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/clients/{clientId}/config/ui/accounts/platform/{platformKey}':
     parameters:
       - $ref: '#/components/parameters/clientId'
@@ -466,6 +621,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisibleAccounts'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/sync/commerce/config/ui/accounts/platform/{platformKey}':
     post:
       tags:
@@ -489,6 +658,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisibleAccounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/sync/commerce/latest':
     post:
       tags:
@@ -513,6 +698,22 @@ paths:
               x-speakeasy-usage-example: true
               schema:
                 $ref: '#/components/schemas/SyncSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - $ref: '#/components/parameters/companyId'
   '/meta/companies/{companyId}/sync/commerce/historic':
@@ -538,6 +739,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/meta/companies/{companyId}/sync/commerce/status':
     get:
       tags:
@@ -555,39 +772,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncStatus'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/BadRequest'
-              examples:
-                Bad request:
-                  value:
-                    statusCode: '400,'
-                    service: Commerce
-                    error: Company does not have a linked accounting data connection.
-                    correlationId: df56cdcd-3d13-4223-b96a-5c3777cbca06
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/Not-Found'
-              examples:
-                Not found:
-                  value:
-                    statusCode: '404,'
-                    service: Commerce
-                    error: No syncs for company d30ba2b9-ae37-409d-971e-d5a747141905 were found.
-                    correlationId: d789a0f6-d7bc-4d9d-ad2f-d4efcbd64eb2
-                    canBeRetried: 'No'
-                    detailedErrorCode: 0
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - $ref: '#/components/parameters/companyId'
   '/companies/{companyId}/sync/commerce/syncs/lastSuccessful/status':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
     get:
       description: Gets the status of the last successful sync
       summary: Last successful sync
@@ -607,12 +810,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-    parameters:
-      - $ref: '#/components/parameters/companyId'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/sync/commerce/syncs/latest/status':
     get:
       description: Gets the latest sync status
@@ -633,10 +842,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - $ref: '#/components/parameters/companyId'
   '/companies/{companyId}/sync/commerce/syncs/{syncId}/status':
@@ -656,10 +873,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get sync status
       description: Get the sync status for a specified sync
       operationId: get-sync-by-id
@@ -687,10 +912,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     parameters:
       - $ref: '#/components/parameters/companyId'
 webhooks:
@@ -1934,6 +2167,29 @@ components:
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
+    Malformed-Query:
+      description: Your `query` parameter was not correctly formed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Malformed query:
+              value:
+                statusCode: 400
+                service: ClientsApi
+                error: Error parsing query - Malformed query.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+            Unresolved property:
+              value:
+                statusCode: 400
+                service: PullApi
+                error: Error parsing query - Could not resolve property isCompleted on Dataset
+                correlationId: 98457fb9956b7f9b4b2fd4f6e23bb5c8
+                canBeRetried: Unknown
+                detailedErrorCode: 0
     Unauthorized:
       description: Your API request was not properly authorized.
       content:
@@ -1947,6 +2203,41 @@ components:
                 service: PublicApi
                 error: Unauthorized
                 correlationId: 7eb40d6b415d7bcd99ce658268284056
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Payment-Required:
+      description: |
+        An account limit has been exceeded. The type of limit is described in the error property:
+
+        - You have exceeded the 50-company limit that applies to a Free plan. Delete any companies you no longer need and retry the request.
+        - The requested sync schedule is not allowed. You requested an hourly sync schedule but this functionality is not included in the Free plan.
+        - Your Free account is older than 365 days and has expired. Contact support@codat.io.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have exceeded the 50-company limit that applies to a Free plan. We recommend that you delete any companies you no longer need and retry the request.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Forbidden:
+      description: You are using an outdated API key or a key not associated with that resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 403
+                service: PublicApi
+                error: You are using an outdated API key or a key not associated with that resource.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
     Not-Found:
@@ -1982,6 +2273,21 @@ components:
                 correlationId: 0a40c2f31fc8f992fb88b0853e4166f3
                 canBeRetried: Unknown
                 detailedErrorCode: 0
+    Conflict:
+      description: The data type's dataset has not been requested or is still syncing.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 409
+                service: PublicApi
+                error: The data set has not been requested.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
     Too-Many-Requests:
       description: Too many requests were made in a given amount of time. Wait a short period and then try again.
       content:
@@ -1997,12 +2303,43 @@ components:
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
+    Internal-Server-Error:
+      description: There is a problem with our server. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: There is a problem with our server. Please try again later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Service-Unavailable:
+      description: The Codat API is temporarily offline for maintenance. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: The Codat API is temporarily offline for maintenance. Please try again later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
   parameters:
     clientId:
       name: clientId
       in: path
       required: true
       schema:
+        title: Client ID
         type: string
         format: uuid
         description: Unique identifier for your client in Codat.

@@ -113,8 +113,6 @@ tags:
     description: Match mutable accounting data with immutable banking data to increase confidence in financial data.
   - name: Excel reports
     description: Download reports in Excel format.
-  - name: Categories
-    description: Manage Codat's automatic account categorization functionality.
   - name: Manage data
     description: Control how data is retrieved from an integration.
   - name: File upload
@@ -218,8 +216,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-companies
       description: "\uFEFFReturns a list of your companies. The company schema contains a list of [connections](https://docs.codat.io/lending-api#/schemas/Connection) related to the company."
       parameters:
@@ -255,8 +263,16 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: "\uFEFFCreates a new company that can be used to assign connections to. \n\nIf forbidden characters (see `name` pattern) are present in the request, a company will be created with the forbidden characters removed. For example, `Company (Codat[1])` with be created as `Company Codat1`.\n\n"
       requestBody:
         content:
@@ -289,10 +305,18 @@ paths:
                 $ref: '#/components/schemas/Company'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -319,10 +343,18 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     get:
       summary: Get company
       operationId: get-company
@@ -351,10 +383,18 @@ paths:
                     createdByUserName: Dan Tzabar
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections':
     get:
       summary: List connections
@@ -405,10 +445,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/lending-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -452,10 +500,18 @@ paths:
                     sourceType: Banking
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}':
     get:
       summary: Get connection
@@ -488,10 +544,18 @@ paths:
                     sourceType: Banking
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     delete:
       summary: Delete connection
       operationId: delete-connection
@@ -506,10 +570,18 @@ paths:
           description: OK
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     patch:
       summary: Unlink connection
       description: "\uFEFFThis allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data."
@@ -529,10 +601,18 @@ paths:
                 $ref: '#/components/schemas/Connection'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -564,10 +644,18 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         Refreshes all data types with `fetch on first link` set to `true` for a given company.
 
@@ -593,7 +681,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataStatusResponse'
+                title: Data statuses
+                x-internal: true
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
               examples:
                 Example:
                   value:
@@ -611,10 +703,18 @@ paths:
                       latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/queue/{dataType}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -646,10 +746,18 @@ paths:
                 $ref: '#/components/schemas/PullOperation'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/history':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -680,14 +788,12 @@ paths:
                         isCompleted: false
                         isErrored: false
                     _links:
-                      self:
-                        href: ../dictionary
                       current:
-                        href: ../dictionary
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=1&pageSize=2
+                      self:
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history
                       next:
-                        href: ../dictionary
-                      previous:
-                        href: ../dictionary
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=2&pageSize=2
                     pageNumber: 0
                     pageSize: 0
                     totalResults: 0
@@ -695,11 +801,19 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: "\uFEFFThe *List pull operations* endpoint returns a list of [pull operations](https://docs.codat.io/lending-api#/schemas/PullOperation) made by your client.\n\nA [pull operation](https://docs.codat.io/lending-api#/schemas/PullOperation) is a request to retrieve a specific data type from an integration.\n\n### Tips and traps\n\n- The *List pull operations* endpoint does not support querying the `isCompleted` property. You can filter failed pull operations by querying `status!=Complete&&status!=NotSupported` instead.\n\n"
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      description: Gets the pull operation history (datasets) for a given company.
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -725,10 +839,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: Retrieve information about a single dataset or pull operation.
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/status':
     parameters:
@@ -747,8 +869,18 @@ paths:
                 $ref: '#/components/schemas/DataIntegrityStatuses'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-data-integrity-status
       x-speakeasy-name-override: status
       description: |-
@@ -775,10 +907,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataIntegritySummaries'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-data-integrity-summaries
       x-speakeasy-name-override: summaries
       description: |-
@@ -805,10 +949,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/DataIntegrityDetails'
               examples: {}
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-data-integrity-details
       x-speakeasy-name-override: details
       parameters:
@@ -1098,10 +1254,22 @@ paths:
                         - levelName: Income
                         - levelName: Revenue
                         - levelName: Wholesale
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-categorized-profit-and-loss-statement
       x-speakeasy-name-override: get-categorized-accounts
       x-speakeasy-group: financial-statements.profit-and-loss
@@ -1321,10 +1489,22 @@ paths:
                       levels:
                         - levelName: Liability
                         - levelName: NonCurrent
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       parameters:
         - $ref: '#/components/parameters/reportDateRequired'
         - $ref: '#/components/parameters/numberOfPeriods'
@@ -1546,10 +1726,22 @@ paths:
                             - Income
                             - Revenue
                         platformName: DoorDash
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -1779,10 +1971,22 @@ paths:
                         amount: 2154.49
                         currency: GBP
                         currencyRate: 1
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: Gets a list of invoices linked to the corresponding banking transaction
   '/companies/{companyId}/reports/liabilities/loans/transactions':
     parameters:
@@ -1810,12 +2014,22 @@ paths:
       responses:
         '202':
           description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-loan-transactions
       x-speakeasy-name-override: generate-loan-transactions
     get:
@@ -1835,12 +2049,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoanTransactions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-loan-transactions
       x-speakeasy-name-override: list-loan-transactions
   '/companies/{companyId}/reports/liabilities/loans':
@@ -1871,10 +2095,18 @@ paths:
           description: Accepted
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-loan-summary
       x-speakeasy-name-override: generate-loan-summary
     get:
@@ -1896,10 +2128,18 @@ paths:
                 $ref: '#/components/schemas/LoanSummary'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-loan-summary
       x-speakeasy-name-override: get-loan-summary
   '/data/companies/{companyId}/connections/{connectionId}/assess/commerceMetrics/revenue':
@@ -1969,10 +2209,22 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage change vs. previous period
                               value: 276.65
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-revenue-metrics
       x-speakeasy-name-override: get-revenue
       x-speakeasy-group: sales.metrics
@@ -2082,10 +2334,22 @@ paths:
                             - index: 1
                               measureDisplayName: Value
                               value: 35.27
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-orders-report
       x-speakeasy-name-override: get-orders
       x-speakeasy-group: sales.reports
@@ -2199,10 +2463,22 @@ paths:
                             - index: 2
                               measureDisplayName: Percentage
                               value: 0.41
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-refunds-report
       x-speakeasy-name-override: get-refunds
       x-speakeasy-group: sales.reports
@@ -2332,10 +2608,22 @@ paths:
                             - index: 1
                               measureDisplayName: Percentage
                               value: 21.67
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-customer-retention-metrics
       x-speakeasy-name-override: get-customer-retention
       x-speakeasy-group: sales.metrics
@@ -2428,10 +2716,22 @@ paths:
                             - index: 0
                               measureDisplayName: Value
                               value: 3782.07
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-commerce-lifetime-value-metrics
       x-speakeasy-name-override: get-lifetime-value
       x-speakeasy-group: sales.metrics
@@ -2478,10 +2778,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: generate-excel-report
       x-speakeasy-name-override: generate
       description: |+
@@ -2514,10 +2826,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExcelStatus'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-excel-report-generation-status
       x-speakeasy-name-override: get-status
       description: "\uFEFFThe *Get Excel report status* returns the status of the report mostly recently requested for Excel generation. It does not return the status of any historical report requests. \n\nPoll this endpoint to check the progress of the report once you have requested its generation. This will not affect the generation of the report. \n\nWhen the report generation completes successfully, the `inProgress` property will be marked as `false` and the `success` field will be marked as `true`."
@@ -2536,10 +2860,22 @@ paths:
           content:
             application/octet-stream:
               schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: download-excel-report
       x-speakeasy-name-override: download
       description: "\uFEFFThe *Download Excel report* endpoint downloads the latest successfully generated Excel report of a specified report type for a given company. \n\nThe downloadable Excel file is returned in the response. You can save it to your local machine.\n\nYou can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types."
@@ -2844,10 +3180,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions/{accountTransactionId}':
     get:
       tags:
@@ -2990,12 +3336,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/accounts':
     get:
       tags:
@@ -3806,10 +4160,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/accounts/{accountId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -4117,12 +4481,20 @@ paths:
                     validDatatypeLinks: []
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get account* endpoint returns a single account for a given accountId.
 
@@ -5604,10 +5976,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List bill credit notes* endpoint returns a list of [bill credit notes](https://docs.codat.io/lending-api#/schemas/BillCreditNote) for a given company's connection.
 
@@ -6302,12 +6684,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get bill credit note* endpoint returns a single bill credit note for a given billCreditNoteId.
 
@@ -7225,10 +7615,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List bill payments* endpoint returns a list of [bill payments](https://docs.codat.io/lending-api#/schemas/BillPayment) for a given company's connection.
 
@@ -7637,12 +8037,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get bill payment
       description: |
         The *Get bill payment* endpoint returns a single bill payment for a given billPaymentId.
@@ -10006,10 +10414,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List bills* endpoint returns a list of [bills](https://docs.codat.io/lending-api#/schemas/Bill) for a given company's connection.
 
@@ -11276,12 +11694,20 @@ paths:
                     paymentAllocations: []
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get bill
       description: |
         The *Get bill* endpoint returns a single bill for a given billId.
@@ -11310,10 +11736,20 @@ paths:
                 $ref: '#/components/schemas/Attachments'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-accounting-bill-attachments
       x-speakeasy-group: accounts-payable.bills
       summary: List bill attachments
@@ -11343,10 +11779,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get bill attachment
       description: |
         The *Get bill attachment* endpoint returns a specific attachment for a given `billId` and `attachmentId`.
@@ -11377,10 +11821,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Download bill attachment
       description: |
         The *Download bill attachment* endpoint downloads a specific attachment for a given `billId` and `attachmentId`.
@@ -13094,10 +13546,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List credit notes* endpoint returns a list of [credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote) for a given company's connection.
 
@@ -13950,12 +14412,20 @@ paths:
                     sourceModifiedDate: '2020-04-28T18:16:22'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get credit note* endpoint returns a single credit note for a given creditNoteId.
 
@@ -15211,10 +15681,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List customers* endpoint returns a list of [customers](https://docs.codat.io/lending-api#/schemas/Customer) for a given company's connection.
 
@@ -15760,12 +16240,20 @@ paths:
                     sourceModifiedDate: '2022-06-09T14:36:47'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get customer* endpoint returns a single customer for a given customerId.
 
@@ -15793,10 +16281,20 @@ paths:
                 $ref: '#/components/schemas/Attachments'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: List customer attachments
       description: |
         The *List customer attachments* endpoint returns a list of attachments avialable to download for given `customerId`.
@@ -15825,10 +16323,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get customer attachment
       description: |
         The *Get customer attachment* endpoint returns a specific attachment for a given `customerId` and `attachmentId`.
@@ -15858,10 +16364,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Download customer attachment
       description: |
         The *Download customer attachment* endpoint downloads a specific attachment for a given `customerId` and `attachmentId`.
@@ -16932,10 +17446,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List direct costs* endpoint returns a list of [direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
 
@@ -17401,12 +17925,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get direct cost* endpoint returns a single direct cost for a given directCostId.
 
@@ -17438,10 +17970,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
 
@@ -17472,10 +18012,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Download direct cost attachment* endpoint downloads a specific attachment for a given `directCostId` and `attachmentId`.
 
@@ -17503,10 +18051,20 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *List direct cost attachments* endpoint returns a list of attachments available to download for given `directCostId`.
 
@@ -18358,10 +18916,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List direct incomes* endpoint returns a list of [direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) for a given company's connection.
 
@@ -18770,12 +19338,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get direct income* endpoint returns a single direct income for a given directIncomeId.
 
@@ -18808,10 +19384,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get direct income attachment* endpoint returns a specific attachment for a given `directIncomeId` and `attachmentId`.
 
@@ -18843,10 +19427,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Download direct income attachment* endpoint downloads a specific attachment for a given `directIncomeId` and `attachmentId`.
 
@@ -18873,10 +19465,20 @@ paths:
                 $ref: '#/components/schemas/Attachments'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *List direct income attachments* endpoint returns a list of attachments available to download for given `directIncomeId`.
 
@@ -18942,12 +19544,20 @@ paths:
                     createdDate: '2020-03-09T15:19:26'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/invoices':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -23879,10 +24489,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/invoices/{invoiceId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -26990,12 +27610,20 @@ paths:
                     status: Paid
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get invoice
       description: |-
         The *Get invoice* endpoint returns a single invoice for a given invoiceId.
@@ -27024,6 +27652,22 @@ paths:
                 title: Data
                 type: string
                 format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get invoice as PDF
       description: "\uFEFFDownload invoice as a pdf."
       operationId: download-accounting-invoice-pdf
@@ -27047,10 +27691,20 @@ paths:
                 $ref: '#/components/schemas/Attachments'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: List invoice attachments
       description: |
         The *List invoice attachments* endpoint returns a list of attachments available to download for given `invoiceId`.
@@ -27080,10 +27734,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get invoice attachment
       description: |
         The *Get invoice attachment* endpoint returns a specific attachment for a given `invoiceId` and `attachmentId`.
@@ -27114,10 +27776,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Download invoice attachment
       description: |
         The *Download invoice attachment* endpoint downloads a specific attachment for a given `invoiceId` and `attachmentId`.
@@ -28333,10 +29003,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List journal entries* endpoint returns a list of [journal entries](https://docs.codat.io/lending-api#/schemas/JournalEntry) for a given company's connection.
 
@@ -28903,12 +29583,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get journal entry* endpoint returns a single journal entry for a given journalEntryId.
 
@@ -29111,10 +29799,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List journals* endpoint returns a list of [journals](https://docs.codat.io/lending-api#/schemas/Journal) for a given company's connection.
 
@@ -29208,12 +29906,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get journal* endpoint returns a single journal for a given journalId.
 
@@ -30243,10 +30949,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List payments* endpoint returns a list of [payments](https://docs.codat.io/lending-api#/schemas/Payment) for a given company's connection.
 
@@ -30263,7 +30979,7 @@ paths:
       tags:
         - Accounts receivable
       parameters:
-        - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-payments~1%7BpaymentId%7D/parameters/2'
+        - $ref: '#/components/parameters/paymentId'
       responses:
         '200':
           description: Success
@@ -30697,12 +31413,20 @@ paths:
                     reference: '4'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get payment
       description: |
         The *Get payment* endpoint returns a single payment for a given paymentId.
@@ -31502,10 +32226,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company's connection.
 
@@ -31828,12 +32562,20 @@ paths:
                     defaultCurrency: GBP
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get supplier* endpoint returns a single supplier for a given supplierId.
 
@@ -31861,10 +32603,20 @@ paths:
                 $ref: '#/components/schemas/Attachments'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: List supplier attachments
       description: |
         The *List supplier attachments* endpoint returns a list of attachments available to download for given `supplierId`.
@@ -31893,10 +32645,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Get supplier attachment
       description: |
         The *Get supplier attachment* endpoint returns a specific attachment for a given `supplierId` and `attachmentId`.
@@ -31926,10 +32686,18 @@ paths:
                 format: binary
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Download supplier attachment
       description: |
         The *Download supplier attachment* endpoint downloads a specific attachment for a given `supplierId` and `attachmentId`.
@@ -32501,10 +33269,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List transfers* endpoint returns a list of [transfers](https://docs.codat.io/lending-api#/schemas/Transfer) for a given company's connection.
 
@@ -32769,12 +33547,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get transfer* endpoint returns a single transfer for a given transferId.
 
@@ -33223,10 +34009,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List bank accounts* endpoint returns a list of [bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company's connection.
 
@@ -33409,12 +34205,20 @@ paths:
                       isDeleted: false
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get bank account* endpoint returns a single account for a given accountId.
 
@@ -37894,12 +38698,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/reports/agedDebtor/available':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -37917,6 +38729,20 @@ paths:
             application/json:
               schema:
                 type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       x-speakeasy-name-override: is-aged-debtors-available
       x-speakeasy-group: accounts-receivable.reports
   '/companies/{companyId}/reports/agedDebtor':
@@ -41646,10 +42472,18 @@ paths:
                                     amount: 56
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/reports/agedCreditor/available':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -41668,6 +42502,20 @@ paths:
             application/json:
               schema:
                 type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/reports/agedCreditor':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -45249,10 +46097,18 @@ paths:
                                     amount: 125.03
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/financials/balanceSheet':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -49291,12 +50147,20 @@ paths:
                     earliestAvailableMonth: '2022-04-01T00:00:00'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/financials/profitAndLoss':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52041,12 +52905,20 @@ paths:
                     earliestAvailableMonth: '2020-11-01T00:00:00'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/financials/cashFlowStatement':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52475,12 +53347,20 @@ paths:
                     earliestAvailableMonth: '2019-11-01T00:00:00'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accountBalances':
     get:
       tags:
@@ -52560,10 +53440,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts':
     get:
       tags:
@@ -52693,10 +53583,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/banking-accounts/{accountId}':
     get:
       tags:
@@ -52776,6 +53676,22 @@ paths:
                       number: '1111222233331111'
                       bankCode: '00021'
                       maskedAccountNumber: '1111'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52885,10 +53801,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/banking-transactions/{transactionId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -52939,6 +53865,22 @@ paths:
                       id: TRANSFER_OUT.TRANSFER_OUT_ACCOUNT_TRANSFER
                       name: TRANSFER_OUT_ACCOUNT_TRANSFER
                     modifiedDate: '2022-10-27T10:50:25Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get transaction* endpoint returns a single transaction for a given transactionId.
 
@@ -53023,10 +53965,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List transaction categories* endpoint returns a list of [transaction categories](https://docs.codat.io/lending-api#/schemas/TransactionCategory) for a given company's connection.
 
@@ -53080,6 +54032,22 @@ paths:
                     hasChildren: true
                     status: Active
                     modifiedDate: '2022-10-27T10:50:17'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53452,12 +54420,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers/{customerId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53621,12 +54597,20 @@ paths:
                     sourceModifiedDate: '2021-01-08T09:57:56'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/data/commerce-disputes':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53724,12 +54708,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List disputes* endpoint returns a list of [disputes](https://docs.codat.io/lending-api#/schemas/Dispute) for a given company's connection.
 
@@ -53792,12 +54784,20 @@ paths:
                     modifiedDate: '2022-09-30T11:18:27Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get dispute* endpoint returns a single dispute for a given disputeId.
 
@@ -53867,16 +54867,26 @@ paths:
                     sourceModifiedDate: '2021-06-10T01:48:49'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
-        Retrieve information about the company, as seen in the commerce platform.
+        Retrieve information about the company, as seen in the commerce
+        platform.
 
-        This may include information like addresses, tax registration details and social media or website information.
+        This may include information like addresses, tax registration details and
+        social media or website information."
   '/companies/{companyId}/connections/{connectionId}/data/commerce-locations':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -53977,16 +54987,22 @@ paths:
                         href: /companies/d779fc82-a098-4107-a9fc-c2a1dda3d522/connections/9b098b74-3770-4dad-9001-4c283a39f1e5/data/commerce-locations?page=1&pageSize=2
                       self:
                         href: /companies/d779fc82-a098-4107-a9fc-c2a1dda3d522/connections/9b098b74-3770-4dad-9001-4c283a39f1e5/data/commerce-locations
-        '400':
-          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List locations* endpoint returns a list of [locations](https://docs.codat.io/lending-api#/schemas/Location) for a given company's connection.
 
@@ -54068,12 +55084,20 @@ paths:
                     sourceModifiedDate: '2020-01-17T14:07:30Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get location* endpoint returns a single location for a given locationId.
 
@@ -55092,12 +56116,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List orders* endpoint returns a list of [orders](https://docs.codat.io/lending-api#/schemas/Order) for a given company's connection.
 
@@ -55681,12 +56713,20 @@ paths:
                     sourceModifiedDate: '2020-11-23T14:27:20Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get order* endpoint returns a single order for a given orderId.
 
@@ -55883,12 +56923,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List payment methods* endpoint returns a list of [payment methods](https://docs.codat.io/lending-api#/schemas/PaymentMethod) for a given company's connection.
 
@@ -55977,12 +57025,20 @@ paths:
                     modifiedDate: '2022-09-14T10:58:03Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get payment method* endpoint returns a single payment method for a given paymentMethodId.
 
@@ -56299,12 +57355,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List payments* endpoint returns a list of [payments](https://docs.codat.io/lending-api#/schemas/Payment) for a given company's connection.
 
@@ -56321,14 +57385,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: paymentId
-        in: path
-        required: true
-        schema:
-          type: string
-          examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-        description: Unique identifier for a payment.
+      - $ref: '#/components/parameters/paymentId'
     get:
       summary: Get payment
       tags:
@@ -56447,12 +57504,20 @@ paths:
                     modifiedDate: '2021-10-27T15:22:37Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get payment* endpoint returns a single payment for a given paymentId.
 
@@ -56506,12 +57571,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -56528,7 +57601,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - $ref: '#/paths/~1companies~1%7BcompanyId%7D~1connections~1%7BconnectionId%7D~1data~1commerce-products~1%7BproductId%7D/parameters/2'
+      - $ref: '#/components/parameters/productId'
     get:
       summary: Get product category
       tags:
@@ -56552,12 +57625,20 @@ paths:
                     modifiedDate: '2023-03-02T09:49:11Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get product* endpoint returns a single product for a given productId.
 
@@ -57410,12 +58491,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -57432,14 +58521,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - name: productId
-        in: path
-        required: true
-        schema:
-          type: string
-          examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-        description: Unique identifier for a product.
+      - $ref: '#/components/parameters/productId'
     get:
       summary: Get product
       tags:
@@ -57858,12 +58940,20 @@ paths:
                     status: Published
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get product* endpoint returns a single product for a given productId.
 
@@ -58074,12 +59164,20 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         The *List transactions* endpoint returns a list of [transactions](https://docs.codat.io/lending-api#/schemas/Transaction) for a given company's connection.
 
@@ -58183,12 +59281,20 @@ paths:
                     sourceModifiedDate: '2020-11-25T23:10:01Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '409':
           $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Get transaction* endpoint returns a single transaction for a given transactionId.
 
@@ -58214,10 +59320,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: "\uFEFFThe *List files* endpoint returns a list of all files uploaded to Codat by the SMB. "
       operationId: list-files
       x-speakeasy-name-override: list-uploaded
@@ -58248,10 +59362,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: The *Download files* endpoint downloads all files that have  been uploaded by to SMB to Codat. A `date` may be specified to download any files uploaded on the date provided.
       operationId: download-files
       x-speakeasy-name-override: download
@@ -58270,10 +59392,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           multipart/form-data:
@@ -58290,6 +59420,910 @@ paths:
         - Each file can be up to 10MB in size.
       operationId: upload-files
       x-speakeasy-name-override: upload
+  '/companies/{companyId}/connections/{connectionId}/options/bankAccounts':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    get:
+      summary: Get create/update bank account model
+      tags:
+        - Loan writeback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushOption'
+              examples:
+                Dynamics 365 Business Central:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountName
+                              details: 'Needs to be of the format ''{No.}-{Name}'''
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: true
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: false
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: NominalCode
+                              details: Bank Account Posting Group with Nominal Account must exist
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: SortCode
+                              details: Must have a length between 0 and 20 characters
+                      iBan:
+                        type: String
+                        displayName: IBAN
+                        description: The international bank account number of the account. Often used when making or receiving international payments
+                        required: false
+                      overdraftLimit:
+                        type: Number
+                        displayName: Overdraft Limit
+                        description: The pre-arranged overdraft limit of the account
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: OverdraftLimit
+                              details: Default value is 0
+                    required: true
+                Exact (Netherlands):
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: true
+                        validation:
+                          warnings:
+                            - field: AccountNumber
+                              details: Should not exceed the maximum length of 14 characters if the specified currency is GBP.
+                          information: []
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: false
+                        validation:
+                          warnings:
+                            - field: SortCode
+                              details: Must be 6 characters long if the specified currency is GBP.
+                            - field: SortCode
+                              details: Must be provided if the specified currency is GBP.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: false
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: false
+                    required: true
+                Exact (UK):
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: true
+                        validation:
+                          warnings:
+                            - field: AccountNumber
+                              details: Should not exceed the maximum length of 14 characters if the specified currency is GBP.
+                          information: []
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: false
+                        validation:
+                          warnings:
+                            - field: SortCode
+                              details: Must be 6 characters long if the specified currency is GBP.
+                            - field: SortCode
+                              details: Must be provided if the specified currency is GBP.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: false
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: false
+                    required: true
+                FreeAgent:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: false
+                        validation:
+                          warnings:
+                            - field: SortCode
+                              details: Must have a length between 0 and 8 characters
+                          information: []
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: false
+                      iBan:
+                        type: String
+                        displayName: IBAN
+                        description: The international bank account number of the account. Often used when making or receiving international payments
+                        required: false
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        options:
+                          - value: AED
+                            type: String
+                            displayName: AED
+                            required: false
+                          - value: AMD
+                            type: String
+                            displayName: AMD
+                            required: false
+                          - value: AOA
+                            type: String
+                            displayName: AOA
+                            required: false
+                          - value: ARS
+                            type: String
+                            displayName: ARS
+                            required: false
+                          - value: AUD
+                            type: String
+                            displayName: AUD
+                            required: false
+                          - value: AWG
+                            type: String
+                            displayName: AWG
+                            required: false
+                          - value: AZN
+                            type: String
+                            displayName: AZN
+                            required: false
+                          - value: BBD
+                            type: String
+                            displayName: BBD
+                            required: false
+                          - value: BDT
+                            type: String
+                            displayName: BDT
+                            required: false
+                          - value: BGN
+                            type: String
+                            displayName: BGN
+                            required: false
+                          - value: BRL
+                            type: String
+                            displayName: BRL
+                            required: false
+                          - value: BWP
+                            type: String
+                            displayName: BWP
+                            required: false
+                          - value: CAD
+                            type: String
+                            displayName: CAD
+                            required: false
+                          - value: CHF
+                            type: String
+                            displayName: CHF
+                            required: false
+                          - value: CLP
+                            type: String
+                            displayName: CLP
+                            required: false
+                          - value: CNY
+                            type: String
+                            displayName: CNY
+                            required: false
+                          - value: COP
+                            type: String
+                            displayName: COP
+                            required: false
+                          - value: CRC
+                            type: String
+                            displayName: CRC
+                            required: false
+                          - value: CUC
+                            type: String
+                            displayName: CUC
+                            required: false
+                          - value: CUP
+                            type: String
+                            displayName: CUP
+                            required: false
+                          - value: CZK
+                            type: String
+                            displayName: CZK
+                            required: false
+                          - value: DKK
+                            type: String
+                            displayName: DKK
+                            required: false
+                          - value: DOP
+                            type: String
+                            displayName: DOP
+                            required: false
+                          - value: EGP
+                            type: String
+                            displayName: EGP
+                            required: false
+                          - value: EUR
+                            type: String
+                            displayName: EUR
+                            required: false
+                          - value: FJD
+                            type: String
+                            displayName: FJD
+                            required: false
+                          - value: GBP
+                            type: String
+                            displayName: GBP
+                            required: false
+                          - value: GEL
+                            type: String
+                            displayName: GEL
+                            required: false
+                          - value: GHS
+                            type: String
+                            displayName: GHS
+                            required: false
+                          - value: GTQ
+                            type: String
+                            displayName: GTQ
+                            required: false
+                          - value: GYD
+                            type: String
+                            displayName: GYD
+                            required: false
+                          - value: HKD
+                            type: String
+                            displayName: HKD
+                            required: false
+                          - value: HNL
+                            type: String
+                            displayName: HNL
+                            required: false
+                          - value: HRK
+                            type: String
+                            displayName: HRK
+                            required: false
+                          - value: HUF
+                            type: String
+                            displayName: HUF
+                            required: false
+                          - value: IDR
+                            type: String
+                            displayName: IDR
+                            required: false
+                          - value: ILS
+                            type: String
+                            displayName: ILS
+                            required: false
+                          - value: INR
+                            type: String
+                            displayName: INR
+                            required: false
+                          - value: ISK
+                            type: String
+                            displayName: ISK
+                            required: false
+                          - value: JMD
+                            type: String
+                            displayName: JMD
+                            required: false
+                          - value: JPY
+                            type: String
+                            displayName: JPY
+                            required: false
+                          - value: KES
+                            type: String
+                            displayName: KES
+                            required: false
+                          - value: KRW
+                            type: String
+                            displayName: KRW
+                            required: false
+                          - value: KWD
+                            type: String
+                            displayName: KWD
+                            required: false
+                          - value: KYD
+                            type: String
+                            displayName: KYD
+                            required: false
+                          - value: KZT
+                            type: String
+                            displayName: KZT
+                            required: false
+                          - value: LAK
+                            type: String
+                            displayName: LAK
+                            required: false
+                          - value: LBP
+                            type: String
+                            displayName: LBP
+                            required: false
+                          - value: LKR
+                            type: String
+                            displayName: LKR
+                            required: false
+                          - value: LTL
+                            type: String
+                            displayName: LTL
+                            required: false
+                          - value: LVL
+                            type: String
+                            displayName: LVL
+                            required: false
+                          - value: MAD
+                            type: String
+                            displayName: MAD
+                            required: false
+                          - value: MDL
+                            type: String
+                            displayName: MDL
+                            required: false
+                          - value: MGA
+                            type: String
+                            displayName: MGA
+                            required: false
+                          - value: MUR
+                            type: String
+                            displayName: MUR
+                            required: false
+                          - value: MVR
+                            type: String
+                            displayName: MVR
+                            required: false
+                          - value: MWK
+                            type: String
+                            displayName: MWK
+                            required: false
+                          - value: MXN
+                            type: String
+                            displayName: MXN
+                            required: false
+                          - value: MYR
+                            type: String
+                            displayName: MYR
+                            required: false
+                          - value: MZN
+                            type: String
+                            displayName: MZN
+                            required: false
+                          - value: NAD
+                            type: String
+                            displayName: NAD
+                            required: false
+                          - value: NGN
+                            type: String
+                            displayName: NGN
+                            required: false
+                          - value: NOK
+                            type: String
+                            displayName: NOK
+                            required: false
+                          - value: NPR
+                            type: String
+                            displayName: NPR
+                            required: false
+                          - value: NZD
+                            type: String
+                            displayName: NZD
+                            required: false
+                          - value: OMR
+                            type: String
+                            displayName: OMR
+                            required: false
+                          - value: PEN
+                            type: String
+                            displayName: PEN
+                            required: false
+                          - value: PHP
+                            type: String
+                            displayName: PHP
+                            required: false
+                          - value: PKR
+                            type: String
+                            displayName: PKR
+                            required: false
+                          - value: PLN
+                            type: String
+                            displayName: PLN
+                            required: false
+                          - value: QAR
+                            type: String
+                            displayName: QAR
+                            required: false
+                          - value: RON
+                            type: String
+                            displayName: RON
+                            required: false
+                          - value: RSD
+                            type: String
+                            displayName: RSD
+                            required: false
+                          - value: RUB
+                            type: String
+                            displayName: RUB
+                            required: false
+                          - value: RWF
+                            type: String
+                            displayName: RWF
+                            required: false
+                          - value: SAR
+                            type: String
+                            displayName: SAR
+                            required: false
+                          - value: SCR
+                            type: String
+                            displayName: SCR
+                            required: false
+                          - value: SEK
+                            type: String
+                            displayName: SEK
+                            required: false
+                          - value: SGD
+                            type: String
+                            displayName: SGD
+                            required: false
+                          - value: THB
+                            type: String
+                            displayName: THB
+                            required: false
+                          - value: TND
+                            type: String
+                            displayName: TND
+                            required: false
+                          - value: TRY
+                            type: String
+                            displayName: TRY
+                            required: false
+                          - value: TTD
+                            type: String
+                            displayName: TTD
+                            required: false
+                          - value: TWD
+                            type: String
+                            displayName: TWD
+                            required: false
+                          - value: TZS
+                            type: String
+                            displayName: TZS
+                            required: false
+                          - value: UAH
+                            type: String
+                            displayName: UAH
+                            required: false
+                          - value: UGX
+                            type: String
+                            displayName: UGX
+                            required: false
+                          - value: USD
+                            type: String
+                            displayName: USD
+                            required: false
+                          - value: UYU
+                            type: String
+                            displayName: UYU
+                            required: false
+                          - value: VEF
+                            type: String
+                            displayName: VEF
+                            required: false
+                          - value: VND
+                            type: String
+                            displayName: VND
+                            required: false
+                          - value: VUV
+                            type: String
+                            displayName: VUV
+                            required: false
+                          - value: XAF
+                            type: String
+                            displayName: XAF
+                            required: false
+                          - value: XCD
+                            type: String
+                            displayName: XCD
+                            required: false
+                          - value: XOF
+                            type: String
+                            displayName: XOF
+                            required: false
+                          - value: ZAR
+                            type: String
+                            displayName: ZAR
+                            required: false
+                          - value: ZMK
+                            type: String
+                            displayName: ZMK
+                            required: false
+                        required: true
+                      balance:
+                        type: Number
+                        displayName: Balance
+                        description: The balance of the bank account
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Balance
+                              details: 'The opening balance, in the account currency'
+                      institution:
+                        type: String
+                        displayName: Institution
+                        description: The institution of the bank account
+                        required: false
+                    required: true
+                KashFlow:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Account Name
+                        description: Name of the bank account as it appears in Kashflow.
+                        required: true
+                      balance:
+                        type: Number
+                        displayName: Balance
+                        description: 'The opening balance, in the account currency.'
+                        required: false
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account.
+                        required: true
+                    required: true
+                QuickBooks Desktop:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: true
+                        validation:
+                          warnings:
+                            - field: NominalCode
+                              details: Max length of 7 characters.
+                          information: []
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                        validation:
+                          warnings:
+                            - field: AccountName
+                              details: Max length of 31 characters.
+                          information: []
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: false
+                        validation:
+                          warnings:
+                            - field: Currency
+                              details: 'The currency must match the base currency of the QuickBooks Desktop company unless the FullyQualifiedCategory is ''Asset.AccountsReceivable'',''Liability.AccountsPayable'' or ''Liability.CreditCard'''
+                            - field: Currency
+                              details: Must be a three letter ISO code that matches an existing active currency in the QuickBooks Desktop company
+                            - field: Currency
+                              details: Can only be set if the Quickbooks Desktop company has Multicurrency enabled.
+                          information:
+                            - field: Currency
+                              details: 'If not set, will default to the base currency of the QuickBooks Desktop company'
+                      balance:
+                        type: Number
+                        displayName: Balance
+                        description: The balance of the bank account
+                        required: false
+                    required: true
+                QuickBooks Online Sandbox:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Account Name
+                        description: Name of account as it appears in the chart of accounts or general ledger.
+                        required: true
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: User-defined account number to help the user in identifying the account within the chart-of-accounts and in deciding what should be posted to the account.
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: Currency of the bank account.
+                        required: true
+                    required: true
+                Sage Business Cloud Accounting:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountName
+                              details: Must be provided.
+                            - field: AccountName
+                              details: Should not be longer than 50 characters.
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: true
+                        validation:
+                          warnings: []
+                          information:
+                            - field: Currency
+                              details: Must be provided.
+                            - field: Currency
+                              details: Must match the company's base currency.
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: SortCode
+                              details: Should be a 6 digit number.
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: AccountNumber
+                              details: Should not be longer than 25 characters.
+                      iBan:
+                        type: String
+                        displayName: IBAN
+                        description: The international bank account number of the account. Often used when making or receiving international payments
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: IBan
+                              details: Should be in the international bank account number format.
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: false
+                        validation:
+                          warnings: []
+                          information:
+                            - field: NominalCode
+                              details: Should be a number between 1 and 99999999.
+                    required: true
+                Sandbox:
+                  value:
+                    type: Object
+                    displayName: Bank Account
+                    description: An account that bank transactions may be recorded against
+                    properties:
+                      accountName:
+                        type: String
+                        displayName: Name
+                        description: The name of the bank account in the originating system
+                        required: true
+                      accountType:
+                        type: String
+                        displayName: Account Type
+                        description: The type of account
+                        required: true
+                      nominalCode:
+                        type: String
+                        displayName: Nominal Code
+                        description: The external reference given to each nominal account for a business
+                        required: true
+                      sortCode:
+                        type: String
+                        displayName: Sort Code
+                        description: The sort code for the bank account
+                        required: true
+                      accountNumber:
+                        type: String
+                        displayName: Account Number
+                        description: The account number for the bank account
+                        required: true
+                      iBan:
+                        type: String
+                        displayName: IBAN
+                        description: The international bank account number of the account. Often used when making or receiving international payments
+                        required: true
+                      currency:
+                        type: String
+                        displayName: Currency
+                        description: The currency of the bank account
+                        required: true
+                      balance:
+                        type: Number
+                        displayName: Balance
+                        description: The balance of the bank account
+                        required: true
+                      availableBalance:
+                        type: Number
+                        displayName: Available Balance
+                        description: The available balance of the bank account
+                        required: true
+                      overdraftLimit:
+                        type: Number
+                        displayName: Overdraft Limit
+                        description: The pre-arranged overdraft limit of the account
+                        required: true
+                      institution:
+                        type: String
+                        displayName: Institution
+                        description: The institution of the bank account
+                        required: true
+                      metadata:
+                        type: Object
+                        displayName: Metadata
+                        description: Miscellaneous data about the item
+                        properties:
+                          isDeleted:
+                            type: Boolean
+                            displayName: IsDeleted
+                            description: A boolean to indicate whether the object has been deleted
+                            required: true
+                        required: true
+                    required: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      operationId: get-create-update-bankAccounts-model
+      x-speakeasy-group: loan-writeback.bank-accounts
+      description: "The *Get create/update bank account model* endpoint returns the expected data for the request payload when creating and updating a [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company and integration.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support creating and updating a bank account.\r\n"
+  '/companies/{companyId}/connections/{connectionId}/push/bankAccounts':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Loan writeback
+      summary: Create bank account
+      parameters:
+        - $ref: '#/components/parameters/timeoutInMinutes'
+        - $ref: '#/components/parameters/allowSyncOnPushComplete'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingBankAccount'
+            examples: {}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingCreateBankAccountResponse'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/lending-api#/operations/get-create-update-bankAccounts-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support creating an account."
+      operationId: create-bank-account
+      x-speakeasy-group: loan-writeback.bank-accounts
   '/companies/{companyId}/connections/{connectionId}/options/chartOfAccounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -61626,10 +63660,18 @@ paths:
                     required: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-chartOfAccounts-model
       x-speakeasy-group: loan-writeback.accounts
       description: |
@@ -61670,10 +63712,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Create account* endpoint creates a new [account](https://docs.codat.io/lending-api#/schemas/Account) for a given company's connection.
 
@@ -65134,10 +67184,18 @@ paths:
                     required: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-update-suppliers-model
       x-speakeasy-group: loan-writeback.suppliers
       description: "The *Get create/update supplier model* endpoint returns the expected data for the request payload when creating and updating a [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company and integration.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating and updating a supplier.\r\n"
@@ -65175,10 +67233,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       summary: Create supplier
       description: "The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating an account.\r\n"
       operationId: create-supplier
@@ -66379,10 +68445,18 @@ paths:
                     required: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-transfers-model
       x-speakeasy-group: loan-writeback.transfers
       description: |
@@ -66446,10 +68520,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Create transfer* endpoint creates a new [transfer](https://docs.codat.io/lending-api#/schemas/Transfer) for a given company's connection.
 
@@ -66493,10 +68575,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts/{accountId}/bankTransactions':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -66535,12 +68625,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/AccountingCreateBankTransactionsResponse'
               examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/options/directCosts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -69320,10 +71420,18 @@ paths:
                     required: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-directCosts-model
       x-speakeasy-group: loan-writeback.direct-costs
       description: |
@@ -69621,10 +71729,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Create direct cost* endpoint creates a new [direct cost](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
 
@@ -72092,11 +74208,19 @@ paths:
                     required: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      operationId: get-create-payments-model
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      operationId: get-create-payment-model
       x-speakeasy-group: loan-writeback.payments
       description: |
         The *Get create payment model* endpoint returns the expected data for the request payload when creating a [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company and integration.
@@ -72249,10 +74373,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |
         The *Create payment* endpoint creates a new [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company's connection.
 
@@ -72286,10 +74418,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/push':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -72317,10 +74457,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
 webhooks:
   Account categories updated:
     post:
@@ -72762,7 +74910,38 @@ components:
         - currentStatus
       properties:
         dataType:
-          title: Data types
+          $ref: '#/components/schemas/DataType/allOf/0'
+        lastSuccessfulSync:
+          $ref: '#/components/schemas/DateTime'
+        currentStatus:
+          type: string
+          description: The current status of the dataset in Codat's cache.
+        latestSyncId:
+          type: string
+          description: Unique identifier for most recent sync of data type.
+          format: uuid
+          example: ad474a37-2003-478e-baee-9af9f1ec2fe3
+        latestSuccessfulSyncId:
+          type: string
+          description: Unique identifier for the most recent successful sync of data type.
+          format: uuid
+          example: 8220fc90-55b6-47bc-9417-48ac6ea93101
+      examples:
+        - dataType: string
+          lastSuccessfulSync: '2022-01-01T13:00:00.000Z'
+          currentStatus: string
+          latestSyncId: ad474a37-2003-478e-baee-9af9f1ec2fe3
+          latestSuccessfulSyncId: 8220fc90-55b6-47bc-9417-48ac6ea93101
+    DataStatusResponse:
+      x-internal: true
+      title: Data status response
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/DataStatus'
+    DataType:
+      title: Data types
+      allOf:
+        - title: Data types
           x-internal: true
           type: string
           description: Available Data types
@@ -72810,36 +74989,7 @@ components:
             - commerce-taxComponents
             - commerce-transactions
           example: invoices
-        lastSuccessfulSync:
-          $ref: '#/components/schemas/DateTime'
-        currentStatus:
-          type: string
-          description: The current status of the dataset in Codat's cache.
-        latestSyncId:
-          type: string
-          description: Unique identifier for most recent sync of data type.
-          format: uuid
-          example: ad474a37-2003-478e-baee-9af9f1ec2fe3
-        latestSuccessfulSyncId:
-          type: string
-          description: Unique identifier for the most recent successful sync of data type.
-          format: uuid
-          example: 8220fc90-55b6-47bc-9417-48ac6ea93101
-      examples:
-        - dataType: string
-          lastSuccessfulSync: '2022-01-01T13:00:00.000Z'
-          currentStatus: string
-          latestSyncId: ad474a37-2003-478e-baee-9af9f1ec2fe3
-          latestSuccessfulSyncId: 8220fc90-55b6-47bc-9417-48ac6ea93101
-    DataStatusResponse:
-      x-internal: true
-      title: Data status response
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/DataStatus'
-    DataType:
-      x-internal: true
-      $ref: '#/components/schemas/DataStatus/properties/dataType'
+        - x-internal: true
     PullOperation:
       title: Pull operation
       description: |-
@@ -72863,7 +75013,7 @@ components:
           description: Unique identifier of the connection associated to this pull operation.
           example: 50830828-7d39-4367-b0eb-5ddb2de5faa5
         dataType:
-          $ref: '#/components/schemas/DataStatus/properties/dataType'
+          $ref: '#/components/schemas/DataType/allOf/0'
         status:
           type: string
           description: The current status of the pull operation.
@@ -72952,7 +75102,7 @@ components:
           items:
             $ref: '#/components/schemas/PushOperation/definitions/pushOperationChange'
         dataType:
-          $ref: '#/components/schemas/DataStatus/properties/dataType'
+          $ref: '#/components/schemas/DataType/allOf/0'
           description: 'The type of data being pushed, eg invoices, customers.'
         companyId:
           $ref: '#/components/parameters/companyId/schema'
@@ -73049,7 +75199,7 @@ components:
               type: string
               description: Unique identifier for a push operation.
             dataType:
-              $ref: '#/components/schemas/DataStatus/properties/dataType'
+              $ref: '#/components/schemas/DataType/allOf/0'
               nullable: true
           additionalProperties: false
         pushOperationStatus:
@@ -76614,7 +78764,7 @@ components:
                     type: string
                     description: Unique identifier to a record in `dataType`.
                   dataType:
-                    $ref: '#/components/schemas/DataStatus/properties/dataType'
+                    $ref: '#/components/schemas/DataType/allOf/0'
             issueDate:
               $ref: '#/components/schemas/DateTime'
               description: Date of the invoice as recorded in the accounting system.
@@ -77975,7 +80125,7 @@ components:
                   type: string
                   description: Unique identifier for a customer or supplier.
                 dataType:
-                  $ref: '#/components/schemas/DataStatus/properties/dataType'
+                  $ref: '#/components/schemas/DataType/allOf/0'
                   nullable: true
             date:
               $ref: '#/components/schemas/DateTime'
@@ -80943,6 +83093,7 @@ components:
       type: object
       properties:
         ClientId:
+          title: Client ID
           type: string
           format: uuid
           description: Unique identifier for your client in Codat.
@@ -81350,6 +83501,13 @@ components:
         type: boolean
         default: true
       description: Allow a sync upon push completion.
+    forceUpdate:
+      name: forceUpdate
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
     pushOperationKey:
       name: pushOperationKey
       schema:
@@ -81358,6 +83516,24 @@ components:
       in: path
       required: true
       description: Push operation key.
+    paymentId:
+      name: paymentId
+      in: path
+      required: true
+      schema:
+        type: string
+        examples:
+          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+      description: Unique identifier for a payment.
+    productId:
+      name: productId
+      in: path
+      required: true
+      schema:
+        type: string
+        examples:
+          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+      description: Unique identifier for a product.
   responses:
     BadRequest:
       description: The request made is not valid.
@@ -81410,6 +83586,41 @@ components:
                 service: PublicApi
                 error: Unauthorized
                 correlationId: 7eb40d6b415d7bcd99ce658268284056
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Payment-Required:
+      description: |
+        An account limit has been exceeded. The type of limit is described in the error property:
+
+        - You have exceeded the 50-company limit that applies to a Free plan. Delete any companies you no longer need and retry the request.
+        - The requested sync schedule is not allowed. You requested an hourly sync schedule but this functionality is not included in the Free plan.
+        - Your Free account is older than 365 days and has expired. Contact support@codat.io.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have exceeded the 50-company limit that applies to a Free plan. We recommend that you delete any companies you no longer need and retry the request.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Forbidden:
+      description: You are using an outdated API key or a key not associated with that resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 403
+                service: PublicApi
+                error: You are using an outdated API key or a key not associated with that resource.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
     Not-Found:
@@ -81472,6 +83683,36 @@ components:
                 statusCode: 429
                 service: PublicApi
                 error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Internal-Server-Error:
+      description: There is a problem with our server. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: There is a problem with our server. Please try again later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Service-Unavailable:
+      description: The Codat API is temporarily offline for maintenance. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: The Codat API is temporarily offline for maintenance. Please try again later.
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0

@@ -74,8 +74,6 @@ tags:
     description: Create and manage your Codat companies.
   - name: Connections
     description: Manage your companies' data connections.
-  - name: Migrations
-    description: Migrate existing connections into Codat.
   - name: Webhooks
     description: 'Manage webhooks, rules, and events.'
   - name: Integrations
@@ -185,8 +183,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: list-companies
       description: "\uFEFFReturns a list of your companies. The company schema contains a list of [connections](https://docs.codat.io/platform-api#/schemas/Connection) related to the company."
       parameters:
@@ -235,8 +243,16 @@ paths:
                     detailedErrorCode: 0
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: "\uFEFFCreates a new company that can be used to assign connections to. \n\nIf forbidden characters (see `name` pattern) are present in the request, a company will be created with the forbidden characters removed. For example, `Company (Codat[1])` with be created as `Company Codat1`.\n\n"
       requestBody:
         content:
@@ -280,10 +296,18 @@ paths:
                     createdByUserName: Dan Tzabar
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     delete:
       summary: Delete a company
       operationId: delete-company
@@ -297,10 +321,18 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     put:
       summary: Update company
       description: "\uFEFFUpdates both the name and description of the company."
@@ -318,10 +350,18 @@ paths:
                 $ref: '#/components/schemas/Company'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -385,10 +425,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create connection
       description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. "
@@ -427,10 +475,18 @@ paths:
                     sourceType: Banking
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}':
     get:
       summary: Get connection
@@ -463,10 +519,18 @@ paths:
                     sourceType: Banking
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     delete:
       summary: Delete connection
       operationId: delete-connection
@@ -481,10 +545,18 @@ paths:
           description: OK
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     patch:
       summary: Unlink connection
       description: "\uFEFFThis allows you to deauthorize a connection, without deleting it from Codat. This means you can still view any data that has previously been pulled into Codat, and also lets you re-authorize in future if your customer wishes to resume sharing their data."
@@ -504,10 +576,18 @@ paths:
                 $ref: '#/components/schemas/Connection'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -536,6 +616,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -556,10 +650,18 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         Refreshes all data types with `fetch on first link` set to `true` for a given company.
 
@@ -598,10 +700,18 @@ paths:
                 $ref: '#/components/schemas/PullOperation'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/dataStatus':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -635,10 +745,18 @@ paths:
                       latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/history':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -669,14 +787,12 @@ paths:
                         isCompleted: false
                         isErrored: false
                     _links:
-                      self:
-                        href: ../dictionary
                       current:
-                        href: ../dictionary
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=1&pageSize=2
+                      self:
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history
                       next:
-                        href: ../dictionary
-                      previous:
-                        href: ../dictionary
+                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=2&pageSize=2
                     pageNumber: 0
                     pageSize: 0
                     totalResults: 0
@@ -684,11 +800,19 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
-      description: "\uFEFFThe *List pull operations* endpoint returns a list of [pull operations](https://docs.codat.io/platform-api#/schemas/PullOperation) made by your client.\n\nA [pull operation](https://docs.codat.io/platform-api#/schemas/PullOperation) is a request to retrieve a specific data type from an integration.\n\n### Tips and traps\n\n- The *List pull operations* endpoint does not support querying the `isCompleted` property. You can filter failed pull operations by querying `status!=Complete&&status!=NotSupported` instead.\n\n"
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      description: Gets the pull operation history (datasets) for a given company.
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -714,10 +838,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: Retrieve information about a single dataset or pull operation.
   /rules:
     get:
@@ -760,10 +892,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create webhook
       description: Create a new webhook configuration
@@ -780,8 +920,16 @@ paths:
                 $ref: '#/components/schemas/Webhook'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -881,10 +1029,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   /integrations:
     get:
       summary: List integrations
@@ -903,8 +1059,16 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -928,10 +1092,18 @@ paths:
                 $ref: '#/components/schemas/Integration'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/integrations/{platformKey}/branding':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -951,10 +1123,18 @@ paths:
                 $ref: '#/components/schemas/Branding'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   /profile:
     get:
       summary: Get profile
@@ -970,8 +1150,16 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       operationId: get-profile
       x-speakeasy-name-override: get-profile
       description: Fetch your Codat profile.
@@ -989,8 +1177,16 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       tags:
         - Settings
       description: Update your Codat profile
@@ -1032,8 +1228,16 @@ paths:
                     overridesDefaults: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Update all sync settings
       description: Update sync settings for all data types.
@@ -1046,8 +1250,16 @@ paths:
           description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -1055,9 +1267,7 @@ paths:
               allOf:
                 - properties:
                     clientId:
-                      type: string
-                      format: uuid
-                      description: Unique identifier for your client in Codat.
+                      $ref: '#/components/schemas/ClientId'
                     settings:
                       type: array
                       items:
@@ -1107,8 +1317,16 @@ paths:
                         createdDate: '2022-04-23T09:43:48Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create API key
       operationId: create-api-key
@@ -1172,6 +1390,10 @@ paths:
                     detailedErrorCode: 0
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '409':
           description: Conflict
           content:
@@ -1189,6 +1411,10 @@ paths:
                     detailedErrorCode: 0
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/apiKeys/{apiKeyId}':
     delete:
       summary: Delete API key
@@ -1218,12 +1444,21 @@ paths:
       responses:
         '204':
           description: No Content
+          $ref: '#/components/responses/Too-Many-Requests'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/options/{dataType}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1245,10 +1480,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       description: |-
         This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
 
@@ -1287,10 +1530,18 @@ paths:
           $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/push/{pushOperationKey}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1318,10 +1569,18 @@ paths:
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/integrations/{platformKey}/datatypes/{dataType}/supplementalDataConfig':
     parameters:
       - $ref: '#/components/parameters/platformKey'
@@ -1374,10 +1633,18 @@ paths:
           description: OK
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
       requestBody:
         content:
           application/json:
@@ -1454,10 +1721,18 @@ paths:
                 $ref: '#/components/schemas/SupplementalDataConfiguration'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
 webhooks:
   Company data connection status changed:
     post:
@@ -1563,6 +1838,11 @@ components:
     DataType:
       x-internal: true
       $ref: '#/components/schemas/DataStatus/properties/dataType'
+    ClientId:
+      title: Client ID
+      type: string
+      format: uuid
+      description: Unique identifier for your client in Codat.
     Companies:
       title: Companies
       x-internal: true
@@ -2169,7 +2449,7 @@ components:
       type: object
       properties:
         clientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         settings:
           type: array
           items:
@@ -2639,7 +2919,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2690,7 +2970,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           type: string
           description: Name of your client in Codat.
@@ -2745,7 +3025,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2787,7 +3067,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2836,7 +3116,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2883,7 +3163,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2931,7 +3211,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         CompanyId:
@@ -2981,7 +3261,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         RuleId:
@@ -3022,7 +3302,7 @@ components:
       type: object
       properties:
         ClientId:
-          $ref: '#/paths/~1profile~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/clientId'
+          $ref: '#/components/schemas/ClientId'
         ClientName:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/ClientName'
         RuleId:
@@ -3282,6 +3562,41 @@ components:
                 correlationId: 7eb40d6b415d7bcd99ce658268284056
                 canBeRetried: Unknown
                 detailedErrorCode: 0
+    Payment-Required:
+      description: |
+        An account limit has been exceeded. The type of limit is described in the error property:
+
+        - You have exceeded the 50-company limit that applies to a Free plan. Delete any companies you no longer need and retry the request.
+        - The requested sync schedule is not allowed. You requested an hourly sync schedule but this functionality is not included in the Free plan.
+        - Your Free account is older than 365 days and has expired. Contact support@codat.io.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 429
+                service: PublicApi
+                error: You have exceeded the 50-company limit that applies to a Free plan. We recommend that you delete any companies you no longer need and retry the request.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Forbidden:
+      description: You are using an outdated API key or a key not associated with that resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 403
+                service: PublicApi
+                error: You are using an outdated API key or a key not associated with that resource.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
     Not-Found:
       description: |-
         One or more of the resources you referenced could not be found.
@@ -3327,6 +3642,36 @@ components:
                 statusCode: 429
                 service: PublicApi
                 error: You have made too many requests in a given amount of time; please retry later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Internal-Server-Error:
+      description: There is a problem with our server. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: There is a problem with our server. Please try again later.
+                correlationId: bc997528a9d7abb9161ef45f05d38599
+                canBeRetried: Unknown
+                detailedErrorCode: 0
+    Service-Unavailable:
+      description: The Codat API is temporarily offline for maintenance. Please try again later.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          examples:
+            Conflict:
+              value:
+                statusCode: 500
+                service: PublicApi
+                error: The Codat API is temporarily offline for maintenance. Please try again later.
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
