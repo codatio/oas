@@ -29518,7 +29518,7 @@ webhooks:
 components:
   schemas:
     Account:
-      title: Account
+      title: 'Accounting: Account'
       description: "\uFEFF> **Language tip:** Accounts are also referred to as **chart of accounts**, **nominal accounts**, and **general ledger**.\n\nView the coverage for accounts in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounts are the categories a business uses to record accounting transactions. From the Accounts endpoints, you can retrieve a list of all accounts for a specified company.\n\nThe categories for an account include:\n* Asset\n* Expense\n* Income\n* Liability\n* Equity.\n\nThe same account may have a different category based on the integration it is used in. For example, a current account (known as checking in the US) should be categorized as `Asset.Current` for Xero, and `Asset.Bank.Checking` for QuickBooks Online.\n\nAt the same time, each integration may have its own requirements to the categories. For example, a Paypal account in Xero is of the `Asset.Bank` category and therefore requires additional properties to be provided.\n\nTo determine the list of allowed categories for a specific integration, you can:\n- Follow our [Create, update, delete data](https://docs.codat.io/using-the-api/push) guide and use the [Get create account model](https://docs.codat.io/sync-for-payables-api#/operations/get-create-chartOfAccounts-model).\n- Refer to the integration's own documentation.\n\n> **Accounts with no category**\n>\n> If an account is pulled from the chart of accounts and its nominal code does not lie within the category layout for the company's accounts, then the **type** is `Unknown`. The **fullyQualifiedCategory** and **fullyQualifiedName** fields return `null`.\n>\n> This approach gives a true representation of the company's accounts whilst preventing distorting financials such as a company's profit and loss and balance sheet reports."
       allOf:
         - properties:
@@ -29672,7 +29672,7 @@ components:
           example: Active
       type: object
     Accounts:
-      title: Accounts
+      title: 'Accounting: Accounts'
       x-internal: true
       allOf:
         - type: object
@@ -29683,7 +29683,7 @@ components:
                 $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PagingInfo'
     Address:
-      title: Accounting address
+      title: 'Accounting: Address'
       x-internal: true
       type: object
       properties:
@@ -29724,7 +29724,7 @@ components:
             - Billing
             - Delivery
     Attachment:
-      title: Attachment
+      title: 'Accounting: Attachment'
       description: |
         The Codat API supports pulling and pushing of file attachments for invoices, bills, direct costs, and direct incomes.
 
@@ -29784,7 +29784,7 @@ components:
           nullable: true
       title: Attachments
     Bill:
-      title: Bill
+      title: 'Accounting: Bill'
       description: |-
         > **Invoices or bills?**
         >
@@ -29911,7 +29911,7 @@ components:
               nullable: true
               description: An array of payment allocations.
               items:
-                title: Payment allocation
+                title: 'Accounting: Payment allocation'
                 type: object
                 properties:
                   payment:
@@ -30080,6 +30080,7 @@ components:
             purchaseOrderLineRef:
               description: Reference to the purchase order line this line was generated from.
               type: object
+              x-internal: true
               title: Record line reference
               properties:
                 id:
@@ -30108,7 +30109,7 @@ components:
             - unitAmount
             - quantity
     BillCreditNote:
-      title: Bill credit note
+      title: 'Accounting: Bill credit note'
       description: |-
         > **Bill credit notes or credit notes?**
         > 
@@ -30301,6 +30302,7 @@ components:
                 $ref: '#/components/schemas/TrackingCategory/definitions/trackingCategoryRef'
             tracking:
               title: Tracking
+              x-internal: true
               type: object
               description: 'Categories, and a project and customer, against which the item is tracked.'
               properties:
@@ -30322,7 +30324,7 @@ components:
                   required:
                     - id
                 projectRef:
-                  title: Project reference
+                  title: 'Accounting: Project reference'
                   x-internal: true
                   required:
                     - id
@@ -30427,7 +30429,7 @@ components:
             id: 67C6A7A1-5E84-4AC4-B950-24A114E379D0
             supplierName: Chin's Gas and Oil
     BillCreditNotes:
-      title: Bill credit notes
+      title: 'Accounting: Bill credit notes'
       x-internal: true
       allOf:
         - type: object
@@ -30438,7 +30440,7 @@ components:
                 $ref: '#/components/schemas/BillCreditNote'
         - $ref: '#/components/schemas/PagingInfo'
     BillPayment:
-      title: Bill payment
+      title: 'Accounting: Bill payment'
       description: |
         > **Bill payments or payments?**  
         > 
@@ -30900,7 +30902,7 @@ components:
                   id: z
                   amount: 750
     BillPayments:
-      title: Bill payments
+      title: 'Accounting: Bill payments'
       x-internal: true
       allOf:
         - type: object
@@ -30911,7 +30913,7 @@ components:
                 $ref: '#/components/schemas/BillPayment'
         - $ref: '#/components/schemas/PagingInfo'
     Bills:
-      title: Bills
+      title: 'Accounting: Bills'
       x-internal: true
       allOf:
         - type: object
@@ -31119,15 +31121,15 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     CompanyInfo:
-      title: Company information
+      title: 'Accounting: Company profile'
       description: |-
-        > View the coverage for company info in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
+        > View the coverage for company profile in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
 
         Company info provides standard details about a linked company such as their address, phone number, and company registration.
 
         > **Company information or companies?**
         > 
-        > Company information is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
+        > Company profile is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
       type: object
       properties:
         companyName:
@@ -31366,7 +31368,7 @@ components:
                 $ref: '#/components/schemas/Connection'
         - $ref: '#/components/schemas/PagingInfo'
     CreateAccountResponse:
-      title: Create account response
+      title: 'Accounting: Create account response'
       x-internal: true
       allOf:
         - type: object
@@ -31375,7 +31377,7 @@ components:
               $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PushOperation'
     CreateBillCreditNoteResponse:
-      title: Create bill credit note response
+      title: 'Accounting: Create bill credit note response'
       x-internal: true
       allOf:
         - type: object
@@ -31384,7 +31386,7 @@ components:
               $ref: '#/components/schemas/BillCreditNote'
         - $ref: '#/components/schemas/PushOperation'
     CreateBillPaymentResponse:
-      title: Create bill payment response
+      title: 'Accounting: Create bill payment response'
       x-internal: true
       allOf:
         - type: object
@@ -31393,7 +31395,7 @@ components:
               $ref: '#/components/schemas/BillPayment'
         - $ref: '#/components/schemas/PushOperation'
     CreateBillResponse:
-      title: Create bill response
+      title: 'Accounting: Create bill response'
       x-internal: true
       allOf:
         - type: object
@@ -31402,7 +31404,7 @@ components:
               $ref: '#/components/schemas/Bill'
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalEntryResponse:
-      title: Create journal entry response
+      title: 'Accounting: Create journal entry response'
       x-internal: true
       allOf:
         - type: object
@@ -31411,7 +31413,7 @@ components:
               $ref: '#/components/schemas/JournalEntry'
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalResponse:
-      title: Create journal response
+      title: 'Accounting: Create journal response'
       x-internal: true
       allOf:
         - type: object
@@ -31420,7 +31422,7 @@ components:
               $ref: '#/components/schemas/Journal'
         - $ref: '#/components/schemas/PushOperation'
     CreateSupplierResponse:
-      title: Create supplier response
+      title: 'Accounting: Create supplier response'
       x-internal: true
       allOf:
         - type: object
@@ -31540,7 +31542,7 @@ components:
           type: integer
           description: Machine readable error code used to automate processes based on the code returned.
     Journal:
-      title: Journal
+      title: 'Accounting: Journal'
       description: |
         > **Language tip:** For line items, or individual transactions, of a company's financial documents, refer to the [Journal entries](https://docs.codat.io/sync-for-payables-api#/schemas/JournalEntry) data type
 
@@ -31628,7 +31630,7 @@ components:
             - Active
             - Archived
     JournalEntry:
-      title: Journal entry
+      title: 'Accounting: Journal entry'
       description: |-
         > **Language tip:** For the top-level record of a company's financial transactions, refer to the [Journals](https://docs.codat.io/sync-for-payables-api#/schemas/Journal) data type
 
@@ -31689,6 +31691,7 @@ components:
                 $ref: '#/components/schemas/JournalEntry/definitions/journalLine'
             recordRef:
               type: object
+              x-internal: true
               title: Record reference
               description: |-
                 Links the current record to the underlying record or data type that created it. 
@@ -31741,7 +31744,7 @@ components:
           required:
             - netAmount
     Journals:
-      title: Journals
+      title: 'Accounting: Journals'
       x-internal: true
       allOf:
         - type: object
@@ -31821,7 +31824,7 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     PaymentMethod:
-      title: Payment method
+      title: 'Accounting: Payment method'
       description: |-
         > View the coverage for payment methods in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=paymentMethods" target="_blank">Data coverage explorer</a>.
 
@@ -31881,7 +31884,7 @@ components:
         id: EILBDVJVNUAGVKRQ
         name: AliPay
     PaymentMethods:
-      title: Payment methods
+      title: 'Accounting: Payment methods'
       x-internal: true
       allOf:
         - type: object
@@ -32305,7 +32308,7 @@ components:
             additionalProperties: true
           nullable: true
     Supplier:
-      title: Supplier
+      title: 'Accounting: Supplier'
       description: |-
         > View the coverage for suppliers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers" target="_blank">Data coverage explorer</a>.
 
@@ -32431,7 +32434,7 @@ components:
                 $ref: '#/components/schemas/Supplier'
         - $ref: '#/components/schemas/PagingInfo'
     TaxRate:
-      title: Tax rate
+      title: 'Accounting: Tax rate'
       description: |-
         > View the coverage for tax rates in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=taxRates" target="_blank">Data coverage explorer</a>.
 
@@ -32554,7 +32557,7 @@ components:
           required:
             - isCompound
     TaxRates:
-      title: Tax rates
+      title: 'Accounting: Tax rates'
       x-internal: true
       allOf:
         - type: object
@@ -32565,7 +32568,7 @@ components:
                 $ref: '#/components/schemas/TaxRate'
         - $ref: '#/components/schemas/PagingInfo'
     TrackingCategories:
-      title: Tracking categories
+      title: 'Accounting: Tracking categories'
       x-internal: true
       allOf:
         - type: object
@@ -32576,7 +32579,7 @@ components:
                 $ref: '#/components/schemas/TrackingCategory'
         - $ref: '#/components/schemas/PagingInfo'
     TrackingCategory:
-      title: Tracking category
+      title: 'Accounting: Tracking category'
       description: |-
         Details of a category used for tracking transactions.
 
@@ -32763,7 +32766,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TrackingCategoryTree:
-      title: Tracking category tree
+      title: 'Accounting: Tracking category tree'
       description: The full structure of a specific tracking category including any child or subcategories.
       type: object
       allOf:
@@ -32796,7 +32799,7 @@ components:
               $ref: '#/components/schemas/Metadata'
         - $ref: '#/components/schemas/Bill/allOf/1'
     UpdateBillCreditNoteResponse:
-      title: Update bill credit note response
+      title: 'Accounting: Update bill credit note response'
       x-internal: true
       allOf:
         - type: object
@@ -32805,7 +32808,7 @@ components:
               $ref: '#/components/schemas/BillCreditNote'
         - $ref: '#/components/schemas/PushOperation'
     UpdateBillResponse:
-      title: Update bill response
+      title: 'Accounting: Update bill response'
       x-internal: true
       allOf:
         - type: object
@@ -32814,7 +32817,7 @@ components:
               $ref: '#/components/schemas/Bill'
         - $ref: '#/components/schemas/PushOperation'
     UpdateSupplierResponse:
-      title: Update supplier response
+      title: 'Accounting: Update supplier response'
       x-internal: true
       allOf:
         - type: object

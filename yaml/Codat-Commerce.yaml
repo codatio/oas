@@ -5492,7 +5492,7 @@ paths:
 components:
   schemas:
     Address:
-      title: Address
+      title: 'Commerce: Address'
       x-internal: true
       type: object
       properties:
@@ -5527,9 +5527,9 @@ components:
             - Inventory
             - Unknown
     CompanyInfo:
-      title: Commerce company info
+      title: 'Commerce: Company profile'
       description: |
-        In the Codat system, company information includes standard commercial details about 
+        In the Codat system, company profile includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
@@ -5632,7 +5632,7 @@ components:
           $ref: '#/components/schemas/DateTime'
           description: The date the entity was created.
     Customer:
-      title: Commerce customer
+      title: 'Commerce: Customer'
       description: |-
         When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
 
@@ -5754,7 +5754,7 @@ components:
               modifiedDate: null
               sourceModifiedDate: '2020-08-12T14:37:37'
     Customers:
-      title: Commerce customers
+      title: 'Commerce: Customers'
       x-internal: true
       allOf:
         - type: object
@@ -5791,7 +5791,7 @@ components:
         > Not all dates from Codat will contain information about time zones.  
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
     Dispute:
-      title: Commerce dispute
+      title: 'Commerce: Dispute'
       description: |-
         A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
         - They didn't receive an order.  
@@ -5867,7 +5867,7 @@ components:
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-22T14:39:55'
     Disputes:
-      title: Disputes
+      title: 'Commerce: Disputes'
       x-internal: true
       allOf:
         - type: object
@@ -5901,7 +5901,7 @@ components:
           type: integer
           description: Machine readable error code used to automate processes based on the code returned.
     Location:
-      title: Commerce location
+      title: 'Commerce: Location'
       type: object
       description: |-
         The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
@@ -5952,7 +5952,7 @@ components:
           modifiedDate: '2020-08-12T14:37:37'
           sourceModifiedDate: '2020-08-12T14:37:37'
     Locations:
-      title: Locations
+      title: 'Commerce: Locations'
       x-internal: true
       allOf:
         - type: object
@@ -6000,7 +6000,7 @@ components:
 
                     In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
     Order:
-      title: Commerce order
+      title: 'Commerce: Order'
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
@@ -6261,7 +6261,7 @@ components:
           sourceModifiedDate: '2021-03-28T03:00:14'
       type: object
     Orders:
-      title: Orders
+      title: 'Commerce: Orders'
       x-internal: true
       allOf:
         - type: object
@@ -6332,7 +6332,7 @@ components:
             current:
               href: '/companies/{id}/data/{dataType}?page=1&pageSize=10'
     Payment:
-      title: Commerce payment
+      title: 'Commerce: Payment'
       description: |-
         Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.
 
@@ -6441,7 +6441,7 @@ components:
             - $ref: '#/components/schemas/CreatedDate'
             - $ref: '#/components/schemas/ModifiedDates'
     PaymentMethod:
-      title: Commerce payment method
+      title: 'Commerce: Payment method'
       description: |-
         A Payment Method represents the payment method(s) used to make payments.
 
@@ -6481,7 +6481,7 @@ components:
         id: EILBDVJVNUAGVKRQ
         name: AliPay
     PaymentMethods:
-      title: Commerce payment methods
+      title: 'Commerce: Payment methods'
       x-internal: true
       allOf:
         - type: object
@@ -6492,7 +6492,7 @@ components:
                 $ref: '#/components/schemas/PaymentMethod'
         - $ref: '#/components/schemas/PagingInfo'
     Payments:
-      title: Commerce payments
+      title: 'Commerce: Payments'
       x-internal: true
       allOf:
         - type: object
@@ -6531,7 +6531,7 @@ components:
             - Fax
             - Unknown
     Product:
-      title: Commerce product
+      title: 'Commerce: Product'
       description: |
         A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
 
@@ -6717,7 +6717,7 @@ components:
             - Published
             - Unpublished
     ProductCategories:
-      title: Product categories
+      title: 'Commerce: Product categories'
       x-internal: true
       allOf:
         - type: object
@@ -6728,7 +6728,7 @@ components:
                 $ref: '#/components/schemas/ProductCategory'
         - $ref: '#/components/schemas/PagingInfo'
     ProductCategory:
-      title: Commerce product category
+      title: 'Commerce: Product category'
       description: |-
         Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
 
@@ -6781,7 +6781,7 @@ components:
               modifiedDate: '2022-01-01T12:00:00Z'
               sourceModifiedDate: '2021-12-25T12:00:00Z'
     Products:
-      title: Products
+      title: 'Commerce: Products'
       x-internal: true
       allOf:
         - type: object
@@ -6827,7 +6827,7 @@ components:
             additionalProperties: true
           nullable: true
     TaxComponent:
-      title: Commerce tax component
+      title: 'Commerce: Tax component'
       description: |-
         The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
 
@@ -6895,7 +6895,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TaxComponents:
-      title: Tax components
+      title: 'Commerce: Tax components'
       x-internal: true
       allOf:
         - type: object
@@ -6906,7 +6906,7 @@ components:
                 $ref: '#/components/schemas/TaxComponent'
         - $ref: '#/components/schemas/PagingInfo'
     Transaction:
-      title: Commerce transaction
+      title: 'Commerce: Transaction'
       description: |-
         Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.
 
@@ -7022,7 +7022,7 @@ components:
             - Unknown
       examples: []
     Transactions:
-      title: Commerce transactions
+      title: 'Commerce: Transactions'
       x-internal: true
       allOf:
         - type: object

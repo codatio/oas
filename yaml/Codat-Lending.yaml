@@ -74551,7 +74551,7 @@ components:
           Data:
             modifiedDate: '2019-08-24T14:15:22Z'
     AccountingAccount:
-      title: Account
+      title: 'Accounting: Account'
       description: "\uFEFF> **Language tip:** Accounts are also referred to as **chart of accounts**, **nominal accounts**, and **general ledger**.\n\nView the coverage for accounts in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounts are the categories a business uses to record accounting transactions. From the Accounts endpoints, you can retrieve a list of all accounts for a specified company.\n\nThe categories for an account include:\n* Asset\n* Expense\n* Income\n* Liability\n* Equity.\n\nThe same account may have a different category based on the integration it is used in. For example, a current account (known as checking in the US) should be categorized as `Asset.Current` for Xero, and `Asset.Bank.Checking` for QuickBooks Online.\n\nAt the same time, each integration may have its own requirements to the categories. For example, a Paypal account in Xero is of the `Asset.Bank` category and therefore requires additional properties to be provided.\n\nTo determine the list of allowed categories for a specific integration, you can:\n- Follow our [Create, update, delete data](https://docs.codat.io/using-the-api/push) guide and use the [Get create account model](https://docs.codat.io/lending-api#/operations/get-create-chartOfAccounts-model).\n- Refer to the integration's own documentation.\n\n> **Accounts with no category**\n>\n> If an account is pulled from the chart of accounts and its nominal code does not lie within the category layout for the company's accounts, then the **type** is `Unknown`. The **fullyQualifiedCategory** and **fullyQualifiedName** fields return `null`.\n>\n> This approach gives a true representation of the company's accounts whilst preventing distorting financials such as a company's profit and loss and balance sheet reports."
       allOf:
         - properties:
@@ -74705,7 +74705,7 @@ components:
           example: Active
       type: object
     AccountingAccounts:
-      title: Accounts
+      title: 'Accounting: Accounts'
       x-internal: true
       allOf:
         - type: object
@@ -74716,7 +74716,7 @@ components:
                 $ref: '#/components/schemas/AccountingAccount'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingAccountTransaction:
-      title: Account transaction
+      title: 'Accounting: Account transaction'
       description: |-
         > **Language tip:** In Codat, account transactions represent all transactions posted to a bank account within an accounting platform. For bank transactions posted within a banking platform, refer to [Banking transactions](https://docs.codat.io/lending-api#/operations/list-all-banking-transactions).
 
@@ -74797,7 +74797,7 @@ components:
               format: decimal
               description: Amount in the bill payment currency.
     AccountingAccountTransactions:
-      title: Account transactions
+      title: 'Accounting: Account transactions'
       x-internal: true
       allOf:
         - type: object
@@ -74808,7 +74808,7 @@ components:
                 $ref: '#/components/schemas/AccountingAccountTransaction'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingAddress:
-      title: Accounting address
+      title: 'Accounting: Address'
       x-internal: true
       type: object
       properties:
@@ -74849,7 +74849,7 @@ components:
             - Billing
             - Delivery
     AccountingAgedCreditorReport:
-      title: Aged creditors report
+      title: 'Accounting: Aged creditors report'
       description: |-
         The Aged Creditors report shows the total balance owed by a business to its suppliers over time.
 
@@ -74931,7 +74931,7 @@ components:
                 $ref: '#/components/schemas/AgedCurrencyOutstanding'
     AccountingAgedDebtorReport:
       type: object
-      title: Aged debtors report
+      title: 'Accounting: Aged debtors report'
       description: |-
         The Aged Debtors report shows the total outstanding balance due from customers to the business over time. 
 
@@ -75011,7 +75011,7 @@ components:
                         - name: Invoices
                           amount: 1547.5
     AccountingAttachment:
-      title: Attachment
+      title: 'Accounting: Attachment'
       description: |
         The Codat API supports pulling and pushing of file attachments for invoices, bills, direct costs, and direct incomes.
 
@@ -75061,7 +75061,7 @@ components:
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       examples: []
     AccountingBalanceSheet:
-      title: Balance sheet
+      title: 'Accounting: Balance sheet'
       description: |-
         > View the coverage for balance sheet in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=balanceSheet" target="_blank">Data coverage explorer</a>.
 
@@ -75126,7 +75126,7 @@ components:
           required:
             - netAssets
     AccountingBankAccount:
-      title: Bank account
+      title: 'Accounting: Bank account'
       description: |-
         > **Accessing Bank Accounts through Banking API**
         > 
@@ -75228,7 +75228,7 @@ components:
           description: Links to the Account transactions data type.
     AccountingBankAccounts:
       x-internal: true
-      title: Bank Accounts
+      title: 'Accounting: Bank accounts'
       allOf:
         - type: object
           properties:
@@ -75250,7 +75250,7 @@ components:
         For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
         For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
     AccountingBankTransaction:
-      title: Bank account transaction
+      title: 'Accounting: Bank account transaction'
       description: |-
         > **Accessing Bank Accounts through Banking API**
         > 
@@ -75324,7 +75324,7 @@ components:
             - RepeatPmt
             - Other
     AccountingBankTransactions:
-      title: Accounting bank transactions
+      title: 'Accounting: Accounting bank transactions'
       x-internal: true
       allOf:
         - type: object
@@ -75335,7 +75335,7 @@ components:
                 $ref: '#/components/schemas/AccountingBankTransaction'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingBill:
-      title: Bill
+      title: 'Accounting: Bill'
       description: |-
         > **Invoices or bills?**
         >
@@ -75529,6 +75529,7 @@ components:
             purchaseOrderLineRef:
               description: Reference to the purchase order line this line was generated from.
               type: object
+              x-internal: true
               title: Record line reference
               properties:
                 id:
@@ -75557,7 +75558,7 @@ components:
             - unitAmount
             - quantity
     AccountingBillCreditNote:
-      title: Bill credit note
+      title: 'Accounting: Bill credit note'
       description: |-
         > **Bill credit notes or credit notes?**
         > 
@@ -75847,7 +75848,7 @@ components:
             id: 67C6A7A1-5E84-4AC4-B950-24A114E379D0
             supplierName: Chin's Gas and Oil
     AccountingBillCreditNotes:
-      title: Bill credit notes
+      title: 'Accounting: Bill credit notes'
       x-internal: true
       allOf:
         - type: object
@@ -75858,7 +75859,7 @@ components:
                 $ref: '#/components/schemas/AccountingBillCreditNote'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingBillPayment:
-      title: Bill payment
+      title: 'Accounting: Bill payment'
       description: |
         > **Bill payments or payments?**  
         > 
@@ -76291,7 +76292,7 @@ components:
                   id: z
                   amount: 750
     AccountingBillPayments:
-      title: Bill payments
+      title: 'Accounting: Bill payments'
       x-internal: true
       allOf:
         - type: object
@@ -76302,7 +76303,7 @@ components:
                 $ref: '#/components/schemas/AccountingBillPayment'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingBills:
-      title: Bills
+      title: 'Accounting: Bills'
       x-internal: true
       allOf:
         - type: object
@@ -76313,7 +76314,7 @@ components:
                 $ref: '#/components/schemas/AccountingBill'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingCashFlowStatement:
-      title: Cash flow statement
+      title: 'Accounting: Cash flow statement'
       description: |-
         > View the coverage for cash flow statement in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
 
@@ -76386,15 +76387,15 @@ components:
               $ref: '#/components/schemas/ReportLine'
               description: ReportLines for cash payments to suppliers for the purchase of goods or services.
     AccountingCompanyInfo:
-      title: Company information
+      title: 'Accounting: Company profile'
       description: |-
-        > View the coverage for company info in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
+        > View the coverage for company profile in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
 
         Company info provides standard details about a linked company such as their address, phone number, and company registration.
 
         > **Company information or companies?**
         > 
-        > Company information is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
+        > Company profile is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
       type: object
       properties:
         companyName:
@@ -76495,7 +76496,7 @@ components:
             url2: 'https://reporting.xero.com/!rxs0Q'
           createdDate: '2020-02-03T16:42:02Z'
     AccountingCreateAccountResponse:
-      title: Create account response
+      title: 'Accounting: Create account response'
       x-internal: true
       allOf:
         - type: object
@@ -76504,7 +76505,7 @@ components:
               $ref: '#/components/schemas/AccountingAccount'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateBankAccountResponse:
-      title: Create bank account response
+      title: 'Accounting: Create bank account response'
       x-internal: true
       allOf:
         - type: object
@@ -76513,7 +76514,7 @@ components:
               $ref: '#/components/schemas/AccountingBankAccount'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateBankTransactions:
-      title: Create bank account transactions
+      title: 'Accounting: Create bank account transactions'
       type: object
       properties:
         accountId:
@@ -76552,7 +76553,7 @@ components:
               format: decimal
               description: The remaining balance in the account with ID `accountId`.
     AccountingCreateBankTransactionsResponse:
-      title: Create/update bank transaction response
+      title: 'Accounting: Create/update bank transaction response'
       x-internal: true
       allOf:
         - type: object
@@ -76561,7 +76562,7 @@ components:
               $ref: '#/components/schemas/AccountingCreateBankTransactions'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateDirectCostResponse:
-      title: Create direct cost response
+      title: 'Accounting: Create direct cost response'
       x-internal: true
       allOf:
         - type: object
@@ -76570,7 +76571,7 @@ components:
               $ref: '#/components/schemas/AccountingDirectCost'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreatePaymentResponse:
-      title: Create payment response
+      title: 'Accounting: Create payment response'
       x-internal: true
       allOf:
         - type: object
@@ -76579,7 +76580,7 @@ components:
               $ref: '#/components/schemas/AccountingPayment'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateSupplierResponse:
-      title: Create supplier response
+      title: 'Accounting: Create supplier response'
       x-internal: true
       allOf:
         - type: object
@@ -76588,7 +76589,7 @@ components:
               $ref: '#/components/schemas/AccountingSupplier'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateTransferResponse:
-      title: Create transfer response
+      title: 'Accounting: Create transfer response'
       x-internal: true
       allOf:
         - type: object
@@ -76597,7 +76598,7 @@ components:
               $ref: '#/components/schemas/AccountingTransfer'
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreditNote:
-      title: Credit note
+      title: 'Accounting: Credit note'
       description: |-
         > View the coverage for credit notes in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes" target="_blank">Data coverage explorer</a>.
 
@@ -76820,7 +76821,7 @@ components:
             modifiedDate: null
             sourceModifiedDate: null
     AccountingCreditNotes:
-      title: Credit notes
+      title: 'Accounting: Credit notes'
       x-internal: true
       allOf:
         - type: object
@@ -76831,7 +76832,7 @@ components:
                 $ref: '#/components/schemas/AccountingCreditNote'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingCustomer:
-      title: Customer
+      title: 'Accounting: Customer'
       description: |
         > View the coverage for customers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers" target="_blank">Data coverage explorer</a>.
 
@@ -76944,7 +76945,7 @@ components:
           required:
             - status
     AccountingCustomers:
-      title: Accounting customers
+      title: 'Accounting: Customers'
       x-internal: true
       allOf:
         - type: object
@@ -76955,7 +76956,7 @@ components:
                 $ref: '#/components/schemas/AccountingCustomer'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingDirectCost:
-      title: Direct cost
+      title: 'Accounting: Direct cost'
       description: |-
         > **Language tip:** Direct costs may also be referred to as **Spend transactions**, **Spend money transactions**, or **Payments** in various accounting platforms.
 
@@ -77114,7 +77115,7 @@ components:
               $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
           additionalProperties: false
     AccountingDirectCosts:
-      title: Direct costs
+      title: 'Accounting: Direct costs'
       x-internal: true
       allOf:
         - type: object
@@ -77125,7 +77126,7 @@ components:
                 $ref: '#/components/schemas/AccountingDirectCost'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingDirectIncome:
-      title: Direct income
+      title: 'Accounting: Direct income'
       description: |
         > **Language tip:**  Direct incomes may also be referred to as **Receive transactions**, **Receive money transactions**, **Sales receipts**, or **Cash sales** in various accounting platforms.
 
@@ -77269,7 +77270,7 @@ components:
             - unitAmount
             - quantity
     AccountingDirectIncomes:
-      title: Direct incomes
+      title: 'Accounting: Direct incomes'
       x-internal: true
       allOf:
         - type: object
@@ -77280,7 +77281,7 @@ components:
                 $ref: '#/components/schemas/AccountingDirectIncome'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingInvoice:
-      title: Invoice
+      title: 'Accounting: Invoice'
       description: |-
         > **Invoices or bills?**
         >
@@ -77504,7 +77505,7 @@ components:
             - `Paid` - Invoice is paid in full. This includes if the invoice has been credited or overpaid (amountDue == 0).
             - `Void` - An invoice can become Void when it's deleted, refunded, written off, or cancelled. A voided invoice may still be PartiallyPaid, and so all outstanding amounts on voided invoices are removed from the accounts receivable account.
     AccountingInvoices:
-      title: Invoices
+      title: 'Accounting: Invoices'
       x-internal: true
       allOf:
         - type: object
@@ -77515,7 +77516,7 @@ components:
                 $ref: '#/components/schemas/AccountingInvoice'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingJournal:
-      title: Journal
+      title: 'Accounting: Journal'
       description: |
         > **Language tip:** For line items, or individual transactions, of a company's financial documents, refer to the [Journal entries](https://docs.codat.io/lending-api#/schemas/JournalEntry) data type
 
@@ -77603,7 +77604,7 @@ components:
             - Active
             - Archived
     AccountingJournalEntries:
-      title: Journal entries
+      title: 'Accounting: Journal entries'
       x-internal: true
       allOf:
         - type: object
@@ -77614,7 +77615,7 @@ components:
                 $ref: '#/components/schemas/AccountingJournalEntry'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingJournalEntry:
-      title: Journal entry
+      title: 'Accounting: Journal entry'
       description: |-
         > **Language tip:** For the top-level record of a company's financial transactions, refer to the [Journals](https://docs.codat.io/lending-api#/schemas/Journal) data type
 
@@ -77710,7 +77711,7 @@ components:
           required:
             - netAmount
     AccountingJournals:
-      title: Journals
+      title: 'Accounting: Journals'
       x-internal: true
       allOf:
         - type: object
@@ -77721,7 +77722,7 @@ components:
                 $ref: '#/components/schemas/AccountingJournal'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingPayment:
-      title: Payment
+      title: 'Accounting: Payment'
       description: |-
         > **Payments or bill payments?**  
         > 
@@ -78518,7 +78519,7 @@ components:
             `Manual Journal`  
             `Discount` - ID refers to the payment
     AccountingPaymentAllocation:
-      title: Payment allocation
+      title: 'Accounting: Payment allocation'
       type: object
       properties:
         payment:
@@ -78601,7 +78602,7 @@ components:
               format: decimal
               description: Total amount that was paid.
     AccountingPaymentMethod:
-      title: Payment method
+      title: 'Accounting: Payment method'
       description: |-
         > View the coverage for payment methods in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=paymentMethods" target="_blank">Data coverage explorer</a>.
 
@@ -78639,7 +78640,7 @@ components:
             - BankTransfer
             - Other
     AccountingPayments:
-      title: Accounting payments
+      title: 'Accounting: Payments'
       x-internal: true
       allOf:
         - type: object
@@ -78650,7 +78651,7 @@ components:
                 $ref: '#/components/schemas/AccountingPayment'
         - $ref: '#/components/schemas/PagingInfo'
     AccountingProfitAndLossReport:
-      title: Profit and loss report
+      title: 'Accounting: Profit and loss report'
       description: |-
         > **Language tip:** Profit and loss statement is also referred to as **income statement** under US GAAP (Generally Accepted Accounting Principles).
 
@@ -78752,7 +78753,7 @@ components:
             - netOtherIncome
             - netProfit
     AccountingSupplier:
-      title: Supplier
+      title: 'Accounting: Supplier'
       description: |-
         > View the coverage for suppliers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers" target="_blank">Data coverage explorer</a>.
 
@@ -78879,7 +78880,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     AccountingTrackingCategory:
       x-internal: true
-      title: Tracking category
+      title: 'Accounting: Tracking category'
       description: |-
         Details of a category used for tracking transactions.
 
@@ -79066,7 +79067,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     AccountingTransfer:
-      title: Transfer
+      title: 'Accounting: Transfer'
       description: |-
         > View the coverage for transfers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers" target="_blank">Data coverage explorer</a>.
 
@@ -79136,7 +79137,7 @@ components:
               description: The amount transferred between accounts.
       type: object
     AccountingTransfers:
-      title: Transfers
+      title: 'Accounting: Transfers'
       x-internal: true
       allOf:
         - type: object
@@ -79148,6 +79149,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     AccountsPayableTracking:
       title: Tracking
+      x-internal: true
       type: object
       description: 'Categories, and a project and customer, against which the item is tracked.'
       properties:
@@ -79178,6 +79180,7 @@ components:
             - Project
     AccountsReceivableTracking:
       title: Tracking
+      x-internal: true
       type: object
       description: 'Categories, and a project and customer, against which the item is tracked.'
       properties:
@@ -79195,6 +79198,7 @@ components:
           $ref: '#/components/schemas/AccountsReceivableTracking/definitions/billedToType'
         recordRef:
           type: object
+          x-internal: true
           title: Record reference
           description: |-
             Links the current record to the underlying record or data type that created it. 
@@ -79226,7 +79230,7 @@ components:
           description: Defines if the bill or bill credit note is billed/rebilled to a project.
     AgedCurrencyOutstanding:
       type: object
-      title: Aged currency outstanding
+      title: 'Accounting: Aged currency outstanding'
       properties:
         currency:
           title: Currency
@@ -79292,7 +79296,7 @@ components:
           nullable: true
       title: Attachments
     BankingAccount:
-      title: Banking bank account
+      title: 'Banking: Bank account'
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
 
@@ -79434,7 +79438,7 @@ components:
               modifiedDate: '2022-05-23T16:32:50Z'
               sourceModifiedDate: '2021-08-14T05:04:12'
     BankingAccountBalance:
-      title: Account balance
+      title: 'Banking: Account balance'
       description: |-
         The Banking Account Balances data type provides a list of balances for a bank account including end-of-day batch balance or running balances per transaction.
 
@@ -79512,7 +79516,7 @@ components:
                 limit: 0
               date: '2022-03-09T00:00:00'
     BankingAccountBalances:
-      title: Account balances
+      title: 'Banking: Account balances'
       x-internal: true
       allOf:
         - type: object
@@ -79523,7 +79527,7 @@ components:
                 $ref: '#/components/schemas/BankingAccountBalance'
         - $ref: '#/components/schemas/PagingInfo'
     BankingAccounts:
-      title: Banking bank accounts
+      title: 'Banking: Bank accounts'
       x-internal: true
       allOf:
         - type: object
@@ -79534,7 +79538,7 @@ components:
                 $ref: '#/components/schemas/BankingAccount'
         - $ref: '#/components/schemas/PagingInfo'
     BankingTransaction:
-      title: Banking transaction
+      title: 'Banking: Transaction'
       description: |-
         The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
@@ -79619,7 +79623,7 @@ components:
           modifiedDate: '2022-05-23T16:32:50Z'
           sourceModifiedDate: '2021-06-28T10:48:12'
     BankingTransactionCategories:
-      title: Transaction categories
+      title: 'Banking: Transaction categories'
       x-internal: true
       allOf:
         - type: object
@@ -79630,7 +79634,7 @@ components:
                 $ref: '#/components/schemas/BankingTransactionCategory'
         - $ref: '#/components/schemas/PagingInfo'
     BankingTransactionCategory:
-      title: Transaction Category
+      title: 'Banking: Transaction category'
       description: |-
         The Banking Transaction Categories data type provides a list of hierarchical categories associated with a transaction for greater contextual meaning to transaction activity.
 
@@ -79693,7 +79697,7 @@ components:
           modifiedDate: '2022-05-23T16:32:50'
           sourceModifiedDate: '2021-04-24T07:59:10'
     BankingTransactions:
-      title: Banking transactions
+      title: 'Banking: Transactions'
       x-internal: true
       allOf:
         - type: object
@@ -79807,7 +79811,7 @@ components:
             DailyQuota: 1000
             ExpiresUtc: '2023-05-03T00:00:00Z'
     CommerceAddress:
-      title: Address
+      title: 'Commerce: Address'
       x-internal: true
       type: object
       properties:
@@ -79842,9 +79846,9 @@ components:
             - Inventory
             - Unknown
     CommerceCompanyInfo:
-      title: Commerce company info
+      title: 'Commerce: Company profile'
       description: |
-        In the Codat system, company information includes standard commercial details about 
+        In the Codat system, company profile includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
@@ -79922,7 +79926,7 @@ components:
               allOf:
                 - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
     CommerceCustomer:
-      title: Commerce customer
+      title: 'Commerce: Customer'
       description: |-
         When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
 
@@ -80044,7 +80048,7 @@ components:
               modifiedDate: null
               sourceModifiedDate: '2020-08-12T14:37:37'
     CommerceCustomers:
-      title: Commerce customers
+      title: 'Commerce: Customers'
       x-internal: true
       allOf:
         - type: object
@@ -80055,7 +80059,7 @@ components:
                 $ref: '#/components/schemas/CommerceCustomer'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceDispute:
-      title: Commerce dispute
+      title: 'Commerce: Dispute'
       description: |-
         A customer may file a payment dispute with their bank or other card issuer when they're unsatisfied with their purchase or believe they have been charged incorrectly. For example:  
         - They didn't receive an order.  
@@ -80131,7 +80135,7 @@ components:
           modifiedDate: '2022-02-02T11:02:45Z'
           sourceModifiedDate: '2021-03-22T14:39:55'
     CommerceDisputes:
-      title: Disputes
+      title: 'Commerce: Disputes'
       x-internal: true
       allOf:
         - type: object
@@ -80142,7 +80146,7 @@ components:
                 $ref: '#/components/schemas/CommerceDispute'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceLocation:
-      title: Commerce location
+      title: 'Commerce: Location'
       type: object
       description: |-
         The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
@@ -80193,7 +80197,7 @@ components:
           modifiedDate: '2020-08-12T14:37:37'
           sourceModifiedDate: '2020-08-12T14:37:37'
     CommerceLocations:
-      title: Locations
+      title: 'Commerce: Locations'
       x-internal: true
       allOf:
         - type: object
@@ -80204,7 +80208,7 @@ components:
                 $ref: '#/components/schemas/CommerceLocation'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceOrder:
-      title: Commerce order
+      title: 'Commerce: Order'
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
 
@@ -80506,7 +80510,7 @@ components:
           sourceModifiedDate: '2021-03-28T03:00:14'
       type: object
     CommerceOrders:
-      title: Orders
+      title: 'Commerce: Orders'
       x-internal: true
       allOf:
         - type: object
@@ -80517,7 +80521,7 @@ components:
                 $ref: '#/components/schemas/CommerceOrder'
         - $ref: '#/components/schemas/PagingInfo'
     CommercePayment:
-      title: Commerce payment
+      title: 'Commerce: Payment'
       description: |-
         Payments contain details of all payments made by customers to a company, including: amounts, currency used, payment method, payment provider, and payment status.
 
@@ -80626,7 +80630,7 @@ components:
             - $ref: '#/components/schemas/CommerceOrder/allOf/2'
             - $ref: '#/components/schemas/CommerceOrder/allOf/3'
     CommercePaymentMethod:
-      title: Commerce payment method
+      title: 'Commerce: Payment method'
       description: |-
         A Payment Method represents the payment method(s) used to make payments.
 
@@ -80650,7 +80654,7 @@ components:
                 - Archived
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
     CommercePaymentMethods:
-      title: Commerce payment methods
+      title: 'Commerce: Payment methods'
       x-internal: true
       allOf:
         - type: object
@@ -80661,7 +80665,7 @@ components:
                 $ref: '#/components/schemas/CommercePaymentMethod'
         - $ref: '#/components/schemas/PagingInfo'
     CommercePayments:
-      title: Commerce payments
+      title: 'Commerce: Payments'
       x-internal: true
       allOf:
         - type: object
@@ -80672,7 +80676,7 @@ components:
                 $ref: '#/components/schemas/CommercePayment'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceProduct:
-      title: Commerce product
+      title: 'Commerce: Product'
       description: |
         A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
 
@@ -80858,7 +80862,7 @@ components:
             - Published
             - Unpublished
     CommerceProductCategories:
-      title: Product categories
+      title: 'Commerce: Product categories'
       x-internal: true
       allOf:
         - type: object
@@ -80869,7 +80873,7 @@ components:
                 $ref: '#/components/schemas/CommerceProductCategory'
         - $ref: '#/components/schemas/PagingInfo'
     CommerceProductCategory:
-      title: Commerce product category
+      title: 'Commerce: Product category'
       description: |-
         Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
 
@@ -80922,7 +80926,7 @@ components:
               modifiedDate: '2022-01-01T12:00:00Z'
               sourceModifiedDate: '2021-12-25T12:00:00Z'
     CommerceProducts:
-      title: Products
+      title: 'Commerce: Products'
       x-internal: true
       allOf:
         - type: object
@@ -81149,7 +81153,7 @@ components:
                 additionalProp3:
                   - string
     CommerceTaxComponent:
-      title: Commerce tax component
+      title: 'Commerce: Tax component'
       description: |-
         The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
 
@@ -81217,7 +81221,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     CommerceTransaction:
-      title: Commerce transaction
+      title: 'Commerce: Transaction'
       description: |-
         Details of all financial transactions recorded in the commerce or point of sale system are added to the Transactions data type. For example, payments, service charges, and fees.
 
@@ -81318,7 +81322,7 @@ components:
             - Unknown
       examples: []
     CommerceTransactions:
-      title: Commerce transactions
+      title: 'Commerce: Transactions'
       x-internal: true
       allOf:
         - type: object
@@ -82737,7 +82741,7 @@ components:
             - Fax
             - Unknown
     ProjectRef:
-      title: Project reference
+      title: 'Accounting: Project reference'
       x-internal: true
       required:
         - id
@@ -83124,7 +83128,7 @@ components:
     ReportLine:
       x-internal: true
       type: object
-      title: Report Line
+      title: 'Accounting: Report line'
       properties:
         accountId:
           type: string

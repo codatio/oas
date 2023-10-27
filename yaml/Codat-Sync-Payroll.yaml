@@ -9439,7 +9439,7 @@ webhooks:
 components:
   schemas:
     Account:
-      title: Account
+      title: 'Accounting: Account'
       description: "\uFEFF> **Language tip:** Accounts are also referred to as **chart of accounts**, **nominal accounts**, and **general ledger**.\n\nView the coverage for accounts in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounts are the categories a business uses to record accounting transactions. From the Accounts endpoints, you can retrieve a list of all accounts for a specified company.\n\nThe categories for an account include:\n* Asset\n* Expense\n* Income\n* Liability\n* Equity.\n\nThe same account may have a different category based on the integration it is used in. For example, a current account (known as checking in the US) should be categorized as `Asset.Current` for Xero, and `Asset.Bank.Checking` for QuickBooks Online.\n\nAt the same time, each integration may have its own requirements to the categories. For example, a Paypal account in Xero is of the `Asset.Bank` category and therefore requires additional properties to be provided.\n\nTo determine the list of allowed categories for a specific integration, you can:\n- Follow our [Create, update, delete data](https://docs.codat.io/using-the-api/push) guide and use the [Get create account model](https://docs.codat.io/sync-for-payroll-api#/operations/get-create-chartOfAccounts-model).\n- Refer to the integration's own documentation.\n\n> **Accounts with no category**\n>\n> If an account is pulled from the chart of accounts and its nominal code does not lie within the category layout for the company's accounts, then the **type** is `Unknown`. The **fullyQualifiedCategory** and **fullyQualifiedName** fields return `null`.\n>\n> This approach gives a true representation of the company's accounts whilst preventing distorting financials such as a company's profit and loss and balance sheet reports."
       allOf:
         - properties:
@@ -9650,7 +9650,7 @@ components:
           example: Active
       type: object
     Accounts:
-      title: Accounts
+      title: 'Accounting: Accounts'
       x-internal: true
       allOf:
         - type: object
@@ -9661,7 +9661,7 @@ components:
                 $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PagingInfo'
     Address:
-      title: Accounting address
+      title: 'Accounting: Address'
       x-internal: true
       type: object
       properties:
@@ -9899,15 +9899,15 @@ components:
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
     CompanyInfo:
-      title: Company information
+      title: 'Accounting: Company profile'
       description: |-
-        > View the coverage for company info in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
+        > View the coverage for company profile in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
 
         Company info provides standard details about a linked company such as their address, phone number, and company registration.
 
         > **Company information or companies?**
         > 
-        > Company information is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
+        > Company profile is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
       type: object
       properties:
         companyName:
@@ -10146,7 +10146,7 @@ components:
                 $ref: '#/components/schemas/Connection'
         - $ref: '#/components/schemas/PagingInfo'
     CreateAccountResponse:
-      title: Create account response
+      title: 'Accounting: Create account response'
       x-internal: true
       allOf:
         - type: object
@@ -10155,7 +10155,7 @@ components:
               $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalEntryResponse:
-      title: Create journal entry response
+      title: 'Accounting: Create journal entry response'
       x-internal: true
       allOf:
         - type: object
@@ -10164,7 +10164,7 @@ components:
               $ref: '#/components/schemas/JournalEntry'
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalResponse:
-      title: Create journal response
+      title: 'Accounting: Create journal response'
       x-internal: true
       allOf:
         - type: object
@@ -10284,7 +10284,7 @@ components:
           type: integer
           description: Machine readable error code used to automate processes based on the code returned.
     Journal:
-      title: Journal
+      title: 'Accounting: Journal'
       description: |
         > **Language tip:** For line items, or individual transactions, of a company's financial documents, refer to the [Journal entries](https://docs.codat.io/sync-for-payroll-api#/schemas/JournalEntry) data type
 
@@ -10372,7 +10372,7 @@ components:
             - Active
             - Archived
     JournalEntries:
-      title: Journal entries
+      title: 'Accounting: Journal entries'
       x-internal: true
       allOf:
         - type: object
@@ -10383,7 +10383,7 @@ components:
                 $ref: '#/components/schemas/JournalEntry'
         - $ref: '#/components/schemas/PagingInfo'
     JournalEntry:
-      title: Journal entry
+      title: 'Accounting: Journal entry'
       description: |-
         > **Language tip:** For the top-level record of a company's financial transactions, refer to the [Journals](https://docs.codat.io/sync-for-payroll-api#/schemas/Journal) data type
 
@@ -10444,6 +10444,7 @@ components:
                 $ref: '#/components/schemas/JournalEntry/definitions/journalLine'
             recordRef:
               type: object
+              x-internal: true
               title: Record reference
               description: |-
                 Links the current record to the underlying record or data type that created it. 
@@ -10496,7 +10497,7 @@ components:
           required:
             - netAmount
     Journals:
-      title: Journals
+      title: 'Accounting: Journals'
       x-internal: true
       allOf:
         - type: object
@@ -10980,7 +10981,7 @@ components:
             additionalProperties: true
           nullable: true
     TrackingCategories:
-      title: Tracking categories
+      title: 'Accounting: Tracking categories'
       x-internal: true
       allOf:
         - type: object
@@ -10991,7 +10992,7 @@ components:
                 $ref: '#/components/schemas/TrackingCategory'
         - $ref: '#/components/schemas/PagingInfo'
     TrackingCategory:
-      title: Tracking category
+      title: 'Accounting: Tracking category'
       description: |-
         Details of a category used for tracking transactions.
 
@@ -11178,7 +11179,7 @@ components:
           modifiedDate: '2022-10-23T00:00:00Z'
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     TrackingCategoryTree:
-      title: Tracking category tree
+      title: 'Accounting: Tracking category tree'
       description: The full structure of a specific tracking category including any child or subcategories.
       type: object
       allOf:
