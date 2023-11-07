@@ -8831,7 +8831,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Journal'
+              $ref: '#/components/schemas/Journal/definitions/journalPrototype'
       responses:
         '200':
           description: Success
@@ -10321,6 +10321,15 @@ components:
             id:
               type: string
               description: Journal ID.
+        - $ref: '#/components/schemas/Journal/definitions/journalPrototype'
+        - properties:
+            metadata:
+              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
+        - $ref: '#/components/schemas/Account/allOf/3'
+      definitions:
+        journalPrototype:
+          type: object
+          properties:
             journalCode:
               type: string
               nullable: true
@@ -10349,10 +10358,6 @@ components:
               description: Journal creation date.
             status:
               $ref: '#/components/schemas/Journal/definitions/journalStatus'
-            metadata:
-              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
-        - $ref: '#/components/schemas/Account/allOf/3'
-      definitions:
         journalRef:
           title: Journal reference
           type: object

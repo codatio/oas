@@ -77553,6 +77553,15 @@ components:
             id:
               type: string
               description: Journal ID.
+        - $ref: '#/components/schemas/AccountingJournal/definitions/journalPrototype'
+        - properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
+      definitions:
+        journalPrototype:
+          type: object
+          properties:
             journalCode:
               type: string
               nullable: true
@@ -77581,10 +77590,6 @@ components:
               description: Journal creation date.
             status:
               $ref: '#/components/schemas/AccountingJournal/definitions/journalStatus'
-            metadata:
-              $ref: '#/components/schemas/Metadata'
-        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
-      definitions:
         journalRef:
           title: Journal reference
           type: object
