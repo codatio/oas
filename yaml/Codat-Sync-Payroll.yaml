@@ -5428,7 +5428,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Account'
+              $ref: '#/components/schemas/Account/definitions/accountPrototype'
       responses:
         '200':
           description: Success
@@ -9447,6 +9447,58 @@ components:
               type: string
               description: 'Identifier for the account, unique for the company.'
               example: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+        - $ref: '#/components/schemas/Account/definitions/accountPrototype'
+        - properties:
+            metadata:
+              title: Metadata
+              type: object
+              x-internal: true
+              properties:
+                isDeleted:
+                  type: boolean
+                  description: Indicates whether the record has been deleted in the third-party system this record originated from.
+                  nullable: true
+        - title: Modified dates
+          x-internal: true
+          allOf:
+            - title: ModifiedDate
+              x-internal: true
+              type: object
+              properties:
+                modifiedDate:
+                  allOf:
+                    - $ref: '#/components/schemas/Company/properties/created'
+                    - description: |-
+                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
+
+                        Use it to identify and retrieve records that have changed since your last fetch. For example, filtering `modifiedDate` to today will provide new records updated in Codat today.
+
+                        This date is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
+
+                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+            - title: Source Modified Date
+              x-internal: true
+              type: object
+              nullable: true
+              properties:
+                sourceModifiedDate:
+                  allOf:
+                    - $ref: '#/components/schemas/Company/properties/created'
+                    - description: |-
+                        The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+
+                        It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
+                          - Pulling attachments
+                          - The integration platform does not provide modification dates for a data type
+                          - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
+                          - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
+
+                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+      definitions:
+        accountPrototype:
+          title: Account prototype
+          type: object
+          properties:
             nominalCode:
               type: string
               nullable: true
@@ -9567,54 +9619,8 @@ components:
                     description: Supported `dataTypes` that the record can be linked to.
                     items:
                       type: string
-            metadata:
-              title: Metadata
-              type: object
-              x-internal: true
-              properties:
-                isDeleted:
-                  type: boolean
-                  description: Indicates whether the record has been deleted in the third-party system this record originated from.
-                  nullable: true
             supplementalData:
               $ref: '#/components/schemas/SupplementalData'
-        - title: Modified dates
-          x-internal: true
-          allOf:
-            - title: ModifiedDate
-              x-internal: true
-              type: object
-              properties:
-                modifiedDate:
-                  allOf:
-                    - $ref: '#/components/schemas/Company/properties/created'
-                    - description: |-
-                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
-
-                        Use it to identify and retrieve records that have changed since your last fetch. For example, filtering `modifiedDate` to today will provide new records updated in Codat today.
-
-                        This date is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-            - title: Source Modified Date
-              x-internal: true
-              type: object
-              nullable: true
-              properties:
-                sourceModifiedDate:
-                  allOf:
-                    - $ref: '#/components/schemas/Company/properties/created'
-                    - description: |-
-                        The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
-
-                        It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
-                          - Pulling attachments
-                          - The integration platform does not provide modification dates for a data type
-                          - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
-                          - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-      definitions:
         accountRef:
           title: Account reference
           type: object
@@ -10344,8 +10350,8 @@ components:
             status:
               $ref: '#/components/schemas/Journal/definitions/journalStatus'
             metadata:
-              $ref: '#/components/schemas/Account/allOf/0/properties/metadata'
-        - $ref: '#/components/schemas/Account/allOf/1'
+              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
+        - $ref: '#/components/schemas/Account/allOf/3'
       definitions:
         journalRef:
           title: Journal reference
@@ -10463,10 +10469,10 @@ components:
                     - accountTransaction
                     - transfer
             metadata:
-              $ref: '#/components/schemas/Account/allOf/0/properties/metadata'
+              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
             supplementalData:
               $ref: '#/components/schemas/SupplementalData'
-        - $ref: '#/components/schemas/Account/allOf/1'
+        - $ref: '#/components/schemas/Account/allOf/3'
       definitions:
         journalLine:
           type: object
@@ -11150,8 +11156,8 @@ components:
               type: boolean
               description: Boolean value indicating whether this category has SubCategories.
             metadata:
-              $ref: '#/components/schemas/Account/allOf/0/properties/metadata'
-        - $ref: '#/components/schemas/Account/allOf/1'
+              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
+        - $ref: '#/components/schemas/Account/allOf/3'
       definitions:
         trackingCategoryRef:
           required:
@@ -11215,8 +11221,8 @@ components:
               items:
                 $ref: '#/components/schemas/TrackingCategoryTree'
             metadata:
-              $ref: '#/components/schemas/Account/allOf/0/properties/metadata'
-        - $ref: '#/components/schemas/Account/allOf/1'
+              $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
+        - $ref: '#/components/schemas/Account/allOf/3'
     WebLink:
       title: Weblink
       description: Weblink associated with the company.
