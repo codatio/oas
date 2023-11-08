@@ -71459,7 +71459,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AccountingDirectCost'
+              $ref: '#/components/schemas/AccountingDirectCost/definitions/directCostPrototype'
             examples:
               QuickBooks Desktop:
                 value:
@@ -76986,6 +76986,15 @@ components:
             id:
               type: string
               description: 'Identifier of the direct cost, unique for the company.'
+        - $ref: '#/components/schemas/AccountingDirectCost/definitions/directCostPrototype'
+        - properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
+      definitions:
+        directCostPrototype:
+          type: object
+          properties:
             reference:
               type: string
               nullable: true
@@ -76995,8 +77004,18 @@ components:
               nullable: true
               description: A note attached to the direct cost.
             contactRef:
-              $ref: '#/components/schemas/AccountingTransfer/allOf/0/properties/contactRef'
               description: A customer or supplier associated with the direct cost.
+              required:
+                - id
+              type: object
+              properties:
+                id:
+                  minLength: 1
+                  type: string
+                  description: Unique identifier for a customer or supplier.
+                dataType:
+                  $ref: '#/components/schemas/DataStatus/properties/dataType'
+                  nullable: true
             issueDate:
               $ref: '#/components/schemas/DateTime'
               description: Date of the direct cost as recorded in the accounting platform.Date of the direct cost as recorded in the accounting platform.
@@ -77027,20 +77046,16 @@ components:
               type: number
               format: decimal
               description: 'The amount of the direct costs, inclusive of tax.'
-            metadata:
-              $ref: '#/components/schemas/Metadata'
             supplementalData:
               $ref: '#/components/schemas/SupplementalData'
-        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
-      required:
-        - issueDate
-        - currency
-        - lineItems
-        - paymentAllocations
-        - subTotal
-        - taxAmount
-        - totalAmount
-      definitions:
+          required:
+            - issueDate
+            - currency
+            - lineItems
+            - paymentAllocations
+            - subTotal
+            - taxAmount
+            - totalAmount
         directCostLineItem:
           type: object
           properties:
@@ -77165,7 +77180,7 @@ components:
               nullable: true
               description: An optional note on the direct income that can be used to assign the direct income with a reference ID in your application.
             contactRef:
-              $ref: '#/components/schemas/AccountingTransfer/allOf/0/properties/contactRef'
+              $ref: '#/components/schemas/AccountingDirectCost/definitions/directCostPrototype/properties/contactRef'
               description: A customer or supplier associated with the direct income.
             issueDate:
               $ref: '#/components/schemas/DateTime'
@@ -78415,18 +78430,8 @@ components:
               nullable: true
               description: Description of the transfer.
             contactRef:
+              $ref: '#/components/schemas/AccountingDirectCost/definitions/directCostPrototype/properties/contactRef'
               description: 'The customer or supplier for the transfer, if available.'
-              required:
-                - id
-              type: object
-              properties:
-                id:
-                  minLength: 1
-                  type: string
-                  description: Unique identifier for a customer or supplier.
-                dataType:
-                  $ref: '#/components/schemas/DataStatus/properties/dataType'
-                  nullable: true
             date:
               $ref: '#/components/schemas/DateTime'
               description: The day on which the transfer was made.
