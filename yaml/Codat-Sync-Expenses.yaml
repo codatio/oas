@@ -17,7 +17,7 @@ info:
 
     [See our OpenAPI spec](https://github.com/codatio/oas)
 
-    Not seeing the endpoints you're expecting? We've [reorganized our products](https://docs.codat.io/updates/230901-new-products), and you may be using a [different version of Sync for Commerce](https://docs.codat.io/sync-for-expenses-v1-api#/).
+    Not seeing the endpoints you're expecting? We've [reorganized our products](https://docs.codat.io/updates/230901-new-products), and you may be using a [different version of Sync for Expenses](https://docs.codat.io/sync-for-expenses-v1-api#/).
   termsOfService: 'https://www.codat.io/legals/'
 security:
   - auth_header: []
@@ -1003,7 +1003,22 @@ paths:
     post:
       summary: Create expense transaction
       operationId: create-expense-transaction
-      description: Create an expense transaction
+      description: |-
+        The *Create expense* endpoint creates an [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting platform for a given company's connection. 
+
+        [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
+
+
+        **Integration-specific behaviour**
+
+        Some accounting platforms support the option of pushing transactions to a draft state. This can be done by setting the postAsDraft property on the transaction to true. For platforms without this feature, the postAsDraft property should be ignored or set to false.
+
+        | Integration | Draft State | Details                                                                                                      |  
+        |-------------|-------------|--------------------------------------------------------------------------------------------------------------|
+        | Dynamics 365 Business Central | Yes   | Setting postAsDraft to true will push the transactions to a drafted state rather than posting directly to the ledger. For transactions in a draft state, they can then be approved and posted within the accounting platform. |
+        | Quickbooks Online | No | -  |
+        | Xero | No | - |
+        | NetSuite | No | - |
       tags:
         - Expenses
       responses:
@@ -1136,7 +1151,15 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       operationId: update-expense-transaction
-      description: Update an expense transaction
+      description: |-
+        The *Update expense* endpoint updates an existing [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting platform for a given company's connection. 
+
+        [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
+
+
+        **Integration-specific behaviour**
+
+        At the moment you can update expenses only for Xero ([Payment](https://docs.codat.io/expenses/sync-process/expense-transactions#transaction-types) transaction type only).
       requestBody:
         content:
           application/json:
@@ -1182,7 +1205,20 @@ paths:
               format: binary
       tags:
         - Expenses
-      description: Creates an attachment in the accounting software against the given transactionId
+      description: |-
+        The *Upload attachment* endpoint uploads an attachment in the accounting software against the given transactionId. 
+
+        [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
+
+        **Integration-specific behaviour**
+
+        Each accounting software supports different file formats and sizes.
+
+        | Integration | File Size | File Extension                                                                                                      |  
+        |-------------|-------------|--------------------------------------------------------------------------------------------------------------|
+        | Xero | 4MB  | 7Z, BMP, CSV, DOC, DOCX, EML, GIF, JPEG, JPG, KEYNOTE, MSG, NUMBERS, ODF, ODS, ODT, PAGES, PDF, PNG, PPT, PPTX, RAR, RTF, TIF, TIFF, TXT, XLS, XLSX, ZIP |
+        | QuickBooks Online | 100MB | AI, CSV, DOC, DOCX, EPS, GIF, JPEG, JPG, ODS, PAGES, PDF, PNG, RTF, TIF, TXT, XLS, XLSX, XML  |
+        | NetSuite | 100MB | BMP, CSV, XLS, XLSX, JSON, PDF, PJPG, PJPEG, PNG, TXT, SVG, TIF, TIFF, DOC, DOCX, ZIP |
   '/companies/{companyId}/data/all':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -9287,7 +9323,7 @@ components:
         postAsDraft:
           type: boolean
           nullable: true
-          description: 'For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state rather than posted state. Accounting platforms currently supported: Dynamics 365 Business Central.'
+          description: 'For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.'
       required:
         - id
         - type
