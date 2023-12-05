@@ -600,6 +600,14 @@ paths:
     post:
       summary: Upload attachment
       operationId: upload-attachment
+      tags:
+        - Expenses
+      description: Creates an attachment in the accounting software against the given transactionId
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentUpload'
       responses:
         '200':
           description: OK
@@ -624,15 +632,6 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: string
-              format: binary
-      tags:
-        - Expenses
-      description: Creates an attachment in the accounting software against the given transactionId
   /companies:
     get:
       summary: List companies
@@ -1259,6 +1258,19 @@ components:
         transactionId:
           type: string
           description: Unique identifier of transaction
+    AttachmentUpload:
+      title: Attachment upload
+      type: object
+      required:
+        - file
+      properties:
+        file:
+          $ref: '#/components/schemas/AttachmentUpload/definitions/codatFile'
+      definitions:
+        codatFile:
+          type: string
+          description: The file to be uploaded as an attachment.
+          format: binary
     BankAccount:
       title: Bank account
       x-internal: true
