@@ -1201,8 +1201,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: string
-              format: binary
+              $ref: '#/components/schemas/AttachmentUpload'
       tags:
         - Expenses
       description: |-
@@ -8443,6 +8442,19 @@ components:
         transactionId:
           type: string
           description: Unique identifier of transaction
+    AttachmentUpload:
+      title: Attachment upload
+      type: object
+      required:
+        - file
+      properties:
+        file:
+          $ref: '#/components/schemas/AttachmentUpload/definitions/codatFile'
+      definitions:
+        codatFile:
+          type: string
+          description: The file to be uploaded as an attachment.
+          format: binary
     BankAccount:
       title: Bank account
       x-internal: true
@@ -8883,7 +8895,6 @@ components:
           example: Supplier
           default: Supplier
           enum:
-            - Supplier
             - Supplier
     CreateAccountResponse:
       title: Create account response
