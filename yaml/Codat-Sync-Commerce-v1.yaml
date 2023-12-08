@@ -479,6 +479,8 @@ paths:
       summary: Retrieve preferences for text fields on sync flow
       description: To enable retrieval of preferences set for the text fields on Sync Flow.
       operationId: get-config-text-sync-flow
+      parameters:
+        - $ref: '#/components/parameters/locale'
       responses:
         '200':
           description: Success
@@ -504,6 +506,8 @@ paths:
       summary: Update preferences for text fields on sync flow
       description: To enable update of preferences set for the text fields on sync flow.
       operationId: update-config-text-sync-flow
+      parameters:
+        - $ref: '#/components/parameters/locale'
       requestBody:
         description: ''
         content:
@@ -13548,6 +13552,17 @@ components:
         example: gbol
         description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
       description: 'A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.'
+    locale:
+      name: locale
+      in: query
+      required: true
+      example: en-us
+      schema:
+        type: string
+        enum:
+          - en-us
+          - fr-fr
+      description: Localization identifier for English (US) or French.
   securitySchemes:
     auth_header:
       name: Authorization
