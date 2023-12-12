@@ -1078,8 +1078,12 @@ paths:
                             id: 9aa5b894-1be9-4f97-96cd-ffde90766b3e
                           trackingRefs:
                             - id: dde5b35f-5d33-40bd-a34f-ee529f4c785c
+                            - dataType: trackingCategories
+                          invoiceTo:
+                            id: 80000002-1674552702
+                            dataType: customers
                       notes: 'APPLE.COM/BILL - 09001077498 - Card Ending: 4590'
-                      postAsDraft: true
+                      postAsDraft: false
               Refund:
                 value:
                   items:
@@ -9366,8 +9370,12 @@ components:
                 id: a505cb47-0f7d-4e8b-90aa-9f9c2308b7bc
               trackingRefs:
                 - id: 31a7e93c-4bb2-474c-b26d-10b2b75f7a25
+                - dataType: trackingCategories
+              invoiceTo:
+                id: 80000002-1674552702
+                dataType: customers
           notes: amazon purchase
-          postAsDraft: true
+          postAsDraft: false
     ExpenseTransactionLine:
       x-internal: true
       title: Expense transaction line
@@ -9382,6 +9390,9 @@ components:
             id: 16989b16-96d4-401a-9054-f5c620c655a6
           trackingRefs:
             - id: e9a1b63d-9ff0-40e7-8038-016354b987e6
+          invoiceTo:
+            id: 80000002-1674552702
+            dataType: customers
       properties:
         netAmount:
           type: number
@@ -9401,8 +9412,11 @@ components:
           type: array
           minItems: 1
           maxItems: 10
+          nullable: true
           items:
-            $ref: '#/components/schemas/RecordRef'
+            $ref: '#/components/schemas/TrackingRef'
+        invoiceTo:
+          $ref: '#/components/schemas/InvoiceTo'
       required:
         - netAmount
         - taxAmount
@@ -9430,6 +9444,25 @@ components:
       default: expenses
       example: expenses
       nullable: true
+    InvoiceTo:
+      title: Billable customer reference
+      x-internal: true
+      type: object
+      nullable: true
+      description: Unique identifier of the customer the expense is billable to. The invoiceTo object is currently only supported for QBO.
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            example: 80000002-1674552702
+            description: identifier of customer.
+          dataType:
+            type: string
+            example: customers
+            description: The type of contact.
+            enum:
+              - customers
     MappingOptions:
       title: Mapping options
       type: object
@@ -10316,6 +10349,22 @@ components:
           description: ID of the parent tracking category
           example: DEPARTMENTS
           nullable: true
+    TrackingRef:
+      type: object
+      title: Tracking reference
+      properties:
+        id:
+          type: string
+          example: e9a1b63d-9ff0-40e7-8038-016354b987e6
+          description: Unique identifier of the linked reference from mapping options or the unique identifier of the linked customer.
+        dataType:
+          type: string
+          example: trackingCategories
+          default: trackingCategories
+          description: The type of the linked reference
+          enum:
+            - trackingCategories
+            - customers
     Transaction:
       title: Transaction
       type: object
