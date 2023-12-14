@@ -75155,11 +75155,22 @@ components:
         * The sort code and account number.
       type: object
       allOf:
-        - type: object
-          properties:
+        - properties:
             id:
               type: string
               description: 'Identifier for the account, unique for the company in the accounting platform.'
+        - $ref: '#/components/schemas/AccountingBankAccount/definitions/bankAccountPrototype'
+        - properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+            supplementalData:
+              $ref: '#/components/schemas/SupplementalData'
+        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
+      definitions:
+        bankAccountPrototype:
+          title: Bank account prototype
+          type: object
+          properties:
             accountName:
               type: string
               nullable: true
@@ -75218,12 +75229,13 @@ components:
                 Pre-arranged overdraft limit of the account.
 
                 The value is always positive. For example, an overdraftLimit of `1000` means that the balance of the account can go down to `-1000`.
-            metadata:
-              $ref: '#/components/schemas/Metadata'
-            supplementalData:
-              $ref: '#/components/schemas/SupplementalData'
-        - $ref: '#/components/schemas/CommerceOrder/allOf/3'
-      definitions:
+        bankAccountCreateResponse:
+          title: Create bank account response
+          allOf:
+            - properties:
+                data:
+                  $ref: '#/components/schemas/AccountingBankAccount'
+            - $ref: '#/components/schemas/PushOperation'
         bankAccountRef:
           title: Bank account reference
           type: object
@@ -75235,6 +75247,16 @@ components:
               type: string
               description: bank account 'name' for the account transaction.
           description: Links to the Account transactions data type.
+        bankAccounts:
+          title: 'Accounting: Bank accounts'
+          allOf:
+            - type: object
+              properties:
+                results:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AccountingBankAccount'
+            - $ref: '#/components/schemas/PagingInfo'
     AccountingBankAccounts:
       x-internal: true
       title: 'Accounting: Bank accounts'
