@@ -729,7 +729,7 @@ paths:
   '/companies/{companyId}':
     put:
       summary: Update company
-      description: "\uFEFFUpdates both the name and description of the company."
+      description: "\uFEFFUse the *Update company* endpoint to update both the name and description of the company. \nIf you use [groups](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/sync-for-commerce-v1-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/sync-for-commerce-v1-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.\n\nA [company](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data."
       operationId: update-company
       parameters:
         - $ref: '#/components/parameters/companyId'
@@ -774,7 +774,7 @@ paths:
       operationId: delete-company
       parameters:
         - $ref: '#/components/parameters/companyId'
-      description: "\uFEFF\nPermanently deletes a company, its connections and any cached data. This operation is irreversible. If the company ID does not exist an error is returned."
+      description: "\uFEFFThe *Delete company* endpoint permanently deletes a [company](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Company), its [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) and any cached data. This operation is irreversible.\n\nA [company](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.\n"
       tags:
         - Companies
       responses:
@@ -797,7 +797,7 @@ paths:
     get:
       summary: Get company
       operationId: get-company
-      description: "\uFEFFReturns the company for a valid identifier. If the identifier is for a deleted company, a not found response is returned."
+      description: "\uFEFFThe *Get company* endpoint returns a single company for a given `companyId`.\n\nA [company](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/sync-for-commerce-v1-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.\n"
       parameters:
         - $ref: '#/components/parameters/companyId'
       tags:
@@ -810,7 +810,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Company'
               examples:
-                Example:
+                Simple company:
                   value:
                     id: ab12c58d-a678-4ebf-a159-ae99e1807bd0
                     name: My First Company
@@ -820,6 +820,18 @@ paths:
                     dataConnections: []
                     created: '2022-11-10T10:45:18Z'
                     createdByUserName: Dan Tzabar
+                With groups:
+                  value:
+                    id: ab12c58d-a678-4ebf-a159-ae99e1807bd0
+                    name: My First Company
+                    description: ''
+                    platform: ''
+                    redirect: 'https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0'
+                    dataConnections: []
+                    created: '2022-11-10T10:45:18Z'
+                    createdByUserName: Dan Tzabar
+                    groups:
+                      - id: f8a6f6ed-9812-4d1e-ba48-4346348403c8
         '401':
           $ref: '#/components/responses/Unauthorized'
         '402':
@@ -12206,10 +12218,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Connection'
+        groups:
+          type: array
+          items:
+            title: Group reference
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Company/definitions/companyGroupAssignment/properties/groupId/allOf/0'
+          description: An array of groups the company has been assigned to.
       required:
         - id
         - name
         - redirect
+      definitions:
+        companyGroupAssignment:
+          title: Group assignment
+          type: object
+          properties:
+            groupId:
+              allOf:
+                - type: string
+                  format: uuid
+                  example: 60d2fa12-8a04-11ee-b9d1-0242ac120002
+                  description: Unique identifier for the group.
+                - description: Unique identifier of the group you want to assign the company to.
       examples:
         - id: 0498e921-9b53-4396-a412-4f2f5983b0a2
           name: string
@@ -12229,6 +12262,8 @@ components:
               lastSync: '2022-10-27T10:22:43.6464237Z'
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
+          groups:
+            - id: d7a6c4b4-dc87-45f6-b803-62f466398680
     CompanyRequestBody:
       $ref: '#/components/schemas/CreateCompany'
     ConfigAccount:
@@ -12405,6 +12440,11 @@ components:
           example: Bank of Dave
         description:
           $ref: '#/components/schemas/Company/properties/description'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company/properties/groups/items'
+          description: Reference to the groups that the company is assigned to.
       required:
         - name
     Customer:
