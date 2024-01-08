@@ -14,7 +14,7 @@ You can browse interactive versions of our OAS on [our docs](https://docs.codat.
 | [Sync for Expenses API](https://docs.codat.io/sync-for-expenses-api#/) | Push expenses to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Expenses.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml)
 | [Lending API](https://docs.codat.io/lending-api#/) | Make credit decisions backed by enhanced financials, metrics, reports, and data integrity features.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Lending.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Lending.yaml)
 | [Sync for Payroll API](https://docs.codat.io/sync-for-payroll-api#/) | Push payroll to accounting platforms.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Payroll.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Payroll.yaml)
-| [Sync for Payables API](https://docs.codat.io/sync-for-expenses-api#/) | Streamline your customers' accounts payable workflow.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Payables.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml)
+| [Sync for Payables API](https://docs.codat.io/sync-for-payables-api#/) | Streamline your customers' accounts payable workflow.  | [JSON](https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Sync-Payables.json) | [YAML](https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Payables.yaml)
 
 #### Alternative products and versions
 
