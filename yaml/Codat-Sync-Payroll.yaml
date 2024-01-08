@@ -8312,7 +8312,7 @@ paths:
                       tracking:
                         recordRefs:
                           - id: 80000001-1674553252
-                            dataType: string
+                            dataType: customers
                     - description: journalLines.description credit
                       netAmount: -23.02
                       currency: USD
@@ -8324,8 +8324,8 @@ paths:
                           - id: 80000002-1674553271
                             dataType: trackingCategories
                   recordRef:
-                    id: string
-                    dataType: string
+                    id: 80000002-6722155312
+                    dataType: bills
                   metadata:
                     isDeleted: true
               Sage Intacct:
@@ -10526,25 +10526,7 @@ components:
               items:
                 $ref: '#/components/schemas/JournalEntry/definitions/journalLine'
             recordRef:
-              type: object
-              x-internal: true
-              title: Record reference
-              description: |-
-                Links the current record to the underlying record or data type that created it. 
-
-                For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
-              properties:
-                id:
-                  type: string
-                  description: '''id'' of the underlying record or data type.'
-                dataType:
-                  type: string
-                  description: Allowed name of the 'dataType'.
-                  examples:
-                    - journalEntry
-                    - invoice
-                    - accountTransaction
-                    - transfer
+              $ref: '#/components/schemas/JournalEntry/definitions/journalEntryRecordRef'
             metadata:
               $ref: '#/components/schemas/Account/allOf/2/properties/metadata'
             supplementalData:
@@ -10570,15 +10552,57 @@ components:
               $ref: '#/components/schemas/Account/definitions/accountRef'
             tracking:
               description: 'List of record refs associated with the tracking information for the line (eg to a Tracking Category, or customer etc.)'
+              title: Tracking
               type: object
               properties:
                 recordRefs:
                   type: array
                   items:
-                    $ref: '#/components/schemas/JournalEntry/allOf/0/properties/recordRef'
+                    $ref: '#/components/schemas/JournalEntry/definitions/journalLine/properties/tracking/definitions/trackingRecordRef'
                   nullable: true
+              definitions:
+                trackingRecordRef:
+                  type: object
+                  title: Record reference
+                  description: Links to the customer or tracking category.
+                  properties:
+                    id:
+                      type: string
+                      description: '''id'' of the underlying record or data type.'
+                    dataType:
+                      type: string
+                      description: Name of underlying data type.
+                      enum:
+                        - customers
+                        - suppliers
+                        - trackingCategories
+                      example: trackingCategories
           required:
             - netAmount
+        journalEntryRecordRef:
+          type: object
+          title: Record reference
+          description: Links a journal entry to the underlying record that created it.
+          properties:
+            id:
+              type: string
+              description: '''id'' of the underlying record or data type.'
+            dataType:
+              type: string
+              description: Name of underlying data type.
+              enum:
+                - bankTransactions
+                - billCreditNotes
+                - billPayments
+                - bills
+                - creditNotes
+                - directCosts
+                - directIncomes
+                - invoices
+                - journalEntries
+                - payments
+                - transfers
+              example: transfers
     Journals:
       title: 'Accounting: Journals'
       x-internal: true

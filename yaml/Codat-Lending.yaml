@@ -68533,7 +68533,7 @@ paths:
                   description: test transfers push 20230126 12.08
                   contactRef:
                     id: 80000028-167239230944
-                    dataType: bankAccounts
+                    dataType: customers
                   date: '2023-01-26T11:51:18.104Z'
                   from:
                     accountRef:
@@ -74838,12 +74838,35 @@ components:
               nullable: true
               description: Description of the account transaction.
             recordRef:
-              $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
-              description: Links an account transaction line to the underlying record that created it.
+              $ref: '#/components/schemas/AccountingAccountTransaction/definitions/accountTransactionLineRecordRef'
             amount:
               type: number
               format: decimal
               description: Amount in the bill payment currency.
+        accountTransactionLineRecordRef:
+          type: object
+          title: Record reference
+          description: Links an account transaction line to the underlying record that created it.
+          properties:
+            id:
+              type: string
+              description: '''id'' of the underlying record or data type.'
+            dataType:
+              type: string
+              description: Name of underlying data type.
+              enum:
+                - bankTransactions
+                - billCreditNotes
+                - billPayments
+                - bills
+                - creditNotes
+                - directCosts
+                - directIncomes
+                - invoices
+                - journalEntries
+                - payments
+                - transfers
+              example: transfers
     AccountingAccountTransactions:
       title: 'Accounting: Account transactions'
       x-internal: true
@@ -77080,8 +77103,7 @@ components:
               description: A note attached to the direct cost.
             contactRef:
               description: A customer or supplier associated with the direct cost.
-              required:
-                - id
+              title: Contact reference
               type: object
               properties:
                 id:
@@ -77089,8 +77111,14 @@ components:
                   type: string
                   description: Unique identifier for a customer or supplier.
                 dataType:
-                  $ref: '#/components/schemas/DataStatus/properties/dataType'
+                  type: string
                   nullable: true
+                  description: Allowed name of the 'dataType'.
+                  enum:
+                    - customers
+                    - suppliers
+              required:
+                - id
             issueDate:
               $ref: '#/components/schemas/DateTime'
               description: Date of the direct cost as recorded in the accounting platform.Date of the direct cost as recorded in the accounting platform.
@@ -77206,10 +77234,24 @@ components:
             recordRefs:
               type: array
               items:
-                $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+                $ref: '#/components/schemas/AccountingJournalEntry/definitions/journalLine/properties/tracking/definitions/trackingRecordRef'
             invoiceTo:
               $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
           additionalProperties: false
+        invoiceTo:
+          type: object
+          title: Invoice to
+          description: Links to the customer the direct cost is associated.
+          properties:
+            id:
+              type: string
+              description: '''id'' of the underlying record or data type.'
+            dataType:
+              type: string
+              description: Name of underlying data type.
+              enum:
+                - customers
+              example: customers
     AccountingDirectCosts:
       title: 'Accounting: Direct costs'
       x-internal: true
@@ -77434,7 +77476,10 @@ components:
                     type: string
                     description: Unique identifier to a record in `dataType`.
                   dataType:
-                    $ref: '#/components/schemas/DataStatus/properties/dataType'
+                    type: string
+                    description: The underlying data type associated to the reference `id`.
+                    enum:
+                      - salesOrders
             issueDate:
               $ref: '#/components/schemas/DateTime'
               description: Date of the invoice as recorded in the accounting system.
@@ -77776,7 +77821,7 @@ components:
               items:
                 $ref: '#/components/schemas/AccountingJournalEntry/definitions/journalLine'
             recordRef:
-              $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+              $ref: '#/components/schemas/AccountingJournalEntry/definitions/journalEntryRecordRef'
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
@@ -77802,15 +77847,57 @@ components:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
             tracking:
               description: 'List of record refs associated with the tracking information for the line (eg to a Tracking Category, or customer etc.)'
+              title: Tracking
               type: object
               properties:
                 recordRefs:
                   type: array
                   items:
-                    $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+                    $ref: '#/components/schemas/AccountingJournalEntry/definitions/journalLine/properties/tracking/definitions/trackingRecordRef'
                   nullable: true
+              definitions:
+                trackingRecordRef:
+                  type: object
+                  title: Record reference
+                  description: Links to the customer or tracking category.
+                  properties:
+                    id:
+                      type: string
+                      description: '''id'' of the underlying record or data type.'
+                    dataType:
+                      type: string
+                      description: Name of underlying data type.
+                      enum:
+                        - customers
+                        - suppliers
+                        - trackingCategories
+                      example: trackingCategories
           required:
             - netAmount
+        journalEntryRecordRef:
+          type: object
+          title: Record reference
+          description: Links a journal entry to the underlying record that created it.
+          properties:
+            id:
+              type: string
+              description: '''id'' of the underlying record or data type.'
+            dataType:
+              type: string
+              description: Name of underlying data type.
+              enum:
+                - bankTransactions
+                - billCreditNotes
+                - billPayments
+                - bills
+                - creditNotes
+                - directCosts
+                - directIncomes
+                - invoices
+                - journalEntries
+                - payments
+                - transfers
+              example: transfers
     AccountingJournals:
       title: 'Accounting: Journals'
       x-internal: true
