@@ -75297,7 +75297,9 @@ components:
           allOf:
             - properties:
                 data:
-                  $ref: '#/components/schemas/AccountingBankAccount'
+                  allOf:
+                    - $ref: '#/components/schemas/AccountingBankAccount'
+                    - deprecated: true
             - $ref: '#/components/schemas/PushOperation'
         bankAccountRef:
           title: Bank account reference
@@ -76606,7 +76608,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingAccount'
+              allOf:
+                - $ref: '#/components/schemas/AccountingAccount'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateBankAccountResponse:
       title: 'Accounting: Create bank account response'
@@ -76615,7 +76619,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingBankAccount'
+              allOf:
+                - $ref: '#/components/schemas/AccountingBankAccount'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateBankTransactions:
       title: 'Accounting: Create bank account transactions'
@@ -76663,7 +76669,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingCreateBankTransactions'
+              allOf:
+                - $ref: '#/components/schemas/AccountingCreateBankTransactions'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateDirectCostResponse:
       title: 'Accounting: Create direct cost response'
@@ -76672,7 +76680,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingDirectCost'
+              allOf:
+                - $ref: '#/components/schemas/AccountingDirectCost'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreatePaymentResponse:
       title: 'Accounting: Create payment response'
@@ -76681,7 +76691,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingPayment'
+              allOf:
+                - $ref: '#/components/schemas/AccountingPayment'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateSupplierResponse:
       title: 'Accounting: Create supplier response'
@@ -76690,7 +76702,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingSupplier'
+              allOf:
+                - $ref: '#/components/schemas/AccountingSupplier'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreateTransferResponse:
       title: 'Accounting: Create transfer response'
@@ -76699,7 +76713,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/AccountingTransfer'
+              allOf:
+                - $ref: '#/components/schemas/AccountingTransfer'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     AccountingCreditNote:
       title: 'Accounting: Credit note'

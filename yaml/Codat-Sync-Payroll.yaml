@@ -10229,7 +10229,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Account'
+              allOf:
+                - $ref: '#/components/schemas/Account'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalEntryResponse:
       title: 'Accounting: Create journal entry response'
@@ -10238,7 +10240,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/JournalEntry'
+              allOf:
+                - $ref: '#/components/schemas/JournalEntry'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalResponse:
       title: 'Accounting: Create journal response'
@@ -10247,7 +10251,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Journal'
+              allOf:
+                - $ref: '#/components/schemas/Journal'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     DataStatus:
       title: Data status

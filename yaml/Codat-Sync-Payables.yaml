@@ -30875,7 +30875,9 @@ components:
           allOf:
             - properties:
                 data:
-                  $ref: '#/components/schemas/BankAccount'
+                  allOf:
+                    - $ref: '#/components/schemas/BankAccount'
+                    - deprecated: true
             - $ref: '#/components/schemas/PushOperation'
         bankAccountRef:
           title: Bank account reference
@@ -32521,7 +32523,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Account'
+              allOf:
+                - $ref: '#/components/schemas/Account'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateBillCreditNoteResponse:
       title: 'Accounting: Create bill credit note response'
@@ -32530,7 +32534,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/BillCreditNote'
+              allOf:
+                - $ref: '#/components/schemas/BillCreditNote'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateBillPaymentResponse:
       title: 'Accounting: Create bill payment response'
@@ -32539,7 +32545,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/BillPayment'
+              allOf:
+                - $ref: '#/components/schemas/BillPayment'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateBillResponse:
       title: 'Accounting: Create bill response'
@@ -32548,7 +32556,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Bill'
+              allOf:
+                - $ref: '#/components/schemas/Bill'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalEntryResponse:
       title: 'Accounting: Create journal entry response'
@@ -32557,7 +32567,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/JournalEntry'
+              allOf:
+                - $ref: '#/components/schemas/JournalEntry'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateJournalResponse:
       title: 'Accounting: Create journal response'
@@ -32566,7 +32578,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Journal'
+              allOf:
+                - $ref: '#/components/schemas/Journal'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateSupplierResponse:
       title: 'Accounting: Create supplier response'
@@ -32575,7 +32589,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Supplier'
+              allOf:
+                - $ref: '#/components/schemas/Supplier'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     DataStatus:
       title: Data status
@@ -33971,7 +33987,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/BillCreditNote'
+              allOf:
+                - $ref: '#/components/schemas/BillCreditNote'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     UpdateBillResponse:
       title: 'Accounting: Update bill response'
@@ -33980,7 +33998,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Bill'
+              allOf:
+                - $ref: '#/components/schemas/Bill'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     UpdateSupplierResponse:
       title: 'Accounting: Update supplier response'
@@ -33989,7 +34009,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Supplier'
+              allOf:
+                - $ref: '#/components/schemas/Supplier'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     WebLink:
       title: Weblink

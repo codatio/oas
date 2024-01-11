@@ -8979,7 +8979,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Account'
+              allOf:
+                - $ref: '#/components/schemas/Account'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateCustomerResponse:
       title: Create customer response
@@ -8988,7 +8990,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Customer'
+              allOf:
+                - $ref: '#/components/schemas/Customer'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     CreateExpenseRequest:
       title: Create expense request
@@ -9018,7 +9022,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Supplier'
+              allOf:
+                - $ref: '#/components/schemas/Supplier'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     Customer:
       title: 'Accounting: Customer'
@@ -10510,7 +10516,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Customer'
+              allOf:
+                - $ref: '#/components/schemas/Customer'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
     UpdateExpenseRequest:
       title: Updating expense transaction request
@@ -10599,7 +10607,9 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Supplier'
+              allOf:
+                - $ref: '#/components/schemas/Supplier'
+                - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
   parameters:
     syncId:

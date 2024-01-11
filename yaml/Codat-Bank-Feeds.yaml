@@ -1907,7 +1907,9 @@ components:
                     allOf:
                       - properties:
                           data:
-                            $ref: '#/components/schemas/BankAccounts/allOf/0/properties/results/items'
+                            allOf:
+                              - $ref: '#/components/schemas/BankAccounts/allOf/0/properties/results/items'
+                              - deprecated: true
                       - $ref: '#/components/schemas/PushOperation'
                   bankAccountRef:
                     title: Bank account reference
