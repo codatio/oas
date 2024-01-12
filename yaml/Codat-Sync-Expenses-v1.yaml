@@ -2041,10 +2041,6 @@ components:
               $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/syncId'
             syncType:
               $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/syncType'
-            SyncDateRangeStartUtc:
-              $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/SyncDateRangeStartUtc'
-            SyncDateRangeFinishUtc:
-              $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/SyncDateRangeFinishUtc'
       examples:
         - ClientId: 30e0f9d2-52c0-4c9f-a806-bcd98a3bcd7e
           ClientName: Expense Sync
@@ -2056,8 +2052,6 @@ components:
           Data:
             syncId: 321363b4-efa9-4fbc-b71c-0b58d62f3248
             syncType: Expense
-            SyncDateRangeStartUtc: '2023-05-03T09:56:17.4357111Z'
-            SyncDateRangeFinishUtc: '2023-05-03T09:56:18.4357111Z'
     SyncFailedWebhook:
       title: Sync failed webhook
       x-internal: true
@@ -2105,12 +2099,6 @@ components:
             syncType:
               type: string
               description: The type of sync being performed.
-            SyncDateRangeStartUtc:
-              $ref: '#/components/schemas/Company/properties/created'
-              description: The start datetime data will be synced from.
-            SyncDateRangeFinishUtc:
-              $ref: '#/components/schemas/Company/properties/created'
-              description: The end datetime data will be synced to.
             FailureStage:
               type: string
               description: The stage of the job the sync failed.
@@ -2125,8 +2113,6 @@ components:
           Data:
             syncId: 3bead2a1-1b3d-4d90-8077-cddc5ca68b01
             syncType: Expense
-            SyncDateRangeStartUtc: 2023-05-03T12:57:58.757Z
-            SyncDateRangeFinishUtc: 2023-05-03T12:57:59.757Z
             FailureStage: Pushing
     SyncInitiated:
       title: Sync initiated
@@ -2164,10 +2150,6 @@ components:
               $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/syncId'
             syncType:
               $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/syncType'
-            SyncDateRangeStartUtc:
-              $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/SyncDateRangeStartUtc'
-            SyncDateRangeFinishUtc:
-              $ref: '#/components/schemas/SyncFailedWebhook/definitions/SyncFailedWebhookData/properties/SyncDateRangeFinishUtc'
       examples:
         - ClientId: 30e0f9d2-52c0-4c9f-a806-bcd98a3bcd7e
           ClientName: Expense Sync
@@ -2179,8 +2161,6 @@ components:
           Data:
             syncId: 321363b4-efa9-4fbc-b71c-0b58d62f3248
             syncType: Expense
-            SyncDateRangeStartUtc: '2023-05-03T09:56:17.4357111Z'
-            SyncDateRangeFinishUtc: '2023-05-03T09:56:18.4357111Z'
     TaxRateMappingInfo:
       title: Tax rate mapping info
       type: object
