@@ -2647,7 +2647,7 @@ components:
         sourceId:
           $ref: '#/components/schemas/Branding/properties/sourceId'
         sourceType:
-          $ref: '#/components/schemas/SourceType'
+          $ref: '#/components/schemas/Integration/definitions/sourceType'
         platformName:
           type: string
           description: Name of integration connected to company.
@@ -2713,7 +2713,9 @@ components:
           enum:
             - Accounting
             - Banking
+            - BankFeed
             - Commerce
+            - Expense
             - Other
             - Unknown
           example: Accounting
@@ -3280,7 +3282,7 @@ components:
         sourceId:
           $ref: '#/components/schemas/Branding/properties/sourceId'
         sourceType:
-          $ref: '#/components/schemas/SourceType'
+          $ref: '#/components/schemas/Integration/definitions/sourceType'
         integrationId:
           $ref: '#/components/schemas/Connection/properties/integrationId'
         isOfflineConnector:
@@ -3302,6 +3304,19 @@ components:
         - name
         - enabled
       definitions:
+        sourceType:
+          title: Source Type
+          description: The type of platform of the connection.
+          type: string
+          enum:
+            - Accounting
+            - Banking
+            - BankFeed
+            - Commerce
+            - Expense
+            - Other
+            - Unknown
+          example: Accounting
         dataTypeFeature:
           title: Data type feature
           description: Describes support for a given datatype and associated operations
@@ -3404,7 +3419,7 @@ components:
             type: string
             description: Name of company whose connection has changed.
           sourceType:
-            $ref: '#/components/schemas/SourceType'
+            $ref: '#/components/schemas/Integration/definitions/sourceType'
             nullable: true
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
@@ -4011,20 +4026,6 @@ components:
               $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/description'
             required:
               $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
-    SourceType:
-      title: Source Type
-      x-internal: true
-      description: The type of platform of the connection.
-      type: string
-      enum:
-        - Accounting
-        - Banking
-        - BankFeed
-        - Commerce
-        - Expense
-        - Other
-        - Unknown
-      example: Accounting
     SupplementalDataConfiguration:
       description: ''
       title: Supplemental data configuration

@@ -8854,7 +8854,6 @@ components:
           description: 'A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.'
         sourceType:
           title: Source Type
-          x-internal: true
           description: The type of platform of the connection.
           type: string
           enum:
@@ -8931,7 +8930,9 @@ components:
           enum:
             - Accounting
             - Banking
+            - BankFeed
             - Commerce
+            - Expense
             - Other
             - Unknown
           example: Accounting
