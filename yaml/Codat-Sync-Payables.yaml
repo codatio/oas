@@ -955,6 +955,7 @@ paths:
     get:
       summary: Get mapping options
       x-internal: true
+      x-speakeasy-ignore: true
       description: "\uFEFFUse the *Get mapping options* endpoint to return a list of available [mapping options](https://docs.codat.io/sync-for-payables-api#/schemas/MappingOptions) for a given company's connection ID.\n\n[Mapping options](https://docs.codat.io/sync-for-payables-api#/schemas/MappingOptions) are a set of accounts, bank accounts and tax rates used to configure the SMBs payables integration."
       operationId: get-mapping-options
       tags:
@@ -1011,8 +1012,6 @@ paths:
         The *List bills* endpoint returns a list of [bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) for a given company's connection.
 
         [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-
-        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
             
       operationId: list-bills
       tags:
@@ -1163,6 +1162,7 @@ paths:
     post:
       summary: Create bill
       x-internal: true
+      x-speakeasy-ignore: true
       description: |
         The *Create bill* endpoint creates a new [bill](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) for a given company's connection.
 
@@ -1315,6 +1315,7 @@ paths:
     post:
       summary: Upload bill attachment
       x-internal: true
+      x-speakeasy-ignore: true
       description: |
         The *Upload bill attachment* endpoint uploads an attachment and assigns it against a specific `billId`.
 
@@ -1360,6 +1361,7 @@ paths:
       - $ref: '#/components/parameters/attachmentId'
     get:
       x-internal: true
+      x-speakeasy-ignore: true
       summary: Download bill attachment
       description: |
         The *Download bill attachment* endpoint downloads a specific attachment for a given `billId` and `attachmentId`.
@@ -1406,6 +1408,7 @@ paths:
     post:
       summary: Create bill payment
       x-internal: true
+      x-speakeasy-ignore: true
       description: |
         The *Create bill payment* endpoint creates a new [bill payment](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) for a given company's connection.
 
@@ -1490,10 +1493,14 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
     get:
-      x-internal: true
       tags:
         - Suppliers
       summary: List suppliers
+      description: |-
+        The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) for a given company's connection.
+
+        [Suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
+      operationId: list-suppliers
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -1562,16 +1569,6 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |-
-        The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) for a given company's connection.
-
-        You will also be able to query this endpoint to retireve only suppliers which are associated with unpaid bills (Status = Open).
-
-        [Suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-
-        Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-payables-api#/operations/refresh-company-data).
-            
-      operationId: list-suppliers
 webhooks:
   Client rate limit reached:
     post:
@@ -1677,15 +1674,6 @@ components:
                 $ref: '#/components/schemas/Bill/definitions/billLineItem'
             status:
               $ref: '#/components/schemas/Bill/definitions/billStatus'
-            unitAmount:
-              type: number
-              format: decimal
-              description: Price of each unit of goods or services.
-            taxAmount:
-              type: number
-              format: decimal
-              nullable: true
-              description: Amount of tax for the line.
             totalAmount:
               type: number
               format: decimal
@@ -1695,66 +1683,24 @@ components:
               format: decimal
               nullable: true
               description: Amount outstanding on the bill.
-            metadata:
-              title: Metadata
-              type: object
-              x-internal: true
-              properties:
-                isDeleted:
-                  type: boolean
-                  description: Indicates whether the record has been deleted in the third-party system this record originated from.
-                  nullable: true
-            supplementalData:
-              title: Supplemental data
-              type: object
-              x-internal: true
-              description: |-
-                Supplemental data is additional data you can include in our standard data types. 
-
-                It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
-              properties:
-                content:
-                  type: object
-                  additionalProperties:
-                    type: object
-                    additionalProperties: true
-                  nullable: true
-        - title: Modified dates
+        - title: Source Modified Date
           x-internal: true
-          allOf:
-            - title: ModifiedDate
-              x-internal: true
-              type: object
-              properties:
-                modifiedDate:
-                  allOf:
-                    - $ref: '#/components/schemas/Company/properties/created'
-                    - description: |-
-                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
+          type: object
+          nullable: true
+          properties:
+            sourceModifiedDate:
+              allOf:
+                - $ref: '#/components/schemas/Company/properties/created'
+                - description: |-
+                    The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
 
-                        Use it to identify and retrieve records that have changed since your last fetch. For example, filtering `modifiedDate` to today will provide new records updated in Codat today.
+                    It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
+                      - Pulling attachments
+                      - The integration platform does not provide modification dates for a data type
+                      - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
+                      - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
-                        This date is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
-            - title: Source Modified Date
-              x-internal: true
-              type: object
-              nullable: true
-              properties:
-                sourceModifiedDate:
-                  allOf:
-                    - $ref: '#/components/schemas/Company/properties/created'
-                    - description: |-
-                        The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
-
-                        It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
-                          - Pulling attachments
-                          - The integration platform does not provide modification dates for a data type
-                          - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
-                          - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
-
-                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+                    In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
       definitions:
         billPrototype:
           title: Bill prototype
@@ -1778,10 +1724,6 @@ components:
               $ref: '#/components/schemas/Bill/allOf/0/properties/totalAmount'
             amountDue:
               $ref: '#/components/schemas/Bill/allOf/0/properties/amountDue'
-            metadata:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/metadata'
-            supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
           required:
             - issueDate
             - status
@@ -1804,15 +1746,14 @@ components:
               type: string
               nullable: true
               description: Friendly name of the goods or services received.
-            quantity:
+            unitAmount:
               type: number
               format: decimal
-              description: Number of units of goods or services received.
-            totalAmount:
+              description: Unit price of the goods or service.
+            taxAmount:
               type: number
               format: decimal
-              nullable: true
-              description: 'Total amount of the line, including tax.'
+              description: Amount of tax applied to the line item.
             accountRef:
               description: Reference to the account to which the line item is linked.
               title: Account reference
@@ -1839,6 +1780,15 @@ components:
                   type: number
                   format: decimal
                   description: Applicable tax rate.
+            quantity:
+              type: number
+              format: decimal
+              description: Number of units of goods or services received.
+            totalAmount:
+              type: number
+              format: decimal
+              nullable: true
+              description: 'Total amount of the line, including tax.'
           required:
             - quantity
         bills:
@@ -1864,6 +1814,11 @@ components:
           type: string
           description: Type of webhook event.
           example: payables.bill.created
+        createdDate:
+          type: string
+          description: The datetime in UTC of when the webhook event was produced by Codat.
+          examples:
+            - 2022-10-23T11:03:35.000Z
         payload:
           $ref: '#/components/schemas/BillEventWebhook/definitions/billEventPayload'
       definitions:
@@ -2932,10 +2887,48 @@ components:
               nullable: true
               description: Default currency the supplier's transactional data is recorded in.
             metadata:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/metadata'
+              title: Metadata
+              type: object
+              x-internal: true
+              properties:
+                isDeleted:
+                  type: boolean
+                  description: Indicates whether the record has been deleted in the third-party system this record originated from.
+                  nullable: true
             supplementalData:
-              $ref: '#/components/schemas/Bill/allOf/0/properties/supplementalData'
-        - $ref: '#/components/schemas/Bill/allOf/1'
+              title: Supplemental data
+              type: object
+              x-internal: true
+              description: |-
+                Supplemental data is additional data you can include in our standard data types. 
+
+                It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+              properties:
+                content:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    additionalProperties: true
+                  nullable: true
+        - title: Modified dates
+          x-internal: true
+          allOf:
+            - title: ModifiedDate
+              x-internal: true
+              type: object
+              properties:
+                modifiedDate:
+                  allOf:
+                    - $ref: '#/components/schemas/Company/properties/created'
+                    - description: |-
+                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
+
+                        Use it to identify and retrieve records that have changed since your last fetch. For example, filtering `modifiedDate` to today will provide new records updated in Codat today.
+
+                        This date is populated for all data types except for attachments, balance sheets, company information, and profit & loss reports ([read more](https://docs.codat.io/using-the-api/modified-dates#modified-date)).
+
+                        In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+            - $ref: '#/components/schemas/Bill/allOf/1'
       required:
         - status
       definitions:
