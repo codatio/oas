@@ -99,10 +99,6 @@ tags:
     description: Bill payments
   - name: Suppliers
     description: Suppliers
-  - name: Push operations
-    description: 'Access create, update and delete operations made to an SMB''s data connection.'
-  - name: Manage data
-    description: Asynchronously retrieve data from an integration to refresh data in Codat.
 paths:
   /companies:
     get:
@@ -656,297 +652,6 @@ paths:
                 value:
                   status: Unlinked
         description: ''
-  '/companies/{companyId}/data/all':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    post:
-      summary: Refresh all data
-      operationId: refresh-all-data-types
-      responses:
-        '204':
-          description: No Content
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-      description: |-
-        Refreshes all data types with `fetch on first link` set to `true` for a given company.
-
-        This is an asynchronous operation, and will bring updated data into Codat from the linked integration for you to view.
-
-        [Read more](https://docs.codat.io/core-concepts/data-type-settings) about data type settings and `fetch on first link`.
-      tags:
-        - Manage data
-  '/companies/{companyId}/dataStatus':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      summary: Get data status
-      operationId: get-data-status
-      description: Get the state of each data type for a company
-      tags:
-        - Manage data
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                title: Data statuses
-                x-internal: true
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/DataStatus'
-              examples:
-                Example:
-                  value:
-                    invoices:
-                      dataType: invoices
-                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
-                      currentStatus: success
-                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
-                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
-                    bills:
-                      dataType: bills
-                      lastSuccessfulSync: '2022-01-01T00:00:00.000Z'
-                      currentStatus: failure
-                      latestSyncId: d03b6979-eb3b-447a-a27a-13cf457a9f48
-                      latestSuccessfulSyncId: 6883bba8-514d-423f-ba7f-c38285a80b7f
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/data/queue/{dataType}':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/dataType'
-    post:
-      summary: Refresh data type
-      operationId: refresh-data-type
-      description: |-
-        Refreshes a given data type for a given company.
-
-        This is an asynchronous operation, and will bring updated data into Codat from the linked integration for you to view.
-      tags:
-        - Manage data
-      parameters:
-        - schema:
-            type: string
-            format: uuid
-          in: query
-          name: connectionId
-          description: 'Optionally, provide a data connection id to only queue pull operations on that connection.'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PullOperation'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/data/history':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      summary: List pull operations
-      tags:
-        - Manage data
-      operationId: list-pull-operations
-      x-speakeasy-name-override: list-pull-operations
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PullOperations'
-              examples:
-                Example:
-                  value:
-                    results:
-                      - id: 97d60846-f07a-4d42-b5a0-0bdcc6ebf56b
-                        companyId: 4645bd78-8988-45bc-ac9e-67ba5df6e4e5
-                        connectionId: 51baa045-4836-4317-a42e-3542e991e581
-                        dataType: invoices
-                        status: Initial
-                        requested: '2022-11-14T11:18:37.2798351Z'
-                        progress: 10
-                        isCompleted: false
-                        isErrored: false
-                    _links:
-                      current:
-                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=1&pageSize=2
-                      self:
-                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history
-                      next:
-                        href: /companies/17129e41-5389-4f10-ac06-e0a37e47d177/data/history?page=2&pageSize=2
-                    pageNumber: 0
-                    pageSize: 0
-                    totalResults: 0
-        '400':
-          $ref: '#/components/responses/Malformed-Query'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-      description: Gets the pull operation history (datasets) for a given company.
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
-  '/companies/{companyId}/data/history/{datasetId}':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/datasetId'
-    get:
-      summary: Get pull operation
-      operationId: get-pull-operation
-      x-speakeasy-name-override: get-pull-operation
-      tags:
-        - Manage data
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PullOperation'
-              examples: {}
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-      description: Retrieve information about a single dataset or pull operation.
-  '/companies/{companyId}/push':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-    get:
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
-      summary: List push operations
-      tags:
-        - Push operations
-      operationId: list-push-operations
-      description: List push operation records.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushOperations'
-              examples: {}
-        '400':
-          $ref: '#/components/responses/Malformed-Query'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/push/{pushOperationKey}':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - name: pushOperationKey
-        schema:
-          type: string
-          format: uuid
-        in: path
-        required: true
-        description: Unique identifier for the push operation.
-    get:
-      summary: Get push operation
-      tags:
-        - Push operations
-      operationId: get-push-operation
-      description: Retrieve push operation.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushOperation'
-              examples: {}
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connection/{connectionId}/payables/mappingOptions':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1021,8 +726,25 @@ paths:
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/query'
-        - $ref: '#/components/parameters/orderBy'
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bill/definitions/billStatus'
+            default:
+              - Open
+              - PartiallyPaid
+          description: Filter bills by `status`.
+          style: form
+          explode: false
+        - name: sourceModifiedDate
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Bill/allOf/1/properties/sourceModifiedDate'
+          description: Filter bills by `sourceModifiedDate` to return bills that have changed after a specified date.
       responses:
         '200':
           description: Success
@@ -1313,8 +1035,8 @@ paths:
       - $ref: '#/components/parameters/billId'
       - $ref: '#/components/parameters/attachmentId'
     get:
-      x-internal: true
       x-speakeasy-ignore: true
+      x-internal: true
       summary: Download bill attachment
       description: |
         The *Download bill attachment* endpoint downloads a specific attachment for a given `billId` and `attachmentId`.
@@ -1360,8 +1082,8 @@ paths:
           type: string
     post:
       summary: Create bill payment
-      x-internal: true
       x-speakeasy-ignore: true
+      x-internal: true
       description: |
         The *Create bill payment* endpoint creates a new [bill payment](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) for a given company's connection.
 
@@ -1449,6 +1171,8 @@ paths:
       tags:
         - Suppliers
       summary: List suppliers
+      x-internal: true
+      x-speakeasy-ignore: true
       description: |-
         The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) for a given company's connection.
 
@@ -1691,6 +1415,7 @@ components:
             - Paid
             - Void
             - Draft
+          example: Open
         billLineItem:
           title: Bill line item
           type: object
