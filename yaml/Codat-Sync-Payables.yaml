@@ -656,7 +656,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
-      - $ref: '#/components/parameters/query'
     get:
       summary: Get mapping options
       x-internal: true
@@ -716,35 +715,20 @@ paths:
       description: |-
         The *List bills* endpoint returns a list of [bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) for a given company's connection.
 
-        By default, the endpoint will return all bills irrespective of payment status. To filter outstanding bills use the `outstandingBills=true` query parameter to return all unpaid and partially paid bills. 
-
         [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-            
+
+        By default, the endpoint will return all bills with a status of 'Open' & 'PartiallyPaid' to show all oustanding bills.
       operationId: list-bills
       tags:
         - Bills
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/pageSize'
-        - name: status
+        - name: query
           in: query
           required: false
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bill/definitions/billStatus'
-            default:
-              - Open
-              - PartiallyPaid
-          description: Filter bills by `status`.
-          style: form
-          explode: false
-        - name: sourceModifiedDate
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Bill/allOf/1/properties/sourceModifiedDate'
-          description: Filter bills by `sourceModifiedDate` to return bills that have changed after a specified date.
+            type: string
+          example: status=Open
+          description: 'Codat query string allows you to filter by `status` and `sourceModifiedDate`. Learn more about Codat''s query string [here](https://docs.codat.io/using-the-api/querying).'
       responses:
         '200':
           description: Success
@@ -767,6 +751,7 @@ paths:
                         lineItems:
                           - description: Dance shoes
                             unitAmount: 5
+                            quantity: 1
                             taxAmount: 0
                             accountRef:
                               id: '16'
@@ -775,9 +760,8 @@ paths:
                               id: NON
                               name: NON
                               effectiveTaxRate: 0
-                            quantity: 1
                             totalAmount: 5
-                        status: Unpaid
+                        status: Open
                         totalAmount: 5
                         amountDue: 0
                         sourceModifiedDate: '2022-05-26T10:34:10Z'
@@ -792,6 +776,7 @@ paths:
                         lineItems:
                           - description: Dance shoes
                             unitAmount: 5
+                            quantity: 1
                             taxAmount: 0
                             accountRef:
                               id: '16'
@@ -800,22 +785,11 @@ paths:
                               id: NON
                               name: NON
                               effectiveTaxRate: 0
-                            quantity: 1
                             totalAmount: 5
                         status: Paid
                         totalAmount: 5
                         amountDue: 0
                         sourceModifiedDate: '2022-05-26T10:34:10Z'
-                    pageNumber: 1
-                    pageSize: 2
-                    totalResults: 147
-                    _links:
-                      current:
-                        href: /companies/10818b5e-6e6a-4ed4-a1c5-3e3efe626e87/data/bills?page=1&pageSize=2
-                      self:
-                        href: /companies/10818b5e-6e6a-4ed4-a1c5-3e3efe626e87/data/bills
-                      next:
-                        href: /companies/10818b5e-6e6a-4ed4-a1c5-3e3efe626e87/data/bills?page=2&pageSize=2
         '400':
           $ref: '#/components/responses/Malformed-Query'
         '401':
@@ -836,18 +810,10 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create bill
-      x-internal: true
-      x-speakeasy-ignore: true
-      description: |
+      description: |-
         The *Create bill* endpoint creates a new [bill](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) for a given company's connection.
 
         [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-
-        **Integration-specific behaviour**
-
-        Required data may vary by integration. To see what data to post, first call [Get create/update bill model](https://docs.codat.io/sync-for-payables-api#/operations/get-create-update-bills-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support creating a bill.
       operationId: create-bill
       tags:
         - Bills
@@ -866,66 +832,42 @@ paths:
             examples:
               Create bill:
                 value:
-                  reference: ''
+                  reference: bill_b8qmmj4ksf1suax
                   supplierRef:
                     id: 1262c350-fe0f-40ec-aeff-41c95b4a45af
                     supplierName: DIISR - Small Business Services
-                  purchaseOrderRefs: []
                   issueDate: '2023-04-23T00:00:00'
                   dueDate: '2023-04-23T00:00:00'
                   currency: GBP
-                  currencyRate: 1
                   lineItems:
                     - description: Half day training - Microsoft Office
                       unitAmount: 1800
                       quantity: 1
-                      subTotal: 1800
                       taxAmount: 360
                       totalAmount: 2160
                       accountRef:
                         id: 46f9461e-788b-4906-8b74-d1ea17f6dc10
                       taxRateRef:
                         id: INPUT2
-                        name: 20% (VAT on Expenses)
-                        effectiveTaxRate: 20
-                      itemRef:
-                        id: 489558f5-27b7-4f37-ad9f-d84611c2e2ab
-                      trackingCategoryRefs: []
-                      isDirectCost: false
                     - description: Desktop/network support via email & phone.Per month fixed fee for minimum 20 hours/month.
                       unitAmount: 4000
                       quantity: 1
-                      subTotal: 4000
                       taxAmount: 800
                       totalAmount: 4800
                       accountRef:
                         id: f96c9458-d724-47bf-8f74-a9d5726465ce
                       taxRateRef:
                         id: INPUT2
-                        name: 20% (VAT on Expenses)
-                        effectiveTaxRate: 20
-                      itemRef:
-                        id: f8fb7e00-5e5d-466c-aef0-15861f73d04f
-                      trackingCategoryRefs: []
-                      isDirectCost: false
                     - description: Stationery charges
                       unitAmount: 32
                       quantity: 8
-                      subTotal: 256
                       taxAmount: 51.2
                       totalAmount: 307.2
                       accountRef:
                         id: cba6527d-f102-4538-b421-e483233e9d5a
                       taxRateRef:
                         id: INPUT2
-                        name: 20% (VAT on Expenses)
-                        effectiveTaxRate: 20
-                      trackingCategoryRefs: []
-                      isDirectCost: false
-                  withholdingTax: []
                   status: Open
-                  subTotal: 6056
-                  taxAmount: 1211.2
                   totalAmount: 7267.2
                   amountDue: 7267.2
       responses:
@@ -934,36 +876,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushOperation'
+                $ref: '#/components/schemas/Bill'
               examples:
-                QuickBooks Desktop:
+                Created bill:
                   value:
-                    changes:
-                      - type: Unknown
-                        recordRef:
-                          id: bill-1029932
-                          dataType: bills
-                        attachmentId: 39282B023C8849B0A4413F900BFF489D
-                    dataType: bills
-                    companyId: 8a210b68-6988-11ed-a1eb-0242ac120002
-                    pushOperationKey: c2f8847d-3047-4619-a157-6d947d8e4a73
-                    dataConnectionKey: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-                    requestedOnUtc: '2022-10-23T00:00:00.000Z'
-                    completedOnUtc: '2022-10-23T00:00:00.000Z'
-                    timeoutInMinutes: 0
-                    timeoutInSeconds: 0
-                    status: Pending
-                    errorMessage: ''
-                    validation:
-                      errors:
-                        - itemId: string
-                          message: string
-                          validatorName: string
-                      warnings:
-                        - itemId: string
-                          message: string
-                          validatorName: string
-                    statusCode: 0
+                    id: bill-1029932
+                    reference: bill_b8qmmj4ksf1suax
+                    supplierRef:
+                      id: 1262c350-fe0f-40ec-aeff-41c95b4a45af
+                      supplierName: DIISR - Small Business Services
+                    issueDate: '2023-04-23T00:00:00'
+                    dueDate: '2023-04-23T00:00:00'
+                    currency: GBP
+                    lineItems:
+                      - description: Half day training - Microsoft Office
+                        unitAmount: 1800
+                        quantity: 1
+                        taxAmount: 360
+                        totalAmount: 2160
+                        accountRef:
+                          id: 46f9461e-788b-4906-8b74-d1ea17f6dc10
+                        taxRateRef:
+                          id: INPUT2
+                      - description: Desktop/network support via email & phone.Per month fixed fee for minimum 20 hours/month.
+                        unitAmount: 4000
+                        quantity: 1
+                        taxAmount: 800
+                        totalAmount: 4800
+                        accountRef:
+                          id: f96c9458-d724-47bf-8f74-a9d5726465ce
+                        taxRateRef:
+                          id: INPUT2
+                      - description: Stationery charges
+                        unitAmount: 32
+                        quantity: 8
+                        taxAmount: 51.2
+                        totalAmount: 307.2
+                        accountRef:
+                          id: cba6527d-f102-4538-b421-e483233e9d5a
+                        taxRateRef:
+                          id: INPUT2
+                    status: Open
+                    totalAmount: 7267.2
+                    amountDue: 7267.2
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1070,7 +1025,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connections/{connectionId}/payables/bill/{billId}/billPayments':
+  '/companies/{companyId}/connections/{connectionId}/payables/bill/{billId}/payments':
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -1082,18 +1037,10 @@ paths:
           type: string
     post:
       summary: Create bill payment
-      x-speakeasy-ignore: true
-      x-internal: true
-      description: |
+      description: |-
         The *Create bill payment* endpoint creates a new [bill payment](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) for a given company's connection.
 
         [Bill payments](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) are an allocation of money within any customer accounts payable account.
-
-        **Integration-specific behaviour**
-
-        Required data may vary by integration. To see what data to post, first call [Get create bill payment model](https://docs.codat.io/sync-for-payables-api#/operations/get-create-billPayments-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support creating a bill payment.
       operationId: create-bill-payment
       tags:
         - Bill payments
@@ -1101,50 +1048,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BillPayment'
+              $ref: '#/components/schemas/BillPayment/definitions/billPaymentPrototype'
             examples:
               Bill payment example:
                 value:
-                  totalAmount: 22
+                  amount: 22
                   currencyRate: 0
                   date: '2022-10-23T00:00:00.000Z'
-                  note: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
+                  accountRef:
+                    id: 7bda9f44sr56
+                  reference: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushOperation'
+                $ref: '#/components/schemas/BillPayment'
               examples:
                 Bill payment:
                   value:
-                    changes:
-                      - type: Unknown
-                        recordRef:
-                          id: billPayment-1029932
-                          dataType: billPayments
-                        attachmentId: 39282B023C8849B0A4413F900BFF489D
-                    dataType: billPayments
-                    companyId: 8a210b68-6988-11ed-a1eb-0242ac120002
-                    pushOperationKey: c2f8847d-3047-4619-a157-6d947d8e4a73
-                    dataConnectionKey: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-                    requestedOnUtc: '2022-10-23T00:00:00.000Z'
-                    completedOnUtc: '2022-10-23T00:00:00.000Z'
-                    timeoutInMinutes: 0
-                    timeoutInSeconds: 0
-                    status: Pending
-                    errorMessage: ''
-                    validation:
-                      errors:
-                        - itemId: string
-                          message: string
-                          validatorName: string
-                      warnings:
-                        - itemId: string
-                          message: string
-                          validatorName: string
-                    statusCode: 0
+                    id: billPayment-1029932
+                    amount: 22
+                    currencyRate: 0
+                    date: '2022-10-23T00:00:00.000Z'
+                    accountRef:
+                      id: 7bda9f44sr56
+                    reference: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1403,10 +1333,12 @@ components:
               $ref: '#/components/schemas/Bill/allOf/0/properties/amountDue'
           required:
             - issueDate
+            - dueDate
+            - currency
+            - supplierRef
             - status
-            - totalAmount
         billStatus:
-          description: Current state of the bill.
+          description: Current state of the bill. If creating a bill the status must be `Open`.
           type: string
           enum:
             - Unknown
@@ -1428,47 +1360,44 @@ components:
               type: number
               format: decimal
               description: Unit price of the goods or service.
+            quantity:
+              type: number
+              format: decimal
+              description: Number of units of goods or services received.
             taxAmount:
               type: number
               format: decimal
               description: Amount of tax applied to the line item.
             accountRef:
-              description: Reference to the account to which the line item is linked.
-              title: Account reference
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: '''id'' from the Accounts data type.'
-                name:
-                  type: string
-                  description: '''name'' from the Accounts data type.'
-            taxRateRef:
-              description: Reference to the tax rate to which the line item is linked.
-              title: Tax rate reference
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Unique identifier for the tax rate in the accounting platform.
-                name:
-                  type: string
-                  description: Name of the tax rate in the accounting platform.
-                effectiveTaxRate:
-                  type: number
-                  format: decimal
-                  description: Applicable tax rate.
-            quantity:
-              type: number
-              format: decimal
-              description: Number of units of goods or services received.
+              $ref: '#/components/schemas/Bill/definitions/billAccountRef'
             totalAmount:
               type: number
               format: decimal
               nullable: true
               description: 'Total amount of the line, including tax.'
+            taxRateRef:
+              $ref: '#/components/schemas/Bill/definitions/billTaxRateRef'
           required:
             - quantity
+            - unitAmount
+            - taxRateRef
+            - accountRef
+        billAccountRef:
+          title: Account reference
+          type: object
+          description: Reference to the account to which the line item is linked.
+          properties:
+            id:
+              type: string
+              description: '''id'' from the Accounts data type.'
+        billTaxRateRef:
+          title: Tax rate reference
+          type: object
+          description: Reference to the tax rate to which the line item is linked.
+          properties:
+            id:
+              type: string
+              description: Unique identifier for the tax rate in the accounting platform.
         bills:
           title: Bills
           allOf:
@@ -1478,7 +1407,6 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/Bill'
-            - $ref: '#/components/schemas/PagingInfo'
     BillEventWebhook:
       x-internal: true
       title: Bill event webhook
@@ -1520,11 +1448,22 @@ components:
       type: object
       description: ''
       properties:
-        totalAmount:
+        amount:
           type: number
           format: decimal
           description: Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
           example: 1329.54
+        date:
+          allOf:
+            - $ref: '#/components/schemas/Company/properties/created'
+            - description: Date the bill payment was recorded in the accounting software.
+        reference:
+          type: string
+          nullable: true
+          description: Additional information associated with the payment.
+          example: Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44
+        accountRef:
+          $ref: '#/components/schemas/Bill/definitions/billAccountRef'
         currencyRate:
           title: Currency rate
           type: number
@@ -1563,24 +1502,34 @@ components:
             | Integration       | Scenario                                        | System behavior                                                                                                                                                      |
             |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
             | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
-        date:
-          allOf:
-            - $ref: '#/components/schemas/Company/properties/created'
-            - description: Date the bill payment was recorded in the accounting software.
-        note:
-          type: string
-          nullable: true
-          description: Additional information associated with the payment.
-          example: Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44
-      required:
-        - totalAmount
-        - currencyRate
-        - date
+      definitions:
+        billPaymentPrototype:
+          title: Bill payment prototype
+          type: object
+          properties:
+            amount:
+              $ref: '#/components/schemas/BillPayment/properties/amount'
+            date:
+              $ref: '#/components/schemas/BillPayment/properties/date'
+            reference:
+              $ref: '#/components/schemas/BillPayment/properties/reference'
+            accountRef:
+              $ref: '#/components/schemas/Bill/definitions/billAccountRef'
+            currencyRate:
+              $ref: '#/components/schemas/BillPayment/properties/currencyRate'
+          required:
+            - amount
+            - date
+            - accountRef
+            - currencyRate
       example:
-        totalAmount: 22
-        currencyRate: 0
+        amount: 22
         date: '2022-10-23T00:00:00.000Z'
-        note: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
+        reference: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
+        accountRef:
+          id: 9e32cbf8-e7d5-4d4d-a593-08d550682aab
+          name: string
+        currencyRate: 0
     ClientRateLimitReachedWebhook:
       title: Client rate limit reached webhook
       x-internal: true

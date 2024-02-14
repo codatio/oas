@@ -14934,7 +14934,7 @@ paths:
 
         Required data may vary by integration. To see what data to post, first call [Get create bill payment model](https://docs.codat.io/sync-for-payables-api#/operations/get-create-billPayments-model).
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support creating a bill payment.
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support creating an account.
       operationId: create-bill-payment
   '/companies/{companyId}/data/bills':
     parameters:
@@ -17306,10 +17306,9 @@ paths:
       description: |-
         The *List bills* endpoint returns a list of [bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) for a given company's connection.
 
-        By default, the endpoint will return all bills irrespective of payment status. To filter outstanding bills use the `outstandingBills=true` query parameter to return all unpaid and partially paid bills. 
-
         [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-            
+
+        By default, the endpoint will return all bills with a status of 'Open' & 'PartiallyPaid' to show all oustanding bills.
       operationId: list-bills
   '/companies/{companyId}/data/bills/{billId}':
     parameters:
@@ -21930,7 +21929,7 @@ paths:
 
         Required data may vary by integration. To see what data to post, first call [Get create/update bill model](https://docs.codat.io/sync-for-payables-api#/operations/get-create-update-bills-model).
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support creating a bill.
+        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support creating an account.
       operationId: create-bill
   '/companies/{companyId}/connections/{connectionId}/push/bills/{billId}':
     parameters:
