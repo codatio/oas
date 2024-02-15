@@ -755,11 +755,8 @@ paths:
                             taxAmount: 0
                             accountRef:
                               id: '16'
-                              name: Advertising
                             taxRateRef:
                               id: NON
-                              name: NON
-                              effectiveTaxRate: 0
                             totalAmount: 5
                         status: Open
                         totalAmount: 5
@@ -780,11 +777,8 @@ paths:
                             taxAmount: 0
                             accountRef:
                               id: '16'
-                              name: Advertising
                             taxRateRef:
                               id: NON
-                              name: NON
-                              effectiveTaxRate: 0
                             totalAmount: 5
                         status: Paid
                         totalAmount: 5
@@ -818,7 +812,6 @@ paths:
       tags:
         - Bills
       parameters:
-        - $ref: '#/components/parameters/timeoutInMinutes'
         - in: header
           name: Idempotency-Key
           description: A unique identifier to ensure idempotent behaviour for subsequent requests.
@@ -1025,7 +1018,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connections/{connectionId}/payables/bill/{billId}/payments':
+  '/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/payments':
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
