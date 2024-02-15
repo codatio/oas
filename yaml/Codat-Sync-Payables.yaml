@@ -1192,39 +1192,6 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
-  payables.bill.created:
-    post:
-      description: Triggered once a bill is created in the accounting platform.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BillEventWebhook'
-      responses:
-        '200':
-          description: Return a 200 status to indicate that the webhook was received successfully.
-  payables.bill.updated:
-    post:
-      description: Triggered once a bill is updated in the accounting platform.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BillEventWebhook'
-      responses:
-        '200':
-          description: Return a 200 status to indicate that the webhook was received successfully.
-  payables.bill.deleted:
-    post:
-      description: Triggered once a bill is deleted in the accounting platform.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BillEventWebhook'
-      responses:
-        '200':
-          description: Return a 200 status to indicate that the webhook was received successfully.
 components:
   schemas:
     AttachmentUpload:
@@ -1267,6 +1234,8 @@ components:
                 - $ref: '#/components/schemas/Company/properties/created'
             currency:
               $ref: '#/components/schemas/MappingOptions/definitions/accountMappingOption/properties/currency'
+            currencyRate:
+              $ref: '#/components/schemas/BillPayment/properties/currencyRate'
             lineItems:
               type: array
               nullable: true
@@ -1317,6 +1286,8 @@ components:
               $ref: '#/components/schemas/Bill/allOf/0/properties/dueDate'
             currency:
               $ref: '#/components/schemas/MappingOptions/definitions/accountMappingOption/properties/currency'
+            currencyRate:
+              $ref: '#/components/schemas/BillPayment/properties/currencyRate'
             lineItems:
               $ref: '#/components/schemas/Bill/allOf/0/properties/lineItems'
             status:
