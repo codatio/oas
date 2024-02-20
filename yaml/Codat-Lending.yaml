@@ -74511,6 +74511,219 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/connections/{connectionId}/bankStatements/upload/configuration':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    get:
+      tags:
+        - Bank statements
+      summary: Get upload configuration
+      description: |-
+        The *Get upload configuration* endpoint returns the bank statement upload configuration for the data connection.
+
+        Bank statement upload configuration allows configuration of the source of the data to be uploaded to the *Upload data* endpoint, the provider ID for a truelayer connection, and sets the account ID of the account. Data uploaded to the *Upload data* endpoint must be for the configured account.Bank statement upload configuration is used to define the source from which data is to be uploaded as well as any source specific requirements such as the provider ID for TrueLayer. 
+      operationId: get-bank-statement-upload-configuration
+      x-speakeasy-name-override: get-upload-configuration
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankStatementUploadConfiguration'
+              examples:
+                Codat:
+                  $ref: '#/components/examples/CodatBankStatementUploadConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+    post:
+      tags:
+        - Bank statements
+      summary: Set upload configuration
+      description: |-
+        The *Set upload configuration* endpoint sets the bank statement upload configuration for the data connection
+
+        Bank statement upload configuration is used to define the source from which data is to be uploaded as well as any source specific requirements such as the provider ID for TrueLayer.
+
+        If configuration is already present for the data connection a Bad Request response will be returned. If there is already a data connection for the same company with the same account ID, a Bad Request response will be returned.
+      operationId: set-bank-statement-upload-configuration
+      x-speakeasy-name-override: set-upload-configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankStatementUploadConfiguration'
+            examples:
+              Codat:
+                $ref: '#/components/examples/CodatBankStatementUploadConfiguration'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankStatementUploadConfiguration'
+              examples:
+                Codat:
+                  $ref: '#/components/examples/CodatBankStatementUploadConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/connections/{connectionId}/bankStatements/upload/startSession':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Bank statements
+      summary: Start upload session
+      description: |-
+        The *Start upload session* endpoint initiates a bank statement upload session for a given company.
+
+        A session is a one-time session where bank statements can be uploaded to Codat.
+
+        If a session is already in progress for a data type bad request will be returned. The session will time out if no data is uploaded for 90 minutes.
+        Use the *Close upload session* endpoint to complete or cancel a session. 
+      operationId: start-bank-statement-upload-session
+      x-speakeasy-name-override: start-upload-session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartUploadSessionRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PullOperation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/connections/{connectionId}/bankStatements/upload/dataset/{datasetId}/upload':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/components/parameters/datasetId'
+      - $ref: '#/components/parameters/path'
+    post:
+      tags:
+        - Bank statements
+      summary: Upload data
+      description: |-
+        The *Upload data* endpoint uploads a page of bank accounts or bank transactions data to the session.
+
+        Upload data will only be accepted for the account configured via the *Set upload configuration* endpoint, and configuration is required before uploading.
+      operationId: upload-bank-statement-data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/BankingAccount'
+                - $ref: '#/components/schemas/BankingTransactions'
+                - $ref: '#/components/schemas/ThirdPartySchema'
+      responses:
+        '200':
+          description: Success
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/connections/{connectionId}/bankStatements/upload/dataset/{datasetId}/endSession':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+      - $ref: '#/components/parameters/datasetId'
+    post:
+      tags:
+        - Bank statements
+      summary: End upload session
+      description: |-
+        The *End upload session* endpoint finalizes a bank statement upload session, either cancelling the dataset or triggering ingestion of the data and enrichment of uploaded transactions.
+
+        A session is a one-time process where bank statements can be uploaded to Codat. The session will time out if no data is uploaded for 90 minutes.
+      operationId: end-bank-statement-upload-session
+      x-speakeasy-name-override: end-upload-session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndUploadSessionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
 webhooks:
   Account categories updated:
     post:
@@ -79229,6 +79442,23 @@ components:
               items:
                 $ref: '#/components/schemas/BankingTransaction'
         - $ref: '#/components/schemas/PagingInfo'
+    BankStatementUploadConfiguration:
+      title: Banking data upload settings
+      description: Settings for uploading banking data to Codat
+      additionalProperties: false
+      type: object
+      properties:
+        source:
+          type: string
+          enum:
+            - codat
+          description: The source or format of the banking data e.g. Codat
+        accountId:
+          type: string
+          description: The ID of the account in the 3rd party platform
+        providerId:
+          type: string
+          description: 'The truelayer provider ID, required if source is truelayer, ignored otherwise'
     ClientRateLimitReachedWebhook:
       title: Client rate limit reached webhook
       x-internal: true
@@ -81461,6 +81691,16 @@ components:
         > 
         > Not all dates from Codat will contain information about time zones.  
         > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+    EndUploadSessionRequest:
+      title: End upload session request
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - Cancel
+            - Process
+          description: A key for a Codat data type.
     EnhancedCashFlowTransactions:
       title: Enhanced cash flow transactions
       description: |-
@@ -82762,6 +83002,16 @@ components:
             $ref: '#/components/schemas/ReportLine'
       required:
         - value
+    StartUploadSessionRequest:
+      title: Upload session start request
+      type: object
+      properties:
+        dataType:
+          type: string
+          enum:
+            - banking-accounts
+            - banking-transactions
+          description: A key for a Codat data type.
     SupplementalData:
       title: Supplemental data
       type: object
@@ -82777,6 +83027,11 @@ components:
             type: object
             additionalProperties: true
           nullable: true
+    ThirdPartySchema:
+      title: Third party schema
+      description: The format should be identical to the format receieved from the 3rd party source (e.g. Plaid or Truelayer)
+      type: object
+      x-speakeasy-type-override: Any
     WebLink:
       title: Weblink
       description: Weblink associated with the company.
@@ -83120,6 +83375,15 @@ components:
         examples:
           $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
       description: Unique identifier for a product.
+    path:
+      name: path
+      description: 'The 3rd party banking service endpoint path the body is from, required if the source is not ''Codat'''
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - auth/get
   responses:
     BadRequest:
       description: The request made is not valid.
@@ -83309,3 +83573,9 @@ components:
       type: apiKey
       in: header
       x-speakeasy-example: Basic BASE_64_ENCODED(API_KEY)
+  examples:
+    CodatBankStatementUploadConfiguration:
+      value:
+        source: codat
+        accountId: abc123-ABC
+      summary: Settings for uploading codat data
