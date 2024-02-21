@@ -706,7 +706,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connection/{connectionId}/payables/bills':
+  '/companies/{companyId}/connections/{connectionId}/payables/bills':
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -1087,7 +1087,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connection/{connectionId}/payables/suppliers':
+  '/companies/{companyId}/connections/{connectionId}/payables/suppliers':
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
@@ -1520,7 +1520,6 @@ components:
             - amount
             - date
             - accountRef
-            - currencyRate
       example:
         amount: 22
         date: '2022-10-23T00:00:00.000Z'
