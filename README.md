@@ -1,4 +1,4 @@
-# oas
+# Open API Specification (OAS)
 
 These files are generated and bundled from our internal OpenAPI specs.
 
