@@ -5006,6 +5006,7 @@ paths:
                           - description: billcredit_test
                             unitAmount: 145.5
                             quantity: 1
+                            unitOfMeasurement: pack
                             subTotal: 145.5
                             totalAmount: 145.5
                             accountRef:
@@ -5044,6 +5045,7 @@ paths:
                           - description: Cheese
                             unitAmount: 400
                             quantity: 1
+                            unitOfMeasurement: pack
                             subTotal: 400
                             totalAmount: 400
                             accountRef:
@@ -6273,6 +6275,7 @@ paths:
                       - description: billcredit_test
                         unitAmount: 145.5
                         quantity: 1
+                        unitOfMeasurement: pack
                         subTotal: 145.5
                         totalAmount: 145.5
                         accountRef:
@@ -76017,6 +76020,10 @@ components:
               type: number
               format: decimal
               description: Number of units of the goods or service for which credit has been received.
+            unitOfMeasurement:
+              type: string
+              nullable: true
+              description: 'The measurement which defines a unit for this item (e.g. ''kilogram'', ''litre'').'
             discountAmount:
               type: number
               format: decimal
