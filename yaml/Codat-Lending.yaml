@@ -1612,7 +1612,7 @@ paths:
                   - transactions:
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 4f78a6b0-e9bb-40f2-82fd-f3a2daa1fd0a
                           name: Business Current Account
                         id: ab5e07a0-5578-4d91-8421-2dc72713b74f
@@ -1626,9 +1626,10 @@ paths:
                             - Expense
                             - Operating
                         platformName: Shopify
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 4f78a6b0-e9bb-40f2-82fd-f3a2daa1fd0a
                           name: Business Current Account
                         id: 9846bbed-46d3-472c-a848-1ce8ebea7213
@@ -1641,9 +1642,10 @@ paths:
                           levels:
                             - Expense
                         platformName: Amazon
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 809b9470-c9fa-4257-bc9f-06a1dc7b0cbc
                           name: Business Undeposited Funds
                         id: 94b213fb-d742-435e-90f1-bfe723a076d5
@@ -1657,9 +1659,10 @@ paths:
                             - Income
                             - Revenue
                         platformName: Shopify
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 4f78a6b0-e9bb-40f2-82fd-f3a2daa1fd0a
                           name: Business Current Account
                         id: cfceb7ff-eaa2-45b6-aca7-fa0e0b439161
@@ -1673,9 +1676,10 @@ paths:
                             - Expense
                             - CostOfSales
                         platformName: Amazon
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 809b9470-c9fa-4257-bc9f-06a1dc7b0cbc
                           name: Business Undeposited Funds
                         id: ba814f14-0fe3-41d0-9308-57f40642ac75
@@ -1689,9 +1693,10 @@ paths:
                             - Income
                             - Revenue
                         platformName: Zettle
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 4f78a6b0-e9bb-40f2-82fd-f3a2daa1fd0a
                           name: Business Current Account
                         id: e67cc30e-fd5c-4eea-8365-ec40dfdd3ef6
@@ -1704,9 +1709,10 @@ paths:
                           levels:
                             - Expense
                         platformName: Amazon
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 4f78a6b0-e9bb-40f2-82fd-f3a2daa1fd0a
                           name: Business Current Account
                         id: e0f08a0b-3575-4dde-98c4-3c854028d2d2
@@ -1720,9 +1726,10 @@ paths:
                             - Expense
                             - Operating
                         platformName: Amazon
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 809b9470-c9fa-4257-bc9f-06a1dc7b0cbc
                           name: Business Undeposited Funds
                         id: 4b70d379-8284-4f44-bb37-c7935df950cc
@@ -1735,9 +1742,10 @@ paths:
                           levels:
                             - Income
                         platformName: DoorDash
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 809b9470-c9fa-4257-bc9f-06a1dc7b0cbc
                           name: Business Undeposited Funds
                         id: 76b73373-9345-472e-8edf-5be849d797fe
@@ -1751,9 +1759,10 @@ paths:
                             - Income
                             - Revenue
                         platformName: Uber
+                        modifiedDate: '2022-11-08T12:00:00'
                       - sourceRef:
                           sourceType: Banking
-                      - accountRef:
+                        accountRef:
                           id: 809b9470-c9fa-4257-bc9f-06a1dc7b0cbc
                           name: Business Undeposited Funds
                         id: ee92fd6f-e0f7-4391-85fd-4b50921b973f
@@ -1767,6 +1776,7 @@ paths:
                             - Income
                             - Revenue
                         platformName: DoorDash
+                        modifiedDate: '2022-11-08T12:00:00'
         '400':
           $ref: '#/components/responses/Malformed-Query'
         '401':
@@ -81831,6 +81841,9 @@ components:
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/sourceRef'
             accountRef:
               $ref: '#/components/schemas/EnhancedCashFlowTransactions/definitions/accountRef'
+            modifiedDate:
+              description: The date the bank transaction was last modified.
+              $ref: '#/components/schemas/DateTime'
         transactionCategory:
           title: Transaction category
           type: object
