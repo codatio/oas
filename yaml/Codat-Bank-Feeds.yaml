@@ -2593,8 +2593,8 @@ paths:
 webhooks:
   Client rate limit reached:
     post:
+      description: Triggered when the number of requests to Codat's API from the client exceeds the current quota.
       requestBody:
-        description: Triggered when your Codat client's rate limit is reached.
         content:
           application/json:
             schema:
@@ -2604,8 +2604,8 @@ webhooks:
           description: Return a 200 status to indicate that the webhook was received successfully.
   Client rate limit reset:
     post:
+      description: 'Triggered when the rate limit quota has reset for the client, and more requests to Codat''s API are available.'
       requestBody:
-        description: Triggered when your Codat client's rate limit is reset.
         content:
           application/json:
             schema:
@@ -3066,7 +3066,7 @@ components:
               description: The number of available requests per day.
             ExpiresUtc:
               $ref: '#/components/schemas/DateTime'
-              description: The date time in UTC that your daily quota is reset.
+              description: The date time in UTC when your daily quota is reset.
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
           ClientName: Bank of Dave
@@ -3106,7 +3106,7 @@ components:
           description: Unique identifier of the webhook event.
         Message:
           type: string
-          description: A human readable message about the webhook.
+          description: A human-readable message about the webhook.
         Data:
           $ref: '#/components/schemas/ClientRateLimitResetWebhook/definitions/ClientRateLimitResetWebhookData'
       definitions:
@@ -3116,7 +3116,7 @@ components:
           properties:
             QuotaRemaining:
               type: integer
-              description: Total number of request remaining for your client.
+              description: Total number of requests remaining for your client.
               nullable: true
             ResetReason:
               type: string
@@ -3591,7 +3591,7 @@ components:
       title: Data types
       x-internal: true
       type: string
-      description: Available Data types
+      description: Available data types
       enum:
         - accountTransactions
         - balanceSheet
