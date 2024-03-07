@@ -75359,6 +75359,17 @@ components:
               description: 'If `true`, then the attachment is included with the associated invoice, bill or direct costs when it is printed, emailed, or sent to a customer, if the underlying accounting platform allows this.'
         - $ref: '#/components/schemas/CommerceOrder/allOf/3'
       examples: []
+      definitions:
+        attachments:
+          title: Attachments
+          type: object
+          properties:
+            attachments:
+              description: An array of attachments related to the record.
+              type: array
+              items:
+                $ref: '#/components/schemas/AccountingAttachment'
+              nullable: true
     AccountingBalanceSheet:
       title: 'Accounting: Balance sheet'
       description: |-
