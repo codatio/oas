@@ -6922,6 +6922,10 @@ paths:
                             accountRef:
                               id: '714'
                               name: Cost of Goods Sold
+                            createdFromLineRef:
+                              id: '7462'
+                              dataType: bills
+                              lineNumber: '1'
                             trackingCategoryRefs:
                               - id: location-1
                             tracking:
@@ -6975,6 +6979,9 @@ paths:
                               currency: GBP
                               currencyRate: 1
                               totalAmount: 300
+                        createdFromRefs:
+                          - id: '7462'
+                            dataType: bills
                         modifiedDate: '2022-09-20T08:16:22Z'
                         sourceModifiedDate: '2021-11-03T18:27:14'
                         note: Codat1
@@ -8144,6 +8151,10 @@ paths:
                         accountRef:
                           id: '713'
                           name: Inventory Asset
+                        createdFromLineRef:
+                          id: '1432'
+                          dataType: bills
+                          lineNumber: '1'
                         trackingCategoryRefs:
                           - id: department-1
                           - id: location-1
@@ -8154,6 +8165,9 @@ paths:
                           isBilledTo: Unknown
                           isRebilledTo: Unknown
                     paymentAllocations: []
+                    createdFromRefs:
+                      - id: '1432'
+                        dataType: bills
                     modifiedDate: '2022-09-20T08:16:22Z'
                     sourceModifiedDate: '2021-11-02T19:58:58'
                     note: Codat1
@@ -31207,6 +31221,7 @@ components:
                       description: Allowed name of the 'dataType'.
                       enum:
                         - purchaseOrders
+                        - bills
                     lineNumber:
                       type: string
                       description: Line number of the underlying record.
@@ -31322,6 +31337,30 @@ components:
               description: An array of payment allocations.
               items:
                 $ref: '#/components/schemas/Bill/allOf/0/properties/paymentAllocations/items'
+            createdFromRefs:
+              nullable: true
+              type: array
+              description: An array of records the credit note was created from.
+              items:
+                type: object
+                x-internal: true
+                title: Record reference
+                description: |-
+                  Links the current record to the underlying record or data type that created it. 
+
+                  For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
+                properties:
+                  id:
+                    type: string
+                    description: '''id'' of the underlying record or data type.'
+                  dataType:
+                    type: string
+                    description: Allowed name of the 'dataType'.
+                    examples:
+                      - journalEntry
+                      - invoice
+                      - accountTransaction
+                      - transfer
             note:
               type: string
               nullable: true
@@ -31414,6 +31453,9 @@ components:
                   description: Name of the item in the accounting platform.
               required:
                 - id
+            createdFromLineRef:
+              $ref: '#/components/schemas/Bill/definitions/billLineItem/properties/purchaseOrderLineRef/allOf/0'
+              description: Reference to the line of the item that the current line was created from.
             trackingCategoryRefs:
               type: array
               nullable: true
@@ -31507,6 +31549,10 @@ components:
                   name: ACMERockets
                 - id: costcode_2
                   name: ACM2-ACMESigns
+              createdFromLineRef:
+                - id: '8462'
+                  dataType: bill
+                  lineNumber: 1
             - description: ACMEDisintegratingPistol
               unitAmount: 25
               discountAmount: 0
@@ -31549,6 +31595,10 @@ components:
           supplierRef:
             id: 67C6A7A1-5E84-4AC4-B950-24A114E379D0
             supplierName: Chin's Gas and Oil
+          createdFromLineRef:
+            id: '8462'
+            dataType: bills
+            line: 1
     BillCreditNotes:
       title: 'Accounting: Bill credit notes'
       x-internal: true
