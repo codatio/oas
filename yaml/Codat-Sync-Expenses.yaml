@@ -1013,7 +1013,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transaction'
+                $ref: '#/components/schemas/TransactionResponse'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -1167,7 +1167,7 @@ paths:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/transactionId'
     put:
-      summary: Update expense-transactions
+      summary: Update expense transactions
       tags:
         - Expenses
       responses:
@@ -10483,6 +10483,11 @@ components:
           status: ValidationError
           message: The line item total -208.10((-195.01 + -1.09) + (-10.01 + -1.99)) must equal the transaction total -1.1
           integrationType: string
+    TransactionResponse:
+      title: Transaction response
+      type: array
+      items:
+        $ref: '#/components/schemas/Transaction'
     Transactions:
       title: Transactions
       x-internal: true
