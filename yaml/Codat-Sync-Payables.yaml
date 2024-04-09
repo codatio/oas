@@ -1418,6 +1418,47 @@ webhooks:
           description: Return a 200 status to indicate that the webhook was received successfully.
 components:
   schemas:
+    Address:
+      title: Address
+      x-internal: true
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/Address/definitions/addressType'
+        line1:
+          type: string
+          nullable: true
+          description: Line 1 of the customer address.
+        line2:
+          type: string
+          nullable: true
+          description: Line 2 of the customer address.
+        city:
+          type: string
+          nullable: true
+          description: City of the customer address.
+        region:
+          type: string
+          nullable: true
+          description: Region of the customer address.
+        country:
+          type: string
+          nullable: true
+          description: Country of the customer address.
+        postalCode:
+          type: string
+          nullable: true
+          description: Postal code or zip code.
+      required:
+        - type
+      definitions:
+        addressType:
+          description: The type of the address
+          type: string
+          enum:
+            - Unknown
+            - Billing
+            - Delivery
     Attachment:
       title: Attachment
       description: |2-
@@ -2892,46 +2933,7 @@ components:
           nullable: true
           description: An array of Addresses.
           items:
-            title: 'Accounting: Address'
-            x-internal: true
-            type: object
-            properties:
-              type:
-                $ref: '#/components/schemas/Supplier/properties/addresses/items/definitions/accountingAddressType'
-              line1:
-                type: string
-                nullable: true
-                description: Line 1 of the customer address.
-              line2:
-                type: string
-                nullable: true
-                description: Line 2 of the customer address.
-              city:
-                type: string
-                nullable: true
-                description: City of the customer address.
-              region:
-                type: string
-                nullable: true
-                description: Region of the customer address.
-              country:
-                type: string
-                nullable: true
-                description: Country of the customer address.
-              postalCode:
-                type: string
-                nullable: true
-                description: Postal code or zip code.
-            required:
-              - type
-            definitions:
-              accountingAddressType:
-                description: The type of the address
-                type: string
-                enum:
-                  - Unknown
-                  - Billing
-                  - Delivery
+            $ref: '#/components/schemas/Address'
         status:
           $ref: '#/components/schemas/Supplier/definitions/supplierStatus'
         balance:
