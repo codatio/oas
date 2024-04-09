@@ -3,11 +3,11 @@ servers:
   - description: Production
     url: 'https://api.codat.io'
 info:
-  title: Bill Pay kit
+  title: Bill pay kit
   description: |
-    The API for the Bill Pay kit. 
+    The API reference for the Bill Pay kit. 
 
-    The Bill Pay kit is an API and a set of supporting tools designed to integrate a bill pay flow into your app as quickly as possible. It's ideal for facilitating essential bill payment processes within your SMB's accounting platforms.
+    The bill pay kit is an API and a set of supporting tools designed to integrate a bill pay flow into your app as quickly as possible. It's ideal for facilitating essential bill payment processes within your SMB's accounting platforms.
 
     [Explore product](https://docs.codat.io/payables/bill-pay-kit) | [See OpenAPI spec](https://github.com/codatio/oas)
   version: 3.0.0
@@ -693,6 +693,7 @@ paths:
                   value:
                     accounts:
                       - id: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                        nominalCode: 879-i
                         name: Accounts payable
                         type: Liability
                         currency: GBP
@@ -1834,6 +1835,11 @@ components:
                   type: string
                   description: 'Identifier for the account, unique for the company.'
                   example: 1b6266d1-1e44-46c5-8eb5-a8f98e03124e
+                nominalCode:
+                  type: string
+                  nullable: true
+                  description: Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+                  example: '610'
                 name:
                   type: string
                   nullable: true
@@ -2928,6 +2934,10 @@ components:
                   - Delivery
         status:
           $ref: '#/components/schemas/Supplier/definitions/supplierStatus'
+        balance:
+          type: number
+          format: decimal
+          description: Amount outstanding against the supplier.
         defaultCurrency:
           type: string
           nullable: true
@@ -3002,6 +3012,7 @@ components:
               country: USA
               postalcode: '93308'
           status: Unknown
+          amount: 100
           defaultCurrency: GBP
           sourceModifiedDate: '2022-10-23T00:00:00Z'
   parameters:
