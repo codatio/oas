@@ -674,13 +674,14 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       summary: Get bill mapping options
-      description: "\uFEFFUse the *Get mapping options - Bills* endpoint to return a list of available mapping options for a given company's connection ID.\n\nMapping options are a set of accounts and tax rates used to configure the SMB's payables integration."
+      description: "\uFEFFUse the *Get mapping options - Bills* endpoint to return a list of available mapping options for a given company's connection ID.\n\nBy default, this endpoint returns a list of active accounts and tax rates. You can use [querying](https://docs.codat.io/using-the-api/querying) to change that.\n\nMapping options are a set of accounts and tax rates used to configure the SMB's payables integration."
       operationId: get-mapping-options-bills
       x-speakeasy-name-override: get-bill-options
       tags:
         - Bills
       parameters:
         - $ref: '#/components/parameters/continuationToken'
+        - $ref: '#/components/parameters/statusQuery'
       responses:
         '200':
           description: Success
@@ -731,13 +732,14 @@ paths:
       - $ref: '#/components/parameters/connectionId'
     get:
       summary: Get payment mapping options
-      description: "Use the *Get mapping options - Payments* endpoint to return a list of available mapping options for a given company's connection ID.\r\n\r\nMapping options are a set of bank accounts used to configure the SMB's payables integration."
+      description: "Use the *Get mapping options - Payments* endpoint to return a list of available mapping options for a given company's connection ID.\r\n\r\nBy default, this endpoint returns a list of active bank accounts. You can use [querying](https://docs.codat.io/using-the-api/querying) to change that.\r\n\r\nMapping options are a set of bank accounts used to configure the SMB's payables integration."
       operationId: get-mapping-options-payments
       x-speakeasy-name-override: get-payment-options
       tags:
         - Bill payments
       parameters:
         - $ref: '#/components/parameters/continuationToken'
+        - $ref: '#/components/parameters/statusQuery'
       responses:
         '200':
           description: Success
@@ -3104,6 +3106,14 @@ components:
         type: string
         example: continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==
       description: Retrieve the next page of results using the continuation token from the previous response.
+    statusQuery:
+      name: statusQuery
+      in: query
+      required: false
+      schema:
+        type: string
+      example: status=Archived
+      description: 'Codat query string allows you to filter by `status` (`status=Active||status=Archived`). [Learn more](https://docs.codat.io/using-the-api/querying) about Codat''s query string.'
   responses:
     BadRequest:
       description: The request made is not valid.
