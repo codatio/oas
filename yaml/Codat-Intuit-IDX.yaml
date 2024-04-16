@@ -1,7 +1,7 @@
 openapi: 3.1.0
 servers:
   - description: Production
-    url: partners/intuit/idx
+    url: 'https://api.codat.io/intuit/idx'
 info:
   title: Codat IDX API
   description: "\uFEFF## Headers\nAPI calls by Intuit to Codat’s API must include the following 2 headers:\n1. An Authorization header: `Authorization: Basic BASE64({username}:{password})`\n\nThe username & password are generated from the company linking process, and then converted into BASE64. This then used for the Authorization header using the above set-up.\n\n2. A partner identification header, specific to each client: `X-Partner-Key: BASE64({Key})`\n\nThis is the client ID converted into BASE64, directly put into the X-Partner-Key header."
@@ -103,12 +103,31 @@ paths:
       operationId: list-transactions
       parameters:
         - $ref: '#/components/parameters/accountId'
+        - name: startDate
+          in: query
+          required: false
+          schema:
+            type: string
+          example: YYYY-MM-DD
+          description: 'The date from which you want to include transactions from. This is inclusive of the startDate itself. For example, a startDate of 2024-01-01 would return transactions from 2024-01-01, inclusive of 2024-01-01.'
+        - name: endDate
+          in: query
+          required: false
+          schema:
+            type: string
+          example: YYYY-MM-DD
+          description: 'The date up to which you want to include transactions to, but not including the endDate itself. For example, an endDate of 2024-01-29 would return transactions up to 2024-01-29 but not including 2024-01-29.'
       tags:
         - Idx
       description: |-
         The _List Intuit bank transactions_ endpoint returns a list of bank transactions for a specified bank account.
 
         Bank transactions are records of monetary amounts that have moved in and out of an SMB's bank account.
+
+
+        This endpoint supports filtering by modifiedDate. Only transactions where the `modifiedDate` falls between `startDate` and `endDate` are included in the response:
+        - `startDate` is inclusive (transactions modified on the specified date are included in the response)
+        - `endDate` is exclusive (transactions modified on the specified date are excluded from the response)
       responses:
         '200':
           description: Success
@@ -231,7 +250,7 @@ components:
             accountOpenDate:
               type: string
               description: Date when the account was opened or created at the provider
-              example: '2022-10-23'
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
             bankRoutingInfo:
               type: array
               items:
@@ -250,31 +269,7 @@ components:
                 - pendingclose
                 - paid
             modifiedDate:
-              title: Date time
-              type: string
-              examples:
-                - 2022-10-23T00:00:00.000Z
-                - 2022-10-23T00:00:00.000Z
-              description: |-
-                In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-                ```
-                2020-10-08T22:40:50Z
-                2021-01-01T00:00:00
-                ```
-
-
-
-                When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-                - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-                - Unqualified local time: `2021-11-15T01:00:00`
-                - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-                > Time zones
-                > 
-                > Not all dates from Codat will contain information about time zones.  
-                > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
       definitions:
         accountDisplayInfo:
           title: Account Display Info
@@ -373,8 +368,8 @@ components:
         balanceAsOf:
           title: Balance As Of
           type: string
-          format: YYYY-MM-DD
           description: Balance as of date (TimeStamp)
+          $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
         bankRoutingInfo:
           title: Bank routing info
           type: object
@@ -445,16 +440,31 @@ components:
             minimumPaymentDueAmount:
               $ref: '#/components/schemas/IntuitAccount/definitions/minimumPaymentDueAmount'
             pastDueDate:
+              title: Date time
               type: string
-              example: '2022-10-23'
-              description: |+
-                In Codat's data model, dates are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date fields are formatted as strings; for example:
+              examples:
+                - 2022-10-23T00:00:00.000Z
+                - 2022-10-23T00:00:00.000Z
+              description: |-
+                In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
                 ```
-                2020-10-08
+                2020-10-08T22:40:50Z
+                2021-01-01T00:00:00
                 ```
 
 
-              title: Date
+
+                When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+                - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+                - Unqualified local time: `2021-11-15T01:00:00`
+                - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+                > Time zones
+                > 
+                > Not all dates from Codat will contain information about time zones.  
+                > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
             pastDueAmount:
               $ref: '#/components/schemas/IntuitAccount/definitions/pastDueAmount'
             purchasesApr:
@@ -714,13 +724,13 @@ components:
                 - loan
                 - lineofcredit
             transactionDate:
-              $ref: '#/components/schemas/IntuitAccount/allOf/0/properties/modifiedDate'
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
               description: Transaction date and time
             postedDate:
-              $ref: '#/components/schemas/IntuitAccount/allOf/0/properties/modifiedDate'
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
               description: Date transaction was posted to account
             fundsAvailableDate:
-              $ref: '#/components/schemas/IntuitAccount/allOf/0/properties/modifiedDate'
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
               description: Date and time at which assets become available to the account owner
             transactionDescription:
               type: string
@@ -766,7 +776,7 @@ components:
             loanTransactionInfo:
               $ref: '#/components/schemas/IntuitTransaction/definitions/loanTransactionInfo'
             modifiedDate:
-              $ref: '#/components/schemas/IntuitAccount/allOf/0/properties/modifiedDate'
+              $ref: '#/components/schemas/IntuitAccount/definitions/creditCardAccountInfo/properties/pastDueDate'
       definitions:
         amount:
           title: amount
