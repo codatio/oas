@@ -74,6 +74,8 @@ tags:
     description: Create and manage your Codat companies.
   - name: Connections
     description: Manage your companies' data connections.
+  - name: Connection management
+    description: Configure connection management UI and retrieve access tokens for authentication.
   - name: Groups
     description: Create groups and link them to your Codat companies.
   - name: Webhooks
@@ -670,6 +672,98 @@ paths:
               additionalProperties:
                 type: string
         description: ''
+  '/companies/{companyId}/connectionManagement/accessToken':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      summary: Get access token
+      operationId: get-connection-management-access-token
+      x-speakeay-name-override: get-access-token
+      tags:
+        - Connection management
+      description: "\uFEFFUse the *Get access token* endpoint to retrieve a new access token for use by the [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management).\n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionManagementAccessToken'
+              examples:
+                Access token:
+                  value:
+                    accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+  /connectionManagement/corsSettings:
+    get:
+      summary: Get CORS settings
+      operationId: get-connection-management-cors-settings
+      x-speakeasy-name-override: connection-management.cors-settings.get
+      tags:
+        - Connection management
+      description: "\uFEFFThe *Get CORS settings* endpoint returns the allowed origins (i.e. your domains) you want to allow cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) with Codat. \n\nEnabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints.\n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectionManagementAllowedOrigins'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+    post:
+      summary: Set CORS settings
+      operationId: set-connection-management-cors-settings
+      x-speakeasy-name-override: connection-management.cors-settings.set
+      tags:
+        - Connection management
+      description: "\uFEFFThe *Set CORS settings* endpoint allows you to register allowed origins (i.e. your domains) for use in cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)).\n \nEnabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints. \n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionManagementAllowedOrigins'
+            examples:
+              Allowed origins:
+                $ref: '#/components/examples/connectionManagementAllowedOriginsResponse'
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectionManagementAllowedOrigins'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/data/all':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2894,6 +2988,29 @@ components:
         lastSync: '2022-10-27T10:22:43.6464237Z'
         created: '2022-10-27T09:53:29Z'
         sourceType: Banking
+    ConnectionManagementAccessToken:
+      title: Access token
+      type: object
+      properties:
+        accessToken:
+          type: string
+          nullable: false
+          description: Access token that allows SMBs to manage connections that have access to their data.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    ConnectionManagementAllowedOrigins:
+      title: Allowed origins
+      type: object
+      properties:
+        allowedOrigins:
+          type: array
+          description: 'An array of allowed origins (i.e. your domains) to permit cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)).n resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)).'
+          items:
+            type: string
+            format: uri
+            description: A domain you want to allow CORS with Codat.
+      example:
+        allowedOrigins:
+          - 'https://www.bank-of-dave.com'
     Connections:
       title: Connections
       x-internal: true
@@ -4440,6 +4557,15 @@ components:
                 correlationId: bc997528a9d7abb9161ef45f05d38599
                 canBeRetried: Unknown
                 detailedErrorCode: 0
+    ConnectionManagementAllowedOrigins:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectionManagementAllowedOrigins'
+          examples:
+            Allowed origins:
+              $ref: '#/components/examples/connectionManagementAllowedOriginsResponse'
     Malformed-Query:
       description: Your `query` parameter was not correctly formed
       content:
@@ -4716,6 +4842,11 @@ components:
       schema:
         $ref: '#/components/schemas/WebhookConsumer/properties/id'
       description: Unique identifier for the webhook consumer.
+  examples:
+    connectionManagementAllowedOriginsResponse:
+      value:
+        allowedOrigins:
+          - 'https://www.bank-of-dave.com'
   securitySchemes:
     auth_header:
       name: Authorization
