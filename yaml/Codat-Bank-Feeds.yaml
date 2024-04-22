@@ -3833,8 +3833,9 @@ components:
           type: string
           description: The data type you are requesting in a pull operation.
         status:
+          title: Dataset status
           type: string
-          description: The current status of the pull operation.
+          description: The current status of the dataset.
           enum:
             - Initial
             - Queued
@@ -3853,13 +3854,10 @@ components:
             - ValidationError
             - AuthError
             - Cancelled
-            - Routing
-            - RoutingError
             - NotSupported
             - RateLimitError
             - PermissionsError
             - PrerequisiteNotMet
-          example: Complete
         statusDescription:
           type: string
           nullable: true
