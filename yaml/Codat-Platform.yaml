@@ -695,7 +695,7 @@ paths:
     get:
       summary: Get access token
       operationId: get-connection-management-access-token
-      x-speakeay-name-override: get-access-token
+      x-speakeasy-name-override: get-access-token
       tags:
         - Connection management
       description: "\uFEFFUse the *Get access token* endpoint to retrieve a new access token for use by the [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management).\n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
@@ -728,7 +728,7 @@ paths:
     get:
       summary: Get CORS settings
       operationId: get-connection-management-cors-settings
-      x-speakeasy-name-override: connection-management.cors-settings.get
+      x-speakeasy-group: connection-management.cors-settings
       tags:
         - Connection management
       description: "\uFEFFThe *Get CORS settings* endpoint returns the allowed origins (i.e. your domains) you want to allow cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) with Codat. \n\nEnabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints.\n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
@@ -752,7 +752,8 @@ paths:
     post:
       summary: Set CORS settings
       operationId: set-connection-management-cors-settings
-      x-speakeasy-name-override: connection-management.cors-settings.set
+      x-speakeasy-name-override: set
+      x-speakeasy-group: connection-management.cors-settings
       tags:
         - Connection management
       description: "\uFEFFThe *Set CORS settings* endpoint allows you to register allowed origins (i.e. your domains) for use in cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)).\n \nEnabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints. \n\nThe embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections."
