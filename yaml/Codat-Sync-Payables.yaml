@@ -1161,7 +1161,7 @@ paths:
       description: |-
         The *Create bill payment* endpoint creates a new [bill payment](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) for a given company's connection.
 
-        [Bill payments](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) are an allocation of money within any customer accounts payable account.
+        [Bill payments](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) are an allocation of money within any Accounts Payable account.
       operationId: create-bill-payment
       tags:
         - Bill payments
@@ -1174,7 +1174,7 @@ paths:
               Bill payment example:
                 value:
                   amount: 22
-                  currencyRate: 0
+                  currencyRate: 1
                   date: '2022-10-23T00:00:00.000Z'
                   accountRef:
                     id: 7bda9f44sr56
@@ -1191,7 +1191,7 @@ paths:
                   value:
                     id: billPayment-1029932
                     amount: 22
-                    currencyRate: 0
+                    currencyRate: 1
                     date: '2022-10-23T00:00:00.000Z'
                     accountRef:
                       id: 7bda9f44sr56
@@ -1736,7 +1736,7 @@ components:
 
             | Integration       | Scenario                                        | System behavior                                                                                                                                                      |
             |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-            | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
+            | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, specify a currencyRate in the request body.  |
         lineItems:
           type: array
           nullable: true
@@ -2001,7 +2001,7 @@ components:
         amount:
           type: number
           format: decimal
-          description: Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
+          description: Amount of the payment in the bill currency.
           example: 1329.54
         date:
           allOf:
@@ -2013,7 +2013,7 @@ components:
           description: Additional information associated with the payment.
           example: Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44
         accountRef:
-          $ref: '#/components/schemas/Bill/definitions/billAccountRef'
+          $ref: '#/components/schemas/BillPayment/definitions/billPaymentAccountRef'
         currencyRate:
           $ref: '#/components/schemas/Bill/properties/currencyRate'
       definitions:
@@ -2028,21 +2028,29 @@ components:
             reference:
               $ref: '#/components/schemas/BillPayment/properties/reference'
             accountRef:
-              $ref: '#/components/schemas/Bill/definitions/billAccountRef'
+              $ref: '#/components/schemas/BillPayment/definitions/billPaymentAccountRef'
             currencyRate:
               $ref: '#/components/schemas/Bill/properties/currencyRate'
           required:
             - amount
             - date
             - accountRef
+        billPaymentAccountRef:
+          description: Reference to the bank account / credit card which you are using to pay the bill.
+          type: object
+          properties:
+            id:
+              type: string
+              description: Unique ID of the bank account / credit card
+          required:
+            - id
       example:
         amount: 22
         date: '2022-10-23T00:00:00.000Z'
         reference: Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44
         accountRef:
           id: 9e32cbf8-e7d5-4d4d-a593-08d550682aab
-          name: string
-        currencyRate: 0
+        currencyRate: 1
     ClientRateLimitReachedWebhook:
       title: Client rate limit reached webhook
       x-internal: true
