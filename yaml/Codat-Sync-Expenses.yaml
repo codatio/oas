@@ -9085,25 +9085,8 @@ components:
           type: boolean
           description: Confirms whether the account is a bank account or not.
         validTransactionTypes:
-          type: array
+          $ref: '#/components/schemas/validTransactionTypes'
           description: Supported transaction types for the account.
-          minItems: 0
-          maxItems: 8
-          nullable: false
-          items:
-            type: string
-            enum:
-              - Payment
-              - Refund
-              - Reward
-              - Chargeback
-              - TransferIn
-              - TransferOut
-              - AdjustmentIn
-              - AdjustmentOut
-            example: Payment
-            minLength: 1
-            maxLength: 8
     AdjustmentTransactionLine:
       x-internal: true
       title: Adjustment transaction line
@@ -10091,10 +10074,6 @@ components:
             - Refund
             - Reward
             - Chargeback
-            - TransferIn
-            - TransferOut
-            - AdjustmentIn
-            - AdjustmentOut
         issueDate:
           $ref: '#/components/schemas/TransferTransactionRequest/properties/date/allOf/1'
           description: Date of the transaction was recorded.
@@ -11178,23 +11157,8 @@ components:
           description: Total (not compounded) sum of the components of a tax rate.
           example: 20
         validTransactionTypes:
-          type: array
-          description: Supported transaction types for the account.
-          minItems: 0
-          maxItems: 8
-          nullable: true
-          items:
-            type: string
-            enum:
-              - Payment
-              - Refund
-              - Reward
-              - Chargeback
-              - TransferIn
-              - TransferOut
-              - AdjustmentIn
-              - AdjustmentOut
-            example: Payment
+          $ref: '#/components/schemas/validTransactionTypes'
+          description: Supported transaction types for the tax rate.
     TrackingCategoryMappingInfo:
       title: Tracking category mapping info
       x-internal: true
@@ -11534,6 +11498,20 @@ components:
                 - $ref: '#/components/schemas/Supplier'
                 - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
+    validTransactionTypes:
+      title: Valid transaction types
+      x-internal: true
+      type: array
+      description: Supported transaction types for the account.
+      nullable: false
+      items:
+        type: string
+        enum:
+          - Payment
+          - Refund
+          - Reward
+          - Chargeback
+        example: Payment
   parameters:
     syncId:
       name: syncId
