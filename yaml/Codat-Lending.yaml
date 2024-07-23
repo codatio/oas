@@ -11035,13 +11035,16 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |-
+      description: |
         The *List bills* endpoint returns a list of [bills](https://docs.codat.io/lending-api#/schemas/Bill) for a given company's connection.
 
         [Bills](https://docs.codat.io/lending-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
-            
+
+        ### Tips and traps
+
+        To access the `paymentAllocations` property, ensure that the `billPayments` data type is queued and cached in Codat before retrieving `bills` from Codat's cache.
       operationId: list-accounting-bills
       x-speakeasy-group: accounts-payable.bills
   '/companies/{companyId}/data/bills/{billId}':
@@ -12325,6 +12328,11 @@ paths:
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support getting a specific bill.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
+
+
+        ### Tips and traps
+
+        To access the `paymentAllocations` property, ensure that the `billPayments` data type is queued and cached in Codat before retrieving `bills` from Codat's cache.
       operationId: get-accounting-bill
       x-speakeasy-group: accounts-payable.bills
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments':
@@ -20173,7 +20181,7 @@ paths:
       tags:
         - Accounts receivable
       summary: List invoices
-      description: |-
+      description: |
         The *List invoices* endpoint returns a list of [invoices](https://docs.codat.io/lending-api#/schemas/Invoice) for a given company's connection.
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
@@ -20186,6 +20194,10 @@ paths:
         - Invoices due after a certain date: `query = dueDate > 2021-01-28`
 
         [Read more about querying](https://docs.codat.io/using-the-api/querying).
+
+        ### Tips and traps
+
+        To access the `paymentAllocations` property, ensure that the `payments` data type is queued and cached in Codat before retrieving `invoices` from Codat's cache.
       operationId: list-accounting-invoices
       x-speakeasy-group: accounts-receivable.invoices
       parameters:
@@ -28233,7 +28245,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Get invoice
-      description: |-
+      description: |
         The *Get invoice* endpoint returns a single invoice for a given invoiceId.
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
@@ -28241,6 +28253,10 @@ paths:
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting a specific invoice.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
+
+        ### Tips and traps
+
+        To access the `paymentAllocations` property, ensure that the `payments` data type is queued and cached in Codat before retrieving `invoices` from Codat's cache.
       operationId: get-accounting-invoice
       x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/data/invoices/{invoiceId}/pdf':
