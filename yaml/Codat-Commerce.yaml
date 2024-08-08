@@ -17,22 +17,22 @@ info:
 
     Codat's Commerce API allows you to access standardised data from over 11 commerce and POS systems.
 
-    Standardize how you connect to your customers’ payment, PoS, and eCommerce systems. Retrieve orders, payouts, payments, and product data in the same way for all the leading commerce platforms.
+    Standardize how you connect to your customers’ payment, PoS, and eCommerce systems. Retrieve orders, payouts, payments, and product data in the same way for all the leading commerce software.
 
     <!-- Start Codat Tags Table -->
     ## Endpoints
 
     | Endpoints | Description |
     | :- |:- |
-    | Customers | Retrieve standardized data from linked commerce platforms. |
-    | Disputes | Retrieve standardized data from linked commerce platforms. |
-    | Company info | Retrieve standardized data from linked commerce platforms. |
-    | Locations | Retrieve standardized data from linked commerce platforms. |
-    | Orders | Retrieve standardized data from linked commerce platforms. |
-    | Payments | Retrieve standardized data from linked commerce platforms. |
-    | Products | Retrieve standardized data from linked commerce platforms. |
-    | Tax components | Retrieve standardized data from linked commerce platforms. |
-    | Transactions | Retrieve standardized data from linked commerce platforms. |
+    | Customers | Retrieve standardized data from linked commerce software. |
+    | Disputes | Retrieve standardized data from linked commerce software. |
+    | Company info | Retrieve standardized data from linked commerce software. |
+    | Locations | Retrieve standardized data from linked commerce software. |
+    | Orders | Retrieve standardized data from linked commerce software. |
+    | Payments | Retrieve standardized data from linked commerce software. |
+    | Products | Retrieve standardized data from linked commerce software. |
+    | Tax components | Retrieve standardized data from linked commerce software. |
+    | Transactions | Retrieve standardized data from linked commerce software. |
     <!-- End Codat Tags Table -->
 
     [Read more...](https://docs.codat.io/commerce-api/overview)
@@ -69,23 +69,23 @@ x-codat-speakeasy-pagination:
 x-codat-docs-path: codat-api
 tags:
   - name: Customers
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Disputes
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Company info
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Locations
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Orders
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Payments
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Products
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Tax components
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
   - name: Transactions
-    description: Retrieve standardized data from linked commerce platforms.
+    description: Retrieve standardized data from linked commerce software.
 paths:
   '/companies/{companyId}/connections/{connectionId}/data/commerce-customers':
     parameters:
@@ -923,7 +923,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       description: |-
-        Retrieve information about the company, as seen in the commerce platform.
+        Retrieve information about the company, as seen in the commerce software.
 
         This may include information like addresses, tax registration details and social media or website information.
   '/companies/{companyId}/connections/{connectionId}/data/commerce-locations':
@@ -5436,7 +5436,7 @@ paths:
       description: |-
         The *List tax components* endpoint returns a list of [tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) for a given company's connection.
 
-        [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce platform, including tax rate's name and value.
+        [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce software, including tax rate's name and value.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
             
@@ -5505,7 +5505,7 @@ paths:
       description: |
         The *Get tax* endpoint returns a single tax for a given taxId.
 
-        [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce platform, including tax rate's name and value.
+        [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce software, including tax rate's name and value.
 
         Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-taxComponents) for integrations that support getting a specific tax.
 
@@ -5564,7 +5564,7 @@ components:
               example: Codat
             commercePlatformRef:
               type: string
-              description: Identifier or reference for the company in the commerce platform
+              description: Identifier or reference for the company in the commerce software
             companyLegalName:
               type: string
               description: The full legal name of the company
@@ -6523,7 +6523,7 @@ components:
     PaymentMethodRef:
       type: object
       title: Payment method reference
-      description: The payment method the record is linked to in the accounting or commerce platform.
+      description: The payment method the record is linked to in the accounting or commerce software.
       properties:
         id:
           description: The unique identifier of the location being referenced.
@@ -6873,7 +6873,7 @@ components:
       description: |-
         Supplemental data is additional data you can include in our standard data types. 
 
-        It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+        It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
       properties:
         content:
           type: object
@@ -6884,7 +6884,7 @@ components:
     TaxComponent:
       title: 'Commerce: Tax component'
       description: |-
-        The Tax Components endpoints return tax rates data from the commerce platform, including tax rate names and values. This is to support the mapping of tax rates from the commerce platform to those in the accounting platform.
+        The Tax Components endpoints return tax rates data from the commerce software, including tax rate names and values. This is to support the mapping of tax rates from the commerce software to those in the accounting software.
 
         Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       type: object
@@ -6894,7 +6894,7 @@ components:
           properties:
             name:
               type: string
-              description: Name of the Tax Rate Component in the source commerce platform.
+              description: Name of the Tax Rate Component in the source commerce software.
               example: Sales Tax
             rate:
               description: Rate of taxation represented as a fraction of the net price (typically in the range 0.00 - 1.00).
@@ -6920,13 +6920,13 @@ components:
             taxComponentRef:
               $ref: '#/components/schemas/TaxComponent/definitions/taxComponentRef'
             rate:
-              description: Tax amount on order line sale as available from source commerce platform.
+              description: Tax amount on order line sale as available from source commerce software.
               type: number
               format: decimal
               nullable: true
         taxComponentRef:
           type: object
-          description: Taxes rates reference object depending on the rates being available on source commerce package.
+          description: Taxes rates reference object depending on the rates being available on source commerce software.
           properties:
             id:
               description: The unique identitifer of the tax component being referenced.
@@ -7006,7 +7006,7 @@ components:
             type:
               $ref: '#/components/schemas/Transaction/definitions/transactionType'
             subType:
-              description: Non-standardised transaction type data from the commerce platform
+              description: Non-standardised transaction type data from the commerce software
               type: string
               examples:
                 - CardPayment

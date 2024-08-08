@@ -7,7 +7,7 @@ info:
   description: |-
     The API reference for the Bill Pay kit. 
 
-    The bill pay kit is an API and a set of supporting tools designed to integrate a bill pay flow into your app as quickly as possible. It's ideal for facilitating essential bill payment processes within your SMB's accounting platforms.
+    The bill pay kit is an API and a set of supporting tools designed to integrate a bill pay flow into your app as quickly as possible. It's ideal for facilitating essential bill payment processes within your SMB's accounting software.
 
     [Explore product](https://docs.codat.io/payables/bill-pay-kit) | [See OpenAPI spec](https://github.com/codatio/oas)
 
@@ -654,7 +654,7 @@ paths:
     get:
       summary: Get company information
       description: |+
-        Use the *Get company information* endpoint to return information about the company available from the underlying accounting platform.
+        Use the *Get company information* endpoint to return information about the company available from the underlying accounting software.
 
       operationId: get-company-information
       tags:
@@ -1259,7 +1259,7 @@ paths:
               value: 'sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=Active'
             Status (archived) & source modified date:
               value: 'sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=Archived'
-          description: 'Codat query string allows you to filter by `sourceModifiedDate` or if a supplier is `Active` or `Archived` in the accounting platform. Learn more about Codat''s query string [here](https://docs.codat.io/using-the-api/querying).'
+          description: 'Codat query string allows you to filter by `sourceModifiedDate` or if a supplier is `Active` or `Archived` in the accounting software. Learn more about Codat''s query string [here](https://docs.codat.io/using-the-api/querying).'
       responses:
         '200':
           description: Success
@@ -1540,7 +1540,7 @@ components:
           properties:
             id:
               type: string
-              description: 'Identifier for the attachment, unique for the company in the accounting platform.'
+              description: 'Identifier for the attachment, unique for the company in the accounting software.'
             name:
               type: string
               nullable: true
@@ -1561,7 +1561,7 @@ components:
               description: 'File size in bytes. For example, if this reads **46153**, then the file size is 46kb.'
             includeWhenSent:
               type: boolean
-              description: 'If `true`, then the attachment is included with the associated invoice, bill or direct costs when it is printed, emailed, or sent to a customer, if the underlying accounting platform allows this.'
+              description: 'If `true`, then the attachment is included with the associated invoice, bill or direct costs when it is printed, emailed, or sent to a customer, if the underlying accounting software allows this.'
         - title: Source Modified Date
           x-internal: true
           type: object
@@ -1601,7 +1601,7 @@ components:
         - properties:
             id:
               type: string
-              description: 'Identifier for the bank account, unique for the company in the accounting platform.'
+              description: 'Identifier for the bank account, unique for the company in the accounting software.'
             nominalCode:
               type: string
               nullable: true
@@ -1609,7 +1609,7 @@ components:
             name:
               type: string
               nullable: true
-              description: Name of the bank account in the accounting platform.
+              description: Name of the bank account in the accounting software.
             accountType:
               title: Bank Account Type
               x-internal: true
@@ -1679,7 +1679,7 @@ components:
       properties:
         id:
           type: string
-          description: 'Identifier for the bill, unique for the company in the accounting platform.'
+          description: 'Identifier for the bill, unique for the company in the accounting software.'
         reference:
           type: string
           nullable: true
@@ -1688,7 +1688,7 @@ components:
           $ref: '#/components/schemas/Supplier/definitions/supplierRef'
         issueDate:
           allOf:
-            - description: Date of the bill as recorded in the accounting platform.
+            - description: Date of the bill as recorded in the accounting software.
             - $ref: '#/components/schemas/Company/properties/created'
         dueDate:
           allOf:
@@ -1723,9 +1723,9 @@ components:
 
             It is not possible to perform the currency conversion with two or more non-base currencies participating in the transaction. For example, if a company's base currency is USD, and it has a bill issued in EUR, then the bill payment must happen in USD or EUR.
 
-            Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+            Where the currency rate is provided by the underlying accounting software, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
 
-            For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+            For accounting software which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
 
             ## Examples with base currency of GBP
 
@@ -1865,7 +1865,7 @@ components:
           properties:
             id:
               type: string
-              description: Unique identifier for the tax rate in the accounting platform.
+              description: Unique identifier for the tax rate in the accounting software.
         bills:
           title: Bills
           type: object
@@ -1965,16 +1965,16 @@ components:
             - properties:
                 id:
                   type: string
-                  description: 'Identifier for the tax rate, unique for the company in the accounting platform.'
+                  description: 'Identifier for the tax rate, unique for the company in the accounting software.'
                   example: d2939064-dd3a-4c0f-9865-a238c2193515
                 name:
                   type: string
                   nullable: true
-                  description: Codat-augmented name of the tax rate in the accounting platform.
+                  description: Codat-augmented name of the tax rate in the accounting software.
                 code:
                   type: string
                   nullable: true
-                  description: Code for the tax rate from the accounting platform.
+                  description: Code for the tax rate from the accounting software.
                 effectiveTaxRate:
                   type: number
                   format: decimal
@@ -1992,9 +1992,9 @@ components:
                     - Active
                     - Archived
                   description: |-
-                    Status of the tax rate in the accounting platform.  
+                    Status of the tax rate in the accounting software.  
                     - `Active` - An active tax rate in use by a company.  
-                    - `Archived` - A tax rate that has been archived or is inactive in the accounting platform.  
+                    - `Archived` - A tax rate that has been archived or is inactive in the accounting software.  
         accountStatus:
           type: string
           description: The current status of the account.
@@ -2009,7 +2009,7 @@ components:
       properties:
         id:
           type: string
-          description: 'Identifier for the bill payment, unique for the company in the accounting platform.'
+          description: 'Identifier for the bill payment, unique for the company in the accounting software.'
         amount:
           type: number
           format: decimal
@@ -2306,7 +2306,7 @@ components:
         baseCurrency:
           type: string
           nullable: true
-          description: Currency set in the accounting platform of the linked company. Used by the currency rate.
+          description: Currency set in the accounting software of the linked company. Used by the currency rate.
     CompanyRequestBody:
       title: Create company request
       x-internal: true
@@ -2693,12 +2693,12 @@ components:
             - properties:
                 id:
                   type: string
-                  description: 'Identifier for the account, unique for the company in the accounting platform.'
+                  description: 'Identifier for the account, unique for the company in the accounting software.'
                   example: 3d5a8e00-d108-4045-8823-7f342676cffa
                 name:
                   type: string
                   nullable: true
-                  description: Name of the bank account in the accounting platform.
+                  description: Name of the bank account in the accounting software.
                   example: Bank of Dave current account
                 accountNumber:
                   type: string
@@ -2993,7 +2993,7 @@ components:
       properties:
         id:
           type: string
-          description: 'Identifier for the supplier, unique to the company in the accounting platform.'
+          description: 'Identifier for the supplier, unique to the company in the accounting software.'
         supplierName:
           type: string
           description: 'Name of the supplier as recorded in the accounting system, typically the company name.'

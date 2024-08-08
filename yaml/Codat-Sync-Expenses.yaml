@@ -11,7 +11,7 @@ info:
 
     Sync for Expenses is an API and a set of supporting tools. It has been built to
     enable corporate card and expense management platforms to provide high-quality
-    integrations with multiple accounting platforms through a standardized API.
+    integrations with multiple accounting software through a standardized API.
 
     [Explore product](https://docs.codat.io/sync-for-expenses/overview) | [See our OpenAPI spec](https://github.com/codatio/oas)
 
@@ -1036,7 +1036,7 @@ paths:
       summary: Create expense transaction
       operationId: create-expense-transaction
       description: |-
-        The *Create expense* endpoint creates an [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting platform for a given company's connection. 
+        The *Create expense* endpoint creates an [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting software for a given company's connection. 
 
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
       tags:
@@ -1156,7 +1156,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: update-expense-transaction
       description: |-
-        The *Update expense* endpoint updates an existing [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateExpenseRequest) in the accounting platform for a given company's connection. 
+        The *Update expense* endpoint updates an existing [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateExpenseRequest) in the accounting software for a given company's connection. 
 
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateExpenseRequest) represent transactions made with a company debit or credit card. 
 
@@ -1203,7 +1203,7 @@ paths:
     put:
       summary: Create transfer transaction
       operationId: create-transfer-transaction
-      description: "Use the *Create transfer* endpoint to create or update a [transfer transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/TransferTransactionRequest) in the accounting platform for a given company's connection. \r\n\r\nTransfers record the movement of money between two bank accounts, or between a bank account and a nominal account. Use them to represent actions such as topping up a debit card account or a balance transfer to another credit card.\r\n\r\nThe `from.amount` and `to.amount` fields are in the native currency of the account.\r\n"
+      description: "Use the *Create transfer* endpoint to create or update a [transfer transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/TransferTransactionRequest) in the accounting software for a given company's connection. \r\n\r\nTransfers record the movement of money between two bank accounts, or between a bank account and a nominal account. Use them to represent actions such as topping up a debit card account or a balance transfer to another credit card.\r\n\r\nThe `from.amount` and `to.amount` fields are in the native currency of the account.\r\n"
       tags:
         - Transfers
       responses:
@@ -1259,7 +1259,7 @@ paths:
       summary: Create adjustment transaction
       operationId: create-adjustment-transaction
       description: |-
-        Use the *Create adjustment expense* endpoint to create an [adjustment](https://docs.codat.io/sync-for-expenses-api#/schemas/AdjustmentTransactionRequest) in the accounting platform for a given company's connection. 
+        Use the *Create adjustment expense* endpoint to create an [adjustment](https://docs.codat.io/sync-for-expenses-api#/schemas/AdjustmentTransactionRequest) in the accounting software for a given company's connection. 
 
         Adjustments represent write-offs and transaction alterations, such as foreign exchange adjustments, in the form of a journal entry. 
 
@@ -1331,7 +1331,7 @@ paths:
     post:
       summary: Create reimbursable expense transaction
       operationId: create-reimbursable-expense-transaction
-      description: "Use the *Create reimbursable expense* endpoint to create a [reimbursement request](https://docs.codat.io/sync-for-expenses-api#/schemas/ReimbursableExpenseTransactionRequest) in the accounting platform for a given company's connection. \r\n\r\nEmployee reimbursement requests are reflected in the accounting system in the form of Bills against an employee, who is a supplier."
+      description: "Use the *Create reimbursable expense* endpoint to create a [reimbursement request](https://docs.codat.io/sync-for-expenses-api#/schemas/ReimbursableExpenseTransactionRequest) in the accounting software for a given company's connection. \r\n\r\nEmployee reimbursement requests are reflected in the accounting system in the form of Bills against an employee, who is a supplier."
       tags:
         - Reimbursements
       responses:
@@ -1400,7 +1400,7 @@ paths:
     put:
       summary: Update reimbursable expense transaction
       operationId: update-reimbursable-expense-transaction
-      description: "The *Update reimbursable expense* endpoint updates an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/operations/UpdateReimbursableExpenseTransactionRequest) in the accounting platform for a given company's connection. \r\n\r\nEmployee reimbursement requests are reflected in the accounting system in the form of Bills against an employee, who is a supplier."
+      description: "The *Update reimbursable expense* endpoint updates an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/operations/UpdateReimbursableExpenseTransactionRequest) in the accounting software for a given company's connection. \r\n\r\nEmployee reimbursement requests are reflected in the accounting system in the form of Bills against an employee, who is a supplier."
       tags:
         - Reimbursements
       responses:
@@ -9982,7 +9982,7 @@ components:
           nullable: false
         nominalCode:
           type: string
-          description: Code used to identify each nominal account in the accounting platform.
+          description: Code used to identify each nominal account in the accounting software.
           example: '300'
           nullable: true
         name:
@@ -10131,7 +10131,7 @@ components:
         A list of bank accounts associated with a company and a specific data connection.
 
         Bank accounts data includes:
-        * The name and ID of the account in the accounting platform.
+        * The name and ID of the account in the accounting software.
         * The currency and balance of the account.
         * The sort code and account number.
       type: object
@@ -10139,7 +10139,7 @@ components:
         - properties:
             id:
               type: string
-              description: 'Identifier for the account, unique for the company in the accounting platform.'
+              description: 'Identifier for the account, unique for the company in the accounting software.'
         - $ref: '#/components/schemas/BankAccount/definitions/bankAccountPrototype'
         - properties:
             metadata:
@@ -10155,7 +10155,7 @@ components:
             accountName:
               type: string
               nullable: true
-              description: Name of the bank account in the accounting platform.
+              description: Name of the bank account in the accounting software.
             accountType:
               title: Bank Account Type
               x-internal: true
@@ -10817,7 +10817,7 @@ components:
           properties:
             id:
               type: string
-              description: 'Identifier for the customer, unique to the company in the accounting platform.'
+              description: 'Identifier for the customer, unique to the company in the accounting software.'
             customerName:
               type: string
               nullable: true
@@ -11190,9 +11190,9 @@ components:
 
             It is not possible to perform the currency conversion with two or more non-base currencies participating in the transaction. For example, if a company's base currency is USD, and it has a bill issued in EUR, then the bill payment must happen in USD or EUR.
 
-            Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+            Where the currency rate is provided by the underlying accounting software, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
 
-            For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+            For accounting software which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
 
             ## Examples with base currency of GBP
 
@@ -11926,7 +11926,7 @@ components:
       description: |-
         Supplemental data is additional data you can include in our standard data types. 
 
-        It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+        It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
       properties:
         content:
           type: object
@@ -11948,7 +11948,7 @@ components:
           properties:
             id:
               type: string
-              description: 'Identifier for the supplier, unique to the company in the accounting platform.'
+              description: 'Identifier for the supplier, unique to the company in the accounting software.'
             supplierName:
               type: string
               nullable: true
@@ -12235,12 +12235,12 @@ components:
           nullable: false
         name:
           type: string
-          description: Name of the tax rate in the accounting platform.
+          description: Name of the tax rate in the accounting software.
           example: 20% Bill tax Bills
           nullable: false
         code:
           type: string
-          description: Code for the tax rate from the accounting platform.
+          description: Code for the tax rate from the accounting software.
           example: 20% Bill tax
           nullable: true
         effectiveTaxRate:
@@ -12393,7 +12393,7 @@ components:
           example: Transfer from bank account Y to bank account Z
         date:
           allOf:
-            - description: Date of the transfer transaction as recorded in the accounting platform.
+            - description: Date of the transfer transaction as recorded in the accounting software.
             - title: Date time
               type: string
               examples:
@@ -12733,7 +12733,7 @@ components:
       schema:
         type: boolean
         default: false
-      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
+      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting software, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
   responses:
     BadRequest:
       description: The request made is not valid.

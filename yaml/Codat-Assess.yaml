@@ -2381,9 +2381,9 @@ components:
 
         It is not possible to perform the currency conversion with two or more non-base currencies participating in the transaction. For example, if a company's base currency is USD, and it has a bill issued in EUR, then the bill payment must happen in USD or EUR.
 
-        Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+        Where the currency rate is provided by the underlying accounting software, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
 
-        For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+        For accounting software which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
 
         ## Examples with base currency of GBP
 
@@ -2901,7 +2901,7 @@ components:
                   modifiedDate: '2023-01-25T22:36:05.125Z'
     EnhancedInvoicesReport:
       title: Enhanced invoices report
-      description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting platform have actually been paid by matching with the bank statement.
+      description: The enhanced invoices report takes the key elements of the Invoices report verifying those marked as paid in the accounting software have actually been paid by matching with the bank statement.
       type: object
       properties:
         reportInfo:
@@ -2928,7 +2928,7 @@ components:
           properties:
             id:
               type: string
-              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
+              description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting software.'
             date:
               title: Date time
               type: string
@@ -3020,7 +3020,7 @@ components:
               properties:
                 id:
                   type: string
-                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting platform.'
+                  description: 'ID of the invoice, which may be a GUID but it may be something else depending on the accounting software.'
                 invoiceNumber:
                   type: string
                   description: Invoice number.

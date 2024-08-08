@@ -7,7 +7,7 @@ info:
   description: |-
     The API for Sync for Payroll. 
 
-    Sync for Payroll is an API and a set of supporting tools built to help integrate your customers' payroll data from their HR and payroll platforms into their accounting platforms and to support its reconciliation.
+    Sync for Payroll is an API and a set of supporting tools built to help integrate your customers' payroll data from their HR and payroll platforms into their accounting software and to support its reconciliation.
 
     [Explore product](https://docs.codat.io/payroll/overview) | [See OpenAPI spec](https://github.com/codatio/oas)
 
@@ -7714,7 +7714,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: "\uFEFF> **Use with caution**\n>\n>Because journal entries underpin every transaction in an accounting platform, deleting a journal entry can affect every transaction for a given company.\n> \n> **Before you proceed, make sure you understand the implications of deleting journal entries from an accounting perspective.**\n\nThe *Delete journal entry* endpoint allows you to delete a specified journal entry from an accounting platform.\n\n[Journal entries](https://docs.codat.io/sync-for-payroll-api#/schemas/JournalEntry) are made in a company's general ledger, or accounts, when transactions are approved.\n\n### Process\n1. Pass the `{journalEntryId}` to the *Delete journal entry* endpoint and store the `pushOperationKey` returned.\n2. Check the status of the delete by checking the status of push operation either via\n   1. [Push operation webhook](https://docs.codat.io/introduction/webhooks/core-rules-types#push-operation-status-has-changed) (advised),\n   2. [Push operation status endpoint](https://docs.codat.io/sync-for-payroll-api#/operations/get-push-operation). \n   \n   A `Success` status indicates that the journal entry object was deleted from the accounting platform.\n3. (Optional) Check that the journal entry was deleted from the accounting platform.\n\n### Effect on related objects\n\nBe aware that deleting a journal entry from an accounting platform might cause related objects to be modified. For example, if you delete the journal entry for a paid invoice in QuickBooks Online, the invoice is deleted but the payment against that invoice is not. The payment is converted to a payment on account.\n\n## Integration specifics\nIntegrations that support soft delete do not permanently delete the object in the accounting platform.\n\n| Integration | Soft Deleted | \n|-------------|--------------|\n| QuickBooks Online | Yes    |       \n"
+      description: "\uFEFF> **Use with caution**\n>\n>Because journal entries underpin every transaction in an accounting software, deleting a journal entry can affect every transaction for a given company.\n> \n> **Before you proceed, make sure you understand the implications of deleting journal entries from an accounting perspective.**\n\nThe *Delete journal entry* endpoint allows you to delete a specified journal entry from an accounting software.\n\n[Journal entries](https://docs.codat.io/sync-for-payroll-api#/schemas/JournalEntry) are made in a company's general ledger, or accounts, when transactions are approved.\n\n### Process\n1. Pass the `{journalEntryId}` to the *Delete journal entry* endpoint and store the `pushOperationKey` returned.\n2. Check the status of the delete by checking the status of push operation either via\n   1. [Push operation webhook](https://docs.codat.io/introduction/webhooks/core-rules-types#push-operation-status-has-changed) (advised),\n   2. [Push operation status endpoint](https://docs.codat.io/sync-for-payroll-api#/operations/get-push-operation). \n   \n   A `Success` status indicates that the journal entry object was deleted from the accounting software.\n3. (Optional) Check that the journal entry was deleted from the accounting software.\n\n### Effect on related objects\n\nBe aware that deleting a journal entry from an accounting software might cause related objects to be modified. For example, if you delete the journal entry for a paid invoice in QuickBooks Online, the invoice is deleted but the payment against that invoice is not. The payment is converted to a payment on account.\n\n## Integration specifics\nIntegrations that support soft delete do not permanently delete the object in the accounting software.\n\n| Integration | Soft Deleted | \n|-------------|--------------|\n| QuickBooks Online | Yes    |       \n"
       tags:
         - Journal entries
   '/companies/{companyId}/connections/{connectionId}/options/journalEntries':
@@ -10364,7 +10364,7 @@ components:
 
         > **Company information or companies?**
         > 
-        > Company profile is standard information that is held in the accounting platform about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
+        > Company profile is standard information that is held in the accounting software about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
       type: object
       properties:
         companyName:
@@ -10374,7 +10374,7 @@ components:
         accountingPlatformRef:
           type: string
           nullable: true
-          description: Identifier or reference for the company in the accounting platform.
+          description: Identifier or reference for the company in the accounting software.
         companyLegalName:
           type: string
           nullable: true
@@ -10399,7 +10399,7 @@ components:
             $ref: '#/components/schemas/WebLink'
         ledgerLockDate:
           $ref: '#/components/schemas/Company/properties/created'
-          description: 'If set in the accounting platform, the date (in the ISO 8601 date/time format) after which accounting transactions cannot be edited. Commonly used when books are closed at year-end.'
+          description: 'If set in the accounting software, the date (in the ISO 8601 date/time format) after which accounting transactions cannot be edited. Commonly used when books are closed at year-end.'
         registrationNumber:
           type: string
           nullable: true
@@ -10414,7 +10414,7 @@ components:
         baseCurrency:
           type: string
           nullable: true
-          description: Currency set in the accounting platform of the linked company. Used by the currency rate.
+          description: Currency set in the accounting software of the linked company. Used by the currency rate.
         sourceUrls:
           type: object
           additionalProperties:
@@ -10427,7 +10427,7 @@ components:
             For example, for Xero integrations two URLs are returned. These have many potential use cases, such as [deep linking](https://developer.xero.com/documentation/api-guides/deep-link-xero).
         createdDate:
           $ref: '#/components/schemas/Company/properties/created'
-          description: Date the linked company was created in the accounting platform.
+          description: Date the linked company was created in the accounting software.
         supplementalData:
           $ref: '#/components/schemas/SupplementalData'
       examples:
@@ -10825,7 +10825,7 @@ components:
         - [Exact Online](https://docs.codat.io/integrations/accounting/exact-online/accounting-exact-online)  (mandatory)
         - [Oracle NetSuite](https://docs.codat.io/integrations/accounting/netsuite/accounting-netsuite) (optional)
 
-        > When pushing journal entries to an accounting platform that doesn’t support multiple journals (multi-book accounting), the entries will be linked to the platform-generic journal. The Journals data type will only include one object.
+        > When pushing journal entries to an accounting software that doesn’t support multiple journals (multi-book accounting), the entries will be linked to the platform-generic journal. The Journals data type will only include one object.
       type: object
       allOf:
         - type: object
@@ -10936,7 +10936,7 @@ components:
           properties:
             id:
               type: string
-              description: Unique identifier of the journal entry for the company in the accounting platform.
+              description: Unique identifier of the journal entry for the company in the accounting software.
             description:
               type: string
               nullable: true
@@ -10944,7 +10944,7 @@ components:
             postedOn:
               $ref: '#/components/schemas/Company/properties/created'
               description: |-
-                Date on which the journal entry was posted to the accounting platform, and had an impact on the general ledger. This may be different from the creation date.
+                Date on which the journal entry was posted to the accounting software, and had an impact on the general ledger. This may be different from the creation date.
 
                 For example, a user creates a journal entry on Monday and saves it as draft, which has no impact on the general ledger. On Thursday, they return to the entry and post it.
 
@@ -10953,10 +10953,10 @@ components:
                 Journal entries can also be backdated, so the **postedOn** date may be earlier than the **createdOn** date.
             createdOn:
               $ref: '#/components/schemas/Company/properties/created'
-              description: Date on which the journal was created in the accounting platform.
+              description: Date on which the journal was created in the accounting software.
             updatedOn:
               $ref: '#/components/schemas/Company/properties/created'
-              description: Date on which the journal was last updated in the accounting platform.
+              description: Date on which the journal was last updated in the accounting software.
             journalRef:
               $ref: '#/components/schemas/Journal/definitions/journalRef'
             journalLines:
@@ -11542,7 +11542,7 @@ components:
       description: |-
         Supplemental data is additional data you can include in our standard data types. 
 
-        It is referenced as a configured dynamic key value pair that is unique to the accounting platform. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
+        It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
       properties:
         content:
           type: object
@@ -11568,7 +11568,7 @@ components:
 
         > Language tip
         >
-        > Parameters used to track types of spend in various parts of an organization can be called  **dimensions**, **projects**, **classes**, or **locations** in different accounting platforms. In Codat, we refer to these as tracking categories.
+        > Parameters used to track types of spend in various parts of an organization can be called  **dimensions**, **projects**, **classes**, or **locations** in different accounting software. In Codat, we refer to these as tracking categories.
 
         View the coverage for tracking categories in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=trackingCategories" target="_blank">Data coverage explorer</a>.
 
@@ -11929,7 +11929,7 @@ components:
       schema:
         type: boolean
         default: false
-      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
+      description: 'When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting software, if they''re different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.'
   responses:
     BadRequest:
       description: The request made is not valid.
