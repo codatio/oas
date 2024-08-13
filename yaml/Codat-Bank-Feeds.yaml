@@ -94,7 +94,7 @@ tags:
   - name: Account mapping
     description: Extra functionality for building an account management UI.
   - name: Company information
-    description: Get detailed information about a company from the underlying platform.
+    description: Get detailed information about a company from the underlying accounting software.
   - name: Transactions
     description: 'Create new bank account transactions for a company''s connections, and see previous operations.'
 paths:
@@ -2143,19 +2143,27 @@ paths:
         | Exact Online (NL)     | ✅          | ✅               |                             |
         | QuickBooks Online     |             |                  | ✅                          |
         | Sage                  |             |                  | ✅                          |
+
+        > ### Versioning
+        > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
       operationId: create-source-account
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SourceAccount'
+              oneOf:
+                - $ref: '#/components/schemas/SourceAccountV2'
+                - $ref: '#/components/schemas/SourceAccount'
+            examples: {}
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceAccount'
+                oneOf:
+                  - $ref: '#/components/schemas/SourceAccountV2'
+                  - $ref: '#/components/schemas/SourceAccount'
               examples: {}
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -2177,7 +2185,7 @@ paths:
       tags:
         - Source accounts
       summary: List source accounts
-      description: "\uFEFFThe _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.\n\n[source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting software.\n"
+      description: "\uFEFFThe _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.\n\n[source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.\n\n> ### Versioning\n> If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below."
       operationId: list-source-accounts
       responses:
         '200':
@@ -2185,7 +2193,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceAccount/definitions/sourceAccounts'
+                oneOf:
+                  - $ref: '#/components/schemas/SourceAccountV2/definitions/sourceAccounts'
+                  - $ref: '#/components/schemas/SourceAccount/definitions/sourceAccounts'
               examples: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -4316,7 +4326,7 @@ components:
             required:
               $ref: '#/components/schemas/PushOption/definitions/pushOptionProperty/properties/required'
     SourceAccount:
-      title: Source Account
+      title: Source account (v1)
       type: object
       description: The target bank account in a supported accounting software for ingestion into a bank feed.
       additionalProperties: false
@@ -4406,6 +4416,162 @@ components:
           balance: 0
           modifiedDate: '2023-01-09T14:14:14.1057478Z'
           status: pending
+    SourceAccountV2:
+      title: Source account (v2)
+      type: object
+      description: The target bank account in a supported accounting software for ingestion into a bank feed.
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique ID for the bank account.
+        accountName:
+          type: string
+          description: The bank account name.
+        accountType:
+          type: string
+          description: 'The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.'
+          enum:
+            - checking
+            - savings
+            - loan
+            - creditCard
+            - prepaidCard
+        accountNumber:
+          type: string
+          description: The account number.
+        routingInfo:
+          $ref: '#/components/schemas/SourceAccountV2/definitions/routingInfo'
+        currency:
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
+        balance:
+          type: number
+          format: decimal
+          description: The latest balance for the bank account.
+        accountInfo:
+          $ref: '#/components/schemas/SourceAccountV2/definitions/accountInfo'
+        modifiedDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: The last date the bank account was modified.
+        status:
+          type: string
+          nullable: true
+          description: Status of the source account.
+          enum:
+            - pending
+            - connected
+            - connecting
+            - disconnected
+            - unknown
+        feedStartDate:
+          nullable: true
+          title: Date
+          type: string
+          example: '2022-10-23'
+          description: |-
+            In Codat's data model, dates are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date fields are formatted as strings; for example:
+            ```
+            2020-10-08
+            ```
+      required:
+        - id
+        - accountName
+        - accountType
+        - accountNumber
+        - currency
+        - balance
+      definitions:
+        accountInfo:
+          title: Account Info
+          type: object
+          nullable: true
+          properties:
+            description:
+              type: string
+              nullable: true
+              description: Description of the account.
+            nickname:
+              type: string
+              nullable: true
+              description: Name given to the account by the user. Used in UIs to assist in account selection.
+            accountOpenDate:
+              $ref: '#/components/schemas/SourceAccountV2/properties/feedStartDate'
+              nullable: true
+              description: Date when the account was opened or created at the provider
+            availableBalance:
+              type: number
+              format: decimal
+              nullable: true
+              description: Balance of funds available for use. This includes pending activity.
+        sourceAccounts:
+          title: Source accounts
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceAccountV2'
+        routingInfo:
+          title: Routing Info
+          type: object
+          description: Routing information for the bank. This does not include account number.
+          properties:
+            bankCode:
+              type: string
+              nullable: true
+              description: The numeric identifier of the routing number
+            type:
+              type: string
+              nullable: true
+              default: bankcode
+              enum:
+                - rtn
+                - aba
+                - swift
+                - bsb
+                - iban
+                - nz2
+                - trno
+                - sortcode
+                - blz
+                - ifsc
+                - bankcode
+                - apca
+                - clabe
+              description: The type of routing number.
+      examples:
+        - id: acc-001
+          accountName: account-081
+          accountType: checking
+          accountNumber: '12345670'
+          routingInfo:
+            bankCode: 021001088
+            type: bankcode
+          currency: GBP
+          balance: 99.99
+          accountInfo:
+            description: account description 1
+            nickname: account 123
+            accountOpenDate: 2023-05-06T00:00:00.000Z
+            availableBalance: 10
+          modifiedDate: '2024-08-02T00:00:00.000Z'
+          status: pending
+          feedStartDate: 2024-05-01T00:00:00.000Z
+        - id: acc-002
+          accountName: account-083
+          accountType: savings
+          accountNumber: '23456789'
+          routingInfo:
+            bankCode: 021001088
+            type: bankcode
+          currency: GBP
+          balance: 400
+          accountInfo:
+            description: account description 2
+            nickname: account 1290
+            accountOpenDate: 2023-05-23T00:00:00.000Z
+            availableBalance: 400
+          modifiedDate: '2024-08-02T00:00:00.000Z'
+          status: pending
+          feedStartDate: 2024-05-01T00:00:00.000Z
     SourceAccountWebhook:
       title: Source account status changed webhook
       type: object
