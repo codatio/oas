@@ -575,24 +575,25 @@ components:
         NewCompanySynchronizedWebhookData:
           type: object
           title: New company synchronized webhook data
-          companyName:
-            nullable: true
-            type: string
-            description: Name of company whose connection has changed.
-          sourceType:
-            nullable: true
-            title: Source Type
-            description: The type of platform of the connection.
-            type: string
-            enum:
-              - Accounting
-              - Banking
-              - BankFeed
-              - Commerce
-              - Expense
-              - Other
-              - Unknown
-            example: Accounting
+          properties:
+            companyName:
+              nullable: true
+              type: string
+              description: Name of company whose connection has changed.
+            sourceType:
+              nullable: true
+              title: Source Type
+              description: The type of platform of the connection.
+              type: string
+              enum:
+                - Accounting
+                - Banking
+                - BankFeed
+                - Commerce
+                - Expense
+                - Other
+                - Unknown
+              example: Accounting
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
           ClientName: Bank of Dave
