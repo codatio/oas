@@ -4102,20 +4102,6 @@ components:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/AlertId'
         Message:
           $ref: '#/components/schemas/DataSyncCompletedWebhook/properties/Message'
-        Data:
-          $ref: '#/components/schemas/NewCompanySynchronizedWebhook/definitions/NewCompanySynchronizedWebhookData'
-      definitions:
-        NewCompanySynchronizedWebhookData:
-          type: object
-          title: New company synchronized webhook data
-          properties:
-            companyName:
-              nullable: true
-              type: string
-              description: Name of company whose connection has changed.
-            sourceType:
-              $ref: '#/components/schemas/Integration/definitions/sourceType'
-              nullable: true
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
           ClientName: Bank of Dave
@@ -4125,9 +4111,6 @@ components:
           RuleType: New company synchronised
           AlertId: a9367074-b5c3-42c4-9be4-be129f43577e
           Message: Company 8a210b68-6988-11ed-a1eb-0242ac120002 synced for the first time
-          Data:
-            companyName: 2e9d2c44-f675-40ba-8049-353bfcb5e171
-            sourceType: Accounting
     PagingInfo:
       type: object
       title: Pagination information
