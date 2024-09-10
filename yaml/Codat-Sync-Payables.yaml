@@ -1553,7 +1553,7 @@ components:
 
                 Supported file types vary per platform. 
             dateCreated:
-              $ref: '#/components/schemas/Company/properties/created'
+              $ref: '#/components/schemas/Connection/properties/created'
             fileSize:
               type: integer
               format: int32
@@ -1569,7 +1569,7 @@ components:
           properties:
             sourceModifiedDate:
               allOf:
-                - $ref: '#/components/schemas/Company/properties/created'
+                - $ref: '#/components/schemas/Connection/properties/created'
                 - description: |-
                     The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
 
@@ -1689,11 +1689,11 @@ components:
         issueDate:
           allOf:
             - description: Date of the bill as recorded in the accounting software.
-            - $ref: '#/components/schemas/Company/properties/created'
+            - $ref: '#/components/schemas/Connection/properties/created'
         dueDate:
           allOf:
             - description: Date the supplier is due to be paid.
-            - $ref: '#/components/schemas/Company/properties/created'
+            - $ref: '#/components/schemas/Connection/properties/created'
         currency:
           title: Currency
           x-internal: true
@@ -2017,7 +2017,7 @@ components:
           example: 1329.54
         date:
           allOf:
-            - $ref: '#/components/schemas/Company/properties/created'
+            - $ref: '#/components/schemas/Connection/properties/created'
             - description: Date the bill payment was recorded in the accounting software.
         reference:
           type: string
@@ -2092,7 +2092,7 @@ components:
               type: integer
               description: The number of available requests per day.
             ExpiresUtc:
-              $ref: '#/components/schemas/Company/properties/created'
+              $ref: '#/components/schemas/Connection/properties/created'
               description: The date time in UTC when your daily quota is reset.
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
@@ -2182,76 +2182,43 @@ components:
       title: Company
       description: "\uFEFFIn Codat, a company represents a business sharing access to their data. Each company can have multiple [connections](https://docs.codat.io/sync-for-payables-api#/schemas/Connection) to different data sources such as one connection to [Xero](https://docs.codat.io/integrations/accounting/xero/accounting-xero) for accounting data, two connections to [Plaid](https://docs.codat.io/integrations/banking/plaid/banking-plaid) for two bank accounts and a connection to [Zettle](https://docs.codat.io/integrations/commerce/zettle/commerce-zettle) for POS data.\n\nTypically each company is one of your customers.\n\nWhen you create a company, you can specify a `name` and we will automatically generate a unique `id` for the company. You can also add a `description` to store any additional information about the company."
       type: object
-      properties:
-        id:
-          $ref: '#/components/parameters/companyId/schema'
-        name:
-          type: string
-          description: The name of the company
-          example: Codat Ltd.
-        description:
-          type: string
-          example: Requested early access to the new financing scheme.
-          description: 'Additional information about the company. This can be used to store foreign IDs, references, etc.'
-        platform:
-          type: string
-          deprecated: true
-          example: Xero
-          description: '`platformKeys` name used when creating the company.'
-        redirect:
-          type: string
-          format: uri
-          description: 'The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.'
-          example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
-        lastSync:
-          $ref: '#/components/schemas/Company/properties/created'
-        created:
-          title: Date time
-          type: string
-          examples:
-            - 2022-10-23T00:00:00.000Z
-            - 2022-10-23T00:00:00.000Z
-          description: |-
-            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
-
-            ```
-            2020-10-08T22:40:50Z
-            2021-01-01T00:00:00
-            ```
-
-
-
-            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
-
-            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
-            - Unqualified local time: `2021-11-15T01:00:00`
-            - UTC time offsets: `2021-11-15T01:00:00-05:00`
-
-            > Time zones
-            > 
-            > Not all dates from Codat will contain information about time zones.  
-            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
-        createdByUserName:
-          type: string
-          description: Name of user that created the company in Codat.
-        dataConnections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection'
-        groups:
-          type: array
-          items:
-            title: Group reference
-            type: object
-            properties:
-              id:
-                $ref: '#/components/schemas/Company/definitions/companyGroupAssignment/properties/groupId/allOf/0'
-          description: An array of groups the company has been assigned to.
-      required:
-        - id
-        - name
-        - redirect
+      allOf:
+        - $ref: '#/components/schemas/Company/definitions/companyDetails'
+        - type: object
+          properties:
+            dataConnections:
+              type: array
+              items:
+                $ref: '#/components/schemas/Connection'
       definitions:
+        companyDetails:
+          title: Company details
+          type: object
+          properties:
+            id:
+              $ref: '#/components/parameters/companyId/schema'
+            name:
+              type: string
+              description: The name of the company
+              example: Codat Ltd.
+            description:
+              $ref: '#/components/schemas/CompanyRequestBody/properties/description'
+            redirect:
+              type: string
+              format: uri
+              description: 'The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.'
+              example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
+            lastSync:
+              $ref: '#/components/schemas/Connection/properties/created'
+            created:
+              $ref: '#/components/schemas/Connection/properties/created'
+            createdByUserName:
+              type: string
+              description: Name of user that created the company in Codat.
+          required:
+            - id
+            - name
+            - redirect
         companyGroupAssignment:
           title: Group assignment
           type: object
@@ -2270,13 +2237,12 @@ components:
             id:
               $ref: '#/components/parameters/companyId/schema'
             name:
-              $ref: '#/components/schemas/Company/properties/name'
+              $ref: '#/components/schemas/Company/definitions/companyDetails/properties/name'
             description:
-              $ref: '#/components/schemas/Company/properties/description'
+              $ref: '#/components/schemas/CompanyRequestBody/properties/description'
       examples:
         - id: 0498e921-9b53-4396-a412-4f2f5983b0a2
           name: string
-          platform: string
           redirect: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
           lastSync: '2022-01-01T12:00:00.000Z'
           created: '2022-01-01T12:00:00.000Z'
@@ -2292,8 +2258,6 @@ components:
               lastSync: '2022-10-27T10:22:43.6464237Z'
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
-          groups:
-            - id: d7a6c4b4-dc87-45f6-b803-62f466398680
     CompanyInformation:
       title: Company information
       type: object
@@ -2319,11 +2283,17 @@ components:
           minLength: 1
           example: Bank of Dave
         description:
-          $ref: '#/components/schemas/Company/properties/description'
+          type: string
+          example: Requested early access to the new financing scheme.
+          description: 'Additional information about the company. This can be used to store foreign IDs, references, etc.'
         groups:
           type: array
           items:
-            $ref: '#/components/schemas/Company/properties/groups/items'
+            title: Group reference
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Company/definitions/companyGroupAssignment/properties/groupId/allOf/0'
           description: Reference to the groups that the company is assigned to.
       required:
         - name
@@ -2371,9 +2341,33 @@ components:
         status:
           $ref: '#/components/schemas/Connection/definitions/dataConnectionStatus'
         lastSync:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
         created:
-          $ref: '#/components/schemas/Company/properties/created'
+          title: Date time
+          type: string
+          examples:
+            - 2022-10-23T00:00:00.000Z
+            - 2022-10-23T00:00:00.000Z
+          description: |-
+            In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
+
+            ```
+            2020-10-08T22:40:50Z
+            2021-01-01T00:00:00
+            ```
+
+
+
+            When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+
+            - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+            - Unqualified local time: `2021-11-15T01:00:00`
+            - UTC time offsets: `2021-11-15T01:00:00-05:00`
+
+            > Time zones
+            > 
+            > Not all dates from Codat will contain information about time zones.  
+            > Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
         dataConnectionErrors:
           type: array
           items:
@@ -2417,7 +2411,7 @@ components:
               type: string
               description: A message about a error returned by Codat.
             erroredOnUtc:
-              $ref: '#/components/schemas/Company/properties/created'
+              $ref: '#/components/schemas/Connection/properties/created'
             status:
               title: Error status
               description: The current status of a transient error. Null statuses indicate that the error is not transient.
@@ -2429,7 +2423,7 @@ components:
             resolvedOnUtc:
               description: The datetime in Utc that the error was resolved.
               nullable: true
-              $ref: '#/components/schemas/Company/properties/created'
+              $ref: '#/components/schemas/Connection/properties/created'
         dataConnectionSourceType:
           title: Source Type
           description: The type of platform of the connection.
@@ -2525,7 +2519,7 @@ components:
             - commerce-transactions
           example: invoices
         lastSuccessfulSync:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
         currentStatus:
           $ref: '#/components/schemas/PullOperation/properties/status'
         latestSyncId:
@@ -2799,9 +2793,9 @@ components:
           nullable: true
           description: A message about a transient or persistent error returned by Codat or the source platform.
         requested:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
         completed:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
         progress:
           type: integer
           description: An integer signifying the progress of the pull operation.
@@ -2866,10 +2860,10 @@ components:
         dataConnectionKey:
           $ref: '#/components/parameters/connectionId/schema'
         requestedOnUtc:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
           description: The datetime when the push was requested.
         completedOnUtc:
-          $ref: '#/components/schemas/Company/properties/created'
+          $ref: '#/components/schemas/Connection/properties/created'
           description: 'The datetime when the push was completed, null if Pending.'
         timeoutInMinutes:
           type: integer
