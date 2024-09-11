@@ -1075,6 +1075,15 @@ components:
             createdByUserName:
               type: string
               description: Name of user that created the company in Codat.
+            tags:
+              type: object
+              maxProperties: 10
+              propertyNames:
+                pattern: '^.{1,27}$'
+              additional properties:
+                type: string
+                maxLength: 100
+              description: A collection of user-defined key-value pairs that store custom metadata against the company.
           required:
             - id
             - name
@@ -1107,6 +1116,9 @@ components:
           lastSync: '2022-01-01T12:00:00.000Z'
           created: '2022-01-01T12:00:00.000Z'
           createdByUserName: string
+          tags:
+            region: us
+            uid: f6b0c253-16c7-4da1-a0c5-9c871e9c9d6c
           dataConnections:
             - id: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
               integrationId: bf083d72-62c7-493e-aec9-81b4dbba7e2c
