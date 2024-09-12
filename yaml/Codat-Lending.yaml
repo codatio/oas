@@ -81844,6 +81844,7 @@ components:
               example: Codat Ltd.
             description:
               $ref: '#/components/schemas/CompanyRequestBody/properties/description'
+              nullable: true
             redirect:
               type: string
               format: uri
@@ -81851,11 +81852,13 @@ components:
               example: 'https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739'
             lastSync:
               $ref: '#/components/schemas/DateTime'
+              nullable: true
             created:
               $ref: '#/components/schemas/DateTime'
             createdByUserName:
               type: string
               description: Name of user that created the company in Codat.
+              nullable: true
             tags:
               type: object
               maxProperties: 10
@@ -81889,7 +81892,7 @@ components:
             name:
               $ref: '#/components/schemas/Company/definitions/companyDetails/properties/name'
             description:
-              $ref: '#/components/schemas/CompanyRequestBody/properties/description'
+              $ref: '#/components/schemas/Company/definitions/companyDetails/properties/description'
       examples:
         - id: 0498e921-9b53-4396-a412-4f2f5983b0a2
           name: string
