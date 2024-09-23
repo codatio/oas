@@ -1111,17 +1111,6 @@ components:
             - id
             - name
             - redirect
-        companyGroupAssignment:
-          title: Group assignment
-          type: object
-          properties:
-            groupId:
-              allOf:
-                - type: string
-                  format: uuid
-                  example: 60d2fa12-8a04-11ee-b9d1-0242ac120002
-                  description: Unique identifier for the group.
-                - description: Unique identifier of the group you want to assign the company to.
         companyReference:
           title: Company reference
           type: object
@@ -1950,15 +1939,6 @@ components:
           type: string
           example: Requested early access to the new financing scheme.
           description: 'Additional information about the company. This can be used to store foreign IDs, references, etc.'
-        groups:
-          type: array
-          items:
-            title: Group reference
-            type: object
-            properties:
-              id:
-                $ref: '#/components/schemas/Company/definitions/companyGroupAssignment/properties/groupId/allOf/0'
-          description: Reference to the groups that the company is assigned to.
       required:
         - name
     ErrorMessage:
