@@ -69122,6 +69122,7 @@ paths:
                       id: 80000004-1671793811
                       dataType: bankAccounts
                     amount: 12
+                  status: Unknown
                   trackingCategoryRefs:
                     - id: 80000001-1674553252
                       name: Class 1
@@ -79493,6 +79494,15 @@ components:
             to:
               $ref: '#/components/schemas/AccountingTransfer/definitions/transferAccount'
               description: The details of the accounts the transfer is moving to.
+            status:
+              description: The status of the transfer in the account
+              type: string
+              enum:
+                - Unknown
+                - Unreconciled
+                - Reconciled
+                - Void
+              nullable: true
             trackingCategoryRefs:
               type: array
               nullable: true
