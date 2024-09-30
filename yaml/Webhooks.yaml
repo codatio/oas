@@ -863,7 +863,7 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
-  report.categorizedBankStatement.generate.successful:
+  reports.categorizedBankStatement.generate.successful:
     post:
       description: Called when a categorized bank statement is successfully generated for a company.
       requestBody:
@@ -2222,7 +2222,7 @@ components:
           type: string
           description: The type of event.
           examples:
-            - report.categorizedBankStatement.generate.successful
+            - reports.categorizedBankStatement.generate.successful
         generatedDate:
           $ref: '#/components/schemas/Connection/properties/created'
           description: The date time in UTC the event was generated in Codat.
@@ -2242,7 +2242,7 @@ components:
               $ref: '#/components/schemas/Company/definitions/companyReference'
       examples:
         - id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
-          eventType: report.categorizedBankStatement.generate.successful
+          eventType: reports.categorizedBankStatement.generate.successful
           generatedDate: 2023-05-03T10:00:23.000Z
           payload:
             id: bb42ce7e-720a-4ac5-b640-f24f53ff47c8
