@@ -9709,6 +9709,13 @@ webhooks:
                       name: Toft stores
                       description: Syncing expenses
                     syncId: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    transactions:
+                      - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                        status: Completed
+                        errorMessage: null
+                      - id: e7f8a3d5-0c3c-4c9b-b5d3-56b4a43b62e4
+                        status: Completed
+                        errorMessage: null
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
@@ -9732,6 +9739,13 @@ webhooks:
                       name: Toft stores
                       description: Syncing expenses
                     syncId: ee2eb431-c0fa-4dc9-93fa-d29781c12bcd
+                    transactions:
+                      - id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                        status: Completed
+                        errorMessage: null
+                      - id: e7f8a3d5-0c3c-4c9b-b5d3-56b4a43b62e4
+                        status: Failed
+                        errorMessage: Insufficient funds
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
@@ -11321,6 +11335,27 @@ components:
         payload:
           $ref: '#/components/schemas/ExpensesSyncWebhook/definitions/expensesSyncWebhookPayload'
       definitions:
+        transaction:
+          title: Transaction
+          type: object
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the transaction.
+            status:
+              type: string
+              enum:
+                - Unknown
+                - PushError
+                - Completed
+                - Failed
+                - Pending
+              description: Status of transaction.
+            errorMessage:
+              type:
+                - string
+                - 'null'
+              description: Error message for failed transaction.
         expensesSyncWebhookPayload:
           title: Expenses sync webhook payload
           type: object
@@ -11330,6 +11365,10 @@ components:
             syncId:
               type: string
               description: Unique identifier of the sync.
+            transactions:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExpensesSyncWebhook/definitions/transaction'
     ExpenseTransaction:
       title: Expense transaction
       type: object
