@@ -2396,6 +2396,17 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
+  reports.categorizedBankStatement.generate.unsuccessful:
+    post:
+      description: Called when a categorized bank statement has failed to be generated for a company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportGenerationWebhook'
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the webhook was received successfully.
   reports.categorizedBankStatement.generate.successful:
     post:
       description: Called when a categorized bank statement is successfully generated for a company.
@@ -3484,6 +3495,8 @@ components:
                       - RateLimitError
                       - PermissionsError
                       - PrerequisiteNotMet
+    ReportGenerationUnsuccessfulWebhook:
+      $ref: '#/components/schemas/ReportGenerationWebhook'
     ReportGenerationWebhook:
       title: Report generation webhook
       type: object
