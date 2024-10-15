@@ -1403,7 +1403,7 @@ paths:
     put:
       summary: Update reimbursable expense transaction
       operationId: update-reimbursable-expense-transaction
-      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Desktop    | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |"
+      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |"
       tags:
         - Reimbursements
       responses:
@@ -10200,6 +10200,16 @@ components:
           example: cd937d46-8e41-43a9-9477-a79158ffd98a
           format: uuid
           description: Unique id of sync created
+    apAccountRef:
+      x-internal: true
+      type: object
+      title: Accounts Payable account reference
+      nullable: true
+      properties:
+        id:
+          type: string
+          example: 8000004C-1724173136
+          description: Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
     Attachment:
       title: Attachment
       type: object
@@ -12115,6 +12125,8 @@ components:
               description: User-friendly reference for the reimbursable expense.
             contactRef:
               $ref: '#/components/schemas/ReimbursementContactRef'
+            apAccountRef:
+              $ref: '#/components/schemas/apAccountRef'
             issueDate:
               $ref: '#/components/schemas/TransferTransactionRequest/properties/date/allOf/1'
               description: Date of the transaction was recorded.
@@ -12772,6 +12784,8 @@ components:
           description: User-friendly reference for the reimbursable expense.
         contactRef:
           $ref: '#/components/schemas/ReimbursementContactRef'
+        apAccountRef:
+          $ref: '#/components/schemas/apAccountRef'
         issueDate:
           $ref: '#/components/schemas/TransferTransactionRequest/properties/date/allOf/1'
           description: Date of the transaction was recorded.
