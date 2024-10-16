@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Set to your default branch
     paths:
-      - 'path/to/openapi.yaml'  # Path to your OpenAPI file
+      - 'yaml/*.yaml'  # Assuming all your OpenAPI files are in this directory
 
 jobs:
   convert-and-update:
@@ -23,15 +23,20 @@ jobs:
     - name: Install Postman Converter
       run: npm install -g openapi-to-postmanv2
 
-    - name: Convert OpenAPI Spec to Postman Collection
-      run: |
-        openapi2postmanv2 -s path/to/openapi.yaml -o postman_collection.json --pretty
-
-    - name: Update Postman Collection
+    - name: Convert OpenAPI Specs to Postman Collections and Upload
       env:
         POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
       run: |
-        curl --location --request PUT 'https://api.getpostman.com/collections/{{collection_uid}}' \
-        --header 'X-Api-Key: $POSTMAN_API_KEY' \
-        --header 'Content-Type: application/json' \
-        --data-binary "@postman_collection.json"
+        for file in yaml/*.yaml; do
+          collection_name=$(basename "$file" .yaml)  # Extracts file name without extension
+          postman_collection="postman/${collection_name}_postman.json"
+          openapi2postmanv2 -s "$file" -o "$postman_collection" --pretty
+
+          # Ensure you have collection UID for each file
+          collection_uid="21750812-5ba27ed4-8b4a-4db7-a255-46e4749cb477"  # Replace or dynamically fetch this
+
+          curl --location --request PUT "https://api.getpostman.com/collections/$collection_uid" \
+          --header 'X-Api-Key: $POSTMAN_API_KEY' \
+          --header 'Content-Type: application/json' \
+          --data-binary "@$postman_collection"
+        done
