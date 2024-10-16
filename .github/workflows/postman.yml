@@ -1,6 +1,11 @@
 name: OpenAPI to Postman Collection
 
 on:
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
+  
+  schedule:
+    - cron: '0 2 * * 1'  # Runs at 02:00 AM every Monday (UTC)
+    
   push:
     branches:
       - main  # Set to your default branch
