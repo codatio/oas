@@ -34,7 +34,7 @@ jobs:
       run: |
         for file in yaml/*.yaml; do
           collection_name=$(basename "$file" .yaml)  # Extracts file name without extension
-          postman_collection="postman/${collection_name}_postman.json"
+          postman_collection="${collection_name}_postman.json"
           openapi2postmanv2 -s "$file" -o "$postman_collection" --pretty
 
           # Ensure you have collection UID for each file
