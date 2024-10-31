@@ -1045,6 +1045,20 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+              examples:
+                Attachment metadata:
+                  value:
+                    id: 422f093f-e556-4bf3-91c0-93af70c3e850
+                    name: receipt.png
+                    contentType: image/png
+                    dateCreated: '2022-10-23T00:00:00.000Z'
+                    fileSize: 100
+                    includeWhenSent: true
+                    sourceModifiedDate: '2022-05-26T10:34:10Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1061,12 +1075,10 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connections/{connectionId}/bills/{billId}/attachments':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
-      - $ref: '#/components/parameters/billId'
     get:
+      summary: List bill attachments
+      description: "The *List bill attachments* endpoint returns a list of attachments available to download for a given `billId`.\r\n\r\n[Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services."
+      operationId: list-bill-attachments
       tags:
         - Bills
       responses:
@@ -1075,17 +1087,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Attachment'
+                $ref: '#/components/schemas/Attachment/definitions/attachments'
               examples:
-                Info:
+                Attachments:
                   value:
-                    id: 422f093f-e556-4bf3-91c0-93af70c3e850
-                    name: receipt.png
-                    contentType: image/png
-                    dateCreated: '2022-10-23T00:00:00.000Z'
-                    fileSize: 100
-                    includeWhenSent: true
-                    sourceModifiedDate: '2022-05-26T10:34:10Z'
+                    - id: 422f093f-e556-4bf3-91c0-93af70c3e850
+                      name: receipt.png
+                      contentType: image/png
+                      dateCreated: '2022-10-23T00:00:00.000Z'
+                      fileSize: 100
+                      includeWhenSent: true
+                      sourceModifiedDate: '2022-05-26T10:34:10Z'
+                    - id: 20cfd269-2f0f-44ef-a28c-7b5f725cf1aa
+                      name: another_receipt.png
+                      contentType: image/png
+                      dateCreated: '2022-10-24T00:00:00.000Z'
+                      fileSize: 98
+                      includeWhenSent: true
+                      sourceModifiedDate: '2022-05-27T12:38:10Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '402':
@@ -1102,9 +1121,6 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      operationId: list-bill-attachments
-      summary: List bill attachments
-      description: "The *List bill attachments* endpoint returns a list of attachments available to download for a given `billId`.\r\n\r\n[Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services."
   '/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/attachments/{attachmentId}/download':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1555,7 +1571,7 @@ components:
             - Billing
             - Delivery
     Attachment:
-      title: Attachment
+      title: Attachment metadata
       description: |2-
           The Codat API supports pulling and pushing of file attachments for invoices, bills, direct costs, and direct incomes.
 
@@ -1575,8 +1591,7 @@ components:
           | Dynamics 365 Business Central          | 350 MB    | Dynamics do not explicitly outline which file types are supported but they do state <a className="external" href="https://learn.microsoft.com/en-gb/dynamics365/business-central/ui-how-add-link-to-record#to-attach-a-file-to-a-purchase-invoice" target="_blank">here</a> that "You can attach any type of file, such as text, image, or video files".                                                                   |
       type: object
       allOf:
-        - type: object
-          properties:
+        - properties:
             id:
               type: string
               description: 'Identifier for the attachment, unique for the company in the accounting software.'
@@ -1619,6 +1634,14 @@ components:
                       - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
                     In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
+      definitions:
+        attachments:
+          title: Attachments
+          description:
+            $ref: '#/components/schemas/Attachment/description'
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
     AttachmentUpload:
       title: Attachment upload
       type: object
