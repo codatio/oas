@@ -231,7 +231,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       operationId: list-companies
-      description: "\uFEFFThe *List companies* endpoint returns a list of [companies] associated to your instances.\n\nA [company](https://docs.codat.io/lending-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/lending-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data."
+      description: "\uFEFFThe *List companies* endpoint returns a list of [companies](https://docs.codat.io/lending-api#/schemas/Company) associated to your instances.\n\nA [company](https://docs.codat.io/lending-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/lending-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data."
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -483,7 +483,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
     post:
       summary: Create connection
-      description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/lending-api#/operations/list-integrations) endpoint to access valid platform keys. "
+      description: "\uFEFFCreates a connection for the company by providing a valid `platformKey`. \n\nUse the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. "
       parameters:
         - $ref: '#/components/parameters/companyId'
       tags:
@@ -1328,7 +1328,7 @@ paths:
 
         For example, if you wanted to see summary match results only for transactions after 1 December 2020, you could include a query parameter of `query=date>2020-12-01`.
 
-        The endpoint response includes only the summary results, not transactions. To view match data for transactions, use the [List data integrity details](https://docs.codat.io/lending-api#/operations/list-data-type-data-integrity-details) endpoint.
+        The endpoint response includes only the summary results, not transactions. To view match data for transactions, use the [List data integrity details](https://docs.codat.io/lending-api#/operations/get-data-integrity-summaries) endpoint.
       parameters:
         - $ref: '#/components/parameters/query'
   '/data/companies/{companyId}/assess/dataTypes/{dataType}/dataIntegrity/details':
@@ -1373,7 +1373,7 @@ paths:
       description: |-
         The *List data integrity details* endpoint returns the match result record by record for a given data type, filtered based on a query string in the same way as summary results.
 
-        The [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetails) are paginated and support ordering, following the same conventions as our other data endpoints.
+        The [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetail) are paginated and support ordering, following the same conventions as our other data endpoints.
   '/companies/{companyId}/reports/enhancedProfitAndLoss/accounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -1382,7 +1382,7 @@ paths:
       description: |-
         The *Get categorized profit and loss statement* endpoint returns a list of categorized accounts that appear on a company’s Profit and Loss statement. It also includes a balance as of the financial statement date.
 
-        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one.
+        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/features/financial-statements-overview#recategorizing-accounts) to a more suitable one.
       tags:
         - Financial statements
       responses:
@@ -1763,7 +1763,7 @@ paths:
       description: |-
         The *Get categorized balance sheet statement* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.
 
-        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one.
+        Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/features/financial-statements-overview#recategorizing-accounts) to a more suitable one.
       tags:
         - Financial statements
       responses:
@@ -2570,9 +2570,7 @@ paths:
 
         This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
 
-        Learn more about the formulas used to calculate the revenue metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-
-        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+        [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the revenue metrics.
 
         #### Response structure
 
@@ -2695,9 +2693,7 @@ paths:
 
         This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
 
-        Learn more about the formulas used to calculate the order metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-
-        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+        [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the order metrics.
 
         #### Response structure
 
@@ -2824,9 +2820,7 @@ paths:
 
         This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
 
-        Learn more about the formulas used to calculate the refunds metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-
-        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+        [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the refunds metrics.
 
         #### Response structure
 
@@ -2977,7 +2971,7 @@ paths:
         - __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.
         - __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.
 
-        Learn more about the formulas used to calculate customer retention metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+        [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate customer retention metrics.
 
         #### Response structure
 
@@ -3077,9 +3071,7 @@ paths:
 
         This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.
 
-        Learn more about the formulas used to calculate the lifetime value metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-
-        Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.
+        [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the lifetime value metrics.
 
         #### Response structure
 
@@ -3142,12 +3134,12 @@ paths:
 
         | reportType                                                                           | Description                                                                                                                                   |
         |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-        | [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
-        | [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
-        | [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
-        | [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+        | `audit`                          | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+        | `enhancedCashFlow`    | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+        | `enhancedFinancials` | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+        | `enhancedInvoices`     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
 
-        [Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+        [Learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
 
 
       parameters:
@@ -3215,7 +3207,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: download-excel-report
       x-speakeasy-name-override: download
-      description: "\uFEFFThe *Download Excel report* endpoint downloads the latest successfully generated Excel report of a specified report type for a given company. \n\nThe downloadable Excel file is returned in the response. You can save it to your local machine.\n\nYou can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types."
+      description: "\uFEFFThe *Download Excel report* endpoint downloads the latest successfully generated Excel report of a specified report type for a given company. \n\nThe downloadable Excel file is returned in the response. You can save it to your local machine.\n\nYou can [learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types."
       parameters:
         - $ref: '#/components/parameters/excelReportType'
   '/companies/{companyId}/connections/{connectionId}/data/accountTransactions':
@@ -3542,8 +3534,6 @@ paths:
         The *Get account transaction* endpoint returns a single account transaction for a given accountTransactionId.
 
         [Account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction) represent bank activity within an accounting software. All transactions that go through a bank account are recorded as account transactions.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=accountTransactions) for integrations that support getting a specific account transaction.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       parameters:
@@ -4836,8 +4826,6 @@ paths:
         The *Get account* endpoint returns a single account for a given accountId.
 
         [Accounts](https://docs.codat.io/lending-api#/schemas/Account) are the categories a business uses to record accounting transactions.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support getting a specific account.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-account
@@ -7057,8 +7045,6 @@ paths:
 
         [Bill credit notes](https://docs.codat.io/lending-api#/schemas/BillCreditNote) are issued by a supplier for the purpose of recording credit.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes) for integrations that support getting a specific bill credit note.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-bill-credit-note
       x-speakeasy-group: accounts-payable.bill-credit-notes
@@ -8410,8 +8396,6 @@ paths:
         The *Get bill payment* endpoint returns a single bill payment for a given billPaymentId.
 
         [Bill payments](https://docs.codat.io/lending-api#/schemas/BillPayment) are an allocation of money within any customer accounts payable account.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments) for integrations that support getting a specific bill payment.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-bill-payment
@@ -12073,10 +12057,7 @@ paths:
 
         [Bills](https://docs.codat.io/lending-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support getting a specific bill.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
-
 
         ### Tips and traps
 
@@ -12121,8 +12102,6 @@ paths:
         The *List bill attachments* endpoint returns a list of attachments available to download for a given `billId`.
 
         [Bills](https://docs.codat.io/lending-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support listing bill attachments.
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -12156,12 +12135,10 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Get bill attachment
-      description: |
+      description: |-
         The *Get bill attachment* endpoint returns a specific attachment for a given `billId` and `attachmentId`.
 
         [Bills](https://docs.codat.io/lending-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support getting a bill attachment.
       operationId: get-accounting-bill-attachment
       x-speakeasy-group: accounts-payable.bills
   '/companies/{companyId}/connections/{connectionId}/data/bills/{billId}/attachments/{attachmentId}/download':
@@ -12198,12 +12175,10 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Download bill attachment
-      description: |
+      description: |-
         The *Download bill attachment* endpoint downloads a specific attachment for a given `billId` and `attachmentId`.
 
         [Bills](https://docs.codat.io/lending-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills) for integrations that support downloading a bill attachment.
       operationId: download-accounting-bill-attachment
       x-speakeasy-group: accounts-payable.bills
   '/companies/{companyId}/data/creditNotes':
@@ -14795,8 +14770,6 @@ paths:
 
         [Credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote) are issued to a customer to indicate debt, typically with reference to a previously issued invoice and/or purchase.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes) for integrations that support getting a specific credit note.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-credit-note
       x-speakeasy-group: accounts-receivable.credit-notes
@@ -16623,8 +16596,6 @@ paths:
 
         [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a specific customer.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-customer
       x-speakeasy-group: accounts-receivable.customers
@@ -16660,12 +16631,10 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: List customer attachments
-      description: |
+      description: |-
         The *List customer attachments* endpoint returns a list of attachments avialable to download for given `customerId`.
 
         [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support listing customer attachments.
       operationId: list-accounting-customer-attachments
       x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}':
@@ -16704,8 +16673,6 @@ paths:
         The *Get customer attachment* endpoint returns a specific attachment for a given `customerId` and `attachmentId`.
 
         [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a customer attachment.
       operationId: get-accounting-customer-attachment
       x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/customers/{customerId}/attachments/{attachmentId}/download':
@@ -16741,12 +16708,10 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Download customer attachment
-      description: |
+      description: |-
         The *Download customer attachment* endpoint downloads a specific attachment for a given `customerId` and `attachmentId`.
 
         [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support downloading a customer attachment.
       operationId: download-accounting-customer-attachment
       x-speakeasy-group: accounts-receivable.customers
   '/companies/{companyId}/connections/{connectionId}/data/directCosts':
@@ -18308,8 +18273,6 @@ paths:
 
         [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support getting a specific direct cost.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-cost
       x-speakeasy-group: transactions.direct-costs
@@ -18346,12 +18309,10 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
 
         [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support getting a direct cost attachment.
       operationId: get-accounting-direct-cost-attachment
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}/download':
@@ -18392,8 +18353,6 @@ paths:
         The *Download direct cost attachment* endpoint downloads a specific attachment for a given `directCostId` and `attachmentId`.
 
         [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support downloading a direct cost attachment.
       operationId: download-accounting-direct-cost-attachment
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments':
@@ -18433,8 +18392,6 @@ paths:
         The *List direct cost attachments* endpoint returns a list of attachments available to download for given `directCostId`.
 
         [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support listing direct cost attachments.
       operationId: list-accounting-direct-cost-attachments
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes':
@@ -19721,8 +19678,6 @@ paths:
 
         [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support getting a specific direct income.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-income
       x-speakeasy-group: accounts-receivable.direct-incomes
@@ -19760,12 +19715,10 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Get direct income attachment* endpoint returns a specific attachment for a given `directIncomeId` and `attachmentId`.
 
         [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support getting a direct income attachment.
       operationId: get-accounting-direct-income-attachment
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}/download':
@@ -19803,12 +19756,10 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Download direct income attachment* endpoint downloads a specific attachment for a given `directIncomeId` and `attachmentId`.
 
         [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support downloading a direct income attachment.
       operationId: download-accounting-direct-income-attachment
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments':
@@ -19847,8 +19798,6 @@ paths:
         The *List direct income attachments* endpoint returns a list of attachments available to download for given `directIncomeId`.
 
         [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes) for integrations that support listing direct income attachments.
       operationId: list-accounting-direct-income-attachments
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/data/info':
@@ -27998,8 +27947,6 @@ paths:
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting a specific invoice.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
 
         ### Tips and traps
@@ -28078,12 +28025,10 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: List invoice attachments
-      description: |
+      description: |-
         The *List invoice attachments* endpoint returns a list of attachments available to download for given `invoiceId`.
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support listing invoice attachments.
       operationId: list-accounting-invoice-attachments
       x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}':
@@ -28123,8 +28068,6 @@ paths:
         The *Get invoice attachment* endpoint returns a specific attachment for a given `invoiceId` and `attachmentId`.
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting an invoice attachment.
       operationId: get-accounting-invoice-attachment
       x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/connections/{connectionId}/data/invoices/{invoiceId}/attachments/{attachmentId}/download':
@@ -28165,8 +28108,6 @@ paths:
         The *Download invoice attachment* endpoint downloads a specific attachment for a given `invoiceId` and `attachmentId`.
 
         [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support downloading an invoice attachment.
       operationId: download-accounting-invoice-attachment
       x-speakeasy-group: accounts-receivable.invoices
   '/companies/{companyId}/data/journalEntries':
@@ -29974,8 +29915,6 @@ paths:
 
         [Journal entries](https://docs.codat.io/lending-api#/schemas/JournalEntry) are  made in a company's general ledger, or accounts, when transactions are approved.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journalEntries) for integrations that support getting a specific journal entry.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-journal-entry
       x-speakeasy-group: transactions.journal-entries
@@ -30296,8 +30235,6 @@ paths:
         The *Get journal* endpoint returns a single journal for a given journalId.
 
         [Journals](https://docs.codat.io/lending-api#/schemas/Journal) are used to record all the financial transactions of a company.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journals) for integrations that support getting a specific journal.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-journal
@@ -31805,8 +31742,6 @@ paths:
 
         [Payments](https://docs.codat.io/lending-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support getting a specific payment.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-payment
       x-speakeasy-group: accounts-receivable.payments
@@ -32953,8 +32888,6 @@ paths:
 
         [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support getting a specific supplier.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-supplier
       x-speakeasy-group: accounts-payable.suppliers
@@ -32994,8 +32927,6 @@ paths:
         The *List supplier attachments* endpoint returns a list of attachments available to download for given `supplierId`.
 
         [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support listing supplier attachments.
       operationId: list-accounting-supplier-attachments
       x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}':
@@ -33034,8 +32965,6 @@ paths:
         The *Get supplier attachment* endpoint returns a specific attachment for a given `supplierId` and `attachmentId`.
 
         [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support getting a supplier attachment.
       operationId: get-accounting-supplier-attachment
       x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/suppliers/{supplierId}/attachments/{attachmentId}/download':
@@ -33075,8 +33004,6 @@ paths:
         The *Download supplier attachment* endpoint downloads a specific attachment for a given `supplierId` and `attachmentId`.
 
         [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support downloading a supplier attachment.
       operationId: download-accounting-supplier-attachment
       x-speakeasy-group: accounts-payable.suppliers
   '/companies/{companyId}/connections/{connectionId}/data/transfers':
@@ -33938,8 +33865,6 @@ paths:
 
         [Transfers](https://docs.codat.io/lending-api#/schemas/Transfer) record the movement of money between two bank accounts, or between a bank account and a nominal account.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers) for integrations that support getting a specific transfer.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-transfer
       x-speakeasy-group: transactions.transfers
@@ -34596,8 +34521,6 @@ paths:
 
         [Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support getting a specific bank account.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/bankAccounts/{accountId}/bankTransactions':
     get:
@@ -34609,8 +34532,6 @@ paths:
         The *List account bank transactions* endpoint returns a list of [bank account transactions](https://docs.codat.io/lending-api#/schemas/BankTransactions) for a given company's connection.
 
         [Bank account transactions](https://docs.codat.io/lending-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support listing bank transactions.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: list-accounting-bank-account-transactions
@@ -53976,12 +53897,10 @@ paths:
       summary: Get account
       operationId: get-banking-account
       x-speakeasy-group: banking.accounts
-      description: |
+      description: |-
         The *Get account* endpoint returns a single account for a given accountId.
 
         [Accounts](https://docs.codat.io/lending-api#/schemas/Account) are financial accounts maintained by a bank or other financial institution.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts) for integrations that support getting a specific account.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       parameters:
@@ -54258,8 +54177,6 @@ paths:
 
         [Transactions](https://docs.codat.io/lending-api#/schemas/Transaction) provide an immutable source of up-to-date information on income and expenditure.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions) for integrations that support getting a specific transaction.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-banking-transaction
       x-speakeasy-group: banking.transactions
@@ -54378,8 +54295,6 @@ paths:
         The *Get transaction category* endpoint returns a single transaction category for a given transactionCategoryId.
 
         [Transaction categories](https://docs.codat.io/lending-api#/schemas/TransactionCategory) are associated with a transaction to provide greater contextual meaning to transaction activity.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactionCategories) for integrations that support getting a specific transaction category.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       responses:
@@ -54822,8 +54737,6 @@ paths:
 
         [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that place orders, make payments and receive goods and/or services from the SMB.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for integrations that support getting a specific customer.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       responses:
         '200':
@@ -55175,8 +55088,6 @@ paths:
 
         [Disputes](https://docs.codat.io/lending-api#/schemas/Dispute) are created when a customer is unsatisfied with their purchase or believe they have been charged incorrectly.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for integrations that support getting a specific dispute.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-info':
     parameters:
@@ -55474,8 +55385,6 @@ paths:
         The *Get location* endpoint returns a single location for a given locationId.
 
         [Locations](https://docs.codat.io/lending-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/lending-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/lending-api#/schemas/Order) were placed.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for integrations that support getting a specific location.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders':
@@ -57104,8 +57013,6 @@ paths:
 
         [Orders](https://docs.codat.io/lending-api#/schemas/Order) contain the transaction details for all products sold by the company.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for integrations that support getting a specific order.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods':
     parameters:
@@ -57415,8 +57322,6 @@ paths:
         The *Get payment method* endpoint returns a single payment method for a given paymentMethodId.
 
         [Payment methods](https://docs.codat.io/lending-api#/schemas/PaymentMethod) represent the payment method(s) used to make payments.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for integrations that support getting a specific payment method.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments':
@@ -57895,8 +57800,6 @@ paths:
 
         [Payments](https://docs.codat.io/lending-api#/schemas/Payment) contain details of all payments made by customers to the company.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for integrations that support getting a specific payment.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories':
     parameters:
@@ -58015,8 +57918,6 @@ paths:
         The *Get product* endpoint returns a single product for a given productId.
 
         [Product categories](https://docs.codat.io/lending-api#/schemas/ProductCategory) are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for integrations that support getting a specific product.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products':
@@ -59331,8 +59232,6 @@ paths:
 
         [Products](https://docs.codat.io/lending-api#/schemas/Product) are items in the company's inventory that are available for sale.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for integrations that support getting a specific product.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-transactions':
     parameters:
@@ -59671,8 +59570,6 @@ paths:
         The *Get transaction* endpoint returns a single transaction for a given transactionId.
 
         [Transactions](https://docs.codat.io/lending-api#/schemas/Transaction) detail all financial affairs recorded in the commerce or point of sale system.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for integrations that support getting a specific transaction.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
   '/companies/{companyId}/files':
@@ -60650,7 +60547,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-update-bankAccounts-model
       x-speakeasy-group: loan-writeback.bank-accounts
-      description: "The *Get create/update bank account model* endpoint returns the expected data for the request payload when creating and updating a [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company and integration.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support creating and updating a bank account.\r\n"
+      description: "The *Get create/update bank account model* endpoint returns the expected data for the request payload when creating and updating a [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company and integration.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n"
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -60692,7 +60589,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/lending-api#/operations/get-create-update-bankAccounts-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts) for integrations that support creating an account."
+      description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/lending-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/lending-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/lending-api#/operations/get-create-update-bankAccounts-model)."
       operationId: create-bank-account
       x-speakeasy-group: loan-writeback.bank-accounts
   '/companies/{companyId}/connections/{connectionId}/options/chartOfAccounts':
@@ -64045,7 +63942,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-chartOfAccounts-model
       x-speakeasy-group: loan-writeback.accounts
-      description: |
+      description: |-
         The *Get create account model* endpoint returns the expected data for the request payload when creating an [account](https://docs.codat.io/lending-api#/schemas/Account) for a given company and integration.
 
         [Accounts](https://docs.codat.io/lending-api#/schemas/Account) are the categories a business uses to record accounting transactions.
@@ -64053,8 +63950,6 @@ paths:
         **Integration-specific behaviour**
 
         See the *response examples* for integration-specific indicative models.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account.
   '/companies/{companyId}/connections/{connectionId}/push/accounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -64095,7 +63990,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Create account* endpoint creates a new [account](https://docs.codat.io/lending-api#/schemas/Account) for a given company's connection.
 
         [Accounts](https://docs.codat.io/lending-api#/schemas/Account) are the categories a business uses to record accounting transactions.
@@ -64103,8 +63998,6 @@ paths:
         **Integration-specific behaviour**
 
         Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/lending-api#/operations/get-create-chartOfAccounts-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account.
       operationId: create-account
       x-speakeasy-group: loan-writeback.accounts
   '/companies/{companyId}/connections/{connectionId}/options/suppliers':
@@ -67569,7 +67462,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-update-suppliers-model
       x-speakeasy-group: loan-writeback.suppliers
-      description: "The *Get create/update supplier model* endpoint returns the expected data for the request payload when creating and updating a [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company and integration.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating and updating a supplier.\r\n"
+      description: "The *Get create/update supplier model* endpoint returns the expected data for the request payload when creating and updating a [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company and integration.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n"
   '/companies/{companyId}/connections/{connectionId}/push/suppliers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -67617,7 +67510,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Create supplier
-      description: "The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).\r\n\r\nCheck out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating an account.\r\n"
+      description: "The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/lending-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).\r\n"
       operationId: create-supplier
       x-speakeasy-group: loan-writeback.suppliers
   '/companies/{companyId}/connections/{connectionId}/options/transfers':
@@ -68838,8 +68731,6 @@ paths:
         **Integration-specific behaviour**
 
         See the *response examples* for integration-specific indicative models.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers) for integrations that support creating a transfer.
   '/companies/{companyId}/connections/{connectionId}/push/transfers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -68904,7 +68795,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Create transfer* endpoint creates a new [transfer](https://docs.codat.io/lending-api#/schemas/Transfer) for a given company's connection.
 
         [Transfers](https://docs.codat.io/lending-api#/schemas/Transfer) record the movement of money between two bank accounts, or between a bank account and a nominal account.
@@ -68912,8 +68803,6 @@ paths:
         **Integration-specific behaviour**
 
         Required data may vary by integration. To see what data to post, first call [Get create transfer model](https://docs.codat.io/lending-api#/operations/get-create-transfers-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers) for integrations that support creating an account.
       operationId: create-transfer
       x-speakeasy-group: loan-writeback.transfers
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions':
@@ -68925,7 +68814,7 @@ paths:
       tags:
         - Loan writeback
       summary: Get create bank account transactions model
-      description: |
+      description: |-
         The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/lending-api#/schemas/BankTransactions) for a given company and integration.
 
         [Bank account transactions](https://docs.codat.io/lending-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
@@ -68933,8 +68822,6 @@ paths:
         **Integration-specific behaviour**
 
         See the *response examples* for integration-specific indicative models.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support creating an bank transaction.
       operationId: get-create-bank-transactions-model
       x-speakeasy-group: loan-writeback.bank-transactions
       responses:
@@ -68976,8 +68863,6 @@ paths:
         **Integration-specific behaviour**
 
         Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/lending-api#/operations/get-create-bankTransactions-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support creating a bank account transactions.
       operationId: create-bank-transactions
       x-speakeasy-group: loan-writeback.bank-transactions
       parameters:
@@ -71814,8 +71699,6 @@ paths:
         **Integration-specific behaviour**
 
         See the *response examples* for integration-specific indicative models.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support creating a direct cost.
   '/companies/{companyId}/connections/{connectionId}/push/directCosts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -72113,7 +71996,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Create direct cost* endpoint creates a new [direct cost](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
 
         [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are the expenses associated with a business' operations. For example, purchases of raw materials that are paid off at the point of the purchase and service fees are considered direct costs.
@@ -72121,8 +72004,6 @@ paths:
         **Integration-specific behaviour**
 
         Required data may vary by integration. To see what data to post, first call [Get create direct cost model](https://docs.codat.io/lending-api#/operations/get-create-directCosts-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support creating an account.
       operationId: create-direct-cost
       x-speakeasy-group: loan-writeback.direct-costs
   '/companies/{companyId}/connections/{connectionId}/options/payments':
@@ -74594,7 +74475,7 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-payment-model
       x-speakeasy-group: loan-writeback.payments
-      description: |
+      description: |-
         The *Get create payment model* endpoint returns the expected data for the request payload when creating a [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company and integration.
 
         [Payments](https://docs.codat.io/lending-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
@@ -74602,8 +74483,6 @@ paths:
         **Integration-specific behaviour**
 
         See the *response examples* for integration-specific indicative models.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating a payment.
   '/companies/{companyId}/connections/{connectionId}/push/payments':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -74757,7 +74636,7 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *Create payment* endpoint creates a new [payment](https://docs.codat.io/lending-api#/schemas/Payment) for a given company's connection.
 
         [Payments](https://docs.codat.io/lending-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
@@ -74765,8 +74644,6 @@ paths:
         **Integration-specific behaviour**
 
         Required data may vary by integration. To see what data to post, first call [Get create payment model](https://docs.codat.io/lending-api#/operations/get-create-payments-model).
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating an account.
       operationId: create-payment
       x-speakeasy-group: loan-writeback.payments
   '/companies/{companyId}/push/{pushOperationKey}':
@@ -75165,7 +75042,8 @@ paths:
         > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
 
         The *Get categorized bank statement transactions* endpoint returns fully categorized bank transactions for a company. Transaction data is obtained from the company's connected bank accounts.
-        Before using this endpoint you must have [generated a report](https://docs.codat.io/lending-api#/operations/request-report) of type `categorizedBankStatement`.
+
+        Before using it, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `categorizedBankStatement`.
       operationId: get-categorized-bank-statement-transactions
       x-speakeasy-name-override: get-categorized-bank-statement-transactions
       responses:
@@ -75432,7 +75310,7 @@ paths:
 
         The *Get categorized bank statement accounts* endpoint returns a list of bank accounts associated with categorized transactions for a company. 
 
-        Before using this endpoint you must have [generated a report](https://docs.codat.io/lending-api#/operations/request-report) of type `categorizedBankStatement`.
+        Before using it, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `categorizedBankStatement`.
       operationId: list-categorized-bank-statement-accounts
       x-speakeasy-name-override: list-categorized-bank-statement-accounts
       responses:
@@ -75517,7 +75395,8 @@ paths:
         > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
 
         Use the *Download categorized bank statement Excel* endpoint to download the categorized bank statement Excel file. 
-        Before using this endpoint you must have [generated a report](https://docs.codat.io/lending-api#/operations/request-report) of type `categorizedBankStatement`.
+
+        Before using it, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `categorizedBankStatement`.
       operationId: download-categorized-bank-statement-excel
       x-speakeasy-name-override: download-categorized-bank-statement-excel
       responses:
@@ -75807,7 +75686,7 @@ components:
             modifiedDate: '2019-08-24T14:15:22Z'
     AccountingAccount:
       title: 'Accounting: Account'
-      description: "\uFEFF> **Language tip:** Accounts are also referred to as **chart of accounts**, **nominal accounts**, and **general ledger**.\n\nView the coverage for accounts in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nAccounts are the categories a business uses to record accounting transactions. From the Accounts endpoints, you can retrieve a list of all accounts for a specified company.\n\nThe categories for an account include:\n* Asset\n* Expense\n* Income\n* Liability\n* Equity.\n\nThe same account may have a different category based on the integration it is used in. For example, a current account (known as checking in the US) should be categorized as `Asset.Current` for Xero, and `Asset.Bank.Checking` for QuickBooks Online.\n\nAt the same time, each integration may have its own requirements to the categories. For example, a Paypal account in Xero is of the `Asset.Bank` category and therefore requires additional properties to be provided.\n\nTo determine the list of allowed categories for a specific integration, you can:\n- Follow our [Create, update, delete data](https://docs.codat.io/using-the-api/push) guide and use the [Get create account model](https://docs.codat.io/lending-api#/operations/get-create-chartOfAccounts-model).\n- Refer to the integration's own documentation.\n\n> **Accounts with no category**\n>\n> If an account is pulled from the chart of accounts and its nominal code does not lie within the category layout for the company's accounts, then the **type** is `Unknown`. The **fullyQualifiedCategory** and **fullyQualifiedName** fields return `null`.\n>\n> This approach gives a true representation of the company's accounts whilst preventing distorting financials such as a company's profit and loss and balance sheet reports."
+      description: "\uFEFF> **Language tip:** Accounts are also referred to as **chart of accounts**, **nominal accounts**, and **general ledger**.\n\n## Overview\n\nAccounts are the categories a business uses to record accounting transactions. From the Accounts endpoints, you can retrieve a list of all accounts for a specified company.\n\nThe categories for an account include:\n* Asset\n* Expense\n* Income\n* Liability\n* Equity.\n\nThe same account may have a different category based on the integration it is used in. For example, a current account (known as checking in the US) should be categorized as `Asset.Current` for Xero, and `Asset.Bank.Checking` for QuickBooks Online.\n\nAt the same time, each integration may have its own requirements to the categories. For example, a Paypal account in Xero is of the `Asset.Bank` category and therefore requires additional properties to be provided.\n\nTo determine the list of allowed categories for a specific integration, you can:\n- Follow our [Create, update, delete data](https://docs.codat.io/using-the-api/push) guide and use the [Get create account model](https://docs.codat.io/lending-api#/operations/get-create-chartOfAccounts-model).\n- Refer to the integration's own documentation.\n\n> **Accounts with no category**\n>\n> If an account is pulled from the chart of accounts and its nominal code does not lie within the category layout for the company's accounts, then the **type** is `Unknown`. The **fullyQualifiedCategory** and **fullyQualifiedName** fields return `null`.\n>\n> This approach gives a true representation of the company's accounts whilst preventing distorting financials such as a company's profit and loss and balance sheet reports."
       allOf:
         - properties:
             id:
@@ -75980,8 +75859,6 @@ components:
       title: 'Accounting: Account transaction'
       description: |-
         > **Language tip:** In Codat, account transactions represent all transactions posted to a bank account within an accounting software. For bank transactions posted within a banking platform, refer to [Banking transactions](https://docs.codat.io/lending-api#/operations/list-all-banking-transactions).
-
-        > View the coverage for account transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=accountTransactions" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -76313,8 +76190,6 @@ components:
         | QuickBooks Online | 100 MB    | AI, CSV, DOC, DOCX, EPS, GIF, JPEG, JPG, ODS, PAGES, PDF, PNG, RTF, TIF,   TXT, XLS, XLSX, XML                                                               |
         | NetSuite          | 100 MB    | BMP, CSV, XLS, XLSX, JSON, PDF, PJPG, PJPEG, PNG, TXT, SVG, TIF, TIFF,   DOC, DOCX, ZIP                                                                      |
         | Dynamics 365 Business Central          | 350 MB    | Dynamics do not explicitly outline which file types are supported but they do state <a className="external" href="https://learn.microsoft.com/en-gb/dynamics365/business-central/ui-how-add-link-to-record#to-attach-a-file-to-a-purchase-invoice" target="_blank">here</a> that "You can attach any type of file, such as text, image, or video files".                                                                   |
-
-        View the coverage for each integration in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting" target="_blank">Data coverage explorer</a>.
       type: object
       allOf:
         - type: object
@@ -76359,8 +76234,6 @@ components:
     AccountingBalanceSheet:
       title: 'Accounting: Balance sheet'
       description: |-
-        > View the coverage for balance sheet in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=balanceSheet" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         The balance sheet is a snapshot of a company's accounts at a single point in time that provides a statement of the assets, liabilities and equity of an organization. It gives interested parties an idea of the company's financial position, in addition to displaying what the company owns and owes.
@@ -76428,9 +76301,7 @@ components:
         > 
         > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
         > 
-        > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/lending-api#/schemas/Account)
-
-        > View the coverage for bank accounts in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankAccounts" target="_blank">Data coverage explorer</a>.
+        > To view bank account data through the Banking API, please refer to the new [Banking: Account](https://docs.codat.io/lending-api#/schemas/Account) data type.
 
         ## Overview
 
@@ -76588,9 +76459,7 @@ components:
         > 
         > This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
         >
-        > To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/lending-api#/operations/list-all-banking-transactions)
-
-        > View the coverage for bank transactions in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions" target="_blank">Data coverage explorer</a>.
+        > To view bank account data through the Banking API, please refer to the new [Banking: Transaction](https://docs.codat.io/lending-api#/operations/list-transactions) data type.
 
         ## Overview
 
@@ -76674,8 +76543,6 @@ components:
         > We distinguish between invoices where the company *owes money* vs. *is owed money*. If the company has received an invoice, and owes money to someone else (accounts payable) we call this a Bill.
         >
         > See [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) for the accounts receivable equivalent of bills.
-
-        View the coverage for bills in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bills" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -76906,8 +76773,6 @@ components:
         > **Bill credit notes or credit notes?**
         > 
         > In Codat, bill credit notes represent accounts payable only. For accounts receivable, see [Credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote).
-
-        View the coverage for bill credit notes in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billCreditNotes" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -77230,8 +77095,6 @@ components:
         > We distinguish between transactions where the company received money vs. paid money. If the transaction represents a company spending money (accounts payable) we call this a Bill payment.
         >
         > See [payments](https://docs.codat.io/lending-api#/schemas/Payment) for the accounts receivable equivalent of Bill payments, which covers [invoices](https://docs.codat.io/lending-api#/schemas/Invoice) and [credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote).
-
-        > View the coverage for bill payments in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=billPayments" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -77680,8 +77543,6 @@ components:
     AccountingCashFlowStatement:
       title: 'Accounting: Cash flow statement'
       description: |-
-        > View the coverage for cash flow statement in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
-
         > **Operating activities only**  
         > 
         > Currently, the cash flow statement shows cash that flows into and out of the company from operating activities *only*. Operating activities generate cash from the sale of goods or services.
@@ -77753,8 +77614,6 @@ components:
     AccountingCompanyInfo:
       title: 'Accounting: Company profile'
       description: |-
-        > View the coverage for company profile in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=cashFlowStatement" target="_blank">Data coverage explorer</a>.
-
         Company info provides standard details about a linked company such as their address, phone number, and company registration.
 
         > **Company information or companies?**
@@ -77978,8 +77837,6 @@ components:
     AccountingCreditNote:
       title: 'Accounting: Credit note'
       description: |-
-        > View the coverage for credit notes in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=creditNotes" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         Think of a credit note as a voucher issued to a customer. It is a reduction that can be applied against one or multiple invoices. A credit note can either reduce the amount owed or cancel out an invoice entirely.
@@ -78212,8 +78069,6 @@ components:
     AccountingCustomer:
       title: 'Accounting: Customer'
       description: |
-        > View the coverage for customers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         A customer is a person or organisation that buys goods or services. From the Customers endpoints, you can retrieve a [list of all the customers of a company](https://api.codat.io/swagger/index.html#/Customers/get_companies__companyId__data_customers).
@@ -78337,8 +78192,6 @@ components:
       title: 'Accounting: Direct cost'
       description: |-
         > **Language tip:** Direct costs may also be referred to as **Spend transactions**, **Spend money transactions**, or **Payments** in various accounting software.
-
-        > View the coverage for direct costs in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -78527,8 +78380,6 @@ components:
       description: |
         > **Language tip:**  Direct incomes may also be referred to as **Receive transactions**, **Receive money transactions**, **Sales receipts**, or **Cash sales** in various accounting software.
 
-        > View the coverage for direct incomes in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directIncomes" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         Direct incomes are incomes received directly from the business' operations. For example, cash sales of items to a customer, referral commissions, and service fee refunds are considered direct incomes.
@@ -78685,8 +78536,6 @@ components:
         > We distinguish between invoices where the company *owes money* vs. *is owed money*. If the company issued an invoice, and is owed money (accounts receivable) we call this an Invoice.
         >
         > See [Bills](https://docs.codat.io/lending-api#/schemas/Bill) for the accounts payable equivalent of bills.
-
-        View the coverage for invoices in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -78919,8 +78768,6 @@ components:
       description: |
         > **Language tip:** For line items, or individual transactions, of a company's financial documents, refer to the [Journal entries](https://docs.codat.io/lending-api#/schemas/JournalEntry) data type
 
-        > View the coverage for journals in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journals" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         In accounting software, journals are used to record all the financial transactions of a company. Each transaction in a journal is represented by a separate [journal entry](https://docs.codat.io/lending-api#/schemas/JournalEntry). These entries are used to create the general ledger, which is then used to create the financial statements of a business.
@@ -79022,8 +78869,6 @@ components:
       title: 'Accounting: Journal entry'
       description: |-
         > **Language tip:** For the top-level record of a company's financial transactions, refer to the [Journals](https://docs.codat.io/lending-api#/schemas/Journal) data type
-
-        > View the coverage for journal entries in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=journalEntries" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -79186,7 +79031,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     AccountingPayment:
       title: 'Accounting: Payment'
-      description: "\uFEFF> **Payments or bill payments?**\n>\n>  In Codat, payments represent accounts receivable only. For accounts payable, see [bill payments](https://docs.codat.io/lending-api#/schemas/BillPayment). These include [bills](https://docs.codat.io/lending-api#/schemas/Bill) and credit notes against bills.\n\n> View the coverage for payments in the <a className=\"external\" href=\"https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments\" target=\"_blank\">Data coverage explorer</a>.\n\n## Overview\n\nPayments include all accounts receivable transaction data. This includes [invoices](https://docs.codat.io/lending-api#/schemas/Invoice) and [credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote).\n\nA payment in Codat usually represents an allocation of money within any customer accounts receivable account. This includes, but is not strictly limited to:\n\n- A payment made against an invoice, like a credit card, cheque, or cash payment.\n- An allocation of a customer's credit note, either to an invoice or maybe a refund.\n- A payment made directly to that accounts receivable account. This might be an overpayment or a prepayment. It might also be the refund of a payment made directly to an accounts receivable account.\n\nDepending on the payments allowed by the underlying accounting software, some payment types may be combined. Please see the example for more details.\n\nIn Codat, a payment contains details of:\n\n- When the payment was recorded in the accounting system.\n- How much it is for and in what currency that amount is in.\n- Who the payment was _paid by_ – the _customer_.\n- The payment method used.\n- The breakdown of the types of payments – the _line items_.\n\nPayments is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).\n\n## Payment types\n\n## Payment of an invoice\n\nA payment paying a single invoice has one entry in its `lines` array. This **line** has the following properties:\n\n- An _amount_ that indicates the amount of the invoice that was paid. This is always positive.\n- A **links** array containing one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case an `Invoice`.\n    - An **id** that contains the ID of the invoice that was paid.\n    - An **amount** for the link. The sum of the **line.amount** and the **links.amount** must equal `0`.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment.\n\n## Payment of multiple invoices\n\nA single payment can pay multiple invoices. This can be represented in one of two formats depending on how the customer keeps their books:\n\n- The payment has multiple entries in its **lines** array, one for each invoice that is paid. Each line follows the example and rules described in [Payment of an invoice](#payment-of-an-invoice).\n- The payment has a line with multiple links to each invoice. This occurs when the proportion of the original payment allocated to each invoice is not available.\n\nEach **line** has the same properties as those described in [Payment of an invoice](#payment-of-an-invoice), with the **amount** indicating how much of the payment was allocated to the invoice. The sum of line amounts equals the **totalAmount** on the payment.\n\n## Payments and refunds on account\n\nA payment on account, that is a payment that doesn’t pay a specific invoice, has one entry in its lines array. The **line** has the following properties:\n\n- A **totalAmount** that indicates the amount paid by a customer or refunded to them by a company. A payment to the customer is always negative. A refund is always positive.\n- A **links** array containing one element with the following properties:\n- A **type** that indicates the type of link. For a payment this is `PaymentOnAccount`. For a refund this is `Refund`.\n- The **id** containing the ID of the customer.\n- The **amount** for the link is `0` – the **totalAmount** _or_ the amount of the payment or refund.\n\nIt is possible to have a payment that is part _on account_ and part _allocated_ to an invoice. Each line should follow the examples above.\n\n## Using a credit note to pay an invoice\n\nThe payment of an invoice using a credit note has one entry in its **lines** array. This **line** has the following properties:\n\n- An **amount** that indicates the amount of money moved, which in this case is `0`, as the credit note and invoice allocation must balance each other.\n- A **links** array containing two elements:\n    - The first **link** has:\n        - A **type** that indicates the type of **link**, in this case an `Invoice`.\n        - An **id** that contains the ID of the invoice that was paid.\n    - The second **link** has:\n        - A **type** that indicates the type of **link**, in this case a `CreditNote`.\n        - An **id** that contains the ID of the credit note used by this payment.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment.\n\n## Refunding a credit note\n\nA payment refunding a credit note has one entry in its **lines** array. This **line** has the following properties:\n\n- An **amount** that indicates the amount of the credit note that was refunded. This is always negative for a refund.\n- A **links** array that contains one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `CreditNote`.\n    - An **id** that contains the ID of the credit note that was refunded.\n\nThe **totalAmount** field on the payment equals the **amount** field of the **line**. These are both negative, as this is money leaving accounts receivable.\n\n## Refunding a payment\n\nIf a payment is refunded, for example, if a customer overpaid an invoice and the overpayment is returned to the customer, there are two payment records:\n\n- One for the incoming over payment.\n- Another for the outgoing refund.\n\nThe payment issuing the refund has a negative **totalAmount**. This payment also has one entry in its lines array with the following properties:\n\n- An **amount** that indicates the amount that was refunded. This is always negative.\n- A **links** array that contains one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `Payment`.\n    - An **id** that contains the ID of the payment that was refunded.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment and is negative, as this is money leaving accounts receivable.\n\nThe payment that was refunded has a line where the **amount** is positive and the type of the link is `Refund`. This payment may have several entries in its **lines** array if it was used to partly pay an invoice.\n\nFor example: A £1,050 payment on a £1,000 invoice with a refund of £50 has two lines:\n\n- One for £1,000 linked to the invoice that was paid.\n- Another for £50 linked to the payment that refunded the overpayment with a** type** of `Refund` and an ID that corresponds to the payment.\n\nThe **line** linked to the payment has the following properties:\n\n- An **amount** that indicates the amount that was refunded. This is positive as its money that was added to accounts receivable. It's balanced out by the negative amount of the refund.\n- A **links** array containing one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `Refund`.\n    - An **id** that contains the ID of the payment that refunded this line.\n\n> **Support for linked payments**\n>\n> Not all accounting software support linking payments in this way. In some platforms, you may see a payment on account and a refund on account.\n\n## Foreign currencies\n\nThere are two types of currency rate that are included in the payments data type:\n\nPayment currency rate:\n\n- Base currency of the accounts receivable account.\n- Foreign currency of the payment.\n\nPayment line link currency rate:\n\n- Base currency of the item the link represents.\n- Foreign currency of the payment.\n\nThese two rates allow the calculation of currency loss or gain for any of the transactions affected by the payment lines. The second rate is used when a payment is applied to an item in a currency that doesn't match either:\n\n- The base currency for the accounts receivable account.\n- The currency of the item.\n\n  ```json title=\"Currency rate example\"\n  {\n      \"id\": \"123\",\n      \"note\": \"\",\n      \"totalAmount\": 99.99,\n      \"currency\": \"GBP\",\n      \"lines\": [\n          {\n              \"amount\": 99.99,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"178\",\n                      \"amount\": -50,\n                      \"currencyRate\":  1.9998\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n## Example data\n\n> **Object properties**\n>\n> For the sake of brevity, the examples here may omit properties from objects. For the full object definition, see [Payments](https://api.codat.io/swagger/index.html#/Payments).\n\n## Simple examples\n\n  ```json title=\"Payment for invoice\"\n  {\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Allocation of credit note\"\n  {\n      \"totalAmount\": 0,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Payment of invoice and payment on account\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"y\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Refund of credit note\"\n  {\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Refund on accounts receivable account\"\n  {\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Linked refund on accounts receivable account\"\n  {\n      \"id\" : \"payment-001\",\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Refund\",\n                      \"id\" : \"refund-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  {\n      \"id\" : \"refund-001\",\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Payment\",\n                      \"id\" : \"payment-001\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Using a credit note and cash to pay an invoice\"\n  {\n      \"totalAmount\": 250,\n      \"lines\": [\n          {\n              \"amount\": 0,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"x\",\n                      \"amount\": -750\n                  }, \n                  {\n                      \"type\": \"CreditNote\",\n                      \"id\": \"y\",\n                      \"amount\": 750\n                  }\n              ]\n          },\n          {\n              \"amount\": 250,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"x\",\n                      \"amount\": -250\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n## Complex examples\n\n  ```json title=\"Use two credit notes and 1000 in to \"bank\" (cash, cheque etc.) to pay invoice\"\n  {\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Pay an invoice with two credit notes and cash, with 1000 left 'on account'\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"customer-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes pay two invoices with no allocation amount specified\"\n  {\n      \"totalAmount\": 0,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"w\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes and cash pay three invoices with no allocation amount specified, and refund cash\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"w\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"u\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Refund\",\n                      \"id\" : \"refund-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  {\n      \"id\" : \"refund-001\",\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Payment\",\n                      \"id\" : \"payment-001\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\nIn this example, a payment on account is used to pay the same invoice in January and again in February.\n\n  ```json title=\"January\"\n  {\n      \"id\": \"001\",\n      \"totalAmount\": 5000,\n      \"date\" : \"1901-01-01\",\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 4000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"PaymentOnAccount-y\",\n                      \"amount\" : -4000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"February\"\n  {\n      \"id\": \"001\",\n      \"totalAmount\": 5000,\n      \"date\" : \"1901-02-01\",\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-y\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 3000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"PaymentOnAccount-y\",\n                      \"amount\" : -3000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes and some cash pay two invoices with no allocations specified\"\n  {\n      \"totalAmount\": 500,\n      \"lines\": [\n          {\n              \"amount\": 500,\n              \"links\": [{\n                      \"type\": \"Invoice\",\n                      \"id\": \"a\",\n                      \"amount\": -1000\n                  }, {\n                      \"type\": \"Invoice\",\n                      \"id\": \"b\",\n                      \"amount\": -1000\n                  }, {\n                      \"type\": \"CreditNote\",\n                      \"id\": \"y\",\n                      \"amount\": 750\n                  },{\n                      \"type\": \"CreditNote\",\n                      \"id\": \"z\",\n                      \"amount\": 750\n                  }\n              ]\n          }\n      ]\n  }\n  ```"
+      description: "\uFEFF> **Payments or bill payments?**\n>\n>  In Codat, payments represent accounts receivable only. For accounts payable, see [bill payments](https://docs.codat.io/lending-api#/schemas/BillPayment). These include [bills](https://docs.codat.io/lending-api#/schemas/Bill) and credit notes against bills.\n\n## Overview\n\nPayments include all accounts receivable transaction data. This includes [invoices](https://docs.codat.io/lending-api#/schemas/Invoice) and [credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote).\n\nA payment in Codat usually represents an allocation of money within any customer accounts receivable account. This includes, but is not strictly limited to:\n\n- A payment made against an invoice, like a credit card, cheque, or cash payment.\n- An allocation of a customer's credit note, either to an invoice or maybe a refund.\n- A payment made directly to that accounts receivable account. This might be an overpayment or a prepayment. It might also be the refund of a payment made directly to an accounts receivable account.\n\nDepending on the payments allowed by the underlying accounting software, some payment types may be combined. Please see the example for more details.\n\nIn Codat, a payment contains details of:\n\n- When the payment was recorded in the accounting system.\n- How much it is for and in what currency that amount is in.\n- Who the payment was _paid by_ – the _customer_.\n- The payment method used.\n- The breakdown of the types of payments – the _line items_.\n\nPayments is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).\n\n## Payment types\n\n## Payment of an invoice\n\nA payment paying a single invoice has one entry in its `lines` array. This **line** has the following properties:\n\n- An _amount_ that indicates the amount of the invoice that was paid. This is always positive.\n- A **links** array containing one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case an `Invoice`.\n    - An **id** that contains the ID of the invoice that was paid.\n    - An **amount** for the link. The sum of the **line.amount** and the **links.amount** must equal `0`.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment.\n\n## Payment of multiple invoices\n\nA single payment can pay multiple invoices. This can be represented in one of two formats depending on how the customer keeps their books:\n\n- The payment has multiple entries in its **lines** array, one for each invoice that is paid. Each line follows the example and rules described in [Payment of an invoice](#payment-of-an-invoice).\n- The payment has a line with multiple links to each invoice. This occurs when the proportion of the original payment allocated to each invoice is not available.\n\nEach **line** has the same properties as those described in [Payment of an invoice](#payment-of-an-invoice), with the **amount** indicating how much of the payment was allocated to the invoice. The sum of line amounts equals the **totalAmount** on the payment.\n\n## Payments and refunds on account\n\nA payment on account, that is a payment that doesn’t pay a specific invoice, has one entry in its lines array. The **line** has the following properties:\n\n- A **totalAmount** that indicates the amount paid by a customer or refunded to them by a company. A payment to the customer is always negative. A refund is always positive.\n- A **links** array containing one element with the following properties:\n- A **type** that indicates the type of link. For a payment this is `PaymentOnAccount`. For a refund this is `Refund`.\n- The **id** containing the ID of the customer.\n- The **amount** for the link is `0` – the **totalAmount** _or_ the amount of the payment or refund.\n\nIt is possible to have a payment that is part _on account_ and part _allocated_ to an invoice. Each line should follow the examples above.\n\n## Using a credit note to pay an invoice\n\nThe payment of an invoice using a credit note has one entry in its **lines** array. This **line** has the following properties:\n\n- An **amount** that indicates the amount of money moved, which in this case is `0`, as the credit note and invoice allocation must balance each other.\n- A **links** array containing two elements:\n    - The first **link** has:\n        - A **type** that indicates the type of **link**, in this case an `Invoice`.\n        - An **id** that contains the ID of the invoice that was paid.\n    - The second **link** has:\n        - A **type** that indicates the type of **link**, in this case a `CreditNote`.\n        - An **id** that contains the ID of the credit note used by this payment.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment.\n\n## Refunding a credit note\n\nA payment refunding a credit note has one entry in its **lines** array. This **line** has the following properties:\n\n- An **amount** that indicates the amount of the credit note that was refunded. This is always negative for a refund.\n- A **links** array that contains one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `CreditNote`.\n    - An **id** that contains the ID of the credit note that was refunded.\n\nThe **totalAmount** field on the payment equals the **amount** field of the **line**. These are both negative, as this is money leaving accounts receivable.\n\n## Refunding a payment\n\nIf a payment is refunded, for example, if a customer overpaid an invoice and the overpayment is returned to the customer, there are two payment records:\n\n- One for the incoming over payment.\n- Another for the outgoing refund.\n\nThe payment issuing the refund has a negative **totalAmount**. This payment also has one entry in its lines array with the following properties:\n\n- An **amount** that indicates the amount that was refunded. This is always negative.\n- A **links** array that contains one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `Payment`.\n    - An **id** that contains the ID of the payment that was refunded.\n\nThe **amount** field on the **line** equals the **totalAmount** on the payment and is negative, as this is money leaving accounts receivable.\n\nThe payment that was refunded has a line where the **amount** is positive and the type of the link is `Refund`. This payment may have several entries in its **lines** array if it was used to partly pay an invoice.\n\nFor example: A £1,050 payment on a £1,000 invoice with a refund of £50 has two lines:\n\n- One for £1,000 linked to the invoice that was paid.\n- Another for £50 linked to the payment that refunded the overpayment with a** type** of `Refund` and an ID that corresponds to the payment.\n\nThe **line** linked to the payment has the following properties:\n\n- An **amount** that indicates the amount that was refunded. This is positive as its money that was added to accounts receivable. It's balanced out by the negative amount of the refund.\n- A **links** array containing one element with the following properties:\n    - A **type** that indicates the type of **link**, in this case a `Refund`.\n    - An **id** that contains the ID of the payment that refunded this line.\n\n> **Support for linked payments**\n>\n> Not all accounting software support linking payments in this way. In some platforms, you may see a payment on account and a refund on account.\n\n## Foreign currencies\n\nThere are two types of currency rate that are included in the payments data type:\n\nPayment currency rate:\n\n- Base currency of the accounts receivable account.\n- Foreign currency of the payment.\n\nPayment line link currency rate:\n\n- Base currency of the item the link represents.\n- Foreign currency of the payment.\n\nThese two rates allow the calculation of currency loss or gain for any of the transactions affected by the payment lines. The second rate is used when a payment is applied to an item in a currency that doesn't match either:\n\n- The base currency for the accounts receivable account.\n- The currency of the item.\n\n  ```json title=\"Currency rate example\"\n  {\n      \"id\": \"123\",\n      \"note\": \"\",\n      \"totalAmount\": 99.99,\n      \"currency\": \"GBP\",\n      \"lines\": [\n          {\n              \"amount\": 99.99,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"178\",\n                      \"amount\": -50,\n                      \"currencyRate\":  1.9998\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n## Example data\n\n> **Object properties**\n>\n> For the sake of brevity, the examples here may omit properties from objects. For the full object definition, see [Payments](https://api.codat.io/swagger/index.html#/Payments).\n\n## Simple examples\n\n  ```json title=\"Payment for invoice\"\n  {\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Allocation of credit note\"\n  {\n      \"totalAmount\": 0,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Payment of invoice and payment on account\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"y\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Refund of credit note\"\n  {\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Refund on accounts receivable account\"\n  {\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Linked refund on accounts receivable account\"\n  {\n      \"id\" : \"payment-001\",\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Refund\",\n                      \"id\" : \"refund-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  {\n      \"id\" : \"refund-001\",\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Payment\",\n                      \"id\" : \"payment-001\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Using a credit note and cash to pay an invoice\"\n  {\n      \"totalAmount\": 250,\n      \"lines\": [\n          {\n              \"amount\": 0,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"x\",\n                      \"amount\": -750\n                  }, \n                  {\n                      \"type\": \"CreditNote\",\n                      \"id\": \"y\",\n                      \"amount\": 750\n                  }\n              ]\n          },\n          {\n              \"amount\": 250,\n              \"links\": [\n                  {\n                      \"type\": \"Invoice\",\n                      \"id\": \"x\",\n                      \"amount\": -250\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n## Complex examples\n\n  ```json title=\"Use two credit notes and 1000 in to \"bank\" (cash, cheque etc.) to pay invoice\"\n  {\n      \"totalAmount\": 1000,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Pay an invoice with two credit notes and cash, with 1000 left 'on account'\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"customer-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes pay two invoices with no allocation amount specified\"\n  {\n      \"totalAmount\": 0,\n      \"lines\": [\n          {\n              \"amount\" : 0,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"w\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes and cash pay three invoices with no allocation amount specified, and refund cash\"\n  {\n      \"totalAmount\": 2000,\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"w\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"x\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"u\",\n                      \"amount\" : -1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"y\",\n                      \"amount\" : 1000\n                  },\n                  {\n                      \"type\" : \"CreditNote\",\n                      \"id\" : \"z\",\n                      \"amount\" : 1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Refund\",\n                      \"id\" : \"refund-001\",\n                      \"amount\" : -1000\n                  }\n              ]\n          }\n      ]\n  }\n  {\n      \"id\" : \"refund-001\",\n      \"totalAmount\": -1000,\n      \"lines\": [\n          {\n              \"amount\" : -1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Payment\",\n                      \"id\" : \"payment-001\",\n                      \"amount\" : 1000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\nIn this example, a payment on account is used to pay the same invoice in January and again in February.\n\n  ```json title=\"January\"\n  {\n      \"id\": \"001\",\n      \"totalAmount\": 5000,\n      \"date\" : \"1901-01-01\",\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 4000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"PaymentOnAccount-y\",\n                      \"amount\" : -4000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"February\"\n  {\n      \"id\": \"001\",\n      \"totalAmount\": 5000,\n      \"date\" : \"1901-02-01\",\n      \"lines\": [\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-x\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 1000,\n              \"links\" : [\n                  {\n                      \"type\" : \"Invoice\",\n                      \"id\" : \"Invoice-y\",\n                      \"amount\" : -1000\n                  }\n              ]\n          },\n          {\n              \"amount\" : 3000,\n              \"links\" : [\n                  {\n                      \"type\" : \"PaymentOnAccount\",\n                      \"id\" : \"PaymentOnAccount-y\",\n                      \"amount\" : -3000\n                  }\n              ]\n          }\n      ]\n  }\n  ```\n\n\n\n  ```json title=\"Two credit notes and some cash pay two invoices with no allocations specified\"\n  {\n      \"totalAmount\": 500,\n      \"lines\": [\n          {\n              \"amount\": 500,\n              \"links\": [{\n                      \"type\": \"Invoice\",\n                      \"id\": \"a\",\n                      \"amount\": -1000\n                  }, {\n                      \"type\": \"Invoice\",\n                      \"id\": \"b\",\n                      \"amount\": -1000\n                  }, {\n                      \"type\": \"CreditNote\",\n                      \"id\": \"y\",\n                      \"amount\": 750\n                  },{\n                      \"type\": \"CreditNote\",\n                      \"id\": \"z\",\n                      \"amount\": 750\n                  }\n              ]\n          }\n      ]\n  }\n  ```"
       type: object
       allOf:
         - type: object
@@ -79396,8 +79241,6 @@ components:
     AccountingPaymentMethod:
       title: 'Accounting: Payment method'
       description: |-
-        > View the coverage for payment methods in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=paymentMethods" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         A Payment Method represents the payment method(s) used to pay a Bill. Payment Methods are referenced on [Bill Payments](https://docs.codat.io/lending-api#/schemas/BillPayment) and [Payments](https://docs.codat.io/lending-api#/schemas/Payment).
@@ -79446,8 +79289,6 @@ components:
       title: 'Accounting: Profit and loss report'
       description: |-
         > **Language tip:** Profit and loss statement is also referred to as **income statement** under US GAAP (Generally Accepted Accounting Principles).
-
-        > View the coverage for profit and loss in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=profitAndLoss" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -79547,8 +79388,6 @@ components:
     AccountingSupplier:
       title: 'Accounting: Supplier'
       description: |-
-        > View the coverage for suppliers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers" target="_blank">Data coverage explorer</a>.
-
         ## Overview
 
         From the **Suppliers** endpoints, you can retrieve a list of [all the suppliers for a company](https://docs.codat.io/lending-api#/operations/list-suppliers). Suppliers' data links to accounts payable [bills](https://docs.codat.io/lending-api#/schemas/Bill).
@@ -79679,8 +79518,6 @@ components:
         > Language tip
         >
         > Parameters used to track types of spend in various parts of an organization can be called  **dimensions**, **projects**, **classes**, or **locations** in different accounting software. In Codat, we refer to these as tracking categories.
-
-        View the coverage for tracking categories in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=trackingCategories" target="_blank">Data coverage explorer</a>.
 
         ## Overview
 
@@ -79860,10 +79697,7 @@ components:
           sourceModifiedDate: '2022-10-23T00:00:00Z'
     AccountingTransfer:
       title: 'Accounting: Transfer'
-      description: |-
-        > View the coverage for transfers in the <a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=transfers" target="_blank">Data coverage explorer</a>.
-
-        A transfer records the movement of money between two bank accounts, or between a bank account and a nominal account. It is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).
+      description: 'A transfer records the movement of money between two bank accounts, or between a bank account and a nominal account. It is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).'
       allOf:
         - properties:
             id:
@@ -80090,8 +79924,6 @@ components:
       title: 'Banking: Bank account'
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
 
         Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
       type: object
@@ -80334,8 +80166,6 @@ components:
         The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
         Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
       type: object
       allOf:
         - type: object
@@ -80854,8 +80684,6 @@ components:
       description: |
         In the Codat system, company profile includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
       type: object
       allOf:
         - type: object
@@ -80931,10 +80759,7 @@ components:
                 - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
     CommerceCustomer:
       title: 'Commerce: Customer'
-      description: |-
-        When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.
+      description: 'When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.'
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -81071,8 +80896,6 @@ components:
         - They've been the victim of online fraud.  
 
         You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -81156,8 +80979,6 @@ components:
         The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
 
         A Location also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
         - type: object
@@ -81215,8 +81036,6 @@ components:
       title: 'Commerce: Order'
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.
       allOf:
         - type: object
           x-stoplight:
@@ -81532,8 +81351,6 @@ components:
         Refunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.
 
         You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -81635,10 +81452,7 @@ components:
             - $ref: '#/components/schemas/CommerceOrder/allOf/3'
     CommercePaymentMethod:
       title: 'Commerce: Payment method'
-      description: |-
-        A Payment Method represents the payment method(s) used to make payments.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
+      description: A Payment Method represents the payment method(s) used to make payments.
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -81683,8 +81497,6 @@ components:
       title: 'Commerce: Product'
       description: |
         A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -81878,10 +81690,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     CommerceProductCategory:
       title: 'Commerce: Product category'
-      description: |-
-        Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.
+      description: 'Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.'
       type: object
       allOf:
         - type: object
@@ -82158,10 +81967,7 @@ components:
                   - string
     CommerceTaxComponent:
       title: 'Commerce: Tax component'
-      description: |-
-        The Tax Components endpoints return tax rates data from the commerce software, including tax rate names and values. This is to support the mapping of tax rates from the commerce software to those in the accounting software.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+      description: 'The Tax Components endpoints return tax rates data from the commerce software, including tax rate names and values. This is to support the mapping of tax rates from the commerce software to those in the accounting software.'
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'
@@ -82235,8 +82041,6 @@ components:
         - Average transaction value  
         - Returns  
         - Payouts
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/CommerceOrder/allOf/0'

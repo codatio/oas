@@ -494,8 +494,6 @@ paths:
 
         [Customers](https://docs.codat.io/commerce-api#/schemas/Customer) are people or organizations that place orders, make payments and receive goods and/or services from the SMB.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for integrations that support getting a specific customer.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       responses:
         '200':
@@ -845,8 +843,6 @@ paths:
 
         [Disputes](https://docs.codat.io/commerce-api#/schemas/Dispute) are created when a customer is unsatisfied with their purchase or believe they have been charged incorrectly.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for integrations that support getting a specific dispute.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-info':
     parameters:
@@ -1139,8 +1135,6 @@ paths:
         The *Get location* endpoint returns a single location for a given locationId.
 
         [Locations](https://docs.codat.io/commerce-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/commerce-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/commerce-api#/schemas/Order) were placed.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for integrations that support getting a specific location.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-orders':
@@ -2767,8 +2761,6 @@ paths:
 
         [Orders](https://docs.codat.io/commerce-api#/schemas/Order) contain the transaction details for all products sold by the company.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for integrations that support getting a specific order.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-payments':
     parameters:
@@ -3251,8 +3243,6 @@ paths:
 
         [Payments](https://docs.codat.io/commerce-api#/schemas/Payment) contain details of all payments made by customers to the company.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for integrations that support getting a specific payment.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-paymentMethods':
     parameters:
@@ -3562,8 +3552,6 @@ paths:
         The *Get payment method* endpoint returns a single payment method for a given paymentMethodId.
 
         [Payment methods](https://docs.codat.io/commerce-api#/schemas/PaymentMethod) represent the payment method(s) used to make payments.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for integrations that support getting a specific payment method.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-products':
@@ -5207,8 +5195,6 @@ paths:
 
         [Transactions](https://docs.codat.io/commerce-api#/schemas/Transaction) detail all financial affairs recorded in the commerce or point of sale system.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for integrations that support getting a specific transaction.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-productCategories':
     parameters:
@@ -5327,8 +5313,6 @@ paths:
         The *Get product* endpoint returns a single product for a given productId.
 
         [Product categories](https://docs.codat.io/commerce-api#/schemas/ProductCategory) are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for integrations that support getting a specific product.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
   '/companies/{companyId}/connections/{connectionId}/data/commerce-taxComponents':
@@ -5507,8 +5491,6 @@ paths:
 
         [Tax components](https://docs.codat.io/commerce-api#/schemas/TaxComponent) are tax rates from the commerce software, including tax rate's name and value.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-taxComponents) for integrations that support getting a specific tax.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
 components:
   schemas:
@@ -5552,8 +5534,6 @@ components:
       description: |
         In the Codat system, company profile includes standard commercial details about 
         a linked company, such as their address, phone number, and company registration.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=companyInfo) for this data type.
       type: object
       allOf:
         - type: object
@@ -5654,10 +5634,7 @@ components:
           description: The date the entity was created.
     Customer:
       title: 'Commerce: Customer'
-      description: |-
-        When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-customers) for this data type.
+      description: 'When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.'
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -5820,8 +5797,6 @@ components:
         - They've been the victim of online fraud.  
 
         You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -5963,8 +5938,6 @@ components:
         The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
 
         A Location also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-locations) for this data type.
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
         - type: object
@@ -6059,8 +6032,6 @@ components:
       title: 'Commerce: Order'
       description: |
         Orders contain the transaction details for all products sold by the company, and include details of any payments, service charges, or refunds related to each order. You can use data from the Orders endpoints to calculate key metrics, such as gross sales values and monthly recurring revenue (MRR).
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-orders) for this data type.
       allOf:
         - type: object
           x-stoplight:
@@ -6395,8 +6366,6 @@ components:
         Refunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.
 
         You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-payments) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -6498,10 +6467,7 @@ components:
             - $ref: '#/components/schemas/ModifiedDates'
     PaymentMethod:
       title: 'Commerce: Payment method'
-      description: |-
-        A Payment Method represents the payment method(s) used to make payments.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-paymentMethods) for this data type.
+      description: A Payment Method represents the payment method(s) used to make payments.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -6589,8 +6555,6 @@ components:
       title: 'Commerce: Product'
       description: |
         A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-products) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -6784,10 +6748,7 @@ components:
         - $ref: '#/components/schemas/PagingInfo'
     ProductCategory:
       title: 'Commerce: Product category'
-      description: |-
-        Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-productCategories) for this data type.
+      description: 'Product categories are used to classify a group of products together, either by type (e.g. "Furniture"), or sometimes by tax profile.'
       type: object
       allOf:
         - type: object
@@ -6883,10 +6844,7 @@ components:
           nullable: true
     TaxComponent:
       title: 'Commerce: Tax component'
-      description: |-
-        The Tax Components endpoints return tax rates data from the commerce software, including tax rate names and values. This is to support the mapping of tax rates from the commerce software to those in the accounting software.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-disputes) for this data type.
+      description: 'The Tax Components endpoints return tax rates data from the commerce software, including tax rate names and values. This is to support the mapping of tax rates from the commerce software to those in the accounting software.'
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'
@@ -6971,8 +6929,6 @@ components:
         - Average transaction value  
         - Returns  
         - Payouts
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&dataType=commerce-transactions) for this data type.
       type: object
       allOf:
         - $ref: '#/components/schemas/Order/allOf/0'

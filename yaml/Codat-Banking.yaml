@@ -312,12 +312,10 @@ paths:
         - Accounts
       summary: Get account
       operationId: get-account
-      description: |
+      description: |-
         The *Get account* endpoint returns a single account for a given accountId.
 
         [Accounts](https://docs.codat.io/banking-api#/schemas/Account) are financial accounts maintained by a bank or other financial institution.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts) for integrations that support getting a specific account.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       parameters:
@@ -514,8 +512,6 @@ paths:
         The *Get transaction category* endpoint returns a single transaction category for a given transactionCategoryId.
 
         [Transaction categories](https://docs.codat.io/banking-api#/schemas/TransactionCategory) are associated with a transaction to provide greater contextual meaning to transaction activity.
-
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactionCategories) for integrations that support getting a specific transaction category.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       responses:
@@ -798,8 +794,6 @@ paths:
 
         [Transactions](https://docs.codat.io/banking-api#/schemas/Transaction) provide an immutable source of up-to-date information on income and expenditure.
 
-        Check out our [coverage explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions) for integrations that support getting a specific transaction.
-
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/codat-api#/operations/refresh-company-data).
       operationId: get-transaction
     parameters:
@@ -817,8 +811,6 @@ components:
       title: 'Banking: Bank account'
       description: |-
         This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
-
-        Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-accounts).
 
         Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
       type: object
@@ -1258,8 +1250,6 @@ components:
         The Banking Transactions data type provides an immutable source of up-to-date information on income and expenditure.
 
         Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
-
-        View the coverage for banking transactions in the [Data Coverage Explorer](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&dataType=banking-transactions).
       type: object
       allOf:
         - type: object
