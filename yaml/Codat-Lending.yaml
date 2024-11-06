@@ -6342,7 +6342,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a bill credit note.
     get:
       tags:
@@ -29342,19 +29345,21 @@ paths:
   '/companies/{companyId}/data/journalEntries/{journalEntryId}':
     parameters:
       - $ref: '#/components/parameters/companyId'
+      - name: journalEntryId
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
+        description: Unique identifier for a journal entry.
     get:
       tags:
         - Transactions
       summary: Get journal entry
-      parameters:
-        - name: journalEntryId
-          in: path
-          required: true
-          schema:
-            type: string
-            examples:
-              $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
-          description: Unique identifier for a journal entry.
       responses:
         '200':
           description: Success
@@ -33601,7 +33606,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a transfer.
     get:
       tags:
@@ -55024,7 +55032,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a dispute.
     get:
       summary: Get dispute
@@ -55303,7 +55314,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a location.
     get:
       summary: Get location
@@ -56433,7 +56447,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for an order.
     get:
       summary: Get order
@@ -57238,7 +57255,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a payment method.
     get:
       summary: Get payment method
@@ -59471,7 +59491,10 @@ paths:
         schema:
           type: string
           examples:
-            $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+            - 13d946f0-c5d5-42bc-b092-97ece17923ab
+            - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+            - 7110701885
+            - EILBDVJVNUAGVKRQ
         description: Unique identifier for a transaction.
     get:
       summary: Get transaction
@@ -64000,6 +64023,122 @@ paths:
         Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/lending-api#/operations/get-create-chartOfAccounts-model).
       operationId: create-account
       x-speakeasy-group: loan-writeback.accounts
+  '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Loan writeback
+      summary: Create source account
+      description: |-
+        The _Create Source Account_ endpoint allows you to create a representation of a bank account within Codat's domain. The company can then map the source account to an existing or new target account in their accounting software.
+
+        #### Account mapping variability
+
+        The method of mapping the source account to the target account varies depending on the accounting software your company uses.
+
+        #### Mapping options:
+
+        1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
+        2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
+        3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
+
+        ### Integration-specific behaviour
+
+        | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
+        | --------------------- | ----------- | ---------------- | --------------------------- |
+        | Xero                  | ✅          | ✅               |                             |
+        | FreeAgent             | ✅          | ✅               |                             |
+        | Oracle NetSuite       | ✅          | ✅               |                             |
+        | Exact Online (NL)     | ✅          | ✅               |                             |
+        | QuickBooks Online     |             |                  | ✅                          |
+        | Sage                  |             |                  | ✅                          |
+
+        > ### Versioning
+        > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
+      operationId: create-source-account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/SourceAccountV2'
+                - $ref: '#/components/schemas/SourceAccount'
+            examples: {}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SourceAccountV2'
+                  - $ref: '#/components/schemas/SourceAccount'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      x-speakeasy-group: loan-writeback.source-accounts
+  '/companies/{companyId}/connections/{connectionId}/bankFeedAccounts/mapping':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Loan writeback
+      summary: Create bank feed account mapping
+      description: "\uFEFFThe *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\nTo find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.\n\n> **For custom builds only**\n>\n> Only use this endpoint if you are building your own account management UI."
+      operationId: create-bank-account-mapping
+      x-speakeasy-group: loan-writeback.source-accounts
+      x-speakeasy-name-override: create-mapping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankFeedBankAccountMapping'
+            examples:
+              Example:
+                value:
+                  sourceAccountId: acc-002
+                  targetAccountId: account-081
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankFeedBankAccountMappingResponse'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/options/suppliers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -75669,10 +75808,8 @@ components:
           title: Account categories updated webhook data
           properties:
             modifiedDate:
+              $ref: '#/components/schemas/SourceAccountV2/properties/feedStartDate'
               description: The date on which the company's account categories were last modified in Codat.
-              title: Date
-              type: string
-              example: '2022-10-23'
       examples:
         - ClientId: bae71d36-ff47-420a-b4a6-f8c9ddf41140
           ClientName: Bank of Dave
@@ -75735,7 +75872,7 @@ components:
                 - Cash On Hand
                 - Fixed Asset
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             currentBalance:
               type: number
               format: decimal
@@ -75903,7 +76040,7 @@ components:
               type: string
               description: The status of the account transaction.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
             lines:
@@ -76254,7 +76391,7 @@ components:
       additionalProperties: false
       properties:
         currency:
-          $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
           description: Currency of the balance sheet.
         reports:
           type: array
@@ -76363,7 +76500,7 @@ components:
               nullable: true
               description: International bank account number of the account. Often used when making or receiving international payments.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Base currency of the bank account.
             balance:
               type: number
@@ -76592,7 +76729,7 @@ components:
                 - description: Date the supplier is due to be paid.
                 - $ref: '#/components/schemas/DateTime'
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
             lineItems:
@@ -76846,7 +76983,7 @@ components:
               description: Date the bill credit note was fully refunded or allocated.
               example: '2022-09-15T16:35:00'
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency of the bill credit note.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -77260,7 +77397,7 @@ components:
               example: 1329.54
             currency:
               allOf:
-                - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                - $ref: '#/components/schemas/SourceAccount/properties/currency'
                 - description: ISO currency code in which the bill payment is recorded in the accounting software.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -77566,7 +77703,7 @@ components:
         reportInput:
           $ref: '#/components/schemas/AccountingCashFlowStatement/definitions/reportInput'
         currency:
-          $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
           description: Currency of all values in the cash flow statement.
         mostRecentAvailableMonth:
           $ref: '#/components/schemas/DateTime'
@@ -77908,7 +78045,7 @@ components:
               $ref: '#/components/schemas/DateTime'
               description: Date on which the credit note was fully allocated.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency of the credit note.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -78094,7 +78231,7 @@ components:
               nullable: true
               description: Email address the customer can be contacted by.
             defaultCurrency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Default currency the transactional data of the customer is recorded in.
             phone:
               type: string
@@ -78235,7 +78372,7 @@ components:
               $ref: '#/components/schemas/DateTime'
               description: Date of the direct cost as recorded in the accounting software.Date of the direct cost as recorded in the accounting software.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency of the direct cost.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -78413,7 +78550,7 @@ components:
               $ref: '#/components/schemas/DateTime'
               description: The date of the direct income as recorded in the accounting software.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: The currency of the direct income.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -78598,7 +78735,7 @@ components:
               $ref: '#/components/schemas/DateTime'
               description: 'Date the invoice was marked as paid in the accounting system. If this field is not available from the accounting software, it is calculated by Codat using associated payments.'
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency of the invoice.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -79053,7 +79190,7 @@ components:
               format: decimal
               description: Amount of the payment in the payment currency. This value should never change and represents the amount of money paid into the customer's account.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: ISO currency code recorded for the payment in the accounting software.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -79158,7 +79295,7 @@ components:
           type: object
           properties:
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: The currency of the transaction.
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
@@ -79191,7 +79328,7 @@ components:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
               description: The account that the allocated payment is made from or to.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency the payment has been made in.
             currencyRate:
               title: Currency rate
@@ -79755,7 +79892,7 @@ components:
               $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
               description: The account that the transfer is moving from or to.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             amount:
               type: number
               format: decimal
@@ -79858,22 +79995,7 @@ components:
       title: 'Accounting: Aged currency outstanding'
       properties:
         currency:
-          title: Currency
-          x-internal: true
-          type: string
-          description: |-
-            The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
-
-            ## Unknown currencies
-
-            In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
-
-            There are only a very small number of edge cases where this currency code is returned by the Codat system.
-          format: ISO4217
-          examples:
-            - GBP
-            - USD
-            - EUR
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
         agedOutstandingAmounts:
           type: array
           description: Array of outstanding amounts by period.
@@ -79920,6 +80042,48 @@ components:
             $ref: '#/components/schemas/AccountingAttachment'
           nullable: true
       title: Attachments
+    BankFeedBankAccountMapping:
+      title: Bank feed account mapping
+      type: object
+      additionalProperties: false
+      properties:
+        sourceAccountId:
+          type: string
+          description: Unique ID for the source account
+        targetAccountId:
+          type: string
+          nullable: true
+          description: Unique ID for the target account
+      required:
+        - sourceAccountId
+      examples:
+        - sourceAccountId: acc-002
+          targetAccountId: account-081
+    BankFeedBankAccountMappingResponse:
+      title: Bank feed account mapping response
+      type: object
+      additionalProperties: false
+      properties:
+        sourceAccountId:
+          type: string
+          description: Unique ID for the source account.
+        targetAccountId:
+          type: string
+          nullable: true
+          description: Unique ID for the target account.
+        status:
+          type: string
+          nullable: true
+          description: Status of the POST request.
+        error:
+          type: string
+          nullable: true
+          description: Error returned during the post request
+      examples:
+        - sourceAccountId: acc-002
+          targetAccountId: account-081
+          status: Failed
+          error: A feed connection already exists to this account
     BankingAccount:
       title: 'Banking: Bank account'
       description: |-
@@ -80380,7 +80544,7 @@ components:
                     description: 'The type of banking account, e.g. credit or debit.'
                     type: string
                   currency:
-                    $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                    $ref: '#/components/schemas/SourceAccount/properties/currency'
                     description: The currency code for the bank account.
                   currentBalance:
                     description: The balance of the bank account.
@@ -80720,7 +80884,7 @@ components:
               examples:
                 - 10480375
             baseCurrency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             accountBalances:
               description: The available and current cash balances for the company's accounts
               type: array
@@ -80756,7 +80920,7 @@ components:
             currency:
               description: The currency of the account
               allOf:
-                - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                - $ref: '#/components/schemas/SourceAccount/properties/currency'
     CommerceCustomer:
       title: 'Commerce: Customer'
       description: 'When a customer places an order with the connected commerce store their details are added to the Customers dataset. You can use the data from the Customers endpoints to calculate key metrics, such as customer churn.'
@@ -80780,7 +80944,7 @@ components:
                 - description: |
                     Default currency of any transactional data for the customer, 
                     for example, orders or payments
-                - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                - $ref: '#/components/schemas/SourceAccount/properties/currency'
             addresses:
               type: array
               description: Addresses of the customer
@@ -80917,7 +81081,7 @@ components:
                 - 0
             currency:
               description: Currency of the disputed transaction.
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             status:
               $ref: '#/components/schemas/CommerceDispute/definitions/disputeStatus'
             reason:
@@ -81072,7 +81236,7 @@ components:
                 - ABW
             currency:
               allOf:
-                - $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                - $ref: '#/components/schemas/SourceAccount/properties/currency'
                 - description: Currency in which the order was placed.
             closedDate:
               $ref: '#/components/schemas/DateTime'
@@ -81365,7 +81529,7 @@ components:
                 - -283.56
                 - 0
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency in which the payment was made
             paymentMethodRef:
               $ref: '#/components/schemas/PaymentMethodRef'
@@ -81432,7 +81596,7 @@ components:
                     - -283.56
                     - 0
                 currency:
-                  $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                  $ref: '#/components/schemas/SourceAccount/properties/currency'
                   description: Currency in which the payment was made.
                 type:
                   $ref: '#/components/schemas/CommercePayment/definitions/paymentType'
@@ -81637,7 +81801,7 @@ components:
           type: object
           properties:
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               nullable: true
             unitPrice:
               type: number
@@ -82055,7 +82219,7 @@ components:
                 - -283.56
                 - 0
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             type:
               $ref: '#/components/schemas/CommerceTransaction/definitions/transactionType'
             subType:
@@ -82436,7 +82600,7 @@ components:
           format: decimal
           description: The transaction value.
         currency:
-          $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
           description: The currency of the transaction.
         matches:
           type: array
@@ -82466,7 +82630,7 @@ components:
               type: string
               description: The transaction value.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: The currency of the transaction.
     DataIntegrityDetails:
       title: Data integrity details
@@ -82534,7 +82698,7 @@ components:
               format: decimal
               description: Highest value of transaction set.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
         dataIntegrityDates:
           type: object
           description: 'Only returned for transactions. For accounts, there is nothing returned.'
@@ -82642,7 +82806,7 @@ components:
               format: decimal
               description: The total of unmatched and matched.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
         dataIntegrityByCount:
           title: Data integrity by count
           type: object
@@ -82846,7 +83010,7 @@ components:
               description: 'The type of banking account, e.g. credit or debit.'
               type: string
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: The currency code for the bank account.
             currentBalance:
               description: The balance of the bank account.
@@ -82876,7 +83040,7 @@ components:
                     type: number
                     format: decimal
                   currency:
-                    $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                    $ref: '#/components/schemas/SourceAccount/properties/currency'
                     description: The currency code for bank transaction.
                   transactionCategory:
                     description: Contains an array of category levels.
@@ -83098,7 +83262,7 @@ components:
           type: object
           properties:
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
               description: Currency of the P&L/Balance sheet.
             reportName:
               type: string
@@ -83192,7 +83356,7 @@ components:
               format: decimal
               description: Payment amount.
             currency:
-              $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
             currencyRate:
               $ref: '#/components/schemas/AccountingPaymentAllocation/definitions/paymentAllocationPayment/properties/currencyRate'
             bankingTransactionRefs:
@@ -83247,7 +83411,7 @@ components:
                 status:
                   $ref: '#/components/schemas/AccountingInvoice/definitions/invoiceStatus'
                 currency:
-                  $ref: '#/components/schemas/AgedCurrencyOutstanding/properties/currency'
+                  $ref: '#/components/schemas/SourceAccount/properties/currency'
                 totalAmount:
                   type: number
                   format: decimal
@@ -83391,16 +83555,14 @@ components:
             - enhancedCashFlow
           description: The type of the report requested in the query string.
       examples:
-        Example 1:
-          value:
-            lastGenerated: '2023-01-25T22:36:05.125Z'
-            inProgress: true
-            queued: '2023-01-25T22:36:05.125Z'
-            success: true
-            errorMessage: string
-            lastInvocationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-            reportType: string
-            fileSize: 0
+        - lastGenerated: '2023-01-25T22:36:05.125Z'
+          inProgress: true
+          queued: '2023-01-25T22:36:05.125Z'
+          success: true
+          errorMessage: string
+          lastInvocationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          reportType: string
+          fileSize: 0
     File:
       title: File
       type: object
@@ -83564,9 +83726,6 @@ components:
           description: Contains object of reporting properties. The loan ref will reference a different object depending on the integration type.
           items:
             $ref: '#/components/schemas/LoanTransactions/definitions/reportItems'
-        errors:
-          type: array
-          description: 'If there are no errors, an empty array is returned.'
       definitions:
         loanTransactionsReportInfo:
           title: Loan Transactions Report Info
@@ -84238,6 +84397,253 @@ components:
                   minLength: 0
                   maxLength: 2000
             - $ref: '#/components/schemas/PagingInfo'
+    SourceAccount:
+      title: Source account (v1)
+      type: object
+      description: The target bank account in a supported accounting software for ingestion into a bank feed.
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique ID for the bank account.
+        accountName:
+          type: string
+          nullable: true
+          description: The bank account name.
+        accountType:
+          type: string
+          nullable: true
+          description: The type of bank account e.g. Credit.
+        accountNumber:
+          type: string
+          nullable: true
+          description: The account number.
+        sortCode:
+          type: string
+          nullable: true
+          description: The sort code.
+        currency:
+          title: Currency
+          x-internal: true
+          type: string
+          description: |-
+            The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
+
+            ## Unknown currencies
+
+            In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
+
+            There are only a very small number of edge cases where this currency code is returned by the Codat system.
+          format: ISO4217
+          examples:
+            - GBP
+            - USD
+            - EUR
+        balance:
+          type: number
+          format: decimal
+          nullable: true
+          description: The latest balance for the bank account.
+        modifiedDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: The last date the bank account was modified.
+        status:
+          type: string
+          nullable: true
+          description: Status of the source account.
+          enum:
+            - pending
+            - connected
+            - connecting
+            - disconnected
+            - unknown
+        feedStartDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+      required:
+        - id
+      definitions:
+        sourceAccounts:
+          title: Source accounts
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceAccount'
+      examples:
+        - id: acc-002
+          accountName: account-081
+          sortCode: '123456'
+          accountType: Credit
+          accountNumber: '12345670'
+          currency: GBP
+          balance: 99.99
+          modifiedDate: '2023-01-09T14:14:14.1057478Z'
+          status: pending
+        - id: acc-003
+          accountName: account-095
+          sortCode: '123456'
+          accountType: Credit
+          accountNumber: '12345671'
+          currency: USD
+          balance: 0
+          modifiedDate: '2023-01-09T14:14:14.1057478Z'
+          status: pending
+    SourceAccountV2:
+      title: Source account (v2)
+      type: object
+      description: The target bank account in a supported accounting software for ingestion into a bank feed.
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: Unique ID for the bank account.
+        accountName:
+          type: string
+          description: The bank account name.
+        accountType:
+          type: string
+          description: 'The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.'
+          enum:
+            - checking
+            - savings
+            - loan
+            - creditCard
+            - prepaidCard
+        accountNumber:
+          type: string
+          description: The account number.
+        routingInfo:
+          $ref: '#/components/schemas/SourceAccountV2/definitions/routingInfo'
+        currency:
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
+        balance:
+          type: number
+          format: decimal
+          description: The latest balance for the bank account.
+        accountInfo:
+          $ref: '#/components/schemas/SourceAccountV2/definitions/accountInfo'
+        modifiedDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: The last date the bank account was modified.
+        status:
+          type: string
+          nullable: true
+          description: Status of the source account.
+          enum:
+            - pending
+            - connected
+            - connecting
+            - disconnected
+            - unknown
+        feedStartDate:
+          nullable: true
+          title: Date
+          type: string
+          example: '2022-10-23'
+          description: |-
+            In Codat's data model, dates are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date fields are formatted as strings; for example:
+            ```
+            2020-10-08
+            ```
+      required:
+        - id
+        - accountName
+        - accountType
+        - accountNumber
+        - currency
+        - balance
+      definitions:
+        accountInfo:
+          title: Account Info
+          type: object
+          nullable: true
+          properties:
+            description:
+              type: string
+              nullable: true
+              description: Description of the account.
+            nickname:
+              type: string
+              nullable: true
+              description: Name given to the account by the user. Used in UIs to assist in account selection.
+            accountOpenDate:
+              $ref: '#/components/schemas/SourceAccountV2/properties/feedStartDate'
+              nullable: true
+              description: Date when the account was opened or created at the provider
+            availableBalance:
+              type: number
+              format: decimal
+              nullable: true
+              description: Balance of funds available for use. This includes pending activity.
+        sourceAccounts:
+          title: Source accounts
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceAccountV2'
+        routingInfo:
+          title: Routing Info
+          type: object
+          description: Routing information for the bank. This does not include account number.
+          properties:
+            bankCode:
+              type: string
+              nullable: true
+              description: The numeric identifier of the routing number
+            type:
+              type: string
+              nullable: true
+              default: bankcode
+              enum:
+                - rtn
+                - aba
+                - swift
+                - bsb
+                - iban
+                - nz2
+                - trno
+                - sortcode
+                - blz
+                - ifsc
+                - bankcode
+                - apca
+                - clabe
+              description: The type of routing number.
+      examples:
+        - id: acc-001
+          accountName: account-081
+          accountType: checking
+          accountNumber: '12345670'
+          routingInfo:
+            bankCode: 021001088
+            type: bankcode
+          currency: GBP
+          balance: 99.99
+          accountInfo:
+            description: account description 1
+            nickname: account 123
+            accountOpenDate: 2023-05-06T00:00:00.000Z
+            availableBalance: 10
+          modifiedDate: '2024-08-02T00:00:00.000Z'
+          status: pending
+          feedStartDate: 2024-05-01T00:00:00.000Z
+        - id: acc-002
+          accountName: account-083
+          accountType: savings
+          accountNumber: '23456789'
+          routingInfo:
+            bankCode: 021001088
+            type: bankcode
+          currency: GBP
+          balance: 400
+          accountInfo:
+            description: account description 2
+            nickname: account 1290
+            accountOpenDate: 2023-05-23T00:00:00.000Z
+            availableBalance: 400
+          modifiedDate: '2024-08-02T00:00:00.000Z'
+          status: pending
+          feedStartDate: 2024-05-01T00:00:00.000Z
     StartUploadSessionRequest:
       title: Upload session start request
       type: object
@@ -84442,7 +84848,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for an account.
     accountingBillPaymentId:
       name: billPaymentId
@@ -84451,7 +84860,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a bill payment.
     accountingBillId:
       name: billId
@@ -84460,7 +84872,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a bill.
     attachmentId:
       name: attachmentId
@@ -84478,7 +84893,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a direct cost.
     accountingDirectIncomeId:
       name: directIncomeId
@@ -84487,7 +84905,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a direct income.
     accountingInvoiceId:
       name: invoiceId
@@ -84496,7 +84917,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for an invoice.
     accountingSupplierId:
       name: supplierId
@@ -84505,7 +84929,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a supplier.
     accountingReportDate:
       name: reportDate
@@ -84562,7 +84989,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a customer.
     timeoutInMinutes:
       name: timeoutInMinutes
@@ -84600,7 +85030,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a payment.
     productId:
       name: productId
@@ -84609,7 +85042,10 @@ components:
       schema:
         type: string
         examples:
-          $ref: '#/components/schemas/CommerceOrder/allOf/0/properties/id/examples'
+          - 13d946f0-c5d5-42bc-b092-97ece17923ab
+          - 9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2
+          - 7110701885
+          - EILBDVJVNUAGVKRQ
       description: Unique identifier for a product.
     path:
       name: path
@@ -84642,7 +85078,8 @@ components:
             example: 8a210b68-6988-11ed-a1eb-0242ac120002
           - type: string
             title: Latest
-            enum: latest
+            enum:
+              - latest
     maxAge:
       description: The maximum age of report to fetch.
       name: maxAge
