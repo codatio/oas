@@ -77095,7 +77095,7 @@ components:
               type: array
               description: An array of records the credit note was created from.
               items:
-                $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+                $ref: '#/components/schemas/AccountingRecordRef'
             note:
               type: string
               nullable: true
@@ -78576,7 +78576,7 @@ components:
               items:
                 $ref: '#/components/schemas/AccountingJournalEntry/definitions/journalLine/properties/tracking/definitions/trackingRecordRef'
             invoiceTo:
-              $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+              $ref: '#/components/schemas/AccountingRecordRef'
           additionalProperties: false
         invoiceTo:
           type: object
@@ -79613,6 +79613,26 @@ components:
             - netOperatingProfit
             - netOtherIncome
             - netProfit
+    AccountingRecordRef:
+      type: object
+      x-internal: true
+      title: Record reference
+      description: |-
+        Links the current record to the underlying record or data type that created it. 
+
+        For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
+      properties:
+        id:
+          type: string
+          description: '''id'' of the underlying record or data type.'
+        dataType:
+          type: string
+          description: Allowed name of the 'dataType'.
+          examples:
+            - journalEntry
+            - invoice
+            - accountTransaction
+            - transfer
     AccountingSupplier:
       title: 'Accounting: Supplier'
       description: |-
@@ -79967,7 +79987,7 @@ components:
               nullable: true
               description: List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
               items:
-                $ref: '#/components/schemas/AccountsReceivableTracking/properties/recordRef'
+                $ref: '#/components/schemas/AccountingRecordRef'
             metadata:
               $ref: '#/components/schemas/Metadata'
             supplementalData:
@@ -79980,7 +80000,7 @@ components:
           type: object
           properties:
             accountRef:
-              $ref: '#/components/schemas/AccountingAccount/definitions/accountRef'
+              $ref: '#/components/schemas/AccountingRecordRef'
               description: The account that the transfer is moving from or to.
             currency:
               $ref: '#/components/schemas/SourceAccount/properties/currency'
@@ -80050,25 +80070,7 @@ components:
         isRebilledTo:
           $ref: '#/components/schemas/AccountsReceivableTracking/definitions/billedToType'
         recordRef:
-          type: object
-          x-internal: true
-          title: Record reference
-          description: |-
-            Links the current record to the underlying record or data type that created it. 
-
-            For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
-          properties:
-            id:
-              type: string
-              description: '''id'' of the underlying record or data type.'
-            dataType:
-              type: string
-              description: Allowed name of the 'dataType'.
-              examples:
-                - journalEntry
-                - invoice
-                - accountTransaction
-                - transfer
+          $ref: '#/components/schemas/AccountingRecordRef'
       required:
         - categoryRefs
         - isBilledTo
