@@ -10166,6 +10166,10 @@ components:
           validTransactionTypes:
             - Payment
             - Refund
+          validFor:
+            - expense-transactions.Payment
+            - expense-transactions.Refund
+            - reimbursable-expense-transactions
       properties:
         id:
           type: string
@@ -10209,6 +10213,9 @@ components:
         validTransactionTypes:
           $ref: '#/components/schemas/validTransactionTypes'
           description: Supported transaction types for the account.
+        validFor:
+          $ref: '#/components/schemas/validFor'
+          description: Supported endpoints for the account.
     AdjustmentTransactionLine:
       x-internal: true
       title: Adjustment transaction line
@@ -12910,6 +12917,23 @@ components:
                 - $ref: '#/components/schemas/Supplier'
                 - deprecated: true
         - $ref: '#/components/schemas/PushOperation'
+    validFor:
+      title: Valid endpoints
+      x-internal: true
+      type: array
+      description: Supported endpoints for the account.
+      nullable: false
+      items:
+        type: string
+        enum:
+          - expense-transactions.Payment
+          - expense-transactions.Refund
+          - expense-transactions.Reward
+          - expense-transactions.Chargeback
+          - reimbursable-expense-transactions
+          - transfer-transactions
+          - adjustment-transactions
+        example: expense-transactions.Payment
     validTransactionTypes:
       title: Valid transaction types
       x-internal: true
