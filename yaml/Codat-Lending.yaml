@@ -64125,27 +64125,6 @@ paths:
       description: |-
         The _Create Source Account_ endpoint allows you to create a representation of a bank account within Codat's domain. The company can then map the source account to an existing or new target account in their accounting software.
 
-        #### Account mapping variability
-
-        The method of mapping the source account to the target account varies depending on the accounting software your company uses.
-
-        #### Mapping options:
-
-        1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
-        2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
-        3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
-
-        ### Integration-specific behaviour
-
-        | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
-        | --------------------- | ----------- | ---------------- | --------------------------- |
-        | Xero                  | ✅          | ✅               |                             |
-        | FreeAgent             | ✅          | ✅               |                             |
-        | Oracle NetSuite       | ✅          | ✅               |                             |
-        | Exact Online (NL)     | ✅          | ✅               |                             |
-        | QuickBooks Online     |             |                  | ✅                          |
-        | Sage                  |             |                  | ✅                          |
-
         > ### Versioning
         > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
       operationId: create-source-account
@@ -64192,7 +64171,7 @@ paths:
       tags:
         - Loan writeback
       summary: Create bank feed account mapping
-      description: "\uFEFFThe *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\nTo find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.\n\n> **For custom builds only**\n>\n> Only use this endpoint if you are building your own account management UI."
+      description: "\uFEFFThe *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\nTo find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.\n\n> **For custom builds only**\n>\n> Only use this endpoint if you are building your own account management UI.\n\n#### Account mapping variability\n\nThe method of mapping the source account to the target account varies depending on the accounting software your company uses.\n\n#### Mapping options:\n\n1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.\n2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.\n3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.\n\n### Integration-specific behaviour\n\n| Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |\n| --------------------- | ----------- | ---------------- | --------------------------- |\n| Xero                  | ✅          | ✅               |                             |\n| FreeAgent             | ✅          | ✅               |                             |\n| Oracle NetSuite       | ✅          | ✅               |                             |\n| Exact Online (NL)     | ✅          | ✅               |                             |\n| QuickBooks Online     |             |                  | ✅                          |\n| Sage                  |             |                  | ✅                          |"
       operationId: create-bank-account-mapping
       x-speakeasy-group: loan-writeback.source-accounts
       x-speakeasy-name-override: create-mapping

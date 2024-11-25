@@ -486,6 +486,44 @@ paths:
                 value:
                   name: Same name
                   description: Additional documents required
+  '/companies/{companyId}/accessToken':
+    get:
+      summary: Get company access token
+      operationId: get-company-access-token
+      x-speakeasy-name-override: get-access-token
+      description: |
+        Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyAccessToken'
+              examples:
+                Simple company:
+                  value:
+                    expiresIn: 86400
+                    accessToken: string
+                    tokenType: Bearer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections':
     get:
       summary: List connections
@@ -2184,6 +2222,74 @@ paths:
           $ref: '#/components/responses/Service-Unavailable'
       description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/bank-feeds-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/bank-feeds-api#/operations/get-create-update-bankAccounts-model)."
       operationId: create-bank-account
+  '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts/batch':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/connectionId'
+    post:
+      tags:
+        - Source accounts
+      summary: Create source accounts
+      description: |-
+        The _Batch create source accounts_ endpoint allows you to create multiple representations of your SMB's bank accounts within Codat's domain. The company can then map the source account to an existing or new target account in their accounting software.
+
+        > ### Versioning
+        > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
+      operationId: create-batch-source-account
+      x-speakeasy-name-override: create-batch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/SourceAccountV2'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/SourceAccount'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: array
+                    items:
+                      anyOf:
+                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
+                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
+        '207':
+          description: Multi-Status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: array
+                    items:
+                      anyOf:
+                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
+                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
+                        - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -2191,30 +2297,9 @@ paths:
     post:
       tags:
         - Source accounts
-      summary: Create source account
+      summary: Create single source account
       description: |-
         The _Create Source Account_ endpoint allows you to create a representation of a bank account within Codat's domain. The company can then map the source account to an existing or new target account in their accounting software.
-
-        #### Account mapping variability
-
-        The method of mapping the source account to the target account varies depending on the accounting software your company uses.
-
-        #### Mapping options:
-
-        1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
-        2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
-        3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
-
-        ### Integration-specific behaviour
-
-        | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
-        | --------------------- | ----------- | ---------------- | --------------------------- |
-        | Xero                  | ✅          | ✅               |                             |
-        | FreeAgent             | ✅          | ✅               |                             |
-        | Oracle NetSuite       | ✅          | ✅               |                             |
-        | Exact Online (NL)     | ✅          | ✅               |                             |
-        | QuickBooks Online     |             |                  | ✅                          |
-        | Sage                  |             |                  | ✅                          |
 
         > ### Versioning
         > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
@@ -2277,95 +2362,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/Not-Found'
-        '429':
-          $ref: '#/components/responses/Too-Many-Requests'
-        '500':
-          $ref: '#/components/responses/Internal-Server-Error'
-        '503':
-          $ref: '#/components/responses/Service-Unavailable'
-  '/companies/{companyId}/connections/{connectionId}/connectionInfo/bankFeedAccounts/batch':
-    parameters:
-      - $ref: '#/components/parameters/companyId'
-      - $ref: '#/components/parameters/connectionId'
-    post:
-      tags:
-        - Source accounts
-      summary: Batch create source accounts
-      description: |-
-        The _Batch create source accounts_ endpoint allows you to create multiple representations of your SMB's bank accounts within Codat's domain. The company can then map the source account to an existing or new target account in their accounting software.
-
-        #### Account mapping variability
-
-        The method of mapping the source account to the target account varies depending on the accounting software your company uses.
-
-        #### Mapping options:
-
-        1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
-        2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
-        3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
-
-        ### Integration-specific behaviour
-
-        | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
-        | --------------------- | ----------- | ---------------- | --------------------------- |
-        | Xero                  | ✅          | ✅               |                             |
-        | FreeAgent             | ✅          | ✅               |                             |
-        | Oracle NetSuite       | ✅          | ✅               |                             |
-        | Exact Online (NL)     | ✅          | ✅               |                             |
-        | QuickBooks Online     |             |                  | ✅                          |
-        | Sage                  |             |                  | ✅                          |
-
-        > ### Versioning
-        > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
-      operationId: create-batch-source-account
-      x-speakeasy-name-override: create-batch
-      requestBody:
-        content:
-          application/json:
-            schema:
-              oneOf:
-                - type: array
-                  items:
-                    $ref: '#/components/schemas/SourceAccountV2'
-                - type: array
-                  items:
-                    $ref: '#/components/schemas/SourceAccount'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - type: array
-                    items:
-                      anyOf:
-                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
-        '207':
-          description: Multi-Status
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - type: array
-                    items:
-                      anyOf:
-                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/Payment-Required'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/Not-Found'
-        '409':
-          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
         '500':
@@ -2566,7 +2562,7 @@ paths:
       tags:
         - Account mapping
       summary: Create bank feed account mapping
-      description: "\uFEFFThe *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\nTo find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.\n\n> **For custom builds only**\n>\n> Only use this endpoint if you are building your own account management UI."
+      description: "\uFEFFThe *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\nTo find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.\n\n> **For custom builds only**\n>\n> Only use this endpoint if you are building your own account management UI.\n\n#### Account mapping variability\n\nThe method of mapping the source account to the target account varies depending on the accounting software your company uses.\n\n#### Mapping options:\n\n1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.\n2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.\n3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.\n\n### Integration-specific behaviour\n\n| Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |\n| --------------------- | ----------- | ---------------- | --------------------------- |\n| Xero                  | ✅          | ✅               |                             |\n| FreeAgent             | ✅          | ✅               |                             |\n| Oracle NetSuite       | ✅          | ✅               |                             |\n| Exact Online (NL)     | ✅          | ✅               |                             |\n| QuickBooks Online     |             |                  | ✅                          |\n| Sage                  |             |                  | ✅                          |"
       operationId: create-bank-account-mapping
       requestBody:
         content:
@@ -2988,7 +2984,7 @@ webhooks:
           description: Return a 200 status to indicate that the webhook was received successfully.
   bankFeeds.sourceAccount.connected:
     post:
-      description: Called when a bank feed source account has become connected.
+      description: Triggered when a bank feed source account has become connected to a target account. This occurs when a user sets up mapping between the two.
       x-svix-feature-flag: bank-feeds
       requestBody:
         content:
@@ -3805,6 +3801,36 @@ components:
               lastSync: '2022-10-27T10:22:43.6464237Z'
               created: '2022-10-27T09:53:29Z'
               sourceType: Banking
+    CompanyAccessToken:
+      title: Company access token
+      description: Details of the access token provisioned for a company.
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CompanyAccessToken/definitions/accessToken'
+      definitions:
+        accessToken:
+          title: Access token
+          type: object
+          properties:
+            expiresIn:
+              type: integer
+              description: The number of seconds until the access token expires.
+              example: 86400
+            accessToken:
+              type: string
+              description: The access token for the company.
+            tokenType:
+              type: string
+              description: The type of token.
+              example: Bearer
+          required:
+            - expiresIn
+            - accessToken
+            - tokenType
+      examples:
+        - expiresIn: 86400
+          accessToken: string
+          tokenType: Bearer
     CompanyInformation:
       title: Company information
       description: Information about the company from the underlying accounting software.
