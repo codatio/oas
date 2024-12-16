@@ -256,12 +256,18 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       operationId: list-companies
-      description: "\uFEFFThe *List companies* endpoint returns a list of [companies](https://docs.codat.io/sync-for-payables-api#/schemas/Company) associated to your instances.\n\nA [company](https://docs.codat.io/sync-for-payables-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/sync-for-payables-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data."
+      description: "\uFEFFThe *List companies* endpoint returns a list of [companies](https://docs.codat.io/sync-for-payables-api#/schemas/Company) associated to your instances.\n\nA [company](https://docs.codat.io/sync-for-payables-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/sync-for-payables-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.\n\n## Filter by tags\n\nThe *List companies* endpoint supports the filtering of companies using [tags](https://docs.codat.io/using-the-api/managing-companies#add-metadata-to-a-company). It supports the following operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying):\n\n- equals (`=`)\n- not equals (`!=`)\n- contains (`~`)\n\nFor example, you can use the querying to filter companies tagged with a specific foreign key, region, or owning team: \n- Foreign key: `uid = {yourCustomerId}`\n- Region: `region != uk`\n- Owning team and region: `region = uk && owningTeam = invoice-finance`"
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+        - name: tags
+          in: query
+          schema:
+            type: string
+          example: region=uk && team=invoice-finance
+          description: 'Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).'
     post:
       summary: Create company
       tags:
@@ -1707,20 +1713,15 @@ components:
             includeWhenSent:
               type: boolean
               description: 'If `true`, then the attachment is included with the associated invoice, bill or direct costs when it is printed, emailed, or sent to a customer, if the underlying accounting software allows this.'
-        - title: Source Modified Date
-          x-internal: true
-          type: object
-          nullable: true
-          properties:
             sourceModifiedDate:
               allOf:
                 - $ref: '#/components/schemas/Connection/properties/created'
                 - description: |-
-                    The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+                    The date when a record was last modified in the accounting software, usually by the business or a business process. For example, when payments are made against an invoice. 
 
                     It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
                       - Pulling attachments
-                      - The integration platform does not provide modification dates for a data type
+                      - The accounting software does not provide modification dates for a data type
                       - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
                       - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
@@ -1786,7 +1787,24 @@ components:
               description: Base currency of the bank account.
             status:
               $ref: '#/components/schemas/BankAccount/definitions/bankAccountStatus'
-        - $ref: '#/components/schemas/Attachment/allOf/1'
+        - title: Source Modified Date
+          x-internal: true
+          type: object
+          nullable: true
+          properties:
+            sourceModifiedDate:
+              allOf:
+                - $ref: '#/components/schemas/Connection/properties/created'
+                - description: |-
+                    The date when a record was last modified in the accounting software, usually by the business or a business process. For example, when payments are made against an invoice. 
+
+                    It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
+                      - Pulling attachments
+                      - The accounting software does not provide modification dates for a data type
+                      - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
+                      - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
+
+                    In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>.
       definitions:
         bankAccountStatus:
           type: string
@@ -1925,11 +1943,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Connection/properties/created'
             - description: |-
-                The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+                The date when a record was last modified in the accounting software, usually by the business or a business process. For example, when payments are made against an invoice. 
 
                 It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
                   - Pulling attachments
-                  - The integration platform does not provide modification dates for a data type
+                  - The accounting software does not provide modification dates for a data type
                   - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
                   - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
@@ -2118,7 +2136,7 @@ components:
                   $ref: '#/components/schemas/Bill/properties/currency'
                 status:
                   $ref: '#/components/schemas/BillMappingOptions/definitions/accountStatus'
-            - $ref: '#/components/schemas/Attachment/allOf/1'
+            - $ref: '#/components/schemas/BankAccount/allOf/1'
         taxRateMappingOption:
           title: Tax rate mapping option
           type: object
@@ -2944,7 +2962,7 @@ components:
                   $ref: '#/components/schemas/PaymentMappingOptions/definitions/bankAccountStatus'
                 accountType:
                   $ref: '#/components/schemas/BankAccountType'
-            - $ref: '#/components/schemas/Attachment/allOf/1'
+            - $ref: '#/components/schemas/BankAccount/allOf/1'
         bankAccountStatus:
           type: string
           description: The current status of the bank account.
@@ -3250,11 +3268,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Connection/properties/created'
             - description: |-
-                The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+                The date when a record was last modified in the accounting software, usually by the business or a business process. For example, when payments are made against an invoice. 
 
                 It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
                   - Pulling attachments
-                  - The integration platform does not provide modification dates for a data type
+                  - The accounting software does not provide modification dates for a data type
                   - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
                   - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 

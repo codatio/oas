@@ -273,12 +273,18 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       operationId: list-companies
-      description: "\uFEFFThe *List companies* endpoint returns a list of [companies](https://docs.codat.io/lending-api#/schemas/Company) associated to your instances.\n\nA [company](https://docs.codat.io/lending-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/lending-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data."
+      description: "\uFEFFThe *List companies* endpoint returns a list of [companies](https://docs.codat.io/lending-api#/schemas/Company) associated to your instances.\n\nA [company](https://docs.codat.io/lending-api#/schemas/Company) represents a business sharing access to their data.\nEach company can have multiple [connections](https://docs.codat.io/lending-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.\n\n## Filter by tags\n\nThe *List companies* endpoint supports the filtering of companies using [tags](https://docs.codat.io/using-the-api/managing-companies#add-metadata-to-a-company). It supports the following operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying):\n\n- equals (`=`)\n- not equals (`!=`)\n- contains (`~`)\n\nFor example, you can use the querying to filter companies tagged with a specific foreign key, region, or owning team: \n- Foreign key: `uid = {yourCustomerId}`\n- Region: `region != uk`\n- Owning team and region: `region = uk && owningTeam = invoice-finance`"
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/orderBy'
+        - name: tags
+          in: query
+          schema:
+            type: string
+          example: region=uk && team=invoice-finance
+          description: 'Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).'
     post:
       summary: Create company
       tags:
@@ -64133,9 +64139,36 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/SourceAccountV2'
-                - $ref: '#/components/schemas/SourceAccount'
-            examples: {}
+                - $ref: '#/components/schemas/SourceAccountV2/definitions/sourceAccountV2Prototype'
+                - $ref: '#/components/schemas/SourceAccount/definitions/sourceAccountPrototype'
+            examples:
+              Version 2:
+                value:
+                  id: acc-001
+                  accountName: account-081
+                  accountType: checking
+                  accountNumber: '12345670'
+                  routingInfo:
+                    bankCode: 021001088
+                    type: bankcode
+                  currency: GBP
+                  balance: 99.99
+                  accountInfo:
+                    description: account description 1
+                    nickname: account 123
+                    accountOpenDate: 2023-05-06T00:00:00.000Z
+                    availableBalance: 10
+                  modifiedDate: '2024-08-02T00:00:00.000Z'
+              Version 1:
+                value:
+                  id: acc-002
+                  accountName: account-081
+                  sortCode: '123456'
+                  accountType: Credit
+                  accountNumber: '12345670'
+                  currency: GBP
+                  balance: 99.99
+                  modifiedDate: '2023-01-09T14:14:14.1057478Z'
       responses:
         '200':
           description: Success
@@ -75160,8 +75193,8 @@ paths:
       operationId: generate-report
       x-speakeasy-name-override: generate-report
       responses:
-        '200':
-          description: Success
+        '202':
+          description: Accepted (pending)
           content:
             application/json:
               schema:
@@ -75789,9 +75822,37 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
-  report.categorizedBankStatement.generate.successful:
+  reports.categorizedBankStatement.generate.successful:
     post:
       description: Called when a categorized bank statement is successfully generated for a company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/webhooks/reports.creditModel.generate.successful/post/requestBody/content/application~1json/schema'
+            examples:
+              Successful:
+                value:
+                  id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
+                  eventType: reports.categorizedBankStatement.generate.successful
+                  generatedDate: 2023-05-03T10:00:23.000Z
+                  payload:
+                    id: bb42ce7e-720a-4ac5-b640-f24f53ff47c8
+                    referenceCompany:
+                      id: 0498e921-9b53-4396-a412-4f2f5983b0a2
+                      name: Bank of Dave
+                      description: internal_id_mxO7rLfo
+                      links:
+                        portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
+                      tags:
+                        customerRegion: us
+                        uid: 335a086e-8563-4b03-94e3-39544225ecb6
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the webhook was received successfully.
+  reports.creditModel.generate.successful:
+    post:
+      description: Called when a credit model report is successfully generated.
       requestBody:
         content:
           application/json:
@@ -75809,11 +75870,12 @@ webhooks:
                   description: The type of event.
                   examples:
                     - reports.categorizedBankStatement.generate.successful
+                    - reports.creditModel.generate.successful
                 generatedDate:
                   $ref: '#/components/schemas/DateTime'
                   description: The date time in UTC the event was generated in Codat.
                 payload:
-                  $ref: '#/webhooks/report.categorizedBankStatement.generate.successful/post/requestBody/content/application~1json/schema/definitions/ReportGenerationPayload'
+                  $ref: '#/webhooks/reports.creditModel.generate.successful/post/requestBody/content/application~1json/schema/definitions/ReportGenerationPayload'
               definitions:
                 ReportGenerationPayload:
                   title: Report generation payload
@@ -75830,14 +75892,42 @@ webhooks:
               Successful:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
-                  eventType: reports.categorizedBankStatement.generate.successful
+                  eventType: reports.creditModel.generate.successful
                   generatedDate: 2023-05-03T10:00:23.000Z
                   payload:
                     id: bb42ce7e-720a-4ac5-b640-f24f53ff47c8
                     referenceCompany:
                       id: 0498e921-9b53-4396-a412-4f2f5983b0a2
                       name: Bank of Dave
-                      description: internal_id_mxO7rLfo
+                      description: Looking for a loan.
+                      links:
+                        portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
+                      tags:
+                        customerRegion: us
+                        uid: 335a086e-8563-4b03-94e3-39544225ecb6
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the webhook was received successfully.
+  reports.creditModel.generate.unsuccessful:
+    post:
+      description: Called when a credit model report has failed to be generated for a company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/webhooks/reports.creditModel.generate.successful/post/requestBody/content/application~1json/schema'
+            examples:
+              Unsuccessful:
+                value:
+                  id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
+                  eventType: reports.creditModel.generate.unsuccessful
+                  generatedDate: 2023-05-03T10:00:23.000Z
+                  payload:
+                    id: bb42ce7e-720a-4ac5-b640-f24f53ff47c8
+                    referenceCompany:
+                      id: 0498e921-9b53-4396-a412-4f2f5983b0a2
+                      name: Bank of Dave
+                      description: Looking for a loan.
                       links:
                         portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
                       tags:
@@ -81369,7 +81459,7 @@ components:
                   allOf:
                     - $ref: '#/components/schemas/DateTime'
                     - description: |-
-                        The date when the record was last fetched from the data source and updated in Codat’s data cache. 
+                        The date when the record was last fetched from the accounting software, commerce software, or open banking provider and updated in Codat’s data cache.
 
                         Use it to identify and retrieve records that have changed since your last fetch. For example, filtering `modifiedDate` to today will provide new records updated in Codat today.
 
@@ -81385,11 +81475,11 @@ components:
                   allOf:
                     - $ref: '#/components/schemas/DateTime'
                     - description: |-
-                        The date when a record was last modified in the source platform, usually by the business or a business process. For example, when payments are made against an invoice. 
+                        The date when a record was last modified in the accounting software, usually by the business or a business process. For example, when payments are made against an invoice. 
 
                         It is not populated ([read more](https://docs.codat.io/using-the-api/modified-dates#source-modified-date)) when:
                           - Pulling attachments
-                          - The integration platform does not provide modification dates for a data type
+                          - The accounting software does not provide modification dates for a data type
                           - A record has been deleted from the source platform and Codat doesn't have a record of when the deletion occurred
                           - A record has been voided. For certain platforms that soft delete records, `isDeleted` metadata is used to identify void records
 
@@ -84456,6 +84546,7 @@ components:
           type: string
           enum:
             - categorizedBankStatement
+            - creditModel
           description: The name of the report generated.
         requestedDate:
           description: The date and time on which the report was requested.
@@ -84548,6 +84639,26 @@ components:
       required:
         - id
       definitions:
+        sourceAccountPrototype:
+          title: Source account prototype
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/SourceAccount/properties/id'
+            accountName:
+              $ref: '#/components/schemas/SourceAccount/properties/accountName'
+            accountType:
+              $ref: '#/components/schemas/SourceAccount/properties/accountType'
+            accountNumber:
+              $ref: '#/components/schemas/SourceAccount/properties/accountNumber'
+            sortCode:
+              $ref: '#/components/schemas/SourceAccount/properties/sortCode'
+            currency:
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
+            balance:
+              $ref: '#/components/schemas/SourceAccount/properties/balance'
+            modifiedDate:
+              $ref: '#/components/schemas/SourceAccount/properties/modifiedDate'
         sourceAccounts:
           title: Source accounts
           type: array
@@ -84596,6 +84707,10 @@ components:
         accountNumber:
           type: string
           description: The account number.
+        sortCode:
+          type: string
+          nullable: true
+          description: The sort code.
         routingInfo:
           $ref: '#/components/schemas/SourceAccountV2/definitions/routingInfo'
         currency:
@@ -84638,6 +84753,30 @@ components:
         - currency
         - balance
       definitions:
+        sourceAccountV2Prototype:
+          title: Source account version 2 prototype
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/SourceAccountV2/properties/id'
+            accountName:
+              $ref: '#/components/schemas/SourceAccountV2/properties/accountName'
+            accountType:
+              $ref: '#/components/schemas/SourceAccountV2/properties/accountType'
+            accountNumber:
+              $ref: '#/components/schemas/SourceAccountV2/properties/accountNumber'
+            routingInfo:
+              $ref: '#/components/schemas/SourceAccountV2/definitions/routingInfo'
+            sortCode:
+              $ref: '#/components/schemas/SourceAccountV2/properties/sortCode'
+            currency:
+              $ref: '#/components/schemas/SourceAccount/properties/currency'
+            balance:
+              $ref: '#/components/schemas/SourceAccountV2/properties/balance'
+            modifiedDate:
+              $ref: '#/components/schemas/SourceAccountV2/properties/modifiedDate'
+            accountInfo:
+              $ref: '#/components/schemas/SourceAccountV2/definitions/accountInfo'
         accountInfo:
           title: Account Info
           type: object
@@ -85149,6 +85288,7 @@ components:
         type: string
         enum:
           - categorizedBankStatement
+          - creditModel
     reportId:
       name: reportId
       description: 'Unique identifier for a report, use either the Id of the report or `latest` for the most recently generate report.'
