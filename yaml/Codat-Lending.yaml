@@ -64200,6 +64200,57 @@ paths:
     parameters:
       - $ref: '#/components/parameters/companyId'
       - $ref: '#/components/parameters/connectionId'
+    get:
+      tags:
+        - Loan writeback
+      summary: List bank feed account mappings
+      description: "\uFEFFThe *List bank accounts* endpoint returns information about a source bank account and any current or potential target mapping accounts.\n\nA bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).\n\n> **For custom builds only**\n> \n> Only use this endpoint if you are building your own account management UI."
+      operationId: get-bank-account-mapping
+      x-speakeasy-group: loan-writeback.source-accounts
+      x-speakeasy-name-override: list-mappings
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankFeedMapping/definitions/bankFeedMappings'
+              examples:
+                Example:
+                  value:
+                    - sourceAccountId: account-001
+                      status: pending
+                      targetAccountOptions:
+                        - name: Money Bank account
+                          id: d21e25d6-98c5-4bfb-b469-105833bea3c8
+                          accountNumber: '789'
+                          sortCode: '123456'
+                        - name: Bank of Dave account
+                          id: d06ff4b2-e4f2-4681-9841-014bd008cdab
+                          accountNumber: '99887766'
+                          sortCode: '998866'
+                        - name: LuxLend account
+                          id: c8f252fc-84f3-4a8b-ace8-ae99f41a81ae
+                          accountNumber: '123456789'
+                          sortCode: '123456'
+                      sourceAccountName: account-001
+                      sourceAccountNumber: '12345670'
+                      sourceBalance: 99.99
+                      sourceCurrency: GBP
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
     post:
       tags:
         - Loan writeback
@@ -80246,6 +80297,100 @@ components:
           targetAccountId: account-081
           status: Failed
           error: A feed connection already exists to this account
+    BankFeedMapping:
+      title: Bank feed mapping
+      type: object
+      additionalProperties: false
+      properties:
+        sourceAccountId:
+          type: string
+          description: Unique ID for the source account.
+        sourceAccountName:
+          type: string
+          description: Name for the source account.
+        sourceAccountNumber:
+          type: string
+          description: Account number for the source account.
+        sourceBalance:
+          type: number
+          format: decimal
+          description: Balance for the source account.
+        sourceCurrency:
+          $ref: '#/components/schemas/SourceAccount/properties/currency'
+        targetAccountId:
+          type: string
+          nullable: true
+          description: Unique ID for the target account in the accounting software.
+        targetAccountName:
+          type: string
+          description: Name for the target account in the accounting software.
+        status:
+          type: string
+          description: The status.
+        targetAccountOptions:
+          type: array
+          nullable: true
+          description: An array of potential target accounts.
+          items:
+            $ref: '#/components/schemas/BankFeedMapping/definitions/targetAccountOption'
+        feedStartDate:
+          $ref: '#/components/schemas/DateTime'
+          nullable: true
+          description: The date from which bank transactions can be provided to the platform.
+      description: 'A bank feed connection between a source account and a target account, including potential target accounts.'
+      definitions:
+        targetAccountOption:
+          title: Target Account Option
+          type: object
+          properties:
+            id:
+              type: string
+              description: Id of the target account.
+            name:
+              type: string
+              nullable: true
+              description: Name of the target account.
+            balance:
+              type: number
+              format: decimal
+              nullable: true
+              description: The balance of the account.
+            sortCode:
+              type: string
+              nullable: true
+              description: The sort code of the account.
+            accountNumber:
+              type: string
+              nullable: true
+              description: The account number of the account.
+        bankFeedMappings:
+          title: Bank feed mappings
+          type: array
+          items:
+            $ref: '#/components/schemas/BankFeedMapping'
+          additionalProperties: false
+      examples:
+        - sourceAccountId: acc-002
+          targetAccountId: account-081
+          sourceCurrency: USD
+          status: Success
+          feedStartDate: '2023-01-09T14:14:14.1057478Z'
+          sourceAccountName: ACME Bank
+          sourceAccountNumber: 1234-5678
+          sourceBalance: 500
+          targetAccountName: ACME Bank
+        - sourceAccountId: c53fd75a-dddb-4493-839a-5090b008f625
+          status: pending
+          targetAccountOptions:
+            - name: account-081
+              id: 044096a7-1478-4554-8820-f478caad1b00
+              balance: 100.99
+              sortCode: '602336'
+              accountNumber: '23203'
+          sourceAccountName: bank name here
+          sourceAccountNumber: '5670'
+          sourceBalance: 1550
+          sourceCurrency: GBP
     BankingAccount:
       title: 'Banking: Bank account'
       description: |-
