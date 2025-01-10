@@ -76661,7 +76661,6 @@ components:
           nullable: true
           description: Earliest available monthly report data.
       required:
-        - currency
         - reports
       definitions:
         balanceSheet:
@@ -77969,7 +77968,6 @@ components:
         - reports
         - reportBasis
         - reportInput
-        - currency
       definitions:
         reportBasis:
           title: Report basis
@@ -79709,7 +79707,6 @@ components:
         reportBasis:
           $ref: '#/components/schemas/AccountingProfitAndLossReport/definitions/reportBasis'
         currency:
-          minLength: 1
           type: string
           description: Base currency of the company in which the profit and loss report is presented.
         mostRecentAvailableMonth:
@@ -79721,7 +79718,6 @@ components:
       required:
         - reports
         - reportBasis
-        - currency
       definitions:
         reportBasis:
           enum:
