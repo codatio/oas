@@ -4950,8 +4950,8 @@ components:
           modifiedDate: '2023-01-09T14:14:14.1057478Z'
           status: pending
     SourceAccountBatchCreateResponse:
-      title: Batch source account request created response
-      description: The account ID and source account object of the successfully created source account.
+      title: Batch source account request creation response
+      description: Account ID and resulting object of the batch `Create source account` request.
       type: object
       properties:
         sourceAccountId:
@@ -4960,7 +4960,22 @@ components:
           examples:
             - '12345'
         result:
-          $ref: '#/components/schemas/SourceAccount'
+          $ref: '#/components/schemas/SourceAccountBatchCreateResponse/definitions/sourceAccountBatchCreateResult'
+      definitions:
+        sourceAccountBatchCreateResult:
+          title: Source Account Batch Create Result
+          description: Status details and corresponding object of the `Create account` operation.
+          type: object
+          properties:
+            statusCode:
+              type: integer
+              description: The HTTP status code for the creation of the source account
+            error:
+              type: string
+              nullable: true
+              description: A brief description of the error.
+            account:
+              $ref: '#/components/schemas/SourceAccount'
     SourceAccountBatchErrorResponse:
       title: Batch source account creation error
       description: Describes the error that occured when trying to create the specified source account.
@@ -5169,8 +5184,8 @@ components:
           status: pending
           feedStartDate: 2024-05-01T00:00:00.000Z
     SourceAccountV2BatchCreateResponse:
-      title: Batch source account (v2) request created response
-      description: The account ID and source account object of the successfully created source account.
+      title: Batch source account (v2) creation response
+      description: Account ID and resulting object of the batch `Create source account` request.
       type: object
       properties:
         sourceAccountId:
@@ -5179,7 +5194,22 @@ components:
           examples:
             - '12345'
         result:
-          $ref: '#/components/schemas/SourceAccountV2'
+          $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse/definitions/sourceAccountV2BatchCreateResult'
+      definitions:
+        sourceAccountV2BatchCreateResult:
+          title: Source Account V2 Batch CreateResult
+          description: Status details and corresponding object of the `Create account` operation.
+          type: object
+          properties:
+            statusCode:
+              type: integer
+              description: The HTTP status code for the creation of the source account
+            error:
+              type: string
+              nullable: true
+              description: A brief description of the error.
+            account:
+              $ref: '#/components/schemas/SourceAccountV2'
     SourceAccountWebhook:
       title: Source account status changed webhook
       type: object
