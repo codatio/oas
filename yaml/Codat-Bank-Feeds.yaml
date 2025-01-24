@@ -2293,10 +2293,10 @@ paths:
               oneOf:
                 - type: array
                   items:
-                    $ref: '#/components/schemas/SourceAccountV2'
+                    $ref: '#/components/schemas/SourceAccountV2/definitions/sourceAccountV2Prototype'
                 - type: array
                   items:
-                    $ref: '#/components/schemas/SourceAccount'
+                    $ref: '#/components/schemas/SourceAccount/definitions/sourceAccountPrototype'
       responses:
         '201':
           description: Success
@@ -4906,7 +4906,7 @@ components:
         - id
       definitions:
         sourceAccountPrototype:
-          title: Source account prototype
+          title: Source account (v1)
           type: object
           properties:
             id:
@@ -4925,6 +4925,8 @@ components:
               $ref: '#/components/schemas/SourceAccount/properties/balance'
             modifiedDate:
               $ref: '#/components/schemas/SourceAccount/properties/modifiedDate'
+          required:
+            - id
         sourceAccounts:
           title: Source accounts
           type: array
@@ -5070,7 +5072,7 @@ components:
         - balance
       definitions:
         sourceAccountV2Prototype:
-          title: Source account version 2 prototype
+          title: Source account (v2)
           type: object
           properties:
             id:
@@ -5093,6 +5095,13 @@ components:
               $ref: '#/components/schemas/SourceAccountV2/properties/modifiedDate'
             accountInfo:
               $ref: '#/components/schemas/SourceAccountV2/definitions/accountInfo'
+          required:
+            - id
+            - accountName
+            - accountType
+            - accountNumber
+            - currency
+            - balance
         accountInfo:
           title: Account Info
           type: object
