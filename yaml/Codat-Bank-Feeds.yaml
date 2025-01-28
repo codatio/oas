@@ -2341,24 +2341,22 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - type: array
-                    items:
-                      anyOf:
-                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
+                    - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
         '207':
           description: Multi-Status
           content:
             application/json:
               schema:
-                oneOf:
-                  - type: array
-                    items:
-                      anyOf:
-                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
+                    - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
+                    - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -2374,13 +2372,12 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - type: array
-                    items:
-                      anyOf:
-                        - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
-                        - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/SourceAccountV2BatchCreateResponse'
+                    - $ref: '#/components/schemas/SourceAccountBatchCreateResponse'
+                    - $ref: '#/components/schemas/SourceAccountBatchErrorResponse'
         '429':
           $ref: '#/components/responses/Too-Many-Requests'
         '500':
