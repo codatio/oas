@@ -120,7 +120,7 @@ tags:
   - name: Loan writeback
     description: 'Implement the [loan writeback](https://docs.codat.io/lending/guides/loan-writeback/introduction) procedure in your lending process to maintain an accurate position of a loan during the entire lending cycle.'
   - name: Manage reports
-    description: Endpoints to manage generation of reports
+    description: Generate and review generated reports for a company.
 paths:
   /companies:
     get:
@@ -75367,9 +75367,9 @@ paths:
         >
         > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
 
-        Use the *Get report status* endpoint to return the current status and detailed information of a specific report.
+        Use the *Get report status* endpoint to return the metadata about report generation, such as its current status, date of request, and date of generation.
 
-        You can either provide the ID of a report or use `latest` to get the most recent generated *reportName* report for the company
+        You can either provide the ID of a report or use `latest` as the ID value to get the most recent generated *reportName* report for the company.
 
       operationId: get-report-status
       x-speakeasy-name-override: get-report-status
@@ -75813,7 +75813,7 @@ paths:
         >
         > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
 
-        Use the *List reports* endpoint to return details about all reports generated for a company. The query parameter can be used to filter the results.
+        Use the *List reports* endpoint to return details (such as generation's current status, date of request, and date of generation) about all reports generated for a company. The query parameter can be used to filter the results.
       operationId: list-reports
       x-speakeasy-name-override: list-reports
       responses:
@@ -84668,18 +84668,19 @@ components:
           enum:
             - categorizedBankStatement
             - creditModel
-          description: The name of the report generated.
+            - spendAnalysis
+          description: The name of the generated report.
         requestedDate:
           description: The date and time on which the report was requested.
           $ref: '#/components/schemas/DateTime'
         updatedDate:
-          description: The date and time on which this report was last updated.
+          description: The date and time on which the report was last updated.
           $ref: '#/components/schemas/DateTime'
         errorMessage:
           type: string
           nullable: true
           description: A short message describing any errors that occurred while generating the report.
-      description: Information about a report generation.
+      description: Information about report generation.
       definitions:
         reports:
           title: Reports
