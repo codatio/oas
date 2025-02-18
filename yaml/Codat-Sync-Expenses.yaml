@@ -1266,7 +1266,7 @@ paths:
     post:
       summary: Create expense transaction
       operationId: create-expense-transaction
-      description: |-
+      description: |
         The *Create expense* endpoint creates an [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting software for a given company's connection. 
 
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
@@ -1281,6 +1281,7 @@ paths:
         | QuickBooks Online             | Yes       |
         | Oracle NetSuite               | Yes       |
         | Xero                          | Yes       |
+        | Zoho Books                    | Yes       |
       tags:
         - Expenses
       responses:
@@ -1413,6 +1414,7 @@ paths:
         | QuickBooks Online     | Yes       |
         | Oracle NetSuite       | Yes       |
         | Xero                  | Yes       |
+        | Zoho Books            | Yes       |
       requestBody:
         content:
           application/json:
@@ -1584,7 +1586,7 @@ paths:
     post:
       summary: Create reimbursable expense transaction
       operationId: create-reimbursable-expense-transaction
-      description: "Use the *Create reimbursable expense* endpoint to submit an employee expense claim in the accounting platform for a given company's connection.\r\n\r\n[Reimbursable expense requests](https://docs.codat.io/sync-for-expenses-api#/schemas/ReimbursableExpenseTransactionRequest) are reflected in the accounting software in the form of **Bills** against an employee (who exists as a supplier in the accounting platform).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Desktop    | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |"
+      description: "Use the *Create reimbursable expense* endpoint to submit an employee expense claim in the accounting platform for a given company's connection.\r\n\r\n[Reimbursable expense requests](https://docs.codat.io/sync-for-expenses-api#/schemas/ReimbursableExpenseTransactionRequest) are reflected in the accounting software in the form of **Bills** against an employee (who exists as a supplier in the accounting platform).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Desktop    | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |\r\n| Zoho Books            | Yes       |"
       tags:
         - Reimbursements
       responses:
@@ -1653,7 +1655,7 @@ paths:
     put:
       summary: Update reimbursable expense transaction
       operationId: update-reimbursable-expense-transaction
-      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |"
+      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |\r\n| Zoho Books            | Yes       |"
       tags:
         - Reimbursements
       responses:
@@ -1762,14 +1764,15 @@ paths:
 
         Each accounting software supports different file formats and sizes.
 
-        | Integration       | File size | File extension                                                                                                                                 |Supported transaction type
-        |-------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-        | **Xero**              | 3 MB      | 7Z, BMP, CSV, DOC, DOCX, EML, GIF, JPEG, JPG, KEYNOTE, MSG, NUMBERS, ODF,   ODS, ODT, PAGES, PDF, PNG, PPT, PPTX, RAR, RTF, TIF, TIFF, TXT, XLS, XLSX,   ZIP | All supported types |
-        | **QuickBooks Online** | 100 MB    | AI, CSV, DOC, DOCX, EPS, GIF, JPEG, JPG, ODS, PAGES, PDF, PNG, RTF, TIF,   TXT, XLS, XLSX, XML                                                               |  `ReimbursableExpenses`, `ExpensePayment`, `ExpenseRefund` |
-        | **NetSuite**          | 100 MB    | BMP, CSV, XLS, XLSX, JSON, PDF, PJPG, PJPEG, PNG, TXT, SVG, TIF, TIFF,   DOC, DOCX, ZIP |`ExpensePayment`, `ExpenseRefund`                                                                     |
-        | **Dynamics 365 Business Central** | 350 MB | [No explicit requirements outlined](https://learn.microsoft.com/en-gb/dynamics365/business-central/ui-how-add-link-to-record#to-attach-a-file-to-a-purchase-invoice) for text, image, and video files. | All supported types
-        | **QuickBooks Desktop** | NA      | Does not support attachment upload | N/A                                                                                                                           |
-        | **FreeAgent** | 5MB      | PNG, X-PNG, JPEG, PJG, GIF, X-PDF   
+        | Integration                       | File size | File extension                                        | Supported transactions |
+        |-----------------------------------|-----------|-------------------------------------------------------|------------------------|
+        | **Xero**                          | 3 MB      | 7Z, BMP, CSV, DOC, DOCX, EML, GIF, JPEG, JPG, KEYNOTE, MSG, NUMBERS, ODF,   ODS, ODT, PAGES, PDF, PNG, PPT, PPTX, RAR, RTF, TIF, TIFF, TXT, XLS, XLSX, ZIP | All supported types |
+        | **QuickBooks Online**             | 100 MB    | AI, CSV, DOC, DOCX, EPS, GIF, JPEG, JPG, ODS, PAGES, PDF, PNG, RTF, TIF, TXT, XLS, XLSX, XML                                                      | `expense-transactions.Payment`, `expense-transactions.Refund`, `reimbursable-expense-transactions` |
+        | **NetSuite**                      | 100 MB    | BMP, CSV, XLS, XLSX, JSON, PDF, PJPG, PJPEG, PNG, TXT, SVG, TIF, TIFF, DOC, DOCX, ZIP |`expense-transactions.Payment`, `expense-transactions.Refund`                                                                    |
+        | **Dynamics 365 Business Central** | 350 MB    | [No explicit requirements outlined](https://learn.microsoft.com/en-gb/dynamics365/business-central/ui-how-add-link-to-record#to-attach-a-file-to-a-purchase-invoice) for text, image, and video files. | All supported types
+        | **QuickBooks Desktop**            | NA        | Does not support attachment upload                     | N/A                    |
+        | **FreeAgent**                     | 5MB       | PNG, X-PNG, JPEG, PJG, GIF, X-PDF  | `expense-transactions.Payment`, `reimbursable-expense-transactions`
+        | **Zoho Books**                    | 5MB       | GIF, PNG, JPEG, JPG, BMP, PDF      | `expense-transactions.Payment`, `reimbursable-expense-transactions`        |
   '/companies/{companyId}/data/all':
     parameters:
       - $ref: '#/components/parameters/companyId'
