@@ -1137,6 +1137,9 @@ paths:
                         id: cba6527d-f102-4538-b421-e483233e9d5a
                       taxRateRef:
                         id: INPUT2
+                      trackingRefs:
+                        - id: dba3d4da-f9ed-4eee-8e0b-452d11fdb1fa
+                          dataType: trackingCategories
                   status: Open
       responses:
         '201':
@@ -1184,6 +1187,9 @@ paths:
                           id: cba6527d-f102-4538-b421-e483233e9d5a
                         taxRateRef:
                           id: INPUT2
+                        trackingRefs:
+                          - id: dba3d4da-f9ed-4eee-8e0b-452d11fdb1fa
+                            dataType: trackingCategories
                     status: Open
                     totalAmount: 7267.2
                     amountDue: 7267.2
@@ -2077,6 +2083,11 @@ components:
               description: 'Total amount of the line, including tax.'
             taxRateRef:
               $ref: '#/components/schemas/Bill/definitions/billTaxRateRef'
+            trackingRefs:
+              type: array
+              nullable: true
+              items:
+                $ref: '#/components/schemas/Bill/definitions/trackingRef'
           required:
             - quantity
             - unitAmount
@@ -2107,6 +2118,24 @@ components:
                 $ref: '#/components/schemas/Bill'
             pagination:
               $ref: '#/components/schemas/Pagination'
+        trackingRef:
+          type: object
+          title: Tracking reference
+          properties:
+            id:
+              type: string
+              example: e9a1b63d-9ff0-40e7-8038-016354b987e6
+              description: Unique identifier of the linked tracking category or the unique identifier of the linked customer.
+            dataType:
+              type: string
+              example: trackingCategories
+              description: The type of the linked reference.
+              enum:
+                - trackingCategories
+                - customers
+            isBillable:
+              type: boolean
+              description: If a customer has been set as the trackingRefs.id then this boolean can be used to set whether the line item is billable to the customer or not.
     BillEventWebhook:
       x-internal: true
       title: Bill event webhook
