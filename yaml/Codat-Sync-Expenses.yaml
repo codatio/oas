@@ -1786,6 +1786,8 @@ paths:
       responses:
         '204':
           description: No Content
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '402':
@@ -2258,6 +2260,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PullOperation'
+        '400':
+          $ref: '#/components/responses/Malformed-Query'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '402':
