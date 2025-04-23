@@ -17977,7 +17977,7 @@ paths:
       description: |-
         The *List direct costs* endpoint returns a list of [direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
@@ -18456,7 +18456,7 @@ paths:
       description: |
         The *Get direct cost* endpoint returns a single direct cost for a given directCostId.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-cost
@@ -18497,7 +18497,7 @@ paths:
       description: |-
         The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
       operationId: get-accounting-direct-cost-attachment
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments/{attachmentId}/download':
@@ -18537,7 +18537,7 @@ paths:
       description: |
         The *Download direct cost attachment* endpoint downloads a specific attachment for a given `directCostId` and `attachmentId`.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
       operationId: download-accounting-direct-cost-attachment
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directCosts/{directCostId}/attachments':
@@ -18576,7 +18576,7 @@ paths:
       description: |
         The *List direct cost attachments* endpoint returns a list of attachments available to download for given `directCostId`.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
       operationId: list-accounting-direct-cost-attachments
       x-speakeasy-group: transactions.direct-costs
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes':
@@ -19439,7 +19439,7 @@ paths:
       description: |-
         The *List direct incomes* endpoint returns a list of [direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) for a given company's connection.
 
-        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
+        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
             
@@ -19861,7 +19861,7 @@ paths:
       description: |
         The *Get direct income* endpoint returns a single direct income for a given directIncomeId.
 
-        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
+        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
 
         Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
       operationId: get-accounting-direct-income
@@ -19903,7 +19903,7 @@ paths:
       description: |-
         The *Get direct income attachment* endpoint returns a specific attachment for a given `directIncomeId` and `attachmentId`.
 
-        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
+        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
       operationId: get-accounting-direct-income-attachment
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments/{attachmentId}/download':
@@ -19944,7 +19944,7 @@ paths:
       description: |-
         The *Download direct income attachment* endpoint downloads a specific attachment for a given `directIncomeId` and `attachmentId`.
 
-        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
+        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
       operationId: download-accounting-direct-income-attachment
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/connections/{connectionId}/data/directIncomes/{directIncomeId}/attachments':
@@ -19979,10 +19979,10 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
-      description: |
+      description: |-
         The *List direct income attachments* endpoint returns a list of attachments available to download for given `directIncomeId`.
 
-        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are sales of items directly to a customer where payment is received at the point of the sale.
+        [Direct incomes](https://docs.codat.io/lending-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
       operationId: list-accounting-direct-income-attachments
       x-speakeasy-group: accounts-receivable.direct-incomes
   '/companies/{companyId}/data/info':
@@ -72072,7 +72072,7 @@ paths:
       description: |
         The *Get create direct cost model* endpoint returns the expected data for the request payload when creating a [direct cost](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company and integration.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
 
         **Integration-specific behaviour**
 
@@ -72377,7 +72377,7 @@ paths:
       description: |-
         The *Create direct cost* endpoint creates a new [direct cost](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
 
-        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are the expenses associated with a business' operations. For example, purchases of raw materials that are paid off at the point of the purchase and service fees are considered direct costs.
+        [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are business expenses that don't impact Accounts Payable.
 
         **Integration-specific behaviour**
 
@@ -78611,13 +78611,11 @@ components:
 
         ## Overview
 
-        Direct costs are the expenses associated with a business' operations. For example, purchases of raw materials and service fees are considered direct costs.
+        Direct costs are money that leave the business without impacting Accounts Payable, and refunds associated with such transactions.
 
         Direct costs include:
           * Purchasing an item and paying it off at the point of the purchase
           * Receiving cash from a refunded item if the refund is made by the supplier
-          * Withdrawing money from a bank account 
-          * Writing a cheque
 
         Direct costs is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).
       type: object
@@ -78798,13 +78796,12 @@ components:
 
         ## Overview
 
-        Direct incomes are incomes received directly from the business' operations. For example, cash sales of items to a customer, referral commissions, and service fee refunds are considered direct incomes.
+        Direct incomes are incomes received directly from the business' operations. For example, cash sales of items to a customer, referral commissions, and service fee refunds are considered direct incomes made at the point of sale.
 
         Direct incomes include: 
 
         - Selling an item directly to a contact, and receiving payment at the point of the sale.
-        - Refunding an item in cash to a contact.
-        - Depositing money into a bank account.
+        - Refunding an item sold at the point of sale in cash to a contact.
 
         Direct incomes is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).
       type: object
