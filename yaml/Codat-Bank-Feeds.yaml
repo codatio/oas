@@ -3064,7 +3064,8 @@ paths:
       tags:
         - Managed bank feeds
       summary: Get sync
-      operationId: fetch-managed-bank-feed-sync-by-id
+      operationId: get-managed-bank-feed-sync
+      x-speakeasy-name-override: get-sync
       description: |-
         The _Get sync_ endpoint returns the [sync status](https://docs.codat.io/bank-feeds-api#/schemas/SyncStatusResult) for a given 'syncId'. 
 
@@ -3105,6 +3106,7 @@ paths:
         - Managed bank feeds
       summary: Get latest sync
       operationId: get-latest-managed-bank-feed-sync
+      x-speakeasy-name-override: get-latest-sync
       description: |-
         The _Get latest sync_ endpoint returns the status for a given source account's [most recent sync](https://docs.codat.io/bank-feeds-api#/schemas/SyncStatusResult). 
 
@@ -3146,7 +3148,8 @@ paths:
       tags:
         - Managed bank feeds
       summary: Run ad-hoc sync
-      operationId: run-managed-bank-feed-adhoc-sync
+      operationId: run-managed-bank-feed-ad-hoc-sync
+      x-speakeasy-name-override: run-ad-hoc-sync
       description: |-
         The _Run ad-hoc sync_ endpoint immediately runs a sync with a fetch period from the last successful sync to the execution time of the new sync.
 
@@ -5330,6 +5333,8 @@ components:
           type: string
           format: uuid
           description: The unique identifier for the created sync.
+      required:
+        - syncId
     SyncStatusResult:
       title: Sync status
       type: object
@@ -5393,6 +5398,17 @@ components:
             format: uuid
           nullable: true
           description: 'List of write operation keys associated with the sync, if the sync resulted in write attempts.'
+      required:
+        - syncId
+        - clientId
+        - companyId
+        - companyName
+        - dataConnectionId
+        - sourceAccountId
+        - periodStartUtc
+        - periodEndUtc
+        - executionStartUtc
+        - status
   parameters:
     companyId:
       name: companyId
