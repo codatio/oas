@@ -75958,6 +75958,34 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the webhook was received successfully.
+  reports.categorizedBankStatement.generate.unsuccessful:
+    post:
+      description: Called when a categorized bank statement has failed to be generated for a company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/webhooks/reports.creditModel.generate.successful/post/requestBody/content/application~1json/schema'
+            examples:
+              Unsuccessful:
+                value:
+                  id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
+                  eventType: reports.categorizedBankStatement.generate.unsuccessful
+                  generatedDate: 2023-05-03T10:00:23.000Z
+                  payload:
+                    id: bb42ce7e-720a-4ac5-b640-f24f53ff47c8
+                    referenceCompany:
+                      id: 0498e921-9b53-4396-a412-4f2f5983b0a2
+                      name: Bank of Dave
+                      description: internal_id_mxO7rLfo
+                      links:
+                        portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
+                      tags:
+                        customerRegion: us
+                        uid: 335a086e-8563-4b03-94e3-39544225ecb6
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the webhook was received successfully.
   reports.creditModel.generate.successful:
     post:
       description: Called when a credit model report is successfully generated.
