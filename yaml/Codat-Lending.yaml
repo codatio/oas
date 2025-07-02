@@ -121,6 +121,8 @@ tags:
     description: 'Implement the [loan writeback](https://docs.codat.io/lending/guides/loan-writeback/introduction) procedure in your lending process to maintain an accurate position of a loan during the entire lending cycle.'
   - name: Manage reports
     description: Generate and review generated reports for a company.
+  - name: Credit model
+    description: Generate and review generated credit model reports for a company.
 paths:
   /companies:
     get:
@@ -75801,6 +75803,47 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/reports/creditModel/{reportId}/excel':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/reportId'
+      - $ref: '#/components/parameters/maxAge'
+    get:
+      tags:
+        - Credit model
+      summary: Download credit model Excel
+      description: |-
+        > **Available as beta release**
+        >
+        > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
+
+        Use the *Download Credit Model Excel* endpoint to download the credit model Excel file. 
+
+        Before using it, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `creditModel`.
+      operationId: download-credit-model-excel
+      x-speakeasy-name-override: download-credit-model-excel
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
   '/companies/{companyId}/reports':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -75860,6 +75903,51 @@ paths:
                     requested: '2024-07-15T04:45:14Z'
                     updated: '2024-07-15T17:41:45Z'
                     errorMessage: Failed to generate the report because....
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/reports/creditModel/{reportId}/financialSummary':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+      - $ref: '#/components/parameters/reportId'
+    get:
+      tags:
+        - Credit model
+      summary: Get closed books indicator
+      description: |-
+        > **Available as beta release**
+        >
+        > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
+
+        The Closed Books Indicator is a derived date parameter that determines when a business has closed its accounting books. 
+
+        Before using this endpoint, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `creditModel`.
+      operationId: get-closed-books-indicator
+      x-speakeasy-name-override: get-closed-books-indicator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClosedBooksIndicator'
+              example:
+                booksClosedDate: '2025-05-31T00:00:00Z'
+        '204':
+          description: No content
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -81106,6 +81194,14 @@ components:
             expiryDate:
               $ref: '#/components/schemas/DateTime'
               description: The date time in UTC when your daily quota is reset.
+    ClosedBooksIndicator:
+      title: Closed Books Indicator
+      type: object
+      properties:
+        booksClosedDate:
+          type: string
+          description: The date time in UTC the books closed.
+          example: '2025-05-31T00:00:00Z'
     CommerceAddress:
       title: 'Commerce: Address'
       x-internal: true
