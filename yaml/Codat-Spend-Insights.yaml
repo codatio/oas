@@ -202,9 +202,9 @@ paths:
         - Spend analysis
       summary: Get supplier analysis
       description: |-
-        The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/spend-insights#/schemas/SupplierAnalysis) for a given company's connection.
+        The *List suppliers* endpoint returns a list of [suppliers](https://docs.codat.io/spend-insights-api#/schemas/SupplierAnalysis) for a given company's connection.
 
-        [Suppliers](https://docs.codat.io/spend-insights#/schemas/SupplierAnalysis) are people or organizations that provide something, such as a product or service.
+        [Suppliers](https://docs.codat.io/spend-insights-api#/schemas/SupplierAnalysis) are people or organizations that provide something, such as a product or service.
 
         Before using this endpoint, you must have an existing [spend analysis report generated](https://docs.codat.io/spend-insights-api#/operations/generate-report).
       operationId: get-supplier-analysis
@@ -242,9 +242,9 @@ paths:
         - Spend analysis
       summary: Get payment method analysis
       description: |-
-        The *List payment methods* endpoint returns a [payment method analysis](https://docs.codat.io/spend-insights#/schemas/PaymentMethodAnalysis) for a given company's spend analysis report.
+        The *List payment methods* endpoint returns a [payment method analysis](https://docs.codat.io/spend-insights-api#/schemas/PaymentMethodAnalysis) for a given company's spend analysis report.
 
-        [Payment method analysis](https://docs.codat.io/spend-insights#/schemas/PaymentMethodAnalysis) is a breakdown of each payment method in a spend analysis report.
+        [Payment method analysis](https://docs.codat.io/spend-insights-api#/schemas/PaymentMethodAnalysis) is a breakdown of each payment method in a spend analysis report.
 
         Before using this endpoint, you must have an existing [spend analysis report generated](https://docs.codat.io/spend-insights-api#/operations/generate-report).
       operationId: get-payment-method-analysis
@@ -473,9 +473,9 @@ components:
               paymentsCount:
                 type: integer
                 description: Total number of payments made with this method.
-              latePaymentsCount:
+              billsPaidLateCount:
                 type: integer
-                description: Number of late payments made with this method.
+                description: Number of bills paid late with this method.
               paymentsAmount:
                 type: number
                 format: decimal
@@ -484,14 +484,14 @@ components:
                 type: number
                 format: decimal
                 description: Average payment amount using this method.
-              latePaymentsAmount:
+              billsPaidLateAmount:
                 type: number
                 format: decimal
-                description: Total amount of late payments made with this method.
-              latePaymentsPercentageByAmount:
+                description: Total amount of bills paid late with this method.
+              billsPaidLatePercentageByAmount:
                 type: number
                 format: decimal
-                description: Percentage of late payments made with this method (by amount).
+                description: Percentage of bills paid late with this method (by amount).
               averageBillPaymentTermsWeighted:
                 type: number
                 format: decimal
@@ -529,11 +529,11 @@ components:
             billsOutstandingAmount: 200000
             billsOutstandingPercentageByAmount: 5.71
             paymentsCount: 70
-            latePaymentsCount: 2
+            billsPaidLateCount: 2
             paymentsAmount: 3200000
             averagePaymentAmount: 45714.29
-            latePaymentsAmount: 50000
-            latePaymentsPercentageByAmount: 1.56
+            billsPaidLateAmount: 50000
+            billsPaidLatePercentageByAmount: 1.56
             averageBillPaymentTermsWeighted: 25
             averageBillSettlementPeriodWeighted: 20
             directCostsPercentageByCount: 50
@@ -551,11 +551,11 @@ components:
             billsOutstandingAmount: 162476.41
             billsOutstandingPercentageByAmount: 6.22
             paymentsCount: 51
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 2428624.39
             averagePaymentAmount: 47620.09
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             averageBillPaymentTermsWeighted: 28.47
             averageBillSettlementPeriodWeighted: 18.45
             directCostsPercentageByCount: 42.55
@@ -573,11 +573,11 @@ components:
             billsOutstandingAmount: 150000
             billsOutstandingPercentageByAmount: 12.5
             paymentsCount: 25
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 1050000
             averagePaymentAmount: 42000
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             averageBillPaymentTermsWeighted: 28
             averageBillSettlementPeriodWeighted: 21
             directCostsPercentageByCount: 20
@@ -595,11 +595,11 @@ components:
             billsOutstandingAmount: 162694.89
             billsOutstandingPercentageByAmount: 8.73
             paymentsCount: 28
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 1555940.3
             averagePaymentAmount: 55569.3
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             averageBillPaymentTermsWeighted: 46.11
             averageBillSettlementPeriodWeighted: 37.96
             directCostsPercentageByCount: 23.4
@@ -617,11 +617,11 @@ components:
             billsOutstandingAmount: 75000
             billsOutstandingPercentageByAmount: 15
             paymentsCount: 10
-            latePaymentsCount: 1
+            billsPaidLateCount: 1
             paymentsAmount: 425000
             averagePaymentAmount: 42500
-            latePaymentsAmount: 10000
-            latePaymentsPercentageByAmount: 2.35
+            billsPaidLateAmount: 10000
+            billsPaidLatePercentageByAmount: 2.35
             averageBillPaymentTermsWeighted: 30
             averageBillSettlementPeriodWeighted: 22
             directCostsPercentageByCount: 15
@@ -639,11 +639,11 @@ components:
             billsOutstandingAmount: 17790.3
             billsOutstandingPercentageByAmount: 100
             paymentsCount: 0
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 0
             averagePaymentAmount: 0
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             averageBillPaymentTermsWeighted: 55.26
             averageBillSettlementPeriodWeighted: 0
             directCostsPercentageByCount: 34.04
@@ -661,11 +661,11 @@ components:
             billsOutstandingAmount: 30000
             billsOutstandingPercentageByAmount: 12
             paymentsCount: 5
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 220000
             averagePaymentAmount: 44000
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             averageBillPaymentTermsWeighted: 35
             averageBillSettlementPeriodWeighted: 25
             directCostsPercentageByCount: 8
@@ -844,9 +844,9 @@ components:
               paymentsCount:
                 type: integer
                 description: Total number of payments made to the supplier.
-              latePaymentsCount:
+              billsPaidLateCount:
                 type: integer
-                description: Number of late payments made to the supplier.
+                description: Number of bills to the supplier that were paid late.
               paymentsAmount:
                 type: number
                 format: decimal
@@ -855,14 +855,14 @@ components:
                 type: number
                 format: decimal
                 description: Average payment amount to the supplier.
-              latePaymentsAmount:
+              billsPaidLateAmount:
                 type: number
                 format: decimal
-                description: Total amount of late payments.
-              latePaymentsPercentageByAmount:
+                description: Total amount of bills that were paid late.
+              billsPaidLatePercentageByAmount:
                 type: number
                 format: decimal
-                description: Percentage of late payments by amount.
+                description: Percentage of bills that were paid late by amount.
               biggestCountPaymentMethod:
                 type: string
                 description: Most frequent payment method used.
@@ -963,11 +963,11 @@ components:
             billsOutstandingAmount: 2500
             billsOutstandingPercentageByAmount: 20
             paymentsCount: 4
-            latePaymentsCount: 1
+            billsPaidLateCount: 1
             paymentsAmount: 10000.75
             averagePaymentAmount: 2500.19
-            latePaymentsAmount: 1000
-            latePaymentsPercentageByAmount: 10
+            billsPaidLateAmount: 1000
+            billsPaidLatePercentageByAmount: 10
             biggestCountPaymentMethod: CreditCard
             biggestSpendPaymentMethod: CreditCard
             averageBillPaymentTermsWeighted: 30.2
@@ -1001,11 +1001,11 @@ components:
             billsOutstandingAmount: 0
             billsOutstandingPercentageByAmount: 0
             paymentsCount: 2
-            latePaymentsCount: 0
+            billsPaidLateCount: 0
             paymentsAmount: 578014.57
             averagePaymentAmount: 289007.29
-            latePaymentsAmount: 0
-            latePaymentsPercentageByAmount: 0
+            billsPaidLateAmount: 0
+            billsPaidLatePercentageByAmount: 0
             biggestCountPaymentMethod: DebitCard
             biggestSpendPaymentMethod: DebitCard
             averageBillPaymentTermsWeighted: 14.9
@@ -1108,11 +1108,11 @@ components:
               billsOutstandingAmount: 200000
               billsOutstandingPercentageByAmount: 5.71
               paymentsCount: 70
-              latePaymentsCount: 2
+              billsPaidLateCount: 2
               paymentsAmount: 3200000
               averagePaymentAmount: 45714.29
-              latePaymentsAmount: 50000
-              latePaymentsPercentageByAmount: 1.56
+              billsPaidLateAmount: 50000
+              billsPaidLatePercentageByAmount: 1.56
               averageBillPaymentTermsWeighted: 25
               averageBillSettlementPeriodWeighted: 20
               directCostsPercentageByCount: 50
@@ -1153,11 +1153,11 @@ components:
               billsOutstandingAmount: 2500
               billsOutstandingPercentageByAmount: 20
               paymentsCount: 4
-              latePaymentsCount: 1
+              billsPaidLateCount: 1
               paymentsAmount: 10000.75
               averagePaymentAmount: 2500.19
-              latePaymentsAmount: 1000
-              latePaymentsPercentageByAmount: 10
+              billsPaidLateAmount: 1000
+              billsPaidLatePercentageByAmount: 10
               biggestCountPaymentMethod: CreditCard
               biggestSpendPaymentMethod: CreditCard
               averageBillPaymentTermsWeighted: 30.2
