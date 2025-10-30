@@ -579,8 +579,9 @@ paths:
                   syncId:
                     type: string
                     description: Unique identifier for the updated sync.
-                examples:
-                  Example 1:
+              examples:
+                Example 1:
+                  value:
                     syncId: 1ad0695c-4566-4715-918c-adbb03eac81e
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -1775,8 +1776,8 @@ components:
           title: Date time
           type: string
           examples:
-            - 2022-10-23T00:00:00.000Z
-            - 2022-10-23T00:00:00.000Z
+            - '2022-10-23T00:00:00Z'
+            - '2022-10-23'
           description: |-
             In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
 
@@ -2608,20 +2609,9 @@ components:
     UpdateExpenseRequest:
       title: Updating Expense Transaction Request
       type: object
-      examples:
-        Payment:
-          value:
-            type: Payment
-            issueDate: '2023-05-22T00:00:00+00:00'
-            currency: GBP
-            currencyRate: 1.18
-            notes: New notes
-            contactRef:
-              id: f5244103-5223-4b0a-857f-50566ac86c11
-              type: Supplier
-            merchantName: My Merchant
       properties:
-        type: '#/definitions/expenseType'
+        type:
+          $ref: '#/components/schemas/UpdateExpenseRequest/definitions/expenseType'
         issueDate:
           type: string
           description: Date the transaction was recorded.

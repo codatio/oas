@@ -658,8 +658,30 @@ paths:
         - This endpoint only supports refreshing data for **custom products** and can't be used for Codat's standard solutions. Refer to [individual solutions' documentation](https://docs.codat.io/) instead.
         - If a data sync is already in progress for a custom product, the refresh request will return a `Bad request (400)` response.
         - If a company has multiple custom products enabled, you can refresh data for each product individually.
+         - Optionally include a request body with `dataTypes` to refresh only selected data types for the specified product. If omitted, the product's scheduled refresh is triggered as usual.
+         - When specifying `dataTypes`, each value must be a valid data type supported by the product. Invalid values will result in a `Bad request (400)` response listing valid options.
       tags:
         - Companies
+      requestBody:
+        required: false
+        description: 'Optionally specify one or more data types to refresh for the given custom product. If omitted, the product''s scheduled refresh is triggered as usual. When provided, each data type must be valid for the specified product.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dataTypes:
+                  type: array
+                  description: One or more data types to refresh for the product.
+                  items:
+                    type: string
+              additionalProperties: false
+            examples:
+              Filter specific data types:
+                value:
+                  dataTypes:
+                    - invoices
+                    - payments
       responses:
         '202':
           description: OK
@@ -2877,8 +2899,8 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: PendingAuth
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
       responses:
         '200':
@@ -2915,8 +2937,8 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: Linked
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
       responses:
         '200':
@@ -2953,13 +2975,13 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: PendingAuth
-                      created: 2022-10-27T09:53:29.000Z
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
                       dataConnectionErrors:
                         - statusCode: '403'
                           statusText: User cancelled linking
                           errorMessage: User cancelled
-                          erroredOnUtc: 2022-10-27T09:53:29.000Z
+                          erroredOnUtc: '2022-10-27T09:53:29Z'
                           status: Active
       responses:
         '200':
@@ -2996,8 +3018,8 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: Unlinked
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
               De-authorized:
                 value:
@@ -3022,14 +3044,14 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: Deauthorized
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
                       dataConnectionErrors:
                         - statusCode: '401'
                           statusText: The integration de-authorized access to the connection.
                           errorMessage: The integration de-authorized access to the connection.
-                          erroredOnUtc: 2022-12-27T09:53:29.000Z
+                          erroredOnUtc: '2022-12-27T09:53:29Z'
                           status: Active
       responses:
         '200':
@@ -3066,8 +3088,8 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: Linked
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
       responses:
         '200':
@@ -3104,8 +3126,8 @@ webhooks:
                       platformName: Basiq
                       linkUrl: 'https://link-api.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start'
                       status: Linked
-                      lastSync: 2022-10-27T10:22:43.646Z
-                      created: 2022-10-27T09:53:29.000Z
+                      lastSync: '2022-10-27T10:22:43.6464237Z'
+                      created: '2022-10-27T09:53:29Z'
                       sourceType: Banking
       responses:
         '200':
@@ -3123,7 +3145,7 @@ webhooks:
                 value:
                   id: 743ec94a-8aa4-44bb-8bd4-e1855ee0e74b
                   eventType: read.completed
-                  generatedDate: 2022-10-23T00:00:00.000Z
+                  generatedDate: '2022-10-23T00:00:00.000Z'
                   payload:
                     referenceCompany:
                       id: 0498e921-9b53-4396-a412-4f2f5983b0a2
@@ -3131,7 +3153,7 @@ webhooks:
                       description: Requested early access to the new financing scheme.
                       links:
                         portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
-                    modifiedFromDate: 2022-10-23T00:00:00.000Z
+                    modifiedFromDate: '2022-10-23T00:00:00.000Z'
                     dataTypes:
                       - connectionId: 2e9d2c44-f675-40ba-8049-353bfcb5e171
                         dataType: invoices
@@ -3148,7 +3170,7 @@ webhooks:
                 value:
                   id: 743ec94a-8aa4-44bb-8bd4-e1855ee0e74b
                   eventType: read.completed
-                  generatedDate: 2022-10-23T00:00:00.000Z
+                  generatedDate: '2022-10-23T00:00:00.000Z'
                   payload:
                     referenceCompany:
                       id: 0498e921-9b53-4396-a412-4f2f5983b0a2
@@ -3156,7 +3178,7 @@ webhooks:
                       description: Requested early access to the new financing scheme.
                       links:
                         portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
-                    modifiedFromDate: 2022-10-23T00:00:00.000Z
+                    modifiedFromDate: '2022-10-23T00:00:00.000Z'
                     dataTypes:
                       - connectionId: 2e9d2c44-f675-40ba-8049-353bfcb5e171
                         dataType: invoices
@@ -3179,7 +3201,7 @@ webhooks:
                 value:
                   id: 743ec94a-8aa4-44bb-8bd4-e1855ee0e74b
                   eventType: read.completed.initial
-                  generatedDate: 2022-10-23T00:00:00.000Z
+                  generatedDate: '2022-10-23T00:00:00.000Z'
                   payload:
                     referenceCompany:
                       id: 0498e921-9b53-4396-a412-4f2f5983b0a2
@@ -3187,7 +3209,7 @@ webhooks:
                       description: Requested early access to the new financing scheme.
                       links:
                         portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
-                    modifiedFromDate: 2022-10-23T00:00:00.000Z
+                    modifiedFromDate: '2022-10-23T00:00:00.000Z'
                     dataTypes:
                       - connectionId: 2e9d2c44-f675-40ba-8049-353bfcb5e171
                         dataType: invoices
@@ -3204,7 +3226,7 @@ webhooks:
                 value:
                   id: 743ec94a-8aa4-44bb-8bd4-e1855ee0e74b
                   eventType: read.completed.initial
-                  generatedDate: 2022-10-23T00:00:00.000Z
+                  generatedDate: '2022-10-23T00:00:00.000Z'
                   payload:
                     referenceCompany:
                       id: 0498e921-9b53-4396-a412-4f2f5983b0a2
@@ -3212,7 +3234,7 @@ webhooks:
                       description: Requested early access to the new financing scheme.
                       links:
                         portal: 'https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary'
-                    modifiedFromDate: 2022-10-23T00:00:00.000Z
+                    modifiedFromDate: '2022-10-23T00:00:00.000Z'
                     dataTypes:
                       - connectionId: 2e9d2c44-f675-40ba-8049-353bfcb5e171
                         dataType: invoices
@@ -3263,7 +3285,7 @@ webhooks:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
                   eventType: '{dataType}.write.successful'
-                  generatedDate: 2023-05-03T10:00:23.000Z
+                  generatedDate: '2023-05-03T10:00:23Z'
                   payload:
                     id: a9367074-b5c3-42c4-9be4-be129f43577e
                     type: Create
@@ -3272,8 +3294,8 @@ webhooks:
                       name: Toft stores
                       description: cust_1MtJUT2eZvKYlo2CNaw2HvEv
                     connectionId: 12571faf-0898-47e7-afdd-0fe9eb0a9bf5
-                    requestedOnDate: 2023-05-03T10:00:00.000Z
-                    completedOnDate: 2023-05-03T10:00:23.000Z
+                    requestedOnDate: '2023-05-03T10:00:00Z'
+                    completedOnDate: '2023-05-03T10:00:23Z'
                     status: Success
                     record:
                       id: bil_1Nispe2eZvKYlo2Cd31jOCgZ
@@ -3281,7 +3303,7 @@ webhooks:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
                   eventType: '{dataType}.write.successful'
-                  generatedDate: 2023-05-03T10:00:23.000Z
+                  generatedDate: '2023-05-03T10:00:23Z'
                   payload:
                     id: a9367074-b5c3-42c4-9be4-be129f43577e
                     type: UploadAttachment
@@ -3290,8 +3312,8 @@ webhooks:
                       name: Toft stores
                       description: cust_1MtJUT2eZvKYlo2CNaw2HvEv
                     connectionId: 12571faf-0898-47e7-afdd-0fe9eb0a9bf5
-                    requestedOnDate: 2023-05-03T10:00:00.000Z
-                    completedOnDate: 2023-05-03T10:00:23.000Z
+                    requestedOnDate: '2023-05-03T10:00:00Z'
+                    completedOnDate: '2023-05-03T10:00:23Z'
                     status: Success
                     record:
                       id: bil_1Nispe2eZvKYlo2Cd31jOCgZ
@@ -3340,7 +3362,7 @@ webhooks:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
                   eventType: '{dataType}.write.unsuccessful'
-                  generatedDate: 2023-05-03T10:00:23.000Z
+                  generatedDate: '2023-05-03T10:00:23Z'
                   payload:
                     id: a9367074-b5c3-42c4-9be4-be129f43577e
                     type: Update
@@ -3349,14 +3371,14 @@ webhooks:
                       name: Toft stores
                       description: cust_1MtJUT2eZvKYlo2CNaw2HvEv
                     connectionId: 12571faf-0898-47e7-afdd-0fe9eb0a9bf5
-                    requestedOnDate: 2023-05-03T10:00:00.000Z
-                    completedOnDate: 2023-05-03T10:00:23.000Z
+                    requestedOnDate: '2023-05-03T10:00:00Z'
+                    completedOnDate: '2023-05-03T10:00:23Z'
                     status: Failed
               Record timed out:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
                   eventType: '{dataType}.write.unsuccessful'
-                  generatedDate: 2023-05-03T10:00:23.000Z
+                  generatedDate: '2023-05-03T10:00:23Z'
                   payload:
                     id: a9367074-b5c3-42c4-9be4-be129f43577e
                     type: Delete
@@ -3365,14 +3387,14 @@ webhooks:
                       name: Toft stores
                       description: cust_1MtJUT2eZvKYlo2CNaw2HvEv
                     connectionId: 12571faf-0898-47e7-afdd-0fe9eb0a9bf5
-                    requestedOnDate: 2023-05-03T10:00:00.000Z
-                    completedOnDate: 2023-05-03T10:00:23.000Z
+                    requestedOnDate: '2023-05-03T10:00:00Z'
+                    completedOnDate: '2023-05-03T10:00:23Z'
                     status: TimedOut
               Attachment:
                 value:
                   id: bae71d36-ff47-420a-b4a6-f8c9ddf41140
                   eventType: '{dataType}.write.unsuccessful'
-                  generatedDate: 2023-05-03T10:00:23.000Z
+                  generatedDate: '2023-05-03T10:00:23Z'
                   payload:
                     id: a9367074-b5c3-42c4-9be4-be129f43577e
                     type: UploadAttachment
@@ -3381,8 +3403,8 @@ webhooks:
                       name: Toft stores
                       description: cust_1MtJUT2eZvKYlo2CNaw2HvEv
                     connectionId: 12571faf-0898-47e7-afdd-0fe9eb0a9bf5
-                    requestedOnDate: 2023-05-03T10:00:00.000Z
-                    completedOnDate: 2023-05-03T10:00:23.000Z
+                    requestedOnDate: '2023-05-03T10:00:00Z'
+                    completedOnDate: '2023-05-03T10:00:23Z'
                     status: TimedOut
                     record:
                       id: bil_1Nispe2eZvKYlo2Cd31jOCgZ
@@ -4355,8 +4377,8 @@ components:
       title: Date time
       type: string
       examples:
-        - 2022-10-23T00:00:00.000Z
-        - 2022-10-23T00:00:00.000Z
+        - '2022-10-23T00:00:00Z'
+        - '2022-10-23'
       description: |-
         In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
 
@@ -5139,6 +5161,7 @@ components:
               $ref: '#/components/schemas/ReadCompletedWebhook/definitions/readCompletedWebhookPayload/properties/modifiedFromDate'
             dataTypes:
               type: array
+              description: Contains all data types configured for the product or a subset of data types defined in the manual refresh call.
               items:
                 type: object
                 title: Summary of data type reads

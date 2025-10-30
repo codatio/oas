@@ -889,7 +889,7 @@ paths:
                         type: Liability
                         currency: GBP
                         status: Active
-                        sourceModifiedDate: 2022-10-23T00:00:00.000Z
+                        sourceModifiedDate: '2022-10-23T00:00:00.000Z'
                     taxRates:
                       - id: d2939064-dd3a-4c0f-9865-a238c2193515
                         name: VAT @ 20%
@@ -897,7 +897,7 @@ paths:
                         effectiveTaxRate: 20
                         totalTaxRate: 20
                         status: Active
-                        sourceModifiedDate: 2022-10-23T00:00:00.000Z
+                        sourceModifiedDate: '2022-10-23T00:00:00.000Z'
                     pagination:
                       continuationToken: eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==
         '400':
@@ -949,7 +949,7 @@ paths:
                         sortCode: '123456'
                         status: Active
                         accountType: Debit
-                        sourceModifiedDate: 2022-10-23T00:00:00.000Z
+                        sourceModifiedDate: '2022-10-23T00:00:00.000Z'
                     pagination:
                       continuationToken: eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==
         '400':
@@ -1275,7 +1275,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Attachment/definitions/attachments'
               examples:
-                Attachments:
+                Success:
                   value:
                     - id: 422f093f-e556-4bf3-91c0-93af70c3e850
                       name: receipt.png
@@ -1615,7 +1615,7 @@ paths:
                   currency: GBP
                   accountType: Debit
                   status: Active
-                  sourceModifiedDate: 2024-02-22T14:46:43.990Z
+                  sourceModifiedDate: '2024-02-22T14:46:43.99Z'
       responses:
         '201':
           description: Created
@@ -1761,7 +1761,7 @@ components:
               description: |-
                 File type of the attachment. This is represented by appending the file type to the [IETF standard file naming requirements](https://tools.ietf.org/html/rfc6838). For example, for a jpeg file the output is **image/jpeg**.
 
-                Supported file types vary per platform. 
+                Supported file types vary per platform.
             dateCreated:
               $ref: '#/components/schemas/Connection/properties/created'
             fileSize:
@@ -1788,8 +1788,6 @@ components:
       definitions:
         attachments:
           title: Attachments
-          description:
-            $ref: '#/components/schemas/Attachment/description'
           type: array
           items:
             $ref: '#/components/schemas/Attachment'
@@ -2154,7 +2152,7 @@ components:
           type: string
           description: The datetime in UTC of when the webhook event was produced by Codat.
           examples:
-            - 2022-10-23T11:03:35.000Z
+            - '2022-10-23T11:03:35Z'
         payload:
           $ref: '#/components/schemas/BillEventWebhook/definitions/billEventPayload'
       definitions:
@@ -2580,8 +2578,8 @@ components:
           title: Date time
           type: string
           examples:
-            - 2022-10-23T00:00:00.000Z
-            - 2022-10-23T00:00:00.000Z
+            - '2022-10-23T00:00:00Z'
+            - '2022-10-23'
           description: |-
             In Codat's data model, dates and times are represented using the <a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 standard</a>. Date and time fields are formatted as strings; for example:
 
