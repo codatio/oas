@@ -121,8 +121,8 @@ tags:
     description: 'Implement the [loan writeback](https://docs.codat.io/lending/guides/loan-writeback/introduction) procedure in your lending process to maintain an accurate position of a loan during the entire lending cycle.'
   - name: Manage reports
     description: Generate and review generated reports for a company.
-  - name: Credit model
-    description: Generate and review generated credit model reports for a company.
+  - name: Financial summary
+    description: 'View financial summary information for a company, including credit model reports and accounting score.'
 paths:
   /companies:
     get:
@@ -75790,7 +75790,7 @@ paths:
       - $ref: '#/components/parameters/maxAge'
     get:
       tags:
-        - Credit model
+        - Financial summary
       summary: Download credit model Excel
       description: |-
         > **Available as beta release**
@@ -75900,27 +75900,37 @@ paths:
       - $ref: '#/components/parameters/reportId'
     get:
       tags:
-        - Credit model
-      summary: Get closed books indicator
+        - Financial summary
+      summary: Get financial summary insights
       description: |-
         > **Available as beta release**
         >
         > This endpoint is part of a beta release. Please contact your account manager if you want to enable it.
 
-        The Closed Books Indicator is a derived date parameter that determines when a business has closed its accounting books. 
+        Financial summary insights provide high-level indicators about the accuracy and completeness of a business’s financial data. These insights include:
+        - Closed Books Indicator – An estimate of the most recent accounting period officially closed by a business
+        - Accounting Score – An evaluation of the quality and completeness of a business’s bookkeeping
 
-        Before using this endpoint, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `creditModel`.
-      operationId: get-closed-books-indicator
-      x-speakeasy-name-override: get-closed-books-indicator
+        Before accessing this endpoint, you must call the [Generate report](https://docs.codat.io/lending-api#/operations/generate-report) endpoint of type `creditModel`.
+
+        > Please note that missing elements might be disabled for the account. Please contact account manager for more details.
+      operationId: get-financial-summary
+      x-speakeasy-name-override: get-financial-summary
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClosedBooksIndicator'
+                $ref: '#/components/schemas/FinancialSummary'
               example:
                 booksClosedDate: '2025-05-31T00:00:00Z'
+                accountingScore:
+                  score: 90
+                  reason:
+                    - Balance sheet is unbalanced.
+                    - Negative Tangible Assets on Balance Sheet
+                    - Negative Accounts Receivable on Balance Sheet
         '204':
           description: No content
         '400':
@@ -81177,14 +81187,6 @@ components:
             expiryDate:
               $ref: '#/components/schemas/DateTime'
               description: The date time in UTC when your daily quota is reset.
-    ClosedBooksIndicator:
-      title: Closed Books Indicator
-      type: object
-      properties:
-        booksClosedDate:
-          type: string
-          description: The date time in UTC the books closed.
-          example: '2025-05-31T00:00:00Z'
     CommerceAddress:
       title: 'Commerce: Address'
       x-internal: true
@@ -84006,6 +84008,32 @@ components:
           type: string
           description: The file to be uploaded as an attachment.
           format: binary
+    FinancialSummary:
+      title: Closed Books Indicator
+      type: object
+      properties:
+        booksClosedDate:
+          type: string
+          description: The date time in UTC the books closed.
+          example: '2025-05-31T00:00:00Z'
+        accountingScore:
+          type: object
+          description: 'A score based on data completeness, accuracy, consistency, and presentation of data and the reasons for the score.'
+          properties:
+            score:
+              type: number
+              format: decimal
+              description: The accounting score value.
+              example: 90
+            reason:
+              type: array
+              description: List of reasons explaining the accounting score.
+              items:
+                type: string
+              example:
+                - Balance sheet is unbalanced.
+                - Negative Tangible Assets on Balance Sheet
+                - Negative Accounts Receivable on Balance Sheet
     LoanSummary:
       title: Loan summary
       type: object
