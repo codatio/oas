@@ -1280,7 +1280,7 @@ paths:
         | QuickBooks Desktop            | Yes       |
         | QuickBooks Online             | Yes       |
         | Oracle NetSuite               | Yes       |
-        | Sage Intacct                  | Yes (Credit Card only)       |
+        | Sage Intacct                  | Yes       |
         | Xero                          | Yes       |
         | Zoho Books                    | Yes       |
       tags:
@@ -1407,7 +1407,7 @@ paths:
 
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateExpenseRequest) represent transactions made with a company debit or credit card. 
 
-        ### Supported Integrations
+        ### Supported integrations
         The following integrations are supported for the [Payment](https://docs.codat.io/expenses/sync-process/expense-transactions#transaction-types) transaction `type` only: 
         | Integration           | Supported |
         |-----------------------|-----------|
@@ -1415,8 +1415,15 @@ paths:
         | QuickBooks Desktop    | Yes       |
         | QuickBooks Online     | Yes       |
         | Oracle NetSuite       | Yes       |
+        | Sage Intacct          | Yes       |
         | Xero                  | Yes       |
         | Zoho Books            | Yes       |
+
+        #### Integration-specific behavior
+
+        | Integration           | Specifics |
+        |-----------------------|-----------|
+        | Sage Intacct          | To sync **debit card expenses**, map the debit card to a Credit Card with the account type set to `Debit`.|
       requestBody:
         content:
           application/json:
@@ -1657,7 +1664,7 @@ paths:
     put:
       summary: Update reimbursable expense transaction
       operationId: update-reimbursable-expense-transaction
-      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |\r\n| Zoho Books            | Yes       |"
+      description: "The *Update reimbursable expense* endpoint updates an existing employee expense claim in the accounting platform for a given company's connection. \r\n\r\nUpdating an existing [reimbursable expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateReimbursableExpenseTransactionRequest) will update the existing **bill** against an employee (who exists as a supplier in the accounting software).\r\n\r\n### Supported Integrations\r\n| Integration           | Supported |\r\n|-----------------------|-----------|\r\n| FreeAgent             | Yes       |\r\n| QuickBooks Online     | Yes       |\r\n| Oracle NetSuite       | Yes       |\r\n| Sage Intacct          | Yes       |\r\n| Zoho Books            | Yes       |"
       tags:
         - Reimbursements
       responses:
@@ -1762,7 +1769,7 @@ paths:
 
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. Attachments for `Adjustment` and `Transfer` transaction types are not supported for any integrations.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Each accounting software supports different file formats and sizes.
 
@@ -2496,7 +2503,7 @@ paths:
 
         [Accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/Account) are the categories a business uses to record accounting transactions.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-chartOfAccounts-model).
       operationId: create-account
@@ -5854,7 +5861,7 @@ paths:
 
         [Accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/Account) are the categories a business uses to record accounting transactions.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         See the *response examples* for integration-specific indicative models.
   '/companies/{companyId}/connections/{connectionId}/push/bankAccounts':
@@ -5913,7 +5920,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Create bank account
-      description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-bankAccounts-model)."
+      description: "The *Create bank account* endpoint creates a new [bank account](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) for a given company's connection.\r\n\r\n[Bank accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behavior**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update bank account model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-bankAccounts-model)."
       operationId: create-bank-account
   '/companies/{companyId}/connections/{connectionId}/options/bankAccounts':
     parameters:
@@ -6773,7 +6780,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       operationId: get-create-bankAccounts-model
-      description: "The *Get create/update bank account model* endpoint returns the expected data for the request payload when creating and updating a [bank account](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) for a given company and integration.\r\n\r\n[Bank accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behaviour**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n"
+      description: "The *Get create/update bank account model* endpoint returns the expected data for the request payload when creating and updating a [bank account](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) for a given company and integration.\r\n\r\n[Bank accounts](https://docs.codat.io/sync-for-expenses-api#/schemas/BankAccount) are financial accounts maintained by a bank or other financial institution.\r\n\r\n**Integration-specific behavior**\r\n\r\nSee the *response examples* for integration-specific indicative models.\r\n"
   '/companies/{companyId}/data/customers':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -8644,7 +8651,7 @@ paths:
 
         [Customers](https://docs.codat.io/sync-for-expenses-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create/update customer model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-customers-model).
   '/companies/{companyId}/connections/{connectionId}/push/customers/{customerId}':
@@ -8694,7 +8701,7 @@ paths:
 
         [Customers](https://docs.codat.io/sync-for-expenses-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create/update customer model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-customers-model).
       operationId: update-customer
@@ -9889,7 +9896,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Create supplier
-      description: "The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model).\r\n"
+      description: "The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behavior**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model).\r\n"
       operationId: create-supplier
   '/companies/{companyId}/connections/{connectionId}/push/suppliers/{supplierId}':
     parameters:
@@ -9933,7 +9940,7 @@ paths:
         '503':
           $ref: '#/components/responses/Service-Unavailable'
       summary: Update supplier
-      description: "The *Update supplier* endpoint updates an existing [supplier](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behaviour**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model)."
+      description: "The *Update supplier* endpoint updates an existing [supplier](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) for a given company's connection.\r\n\r\n[Suppliers](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.\r\n\r\n**Integration-specific behavior**\r\n\r\nRequired data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model)."
       operationId: update-supplier
 webhooks:
   expenses.sync.successful:
