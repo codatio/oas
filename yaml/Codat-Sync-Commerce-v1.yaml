@@ -2949,7 +2949,7 @@ paths:
 
         [Accounts](https://docs.codat.io/accounting-api#/schemas/Account) are the categories a business uses to record accounting transactions.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/accounting-api#/operations/get-create-chartOfAccounts-model).
       operationId: create-accounting-account
@@ -3075,7 +3075,7 @@ paths:
 
         [Credit notes](https://docs.codat.io/accounting-api#/schemas/CreditNote) are issued to a customer to indicate debt, typically with reference to a previously issued invoice and/or purchase.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create/update credit note model](https://docs.codat.io/accounting-api#/operations/get-create-update-creditNotes-model).
       operationId: create-accounting-credit-note
@@ -3124,7 +3124,7 @@ paths:
 
         [Customers](https://docs.codat.io/accounting-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create/update customer model](https://docs.codat.io/accounting-api#/operations/get-create-update-customers-model).
   '/companies/{companyId}/connections/{connectionId}/push/directIncomes':
@@ -3415,7 +3415,7 @@ paths:
 
         [Direct incomes](https://docs.codat.io/accounting-api#/schemas/DirectIncome) are incomes received directly from the business' operations at the point of the sale.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create direct income model](https://docs.codat.io/accounting-api#/operations/get-create-directIncomes-model).
       operationId: create-accounting-direct-income
@@ -3786,7 +3786,7 @@ paths:
 
         [Invoices](https://docs.codat.io/accounting-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create/update invoice model](https://docs.codat.io/accounting-api#/operations/get-create-update-invoices-model).
       operationId: create-accounting-invoice
@@ -3915,7 +3915,7 @@ paths:
 
         [Journal entries](https://docs.codat.io/accounting-api#/schemas/JournalEntry) are  made in a company's general ledger, or accounts, when transactions are approved.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create journal entry model](https://docs.codat.io/accounting-api#/operations/get-create-journalEntries-model).
       operationId: create-accounting-journal-entry
@@ -4076,7 +4076,7 @@ paths:
 
         [Payments](https://docs.codat.io/accounting-api#/schemas/Payment) represent an allocation of money within any customer accounts receivable account.
 
-        **Integration-specific behaviour**
+        **Integration-specific behavior**
 
         Required data may vary by integration. To see what data to post, first call [Get create payment model](https://docs.codat.io/accounting-api#/operations/get-create-payments-model).
       operationId: create-accounting-payment
@@ -10118,11 +10118,6 @@ components:
                   - 01224 658 999
                 description: A phone number.
               type:
-                $ref: '#/components/schemas/AccountingCompanyDataset/properties/phoneNumbers/items/definitions/phoneNumberType'
-            required:
-              - type
-            definitions:
-              phoneNumberType:
                 description: The type of phone number
                 type: string
                 enum:
@@ -10131,6 +10126,8 @@ components:
                   - Mobile
                   - Fax
                   - Unknown
+            required:
+              - type
         webLinks:
           type: array
           nullable: true
