@@ -75924,7 +75924,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/FinancialSummary'
               example:
-                booksClosedDate: '2025-05-31T00:00:00Z'
+                booksClosedDate:
+                  date: '2025-05-31T00:00:00Z'
+                  reason:
+                    - One or more accounts show a deviation from expected movements for March 2025
+                    - One of the marketing accounts haven't been booked for February 2025
+                    - One of the inventory accounts haven't been booked for March 2025
                 accountingScore:
                   score: 90
                   reason:
@@ -84011,9 +84016,23 @@ components:
       type: object
       properties:
         booksClosedDate:
-          type: string
+          type: object
           description: The date time in UTC the books closed.
-          example: '2025-05-31T00:00:00Z'
+          properties:
+            date:
+              type: string
+              format: date-time
+              description: The date time in UTC the books closed.
+              example: '2025-05-31T00:00:00Z'
+            reason:
+              type: array
+              description: List of reasons explaining the books closed date.
+              items:
+                type: string
+              example:
+                - One or more accounts show a deviation from expected movements for March 2025
+                - One of the marketing accounts haven't been booked for February 2025
+                - One of the inventory accounts haven't been booked for March 2025
         accountingScore:
           type: object
           description: 'A score based on data completeness, accuracy, consistency, and presentation of data and the reasons for the score.'
