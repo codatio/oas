@@ -75457,6 +75457,7 @@ paths:
                     counterpartyNames:
                       - Shopify
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: true
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75478,6 +75479,7 @@ paths:
                       - Amazon
                       - Amazon Marketplace
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: false
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75499,6 +75501,7 @@ paths:
                     platformName: Shopify
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: null
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75520,6 +75523,7 @@ paths:
                     platformName: Amazon
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: true
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75541,6 +75545,7 @@ paths:
                     platformName: Zettle
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: false
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75560,6 +75565,7 @@ paths:
                     platformName: Amazon
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: null
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75581,6 +75587,7 @@ paths:
                     platformName: Amazon
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: true
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75600,6 +75607,7 @@ paths:
                     platformName: DoorDash
                     counterpartyNames: []
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: false
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75622,6 +75630,7 @@ paths:
                     counterpartyNames:
                       - Uber
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: true
                   - sourceRef:
                       sourceType: Banking
                     accountRef:
@@ -75644,6 +75653,7 @@ paths:
                     counterpartyNames:
                       - DoorDash
                     modifiedDate: '2022-11-08T12:00:00'
+                    isRecurring: false
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -81125,6 +81135,7 @@ components:
             counterpartyNames:
               - Counterparty
             modifiedDate: '2023-01-25T22:36:05.125Z'
+            isRecurring: true
           - sourceRef:
               sourceType: Banking
           - accountRef:
@@ -81135,17 +81146,18 @@ components:
             description: Payment to supplier
             amount: 100
             currency: USD
-            transactionCategory: null
-            confidence: 92.7
-            levels:
-              - Expense
-              - Operating
-            confidences:
-              - 92.7
-              - 95
+            transactionCategory:
+              confidence: 92.7
+              levels:
+                - Expense
+                - Operating
+              confidences:
+                - 92.7
+                - 95
             platformName: Plaid
             counterpartyNames: []
             modifiedDate: '2023-01-25T22:36:05.125Z'
+            isRecurring: false
         pageNumber: 1
         pageSize: 100
         totalResults: 2401
@@ -83470,6 +83482,10 @@ components:
                   modifiedDate:
                     description: The date the bank transaction was last modified.
                     $ref: '#/components/schemas/DateTime'
+                  isRecurring:
+                    description: Indicates if the transaction is classified as recurring by Codat's categorization engine.
+                    type: boolean
+                    nullable: true
                 definitions:
                   accountRef:
                     title: Account reference
