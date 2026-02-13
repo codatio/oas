@@ -1025,6 +1025,104 @@ paths:
           $ref: '#/components/responses/Internal-Server-Error'
         '503':
           $ref: '#/components/responses/Service-Unavailable'
+  '/companies/{companyId}/syncSettings':
+    parameters:
+      - $ref: '#/components/parameters/companyId'
+    get:
+      summary: Get company sync settings
+      tags:
+        - Companies
+      operationId: get-company-syncSettings
+      x-speakeasy-name-override: get-company-sync-settings
+      description: 'Retrieve the [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings) for a specific company. This includes how often data types should be queued to be updated, and how much history should be fetched.'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySyncSettings'
+              examples:
+                Example:
+                  value:
+                    companyId: 8a210b68-6988-11ed-a1eb-0242ac120002
+                    settings:
+                      - dataType: invoices
+                        fetchOnFirstLink: true
+                        syncSchedule: 24
+                        syncOrder: 0
+                        syncFromUtc: '2020-01-01T12:00:00.000Z'
+                        syncFromWindow: 24
+                        monthsToSync: 24
+                        isLocked: true
+                    overridesDefaults: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+    post:
+      summary: Set company sync settings
+      description: Set the sync settings for a specific company.
+      tags:
+        - Companies
+      operationId: set-company-syncSettings
+      x-speakeasy-name-override: set-company-sync-settings
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/Bad-Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/Payment-Required'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Not-Found'
+        '429':
+          $ref: '#/components/responses/Too-Many-Requests'
+        '500':
+          $ref: '#/components/responses/Internal-Server-Error'
+        '503':
+          $ref: '#/components/responses/Service-Unavailable'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - properties:
+                    companyId:
+                      type: string
+                      format: uuid
+                      example: 8a210b68-6988-11ed-a1eb-0242ac120002
+                      description: Unique identifier for your SMB in Codat.
+                    settings:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SyncSetting'
+                    overridesDefaults:
+                      type: boolean
+                      default: true
+                      description: 'Set to `True` if you want to override default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).'
+                  required:
+                    - companyId
+                    - settings
+                    - overridesDefaults
+              type: object
+        description: |-
+          Include a `syncSetting` object for each data type.
+          `syncFromWindow`, `syncFromUTC` & `monthsToSync` only need to be included if you wish to set a value for them.
   '/companies/{companyId}/connectionManagement/accessToken':
     parameters:
       - $ref: '#/components/parameters/companyId'
@@ -3630,7 +3728,7 @@ components:
           type: object
           properties:
             id:
-              $ref: '#/components/parameters/companyId/schema'
+              $ref: '#/paths/~1companies~1%7BcompanyId%7D~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/companyId'
             name:
               type: string
               description: The name of the company
@@ -3687,7 +3785,7 @@ components:
           type: object
           properties:
             id:
-              $ref: '#/components/parameters/companyId/schema'
+              $ref: '#/paths/~1companies~1%7BcompanyId%7D~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/companyId'
             name:
               $ref: '#/components/schemas/Company/definitions/companyDetails/properties/name'
             description:
@@ -3790,6 +3888,19 @@ components:
           $ref: '#/components/schemas/CompanyRequestBody/properties/description'
         tags:
           $ref: '#/components/schemas/Company/definitions/companyDetails/properties/tags'
+    CompanySyncSettings:
+      title: Company sync settings
+      type: object
+      properties:
+        companyId:
+          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/companyId'
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyncSetting'
+        overridesDefaults:
+          type: boolean
+          description: 'Set to `True` if you want to override the default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).'
     CompanyWebhook:
       title: Company webhook
       type: object
@@ -4832,7 +4943,7 @@ components:
           $ref: '#/components/schemas/DataStatus/properties/dataType'
           description: 'The type of data being pushed, eg invoices, customers.'
         companyId:
-          $ref: '#/components/parameters/companyId/schema'
+          $ref: '#/paths/~1companies~1%7BcompanyId%7D~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/companyId'
         pushOperationKey:
           type: string
           format: uuid
@@ -5603,10 +5714,7 @@ components:
       in: path
       required: true
       schema:
-        type: string
-        format: uuid
-        example: 8a210b68-6988-11ed-a1eb-0242ac120002
-        description: Unique identifier for your SMB in Codat.
+        $ref: '#/paths/~1companies~1%7BcompanyId%7D~1syncSettings/post/requestBody/content/application~1json/schema/allOf/0/properties/companyId'
       description: Unique identifier for a company.
     connectionId:
       name: connectionId
