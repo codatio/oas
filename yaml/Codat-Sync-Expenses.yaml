@@ -1408,21 +1408,23 @@ paths:
         [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/UpdateExpenseRequest) represent transactions made with a company debit or credit card. 
 
         ### Supported integrations
-        The following integrations are supported for the [Payment](https://docs.codat.io/expenses/sync-process/expense-transactions#transaction-types) transaction `type` only: 
-        | Integration           | Supported |
-        |-----------------------|-----------|
-        | FreeAgent             | Yes       |
-        | QuickBooks Desktop    | Yes       |
-        | QuickBooks Online     | Yes       |
-        | Oracle NetSuite       | Yes       |
-        | Sage Intacct          | Yes       |
-        | Xero                  | Yes       |
-        | Zoho Books            | Yes       |
+        The following integrations are supported for each [transaction](https://docs.codat.io/expenses/sync-process/expense-transactions#transaction-types) `type`. The `Reward` and `Chargeback` transaction types are not supported for any integration.
+
+        | Integration           | Payment | Refund |
+        |-----------------------|---------|--------|
+        | FreeAgent             | Yes     | No     |
+        | QuickBooks Desktop    | Yes     | Yes    |
+        | QuickBooks Online     | Yes     | Yes    |
+        | Oracle NetSuite       | Yes     | No     |
+        | Sage Intacct          | Yes     | No     |
+        | Xero                  | Yes     | No     |
+        | Zoho Books            | Yes     | No     |
 
         #### Integration-specific behavior
 
         | Integration           | Specifics |
         |-----------------------|-----------|
+        | QuickBooks Desktop    | `Refund` updates are supported for credit card accounts only. |
         | Sage Intacct          | To sync **debit card expenses**, map the debit card to a Credit Card with the account type set to `Debit`.|
       requestBody:
         content:
